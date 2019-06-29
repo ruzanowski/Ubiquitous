@@ -1,0 +1,30 @@
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\DbIntegration.Application\DbIntegration.Domain\bin\Debug\netcoreapp2.2\DbIntegration.Domain.deps.json
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\DbIntegration.Application\DbIntegration.Domain\bin\Debug\netcoreapp2.2\DbIntegration.Domain.dll
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\DbIntegration.Application\DbIntegration.Domain\bin\Debug\netcoreapp2.2\DbIntegration.Domain.pdb
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\DbIntegration.Application\DbIntegration.Domain\bin\Debug\netcoreapp2.2\EntityFramework.dll
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\DbIntegration.Application\DbIntegration.Domain\bin\Debug\netcoreapp2.2\EntityFramework.xml
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.csprojAssemblyReference.cache
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.AssemblyInfoInputs.cache
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.AssemblyInfo.cs
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.csproj.CopyComplete
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.dll
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.pdb
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.csprojAssemblyReference.cache
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.AssemblyInfoInputs.cache
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.AssemblyInfo.cs
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.dll
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.pdb
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\DbIntegration.Application\DbIntegration.Domain\bin\Debug\netcoreapp2.2\DbIntegration.Domain.deps.json
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\DbIntegration.Application\DbIntegration.Domain\bin\Debug\netcoreapp2.2\DbIntegration.Domain.dll
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\DbIntegration.Application\DbIntegration.Domain\bin\Debug\netcoreapp2.2\DbIntegration.Domain.pdb
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\DbIntegration.Application\DbIntegration.Domain\bin\Debug\netcoreapp2.2\DbIntegration.Domain.deps.json
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\DbIntegration.Application\DbIntegration.Domain\bin\Debug\netcoreapp2.2\DbIntegration.Domain.dll
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\DbIntegration.Application\DbIntegration.Domain\bin\Debug\netcoreapp2.2\DbIntegration.Domain.pdb
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.csprojAssemblyReference.cache
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.AssemblyInfoInputs.cache
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.AssemblyInfo.cs
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.dll
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\DbIntegration.Application\DbIntegration.Domain\obj\Debug\netcoreapp2.2\DbIntegration.Domain.pdb

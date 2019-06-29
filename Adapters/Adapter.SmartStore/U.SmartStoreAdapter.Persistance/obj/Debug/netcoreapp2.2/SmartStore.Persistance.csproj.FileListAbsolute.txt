@@ -1,0 +1,44 @@
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\bin\Debug\netcoreapp2.2\SmartStore.Persistance.deps.json
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\bin\Debug\netcoreapp2.2\SmartStore.Persistance.dll
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\bin\Debug\netcoreapp2.2\SmartStore.Persistance.pdb
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\bin\Debug\netcoreapp2.2\EntityFramework.dll
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Hosting.dll
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\bin\Debug\netcoreapp2.2\EntityFramework.xml
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Hosting.xml
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.csprojAssemblyReference.cache
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.csproj.CoreCompileInputs.cache
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.AssemblyInfoInputs.cache
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.AssemblyInfo.cs
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.csproj.CopyComplete
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.dll
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.pdb
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\bin\Debug\netcoreapp2.2\DbIntegration.Domain.dll
+C:\Users\Student230416\Desktop\xdsoftware\DbIntegrationWebApi.CORE\SmartStore.Persistance\bin\Debug\netcoreapp2.2\DbIntegration.Domain.pdb
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\SmartStore.Persistance\bin\Debug\netcoreapp2.2\SmartStore.Persistance.deps.json
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\SmartStore.Persistance\bin\Debug\netcoreapp2.2\SmartStore.Persistance.dll
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\SmartStore.Persistance\bin\Debug\netcoreapp2.2\SmartStore.Persistance.pdb
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\SmartStore.Persistance\bin\Debug\netcoreapp2.2\DbIntegration.Domain.dll
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\SmartStore.Persistance\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Hosting.dll
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\SmartStore.Persistance\bin\Debug\netcoreapp2.2\DbIntegration.Domain.pdb
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\SmartStore.Persistance\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Hosting.xml
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.csprojAssemblyReference.cache
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.csproj.CoreCompileInputs.cache
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.AssemblyInfoInputs.cache
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.AssemblyInfo.cs
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.csproj.CopyComplete
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.dll
+C:\Users\Student230416\Desktop\DbIntegrationWebApi.CORE\dbintegration\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.pdb
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\SmartStore.Persistance\bin\Debug\netcoreapp2.2\SmartStore.Persistance.deps.json
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\SmartStore.Persistance\bin\Debug\netcoreapp2.2\SmartStore.Persistance.dll
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\SmartStore.Persistance\bin\Debug\netcoreapp2.2\SmartStore.Persistance.pdb
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\SmartStore.Persistance\bin\Debug\netcoreapp2.2\DbIntegration.Domain.dll
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\SmartStore.Persistance\bin\Debug\netcoreapp2.2\DbIntegration.Domain.pdb
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.csprojAssemblyReference.cache
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.csproj.CoreCompileInputs.cache
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.AssemblyInfoInputs.cache
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.AssemblyInfo.cs
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.csproj.CopyComplete
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.dll
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\SmartStore.Persistance\obj\Debug\netcoreapp2.2\SmartStore.Persistance.pdb
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\SmartStore.Persistance\bin\Debug\netcoreapp2.2\SmartStore.Persistance.runtimeconfig.json
+C:\Users\Sebastian\Desktop\Coding projects\SmartStore.WebApi.CQRS\SmartStore.Persistance\bin\Debug\netcoreapp2.2\SmartStore.Persistance.runtimeconfig.dev.json

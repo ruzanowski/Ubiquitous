@@ -1,0 +1,1459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="09f514a0-7e84-42a7-82d2-71848e96445c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Validators/StoreManufacturerCommandValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Validators/StoreTaxCategoryCommand.Validator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/bin/Debug/netcoreapp2.2/DbIntegration.Domain.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/bin/Debug/netcoreapp2.2/DbIntegration.Domain.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/bin/Debug/netcoreapp2.2/SmartStore.Persistance.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/bin/Debug/netcoreapp2.2/SmartStore.Persistance.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/bin/Debug/netcoreapp2.2/U.SmartStoreAdapter.Application.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/bin/Debug/netcoreapp2.2/U.SmartStoreAdapter.Application.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/DbIntegration.Application.csproj.nuget.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.assets.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.csprojAssemblyReference.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/project.assets.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/BaseEntity.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Catalog/Category.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Catalog/CategoryNode.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Catalog/Manufacturer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Catalog/Product.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Catalog/ProductCategory.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Catalog/ProductManufacturer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Catalog/ProductPicture.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Catalog/ProductSpecificationAttribute.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Catalog/ProductType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Catalog/SpecificationAttribute.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Catalog/SpecificationAttributeOption.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Catalog/TierPrice.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Customers/Customer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Customers/CustomerContent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Customers/CustomerRole.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Media/Download.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Media/MediaStorage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Media/Picture.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Media/PictureType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Seo/Setting.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Seo/UrlRecord.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Tax/TaxCategory.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/U.SmartStoreAdapter.Domain.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/bin/Debug/netcoreapp2.2/U.SmartStoreAdapter.Domain.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/bin/Debug/netcoreapp2.2/U.SmartStoreAdapter.Domain.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/obj/DbIntegration.Domain.csproj.nuget.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/obj/DbIntegration.Domain.csproj.nuget.dgspec.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.AssemblyInfo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.AssemblyInfoInputs.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.csprojAssemblyReference.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/DbIntegration.Application.deps.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/DbIntegration.Application.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/DbIntegration.Application.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/DbIntegration.Domain.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/DbIntegration.Domain.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/SmartStore.Persistance.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/SmartStore.Persistance.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/U.SmartStoreAdapter.IntegrationTests.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/U.SmartStoreAdapter.IntegrationTests.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/obj/DbIntegration.Test.Integration.csproj.nuget.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.assets.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.csprojAssemblyReference.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/bin/Debug/netcoreapp2.2/DbIntegration.Domain.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/bin/Debug/netcoreapp2.2/DbIntegration.Domain.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/bin/Debug/netcoreapp2.2/U.SmartStoreAdapter.Persistance.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/bin/Debug/netcoreapp2.2/U.SmartStoreAdapter.Persistance.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.assets.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.csprojAssemblyReference.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/obj/SmartStore.Persistance.csproj.nuget.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/obj/SmartStore.Persistance.csproj.nuget.g.props" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/obj/SmartStore.Persistance.csproj.nuget.g.targets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/obj/project.packagespec.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/appsettings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/DbIntegration.Application.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/DbIntegration.Application.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/DbIntegration.Domain.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/DbIntegration.Domain.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/EntityFramework.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/EntityFramework.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/SmartStore.Persistance.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/SmartStore.Persistance.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/U.SmartStoreAdapter.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/U.SmartStoreAdapter.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/DbIntegrationWebApi.csproj.nuget.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.assets.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.csprojAssemblyReference.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/Debug/netcoreapp2.2/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/.idea/.idea.DbIntegrationWebApi/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/.idea/.idea.DbIntegrationWebApi/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/.idea/.idea.DbIntegrationWebApi/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/.idea/.idea.DbIntegrationWebApi/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/.idea/.idea.DbIntegrationWebApi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/.idea/.idea.DbIntegrationWebApi/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/U.SmartStoreAdapter.Application.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/DbIntegration.Domain.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/BaseEntity.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Catalog/Category.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Catalog/CategoryNode.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Catalog/Manufacturer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Catalog/Product.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Catalog/ProductCategory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Catalog/ProductManufacturer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Catalog/ProductPicture.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Catalog/ProductSpecificationAttribute.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Catalog/ProductType.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Catalog/SpecificationAttribute.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Catalog/SpecificationAttributeOption.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Catalog/TierPrice.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Customers/Customer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Customers/CustomerContent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Customers/CustomerRole.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Media/Download.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Media/MediaStorage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Media/Picture.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Media/PictureType.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Seo/Setting.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Seo/UrlRecord.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/Entities/Tax/TaxCategory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/bin/Debug/netcoreapp2.2/DbIntegration.Domain.deps.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/bin/Debug/netcoreapp2.2/DbIntegration.Domain.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/bin/Debug/netcoreapp2.2/DbIntegration.Domain.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/bin/Debug/netcoreapp2.2/EntityFramework.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/bin/Debug/netcoreapp2.2/EntityFramework.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/obj/DbIntegration.Domain.csproj.nuget.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/obj/DbIntegration.Domain.csproj.nuget.g.props" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/obj/DbIntegration.Domain.csproj.nuget.g.targets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.AssemblyInfoInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.assets.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.csproj.CopyComplete" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.csprojAssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/obj/project.assets.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/DbIntegration.Domain/obj/project.packagespec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/MappingProfiles/CategoryMappingProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/MappingProfiles/CategoryMappingProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/MappingProfiles/ManufacturerMappingProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/MappingProfiles/ManufacturerMappingProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/MappingProfiles/ProductMappingProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/MappingProfiles/ProductMappingProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/BaseModels/PriceWindow.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/BaseModels/ProductOrderBy.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/BaseModels/StockQuantity.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/BaseModels/TimeWindow.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/Categories/CategoryDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/Categories/CategoryViewModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/CountryEnum.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/DataRequests/DataTransaction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/Exceptions/ObjectNotFoundException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Exceptions/ObjectNotFoundException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/IPagination.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/Manufacturers/ManufacturerDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/Manufacturers/ManufacturerViewModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/PaginatedItems.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/Pictures/PictureDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/Pictures/PictureViewModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/Products/ProductDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Validators/SmartProductDto.Validator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/Products/ProductViewModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/Taxes/TaxCategoryDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Validators/TaxCategoryDto.Validator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/Taxes/TaxCategoryViewModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Models/Taxes/TaxResponse.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Categories/Commands/StoreCategoryCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Categories/Commands/StoreCategoryCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Categories/StoreCategoryCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Categories/Queries/GetCategoriesQuery.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Categories/Queries/GetCategoriesQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Categories/GetCategoriesQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Manufacturers/Commands/StoreManufacturerCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Manufacturers/Commands/StoreManufacturerCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Manufacturers/StoreManufacturerCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Notifications/Storing/FailedToStore/FailedToStoreNotification.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Notifications/Storing/FailedToStore/FailedToStoreNotificationHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Notifications/FailedToStoreNotificationHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Notifications/Storing/SuccededToStore/SuccessfulStoreNotification.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Notifications/Storing/SuccededToStore/SuccessfulStoreNotificationHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Notifications/SuccessfulStoreNotificationHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Pictures/Commands/StorePicturesCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Pictures/Commands/StorePicturesCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Pictures/StorePicturesCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Products/Builder/ProductsQueryBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Products/ProductsQueryBuilder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Products/Commands/StoreProductsCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Products/Commands/StoreProductsCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Products/StoreProductsCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Products/Queries/GetProduct/GetProductQuery.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Products/Queries/GetProduct/GetProductQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Products/GetProductQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Products/Queries/GetProducts/GetProductsListQuery.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/Products/Queries/GetProducts/GetProductsListQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Products/GetProductsListQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/TaxCategory/Command/StoreTaxCategoryCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/Operations/TaxCategory/Command/StoreTaxCategoryCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/TaxCategory/StoreTaxCategoryCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/bin/Debug/netcoreapp2.2/DbIntegration.Application.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/SmartStore.Persistance.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/bin/Debug/netcoreapp2.2/DbIntegration.Application.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/bin/Debug/netcoreapp2.2/DbIntegration.Application.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/bin/Debug/netcoreapp2.2/DbIntegration.Domain.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/bin/Debug/netcoreapp2.2/DbIntegration.Domain.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/bin/Debug/netcoreapp2.2/EntityFramework.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/bin/Debug/netcoreapp2.2/EntityFramework.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/bin/Debug/netcoreapp2.2/EntityFramework.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/bin/Debug/netcoreapp2.2/EntityFramework.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/bin/Debug/netcoreapp2.2/SmartStore.Persistance.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/bin/Debug/netcoreapp2.2/SmartStore.Persistance.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/DbIntegration.Application.csproj.nuget.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/DbIntegration.Application.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/obj/DbIntegration.Domain.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/DbIntegration.Application.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/DbIntegration.Application.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.assets.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.csproj.CopyComplete" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.csproj.CopyComplete" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.csprojAssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/Debug/netcoreapp2.2/DbIntegration.Application.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/Debug/netstandard2.0/DbIntegration.Application.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/Debug/netstandard2.0/DbIntegration.Application.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/Debug/netstandard2.0/DbIntegration.Application.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/Debug/netstandard2.0/DbIntegration.Application.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/Debug/netstandard2.0/DbIntegration.Application.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/Debug/netstandard2.0/DbIntegration.Application.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/Debug/netstandard2.0/DbIntegration.Application.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/Debug/netstandard2.0/DbIntegration.Application.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/Debug/netstandard2.0/DbIntegration.Application.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/Debug/netstandard2.0/DbIntegration.Application.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/Debug/netstandard2.0/DbIntegration.Application.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/Debug/netstandard2.0/DbIntegration.Application.csprojAssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Application/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.IntegrationTests/ContentHelper.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.IntegrationTests/DbIntegration.IntegrationTests.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.IntegrationTests/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.IntegrationTests/Properties/AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.IntegrationTests/Startup.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.IntegrationTests/bin/Debug/DbIntegration.IntegrationTests.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.IntegrationTests/bin/Debug/DbIntegration.IntegrationTests.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.IntegrationTests/obj/Debug/DbIntegration.IntegrationTests.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.IntegrationTests/obj/Debug/DbIntegration.IntegrationTests.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.IntegrationTests/obj/Debug/DbIntegration.IntegrationTests.csprojAssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.IntegrationTests/obj/Debug/DbIntegration.IntegrationTests.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.IntegrationTests/obj/Debug/DbIntegration.IntegrationTests.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/CustomStartup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/CustomStartup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/DbIntegration.Test.Integration.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/U.SmartStoreAdapter.IntegrationTests.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/EndpointsAddresses.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/EndpointsAddresses.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/ProductsTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/ProductsTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/appsettingsTest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/appsettingsTest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/DbIntegration.Application.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/bin/Debug/netcoreapp2.2/SmartStore.Persistance.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/DbIntegration.Application.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/DbIntegration.Application.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/DbIntegration.Domain.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/bin/Debug/netcoreapp2.2/DbIntegration.Domain.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/DbIntegration.Domain.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/DbIntegration.Domain.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/DbIntegration.Test.Integration.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/DbIntegration.Test.Integration.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/DbIntegration.Test.Integration.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/DbIntegration.Test.Integration.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/DbIntegration.Test.Integration.runtimeconfig.dev.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/DbIntegration.Test.Integration.runtimeconfig.dev.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/DbIntegration.Test.Integration.runtimeconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/DbIntegration.Test.Integration.runtimeconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/SmartStore.Persistance.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/bin/Debug/netcoreapp2.2/DbIntegration.Application.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/SmartStore.Persistance.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/SmartStore.Persistance.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/xunit.runner.reporters.netcoreapp10.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/xunit.runner.reporters.netcoreapp10.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/xunit.runner.utility.netcoreapp10.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/xunit.runner.utility.netcoreapp10.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/bin/Debug/netcoreapp2.2/xunit.runner.visualstudio.dotnetcore.testadapter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/xunit.runner.visualstudio.dotnetcore.testadapter.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/obj/DbIntegration.Test.Integration.csproj.nuget.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/obj/DbIntegration.Test.Integration.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/obj/DbIntegration.Test.Integration.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/obj/DbIntegration.Test.Integration.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/obj/DbIntegration.Test.Integration.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.assets.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.csproj.CopyComplete" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.csproj.CopyComplete" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.csprojAssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Test.Integration/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.UnitTests/DbIntegration.UnitTests.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.UnitTests/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.UnitTests/Properties/AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.UnitTests/bin/Debug/DbIntegration.UnitTests.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.UnitTests/bin/Debug/DbIntegration.UnitTests.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.UnitTests/obj/Debug/DbIntegration.UnitTests.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.UnitTests/obj/Debug/DbIntegration.UnitTests.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.UnitTests/obj/Debug/DbIntegration.UnitTests.csprojAssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.UnitTests/obj/Debug/DbIntegration.UnitTests.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.UnitTests/obj/Debug/DbIntegration.UnitTests.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/Controllers/CategoriesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Controllers/CategoriesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/Controllers/ManufacturersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Controllers/ManufacturersController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/Controllers/PicturesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Controllers/PicturesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/Controllers/ProductsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Controllers/ProductsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/Controllers/TaxCategoryController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Controllers/TaxCategoryController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/DbIntegrationWebApi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/U.SmartStoreAdapter.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/DbIntegrationWebApi.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/Extensions/ExceptionMiddleware.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Extensions/ExceptionMiddleware.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/Extensions/HttpExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Extensions/HttpExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/Extensions/MediatrExtension.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/JsonsExamples/Product.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/JsonsExamples/Product.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Startup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/appsettings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/AngleSharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/AngleSharp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/AngleSharp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/AngleSharp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/Autofac.Integration.Mvc.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/Autofac.Integration.Mvc.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/Autofac.Integration.Mvc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/Autofac.Integration.Mvc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/Autofac.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/Autofac.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/Autofac.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/Autofac.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/Autofac.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/Autofac.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/DbIntegration.Application.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/DbIntegration.Application.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/DbIntegration.Domain.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/DbIntegration.Domain.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.runtimeconfig.dev.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.runtimeconfig.dev.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.runtimeconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.runtimeconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/U.SmartStoreAdapter.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/EntityFramework.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/bin/Debug/netcoreapp2.2/EntityFramework.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/EntityFramework.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/bin/Debug/netcoreapp2.2/EntityFramework.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/HtmlSanitizer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/HtmlSanitizer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/HtmlSanitizer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/HtmlSanitizer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/Microsoft.SqlServer.ConnectionInfo.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/Microsoft.SqlServer.ConnectionInfo.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/Microsoft.SqlServer.Management.Sdk.Sfc.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/Microsoft.SqlServer.Management.Sdk.Sfc.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/Microsoft.SqlServer.Smo.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/Microsoft.SqlServer.Smo.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/Microsoft.Web.Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/Microsoft.Web.Infrastructure.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/NuGet.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/NuGet.Core.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/SmartStore.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/SmartStore.Core.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/SmartStore.Core.dll.config" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/SmartStore.Core.dll.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/SmartStore.Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/SmartStore.Core.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/SmartStore.Data.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/SmartStore.Data.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/SmartStore.Data.dll.config" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/SmartStore.Data.dll.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/SmartStore.Data.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/SmartStore.Data.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/SmartStore.Persistance.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/SmartStore.Persistance.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/System.Data.SqlServerCe.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/System.Data.SqlServerCe.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/System.Linq.Dynamic.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/System.Linq.Dynamic.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/System.Web.Mvc.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/System.Web.Mvc.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/System.Web.Mvc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/System.Web.Mvc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/System.Web.Razor.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/System.Web.Razor.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/System.Web.Razor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/System.Web.Razor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/System.Web.WebPages.Deployment.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/System.Web.WebPages.Deployment.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/System.Web.WebPages.Deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/System.Web.WebPages.Deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/System.Web.WebPages.Razor.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/System.Web.WebPages.Razor.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/System.Web.WebPages.Razor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/System.Web.WebPages.Razor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/System.Web.WebPages.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/System.Web.WebPages.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/System.Web.WebPages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/System.Web.WebPages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/de/System.Web.Razor.resources.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/de/System.Web.Razor.resources.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/de/System.Web.WebPages.Deployment.resources.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/de/System.Web.WebPages.Deployment.resources.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/de/System.Web.WebPages.Razor.resources.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/de/System.Web.WebPages.Razor.resources.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/de/System.Web.WebPages.resources.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/de/System.Web.WebPages.resources.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/log4net.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/log4net.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/bin/Debug/netcoreapp2.2/log4net.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/log4net.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/DbIntegrationWebApi.csproj.nuget.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/DbIntegrationWebApi.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/DbIntegrationWebApi.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/DbIntegrationWebApi.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/DbIntegrationWebApi.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.RazorAssemblyInfo.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.RazorAssemblyInfo.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.RazorAssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.RazorAssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.RazorTargetAssemblyInfo.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.RazorTargetAssemblyInfo.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.assets.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.csproj.CopyComplete" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/obj/Debug/netcoreapp2.2/DbIntegration.Test.Integration.csproj.CopyComplete" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.csprojAssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/Debug/netcoreapp2.2/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/Debug/netcoreapp2.2/DbIntegrationWebApi.csproj.CopyComplete" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/Debug/netcoreapp2.2/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/Debug/netcoreapp2.2/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/Debug/netcoreapp2.2/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/Debug/netcoreapp2.2/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegrationWebApi/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/Configuration/DbOptions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/Configuration/DbType.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/Context/SmartStoreContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/Context/SmartStoreContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/DesignTimeDb/DesignTimeDbContextFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/DesignTimeDb/DesignTimeDbContextFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/EntityBuilders/Catalog/CategoryMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/EntityBuilders/Catalog/CategoryMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/EntityBuilders/Catalog/ManufacturerMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/EntityBuilders/Catalog/ManufacturerMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/EntityBuilders/Catalog/ProductCategoryMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/EntityBuilders/Catalog/ProductCategoryMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/EntityBuilders/Catalog/ProductManufacturerMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/EntityBuilders/Catalog/ProductManufacturerMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/EntityBuilders/Catalog/ProductMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/EntityBuilders/Catalog/ProductMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/EntityBuilders/Catalog/ProductPictureMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/EntityBuilders/Catalog/ProductPictureMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/EntityBuilders/Media/MediaStorageMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/EntityBuilders/Media/MediaStorageMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/EntityBuilders/Media/PictureMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/EntityBuilders/Media/PictureMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/EntityBuilders/Seo/SettingMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/EntityBuilders/Seo/SettingMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/EntityBuilders/Seo/UrlRecordMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/EntityBuilders/Seo/UrlRecordMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/EntityBuilders/Tax/TaxCategoryMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/EntityBuilders/Tax/TaxCategoryMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/Migrations/20190515184724_InitialCreate.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/Migrations/20190515184724_InitialCreate.Designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/Migrations/20190515184724_InitialCreate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/Migrations/20190515184724_InitialCreate.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/Migrations/SmartStoreContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/Migrations/SmartStoreContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/SmartStore.Persistance.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/U.SmartStoreAdapter.Persistance.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/bin/Debug/netcoreapp2.2/DbIntegration.Domain.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/bin/Debug/netcoreapp2.2/DbIntegration.Domain.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/bin/Debug/netcoreapp2.2/EntityFramework.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/bin/Debug/netcoreapp2.2/EntityFramework.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/bin/Debug/netcoreapp2.2/EntityFramework.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/bin/Debug/netcoreapp2.2/EntityFramework.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/bin/Debug/netcoreapp2.2/Microsoft.AspNetCore.Hosting.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/bin/Debug/netcoreapp2.2/Microsoft.AspNetCore.Hosting.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/bin/Debug/netcoreapp2.2/Microsoft.AspNetCore.Hosting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/bin/Debug/netcoreapp2.2/Microsoft.AspNetCore.Hosting.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/bin/Debug/netcoreapp2.2/SmartStore.Persistance.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/bin/Debug/netcoreapp2.2/DbIntegration.Domain.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/bin/Debug/netcoreapp2.2/SmartStore.Persistance.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/bin/Debug/netcoreapp2.2/SmartStore.Persistance.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/obj/Debug/netcoreapp2.2/DbIntegration.Domain.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.csproj.CopyComplete" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.csproj.CopyComplete" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.csprojAssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/obj/Debug/netcoreapp2.2/SmartStore.Persistance.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/obj/SmartStore.Persistance.csproj.nuget.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/obj/SmartStore.Persistance.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/obj/DbIntegration.Application.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/obj/SmartStore.Persistance.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/obj/DbIntegration.Domain.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/SmartStore.Persistance/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/bin/Debug/netcoreapp2.2/DbIntegrationWebApi.xml" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Services/FetchService.Persistance/U.FetchService.Persistance.csproj">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="25" column="39" lean-forward="true" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/U.SmartStoreAdapter.csproj">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="121">
+              <caret line="26" column="62" selection-start-line="26" selection-start-column="62" selection-end-line="26" selection-end-column="62" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Api/U.SmartStoreAdapter.Api.csproj">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" column="68" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="68" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Services/FetchService.Application/U.FetchService.Application.csproj">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="317">
+              <caret line="29" selection-start-line="29" selection-end-line="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Common/U.Common.csproj">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Services/FetchService.Application/Mapping/ProductMappingProfile.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="6" selection-start-column="6" selection-end-column="6" />
+              <folding>
+                <marker date="1561827481687" expanded="true" signature="6:318" ph="..." />
+                <marker date="1561827481687" expanded="true" signature="364:1856" ph="{...}" />
+                <marker date="1561827481687" expanded="true" signature="371:412" ph="///  ... " />
+                <marker date="1561827481687" expanded="true" signature="461:1854" ph="{...}" />
+                <marker date="1561827481687" expanded="true" signature="476:525" ph="///  ... " />
+                <marker date="1561827481687" expanded="true" signature="564:1848" ph="{...}" />
+                <marker date="1561827481687" expanded="true" signature="729:839" ph="{...}" />
+                <marker date="1561827481687" expanded="true" signature="945:1055" ph="{...}" />
+                <marker date="1561827481687" expanded="true" signature="1253:1836" ph="{...}" />
+                <marker date="1561827481687" expanded="true" signature="1417:1534" ph="{...}" />
+                <marker date="1561827481687" expanded="true" signature="1706:1815" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/U.SmartStoreAdapter.Persistance.csproj">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="28" column="42" lean-forward="true" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/U.SmartStoreAdapter.Application.csproj">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="317">
+              <caret line="33" column="16" lean-forward="true" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/U.SmartStoreAdapter.IntegrationTests.csproj">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/CustomStartup.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+              <folding>
+                <marker date="1561818557226" expanded="false" signature="6:317" ph="..." />
+                <marker date="1561818557226" expanded="true" signature="365:2657" ph="{...}" />
+                <marker date="1561818557226" expanded="true" signature="455:2655" ph="{...}" />
+                <marker date="1561818557226" expanded="true" signature="589:2649" ph="{...}" />
+                <marker date="1561818557226" expanded="true" signature="666:2637" ph="{...}" />
+                <marker date="1561818557226" expanded="true" signature="1217:1383" ph="{...}" />
+                <marker date="1561818557226" expanded="true" signature="1663:2619" ph="{...}" />
+                <marker date="1561818557226" expanded="true" signature="2121:2316" ph="{...}" />
+                <marker date="1561818557226" expanded="true" signature="2176:2290" ph="/* Seed the database with some specific test data. ... */" />
+                <marker date="1561818557226" expanded="true" signature="2361:2597" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>dbintegra</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Adapters/Adapter.SmartStore" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/Adapters/Adapter.SmartStore" value="develop" />
+      </map>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Categories/StoreCategoryCommandHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Extensions/ExceptionMiddleware.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Extensions/ServiceCollectionExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Categories/GetCategoriesQueryHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Extensions/HttpExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Validators/SmartProductDto.Validator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Controllers/CategoriesController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Controllers/ProductsController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Manufacturers/StoreManufacturerCommandHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService.Application/Models/AvailableWholesales.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Notifications/FailedToStoreNotificationHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService.Application/Mapping/ProductMappingProfile.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService.Application/Models/IWholesale.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Validators/TaxCategoryDto.Validator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Controllers/TaxCategoryController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService.Application/Models/IAvailableWholesales.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Notifications/SuccessfulStoreNotificationHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/BaseEntity.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService.Application/Services/StoringManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService.Application/Services/FlowManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService.Application/Services/FetchManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Pictures/StorePicturesCommandHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Validators/StoreManufacturerCommandValidator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService.Application/Observables/SmartWholesale.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Validators/StoreTaxCategoryCommand.Validator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService.Application/Observables/SmartBase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Products/ProductsQueryBuilder.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Products/StoreProductsCommandHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Products/GetProductQueryHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Products/GetProductsListQueryHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/TaxCategory/StoreTaxCategoryCommandHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/Context/SmartStoreContext.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Startup.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Seo/Setting.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/DesignTimeDb/DesignTimeDbContextFactory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/Tax/TaxCategory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/EntityBuilders/Seo/SettingMap.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Desktop/dotnetcore-microservices-poc-master/PolicySearchService/Domain/Policy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService.Persistance/DesignTimeDb/DesignTimeDbContextFactory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService.Domain/Entities/Common/Modified.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService.Domain/Entities/Picture/Picture.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/ProductsTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/CustomStartup.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/MappingProfiles/ProductMappingProfile.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService.Domain/Entities/Product/ProductTag.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/EndpointsAddresses.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService.Domain/Entities/Product/Product.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService/app.config" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Desktop/dotnetcore-microservices-poc-master/PolicyService.Api/Queries/GetPolicyDetailsQuery.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService/Startup.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Exceptions/ObjectNotFoundException.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService/Extensions/ServiceCollectionExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService/Extensions/WholesalesExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Services/FetchService/Program.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Controllers/ProductsController.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/MappingProfiles/ProductMappingProfile.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Categories/Queries/GetCategoriesQueryHandler.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Categories/Queries/GetCategoriesQuery.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/TaxCategory/Command/StoreTaxCategoryCommand.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/ProductsTests.cs" />
+        <option value="$PROJECT_DIR$/U.Common/PaginatedItems.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Products/Commands/StoreProductsCommand.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Products/Queries/GetProduct/GetProductQueryHandler.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Products/Queries/GetProducts/GetProductsListQuery.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Products/Queries/GetProducts/GetProductsListQueryHandler.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Products/Queries/GetProduct/GetProductQuery.cs" />
+        <option value="$PROJECT_DIR$/U.SmartStoreAdapter.Api/GetProductQuery.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Models/TaxResponse.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Models/TaxCategoryDto.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Models/SettingsDto.cs" />
+        <option value="$PROJECT_DIR$/U.SmartStoreAdapter.Api/SettingsDto.cs" />
+        <option value="$PROJECT_DIR$/U.SmartStoreAdapter.Api/Taxes/TaxResponse.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/TaxCategory/Command/StoreTaxCategoryCommand.Validator.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Validators/TaxCategoryDto.Validator.cs" />
+        <option value="$PROJECT_DIR$/U.SmartStoreAdapter.Api/Products/StoreTaxCategoryCommand.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/TaxCategory/Command/StoreTaxCategoryCommandHandler.cs" />
+        <option value="$PROJECT_DIR$/U.SmartStoreAdapter.Api/Taxes/TaxCategoryDto.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Manufacturers/Commands/StoreManufacturerCommand.StoreManufacturerCommandValidator.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Manufacturers/Commands/StoreManufacturerCommand.cs" />
+        <option value="$PROJECT_DIR$/U.SmartStoreAdapter.Api/Products/StoreProductsCommand.cs" />
+        <option value="$PROJECT_DIR$/U.Common/DataTransaction.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Notifications/Storing/FailedToStore/FailedToStoreNotificationHandler.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Notifications/Storing/SuccededToStore/SuccessfulStoreNotificationHandler.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Products/Commands/StoreProductsCommandHandler.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Manufacturers/Commands/StoreManufacturerCommandHandler.cs" />
+        <option value="$PROJECT_DIR$/U.SmartStoreAdapter.Api/Manufacturers/StoreManufacturerCommandHandler.cs" />
+        <option value="$PROJECT_DIR$/U.SmartStoreAdapter.Api/U.SmartStoreAdapter.Api.csproj" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Startup.cs" />
+        <option value="$PROJECT_DIR$/U.Common/U.Common.csproj" />
+        <option value="$PROJECT_DIR$/U.Common/ContextDesigner.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/DesignTimeDb/DesignTimeDbContextFactory.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Extensions/ServiceCollectionExtensions.cs" />
+        <option value="$PROJECT_DIR$/Services/FetchService.Persistance/DesignTimeDb/DesignTimeDbContextFactory.cs" />
+        <option value="$PROJECT_DIR$/U.SmartStoreAdapter.Api/Endpoints/EndpointsBoard.cs" />
+        <option value="$PROJECT_DIR$/Services/FetchService.Application/Observables/SmartBase.cs" />
+        <option value="$PROJECT_DIR$/U.Common/Database/ContextDesigner.cs" />
+        <option value="$PROJECT_DIR$/U.Common/Database/UnsupportedDatabaseException.cs" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Validators/StoreTaxCategoryCommand.Validator.cs" />
+        <option value="$PROJECT_DIR$/Ubiquitous.sln" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/U.SmartStoreAdapter.csproj" />
+        <option value="$PROJECT_DIR$/Services/FetchService.Persistance/U.FetchService.Persistance.csproj" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/U.SmartStoreAdapter.Persistance.csproj" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Api/U.SmartStoreAdapter.Api.csproj" />
+        <option value="$PROJECT_DIR$/Services/FetchService.Application/U.FetchService.Application.csproj" />
+        <option value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/U.SmartStoreAdapter.Application.csproj" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="230" />
+    <option name="y" value="85" />
+    <option name="width" value="980" />
+    <option name="height" value="1040" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="SolutionExplorer" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="FileSystemExplorer" />
+      <pane id="AssemblyExplorer" />
+      <pane id="SolutionExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="Ubiquitous" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="Ubiquitous" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Common" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="Ubiquitous" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="FetchService" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="Ubiquitous" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="FetchService" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="U.FetchService.Application" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="Ubiquitous" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="SmartstoreAdapter" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="Ubiquitous" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="SmartstoreAdapter" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="U.SmartStoreAdapter.Api" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="Ubiquitous" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="SmartstoreAdapter" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="U.SmartStoreAdapter.Application" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="Ubiquitous" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="SmartstoreAdapter" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="U.SmartStoreAdapter.IntegrationTests" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-all-files" value="false" />
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Rider.DefaultBreakpoints.AreToggled" value="true" />
+    <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/DbIntegration.Domain/DbIntegration.Domain.csproj" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="RiderIisExpressOptionsPageId" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected=".NET Launch Settings Profile.Ubiquitous: SmartStoreAdapter">
+    <configuration name="Ubiquitous: FetchService" type="LaunchSettings" factoryName=".NET Launch Settings Profile" singleton="false">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/Services/FetchService/U.FetchService.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value=".NETCoreApp,Version=v2.2" />
+      <option name="LAUNCH_PROFILE_NAME" value="IOManager.UpdateManager" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Ubiquitous: SmartStoreAdapter" type="LaunchSettings" factoryName=".NET Launch Settings Profile" singleton="false">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/U.SmartStoreAdapter.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value=".NETCoreApp,Version=v2.2" />
+      <option name="LAUNCH_PROFILE_NAME" value="DbIntegrationWebApi" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue=".NET Launch Settings Profile.Ubiquitous: FetchService" />
+      <item itemvalue=".NET Launch Settings Profile.Ubiquitous: SmartStoreAdapter" />
+    </list>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="09f514a0-7e84-42a7-82d2-71848e96445c" name="Default Changelist" comment="" />
+      <created>1561672002274</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1561672002274</updated>
+      <workItem from="1561672003877" duration="2285000" />
+      <workItem from="1561811857386" duration="2980000" />
+      <workItem from="1561816872025" duration="584000" />
+      <workItem from="1561817842475" duration="10296000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="16145000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27046978" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Build" visible="true" weight="0.32732317" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3400287" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39949432" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32996207" />
+      <window_info anchor="bottom" id="NuGet" order="7" weight="0.7812895" />
+      <window_info anchor="bottom" id="Docker" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32996207" />
+      <window_info anchor="bottom" id="Database Changes" order="10" />
+      <window_info anchor="bottom" id="Unit Tests" order="11" />
+      <window_info anchor="bottom" id="REST Client" order="12" />
+      <window_info anchor="bottom" id="Terminal" order="13" />
+      <window_info anchor="bottom" id="Event Log" order="14" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Errors In Solution" order="3" weight="0.3295302" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Unit Tests Coverage" order="5" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" suspend="NONE" type="DotNet Exception Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Startup.cs</url>
+          <line>72</line>
+          <properties documentPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Startup.cs" initialLine="72">
+            <startOffsets>
+              <option value="2280" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2281" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/BaseEntity.cs</url>
+          <line>35</line>
+          <properties documentPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/Entities/BaseEntity.cs" initialLine="35">
+            <startOffsets>
+              <option value="800" />
+            </startOffsets>
+            <endOffsets>
+              <option value="801" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Categories/StoreCategoryCommandHandler.cs</url>
+          <line>41</line>
+          <properties documentPath="$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Categories/Commands/StoreCategoryCommandHandler.cs" initialLine="41">
+            <startOffsets>
+              <option value="1595" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1596" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/U.SmartStoreAdapter.Api/Pictures/StorePicturesCommand.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Pictures/StorePicturesCommandHandler.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+          <folding>
+            <marker date="1561827480361" expanded="false" signature="6:115" ph="..." />
+            <marker date="1561827480361" expanded="true" signature="313:3006" ph="{...}" />
+            <marker date="1561827480361" expanded="true" signature="404:3004" ph="{...}" />
+            <marker date="1561827480361" expanded="true" signature="730:884" ph="{...}" />
+            <marker date="1561827480361" expanded="true" signature="998:1670" ph="{...}" />
+            <marker date="1561827480361" expanded="true" signature="1096:1660" ph="{...}" />
+            <marker date="1561827480361" expanded="true" signature="1117:1506" ph="{...}" />
+            <marker date="1561827480361" expanded="true" signature="1539:1646" ph="{...}" />
+            <marker date="1561827480361" expanded="true" signature="1803:2326" ph="{...}" />
+            <marker date="1561827480361" expanded="true" signature="1864:2138" ph="{...}" />
+            <marker date="1561827480361" expanded="true" signature="2460:2849" ph="{...}" />
+            <marker date="1561827480361" expanded="true" signature="2602:2654" ph="{...}" />
+            <marker date="1561827480361" expanded="true" signature="2916:2998" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/U.SmartStoreAdapter.Api/Notifications/SuccessfulStoreNotification.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/U.SmartStoreAdapter.Api/Notifications/FailedToStoreNotification.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Notifications/SuccessfulStoreNotificationHandler.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+          <folding>
+            <marker date="1561827480322" expanded="false" signature="6:88" ph="..." />
+            <marker date="1561827480322" expanded="true" signature="366:1530" ph="{...}" />
+            <marker date="1561827480322" expanded="true" signature="498:1528" ph="{...}" />
+            <marker date="1561827480322" expanded="true" signature="649:699" ph="{...}" />
+            <marker date="1561827480322" expanded="true" signature="850:1522" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Manufacturers/StoreManufacturerCommandHandler.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-58">
+          <caret line="21" column="29" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+          <folding>
+            <marker date="1561827480293" expanded="false" signature="6:116" ph="..." />
+            <marker date="1561827480293" expanded="true" signature="400:1885" ph="{...}" />
+            <marker date="1561827480293" expanded="true" signature="518:1883" ph="{...}" />
+            <marker date="1561827480293" expanded="true" signature="710:792" ph="{...}" />
+            <marker date="1561827480293" expanded="true" signature="921:1877" ph="{...}" />
+            <marker date="1561827480293" expanded="true" signature="1625:1866" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/Categories/StoreCategoryCommandHandler.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+          <folding>
+            <marker date="1561827480240" expanded="false" signature="6:74" ph="..." />
+            <marker date="1561827480240" expanded="true" signature="278:1717" ph="{...}" />
+            <marker date="1561827480240" expanded="true" signature="370:1715" ph="{...}" />
+            <marker date="1561827480240" expanded="true" signature="501:553" ph="{...}" />
+            <marker date="1561827480240" expanded="true" signature="671:1709" ph="{...}" />
+            <marker date="1561827480240" expanded="true" signature="769:1699" ph="{...}" />
+            <marker date="1561827480240" expanded="true" signature="790:1544" ph="{...}" />
+            <marker date="1561827480240" expanded="true" signature="877:1239" ph="{...}" />
+            <marker date="1561827480240" expanded="true" signature="1578:1685" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Operations/TaxCategory/StoreTaxCategoryCommandHandler.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="44" column="42" selection-start-line="44" selection-start-column="42" selection-end-line="44" selection-end-column="42" />
+          <folding>
+            <marker date="1561827480495" expanded="false" signature="6:92" ph="..." />
+            <marker date="1561827480495" expanded="true" signature="402:2767" ph="{...}" />
+            <marker date="1561827480495" expanded="true" signature="508:2765" ph="{...}" />
+            <marker date="1561827480495" expanded="true" signature="769:916" ph="{...}" />
+            <marker date="1561827480495" expanded="true" signature="1033:2759" ph="{...}" />
+            <marker date="1561827480495" expanded="true" signature="1243:2749" ph="{...}" />
+            <marker date="1561827480495" expanded="true" signature="1264:2594" ph="{...}" />
+            <marker date="1561827480495" expanded="true" signature="1377:1444" ph="{...}" />
+            <marker date="1561827480495" expanded="true" signature="1663:1889" ph="{...}" />
+            <marker date="1561827480495" expanded="true" signature="2163:2575" ph="{...}" />
+            <marker date="1561827480495" expanded="true" signature="2240:2366" ph="{...}" />
+            <marker date="1561827480495" expanded="true" signature="2449:2528" ph="{...}" />
+            <marker date="1561827480495" expanded="true" signature="2628:2735" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService/U.FetchService.csproj">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Extensions/ExceptionMiddleware.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-930">
+          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+          <folding>
+            <marker date="1561827481719" expanded="false" signature="6:467" ph="..." />
+            <marker date="1561827481719" expanded="true" signature="539:5888" ph="{...}" />
+            <marker date="1561827481719" expanded="true" signature="546:635" ph="/// Exception Middleware that catches all exceptions ... " />
+            <marker date="1561827481719" expanded="true" signature="679:5886" ph="{...}" />
+            <marker date="1561827481719" expanded="true" signature="694:782" ph="///  ... " />
+            <marker date="1561827481719" expanded="true" signature="862:1019" ph="{...}" />
+            <marker date="1561827481719" expanded="true" signature="933:1007" ph="{...}" />
+            <marker date="1561827481719" expanded="true" signature="1103:5880" ph="{...}" />
+            <marker date="1561827481719" expanded="true" signature="1256:1449" ph="/* the IsTrusted() extension method doesn't exist and ... */" />
+            <marker date="1561827481719" expanded="true" signature="1599:5610" ph="{...}" />
+            <marker date="1561827481719" expanded="true" signature="5623:5714" ph="/* log the exception etc.. ... */" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Extensions/HttpExtensions.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-118">
+          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+          <folding>
+            <marker date="1561818352813" expanded="false" signature="6:115" ph="..." />
+            <marker date="1561818352813" expanded="true" signature="157:1403" ph="{...}" />
+            <marker date="1561818352813" expanded="true" signature="164:205" ph="///  ... " />
+            <marker date="1561818352813" expanded="true" signature="244:1401" ph="{...}" />
+            <marker date="1561818352813" expanded="true" signature="339:407" ph="{...}" />
+            <marker date="1561818352813" expanded="true" signature="419:643" ph="///  ... " />
+            <marker date="1561818352813" expanded="true" signature="745:1395" ph="{...}" />
+            <marker date="1561818352813" expanded="true" signature="930:1385" ph="{...}" />
+            <marker date="1561818352813" expanded="true" signature="1016:1371" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Extensions/MediatrExtension.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Startup.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
+          <folding>
+            <marker date="1561827481484" expanded="false" signature="6:709" ph="..." />
+            <marker date="1561827481484" expanded="true" signature="740:4374" ph="{...}" />
+            <marker date="1561827481484" expanded="true" signature="747:788" ph="///  ... " />
+            <marker date="1561827481484" expanded="true" signature="813:4372" ph="{...}" />
+            <marker date="1561827481484" expanded="true" signature="828:926" ph="///  ... " />
+            <marker date="1561827481484" expanded="true" signature="979:1042" ph="{...}" />
+            <marker date="1561827481484" expanded="true" signature="1052:1101" ph="///  ... " />
+            <marker date="1561827481484" expanded="true" signature="1325:3646" ph="{...}" />
+            <marker date="1561827481484" expanded="true" signature="1635:1778" ph="{...}" />
+            <marker date="1561827481484" expanded="true" signature="1922:2405" ph="Automapper profiles &amp; init" />
+            <marker date="1561827481484" expanded="true" signature="2032:2281" ph="{...}" />
+            <marker date="1561827481484" expanded="true" signature="2419:3494" ph="MediatR register" />
+            <marker date="1561827481484" expanded="true" signature="3056:3277" ph="{...}" />
+            <marker date="1561827481484" expanded="true" signature="3338:3468" ph="{...}" />
+            <marker date="1561827481484" expanded="false" signature="3508:3636" ph="DbContext register" />
+            <marker date="1561827481484" expanded="true" signature="3839:4366" ph="{...}" />
+            <marker date="1561827481484" expanded="true" signature="4062:4212" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService/Extensions/ServiceCollectionExtensions.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="28" column="21" lean-forward="true" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+          <folding>
+            <marker date="1561673471506" expanded="false" signature="6:230" ph="..." />
+            <marker date="1561673471506" expanded="true" signature="308:1531" ph="{...}" />
+            <marker date="1561673471506" expanded="true" signature="362:1529" ph="{...}" />
+            <marker date="1561673471506" expanded="true" signature="472:1523" ph="{...}" />
+            <marker date="1561673471506" expanded="true" signature="704:802" ph="{...}" />
+            <marker date="1561673471506" expanded="true" signature="848:1513" ph="{...}" />
+            <marker date="1561673471506" expanded="true" signature="983:1071" ph="{...}" />
+            <marker date="1561673471506" expanded="true" signature="1220:1311" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService/app.config">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService/appsettings.Development.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService/appsettings.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService/Program.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding>
+            <marker date="1561673471543" expanded="false" signature="6:63" ph="..." />
+            <marker date="1561673471543" expanded="true" signature="89:416" ph="{...}" />
+            <marker date="1561673471543" expanded="true" signature="116:414" ph="{...}" />
+            <marker date="1561673471543" expanded="true" signature="169:243" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService/Startup.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
+          <folding>
+            <marker date="1561673471563" expanded="false" signature="6:513" ph="..." />
+            <marker date="1561673471563" expanded="true" signature="539:3369" ph="{...}" />
+            <marker date="1561673471563" expanded="true" signature="566:3367" ph="{...}" />
+            <marker date="1561673471563" expanded="true" signature="625:688" ph="{...}" />
+            <marker date="1561673471563" expanded="true" signature="752:967" ph="/* This method gets called by the runtime. Use this method to add services to the container. ... */" />
+            <marker date="1561673471563" expanded="true" signature="1034:2735" ph="{...}" />
+            <marker date="1561673471563" expanded="false" signature="1057:1408" ph="General &amp; Swagger" />
+            <marker date="1561673471563" expanded="true" signature="1239:1382" ph="{...}" />
+            <marker date="1561673471563" expanded="false" signature="1422:1644" ph="services" />
+            <marker date="1561673471563" expanded="true" signature="1658:2141" ph="MediatR register" />
+            <marker date="1561673471563" expanded="false" signature="2155:2230" ph="Logging" />
+            <marker date="1561673471563" expanded="false" signature="2244:2619" ph="Automapper profiles &amp; init" />
+            <marker date="1561673471563" expanded="true" signature="2354:2495" ph="{...}" />
+            <marker date="1561673471563" expanded="true" signature="2633:2725" ph="DbContext" />
+            <marker date="1561673471563" expanded="true" signature="2923:3361" ph="{...}" />
+            <marker date="1561673471563" expanded="true" signature="2970:3047" ph="{...}" />
+            <marker date="1561673471563" expanded="true" signature="3125:3273" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService/StoringJson.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/Configuration/DbOptions.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/U.Common/Database/DbOptions.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/Extensions/ServiceCollectionExtensions.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="47" lean-forward="true" selection-start-line="3" selection-start-column="47" selection-end-line="3" selection-end-column="47" />
+          <folding>
+            <marker date="1561827035225" expanded="true" signature="6:226" ph="..." />
+            <marker date="1561827035225" expanded="true" signature="309:1800" ph="{...}" />
+            <marker date="1561827035225" expanded="true" signature="316:357" ph="///  ... " />
+            <marker date="1561827035225" expanded="true" signature="409:1798" ph="{...}" />
+            <marker date="1561827035225" expanded="true" signature="424:619" ph="///  ... " />
+            <marker date="1561827035225" expanded="true" signature="726:1792" ph="{...}" />
+            <marker date="1561827035225" expanded="true" signature="957:1055" ph="{...}" />
+            <marker date="1561827035225" expanded="true" signature="1101:1782" ph="{...}" />
+            <marker date="1561827035225" expanded="true" signature="1244:1332" ph="{...}" />
+            <marker date="1561827035225" expanded="true" signature="1489:1580" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/Context/SmartStoreContext.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+          <folding>
+            <marker date="1561818575203" expanded="false" signature="6:432" ph="..." />
+            <marker date="1561818575203" expanded="true" signature="474:2007" ph="{...}" />
+            <marker date="1561818575203" expanded="true" signature="523:2005" ph="{...}" />
+            <marker date="1561818575203" expanded="true" signature="604:624" ph="{...}" />
+            <marker date="1561818575203" expanded="true" signature="1241:1998" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService.Persistance/DesignTimeDb/DesignTimeDbContextFactory.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <marker date="1561827102158" expanded="true" signature="6:140" ph="..." />
+            <marker date="1561827102158" expanded="true" signature="191:627" ph="{...}" />
+            <marker date="1561827102158" expanded="true" signature="443:625" ph="{...}" />
+            <marker date="1561827102158" expanded="true" signature="505:619" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/DesignTimeDb/DesignTimeDbContextFactory.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+          <folding>
+            <marker date="1561826972083" expanded="true" signature="6:97" ph="..." />
+            <marker date="1561826972083" expanded="true" signature="144:443" ph="{...}" />
+            <marker date="1561826972083" expanded="true" signature="239:441" ph="{...}" />
+            <marker date="1561826972083" expanded="true" signature="309:435" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/U.SmartStoreAdapter.Api/U.SmartStoreAdapter.Api.csproj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService/Extensions/WholesalesExtensions.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="19" column="89" selection-start-line="19" selection-start-column="89" selection-end-line="19" selection-end-column="89" />
+          <folding>
+            <marker date="1561827481290" expanded="false" signature="6:329" ph="..." />
+            <marker date="1561827481290" expanded="true" signature="366:927" ph="{...}" />
+            <marker date="1561827481290" expanded="true" signature="413:925" ph="{...}" />
+            <marker date="1561827481290" expanded="true" signature="503:919" ph="{...}" />
+            <marker date="1561827481290" expanded="true" signature="639:907" ph="{...}" />
+            <marker date="1561827481290" expanded="true" signature="707:893" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/U.SmartStoreAdapter.Api/Endpoints/EndpointsBoard.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="37" lean-forward="true" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService.Application/Observables/SmartBase.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+          <folding>
+            <marker date="1561827524617" expanded="false" signature="6:233" ph="..." />
+            <marker date="1561827524617" expanded="true" signature="283:1515" ph="{...}" />
+            <marker date="1561827524617" expanded="true" signature="321:1513" ph="{...}" />
+            <marker date="1561827524617" expanded="true" signature="552:669" ph="{...}" />
+            <marker date="1561827524617" expanded="true" signature="759:1507" ph="{...}" />
+            <marker date="1561827524617" expanded="true" signature="785:1127" ph="{...}" />
+            <marker date="1561827524617" expanded="true" signature="1182:1319" ph="{...}" />
+            <marker date="1561827524617" expanded="true" signature="1360:1497" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService.Application/Models/AvailableWholesales.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+          <folding>
+            <marker date="1561673354603" expanded="true" signature="98:238" ph="{...}" />
+            <marker date="1561673354603" expanded="true" signature="160:236" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService.Application/Models/IAvailableWholesales.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+          <folding>
+            <marker date="1561673354623" expanded="true" signature="98:213" ph="{...}" />
+            <marker date="1561673354623" expanded="true" signature="142:211" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Exceptions/ObjectNotFoundException.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding>
+            <marker date="1561827552808" expanded="true" signature="67:432" ph="{...}" />
+            <marker date="1561827552808" expanded="true" signature="122:430" ph="{...}" />
+            <marker date="1561827552808" expanded="true" signature="169:189" ph="{...}" />
+            <marker date="1561827552808" expanded="true" signature="273:293" ph="{...}" />
+            <marker date="1561827552808" expanded="true" signature="401:421" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/U.Common/Database/ContextDesigner.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/U.Common/Database/UnsupportedDatabaseException.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="45" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService.Domain/U.FetchService.Domain.csproj">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/U.Common/U.Common.csproj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService.Application/Models/IWholesale.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+          <folding>
+            <marker date="1561827536205" expanded="false" signature="6:69" ph="..." />
+            <marker date="1561827536205" expanded="true" signature="114:235" ph="{...}" />
+            <marker date="1561827536205" expanded="true" signature="148:229" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/Validators/StoreTaxCategoryCommand.Validator.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+          <folding>
+            <marker date="1561827591196" expanded="false" signature="6:63" ph="..." />
+            <marker date="1561827591196" expanded="true" signature="117:371" ph="{...}" />
+            <marker date="1561827591196" expanded="true" signature="214:369" ph="{...}" />
+            <marker date="1561827591196" expanded="true" signature="270:363" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Domain/U.SmartStoreAdapter.Domain.csproj">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ubiquitous.sln">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="29" column="10" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter/U.SmartStoreAdapter.csproj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="26" column="62" selection-start-line="26" selection-start-column="62" selection-end-line="26" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/U.SmartStoreAdapter.IntegrationTests.csproj">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.IntegrationTests/CustomStartup.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+          <folding>
+            <marker date="1561818557226" expanded="false" signature="6:317" ph="..." />
+            <marker date="1561818557226" expanded="true" signature="365:2657" ph="{...}" />
+            <marker date="1561818557226" expanded="true" signature="455:2655" ph="{...}" />
+            <marker date="1561818557226" expanded="true" signature="589:2649" ph="{...}" />
+            <marker date="1561818557226" expanded="true" signature="666:2637" ph="{...}" />
+            <marker date="1561818557226" expanded="true" signature="1217:1383" ph="{...}" />
+            <marker date="1561818557226" expanded="true" signature="1663:2619" ph="{...}" />
+            <marker date="1561818557226" expanded="true" signature="2121:2316" ph="{...}" />
+            <marker date="1561818557226" expanded="true" signature="2176:2290" ph="/* Seed the database with some specific test data. ... */" />
+            <marker date="1561818557226" expanded="true" signature="2361:2597" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService.Persistance/U.FetchService.Persistance.csproj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="39" lean-forward="true" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Persistance/U.SmartStoreAdapter.Persistance.csproj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="28" column="42" lean-forward="true" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/U.Common.csproj">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService.Application/Mapping/ProductMappingProfile.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="6" selection-start-column="6" selection-end-column="6" />
+          <folding>
+            <marker date="1561827481687" expanded="true" signature="6:318" ph="..." />
+            <marker date="1561827481687" expanded="true" signature="364:1856" ph="{...}" />
+            <marker date="1561827481687" expanded="true" signature="371:412" ph="///  ... " />
+            <marker date="1561827481687" expanded="true" signature="461:1854" ph="{...}" />
+            <marker date="1561827481687" expanded="true" signature="476:525" ph="///  ... " />
+            <marker date="1561827481687" expanded="true" signature="564:1848" ph="{...}" />
+            <marker date="1561827481687" expanded="true" signature="729:839" ph="{...}" />
+            <marker date="1561827481687" expanded="true" signature="945:1055" ph="{...}" />
+            <marker date="1561827481687" expanded="true" signature="1253:1836" ph="{...}" />
+            <marker date="1561827481687" expanded="true" signature="1417:1534" ph="{...}" />
+            <marker date="1561827481687" expanded="true" signature="1706:1815" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Api/U.SmartStoreAdapter.Api.csproj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="68" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Services/FetchService.Application/U.FetchService.Application.csproj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adapters/Adapter.SmartStore/U.SmartStoreAdapter.Application/U.SmartStoreAdapter.Application.csproj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="33" column="16" lean-forward="true" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

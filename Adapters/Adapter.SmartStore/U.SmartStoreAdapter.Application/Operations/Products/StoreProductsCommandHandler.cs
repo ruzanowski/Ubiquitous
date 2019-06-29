@@ -1,0 +1,134 @@
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.Logging;
+using SmartStore.Persistance.Context;
+using U.SmartStoreAdapter.Api.Products;
+using U.SmartStoreAdapter.Application.Models.DataRequests;
+using U.SmartStoreAdapter.Application.Validators;
+using U.SmartStoreAdapter.Domain.Entities.Catalog;
+using U.SmartStoreAdapter.Domain.Entities.Seo;
+
+namespace U.SmartStoreAdapter.Application.Operations.Products
+{
+    public class StoreProductsCommandHandler : IRequestHandler<StoreProductsCommand, DataTransaction<SmartProductDto, SmartProductDto>>
+    {
+        private readonly SmartStoreContext _context;
+        private readonly IMapper _mapper;
+        private readonly ILogger<StoreProductsCommandHandler> _logger;
+
+        public StoreProductsCommandHandler(SmartStoreContext context, IMapper mapper, ILogger<StoreProductsCommandHandler> logger)
+        {
+            _context = context;
+            _mapper = mapper;
+            _logger = logger;
+        }
+
+
+        public async Task<DataTransaction<SmartProductDto, SmartProductDto>> Handle(StoreProductsCommand command,
+            CancellationToken cancellationToken)
+        {
+                var validator = new SmartProductDtoValidator(_context, command);
+                await validator.ValidateAndThrowAsync(command, cancellationToken: cancellationToken);
+                Product productDb;
+                
+                using (var transaction = _context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        productDb = await StoreOrUpdateProduct(command, cancellationToken);
+                    
+                        await AddManufacturerAsync(productDb, command);
+                        await AddPictures(productDb, command);
+                        await AddCategory(productDb, command);
+                        await AddUrlSlug(productDb, command);
+                    
+                        await _context.SaveChangesAsync(cancellationToken);
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        _logger.LogInformation($"Storing products failed. {ex}");
+                        return DataTransaction<SmartProductDto, SmartProductDto>.Create(DateTime.UtcNow,
+                        command,
+                        command,
+                        Guid.Empty.ToString(),
+                        true);
+                    }
+                }
+                
+                return DataTransaction<SmartProductDto, SmartProductDto>.Create(DateTime.UtcNow,
+                    command,
+                    _mapper.Map<SmartProductDto>(productDb),
+                    Guid.Empty.ToString(),
+                    true);
+        }
+
+        private async Task<Product> StoreOrUpdateProduct(SmartProductDto product, CancellationToken cancellationToken)
+        {
+            var sku = $"{product.ManufacturerId}.{product.ProductUniqueCode}";
+            var productDb = _context.Products.FirstOrDefault(x => x.Sku == sku);
+
+            var isNull = productDb is null;
+
+            productDb = _mapper.Map(product, isNull ? new Product() : productDb);
+
+            if (!isNull)
+            {
+                _context.Update(productDb);
+                return productDb;
+            }
+
+            await _context.AddAsync(productDb, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+            return productDb;
+        }
+
+        private async Task AddManufacturerAsync(Product productDb, SmartProductDto product)
+        {
+            await _context.AddAsync(new ProductManufacturer
+            {
+                ProductId = productDb.Id,
+                ManufacturerId = product.ManufacturerId
+            });
+        }
+
+        private async Task AddPictures(Product productDb, SmartProductDto product)
+        {
+            foreach (var productPicturesId in product.PicturesIds)
+            {
+                await _context.AddAsync(new ProductPicture
+                {
+                    ProductId = productDb.Id,
+                    PictureId = productPicturesId,
+                });
+            }
+        }
+
+        private async Task AddCategory(Product productDb, SmartProductDto product)
+        {
+            await _context.AddAsync(new ProductCategory
+            {
+                CategoryId = product.CategoryId,
+                ProductId = productDb.Id,
+            });
+        }
+
+        private async Task AddUrlSlug(Product productDb, StoreProductsCommand command)
+        {
+            await _context.AddAsync(new UrlRecord
+            {
+                Slug = command.UrlSlug ?? productDb.MetaTitle.Replace("", "-"),
+                EntityId = productDb.Id,
+                EntityName = "Product",
+                IsActive = true,
+                LanguageId = 0
+            });
+        }
+    }
+}

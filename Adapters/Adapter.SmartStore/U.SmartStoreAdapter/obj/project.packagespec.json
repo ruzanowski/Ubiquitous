@@ -1,0 +1,128 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter\\U.SmartStoreAdapter.csproj",
+    "projectName": "U.SmartStoreAdapter",
+    "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter\\U.SmartStoreAdapter.csproj",
+    "outputPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter\\obj\\",
+    "projectStyle": "PackageReference",
+    "fallbackFolders": [
+      "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+    ],
+    "originalTargetFrameworks": [
+      "netcoreapp2.2"
+    ],
+    "sources": {
+      "https://api.nuget.org/v3/index.json": {}
+    },
+    "frameworks": {
+      "netcoreapp2.2": {
+        "projectReferences": {
+          "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Application\\U.SmartStoreAdapter.Application.csproj": {
+            "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Application\\U.SmartStoreAdapter.Application.csproj"
+          },
+          "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Common\\U.Common.csproj": {
+            "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Common\\U.Common.csproj"
+          }
+        }
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp2.2": {
+      "dependencies": {
+        "AutoMapper": {
+          "target": "Package",
+          "version": "[8.1.1, )"
+        },
+        "FluentValidation": {
+          "target": "Package",
+          "version": "[8.2.0, )"
+        },
+        "MediatR": {
+          "target": "Package",
+          "version": "[7.0.0, )"
+        },
+        "MediatR.Extensions.Microsoft.AspNetCore.Mvc": {
+          "target": "Package",
+          "version": "[2.0.0, )"
+        },
+        "MediatR.Extensions.Microsoft.DependencyInjection": {
+          "target": "Package",
+          "version": "[6.0.1, )"
+        },
+        "Microsoft.AspNetCore.App": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.2.0, )",
+          "autoReferenced": true
+        },
+        "Microsoft.AspNetCore.Razor.Design": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.2.0, )"
+        },
+        "Microsoft.EntityFrameworkCore.SqlServer": {
+          "target": "Package",
+          "version": "[2.2.0, )"
+        },
+        "Microsoft.Extensions.DependencyInjection": {
+          "target": "Package",
+          "version": "[2.2.0, )"
+        },
+        "Microsoft.NETCore.App": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.2.0, )",
+          "autoReferenced": true
+        },
+        "MiniProfiler.AspNetCore": {
+          "target": "Package",
+          "version": "[4.0.165, )"
+        },
+        "MiniProfiler.AspNetCore.Mvc": {
+          "target": "Package",
+          "version": "[4.0.165, )"
+        },
+        "MiniProfiler.EntityFrameworkCore": {
+          "target": "Package",
+          "version": "[4.0.165, )"
+        },
+        "Npgsql.EntityFrameworkCore.PostgreSQL": {
+          "target": "Package",
+          "version": "[2.2.0, )"
+        },
+        "RequestInjector": {
+          "target": "Package",
+          "version": "[1.1.0, )"
+        },
+        "Scrutor": {
+          "target": "Package",
+          "version": "[3.0.2, )"
+        },
+        "Swashbuckle.AspNetCore.Swagger": {
+          "target": "Package",
+          "version": "[4.0.1, )"
+        },
+        "Swashbuckle.AspNetCore.SwaggerGen": {
+          "target": "Package",
+          "version": "[4.0.1, )"
+        },
+        "Swashbuckle.AspNetCore.SwaggerUI": {
+          "target": "Package",
+          "version": "[4.0.1, )"
+        }
+      },
+      "imports": [
+        "net461"
+      ],
+      "assetTargetFallback": true,
+      "warn": true
+    }
+  }
+}

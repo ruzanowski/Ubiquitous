@@ -1,0 +1,245 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Application\\IOManager.UpdateManager.Application.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Application\\IOManager.UpdateManager.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Application\\IOManager.UpdateManager.Application.csproj",
+        "projectName": "IOManager.UpdateManager.Application",
+        "projectPath": "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Application\\IOManager.UpdateManager.Application.csproj",
+        "packagesPath": "C:\\Users\\Sebastian\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Sebastian\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Domain\\IOManager.UpdateManager.Domain.csproj": {
+                "projectPath": "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Domain\\IOManager.UpdateManager.Domain.csproj"
+              },
+              "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Persistance\\IOManager.UpdateManager.Persistance.csproj": {
+                "projectPath": "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Persistance\\IOManager.UpdateManager.Persistance.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[6.1.1, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.AspNetCore": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.HttpsPolicy": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Scrutor": {
+              "target": "Package",
+              "version": "[3.0.2, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Domain\\IOManager.UpdateManager.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Domain\\IOManager.UpdateManager.Domain.csproj",
+        "projectName": "IOManager.UpdateManager.Domain",
+        "projectPath": "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Domain\\IOManager.UpdateManager.Domain.csproj",
+        "packagesPath": "C:\\Users\\Sebastian\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Sebastian\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.AspNetCore": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.HttpsPolicy": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Persistance\\IOManager.UpdateManager.Persistance.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Persistance\\IOManager.UpdateManager.Persistance.csproj",
+        "projectName": "IOManager.UpdateManager.Persistance",
+        "projectPath": "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Persistance\\IOManager.UpdateManager.Persistance.csproj",
+        "packagesPath": "C:\\Users\\Sebastian\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Persistance\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Sebastian\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Domain\\IOManager.UpdateManager.Domain.csproj": {
+                "projectPath": "C:\\Users\\Sebastian\\Desktop\\Coding projects\\IOManager.UpdateManager\\IOManager.UpdateManager.Domain\\IOManager.UpdateManager.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer.Design": {
+              "target": "Package",
+              "version": "[2.0.0-preview1-final, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL.Design": {
+              "target": "Package",
+              "version": "[2.0.0-preview1, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

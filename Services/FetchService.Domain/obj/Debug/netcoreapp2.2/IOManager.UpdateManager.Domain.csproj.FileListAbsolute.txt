@@ -1,0 +1,12 @@
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Domain\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.deps.json
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Domain\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.dll
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Domain\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.pdb
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Domain\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.csprojAssemblyReference.cache
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Domain\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Domain\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.RazorAssemblyInfo.cache
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Domain\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.RazorAssemblyInfo.cs
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Domain\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.AssemblyInfoInputs.cache
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Domain\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.AssemblyInfo.cs
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Domain\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.RazorTargetAssemblyInfo.cache
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Domain\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.dll
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Domain\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.pdb

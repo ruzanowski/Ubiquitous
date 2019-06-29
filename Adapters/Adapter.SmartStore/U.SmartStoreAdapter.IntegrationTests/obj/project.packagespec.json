@@ -1,0 +1,92 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.IntegrationTests\\U.SmartStoreAdapter.IntegrationTests.csproj",
+    "projectName": "U.SmartStoreAdapter.IntegrationTests",
+    "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.IntegrationTests\\U.SmartStoreAdapter.IntegrationTests.csproj",
+    "outputPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.IntegrationTests\\obj\\",
+    "projectStyle": "PackageReference",
+    "fallbackFolders": [
+      "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+    ],
+    "originalTargetFrameworks": [
+      "netcoreapp2.2"
+    ],
+    "sources": {
+      "https://api.nuget.org/v3/index.json": {}
+    },
+    "frameworks": {
+      "netcoreapp2.2": {
+        "projectReferences": {
+          "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Application\\U.SmartStoreAdapter.Application.csproj": {
+            "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Application\\U.SmartStoreAdapter.Application.csproj"
+          },
+          "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Persistance\\U.SmartStoreAdapter.Persistance.csproj": {
+            "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Persistance\\U.SmartStoreAdapter.Persistance.csproj"
+          },
+          "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter\\U.SmartStoreAdapter.csproj": {
+            "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter\\U.SmartStoreAdapter.csproj"
+          }
+        }
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp2.2": {
+      "dependencies": {
+        "FluentAssertions": {
+          "target": "Package",
+          "version": "[5.6.0, )"
+        },
+        "Microsoft.AspNetCore": {
+          "target": "Package",
+          "version": "[2.2.0, )"
+        },
+        "Microsoft.AspNetCore.HttpsPolicy": {
+          "target": "Package",
+          "version": "[2.2.0, )"
+        },
+        "Microsoft.AspNetCore.Mvc": {
+          "target": "Package",
+          "version": "[2.2.0, )"
+        },
+        "Microsoft.AspNetCore.Mvc.Testing": {
+          "target": "Package",
+          "version": "[2.2.0, )"
+        },
+        "Microsoft.AspNetCore.Razor.Runtime": {
+          "target": "Package",
+          "version": "[2.2.0, )"
+        },
+        "Microsoft.NET.Test.Sdk": {
+          "target": "Package",
+          "version": "[15.9.0, )"
+        },
+        "Microsoft.NETCore.App": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.2.0, )",
+          "autoReferenced": true
+        },
+        "xunit": {
+          "target": "Package",
+          "version": "[2.4.0, )"
+        },
+        "xunit.runner.visualstudio": {
+          "target": "Package",
+          "version": "[2.4.0, )"
+        }
+      },
+      "imports": [
+        "net461"
+      ],
+      "assetTargetFallback": true,
+      "warn": true
+    }
+  }
+}

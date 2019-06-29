@@ -1,0 +1,16 @@
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.csprojAssemblyReference.cache
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.deps.json
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.runtimeconfig.json
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.runtimeconfig.dev.json
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.dll
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.pdb
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.dll
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.pdb
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.csproj.CoreCompileInputs.cache
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.AssemblyInfoInputs.cache
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.AssemblyInfo.cs
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.csproj.CopyComplete
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.dll
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.pdb
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.dll.config
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager.Persistance\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.dll.config

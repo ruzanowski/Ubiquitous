@@ -1,0 +1,23 @@
+{
+  "name": "string",
+  "manufacturerId": 5,
+  "productUniqueCode": "string",
+  "manufacturerPartNumber": "string",
+  "inStock": 0,
+  "taxCategoryId": 3,
+  "priceInTax": 0,
+  "productCost": 0,
+  "priceMinimumSpecifiedByCustomer": 0,
+  "description": "string",
+  "isAvailable": true,
+  "length": 0,
+  "width": 0,
+  "height": 0,
+  "weight": 0,
+  "mainPictureId": 1,
+  "categoryId": 1,
+  "picturesIds": [
+    1
+  ],
+  "urlSlug": "string"
+}

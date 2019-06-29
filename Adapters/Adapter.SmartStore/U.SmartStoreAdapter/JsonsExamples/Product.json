@@ -1,0 +1,452 @@
+[
+  {
+    "productTypeId": 0,
+    "parentGroupedProductId": 0,
+    "visibleIndividually": true,
+    "name": "string",
+    "shortDescription": "string",
+    "fullDescription": "string",
+    "adminComment": "string",
+    "productTemplateId": 0,
+    "showOnHomePage": true,
+    "homePageDisplayOrder": 0,
+    "metaKeywords": "string",
+    "metaDescription": "string",
+    "metaTitle": "string",
+    "allowCustomerReviews": true,
+    "approvedRatingSum": 0,
+    "notApprovedRatingSum": 0,
+    "approvedTotalReviews": 0,
+    "notApprovedTotalReviews": 0,
+    "subjectToAcl": true,
+    "limitedToStores": true,
+    "sku": "string",
+    "manufacturerPartNumber": "string",
+    "gtin": "string",
+    "isGiftCard": true,
+    "giftCardTypeId": 0,
+    "requireOtherProducts": true,
+    "requiredProductIds": "string",
+    "automaticallyAddRequiredProducts": true,
+    "isDownload": true,
+    "unlimitedDownloads": true,
+    "maxNumberOfDownloads": 0,
+    "downloadExpirationDays": 0,
+    "downloadActivationTypeId": 0,
+    "hasSampleDownload": true,
+    "sampleDownloadId": 0,
+    "sampleDownload": {
+      "downloadGuid": "string",
+      "useDownloadUrl": true,
+      "downloadUrl": "string",
+      "contentType": "string",
+      "filename": "string",
+      "extension": "string",
+      "isNew": true,
+      "isTransient": true,
+      "updatedOnUtc": "2019-03-17T13:43:23.646Z",
+      "mediaStorageId": 0,
+      "entityId": 0,
+      "entityName": "string",
+      "fileVersion": "string",
+      "changelog": "string",
+      "id": 0
+    },
+    "hasUserAgreement": true,
+    "userAgreementText": "string",
+    "isRecurring": true,
+    "recurringCycleLength": 0,
+    "recurringCyclePeriodId": 0,
+    "recurringTotalCycles": 0,
+    "isShipEnabled": true,
+    "isFreeShipping": true,
+    "additionalShippingCharge": 0,
+    "isTaxExempt": true,
+    "isEsd": true,
+    "taxCategoryId": 0,
+    "manageInventoryMethodId": 0,
+    "stockQuantity": 0,
+    "displayStockAvailability": true,
+    "displayStockQuantity": true,
+    "minStockQuantity": 0,
+    "lowStockActivityId": 0,
+    "notifyAdminForQuantityBelow": 0,
+    "backorderModeId": 0,
+    "allowBackInStockSubscriptions": true,
+    "orderMinimumQuantity": 0,
+    "orderMaximumQuantity": 0,
+    "quantityStep": 0,
+    "quantiyControlType": 0,
+    "hideQuantityControl": true,
+    "allowedQuantities": "string",
+    "disableBuyButton": true,
+    "disableWishlistButton": true,
+    "availableForPreOrder": true,
+    "callForPrice": true,
+    "price": 0,
+    "oldPrice": 0,
+    "productCost": 0,
+    "specialPrice": 0,
+    "specialPriceStartDateTimeUtc": "2019-03-17T13:43:23.650Z",
+    "specialPriceEndDateTimeUtc": "2019-03-17T13:43:23.650Z",
+    "customerEntersPrice": true,
+    "minimumCustomerEnteredPrice": 0,
+    "maximumCustomerEnteredPrice": 0,
+    "hasTierPrices": true,
+    "lowestAttributeCombinationPrice": 0,
+    "hasDiscountsApplied": true,
+    "weight": 0,
+    "length": 0,
+    "width": 0,
+    "height": 0,
+    "availableStartDateTimeUtc": "2019-03-17T13:43:23.650Z",
+    "availableEndDateTimeUtc": "2019-03-17T13:43:23.650Z",
+    "displayOrder": 0,
+    "published": true,
+    "isSystemProduct": true,
+    "systemName": "string",
+    "createdOnUtc": "2019-03-17T13:43:23.650Z",
+    "updatedOnUtc": "2019-03-17T13:43:23.650Z",
+    "deliveryTimeId": 0,
+    "deliveryTime": {
+      "name": "string",
+      "colorHexValue": "string",
+      "displayLocale": "string",
+      "displayOrder": 0,
+      "isDefault": true,
+      "id": 0
+    },
+    "quantityUnitId": 0,
+    "quantityUnit": {
+      "name": "string",
+      "description": "string",
+      "displayLocale": "string",
+      "displayOrder": 0,
+      "isDefault": true,
+      "id": 0
+    },
+    "customsTariffNumber": "string",
+    "countryOfOriginId": 0,
+    "countryOfOrigin": {
+      "name": "string",
+      "allowsBilling": true,
+      "allowsShipping": true,
+      "twoLetterIsoCode": "string",
+      "threeLetterIsoCode": "string",
+      "numericIsoCode": 0,
+      "subjectToVat": true,
+      "published": true,
+      "displayOrder": 0,
+      "limitedToStores": true,
+      "addressFormat": "string",
+      "id": 0
+    },
+    "basePriceEnabled": true,
+    "basePriceMeasureUnit": "string",
+    "basePriceAmount": 0,
+    "basePriceBaseAmount": 0,
+    "basePriceHasValue": true,
+    "bundleTitleText": "string",
+    "bundlePerItemShipping": true,
+    "bundlePerItemPricing": true,
+    "bundlePerItemShoppingCart": true,
+    "mainPictureId": 0,
+    "hasPreviewPicture": true,
+    "productType": 5,
+    "backorderMode": 0,
+    "downloadActivationType": 1,
+    "giftCardType": 0,
+    "lowStockActivity": 0,
+    "manageInventoryMethod": 0,
+    "recurringCyclePeriod": 0,
+    "productCategories": [
+      {
+        "productId": 0,
+        "categoryId": 0,
+        "isFeaturedProduct": true,
+        "displayOrder": 0,
+        "id": 0
+      }
+    ],
+    "productManufacturers": [
+      {
+        "productId": 0,
+        "manufacturerId": 0,
+        "isFeaturedProduct": true,
+        "displayOrder": 0,
+        "id": 0
+      }
+    ],
+    "productPictures": [
+      {
+        "productId": 0,
+        "pictureId": 0,
+        "displayOrder": 0,
+        "id": 0
+      }
+    ],
+    "productSpecificationAttributes": [
+      {
+        "productId": 0,
+        "specificationAttributeOptionId": 0,
+        "allowFiltering": true,
+        "showOnProductPage": true,
+        "displayOrder": 0,
+        "id": 0
+      }
+    ],
+    "productTags": [
+      {
+        "name": "string",
+        "id": 0
+      }
+    ],
+    "productVariantAttributes": [
+      {
+        "productId": 0,
+        "productAttributeId": 0,
+        "textPrompt": "string",
+        "isRequired": true,
+        "attributeControlTypeId": 0,
+        "displayOrder": 0,
+        "attributeControlType": 1,
+        "productAttribute": {
+          "alias": "string",
+          "name": "string",
+          "description": "string",
+          "allowFiltering": true,
+          "displayOrder": 0,
+          "facetTemplateHint": 0,
+          "indexOptionNames": true,
+          "exportMappings": "string",
+          "productAttributeOptionsSets": [
+            {
+              "name": "string",
+              "productAttributeId": 0,
+              "productAttributeOptions": [
+                {
+                  "productAttributeOptionsSetId": 0,
+                  "alias": "string",
+                  "name": "string",
+                  "pictureId": 0,
+                  "color": "string",
+                  "priceAdjustment": 0,
+                  "weightAdjustment": 0,
+                  "isPreSelected": true,
+                  "displayOrder": 0,
+                  "valueTypeId": 0,
+                  "linkedProductId": 0,
+                  "quantity": 0,
+                  "valueType": 0,
+                  "id": 0
+                }
+              ],
+              "id": 0
+            }
+          ],
+          "id": 0
+        },
+        "productVariantAttributeValues": [
+          {
+            "productVariantAttributeId": 0,
+            "alias": "string",
+            "name": "string",
+            "pictureId": 0,
+            "color": "string",
+            "priceAdjustment": 0,
+            "weightAdjustment": 0,
+            "isPreSelected": true,
+            "displayOrder": 0,
+            "valueTypeId": 0,
+            "linkedProductId": 0,
+            "quantity": 0,
+            "id": 0
+          }
+        ],
+        "id": 0
+      }
+    ],
+    "productVariantAttributeCombinations": [
+      {
+        "sku": "string",
+        "gtin": "string",
+        "manufacturerPartNumber": "string",
+        "price": 0,
+        "length": 0,
+        "width": 0,
+        "height": 0,
+        "basePriceAmount": 0,
+        "basePriceBaseAmount": 0,
+        "assignedPictureIds": "string",
+        "deliveryTimeId": 0,
+        "deliveryTime": {
+          "name": "string",
+          "colorHexValue": "string",
+          "displayLocale": "string",
+          "displayOrder": 0,
+          "isDefault": true,
+          "id": 0
+        },
+        "quantityUnitId": 0,
+        "quantityUnit": {
+          "name": "string",
+          "description": "string",
+          "displayLocale": "string",
+          "displayOrder": 0,
+          "isDefault": true,
+          "id": 0
+        },
+        "isActive": true,
+        "productId": 0,
+        "attributesXml": "string",
+        "stockQuantity": 0,
+        "allowOutOfStockOrders": true,
+        "id": 0
+      }
+    ],
+    "tierPrices": [
+      {
+        "productId": 0,
+        "storeId": 0,
+        "customerRoleId": 0,
+        "quantity": 0,
+        "price": 0,
+        "calculationMethod": 0,
+        "id": 0
+      }
+    ],
+    "appliedDiscounts": [
+      {
+        "name": "string",
+        "discountTypeId": 0,
+        "usePercentage": true,
+        "discountPercentage": 0,
+        "discountAmount": 0,
+        "startDateUtc": "2019-03-17T13:43:23.652Z",
+        "endDateUtc": "2019-03-17T13:43:23.652Z",
+        "requiresCouponCode": true,
+        "couponCode": "string",
+        "discountLimitationId": 0,
+        "limitationTimes": 0,
+        "discountType": 1,
+        "discountLimitation": 0,
+        "appliedToCategories": [
+          {
+            "name": "string",
+            "fullName": "string",
+            "description": "string",
+            "bottomDescription": "string",
+            "badgeText": "string",
+            "badgeStyle": 0,
+            "alias": "string",
+            "categoryTemplateId": 0,
+            "metaKeywords": "string",
+            "metaDescription": "string",
+            "metaTitle": "string",
+            "parentCategoryId": 0,
+            "pictureId": 0,
+            "picture": {
+              "mimeType": "string",
+              "width": 0,
+              "height": 0,
+              "seoFilename": "string",
+              "isNew": true,
+              "isTransient": true,
+              "updatedOnUtc": "2019-03-17T13:43:23.652Z",
+              "mediaStorageId": 0,
+              "productPictures": [
+                {
+                  "productId": 0,
+                  "pictureId": 0,
+                  "displayOrder": 0,
+                  "id": 0
+                }
+              ],
+              "id": 0
+            },
+            "pageSize": 0,
+            "allowCustomersToSelectPageSize": true,
+            "pageSizeOptions": "string",
+            "showOnHomePage": true,
+            "hasDiscountsApplied": true,
+            "subjectToAcl": true,
+            "limitedToStores": true,
+            "published": true,
+            "displayOrder": 0,
+            "createdOnUtc": "2019-03-17T13:43:23.652Z",
+            "updatedOnUtc": "2019-03-17T13:43:23.652Z",
+            "defaultViewMode": "string",
+            "appliedDiscounts": [
+              null
+            ],
+            "id": 0
+          }
+        ],
+        "appliedToManufacturers": [
+          {
+            "name": "string",
+            "description": "string",
+            "manufacturerTemplateId": 0,
+            "metaKeywords": "string",
+            "metaDescription": "string",
+            "metaTitle": "string",
+            "pictureId": 0,
+            "picture": {
+              "mimeType": "string",
+              "width": 0,
+              "height": 0,
+              "seoFilename": "string",
+              "isNew": true,
+              "isTransient": true,
+              "updatedOnUtc": "2019-03-17T13:43:23.652Z",
+              "mediaStorageId": 0,
+              "productPictures": [
+                {
+                  "productId": 0,
+                  "pictureId": 0,
+                  "displayOrder": 0,
+                  "id": 0
+                }
+              ],
+              "id": 0
+            },
+            "pageSize": 0,
+            "allowCustomersToSelectPageSize": true,
+            "pageSizeOptions": "string",
+            "limitedToStores": true,
+            "published": true,
+            "displayOrder": 0,
+            "createdOnUtc": "2019-03-17T13:43:23.652Z",
+            "updatedOnUtc": "2019-03-17T13:43:23.652Z",
+            "hasDiscountsApplied": true,
+            "appliedDiscounts": [
+              null
+            ],
+            "id": 0
+          }
+        ],
+        "id": 0
+      }
+    ],
+    "productBundleItems": [
+      {
+        "productId": 0,
+        "bundleProductId": 0,
+        "quantity": 0,
+        "discount": 0,
+        "discountPercentage": true,
+        "name": "string",
+        "shortDescription": "string",
+        "filterAttributes": true,
+        "hideThumbnail": true,
+        "visible": true,
+        "published": true,
+        "displayOrder": 0,
+        "createdOnUtc": "2019-03-17T13:43:23.652Z",
+        "updatedOnUtc": "2019-03-17T13:43:23.652Z",
+        "id": 0
+      }
+    ],
+    "id": 0
+  }
+]

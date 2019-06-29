@@ -1,0 +1,38 @@
+C:\Users\Sebastian\RiderProjects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.dll.config
+C:\Users\Sebastian\RiderProjects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.deps.json
+C:\Users\Sebastian\RiderProjects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.runtimeconfig.json
+C:\Users\Sebastian\RiderProjects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.runtimeconfig.dev.json
+C:\Users\Sebastian\RiderProjects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.dll
+C:\Users\Sebastian\RiderProjects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.pdb
+C:\Users\Sebastian\RiderProjects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.csprojAssemblyReference.cache
+C:\Users\Sebastian\RiderProjects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.csproj.CoreCompileInputs.cache
+C:\Users\Sebastian\RiderProjects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.AssemblyInfoInputs.cache
+C:\Users\Sebastian\RiderProjects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.AssemblyInfo.cs
+C:\Users\Sebastian\RiderProjects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.dll
+C:\Users\Sebastian\RiderProjects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.pdb
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.dll.config
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.deps.json
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.runtimeconfig.json
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.runtimeconfig.dev.json
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.dll
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.pdb
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Application.dll
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.dll
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.dll
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Application.pdb
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Domain.pdb
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.pdb
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.csprojAssemblyReference.cache
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.csproj.CoreCompileInputs.cache
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.RazorAssemblyInfo.cache
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.RazorAssemblyInfo.cs
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.AssemblyInfoInputs.cache
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.AssemblyInfo.cs
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.RazorTargetAssemblyInfo.cache
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.csproj.CopyComplete
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.dll
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.pdb
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\IOManager.UpdateManager.Persistance.dll.config
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\obj\Debug\netcoreapp2.2\IOManager.UpdateManager.dll.config
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\appsettings.Development.json
+C:\Users\Sebastian\Desktop\Coding projects\IOManager.UpdateManager\IOManager.UpdateManager\bin\Debug\netcoreapp2.2\appsettings.json
