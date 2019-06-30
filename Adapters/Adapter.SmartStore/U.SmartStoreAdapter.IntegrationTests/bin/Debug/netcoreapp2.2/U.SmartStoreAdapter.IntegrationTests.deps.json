@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "e8a5848ab19711be3cebf0d6729cb51eee0f7c8f"
+    "signature": "72100e2dfa13b99d0b487343e3cd4ffccbe34d7e"
   },
   "compilationOptions": {
     "defines": [
@@ -45,15 +45,15 @@
           "U.SmartStoreAdapter.IntegrationTests.dll": {}
         }
       },
-      "AutoMapper/8.0.0": {
+      "AutoMapper/8.1.1": {
         "dependencies": {
           "Microsoft.CSharp": "4.5.0",
           "System.Reflection.Emit": "4.3.0"
         },
         "runtime": {
           "lib/netstandard2.0/AutoMapper.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.0.0"
+            "assemblyVersion": "8.1.1.0",
+            "fileVersion": "8.1.1.0"
           }
         },
         "compile": {
@@ -62,7 +62,7 @@
       },
       "AutoMapper.Collection/5.0.0": {
         "dependencies": {
-          "AutoMapper": "8.0.0"
+          "AutoMapper": "8.1.1"
         },
         "runtime": {
           "lib/netstandard2.0/AutoMapper.Collection.dll": {
@@ -92,7 +92,7 @@
       },
       "AutoMapper.Extensions.ExpressionMapping/2.0.0": {
         "dependencies": {
-          "AutoMapper": "8.0.0"
+          "AutoMapper": "8.1.1"
         },
         "runtime": {
           "lib/netstandard2.0/AutoMapper.Extensions.ExpressionMapping.dll": {
@@ -106,7 +106,7 @@
       },
       "AutoMapper.Extensions.Microsoft.DependencyInjection/6.0.0": {
         "dependencies": {
-          "AutoMapper": "8.0.0",
+          "AutoMapper": "8.1.1",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0"
         },
         "runtime": {
@@ -3794,7 +3794,7 @@
       },
       "U.SmartStoreAdapter/1.0.0": {
         "dependencies": {
-          "AutoMapper": "8.0.0",
+          "AutoMapper": "8.1.1",
           "FluentValidation": "8.2.0",
           "MediatR": "7.0.0",
           "MediatR.Extensions.Microsoft.AspNetCore.Mvc": "2.0.0",
@@ -3810,6 +3810,7 @@
           "Swashbuckle.AspNetCore.Swagger": "4.0.1",
           "Swashbuckle.AspNetCore.SwaggerGen": "4.0.1",
           "Swashbuckle.AspNetCore.SwaggerUI": "4.0.1",
+          "U.Common": "1.0.0",
           "U.SmartStoreAdapter.Application": "1.0.0"
         },
         "runtime": {
@@ -3836,8 +3837,7 @@
       },
       "U.SmartStoreAdapter.Application/1.0.0": {
         "dependencies": {
-          "AutoMapper": "8.0.0",
-          "AutoMapper.Collection": "5.0.0",
+          "AutoMapper": "8.1.1",
           "AutoMapper.Collection.EntityFrameworkCore": "0.2.0",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.0.0",
           "FluentValidation": "8.2.0",
@@ -4100,12 +4100,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AutoMapper/8.0.0": {
+    "AutoMapper/8.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kcbje0Y71XkvzPn8k6OROZGOn2SKaWimon3Bu1WUTVoV5GTJVym+k+zQuKApyyFVRfk7bisumj/qUX4xIIXS+Q==",
-      "path": "automapper/8.0.0",
-      "hashPath": "automapper.8.0.0.nupkg.sha512"
+      "sha512": "sha512-nVzVE1e9EoNFozDVP6RsY26RXbk4cuZJdG/SFB896tumt3b9ljMo3ar2HsgPKE+Pb2ywlVp1y74Bidb+tB9RUA==",
+      "path": "automapper/8.1.1",
+      "hashPath": "automapper.8.1.1.nupkg.sha512"
     },
     "AutoMapper.Collection/5.0.0": {
       "type": "package",

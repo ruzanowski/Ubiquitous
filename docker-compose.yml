@@ -1,0 +1,21 @@
+version: "3.5"
+
+services:
+  u.smartstore-adapter:
+    build: ./Adapters/Adapter.SmartStore/U.SmartStoreAdapter
+    ports:
+      - '5000:5000'
+    networks:
+      - ubiquitous
+      
+  u.fetch-service:
+    build: ./Services/FetchService
+    ports:
+      - '5001:5001'
+    networks:
+      - ubiquitous
+
+networks:
+  ubiquitous:
+    name: ubiquitous
+    external: false

@@ -43,6 +43,7 @@
           "Swashbuckle.AspNetCore.Swagger": "4.0.1",
           "Swashbuckle.AspNetCore.SwaggerGen": "4.0.1",
           "Swashbuckle.AspNetCore.SwaggerUI": "4.0.1",
+          "U.Common": "1.0.0",
           "U.SmartStoreAdapter.Application": "1.0.0"
         },
         "runtime": {

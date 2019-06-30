@@ -1,15 +1,14 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "22ecb67af52077210c8bd33b9cc5db3502d475f8"
+    "signature": "bcbbc255b61f8ff50799d6d1e27c8834fee711d9"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.2": {
       "U.SmartStoreAdapter.Application/1.0.0": {
         "dependencies": {
-          "AutoMapper": "8.0.0",
-          "AutoMapper.Collection": "5.0.0",
+          "AutoMapper": "8.1.1",
           "AutoMapper.Collection.EntityFrameworkCore": "0.2.0",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.0.0",
           "FluentValidation": "8.2.0",
@@ -31,21 +30,21 @@
           "U.SmartStoreAdapter.Application.dll": {}
         }
       },
-      "AutoMapper/8.0.0": {
+      "AutoMapper/8.1.1": {
         "dependencies": {
           "Microsoft.CSharp": "4.5.0",
           "System.Reflection.Emit": "4.3.0"
         },
         "runtime": {
           "lib/netstandard2.0/AutoMapper.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.0.0"
+            "assemblyVersion": "8.1.1.0",
+            "fileVersion": "8.1.1.0"
           }
         }
       },
       "AutoMapper.Collection/5.0.0": {
         "dependencies": {
-          "AutoMapper": "8.0.0"
+          "AutoMapper": "8.1.1"
         },
         "runtime": {
           "lib/netstandard2.0/AutoMapper.Collection.dll": {
@@ -69,7 +68,7 @@
       },
       "AutoMapper.Extensions.ExpressionMapping/2.0.0": {
         "dependencies": {
-          "AutoMapper": "8.0.0"
+          "AutoMapper": "8.1.1"
         },
         "runtime": {
           "lib/netstandard2.0/AutoMapper.Extensions.ExpressionMapping.dll": {
@@ -80,7 +79,7 @@
       },
       "AutoMapper.Extensions.Microsoft.DependencyInjection/6.0.0": {
         "dependencies": {
-          "AutoMapper": "8.0.0",
+          "AutoMapper": "8.1.1",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0"
         },
         "runtime": {
@@ -2606,12 +2605,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AutoMapper/8.0.0": {
+    "AutoMapper/8.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kcbje0Y71XkvzPn8k6OROZGOn2SKaWimon3Bu1WUTVoV5GTJVym+k+zQuKApyyFVRfk7bisumj/qUX4xIIXS+Q==",
-      "path": "automapper/8.0.0",
-      "hashPath": "automapper.8.0.0.nupkg.sha512"
+      "sha512": "sha512-nVzVE1e9EoNFozDVP6RsY26RXbk4cuZJdG/SFB896tumt3b9ljMo3ar2HsgPKE+Pb2ywlVp1y74Bidb+tB9RUA==",
+      "path": "automapper/8.1.1",
+      "hashPath": "automapper.8.1.1.nupkg.sha512"
     },
     "AutoMapper.Collection/5.0.0": {
       "type": "package",
