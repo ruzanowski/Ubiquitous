@@ -1,0 +1,614 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter\\U.SmartStoreAdapter.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Api\\U.SmartStoreAdapter.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Api\\U.SmartStoreAdapter.Api.csproj",
+        "projectName": "U.SmartStoreAdapter.Api",
+        "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Api\\U.SmartStoreAdapter.Api.csproj",
+        "packagesPath": "C:\\Users\\Sebastian\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Api\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Sebastian\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Common\\U.Common.csproj": {
+                "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Common\\U.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.AspNetCore": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.HttpsPolicy": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Application\\U.SmartStoreAdapter.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Application\\U.SmartStoreAdapter.Application.csproj",
+        "projectName": "U.SmartStoreAdapter.Application",
+        "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Application\\U.SmartStoreAdapter.Application.csproj",
+        "packagesPath": "C:\\Users\\Sebastian\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Sebastian\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Api\\U.SmartStoreAdapter.Api.csproj": {
+                "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Api\\U.SmartStoreAdapter.Api.csproj"
+              },
+              "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Domain\\U.SmartStoreAdapter.Domain.csproj": {
+                "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Domain\\U.SmartStoreAdapter.Domain.csproj"
+              },
+              "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Persistance\\U.SmartStoreAdapter.Persistance.csproj": {
+                "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Persistance\\U.SmartStoreAdapter.Persistance.csproj"
+              },
+              "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Common\\U.Common.csproj": {
+                "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Common\\U.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
+            "AutoMapper.Collection.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[0.2.0, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[8.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "MediatR.Extensions.Microsoft.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.DynamicLinq": {
+              "target": "Package",
+              "version": "[1.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "MiniProfiler.AspNetCore": {
+              "target": "Package",
+              "version": "[4.0.165, )"
+            },
+            "MiniProfiler.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[4.0.165, )"
+            },
+            "MiniProfiler.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[4.0.165, )"
+            },
+            "System.Linq.Dynamic.Core": {
+              "target": "Package",
+              "version": "[1.0.12, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Domain\\U.SmartStoreAdapter.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Domain\\U.SmartStoreAdapter.Domain.csproj",
+        "projectName": "U.SmartStoreAdapter.Domain",
+        "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Domain\\U.SmartStoreAdapter.Domain.csproj",
+        "packagesPath": "C:\\Users\\Sebastian\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Sebastian\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[8.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "MediatR.Extensions.Microsoft.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "MiniProfiler.AspNetCore": {
+              "target": "Package",
+              "version": "[4.0.165, )"
+            },
+            "MiniProfiler.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[4.0.165, )"
+            },
+            "MiniProfiler.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[4.0.165, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Persistance\\U.SmartStoreAdapter.Persistance.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Persistance\\U.SmartStoreAdapter.Persistance.csproj",
+        "projectName": "U.SmartStoreAdapter.Persistance",
+        "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Persistance\\U.SmartStoreAdapter.Persistance.csproj",
+        "packagesPath": "C:\\Users\\Sebastian\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Persistance\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Sebastian\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Domain\\U.SmartStoreAdapter.Domain.csproj": {
+                "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Domain\\U.SmartStoreAdapter.Domain.csproj"
+              },
+              "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Common\\U.Common.csproj": {
+                "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Common\\U.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[8.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "MediatR.Extensions.Microsoft.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "MiniProfiler.AspNetCore": {
+              "target": "Package",
+              "version": "[4.0.165, )"
+            },
+            "MiniProfiler.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[4.0.165, )"
+            },
+            "MiniProfiler.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[4.0.165, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL.Design": {
+              "target": "Package",
+              "version": "[2.0.0-preview1, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter\\U.SmartStoreAdapter.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter\\U.SmartStoreAdapter.csproj",
+        "projectName": "U.SmartStoreAdapter",
+        "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter\\U.SmartStoreAdapter.csproj",
+        "packagesPath": "C:\\Users\\Sebastian\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Sebastian\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Application\\U.SmartStoreAdapter.Application.csproj": {
+                "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Adapters\\Adapter.SmartStore\\U.SmartStoreAdapter.Application\\U.SmartStoreAdapter.Application.csproj"
+              },
+              "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Common\\U.Common.csproj": {
+                "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Common\\U.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[8.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "MediatR.Extensions.Microsoft.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.AspNetCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.AspNetCore.Razor.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "MiniProfiler.AspNetCore": {
+              "target": "Package",
+              "version": "[4.0.165, )"
+            },
+            "MiniProfiler.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[4.0.165, )"
+            },
+            "MiniProfiler.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[4.0.165, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "RequestInjector": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "Scrutor": {
+              "target": "Package",
+              "version": "[3.0.2, )"
+            },
+            "Swashbuckle.AspNetCore.Swagger": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerGen": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerUI": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Common\\U.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Common\\U.Common.csproj",
+        "projectName": "U.Common",
+        "projectPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Common\\U.Common.csproj",
+        "packagesPath": "C:\\Users\\Sebastian\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Sebastian\\RiderProjects\\Ubiquitous\\Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Sebastian\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Configuration.FileExtensions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL.Design": {
+              "target": "Package",
+              "version": "[2.0.0-preview1, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

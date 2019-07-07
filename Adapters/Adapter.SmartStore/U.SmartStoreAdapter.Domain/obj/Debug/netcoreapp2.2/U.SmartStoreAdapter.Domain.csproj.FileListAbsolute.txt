@@ -1,9 +1,0 @@
-C:\Users\Sebastian\RiderProjects\Ubiquitous\Adapters\Adapter.SmartStore\U.SmartStoreAdapter.Domain\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.Domain.deps.json
-C:\Users\Sebastian\RiderProjects\Ubiquitous\Adapters\Adapter.SmartStore\U.SmartStoreAdapter.Domain\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.Domain.dll
-C:\Users\Sebastian\RiderProjects\Ubiquitous\Adapters\Adapter.SmartStore\U.SmartStoreAdapter.Domain\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.Domain.pdb
-C:\Users\Sebastian\RiderProjects\Ubiquitous\Adapters\Adapter.SmartStore\U.SmartStoreAdapter.Domain\obj\Debug\netcoreapp2.2\U.SmartStoreAdapter.Domain.csprojAssemblyReference.cache
-C:\Users\Sebastian\RiderProjects\Ubiquitous\Adapters\Adapter.SmartStore\U.SmartStoreAdapter.Domain\obj\Debug\netcoreapp2.2\U.SmartStoreAdapter.Domain.csproj.CoreCompileInputs.cache
-C:\Users\Sebastian\RiderProjects\Ubiquitous\Adapters\Adapter.SmartStore\U.SmartStoreAdapter.Domain\obj\Debug\netcoreapp2.2\U.SmartStoreAdapter.Domain.AssemblyInfoInputs.cache
-C:\Users\Sebastian\RiderProjects\Ubiquitous\Adapters\Adapter.SmartStore\U.SmartStoreAdapter.Domain\obj\Debug\netcoreapp2.2\U.SmartStoreAdapter.Domain.AssemblyInfo.cs
-C:\Users\Sebastian\RiderProjects\Ubiquitous\Adapters\Adapter.SmartStore\U.SmartStoreAdapter.Domain\obj\Debug\netcoreapp2.2\U.SmartStoreAdapter.Domain.dll
-C:\Users\Sebastian\RiderProjects\Ubiquitous\Adapters\Adapter.SmartStore\U.SmartStoreAdapter.Domain\obj\Debug\netcoreapp2.2\U.SmartStoreAdapter.Domain.pdb
