@@ -23,11 +23,13 @@ bld/
 [Bb]in/*
 [Bb]in\*
 [Oo]bj/*
+/[Oo]bj/*
 [Oo]bj\*
 [Ll]og/
 [tT]arget/
 .idea/*
 .idea\*
+
 
 # Visual Studio 2015 cache/options directory
 .vs/
