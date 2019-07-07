@@ -1,7 +1,6 @@
 using System.Linq;
 using FluentValidation;
 using SmartStore.Persistance.Context;
-using U.FetchService.Application.Models;
 using U.SmartStoreAdapter.Api.Products;
 
 namespace U.SmartStoreAdapter.Application.Validators

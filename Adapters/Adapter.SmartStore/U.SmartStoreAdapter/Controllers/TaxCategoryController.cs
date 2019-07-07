@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using U.SmartStoreAdapter.Application.Operations.TaxCategory;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using U.SmartStoreAdapter.Api.Products;

@@ -12,7 +12,7 @@ namespace SmartStore.Persistance.Context
 {
     public class SmartStoreContext : DbContext
     {
-        public SmartStoreContext(DbContextOptions options) : base(options)
+        public SmartStoreContext(DbContextOptions<SmartStoreContext> options) : base(options)
         {
         }
 

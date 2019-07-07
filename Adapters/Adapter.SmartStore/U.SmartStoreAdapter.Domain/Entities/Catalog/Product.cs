@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
-using U.SmartStoreAdapter.Domain.Entities.Media;
-using Newtonsoft.Json;
 
 namespace U.SmartStoreAdapter.Domain.Entities.Catalog
 {

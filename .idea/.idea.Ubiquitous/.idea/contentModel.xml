@@ -24,7 +24,6 @@
         <e p="extensions" t="Include">
           <e p="ExceptionMiddleware.cs" t="Include" />
           <e p="HttpExtensions.cs" t="Include" />
-          <e p="ServiceCollectionExtensions.cs" t="Include" />
         </e>
         <e p="JsonsExamples" t="Include">
           <e p="Product.json" t="Include" />
@@ -241,8 +240,8 @@
           </e>
         </e>
         <e p="Migrations" t="Include">
-          <e p="20190515184724_InitialCreate.cs" t="Include" />
-          <e p="20190515184724_InitialCreate.Designer.cs" t="Include" />
+          <e p="20190706213208_IntialMigration5.cs" t="Include" />
+          <e p="20190706213208_IntialMigration5.Designer.cs" t="Include" />
           <e p="SmartStoreContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -263,6 +262,9 @@
           <e p="UnsupportedDatabaseException.cs" t="Include" />
         </e>
         <e p="DataTransaction.cs" t="Include" />
+        <e p="extensions" t="Include">
+          <e p="ServiceCollectionExtensions.cs" t="Include" />
+        </e>
         <e p="IPagination.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -282,11 +284,16 @@
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
-          <e p="WholesaleController.cs" t="Include" />
+          <e p="DaemonController.cs" t="Include" />
+          <e p="ServicesController.cs" t="Include" />
+          <e p="WholesalesController.cs" t="Include" />
         </e>
         <e p="Dockerfile" t="Include" />
+        <e p="Exceptions" t="Include">
+          <e p="MissingConfigurationException.cs" t="Include" />
+        </e>
         <e p="extensions" t="Include">
-          <e p="ServiceCollectionExtensions.cs" t="Include" />
+          <e p="SubscribedServiceExtensions.cs" t="Include" />
           <e p="WholesalesExtensions.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -306,13 +313,32 @@
       </e>
       <e p="Services\FetchService.Application" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="Mapping" t="Include">
-          <e p="ProductMappingProfile.cs" t="Include" />
+        <e p="Exceptions" t="Include">
+          <e p="FetchFailedException.cs" t="Include" />
+          <e p="ZeroProductsFetchedException.cs" t="Include" />
+        </e>
+        <e p="extensions" t="Include">
+          <e p="Hangfire" t="Include">
+            <e p="HangfireMediator.cs" t="Include" />
+            <e p="MediatRJobActivator.cs" t="Include" />
+          </e>
+          <e p="HttpClientExtensions.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
-          <e p="AvailableWholesales.cs" t="Include" />
-          <e p="IAvailableWholesales.cs" t="Include" />
-          <e p="IWholesale.cs" t="Include" />
+          <e p="HangfireSettings.cs" t="Include" />
+          <e p="PartySettings.cs" t="Include" />
+          <e p="SubscribedServices" t="Include">
+            <e p="IService.cs" t="Include" />
+            <e p="ISubscribedService.cs" t="Include" />
+            <e p="ProductService.cs" t="Include" />
+            <e p="SubscribedService.cs" t="Include" />
+          </e>
+          <e p="Wholesales" t="Include">
+            <e p="AvailableWholesales.cs" t="Include" />
+            <e p="IAvailableWholesales.cs" t="Include" />
+            <e p="IWholesale.cs" t="Include" />
+            <e p="SmartWholesale.cs" t="Include" />
+          </e>
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -321,30 +347,33 @@
             </e>
           </e>
         </e>
-        <e p="Observables" t="Include">
-          <e p="SmartBase.cs" t="Include" />
-          <e p="SmartWholesale.cs" t="Include" />
-        </e>
-        <e p="Services" t="Include">
-          <e p="FetchManager.cs" t="Include" />
-          <e p="FlowManager.cs" t="Include" />
-          <e p="StoringManager.cs" t="Include" />
+        <e p="Operations" t="Include">
+          <e p="Dispatch" t="Include">
+            <e p="DispatchCommand.cs" t="Include" />
+            <e p="DispatchCommandHandler.cs" t="Include" />
+          </e>
+          <e p="FetchProducts" t="Include">
+            <e p="FetchDataCommand.cs" t="Include" />
+            <e p="FetchDataQueryHandler.cs" t="Include" />
+            <e p="FetchDataResult.cs" t="Include" />
+          </e>
+          <e p="ForwardProducts" t="Include">
+            <e p="ForwardDataCommand.cs" t="Include" />
+            <e p="ForwardDataCommandHandler.cs" t="Include" />
+          </e>
+          <e p="StoreTransaction" t="Include">
+            <e p="StoreTransactionCommand.cs" t="Include" />
+            <e p="StoreTransactionCommandHandler.cs" t="Include" />
+          </e>
         </e>
         <e p="U.FetchService.Application.csproj" t="IncludeRecursive" />
       </e>
       <e p="Services\FetchService.Domain" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Entities" t="Include">
-          <e p="Common" t="Include">
-            <e p="Modified.cs" t="Include" />
-          </e>
-          <e p="Picture" t="Include">
-            <e p="Picture.cs" t="Include" />
-          </e>
-          <e p="Product" t="Include">
-            <e p="Product.cs" t="Include" />
-            <e p="ProductTag.cs" t="Include" />
-          </e>
+          <e p="BatchTransaction.cs" t="Include" />
+          <e p="Executed.cs" t="Include" />
+          <e p="Party.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -358,15 +387,15 @@
       <e p="Services\FetchService.Persistance" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Context" t="Include">
-          <e p="UmContext.cs" t="Include" />
+          <e p="FetchServiceContext.cs" t="Include" />
         </e>
         <e p="DesignTimeDb" t="Include">
           <e p="DesignTimeDbContextFactory.cs" t="Include" />
         </e>
         <e p="Migrations" t="Include">
-          <e p="20190611205509_init2.cs" t="Include" />
-          <e p="20190611205509_init2.Designer.cs" t="Include" />
-          <e p="UmContextModelSnapshot.cs" t="Include" />
+          <e p="20190706214147_IntialMigration.cs" t="Include" />
+          <e p="20190706214147_IntialMigration.Designer.cs" t="Include" />
+          <e p="FetchServiceContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -374,10 +403,6 @@
               <e p="U.FetchService.Persistance.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
-        </e>
-        <e p="Repositories" t="Include">
-          <e p="IProductRepository.cs" t="Include" />
-          <e p="ProductRepository.cs" t="Include" />
         </e>
         <e p="U.FetchService.Persistance.csproj" t="IncludeRecursive" />
       </e>

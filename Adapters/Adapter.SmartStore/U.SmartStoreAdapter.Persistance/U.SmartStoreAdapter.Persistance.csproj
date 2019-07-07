@@ -30,4 +30,8 @@
       <ProjectReference Include="..\U.SmartStoreAdapter.Domain\U.SmartStoreAdapter.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations" />
+    </ItemGroup>
+
 </Project>

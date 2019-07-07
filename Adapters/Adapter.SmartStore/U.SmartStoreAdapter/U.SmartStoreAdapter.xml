@@ -136,19 +136,6 @@
             <param name="contentType"></param>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="T:U.SmartStoreAdapter.Extensions.ServiceCollectionExtensions">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:U.SmartStoreAdapter.Extensions.ServiceCollectionExtensions.AddSmartContext(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
-            <summary>
-            
-            </summary>
-            <param name="services"></param>
-            <param name="configuration"></param>
-            <exception cref="T:System.Exception"></exception>
-        </member>
         <member name="T:U.SmartStoreAdapter.Program">
             <summary>
             Main Program

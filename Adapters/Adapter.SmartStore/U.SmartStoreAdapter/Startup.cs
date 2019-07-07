@@ -7,12 +7,12 @@ using U.SmartStoreAdapter.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RequestInjector.NetCore;
 using SmartStore.Persistance.Context;
 using Swashbuckle.AspNetCore.Swagger;
+using U.FetchService.Extensions;
 using U.SmartStoreAdapter.Api.Products;
 using U.SmartStoreAdapter.Application.Operations.Notifications;
 using U.SmartStoreAdapter.Application.Operations.Products;
@@ -105,7 +105,7 @@ namespace U.SmartStoreAdapter
 
             #region DbContext register
             
-            services.AddSmartContext(Configuration);
+            services.AddDatabaseContext<SmartStoreContext>(Configuration);
             
             #endregion
         }

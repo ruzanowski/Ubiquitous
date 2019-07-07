@@ -4,21 +4,21 @@ using Microsoft.Extensions.Configuration;
 using U.FetchService.Persistance.Configuration;
 using U.SmartStoreAdapter.Application.Models.Exceptions;
 
-namespace U.Common
+namespace U.Common.Database
 {
     public static class ContextDesigner
     {
-        public static T CreateDbContext<T>(string mainFilePath) where T : DbContext
+        public static DbContextOptionsBuilder<T> CreateDbContextOptionsBuilder<T>(string mainFilePath) where T : DbContext
         {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
+            var configuration = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory + mainFilePath)
                 .AddJsonFile("appsettings.json")
                 .Build();
-            DbContextOptionsBuilder<T> builder = new DbContextOptionsBuilder<T>();
+            var builder = new DbContextOptionsBuilder<T>();
 
             SetDbProviders(ref builder, configuration);
 
-            return (T) new DbContext(builder.Options);
+            return builder;
         }
 
         private static void SetDbProviders<T>(ref DbContextOptionsBuilder<T> builder, IConfigurationRoot configuration) where T : DbContext
@@ -27,7 +27,7 @@ namespace U.Common
             var dbOptions = new DbOptions();
             configuration.GetSection(dbOptionsSection).Bind(dbOptions);
 
-            if (dbOptions?.Connection is null)
+            if (dbOptions.Connection is null)
             {
                 throw new UnsupportedDatabaseException("Database options are missing.");
             }

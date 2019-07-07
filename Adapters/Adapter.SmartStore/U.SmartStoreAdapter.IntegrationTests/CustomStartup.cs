@@ -1,5 +1,4 @@
 using System;
-using U.SmartStoreAdapter;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;

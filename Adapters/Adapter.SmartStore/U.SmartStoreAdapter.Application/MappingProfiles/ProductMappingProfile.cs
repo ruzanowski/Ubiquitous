@@ -1,6 +1,5 @@
 using System;
 using AutoMapper;
-using U.FetchService.Application.Models;
 using U.SmartStoreAdapter.Api.Products;
 using U.SmartStoreAdapter.Domain.Entities.Catalog;
 

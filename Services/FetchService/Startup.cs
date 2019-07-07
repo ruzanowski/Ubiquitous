@@ -1,8 +1,9 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Reflection;
 using AutoMapper;
-using U.FetchService.Application.Mapping;
-using U.FetchService.Application.Services;
+using Hangfire;
+using Hangfire.PostgreSql;
 using U.FetchService.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -10,9 +11,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
-using U.FetchService.Persistance.Repositories;
+using U.FetchService.Application.Extensions.Hangfire;
+using U.FetchService.Application.Operations.Dispatch;
+using U.FetchService.Application.Operations.FetchProducts;
+using U.FetchService.Persistance.Configuration;
+using U.FetchService.Persistance.Context;
 
 namespace U.FetchService
 {
@@ -44,20 +48,19 @@ namespace U.FetchService
             #region services
 
             services.AddSingleton<HttpClient>();
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddAvailableWholesales();
-            
+            services.AddAvailableWholesales(Configuration);
+            services.AddSubscribedService(Configuration);
+
             #endregion
 
             #region MediatR register
 
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
-                typeof(StoringManager).GetTypeInfo().Assembly,
-                typeof(FetchManager).GetTypeInfo().Assembly);
+                typeof(FetchDataCommand).GetTypeInfo().Assembly,
+            typeof(DispatchCommand).GetTypeInfo().Assembly);
 
             services.Scan(scan => scan
-                .FromAssemblyOf<StoringManager>()
-                .FromAssemblyOf<FetchManager>()
+                .FromAssemblyOf<FetchDataCommand>()
                 .AddClasses()
                 .AsSelf()
                 .WithTransientLifetime());
@@ -72,12 +75,7 @@ namespace U.FetchService
 
             #region Automapper profiles & init
 
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new ProductMappingProfile());
-                mc.AllowNullCollections = true;
-                ;
-            });
+            var mappingConfig = new MapperConfiguration(mc => { mc.AllowNullCollections = true; });
             var mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
@@ -85,9 +83,25 @@ namespace U.FetchService
 
             #region DbContext
 
-            services.AddUmContext(Configuration);
+            services.AddDatabaseContext<FetchServiceContext>(Configuration);
 
             #endregion
+            
+            const string dbOptionsSection = "DbOptions";
+            var dbOptions = new DbOptions();
+            Configuration.GetSection(dbOptionsSection).Bind(dbOptions);
+
+            if (dbOptions.Connection is null)
+            {
+                throw new Exception("Database options are missing.");
+            }
+            
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UsePostgreSqlStorage(dbOptions.Connection));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,6 +120,18 @@ namespace U.FetchService
             });
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
+
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
+            
+            Hangfire.RecurringJob.AddOrUpdate<HangfireMediator>(job => job.SendCommand(new DispatchCommand
+                {
+                    Executor = "Hangfire",
+                    ExecutorComment = "Recurring job"
+                }),
+                Cron.Minutely,
+                TimeZoneInfo.Utc);
+
         }
     }
 }

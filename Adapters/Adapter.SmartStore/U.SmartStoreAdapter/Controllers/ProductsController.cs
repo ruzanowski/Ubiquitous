@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using U.SmartStoreAdapter.Application.Models;
 using U.SmartStoreAdapter.Application.Models.DataRequests;
 using U.SmartStoreAdapter.Domain.Entities.Catalog;
 using MediatR;

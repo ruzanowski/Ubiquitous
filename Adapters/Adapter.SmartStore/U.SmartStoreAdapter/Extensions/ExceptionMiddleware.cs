@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq.Dynamic.Core.Exceptions;
 using System.Reflection;
 using System.Threading.Tasks;
-using U.SmartStoreAdapter.Application.Models.Exceptions;
 using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
