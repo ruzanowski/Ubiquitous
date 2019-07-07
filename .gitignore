@@ -29,6 +29,12 @@ bld/
 [tT]arget/
 .idea/*
 .idea\*
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
 
 
 # Visual Studio 2015 cache/options directory
