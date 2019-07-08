@@ -1,6 +1,6 @@
 using System;
 
-namespace U.SmartStoreAdapter.Application.Models.DataRequests
+namespace U.Common
 {
     public class DataTransaction<TIn, TOut>
     {

@@ -1,4 +1,4 @@
-namespace U.FetchService.Persistance.Configuration
+namespace U.Common.Database
 {
     public class DbOptions
     {

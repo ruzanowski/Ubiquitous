@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace U.FetchService.Application.Extensions.Hangfire
+namespace U.FetchService.Application.Jobs
 {
     public class HangfireMediator
     {
@@ -18,7 +18,6 @@ namespace U.FetchService.Application.Extensions.Hangfire
         /// <param name="request"></param>
         public void SendCommand(IRequest request)
         { 
-
             _mediator.Send(request).GetAwaiter().GetResult();
         }
     }

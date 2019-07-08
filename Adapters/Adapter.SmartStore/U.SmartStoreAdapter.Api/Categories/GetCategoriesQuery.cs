@@ -1,5 +1,5 @@
 using MediatR;
-using U.FetchService.Application.Models;
+using U.Common;
 
 namespace U.SmartStoreAdapter.Api.Categories
 {

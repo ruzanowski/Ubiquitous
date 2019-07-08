@@ -19,6 +19,8 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="2.2.2" />
         <PackageReference Include="Scrutor" Version="3.0.2" />
         <PackageReference Include="System.Net.Http" Version="4.3.4" />
+        <PackageReference Include="RawRabbit" Version="1.*" />
+        <PackageReference Include="RawRabbit.vNext" Version="1.*" />
     </ItemGroup>
 
     <ItemGroup>
@@ -30,30 +32,6 @@
       <ProjectReference Include="..\..\Common\U.Common.csproj" />
       <ProjectReference Include="..\FetchService.Domain\U.FetchService.Domain.csproj" />
       <ProjectReference Include="..\FetchService.Persistance\U.FetchService.Persistance.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <_ResolveComReferenceCache Remove="obj\Debug\netcoreapp2.2\U.FetchService.Application.csproj.ResolveComReference.cache" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <IntermediateAssembly Remove="obj\Debug\netcoreapp2.2\U.FetchService.Application.dll" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <_DebugSymbolsIntermediatePath Remove="obj\Debug\netcoreapp2.2\U.FetchService.Application.pdb" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <_DeploymentManifestEntryPoint Remove="obj\Debug\netcoreapp2.2\U.FetchService.Application.dll" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ApplicationManifest Remove="obj\Debug\netcoreapp2.2\Native.U.FetchService.Application.manifest" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <DeployManifest Remove="obj\Debug\netcoreapp2.2\U.FetchService.Application.application" />
     </ItemGroup>
     
 </Project>

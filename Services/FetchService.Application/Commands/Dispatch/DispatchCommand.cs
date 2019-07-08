@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace U.FetchService.Application.Operations.Dispatch
+namespace U.FetchService.Application.Commands.Dispatch
 {
     public class DispatchCommand : IRequest
     {

@@ -9,7 +9,7 @@ using U.FetchService.Application.Exceptions;
 using U.FetchService.Application.Models.Wholesales;
 using U.SmartStoreAdapter.Api.Products;
 
-namespace U.FetchService.Application.Operations.FetchProducts
+namespace U.FetchService.Application.Commands.FetchProducts
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class FetchDataQueryHandler : IRequestHandler<FetchDataCommand, FetchDataResult>

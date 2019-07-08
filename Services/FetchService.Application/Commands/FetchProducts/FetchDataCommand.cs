@@ -1,7 +1,7 @@
 using MediatR;
 using U.FetchService.Application.Models.Wholesales;
 
-namespace U.FetchService.Application.Operations.FetchProducts
+namespace U.FetchService.Application.Commands.FetchProducts
 {
     public class FetchDataCommand : IRequest<FetchDataResult>
     {

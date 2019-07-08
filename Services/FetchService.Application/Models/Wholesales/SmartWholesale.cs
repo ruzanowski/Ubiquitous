@@ -2,6 +2,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using U.Common;
 using U.FetchService.Application.Exceptions;
 using U.SmartStoreAdapter.Api.Endpoints;
 using U.SmartStoreAdapter.Api.Products;

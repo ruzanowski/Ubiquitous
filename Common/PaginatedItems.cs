@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace U.FetchService.Application.Models
+namespace U.Common
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class PaginatedItems<T> : IPagination

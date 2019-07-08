@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using SmartStore.Persistance.Context;
-using U.FetchService.Application.Models;
+using U.Common;
 using U.SmartStoreAdapter.Api.Categories;
 using U.SmartStoreAdapter.Domain.Entities.Catalog;
 

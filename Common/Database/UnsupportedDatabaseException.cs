@@ -1,6 +1,6 @@
 using System;
 
-namespace U.SmartStoreAdapter.Application.Models.Exceptions
+namespace U.Common.Database
 {
     public class UnsupportedDatabaseException : Exception
     {

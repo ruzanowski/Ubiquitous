@@ -2,7 +2,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Newtonsoft.Json;
-using U.FetchService.Application.Models;
+using U.Common;
 using U.SmartStoreAdapter.Api.Products;
 using Xunit;
 

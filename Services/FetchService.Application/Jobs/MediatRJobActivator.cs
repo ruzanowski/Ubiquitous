@@ -2,7 +2,7 @@ using System;
 using Hangfire;
 using MediatR;
 
-namespace U.FetchService.Application.Extensions.Hangfire
+namespace U.FetchService.Application.Jobs
 {
     public class MediatRJobActivator : JobActivator
     {

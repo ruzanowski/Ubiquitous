@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
-using U.SmartStoreAdapter.Application.Models.DataRequests;
 using U.SmartStoreAdapter.Domain.Entities.Catalog;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using U.FetchService.Application.Models;
+using U.Common;
 using U.SmartStoreAdapter.Api.Products;
 
 namespace U.SmartStoreAdapter.Controllers

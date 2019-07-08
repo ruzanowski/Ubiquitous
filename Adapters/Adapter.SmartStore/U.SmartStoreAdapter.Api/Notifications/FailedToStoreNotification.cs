@@ -1,6 +1,6 @@
 using System;
 using MediatR;
-using U.SmartStoreAdapter.Application.Models.DataRequests;
+using U.Common;
 
 namespace U.SmartStoreAdapter.Api.Notifications
 {

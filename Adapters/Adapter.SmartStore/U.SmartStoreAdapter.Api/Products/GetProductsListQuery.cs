@@ -1,5 +1,5 @@
 using MediatR;
-using U.FetchService.Application.Models;
+using U.Common;
 using U.SmartStoreAdapter.Api.QueryModels;
 
 namespace U.SmartStoreAdapter.Api.Products

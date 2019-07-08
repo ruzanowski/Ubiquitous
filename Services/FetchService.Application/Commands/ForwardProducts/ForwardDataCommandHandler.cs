@@ -5,7 +5,7 @@ using MediatR;
 using U.FetchService.Application.Models.SubscribedServices;
 using U.FetchService.Domain.Entities;
 
-namespace U.FetchService.Application.Operations.ForwardProducts
+namespace U.FetchService.Application.Commands.ForwardProducts
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class ForwardDataCommandHandler : IRequestHandler<ForwardDataCommand, Party>

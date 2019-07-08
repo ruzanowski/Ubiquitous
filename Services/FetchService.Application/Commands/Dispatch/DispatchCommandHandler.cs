@@ -2,13 +2,13 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using U.FetchService.Application.Commands.FetchProducts;
+using U.FetchService.Application.Commands.ForwardProducts;
+using U.FetchService.Application.Commands.StoreTransaction;
 using U.FetchService.Application.Models.Wholesales;
-using U.FetchService.Application.Operations.FetchProducts;
-using U.FetchService.Application.Operations.ForwardProducts;
-using U.FetchService.Application.Operations.StoreTransaction;
 using U.FetchService.Domain.Entities;
 
-namespace U.FetchService.Application.Operations.Dispatch
+namespace U.FetchService.Application.Commands.Dispatch
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class DispatchCommandHandler : IRequestHandler<DispatchCommand>

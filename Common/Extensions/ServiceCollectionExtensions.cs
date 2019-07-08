@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using U.FetchService.Persistance.Configuration;
-using U.SmartStoreAdapter.Application.Models.Exceptions;
+using RawRabbit;
+using RawRabbit.Configuration;
+using RawRabbit.vNext;
+using U.Common.Database;
 
 // ReSharper disable RedundantCaseLabel
 
-namespace U.FetchService.Extensions
+namespace U.Common.Extensions
 {
     public static class ServiceCollectionExtensions
     {
@@ -44,6 +46,15 @@ namespace U.FetchService.Extensions
             services.AddSingleton(dbOptions);
         }
 
+        public static void AddRabbitMq(this IServiceCollection services, IConfigurationSection section)
+        {
+            // RabbitMQ Configuration
+            var options = new RawRabbitConfiguration();
+            section.Bind(options);
+        
+            var client = BusClientFactory.CreateDefault(options);
+            services.AddSingleton<IBusClient>(_ => client);
+        }
 
     }
 }

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using U.Common;
 using U.SmartStoreAdapter.Api.Products;
 
 namespace U.FetchService.Application.Models.Wholesales

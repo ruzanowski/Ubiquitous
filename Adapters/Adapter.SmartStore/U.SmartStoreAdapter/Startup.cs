@@ -12,7 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using RequestInjector.NetCore;
 using SmartStore.Persistance.Context;
 using Swashbuckle.AspNetCore.Swagger;
-using U.FetchService.Extensions;
+using U.Common.Extensions;
+using U.Common.Notifications;
+using U.FetchService.Api;
 using U.SmartStoreAdapter.Api.Products;
 using U.SmartStoreAdapter.Application.Operations.Notifications;
 using U.SmartStoreAdapter.Application.Operations.Products;
@@ -108,6 +110,10 @@ namespace U.SmartStoreAdapter
             services.AddDatabaseContext<SmartStoreContext>(Configuration);
             
             #endregion
+            
+            //rabbitmq
+            services.AddRabbitMq(Configuration.GetSection("rabbitmq"));
+            services.AddTransient<IHandler<SendMessage>, SendMessageHandler>();
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP transaction pipeline.
@@ -129,6 +135,7 @@ namespace U.SmartStoreAdapter
             app.UseHttpsRedirection();
             app.UseMiniProfiler();
             app.UseMvc();
+            app.AddHandler<SendMessage>();
         }
     }
 }

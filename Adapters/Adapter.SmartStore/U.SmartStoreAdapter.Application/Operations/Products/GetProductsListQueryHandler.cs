@@ -5,7 +5,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartStore.Persistance.Context;
-using U.FetchService.Application.Models;
+using U.Common;
 using U.SmartStoreAdapter.Api.Products;
 using U.SmartStoreAdapter.Domain.Entities.Catalog;
 

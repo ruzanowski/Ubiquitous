@@ -1,8 +1,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using U.FetchService.Persistance.Configuration;
-using U.SmartStoreAdapter.Application.Models.Exceptions;
 
 namespace U.Common.Database
 {

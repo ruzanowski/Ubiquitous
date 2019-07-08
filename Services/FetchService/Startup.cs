@@ -1,9 +1,7 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Reflection;
 using AutoMapper;
 using Hangfire;
-using Hangfire.PostgreSql;
 using U.FetchService.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -12,10 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
-using U.FetchService.Application.Extensions.Hangfire;
-using U.FetchService.Application.Operations.Dispatch;
-using U.FetchService.Application.Operations.FetchProducts;
-using U.FetchService.Persistance.Configuration;
+using U.Common.Extensions;
+using U.Common.Notifications;
+using U.FetchService.Api;
+using U.FetchService.Application.Commands.Dispatch;
+using U.FetchService.Application.Commands.FetchProducts;
+using U.FetchService.Application.Jobs;
 using U.FetchService.Persistance.Context;
 
 namespace U.FetchService
@@ -36,12 +36,12 @@ namespace U.FetchService
             #region General & Swagger
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            ;
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"});
                 c.DescribeAllEnumsAsStrings();
-            });
+            }).AddLogging();
 
             #endregion
 
@@ -67,12 +67,6 @@ namespace U.FetchService
 
             #endregion
 
-            #region Logging
-
-            services.AddLogging();
-
-            #endregion
-
             #region Automapper profiles & init
 
             var mappingConfig = new MapperConfiguration(mc => { mc.AllowNullCollections = true; });
@@ -81,27 +75,18 @@ namespace U.FetchService
 
             #endregion
 
-            #region DbContext
 
+            //DbContext
             services.AddDatabaseContext<FetchServiceContext>(Configuration);
 
-            #endregion
+            //Hangfire
+            services.AddHangFire(Configuration);
+                        
+            // RabbitMQ Configuration
+            services.AddRabbitMq(Configuration.GetSection("rabbitmq"));
             
-            const string dbOptionsSection = "DbOptions";
-            var dbOptions = new DbOptions();
-            Configuration.GetSection(dbOptionsSection).Bind(dbOptions);
-
-            if (dbOptions.Connection is null)
-            {
-                throw new Exception("Database options are missing.");
-            }
-            
-            services.AddHangfire(configuration => configuration
-                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-                .UseSimpleAssemblyNameTypeSerializer()
-                .UseRecommendedSerializerSettings()
-                .UsePostgreSqlStorage(dbOptions.Connection));
-
+            //Notifications
+            services.AddTransient<IHandler<SendMessage>, SendMessageHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -121,17 +106,10 @@ namespace U.FetchService
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
 
-            app.UseHangfireDashboard();
-            app.UseHangfireServer();
-            
-            Hangfire.RecurringJob.AddOrUpdate<HangfireMediator>(job => job.SendCommand(new DispatchCommand
-                {
-                    Executor = "Hangfire",
-                    ExecutorComment = "Recurring job"
-                }),
-                Cron.Minutely,
-                TimeZoneInfo.Utc);
+            app.UseBackgroundJobs();
 
+            //rabbit
+            app.AddHandler<SendMessage>();
         }
     }
 }
