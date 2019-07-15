@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchService", "Services\FetchService\U.FetchService.csproj", "{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchService", "Services\Fetch\U.FetchService\U.FetchService.csproj", "{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchService.Application", "Services\FetchService.Application\U.FetchService.Application.csproj", "{A30EC8CD-5840-4D0E-A5A4-79818823FEEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchService.Application", "Services\Fetch\U.FetchService.Application\U.FetchService.Application.csproj", "{A30EC8CD-5840-4D0E-A5A4-79818823FEEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchService.Domain", "Services\FetchService.Domain\U.FetchService.Domain.csproj", "{B6974409-EB5D-44E2-8A18-AA79D90EAA2D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchService.Domain", "Services\Fetch\U.FetchService.Domain\U.FetchService.Domain.csproj", "{B6974409-EB5D-44E2-8A18-AA79D90EAA2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchService.Persistance", "Services\FetchService.Persistance\U.FetchService.Persistance.csproj", "{0A519189-30FE-4514-A764-104CC57D439F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchService.Persistance", "Services\Fetch\U.FetchService.Persistance\U.FetchService.Persistance.csproj", "{0A519189-30FE-4514-A764-104CC57D439F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmartstoreAdapter", "U.SmartstoreAdapter", "{F6FEBE1F-9974-4282-8497-97CB808E65CB}"
 EndProject
@@ -14,23 +14,35 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "U.ApiGateway"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FetchService", "FetchService", "{2F31A504-325D-475E-9B94-5BA9D525A2AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Application", "Adapters\Adapter.SmartStore\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj", "{F14867ED-37E5-4F19-924A-42766C65D87C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Application", "Adapters\SmartStore\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj", "{F14867ED-37E5-4F19-924A-42766C65D87C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter", "Adapters\Adapter.SmartStore\U.SmartStoreAdapter\U.SmartStoreAdapter.csproj", "{C69F02D4-2798-4039-86B8-D4A28488546E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter", "Adapters\SmartStore\U.SmartStoreAdapter\U.SmartStoreAdapter.csproj", "{C69F02D4-2798-4039-86B8-D4A28488546E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Persistance", "Adapters\Adapter.SmartStore\U.SmartStoreAdapter.Persistance\U.SmartStoreAdapter.Persistance.csproj", "{13B6AD0E-533B-4C72-99B7-4107F3B0DC97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Persistance", "Adapters\SmartStore\U.SmartStoreAdapter.Persistance\U.SmartStoreAdapter.Persistance.csproj", "{13B6AD0E-533B-4C72-99B7-4107F3B0DC97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.IntegrationTests", "Adapters\Adapter.SmartStore\U.SmartStoreAdapter.IntegrationTests\U.SmartStoreAdapter.IntegrationTests.csproj", "{C6D6B674-7F22-4830-A683-2EE9BD5CC92F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.IntegrationTests", "Adapters\SmartStore\U.SmartStoreAdapter.IntegrationTests\U.SmartStoreAdapter.IntegrationTests.csproj", "{C6D6B674-7F22-4830-A683-2EE9BD5CC92F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Domain", "Adapters\Adapter.SmartStore\U.SmartStoreAdapter.Domain\U.SmartStoreAdapter.Domain.csproj", "{B43A5FA0-F92F-41B7-B602-F033C3E442FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Domain", "Adapters\SmartStore\U.SmartStoreAdapter.Domain\U.SmartStoreAdapter.Domain.csproj", "{B43A5FA0-F92F-41B7-B602-F033C3E442FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Api", "Adapters\Adapter.SmartStore\U.SmartStoreAdapter.Api\U.SmartStoreAdapter.Api.csproj", "{E0CD5A53-83AD-4BCD-8F00-21CDFC6B23FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Api", "Adapters\SmartStore\U.SmartStoreAdapter.Api\U.SmartStoreAdapter.Api.csproj", "{E0CD5A53-83AD-4BCD-8F00-21CDFC6B23FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.Common", "Common\U.Common.csproj", "{0631559D-B348-47A5-9CB5-AB7E805A4A7D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{AD753C1A-0D4C-4BC5-8793-FF2795F0F49E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.FetchService.Api", "U.FetchService.Api\U.FetchService.Api.csproj", "{3A5C13EE-1D03-4501-93DD-358CA1D4D4B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.FetchService.Api", "Services\Fetch\U.FetchService.Api\U.FetchService.Api.csproj", "{3A5C13EE-1D03-4501-93DD-358CA1D4D4B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductService", "Services\Product\U.ProductService\ProductService", "{51D661E6-65C4-4D1F-977B-1B9281DEAE87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService", "Services\Product\U.ProductService\U.ProductService.csproj", "{4CE3CE71-D2CA-4C79-A4D6-079F864469FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Application", "Services\Product\U.ProductService.Application\U.ProductService.Application.csproj", "{22DAFAE7-B419-459B-8A0D-8FAAFFE92561}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Domain", "Services\Product\U.ProductService.Domain\U.ProductService.Domain.csproj", "{DC85C2E0-7301-4999-9A4C-BE86E160FE9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Persistance", "Services\Product\U.ProductService.Persistance\U.ProductService.Persistance.csproj", "{EF9867D9-6D57-47F0-A88C-F6BEF82089BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Api", "Services\Product\U.ProductService.Api\U.ProductService.Api.csproj", "{69EEA922-BBB0-49EA-A653-7E9AA60095CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +98,26 @@ Global
 		{3A5C13EE-1D03-4501-93DD-358CA1D4D4B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A5C13EE-1D03-4501-93DD-358CA1D4D4B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A5C13EE-1D03-4501-93DD-358CA1D4D4B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CE3CE71-D2CA-4C79-A4D6-079F864469FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CE3CE71-D2CA-4C79-A4D6-079F864469FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CE3CE71-D2CA-4C79-A4D6-079F864469FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CE3CE71-D2CA-4C79-A4D6-079F864469FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22DAFAE7-B419-459B-8A0D-8FAAFFE92561}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22DAFAE7-B419-459B-8A0D-8FAAFFE92561}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22DAFAE7-B419-459B-8A0D-8FAAFFE92561}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22DAFAE7-B419-459B-8A0D-8FAAFFE92561}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC85C2E0-7301-4999-9A4C-BE86E160FE9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC85C2E0-7301-4999-9A4C-BE86E160FE9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC85C2E0-7301-4999-9A4C-BE86E160FE9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC85C2E0-7301-4999-9A4C-BE86E160FE9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF9867D9-6D57-47F0-A88C-F6BEF82089BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF9867D9-6D57-47F0-A88C-F6BEF82089BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF9867D9-6D57-47F0-A88C-F6BEF82089BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF9867D9-6D57-47F0-A88C-F6BEF82089BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69EEA922-BBB0-49EA-A653-7E9AA60095CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69EEA922-BBB0-49EA-A653-7E9AA60095CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69EEA922-BBB0-49EA-A653-7E9AA60095CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69EEA922-BBB0-49EA-A653-7E9AA60095CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8} = {2F31A504-325D-475E-9B94-5BA9D525A2AA}
@@ -100,5 +132,10 @@ Global
 		{E0CD5A53-83AD-4BCD-8F00-21CDFC6B23FE} = {F6FEBE1F-9974-4282-8497-97CB808E65CB}
 		{0631559D-B348-47A5-9CB5-AB7E805A4A7D} = {AD753C1A-0D4C-4BC5-8793-FF2795F0F49E}
 		{3A5C13EE-1D03-4501-93DD-358CA1D4D4B0} = {2F31A504-325D-475E-9B94-5BA9D525A2AA}
+		{4CE3CE71-D2CA-4C79-A4D6-079F864469FF} = {51D661E6-65C4-4D1F-977B-1B9281DEAE87}
+		{22DAFAE7-B419-459B-8A0D-8FAAFFE92561} = {51D661E6-65C4-4D1F-977B-1B9281DEAE87}
+		{DC85C2E0-7301-4999-9A4C-BE86E160FE9A} = {51D661E6-65C4-4D1F-977B-1B9281DEAE87}
+		{EF9867D9-6D57-47F0-A88C-F6BEF82089BA} = {51D661E6-65C4-4D1F-977B-1B9281DEAE87}
+		{69EEA922-BBB0-49EA-A653-7E9AA60095CD} = {51D661E6-65C4-4D1F-977B-1B9281DEAE87}
 	EndGlobalSection
 EndGlobal

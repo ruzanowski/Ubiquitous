@@ -1,0 +1,45 @@
+version: "3.5"
+
+services:
+  mongo:
+    image: mongo:4
+    container_name: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - ubiquitous
+    volumes:
+      - mongo:/data/db
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - ubiquitous
+    volumes: 
+      - rabbitmq:/var/lib/rabbitmq
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - 6379:6379
+    networks:
+      - ubiquitous
+    volumes: 
+      - redis:/data
+
+networks:
+  ubiquitous:
+    name: ubiquitous-network
+
+volumes:
+  mongo:
+    driver: local
+  rabbitmq:
+    driver: local
+  redis:
+    driver: local

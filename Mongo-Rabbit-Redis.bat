@@ -1,0 +1,1 @@
+docker-compose -f mongo-rabbit-redis.yml up
