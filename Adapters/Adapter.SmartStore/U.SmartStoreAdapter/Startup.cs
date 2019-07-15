@@ -113,6 +113,7 @@ namespace U.SmartStoreAdapter
             
             //rabbitmq
             services.AddRabbitMq(Configuration.GetSection("rabbitmq"));
+            services.AddLoggingBehaviour();
             services.AddTransient<IHandler<SendMessage>, SendMessageHandler>();
         }
 

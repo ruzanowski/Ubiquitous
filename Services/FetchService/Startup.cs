@@ -16,6 +16,7 @@ using U.FetchService.Api;
 using U.FetchService.Application.Commands.Dispatch;
 using U.FetchService.Application.Commands.FetchProducts;
 using U.FetchService.Application.Jobs;
+using U.FetchService.Infrastructure;
 using U.FetchService.Persistance.Context;
 
 namespace U.FetchService
@@ -84,6 +85,7 @@ namespace U.FetchService
                         
             // RabbitMQ Configuration
             services.AddRabbitMq(Configuration.GetSection("rabbitmq"));
+            services.AddLoggingBehaviour();
             
             //Notifications
             services.AddTransient<IHandler<SendMessage>, SendMessageHandler>();

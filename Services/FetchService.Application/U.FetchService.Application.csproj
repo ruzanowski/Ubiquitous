@@ -12,7 +12,6 @@
         <PackageReference Include="Hangfire.Core" Version="1.7.4" />
         <PackageReference Include="Hangfire.PostgreSql" Version="1.6.0" />
         <PackageReference Include="MediatR" Version="7.0.0" />
-        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />

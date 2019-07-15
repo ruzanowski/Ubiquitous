@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using Hangfire;
 using Hangfire.PostgreSql;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -12,6 +13,7 @@ using U.FetchService.Application.Models;
 using U.FetchService.Application.Models.SubscribedServices;
 using U.FetchService.Application.Models.Wholesales;
 using U.FetchService.Exceptions;
+using U.FetchService.Infrastructure;
 
 namespace U.FetchService.Extensions
 {
@@ -28,23 +30,17 @@ namespace U.FetchService.Extensions
             services.AddSingleton<IAvailableWholesales, AvailableWholesales>(
                 provider => new AvailableWholesales
                 {
-                    Wholesales = provider.GetWholesales(availableWholesales)
+                    Wholesales = availableWholesales.Select(wholesale => new SmartWholesale(
+                        provider.GetService<HttpClient>(),
+                        provider.GetService<ILogger<SmartWholesale>>(),
+                        new PartySettings
+                        {
+                            Ip = wholesale.Ip,
+                            Name = wholesale.Name,
+                            Port = wholesale.Port,
+                            Protocol = wholesale.Protocol
+                        }))
                 });
-        }
-
-        private static IEnumerable<IWholesale> GetWholesales(this IServiceProvider provider,
-            IEnumerable<PartySettings> wholesalesSettings)
-        {
-            return wholesalesSettings.Select(wholesale => new SmartWholesale(
-                provider.GetService<HttpClient>(),
-                provider.GetService<ILogger<SmartWholesale>>(),
-                new PartySettings
-                {
-                    Ip = wholesale.Ip,
-                    Name = wholesale.Name,
-                    Port = wholesale.Port,
-                    Protocol = wholesale.Protocol
-                }));
         }
 
         public static void AddSubscribedService(this IServiceCollection services, IConfiguration configuration)
@@ -88,5 +84,6 @@ namespace U.FetchService.Extensions
                 .UseRecommendedSerializerSettings()
                 .UsePostgreSqlStorage(dbOptions.Connection));
         }
+        
     }
 }
