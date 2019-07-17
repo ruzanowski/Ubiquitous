@@ -3,7 +3,6 @@ using System.Reflection;
 using AutoMapper;
 using MediatR;
 using U.SmartStoreAdapter.Application.MappingProfiles;
-using U.SmartStoreAdapter.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +15,7 @@ using U.Common.Installers;
 using U.SmartStoreAdapter.Api.Products;
 using U.SmartStoreAdapter.Application.Operations.Notifications;
 using U.SmartStoreAdapter.Application.Operations.Products;
+using U.SmartStoreAdapter.Middleware;
 using IRequest = MediatR.IRequest;
 
 namespace U.SmartStoreAdapter
@@ -101,7 +101,9 @@ namespace U.SmartStoreAdapter
             #endregion
 
             //DbContext            
-            services.AddDatabaseContext<SmartStoreContext>(Configuration);
+            services
+                .AddDatabaseOptionsAsSingleton(Configuration)
+                .AddDatabaseContext<SmartStoreContext>();
             
             //Logging Behaviour Pipeline
             services.AddLoggingBehaviour();

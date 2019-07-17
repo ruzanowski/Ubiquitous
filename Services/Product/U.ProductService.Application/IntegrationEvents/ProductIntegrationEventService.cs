@@ -1,0 +1,63 @@
+﻿using System;
+using System.Data.Common;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using U.EventBus.Abstractions;
+using U.EventBus.Events;
+using U.IntegrationEventLog.Services;
+using U.ProductService.Persistance;
+
+namespace U.ProductService.Application.IntegrationEvents
+{
+    public class ProductIntegrationEventService : IProductIntegrationEventService
+    {
+        private readonly Func<DbConnection, IIntegrationEventLogService> _integrationEventLogServiceFactory;
+        private readonly IEventBus _eventBus;
+        private readonly ProductContext _ProductContext;
+        private readonly IIntegrationEventLogService _eventLogService;
+        private readonly ILogger<ProductIntegrationEventService> _logger;
+
+        public ProductIntegrationEventService(IEventBus eventBus,
+            ProductContext productContext,
+            Func<DbConnection, IIntegrationEventLogService> integrationEventLogServiceFactory,
+            ILogger<ProductIntegrationEventService> logger)
+        {
+            _ProductContext = productContext ?? throw new ArgumentNullException(nameof(productContext));
+            _integrationEventLogServiceFactory = integrationEventLogServiceFactory ?? throw new ArgumentNullException(nameof(integrationEventLogServiceFactory));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _eventLogService = _integrationEventLogServiceFactory(_ProductContext.Database.GetDbConnection());
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
+        public async Task PublishEventsThroughEventBusAsync(Guid transactionId)
+        {
+            var pendingLogEvents = await _eventLogService.RetrieveEventLogsPendingToPublishAsync(transactionId);
+
+            foreach (var logEvt in pendingLogEvents)
+            {
+                _logger.LogInformation("----- Publishing integration event: {IntegrationEventId} from ProductService - ({@IntegrationEvent})", logEvt.EventId, logEvt.IntegrationEvent);
+
+                try
+                {
+                    await _eventLogService.MarkEventAsInProgressAsync(logEvt.EventId);
+                    _eventBus.Publish(logEvt.IntegrationEvent);
+                    await _eventLogService.MarkEventAsPublishedAsync(logEvt.EventId);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "ERROR publishing integration event: {IntegrationEventId} from ProductService", logEvt.EventId);
+
+                    await _eventLogService.MarkEventAsFailedAsync(logEvt.EventId);
+                }
+            }
+        }
+
+        public async Task AddAndSaveEventAsync(IntegrationEvent evt)
+        {
+            _logger.LogInformation("----- Enqueuing integration event {IntegrationEventId} to repository ({@IntegrationEvent})", evt.Id, evt);
+
+            await _eventLogService.SaveEventAsync(evt, _ProductContext.GetCurrentTransaction());
+        }
+    }
+}

@@ -1,15 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Reflection;
+using AutoMapper;
+using HealthChecks.UI.Client;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using U.Common.Installers;
+using U.EventBus.Abstractions;
+using U.EventBus.RabbitMQ;
+using U.IntegrationEventLog;
+using U.ProductService.Extensions;
+using U.ProductService.Middleware;
+using U.ProductService.Persistance;
 
 namespace U.ProductService
 {
@@ -25,24 +31,72 @@ namespace U.ProductService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddCustomMvc()
+                .AddDatabaseOptionsAsSingleton(Configuration)
+                .AddDatabaseContext<ProductContext>()
+                .AddEventBus(Configuration)
+                .AddIntegrationEventLogContext(Configuration)
+                .AddHealthChecks(Configuration)
+                .AddCustomIntegrations(Configuration)
+                .AddMediatR(typeof(Startup).GetTypeInfo().Assembly)
+                .AddLoggingBehaviour()
+                .AddLogging()
+                .AddSwaggerGen(c => c.DescribeAllEnumsAsStrings());
+
+            //Services
+            services.AddSingleton(new MapperConfiguration(mc =>
+            {
+                //maps
+            }).CreateMapper());
+
+            services.AddScoped<HttpClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            if (env.IsDevelopment())
+            var pathBase = Configuration["PATH_BASE"];
+            if (!string.IsNullOrEmpty(pathBase))
             {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                loggerFactory.CreateLogger<Startup>().LogDebug("Using PATH BASE '{pathBase}'", pathBase);
+                app.UsePathBase(pathBase);
             }
 
-            app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseDeveloperExceptionPage();
+            app.AddExceptionMiddleWare();
+            app.UseMvcWithDefaultRoute();
+
+            app.UseSwagger();
+            app.UseSwagger()
+                .UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint(
+                        $"{(!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty)}/swagger/v1/swagger.json",
+                        "ProductService V1");
+                });
+
+            app.UseCors("CorsPolicy");
+
+            app.UseHealthChecks("/liveness", new HealthCheckOptions
+            {
+                Predicate = r => r.Name.Contains("self")
+            });
+
+            app.UseHealthChecks("/hc", new HealthCheckOptions()
+            {
+                Predicate = _ => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
+
+            ConfigureEventBus(app);
+        }
+
+        private void ConfigureEventBus(IApplicationBuilder app)
+        {
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+
+
+            //subscribed integration events handlers
         }
     }
 }

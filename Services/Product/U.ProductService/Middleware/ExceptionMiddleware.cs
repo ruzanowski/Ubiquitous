@@ -1,20 +1,18 @@
 using System;
 using System.Data;
 using System.IO;
-using System.Linq.Dynamic.Core.Exceptions;
 using System.Reflection;
 using System.Threading.Tasks;
-using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
-using U.SmartStoreAdapter.Application.Exceptions;
+using U.ProductService.Extensions;
 
 #pragma warning disable 1998
 
-namespace U.SmartStoreAdapter.Extensions
+namespace U.ProductService.Middleware
 {
     /// <summary>
     /// Exception Middleware that catches all exceptions
@@ -42,7 +40,7 @@ namespace U.SmartStoreAdapter.Extensions
             // you should implement your own as you may want to interpret it differently
             // i.e. based on the current principal
 
-            var problemDetails = new ProblemDetails {Instance = $"instance:Db.Integration:error:{Guid.NewGuid()}"};
+            var problemDetails = new ProblemDetails {Instance = $"instance:ProductService:error:{Guid.NewGuid()}"};
 
 
             switch (exception)
@@ -77,11 +75,6 @@ namespace U.SmartStoreAdapter.Extensions
                     problemDetails.Status = 400;
                     problemDetails.Detail = invalidDataException.Message;
                     break;
-                case ParseException parseException:
-                    problemDetails.Title = nameof(parseException);
-                    problemDetails.Status = 400;
-                    problemDetails.Detail = parseException.Message;
-                    break;
                 case MissingFieldException missingFieldException:
                     problemDetails.Title = nameof(missingFieldException);
                     problemDetails.Status = (int) typeof(BadHttpRequestException).GetProperty("StatusCode", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(missingFieldException);
@@ -96,16 +89,6 @@ namespace U.SmartStoreAdapter.Extensions
                     problemDetails.Title = nameof(missingMemberException);
                     problemDetails.Status = (int) typeof(BadHttpRequestException).GetProperty("StatusCode", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(missingMemberException);
                     problemDetails.Detail = missingMemberException.Message;
-                    break;
-                case ValidationException validationException:
-                    problemDetails.Title = nameof(validationException);
-                    problemDetails.Status = 400;
-                    problemDetails.Detail = validationException.Message;
-                    break;
-                case ObjectNotFoundException objectNotFoundException:
-                    problemDetails.Title = nameof(objectNotFoundException);
-                    problemDetails.Status = 404;
-                    problemDetails.Detail = objectNotFoundException.Message;
                     break;
                 default:
                     problemDetails.Title = "An unexpected error occurred!";

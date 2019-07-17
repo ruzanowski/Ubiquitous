@@ -9,13 +9,26 @@ namespace U.Common.Installers
 {
     public static class DbContextInstaller
     {
-        public static void AddDatabaseContext<T>(this IServiceCollection services, IConfiguration configuration)
-            where T : DbContext
+        public static IServiceCollection AddDatabaseOptionsAsSingleton(this IServiceCollection services,
+            IConfiguration configuration)
         {
             const string dbOptionsSection = "DbOptions";
             var dbOptions = new DbOptions();
             configuration.GetSection(dbOptionsSection).Bind(dbOptions);
 
+            if (dbOptions.Connection is null)
+            {
+                throw new UnsupportedDatabaseException("Database options are missing.");
+            } 
+            services.AddSingleton(dbOptions);
+            return services;
+        }
+        
+        public static IServiceCollection AddDatabaseContext<T>(this IServiceCollection services)
+            where T : DbContext
+        {
+            var dbOptions = services.BuildServiceProvider().GetService<DbOptions>();
+            
             if (dbOptions.Connection is null)
             {
                 throw new UnsupportedDatabaseException("Database options are missing.");
@@ -35,6 +48,7 @@ namespace U.Common.Installers
             }
 
             services.AddSingleton(dbOptions);
+            return services;
         }
     }
 }

@@ -5,32 +5,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-          <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.http.abstractions\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
-        </Reference>
-        <Reference Include="Microsoft.EntityFrameworkCore, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-            <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.2.0\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
-        </Reference>
-        <Reference Include="Microsoft.Extensions.Configuration, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-            <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.configuration\2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
-        </Reference>
-        <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-            <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.configuration.abstractions\2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
-        </Reference>
-        <Reference Include="RawRabbit, Version=1.10.4.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\..\..\.nuget\packages\rawrabbit\1.10.4\lib\netstandard1.5\RawRabbit.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="MediatR" Version="7.0.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.0" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="2.0.0-preview1" />
+        <PackageReference Include="Polly" Version="7.1.0" />
         <PackageReference Include="RawRabbit" Version="2.0.0-rc5" />
         <PackageReference Include="RawRabbit.DependencyInjection.ServiceCollection" Version="2.0.0-rc5" />
         <PackageReference Include="RawRabbit.Operations.Publish" Version="2.0.0-rc5" />

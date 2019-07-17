@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using U.Common.Installers;
-using U.FetchService.Api;
 using U.FetchService.Application.Commands.Dispatch;
 using U.FetchService.Application.Commands.FetchProducts;
 using U.FetchService.Application.Jobs;
@@ -75,7 +74,9 @@ namespace U.FetchService
 
 
             //DbContext
-            services.AddDatabaseContext<FetchServiceContext>(Configuration);
+            services
+                .AddDatabaseOptionsAsSingleton(Configuration)
+                .AddDatabaseContext<FetchServiceContext>();
 
             //Hangfire
             services.AddHangFire(Configuration);
