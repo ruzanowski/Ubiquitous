@@ -1,15 +1,17 @@
 using System;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using U.Common.Database;
+using U.IntegrationEventLog.Services;
 
 namespace U.IntegrationEventLog
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddIntegrationEventLogContext(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddIntegrationEventLog(this IServiceCollection services, IConfiguration configuration)
         {
             var dbOptions = services.BuildServiceProvider().GetService<DbOptions>();
             
@@ -27,7 +29,10 @@ namespace U.IntegrationEventLog
                         //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
                         npsqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30),null);
                     });
+                options.ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
             });
+
+            services.AddTransient<IIntegrationEventLogService, IntegrationEventLogService>();
 
             return services;
         }

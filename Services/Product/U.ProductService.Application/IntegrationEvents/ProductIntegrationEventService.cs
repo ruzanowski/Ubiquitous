@@ -1,33 +1,29 @@
 ﻿using System;
-using System.Data.Common;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
 using U.EventBus.Events;
 using U.IntegrationEventLog.Services;
-using U.ProductService.Persistance;
+using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.IntegrationEvents
 {
     public class ProductIntegrationEventService : IProductIntegrationEventService
     {
-        private readonly Func<DbConnection, IIntegrationEventLogService> _integrationEventLogServiceFactory;
         private readonly IEventBus _eventBus;
-        private readonly ProductContext _ProductContext;
+        private readonly ProductContext _productContext;
         private readonly IIntegrationEventLogService _eventLogService;
         private readonly ILogger<ProductIntegrationEventService> _logger;
 
         public ProductIntegrationEventService(IEventBus eventBus,
             ProductContext productContext,
-            Func<DbConnection, IIntegrationEventLogService> integrationEventLogServiceFactory,
-            ILogger<ProductIntegrationEventService> logger)
+            ILogger<ProductIntegrationEventService> logger,
+            IIntegrationEventLogService eventLogService)
         {
-            _ProductContext = productContext ?? throw new ArgumentNullException(nameof(productContext));
-            _integrationEventLogServiceFactory = integrationEventLogServiceFactory ?? throw new ArgumentNullException(nameof(integrationEventLogServiceFactory));
+            _productContext = productContext ?? throw new ArgumentNullException(nameof(productContext));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _eventLogService = _integrationEventLogServiceFactory(_ProductContext.Database.GetDbConnection());
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _eventLogService = eventLogService ?? throw new ArgumentNullException(nameof(eventLogService));
         }
 
         public async Task PublishEventsThroughEventBusAsync(Guid transactionId)
@@ -57,7 +53,7 @@ namespace U.ProductService.Application.IntegrationEvents
         {
             _logger.LogInformation("----- Enqueuing integration event {IntegrationEventId} to repository ({@IntegrationEvent})", evt.Id, evt);
 
-            await _eventLogService.SaveEventAsync(evt, _ProductContext.GetCurrentTransaction());
+            await _eventLogService.SaveEventAsync(evt, _productContext.GetCurrentTransaction());
         }
     }
 }

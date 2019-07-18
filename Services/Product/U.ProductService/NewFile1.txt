@@ -1,0 +1,9 @@
+Swagger nie dziala.                                                                             DONE
+Serilog, server? 8081 nic nie ma                                                                UNDONE
+EventBusLog migracja, trzeba wygenerowac i wskazac odpowiedni folder.                           DONE
+Wywalic RabbitMQ, stary styl.                                                                   DONE
+private void ConfigureEventBus(IApplicationBuilder app) brakuje - dopisac handlery              UNDONE
+Stworzyc komende, ktora bedzie tworzyc produkt bez wysypanego kodu                              UNDONE
+Eventy domenowe sluza do no-side effect informowania.
+IntegrationEventy sluza do informowania w innych BoundedContextach.                             UNDONE
+Rozpracowac to!!!

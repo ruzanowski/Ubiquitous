@@ -6,14 +6,15 @@ using Microsoft.Extensions.Configuration;
 using Serilog;
 using U.Common.Extensions;
 using U.IntegrationEventLog;
-using U.ProductService.Persistance;
+using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService
 {
     public class Program
     {
-        public static readonly string Namespace = typeof(Program).Namespace;
-        public static readonly string AppName = Namespace.Substring(Namespace.LastIndexOf('.', Namespace.LastIndexOf('.') - 1) + 1);
+        private static readonly string Namespace = typeof(Program).Namespace;
+
+        private static readonly string AppName = Namespace.Substring(Namespace.LastIndexOf('.', Namespace.LastIndexOf('.') - 1) + 1);
         
         public static int Main(string[] args)
         {
@@ -56,7 +57,7 @@ namespace U.ProductService
                 .UseSerilog()
                 .Build();
         
-        private static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
+        private static ILogger CreateSerilogLogger(IConfiguration configuration)
         {
             var seqServerUrl = configuration["Serilog:SeqServerUrl"];
             var logstashUrl = configuration["Serilog:LogstashgUrl"];
@@ -65,8 +66,8 @@ namespace U.ProductService
                 .Enrich.WithProperty("ApplicationContext", AppName)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.Seq(string.IsNullOrWhiteSpace(seqServerUrl) ? "http://seq" : seqServerUrl)
-                .WriteTo.Http(string.IsNullOrWhiteSpace(logstashUrl) ? "http://logstash:8081" : logstashUrl)
+                .WriteTo.Seq(string.IsNullOrWhiteSpace(seqServerUrl) ? "http://localhost:6667" : seqServerUrl) // todo:
+                .WriteTo.Http(string.IsNullOrWhiteSpace(logstashUrl) ? "http://localhost:8801" : logstashUrl)
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
         }

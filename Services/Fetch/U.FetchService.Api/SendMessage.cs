@@ -1,8 +1,8 @@
-using MediatR;
+using U.EventBus.Events;
 
 namespace U.FetchService.Api
 {
-    public class SendMessage : IRequest
+    public class SendMessage : IntegrationEvent
     {
         public string Message { get; }
         public SendMessage(string message)

@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using RequestInjector.NetCore;
 using SmartStore.Persistance.Context;
-using Swashbuckle.AspNetCore.Swagger;
 using U.Common.Installers;
 using U.SmartStoreAdapter.Api.Products;
 using U.SmartStoreAdapter.Application.Operations.Notifications;
@@ -52,7 +52,7 @@ namespace U.SmartStoreAdapter
             //Swagger 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo{Title = "My API", Version = "v1"});
                 c.DescribeAllEnumsAsStrings();
             });
 

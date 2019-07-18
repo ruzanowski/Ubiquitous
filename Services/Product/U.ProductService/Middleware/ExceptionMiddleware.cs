@@ -23,12 +23,13 @@ namespace U.ProductService.Middleware
         /// 
         /// </summary>
         /// <param name="app"></param>
-        public static void AddExceptionMiddleWare(this IApplicationBuilder app)
+        public static IApplicationBuilder AddExceptionMiddleWare(this IApplicationBuilder app)
         {
             app.UseExceptionHandler(errorApp =>
             {
                 errorApp.Run(ExceptionMiddlewarePipeline);
             });
+            return app;
         }
 
         private static async Task ExceptionMiddlewarePipeline(HttpContext context)
@@ -93,10 +94,10 @@ namespace U.ProductService.Middleware
                 default:
                     problemDetails.Title = "An unexpected error occurred!";
                     problemDetails.Status = 500;
-                    problemDetails.Detail = exception.StackTrace.ToString();
+                    problemDetails.Detail = exception.StackTrace;
                     break;
             }
-            // log the exception etc..
+            // log the exception etc.. 
             // logger.LogInformation(problemDetails.ToString());
 
             context.Response.StatusCode = problemDetails.Status.Value;

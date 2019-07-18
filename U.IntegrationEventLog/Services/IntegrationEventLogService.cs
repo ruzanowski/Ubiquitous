@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage;
 using U.EventBus.Events;
 
@@ -14,19 +12,13 @@ namespace U.IntegrationEventLog.Services
     public class IntegrationEventLogService : IIntegrationEventLogService
     {
         private readonly IntegrationEventLogContext _integrationEventLogContext;
-        private readonly DbConnection _dbConnection;
         private readonly List<Type> _eventTypes;
 
-        public IntegrationEventLogService(DbConnection dbConnection)
+        public IntegrationEventLogService(IntegrationEventLogContext integrationEventLogContext)
         {
-            _dbConnection = dbConnection ?? throw new ArgumentNullException(nameof(dbConnection));
-            _integrationEventLogContext = new IntegrationEventLogContext(
-                new DbContextOptionsBuilder<IntegrationEventLogContext>()
-                    .UseSqlServer(_dbConnection)
-                    .ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning))
-                    .Options);
+            _integrationEventLogContext = integrationEventLogContext;
 
-            _eventTypes = Assembly.Load(Assembly.GetEntryAssembly().FullName)
+            _eventTypes = Assembly.Load(Assembly.GetEntryAssembly()?.FullName)
                 .GetTypes()
                 .Where(t => t.Name.EndsWith(nameof(IntegrationEvent)))
                 .ToList();

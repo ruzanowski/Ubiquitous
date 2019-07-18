@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.OpenApi.Models;
 using U.Common.Installers;
 using U.FetchService.Application.Commands.Dispatch;
 using U.FetchService.Application.Commands.FetchProducts;
@@ -36,7 +36,7 @@ namespace U.FetchService
             
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo{Title = "My API", Version = "v1"});
                 c.DescribeAllEnumsAsStrings();
             }).AddLogging();
 
@@ -82,7 +82,6 @@ namespace U.FetchService
             services.AddHangFire(Configuration);
                         
             // RabbitMQ Configuration
-            services.AddRabbitMq(Configuration.GetSection("rabbitmq"));
             services.AddLoggingBehaviour();
         }
 

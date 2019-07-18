@@ -1,27 +1,16 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
-using U.FetchService.Persistance.Messaging;
+using U.EventBus.Abstractions;
 
 namespace U.FetchService.Application.Commands.SendMessage
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public class SendMessageHandler : IRequestHandler<Api.SendMessage>
+    public class SendMessageHandler : IIntegrationEventHandler<Api.SendMessage>
     {
-        private readonly RabbitEventPublisher _bus;
 
-        public SendMessageHandler(RabbitEventPublisher bus)
+        public async Task Handle(Api.SendMessage @event)
         {
-            _bus = bus;
-        }
-
-        public async Task<Unit> Handle(Api.SendMessage request, CancellationToken cancellationToken)
-        {
-            await _bus.PublishMessage(request);
-            
-            await Task.CompletedTask;
-            return Unit.Value;
+            await Task.CompletedTask; // todo: send message
         }
     }
 }

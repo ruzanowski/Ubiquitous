@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Common\U.Common.csproj" />
+      <ProjectReference Include="..\..\..\U.EventBus\U.EventBus.csproj" />
     </ItemGroup>
 
 </Project>

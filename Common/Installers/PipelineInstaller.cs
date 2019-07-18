@@ -1,4 +1,3 @@
-using System.Collections;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using U.Common.Behaviours;
