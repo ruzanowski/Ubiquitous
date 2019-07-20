@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using U.Common.Database;
 using U.IntegrationEventLog.Services;
 
 namespace U.IntegrationEventLog
@@ -13,13 +12,6 @@ namespace U.IntegrationEventLog
     {
         public static IServiceCollection AddIntegrationEventLog(this IServiceCollection services, IConfiguration configuration)
         {
-            var dbOptions = services.BuildServiceProvider().GetService<DbOptions>();
-            
-            if (dbOptions.Connection is null)
-            {
-                throw new UnsupportedDatabaseException("Database options are missing.");
-            }
-            
             services.AddDbContext<IntegrationEventLogContext>(options =>
             {
                 options.UseNpgsql(configuration["IntegrationEventLogConnection"],

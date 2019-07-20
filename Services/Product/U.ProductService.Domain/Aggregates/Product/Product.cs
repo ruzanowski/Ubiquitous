@@ -1,7 +1,6 @@
 ﻿using System;
 using U.ProductService.Domain.Events;
 using U.ProductService.Domain.SeedWork;
-
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
 
 namespace U.ProductService.Domain.Aggregates.Product
@@ -37,7 +36,7 @@ namespace U.ProductService.Domain.Aggregates.Product
             
             var productAddedEvent = new ProductAddedDomainEvent(Id, manufacturerId);        
             
-            AddDomainEvent(productAddedEvent);
+            this.AddDomainEvent(productAddedEvent);
         }
 
         public void SetBuyerId(int id)

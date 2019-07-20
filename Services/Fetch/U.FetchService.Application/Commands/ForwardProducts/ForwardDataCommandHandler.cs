@@ -2,7 +2,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using U.FetchService.Application.Models.SubscribedServices;
+using Microsoft.Extensions.Logging;
+using U.EventBus.Abstractions;
+using U.FetchService.Api.IntegrationEvents;
 using U.FetchService.Domain.Entities;
 
 namespace U.FetchService.Application.Commands.ForwardProducts
@@ -10,22 +12,41 @@ namespace U.FetchService.Application.Commands.ForwardProducts
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class ForwardDataCommandHandler : IRequestHandler<ForwardDataCommand, Party>
     {
-        private readonly IService _service;
-        //todo: forward data to subscribed entities(product service) with RabbitMq
-        public ForwardDataCommandHandler(ISubscribedService subscribedService)
+        private readonly IEventBus _bus;
+        private readonly ILogger<ForwardDataCommandHandler> _logger;
+
+        public ForwardDataCommandHandler(IEventBus bus, ILogger<ForwardDataCommandHandler> logger)
         {
-            _service = subscribedService.Service;
+            _bus = bus;
+            _logger = logger;
         }
-        
-        public async Task<Party> Handle(ForwardDataCommand request, CancellationToken cancellationToken)
+
+        public async Task<Party> Handle(ForwardDataCommand command, CancellationToken cancellationToken)
         {
-            await _service.ForwardData(request.Data);
+            foreach (var product in command.Data)
+            {
+                var @event = new NewProductFetchedIntegrationEvent(product.Name, product.ManufacturerId,
+                    product.ProductUniqueCode, product.ManufacturerPartNumber,
+                    product.InStock, product.TaxCategoryId, product.PriceInTax, product.ProductCost,
+                    product.PriceMinimumSpecifiedByCustomer, product.Description, product.Length, product.Width,
+                    product.Height, product.Weight, product.MainPictureId, product.CategoryId, product.ProductTags,
+                    product.PicturesIds, product.UrlSlug, product.Id, product.CountryMade, product.IsPublished);
+
+                _logger.LogInformation(
+                    "----- Publishing integration event: {IntegrationEventId} from 'FetchService' - ({@IntegrationEvent})",
+                    @event.Id, @event);
+                
+                //fire and forget
+                _bus.Publish(@event);
+            }
+
+            await Task.CompletedTask;
 
             return Party.Factory.Create(
-                _service.Settings.Name,
-                _service.Settings.Ip,
-                _service.Settings.Port,
-                _service.Settings.Protocol);
+                "ProductService",
+                "localhost",
+                5003,
+                "http");
         }
     }
 }

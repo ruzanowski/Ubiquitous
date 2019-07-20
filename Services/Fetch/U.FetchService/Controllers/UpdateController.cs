@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RawRabbit;
-using U.FetchService.Api;
 
 namespace U.FetchService.Controllers
 {
@@ -16,7 +15,6 @@ namespace U.FetchService.Controllers
         [Route("Create")]
         public async Task<IActionResult> Create()
         {
-            await _client.PublishAsync(new SendMessage("Test Message"));
         
             return Accepted();
         }

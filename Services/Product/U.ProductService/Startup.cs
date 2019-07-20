@@ -12,11 +12,13 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using RabbitMQ.Client;
+using U.Common.Behaviours;
 using U.Common.Database;
 using U.Common.Installers;
 using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
+using U.ProductService.Application.Behaviours;
 using U.ProductService.Application.Commands;
 using U.ProductService.Application.IntegrationEvents;
 using U.ProductService.Domain.Aggregates.Product;
@@ -41,12 +43,11 @@ namespace U.ProductService
             services.AddCustomMvc()
                 .AddDatabaseOptionsAsSingleton(Configuration)
                 .AddDatabaseContext<ProductContext>()
-                .AddEventBus(Configuration)
+                .AddEventBusRabbitMq(Configuration)
                 .AddIntegrationEventLog(Configuration)
                 .AddHealthChecks(Configuration)
-                .AddCustomIntegrations(Configuration)
                 .AddMediatR(typeof(CreateProductCommand).GetTypeInfo().Assembly)
-                .AddLoggingBehaviour()
+                .AddCustomPipelineBehaviours()
                 .AddLogging()
                 .AddCustomSwagger()
                 .AddCustomMapper()
@@ -68,7 +69,7 @@ namespace U.ProductService
                 .UseCors("CorsPolicy")
                 .UseHealthChecks()
                 .UseCustomEventBus()
-                .AddExceptionMiddleWare()
+                .AddExceptionMiddleware()
                 .UseCustomSwagger(pathBase);
         }
     }
@@ -79,7 +80,8 @@ namespace U.ProductService
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
-            
+            services.AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>();
+
             return services;
         }
         
@@ -162,7 +164,7 @@ namespace U.ProductService
 
         public static IServiceCollection AddCustomMvc(this IServiceCollection services)
         {
-            // Add framework services.
+            // AddAsync framework services.
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddControllersAsServices(); //Injecting Controllers themselves thru DI
@@ -181,49 +183,18 @@ namespace U.ProductService
             return services;
         }
 
-        public static IServiceCollection AddCustomIntegrations(this IServiceCollection services,
-            IConfiguration configuration)
-        {
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>();
-            services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
-            {
-                var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
-
-                var factory = new ConnectionFactory
-                {
-                    HostName = configuration["EventBusConnection"],
-                    DispatchConsumersAsync = true
-                };
-
-                if (!string.IsNullOrEmpty(configuration["EventBusUserName"]))
-                {
-                    factory.UserName = configuration["EventBusUserName"];
-                }
-
-                if (!string.IsNullOrEmpty(configuration["EventBusPassword"]))
-                {
-                    factory.Password = configuration["EventBusPassword"];
-                }
-
-                var retryCount = 5;
-                if (!string.IsNullOrEmpty(configuration["EventBusRetryCount"]))
-                {
-                    retryCount = int.Parse(configuration["EventBusRetryCount"]);
-                }
-
-                return new DefaultRabbitMQPersistentConnection(factory, logger, retryCount);
-            });
-
-            return services;
-        }
-
         public static IApplicationBuilder UseCustomEventBus(this IApplicationBuilder app)
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
             //subscribed integration events handlers
             return app;
+        }
+        public static IServiceCollection AddCustomPipelineBehaviours(this IServiceCollection services)
+        {
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TransactionBehaviour<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
+             return services;
         }
     }
 }

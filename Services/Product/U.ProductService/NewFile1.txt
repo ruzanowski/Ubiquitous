@@ -3,7 +3,14 @@ Serilog, server? 8081 nic nie ma                                                
 EventBusLog migracja, trzeba wygenerowac i wskazac odpowiedni folder.                           DONE
 Wywalic RabbitMQ, stary styl.                                                                   DONE
 private void ConfigureEventBus(IApplicationBuilder app) brakuje - dopisac handlery              UNDONE
-Stworzyc komende, ktora bedzie tworzyc produkt bez wysypanego kodu                              UNDONE
+Stworzyc komende, ktora bedzie tworzyc produkt bez wysypanego kodu                              DONE
 Eventy domenowe sluza do no-side effect informowania.
 IntegrationEventy sluza do informowania w innych BoundedContextach.                             UNDONE
 Rozpracowac to!!!
+
+
+Dopisac IntegrationEvent do FetcherService, ktory bedzie potrafil przesylac to za pomoca NBusa.
+Dopisac do FetcherService  konfiguracji
+dopisac do ProductService subskrypcje na dany typ notyfikacji.
+Sprawdzic czy sciezka SSA - FS - PS bedzie poprawna, czy beda sie przesylac eventy integracyjne 
+

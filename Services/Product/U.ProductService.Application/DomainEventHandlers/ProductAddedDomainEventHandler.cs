@@ -26,7 +26,6 @@ namespace U.ProductService.Application.DomainEventHandlers
             //-- mock --
             var mockManufacturer = $"Manufacturer No. {Guid.NewGuid()}";
 
-
             var newProductEvent = new NewProductAvailableIntegrationEvent(productAddedEvent.ProductId, mockManufacturer);
             await _productIntegrationEventService.AddAndSaveEventAsync(newProductEvent);
 

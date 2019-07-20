@@ -33,7 +33,7 @@ namespace U.ProductService.Persistance.Contexts
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 
-            System.Diagnostics.Debug.WriteLine("ProductContext::ctor ->" + GetHashCode());
+            System.Diagnostics.Debug.WriteLine("ProductContext::ctor ->" + this.GetHashCode());
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -51,7 +51,8 @@ namespace U.ProductService.Persistance.Contexts
 
         public async Task<IDbContextTransaction> BeginTransactionAsync()
         {
-            if (_currentTransaction != null) return null;
+            if (HasActiveTransaction) 
+                return null;
 
             _currentTransaction = await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
 

@@ -18,9 +18,9 @@ namespace U.ProductService.Persistance.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public Aggregates.Product Add(Aggregates.Product product)
+        public async Task<Aggregates.Product> AddAsync(Aggregates.Product product)
         {
-            return  _context.Products.Add(product).Entity;
+            return  (await _context.Products.AddAsync(product)).Entity;
                
         }
 

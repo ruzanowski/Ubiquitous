@@ -23,7 +23,7 @@ namespace U.ProductService.Middleware
         /// 
         /// </summary>
         /// <param name="app"></param>
-        public static IApplicationBuilder AddExceptionMiddleWare(this IApplicationBuilder app)
+        public static IApplicationBuilder AddExceptionMiddleware(this IApplicationBuilder app)
         {
             app.UseExceptionHandler(errorApp =>
             {

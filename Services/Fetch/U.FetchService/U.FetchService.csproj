@@ -41,7 +41,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Common\U.Common.csproj" />
-      <ProjectReference Include="..\U.FetchService.Api\U.FetchService.Api.csproj" />
+      <ProjectReference Include="..\..\..\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
       <ProjectReference Include="..\U.FetchService.Application\U.FetchService.Application.csproj" />
     </ItemGroup>
 

@@ -27,9 +27,17 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\Adapters\SmartStore\U.SmartStoreAdapter.Api\U.SmartStoreAdapter.Api.csproj" />
       <ProjectReference Include="..\..\..\Common\U.Common.csproj" />
-      <ProjectReference Include="..\U.FetchService.Api\U.FetchService.Api.csproj" />
+      <ProjectReference Include="..\..\..\U.EventBus\U.EventBus.csproj" />
+      <ProjectReference Include="..\..\..\U.FetchService.Api\U.FetchService.Api.csproj" />
+      <ProjectReference Include="..\..\..\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
       <ProjectReference Include="..\U.FetchService.Domain\U.FetchService.Domain.csproj" />
       <ProjectReference Include="..\U.FetchService.Persistance\U.FetchService.Persistance.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+        <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.logging.abstractions\2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      </Reference>
     </ItemGroup>
     
 </Project>

@@ -8,7 +8,7 @@ namespace U.ProductService.Domain.Aggregates.Product
 
     public interface IProductRepository : IRepository<Product>
     {
-        Product Add(Product product);
+        Task<Product> AddAsync(Product product);
         
         void Update(Product product);
 

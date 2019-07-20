@@ -10,10 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using U.Common.Installers;
+using U.EventBus.RabbitMQ;
 using U.FetchService.Application.Commands.Dispatch;
 using U.FetchService.Application.Commands.FetchProducts;
 using U.FetchService.Application.Jobs;
 using U.FetchService.Persistance.Context;
+using U.IntegrationEventLog;
 
 namespace U.FetchService
 {
@@ -83,6 +85,10 @@ namespace U.FetchService
                         
             // RabbitMQ Configuration
             services.AddLoggingBehaviour();
+            
+            //event bus
+            services.AddIntegrationEventLog(Configuration);
+            services.AddEventBusRabbitMq(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
