@@ -138,14 +138,15 @@
         </member>
         <member name="T:U.SmartStoreAdapter.Program">
             <summary>
-            Main Program
+            
             </summary>
         </member>
         <member name="M:U.SmartStoreAdapter.Program.Main(System.String[])">
             <summary>
-            Main Program
+            
             </summary>
             <param name="args"></param>
+            <returns></returns>
         </member>
         <member name="T:U.SmartStoreAdapter.Startup">
             <summary>
