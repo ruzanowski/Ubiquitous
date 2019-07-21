@@ -9,10 +9,18 @@ IntegrationEventy sluza do informowania w innych BoundedContextach.             
 Rozpracowac to!!!
 
 
-Dopisac IntegrationEvent do FetcherService, ktory bedzie potrafil przesylac to za pomoca NBusa.
-Dopisac do FetcherService  konfiguracji
-dopisac do ProductService subskrypcje na dany typ notyfikacji.
-Sprawdzic czy sciezka SSA - FS - PS bedzie poprawna, czy beda sie przesylac eventy integracyjne 
+Dopisac IntegrationEvent do FetcherService, ktory bedzie potrafil przesylac to za pomoca NBusa. DONE
+Dopisac do FetcherService  konfiguracji                                                         DONE
+dopisac do ProductService subskrypcje na dany typ notyfikacji.                                  DONE
+Sprawdzic czy sciezka SSA - FS - PS bedzie poprawna, czy beda sie przesylac eventy integracyjne DONE
 
-Nie przychodza wiadomosci FS-PS, cos jest z wykrywaniem (rozwiazywniem handlerow do eventow).
+Nie przychodza wiadomosci FS-PS, cos jest z wykrywaniem (rozwiazywniem handlerow do eventow).   DONE
+
+
+
+Napisanie dockerfile + skrpyt do deploya FetchService + SS, bo sa "ukonczone" defacto.          UNDONE
+
+
+
+Doprecyzowanie Domeny ProductService. Dimensions, LastChanged etc.
 
