@@ -8,13 +8,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.Swagger;
 using U.Common.Installers;
-using U.FetchService.Api;
+using U.EventBus.RabbitMQ;
 using U.FetchService.Application.Commands.Dispatch;
 using U.FetchService.Application.Commands.FetchProducts;
 using U.FetchService.Application.Jobs;
-using U.FetchService.Persistance.Context;
+using FetchServiceContext = U.FetchService.Infrastructure.Context.FetchServiceContext;
 
 namespace U.FetchService
 {
@@ -35,11 +34,6 @@ namespace U.FetchService
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"});
-                c.DescribeAllEnumsAsStrings();
-            }).AddLogging();
 
             #endregion
 
@@ -75,14 +69,18 @@ namespace U.FetchService
 
 
             //DbContext
-            services.AddDatabaseContext<FetchServiceContext>(Configuration);
+            services
+                .AddDatabaseOptionsAsSingleton(Configuration)
+                .AddDatabaseContext<FetchServiceContext>();
 
             //Hangfire
             services.AddHangFire(Configuration);
                         
             // RabbitMQ Configuration
-            services.AddRabbitMq(Configuration.GetSection("rabbitmq"));
             services.AddLoggingBehaviour();
+            
+            //event bus
+            services.AddEventBusRabbitMq(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,16 +91,9 @@ namespace U.FetchService
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wholesale Manager V1");
-                c.RoutePrefix = string.Empty;
-            });
-            app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
 
-            app.UseBackgroundJobs();
+            app.UseCustomBackgroundJobs();
         }
     }
 }

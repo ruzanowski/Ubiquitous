@@ -3,19 +3,19 @@ using System.Reflection;
 using AutoMapper;
 using MediatR;
 using U.SmartStoreAdapter.Application.MappingProfiles;
-using U.SmartStoreAdapter.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using RequestInjector.NetCore;
 using SmartStore.Persistance.Context;
-using Swashbuckle.AspNetCore.Swagger;
 using U.Common.Installers;
 using U.SmartStoreAdapter.Api.Products;
 using U.SmartStoreAdapter.Application.Operations.Notifications;
 using U.SmartStoreAdapter.Application.Operations.Products;
+using U.SmartStoreAdapter.Middleware;
 using IRequest = MediatR.IRequest;
 
 namespace U.SmartStoreAdapter
@@ -52,7 +52,7 @@ namespace U.SmartStoreAdapter
             //Swagger 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo{Title = "My API", Version = "v1"});
                 c.DescribeAllEnumsAsStrings();
             });
 
@@ -101,7 +101,9 @@ namespace U.SmartStoreAdapter
             #endregion
 
             //DbContext            
-            services.AddDatabaseContext<SmartStoreContext>(Configuration);
+            services
+                .AddDatabaseOptionsAsSingleton(Configuration)
+                .AddDatabaseContext<SmartStoreContext>();
             
             //Logging Behaviour Pipeline
             services.AddLoggingBehaviour();
@@ -121,7 +123,7 @@ namespace U.SmartStoreAdapter
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Database Integrator V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartStore Adapter V1");
                 c.RoutePrefix = string.Empty;
             });
             app.AddExceptionMiddleWare();

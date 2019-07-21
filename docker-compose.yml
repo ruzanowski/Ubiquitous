@@ -1,19 +1,107 @@
 version: "3.5"
 
 services:
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      PGDATA: /data/postgres
+    volumes:
+       - postgres:/data/postgres
+    ports:
+      - 5433:5433
+    networks:
+      - ubiquitous
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@ubiquitous.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+    - postgres
+    volumes:
+       - pgadmin:/root/.pgadmin
+    ports:
+      - 5450:80
+    networks:
+      - ubiquitous
+    restart: unless-stopped
+
+  mongo:
+    container_name: mongo
+    image: mongo:4
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo:/data/db
+    networks:
+      - ubiquitous
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes: 
+      - rabbitmq:/var/lib/rabbitmq
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes: 
+      - redis:/data
+
   u.smartstore-adapter:
-    build: ./Adapters/Adapter.SmartStore/U.SmartStoreAdapter
+    image: smartstore_adapter:latest
+    build:
+      context: .
+      dockerfile: Adapters/SmartStore/U.SmartStoreAdapter/Dockerfile
     ports:
-      - '5000:5000'
+      - 5000:5000
+    environment:
+      DbOptions__Connection: Host=postgres;Port=5432;Database=smartstore-adapter;User Id=postgres;Password=postgres;
+      DbOptions__Type: Npgsql
+    depends_on:
+    - postgres
     networks:
       - ubiquitous
-      
+
   u.fetch-service:
-    build: ./Services/FetchService
+    image: fetch-service:latest
+    build:
+      context: .
+      dockerfile: Services/Fetch/U.FetchService/Dockerfile
     ports:
-      - '5001:5001'
+      - 5001:5001
+    environment:
+      DbOptions__Connection: Host=postgres;Port=5432;Database=fetch-service;User Id=postgres;Password=postgres;
+      DbOptions__Type: Npgsql
+    depends_on:
+      - u.smartstore-adapter
+      - postgres
     networks:
       - ubiquitous
+
+volumes:
+  mongo:
+    driver: local
+  rabbitmq:
+    driver: local
+  redis:
+    driver: local
+  postgres:
+    driver: local
+  pgadmin:
+    driver: local
 
 networks:
   ubiquitous:

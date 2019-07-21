@@ -4,4 +4,12 @@
         <TargetFramework>netcoreapp2.2</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\U.EventBus\U.EventBus.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="IntegrationEvents" />
+    </ItemGroup>
+
 </Project>

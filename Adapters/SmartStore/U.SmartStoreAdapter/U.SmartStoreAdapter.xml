@@ -111,17 +111,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:U.SmartStoreAdapter.Extensions.ExceptionMiddleware">
-            <summary>
-            Exception Middleware that catches all exceptions
-            </summary>
-        </member>
-        <member name="M:U.SmartStoreAdapter.Extensions.ExceptionMiddleware.AddExceptionMiddleWare(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
-            <summary>
-            
-            </summary>
-            <param name="app"></param>
-        </member>
         <member name="T:U.SmartStoreAdapter.Extensions.HttpExtensions">
             <summary>
             
@@ -135,6 +124,17 @@
             <param name="obj"></param>
             <param name="contentType"></param>
             <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:U.SmartStoreAdapter.Middleware.ExceptionMiddleware">
+            <summary>
+            Exception Middleware that catches all exceptions
+            </summary>
+        </member>
+        <member name="M:U.SmartStoreAdapter.Middleware.ExceptionMiddleware.AddExceptionMiddleWare(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="app"></param>
         </member>
         <member name="T:U.SmartStoreAdapter.Program">
             <summary>

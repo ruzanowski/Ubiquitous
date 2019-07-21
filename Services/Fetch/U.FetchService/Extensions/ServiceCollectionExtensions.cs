@@ -52,9 +52,9 @@ namespace U.FetchService.Extensions
             services.AddSingleton<ISubscribedService, SubscribedService>(
                 provider => new SubscribedService
                 {
-                    Service = new ProductService(
+                    Service = new Application.Models.SubscribedServices.ProductService(
                         provider.GetService<HttpClient>(),
-                        provider.GetService<ILogger<ProductService>>(),
+                        provider.GetService<ILogger<Application.Models.SubscribedServices.ProductService>>(),
                         new PartySettings
                         {
                             Ip = serviceSettings.Ip,

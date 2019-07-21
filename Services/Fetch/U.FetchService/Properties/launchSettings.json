@@ -15,9 +15,10 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "IOManager.UpdateManager": {
+    "U.FetchService": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "hangfire",
       "applicationUrl": "http://localhost:5001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
