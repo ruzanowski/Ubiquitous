@@ -7,7 +7,7 @@ namespace U.FetchService.Application.Jobs
 {
     public static class JobsInstaller
     {
-        public static void UseBackgroundJobs(this IApplicationBuilder app)
+        public static void UseCustomBackgroundJobs(this IApplicationBuilder app)
         {
             app.UseHangfireServer();
             app.UseHangfireDashboard();
@@ -16,7 +16,7 @@ namespace U.FetchService.Application.Jobs
                     Executor = "Hangfire",
                     ExecutorComment = "Recurring job"
                 }),
-                Cron.Minutely,
+                "*/10 * * * * *",
                 TimeZoneInfo.Utc);
         }
     }

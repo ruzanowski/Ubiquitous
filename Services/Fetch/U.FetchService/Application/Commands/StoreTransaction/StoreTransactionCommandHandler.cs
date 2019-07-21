@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using U.FetchService.Persistance.Context;
+using FetchServiceContext = U.FetchService.Infrastructure.Context.FetchServiceContext;
 
 namespace U.FetchService.Application.Commands.StoreTransaction
 {

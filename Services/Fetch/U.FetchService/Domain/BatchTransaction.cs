@@ -1,7 +1,8 @@
 using System;
+
 // ReSharper disable All
 
-namespace U.FetchService.Domain.Entities
+namespace U.FetchService.Domain
 {
     public class BatchTransaction
     {

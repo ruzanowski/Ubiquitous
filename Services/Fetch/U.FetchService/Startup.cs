@@ -8,14 +8,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
 using U.Common.Installers;
 using U.EventBus.RabbitMQ;
 using U.FetchService.Application.Commands.Dispatch;
 using U.FetchService.Application.Commands.FetchProducts;
 using U.FetchService.Application.Jobs;
-using U.FetchService.Persistance.Context;
-using U.IntegrationEventLog;
+using FetchServiceContext = U.FetchService.Infrastructure.Context.FetchServiceContext;
 
 namespace U.FetchService
 {
@@ -36,11 +34,6 @@ namespace U.FetchService
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo{Title = "My API", Version = "v1"});
-                c.DescribeAllEnumsAsStrings();
-            }).AddLogging();
 
             #endregion
 
@@ -87,7 +80,6 @@ namespace U.FetchService
             services.AddLoggingBehaviour();
             
             //event bus
-            services.AddIntegrationEventLog(Configuration);
             services.AddEventBusRabbitMq(Configuration);
         }
 
@@ -99,16 +91,9 @@ namespace U.FetchService
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wholesale Manager V1");
-                c.RoutePrefix = string.Empty;
-            });
-            app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
 
-            app.UseBackgroundJobs();
+            app.UseCustomBackgroundJobs();
         }
     }
 }

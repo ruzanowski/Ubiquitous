@@ -16,20 +16,16 @@ namespace U.ProductService.Application.Commands
         public string Street { get; private set; }
 
         [DataMember]
-        public string State { get; private set; }
-
-        [DataMember]
         public string Country { get; private set; }
 
         [DataMember]
         public string ZipCode { get; private set; }
 
-        public CreateProductCommand(DateTime? dueDate, string city, string street, string state, string country, string zipcode)
+        public CreateProductCommand(DateTime? dueDate, string city, string street, string country, string zipcode)
         {
             DueDate = dueDate;
             City = city;
             Street = street;
-            State = state;
             Country = country;
             ZipCode = zipcode;
         }

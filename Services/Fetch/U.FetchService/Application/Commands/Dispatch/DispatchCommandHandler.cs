@@ -6,7 +6,9 @@ using U.FetchService.Application.Commands.FetchProducts;
 using U.FetchService.Application.Commands.ForwardProducts;
 using U.FetchService.Application.Commands.StoreTransaction;
 using U.FetchService.Application.Models.Wholesales;
-using U.FetchService.Domain.Entities;
+using BatchTransaction = U.FetchService.Domain.BatchTransaction;
+using Executed = U.FetchService.Domain.Executed;
+using Party = U.FetchService.Domain.Party;
 
 namespace U.FetchService.Application.Commands.Dispatch
 {

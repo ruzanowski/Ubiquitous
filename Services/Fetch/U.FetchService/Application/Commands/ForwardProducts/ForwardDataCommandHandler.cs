@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
-using U.FetchService.Api.IntegrationEvents;
-using U.FetchService.Domain.Entities;
+using U.FetchService.Api;
+using Party = U.FetchService.Domain.Party;
 
 namespace U.FetchService.Application.Commands.ForwardProducts
 {

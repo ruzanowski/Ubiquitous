@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace U.FetchService.Persistance.Migrations
+namespace U.FetchService.Infrastructure.Migrations
 {
     public partial class IntialMigration : Migration
     {

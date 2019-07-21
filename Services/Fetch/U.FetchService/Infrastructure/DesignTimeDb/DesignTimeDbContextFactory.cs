@@ -1,9 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Design;
 using U.Common.Database;
-using U.FetchService.Persistance.Context;
+using U.FetchService.Infrastructure.Context;
 
-namespace U.FetchService.Persistance.DesignTimeDb
+namespace U.FetchService.Infrastructure.DesignTimeDb
 {
     [SuppressMessage("ReSharper", "RedundantCaseLabel")]
     [SuppressMessage("ReSharper", "UnusedMember.Global")] 

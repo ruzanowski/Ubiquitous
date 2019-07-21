@@ -17,10 +17,12 @@ using U.Common.Database;
 using U.Common.Installers;
 using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
+using U.FetchService.Api.IntegrationEvents;
 using U.IntegrationEventLog;
 using U.ProductService.Application.Behaviours;
 using U.ProductService.Application.Commands;
 using U.ProductService.Application.IntegrationEvents;
+using U.ProductService.Application.IntegrationEvents.EventHandling;
 using U.ProductService.Domain.Aggregates.Product;
 using U.ProductService.Middleware;
 using U.ProductService.Persistance.Contexts;
@@ -52,6 +54,8 @@ namespace U.ProductService
                 .AddCustomSwagger()
                 .AddCustomMapper()
                 .AddCustomServices();
+
+            RegisterEventsHandlers(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,15 +72,29 @@ namespace U.ProductService
                 .UseMvcWithDefaultRoute()
                 .UseCors("CorsPolicy")
                 .UseHealthChecks()
-                .UseCustomEventBus()
                 .AddExceptionMiddleware()
                 .UseCustomSwagger(pathBase);
+
+            RegisterEvents(app);
+        }
+
+        private void RegisterEvents(IApplicationBuilder app)
+        {
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+            eventBus.Subscribe<NewProductFetchedIntegrationEvent, NewProductFetchedIntegrationEventHandler>();
+        }
+
+        private void RegisterEventsHandlers(IServiceCollection services)
+        {
+            services.AddTransient<NewProductFetchedIntegrationEventHandler>();
         }
     }
 
     public static class CustomServiceRegistrations
     {
 
+        
+        
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -94,7 +112,7 @@ namespace U.ProductService
                 {
                     Title = "Product HTTP API",
                     Version = "v1",
-                    Description = "The Ordering Service HTTP API"
+                    Description = "The Product Service HTTP API"
                 });
             });
 
@@ -183,13 +201,8 @@ namespace U.ProductService
             return services;
         }
 
-        public static IApplicationBuilder UseCustomEventBus(this IApplicationBuilder app)
-        {
-            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
-            //subscribed integration events handlers
-            return app;
-        }
+        
         public static IServiceCollection AddCustomPipelineBehaviours(this IServiceCollection services)
         {
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TransactionBehaviour<,>));

@@ -2,10 +2,10 @@ Swagger nie dziala.                                                             
 Serilog, server? 8081 nic nie ma                                                                UNDONE
 EventBusLog migracja, trzeba wygenerowac i wskazac odpowiedni folder.                           DONE
 Wywalic RabbitMQ, stary styl.                                                                   DONE
-private void ConfigureEventBus(IApplicationBuilder app) brakuje - dopisac handlery              UNDONE
+private void ConfigureEventBus(IApplicationBuilder app) brakuje - dopisac handlery              DONE
 Stworzyc komende, ktora bedzie tworzyc produkt bez wysypanego kodu                              DONE
 Eventy domenowe sluza do no-side effect informowania.
-IntegrationEventy sluza do informowania w innych BoundedContextach.                             UNDONE
+IntegrationEventy sluza do informowania w innych BoundedContextach.                             DONE
 Rozpracowac to!!!
 
 
@@ -13,4 +13,6 @@ Dopisac IntegrationEvent do FetcherService, ktory bedzie potrafil przesylac to z
 Dopisac do FetcherService  konfiguracji
 dopisac do ProductService subskrypcje na dany typ notyfikacji.
 Sprawdzic czy sciezka SSA - FS - PS bedzie poprawna, czy beda sie przesylac eventy integracyjne 
+
+Nie przychodza wiadomosci FS-PS, cos jest z wykrywaniem (rozwiazywniem handlerow do eventow).
 

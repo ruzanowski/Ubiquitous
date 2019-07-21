@@ -1,8 +1,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
+
 // ReSharper disable All
 
-namespace U.FetchService.Domain.Entities
+namespace U.FetchService.Domain
 {
     [Owned]
     public class Executed

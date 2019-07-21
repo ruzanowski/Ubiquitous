@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using U.FetchService.Domain.Entities;
+using U.FetchService.Domain;
 
-namespace U.FetchService.Persistance.Context
+namespace U.FetchService.Infrastructure.Context
 {
     public class FetchServiceContext : DbContext
     {

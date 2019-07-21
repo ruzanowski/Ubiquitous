@@ -8,4 +8,8 @@
       <ProjectReference Include="..\..\..\U.EventBus\U.EventBus.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="IntegrationEvents" />
+    </ItemGroup>
+
 </Project>

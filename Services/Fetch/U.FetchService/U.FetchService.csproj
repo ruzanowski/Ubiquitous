@@ -11,6 +11,7 @@
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
         <PackageReference Include="Hangfire.AspNetCore" Version="1.7.4" />
         <PackageReference Include="Hangfire.Core" Version="1.7.4" />
+        <PackageReference Include="Hangfire.PostgreSql" Version="1.6.0" />
         <PackageReference Include="MediatR" Version="7.0.0" />
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
@@ -23,9 +24,6 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
         <PackageReference Include="Scrutor" Version="3.0.2" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0-rc2" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0-rc2" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0-rc2" />
     </ItemGroup>
 
     <ItemGroup>
@@ -33,16 +31,17 @@
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
-      <Content Update="appsettings.Development.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Adapters\SmartStore\U.SmartStoreAdapter.Api\U.SmartStoreAdapter.Api.csproj" />
       <ProjectReference Include="..\..\..\Common\U.Common.csproj" />
       <ProjectReference Include="..\..\..\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
-      <ProjectReference Include="..\U.FetchService.Application\U.FetchService.Application.csproj" />
+      <ProjectReference Include="..\..\..\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Infrastructure" />
     </ItemGroup>
 
 </Project>

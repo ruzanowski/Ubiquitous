@@ -29,7 +29,7 @@ namespace U.ProductService.Application.Commands
             // DDD patterns comment: AddAsync child entities and value-objects through the Order Aggregate-Root
             // methods and constructor so validations, invariants and business logic 
             // make sure that consistency is preserved across the whole aggregate
-            var address = new Address(message.Street, message.City, message.State, message.Country, message.ZipCode);
+            var address = new Address(message.Street, message.City, message.Country, message.ZipCode);
             var product = new Product(Guid.NewGuid(), address, message.DueDate);
 
             _logger.LogInformation("--- Creating Product: {@Product} ---", product);

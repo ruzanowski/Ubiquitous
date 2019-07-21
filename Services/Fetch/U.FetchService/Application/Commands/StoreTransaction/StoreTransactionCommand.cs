@@ -1,6 +1,6 @@
 using System;
 using MediatR;
-using U.FetchService.Domain.Entities;
+using BatchTransaction = U.FetchService.Domain.BatchTransaction;
 
 namespace U.FetchService.Application.Commands.StoreTransaction
 {
