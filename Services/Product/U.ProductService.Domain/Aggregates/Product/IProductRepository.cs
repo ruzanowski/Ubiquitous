@@ -13,5 +13,7 @@ namespace U.ProductService.Domain.Aggregates.Product
         void Update(Product product);
 
         Task<Product> GetAsync(int orderId);
+
+        Task<bool> AnyAsync(string uniqueName);
     }
 }

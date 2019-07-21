@@ -30,7 +30,7 @@ namespace U.ProductService.Application.Commands
             // methods and constructor so validations, invariants and business logic 
             // make sure that consistency is preserved across the whole aggregate
             var address = new Address(message.Street, message.City, message.Country, message.ZipCode);
-            var product = new Product(Guid.NewGuid(), address, message.DueDate);
+            var product = new Product(Guid.NewGuid(), address);
 
             _logger.LogInformation("--- Creating Product: {@Product} ---", product);
 

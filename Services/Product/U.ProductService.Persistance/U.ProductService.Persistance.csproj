@@ -5,8 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Common\U.Common.csproj" />
-      <ProjectReference Include="..\..\..\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
       <ProjectReference Include="..\U.ProductService.Domain\U.ProductService.Domain.csproj" />
     </ItemGroup>
 

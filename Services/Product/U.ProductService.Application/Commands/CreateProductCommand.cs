@@ -1,14 +1,10 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using MediatR;
 
 namespace U.ProductService.Application.Commands
 {
     public class CreateProductCommand : IRequest<bool>
     {
-        [DataMember]
-        public DateTime? DueDate { get; private set; }
-        
         [DataMember]
         public string City { get; private set; }
 
@@ -21,9 +17,8 @@ namespace U.ProductService.Application.Commands
         [DataMember]
         public string ZipCode { get; private set; }
 
-        public CreateProductCommand(DateTime? dueDate, string city, string street, string country, string zipcode)
+        public CreateProductCommand(string city, string street, string country, string zipcode)
         {
-            DueDate = dueDate;
             City = city;
             Street = street;
             Country = country;

@@ -22,26 +22,34 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+        <PackageReference Include="Serilog.AspNetCore" Version="2.*" />
+        <PackageReference Include="Serilog.Enrichers.Environment" Version="2.*" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="3.*" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="3.*" />
+        <PackageReference Include="Serilog.Sinks.Http" Version="4.*" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
         <PackageReference Include="Scrutor" Version="3.0.2" />
     </ItemGroup>
 
     <ItemGroup>
-      <Content Update="appsettings.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\..\Adapters\SmartStore\U.SmartStoreAdapter.Api\U.SmartStoreAdapter.Api.csproj" />
-      <ProjectReference Include="..\..\..\Common\U.Common.csproj" />
-      <ProjectReference Include="..\..\..\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
-      <ProjectReference Include="..\..\..\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Infrastructure" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="appsettings.json" />
+      <EmbeddedResource Include="appsettings.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Dockerfile" />
+      <Content Include="Dockerfile" />
     </ItemGroup>
 
 </Project>

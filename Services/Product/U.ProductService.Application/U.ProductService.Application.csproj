@@ -5,9 +5,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Common\U.Common.csproj" />
-      <ProjectReference Include="..\..\..\U.EventBus\U.EventBus.csproj" />
-      <ProjectReference Include="..\..\..\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus\U.EventBus.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
       <ProjectReference Include="..\U.ProductService.Domain\U.ProductService.Domain.csproj" />
       <ProjectReference Include="..\U.ProductService.Persistance\U.ProductService.Persistance.csproj" />
     </ItemGroup>

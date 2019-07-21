@@ -27,16 +27,29 @@
         <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0-rc2" />
         <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0-rc2" />
         <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0-rc2" />
+        <PackageReference Include="Serilog.AspNetCore" Version="2.*" />
+        <PackageReference Include="Serilog.Enrichers.Environment" Version="2.*" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="3.*" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="3.*" />
+        <PackageReference Include="Serilog.Sinks.Http" Version="4.*" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="dockerfile" />
-      <None Include="Dockerfile" />
+      <Content Include="Dockerfile" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\U.SmartStoreAdapter.Api\U.SmartStoreAdapter.Api.csproj" />
       <ProjectReference Include="..\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="appsettings.json" />
+      <EmbeddedResource Include="appsettings.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 
 </Project>

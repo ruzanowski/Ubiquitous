@@ -29,8 +29,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
-      <ProjectReference Include="..\..\..\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
       <ProjectReference Include="..\U.ProductService.Application\U.ProductService.Application.csproj" />
       <ProjectReference Include="..\U.ProductService.Persistance\U.ProductService.Persistance.csproj" />
     </ItemGroup>

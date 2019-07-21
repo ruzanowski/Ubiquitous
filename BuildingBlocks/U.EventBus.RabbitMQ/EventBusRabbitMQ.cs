@@ -19,7 +19,7 @@ namespace U.EventBus.RabbitMQ
     public class EventBusRabbitMQ : IEventBus, IDisposable
     {
         public IServiceProvider ServiceProvider { get; }
-        private const string BROKER_NAME = "ubiquitous_event_bus";
+        const string BROKER_NAME = "ubiquitous_event_bus";
 
         private readonly IRabbitMQPersistentConnection _persistentConnection;
         private readonly ILogger<EventBusRabbitMQ> _logger;

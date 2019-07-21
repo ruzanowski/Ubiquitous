@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using U.ProductService.Domain.SeedWork;
@@ -35,6 +36,9 @@ namespace U.ProductService.Persistance.Repositories
 
             return product;
         }
+
+        public async Task<bool> AnyAsync(string uniqueCode) =>
+            await _context.Products.AnyAsync(x => x.UniqueProductCode.Equals(uniqueCode));
 
         public void Update(Aggregates.Product product)
         {

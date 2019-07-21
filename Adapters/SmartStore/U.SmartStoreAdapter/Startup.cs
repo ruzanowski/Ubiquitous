@@ -123,7 +123,7 @@ namespace U.SmartStoreAdapter
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Database Integrator V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartStore Adapter V1");
                 c.RoutePrefix = string.Empty;
             });
             app.AddExceptionMiddleWare();
