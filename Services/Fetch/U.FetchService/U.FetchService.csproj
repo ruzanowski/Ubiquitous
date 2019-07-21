@@ -46,7 +46,7 @@
       <Content Remove="appsettings.json" />
       <EmbeddedResource Include="appsettings.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
       <None Remove="Dockerfile" />
       <Content Include="Dockerfile" />
