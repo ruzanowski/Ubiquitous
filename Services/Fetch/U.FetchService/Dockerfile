@@ -1,5 +1,7 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS base
 WORKDIR /app
+EXPOSE 5001/tcp
+ENV ASPNETCORE_URLS http://*:5001
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
 WORKDIR /src
@@ -21,5 +23,5 @@ FROM build AS publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENV ASPNETCORE_URLS http://*:5001
+
 ENTRYPOINT ["dotnet", "U.FetchService.dll"]

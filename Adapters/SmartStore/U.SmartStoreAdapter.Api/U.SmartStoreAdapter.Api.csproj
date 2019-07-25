@@ -6,14 +6,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MediatR" Version="7.0.0" />
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="Properties\launchSettings.json" />
     </ItemGroup>
 
     <ItemGroup>

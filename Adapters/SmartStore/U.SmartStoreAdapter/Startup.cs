@@ -9,14 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using RequestInjector.NetCore;
 using SmartStore.Persistance.Context;
 using U.Common.Installers;
-using U.SmartStoreAdapter.Api.Products;
 using U.SmartStoreAdapter.Application.Operations.Notifications;
 using U.SmartStoreAdapter.Application.Operations.Products;
 using U.SmartStoreAdapter.Middleware;
-using IRequest = MediatR.IRequest;
 
 namespace U.SmartStoreAdapter
 {
@@ -45,9 +42,19 @@ namespace U.SmartStoreAdapter
             //Mini profiler
             services.AddMiniProfiler();
 
-            //Compatibility
-            services.AddMvcCore()
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddControllersAsServices();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                        .SetIsOriginAllowed(host => true)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
             
             //Swagger 
             services.AddSwaggerGen(c =>
@@ -73,32 +80,12 @@ namespace U.SmartStoreAdapter
 
             #endregion
 
-            #region MediatR register
 
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
                 typeof(GetProductsListQueryHandler).GetTypeInfo().Assembly,
                 typeof(FailedToStoreNotificationHandler).GetTypeInfo().Assembly);
 
-            services.Scan(scan => scan
-                .FromAssemblyOf<GetProductsListQuery>()
-                .FromAssemblyOf<SuccessfulStoreNotificationHandler>()
-                .AddClasses()
-                .AsSelf()
-                .WithTransientLifetime());
-
-            var provider = services.BuildServiceProvider();
-
-            services.AddMvc(config =>
-                {
-                    config.ModelMetadataDetailsProviders.Add(new RequestInjectorMetadataProvider());
-                    config.ModelBinderProviders.Insert(0, new RequestInjectorModelBinderProvider());
-                })
-                .AddJsonOptions(options =>
-                {
-                    options.SerializerSettings.Converters.Add(new RequestInjectorHandler<IRequest>(provider));
-                });
-
-            #endregion
+            
 
             //DbContext            
             services

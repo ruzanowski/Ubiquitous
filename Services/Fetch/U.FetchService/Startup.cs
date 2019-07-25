@@ -45,19 +45,10 @@ namespace U.FetchService
 
             #endregion
 
-            #region MediatR register
-
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
                 typeof(FetchDataCommand).GetTypeInfo().Assembly,
             typeof(DispatchCommand).GetTypeInfo().Assembly);
 
-            services.Scan(scan => scan
-                .FromAssemblyOf<FetchDataCommand>()
-                .AddClasses()
-                .AsSelf()
-                .WithTransientLifetime());
-
-            #endregion
 
             #region Automapper profiles & init
 
