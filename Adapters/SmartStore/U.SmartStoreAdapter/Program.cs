@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Serilog;
 using SmartStore.Persistance.Context;
 using U.Common.Extensions;
+using U.IntegrationEventLog;
 
 namespace U.SmartStoreAdapter
 {
@@ -36,7 +37,8 @@ namespace U.SmartStoreAdapter
 
                 Log.Information("Applying migrations ({ApplicationContext})...", AppName);
 
-                host.MigrateDbContext<SmartStoreContext>((_, __) => { });
+                host.MigrateDbContext<SmartStoreContext>((_, __) => { })
+                    .MigrateDbContext<IntegrationEventLogContext>((_, __) => { });
 
                 Log.Information("Starting web host ({ApplicationContext})...", AppName);
                 host.Run();
@@ -76,7 +78,8 @@ namespace U.SmartStoreAdapter
         private static IConfiguration GetConfiguration() =>
             new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)          
+                .AddJsonFile("appsettings.docker.json", optional: true)
                 .AddEnvironmentVariables().Build();
     }
 }

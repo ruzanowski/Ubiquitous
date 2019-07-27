@@ -12,7 +12,7 @@ services:
     volumes:
        - postgres:/data/postgres
     ports:
-      - 5433:5433
+      - 5433:5432
     networks:
       - ubiquitous
     restart: unless-stopped
@@ -62,14 +62,17 @@ services:
 
   u.smartstore-adapter:
     image: smartstore_adapter:latest
+    container_name: u.smartstore-adapter
     build:
       context: .
       dockerfile: Adapters/SmartStore/U.SmartStoreAdapter/Dockerfile
     ports:
       - 5000:5000
     environment:
-      DbOptions__Connection: Host=postgres;Port=5432;Database=smartstore-adapter;User Id=postgres;Password=postgres;
+      DbOptions__Connection: Server=docker.for.win.localhost;Port=5433;Database=smartstore-adapter;User Id=postgres;Password=postgres;
       DbOptions__Type: Npgsql
+      IntegrationEventLogConnection: Server=docker.for.win.localhost;Port=5433;Database=IntegrationEventLog;User Id=postgres;\nPassword=postgres;
+      ASPNETCORE_URLS: http://+:5000
     depends_on:
     - postgres
     networks:
@@ -77,14 +80,17 @@ services:
 
   u.fetch-service:
     image: fetch-service:latest
+    container_name: u.fetch-service
     build:
       context: .
       dockerfile: Services/Fetch/U.FetchService/Dockerfile
     ports:
       - 5001:5001
     environment:
-      DbOptions__Connection: Host=postgres;Port=5432;Database=fetch-service;User Id=postgres;Password=postgres;
+      DbOptions__Connection: Server=docker.for.win.localhost;Port=5433;Database=fetch-service;User Id=postgres;Password=postgres;
       DbOptions__Type: Npgsql
+      IntegrationEventLogConnection: Server=docker.for.win.localhost;Port=5433;Database=IntegrationEventLog;User Id=postgres;\nPassword=postgres;
+      ASPNETCORE_URLS: http://+:5001
     depends_on:
       - u.smartstore-adapter
       - postgres

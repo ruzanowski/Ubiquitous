@@ -80,12 +80,9 @@ namespace U.SmartStoreAdapter
 
             #endregion
 
-
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
                 typeof(GetProductsListQueryHandler).GetTypeInfo().Assembly,
                 typeof(FailedToStoreNotificationHandler).GetTypeInfo().Assembly);
-
-            
 
             //DbContext            
             services

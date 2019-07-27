@@ -35,12 +35,17 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
       <ProjectReference Include="..\U.SmartStoreAdapter.Api\U.SmartStoreAdapter.Api.csproj" />
       <ProjectReference Include="..\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Remove="appsettings.json" />
+      <EmbeddedResource Include="appsettings.docker.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
       <EmbeddedResource Include="appsettings.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

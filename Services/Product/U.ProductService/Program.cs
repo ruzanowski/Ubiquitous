@@ -65,8 +65,8 @@ namespace U.ProductService
                 .Enrich.WithProperty("ApplicationContext", AppName)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.Seq(string.IsNullOrWhiteSpace(seqServerUrl) ? "http://localhost:6667" : seqServerUrl) // todo:
-                .WriteTo.Http(string.IsNullOrWhiteSpace(logstashUrl) ? "http://localhost:8801" : logstashUrl)
+//                .WriteTo.Seq(string.IsNullOrWhiteSpace(seqServerUrl) ? "http://localhost:6667" : seqServerUrl) // todo:
+//                .WriteTo.Http(string.IsNullOrWhiteSpace(logstashUrl) ? "http://localhost:8801" : logstashUrl)
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
         }
@@ -75,6 +75,7 @@ namespace U.ProductService
             new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.docker.json", optional: true)
                 .AddEnvironmentVariables().Build();
     }
 }

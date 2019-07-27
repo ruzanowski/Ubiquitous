@@ -23,4 +23,11 @@
       <ProjectReference Include="..\U.ProductService.Persistance\U.ProductService.Persistance.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Update="appsettings.docker.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

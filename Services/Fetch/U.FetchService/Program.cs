@@ -71,6 +71,7 @@ namespace U.FetchService
             new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.docker.json", optional: true)
                 .AddEnvironmentVariables().Build();
     }
 }

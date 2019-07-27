@@ -25,20 +25,27 @@ namespace U.FetchService.Application.Models.Wholesales
         {
             try
             {
-                var response = await _httpClient.GetAsync(EndpointsBoard.ProductEndpoint(Settings.Port));
+                var url = EndpointsBoard.GetProductListUrl(Settings.Ip, Settings.Port);
+                var response = await _httpClient.GetAsync(url);
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException();
+                }
+                
                 var content = await response.Content.ReadAsStringAsync();
                 var products = JsonConvert.DeserializeObject<PaginatedItems<SmartProductViewModel>>(content);
                 return products;
             }
-            catch (System.Net.Sockets.SocketException)
+            catch (System.Net.Sockets.SocketException ex)
             {
-                _logger.LogError($"Wholesale at port: {Settings.Port} is unavailable.");
-                throw new FetchFailedException($"Wholesale at port: {Settings.Port} is unavailable.");
+                _logger.LogError($"Service at '{Settings.Ip}:{Settings.Port}' is unavailable.");
+                throw new FetchFailedException($"Wholesale at '{Settings.Ip}:{Settings.Port}' is unavailable.", ex);
             }
-            catch (HttpRequestException)
+            catch (HttpRequestException ex)
             {
-                _logger.LogError($"Wholesale at port: {Settings.Port} is unavailable.");
-                throw new FetchFailedException($"Wholesale at port: {Settings.Port} is unavailable.");
+                _logger.LogError($"Service at '{Settings.Ip}:{Settings.Port}' is bad.");
+                throw new FetchFailedException($"Wholesale at '{Settings.Ip}:{Settings.Port}' is bad.", ex);
             }
         }
     }

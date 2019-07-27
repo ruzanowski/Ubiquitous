@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Reflection;
 using AutoMapper;
+using Hangfire;
 using U.FetchService.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -48,17 +49,7 @@ namespace U.FetchService
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
                 typeof(FetchDataCommand).GetTypeInfo().Assembly,
             typeof(DispatchCommand).GetTypeInfo().Assembly);
-
-
-            #region Automapper profiles & init
-
-            var mappingConfig = new MapperConfiguration(mc => { mc.AllowNullCollections = true; });
-            var mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
-
-            #endregion
-
-
+            
             //DbContext
             services
                 .AddDatabaseOptionsAsSingleton(Configuration)
@@ -83,7 +74,8 @@ namespace U.FetchService
             }
 
             app.UseMvcWithDefaultRoute();
-
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
             app.UseCustomBackgroundJobs();
         }
     }
