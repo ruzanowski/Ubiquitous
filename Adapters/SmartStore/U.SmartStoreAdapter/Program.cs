@@ -37,8 +37,7 @@ namespace U.SmartStoreAdapter
 
                 Log.Information("Applying migrations ({ApplicationContext})...", AppName);
 
-                host.MigrateDbContext<SmartStoreContext>((_, __) => { })
-                    .MigrateDbContext<IntegrationEventLogContext>((_, __) => { });
+                host.MigrateDbContext<SmartStoreContext>((_, __) => { });
 
                 Log.Information("Starting web host ({ApplicationContext})...", AppName);
                 host.Run();

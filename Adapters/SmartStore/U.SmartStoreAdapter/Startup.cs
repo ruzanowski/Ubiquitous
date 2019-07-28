@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using SmartStore.Persistance.Context;
 using U.Common.Installers;
-using U.SmartStoreAdapter.Application.Operations.Notifications;
 using U.SmartStoreAdapter.Application.Operations.Products;
 using U.SmartStoreAdapter.Middleware;
 
@@ -34,7 +33,7 @@ namespace U.SmartStoreAdapter
         /// <summary>
         /// 
         /// </summary>
-        private IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
         /// This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -81,8 +80,7 @@ namespace U.SmartStoreAdapter
             #endregion
 
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
-                typeof(GetProductsListQueryHandler).GetTypeInfo().Assembly,
-                typeof(FailedToStoreNotificationHandler).GetTypeInfo().Assembly);
+                typeof(GetProductsListQueryHandler).GetTypeInfo().Assembly);
 
             //DbContext            
             services
@@ -93,6 +91,14 @@ namespace U.SmartStoreAdapter
             services.AddLoggingBehaviour();
             //Logging
             services.AddLogging();
+                
+            services.AddSingleton(new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new ProductMappingProfile());
+                mc.AddProfile(new CategoryMappingProfile());
+                mc.AddProfile(new ManufacturerMappingProfile());
+            }).CreateMapper());
+
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP transaction pipeline.

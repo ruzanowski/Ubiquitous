@@ -15,7 +15,7 @@ using U.SmartStoreAdapter.Domain.Entities.Seo;
 
 namespace U.SmartStoreAdapter.Application.Operations.Products
 {
-    public class StoreProductsCommandHandler : IRequestHandler<StoreProductsCommand, DataTransaction<SmartProductDto, SmartProductDto>>
+    public class StoreProductsCommandHandler : IRequestHandler<StoreProductsCommand, int>
     {
         private readonly SmartStoreContext _context;
         private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ namespace U.SmartStoreAdapter.Application.Operations.Products
         }
 
 
-        public async Task<DataTransaction<SmartProductDto, SmartProductDto>> Handle(StoreProductsCommand command,
+        public async Task<int> Handle(StoreProductsCommand command,
             CancellationToken cancellationToken)
         {
                 var validator = new SmartProductDtoValidator(_context, command);
@@ -54,19 +54,11 @@ namespace U.SmartStoreAdapter.Application.Operations.Products
                     {
                         transaction.Rollback();
                         _logger.LogInformation($"Storing products failed. {ex}");
-                        return DataTransaction<SmartProductDto, SmartProductDto>.Create(DateTime.UtcNow,
-                        command,
-                        command,
-                        Guid.Empty.ToString(),
-                        true);
+                        throw new Exception("Storing products failed.");
                     }
                 }
-                
-                return DataTransaction<SmartProductDto, SmartProductDto>.Create(DateTime.UtcNow,
-                    command,
-                    _mapper.Map<SmartProductDto>(productDb),
-                    Guid.Empty.ToString(),
-                    true);
+
+                return productDb.Id;
         }
 
         private async Task<Product> StoreOrUpdateProduct(SmartProductDto product, CancellationToken cancellationToken)
@@ -105,7 +97,7 @@ namespace U.SmartStoreAdapter.Application.Operations.Products
                 await _context.AddAsync(new ProductPicture
                 {
                     ProductId = productDb.Id,
-                    PictureId = productPicturesId,
+                    PictureId = productPicturesId
                 });
             }
         }

@@ -69,9 +69,8 @@ services:
     ports:
       - 5000:5000
     environment:
-      DbOptions__Connection: Server=docker.for.win.localhost;Port=5433;Database=smartstore-adapter;User Id=postgres;Password=postgres;
+      DbOptions__Connection: Server=postgres;Port=5432;Database=smartstore-adapter;User Id=postgres;Password=postgres;Integrated Security=true;Pooling=true;
       DbOptions__Type: Npgsql
-      IntegrationEventLogConnection: Server=docker.for.win.localhost;Port=5433;Database=IntegrationEventLog;User Id=postgres;\nPassword=postgres;
       ASPNETCORE_URLS: http://+:5000
     depends_on:
     - postgres
@@ -87,9 +86,9 @@ services:
     ports:
       - 5001:5001
     environment:
-      DbOptions__Connection: Server=docker.for.win.localhost;Port=5433;Database=fetch-service;User Id=postgres;Password=postgres;
+      DbOptions__Connection: Server=docker;Port=5432;Database=fetch-service;User Id=postgres;Password=postgres;Integrated Security=true;Pooling=true;
       DbOptions__Type: Npgsql
-      IntegrationEventLogConnection: Server=docker.for.win.localhost;Port=5433;Database=IntegrationEventLog;User Id=postgres;\nPassword=postgres;
+      IntegrationEventLogConnection: Server=postgres;Port=5432;Database=IntegrationEventLog;User Id=postgres;\nPassword=postgres;Integrated Security=true;Pooling=true;
       ASPNETCORE_URLS: http://+:5001
     depends_on:
       - u.smartstore-adapter
