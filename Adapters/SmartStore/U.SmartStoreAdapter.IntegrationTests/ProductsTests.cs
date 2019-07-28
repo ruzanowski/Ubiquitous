@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Newtonsoft.Json;
 using U.Common;
+using U.Common.Pagination;
 using U.SmartStoreAdapter.Api.Products;
 using Xunit;
 

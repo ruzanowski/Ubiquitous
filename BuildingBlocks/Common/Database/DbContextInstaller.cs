@@ -1,20 +1,18 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using U.Common.Database;
+using U.Common.Mvc;
 
 // ReSharper disable RedundantCaseLabel
 
-namespace U.Common.Installers
+namespace U.Common.Database
 {
     public static class DbContextInstaller
     {
         public static IServiceCollection AddDatabaseOptionsAsSingleton(this IServiceCollection services,
             IConfiguration configuration)
         {
-            const string dbOptionsSection = "DbOptions";
-            var dbOptions = new DbOptions();
-            configuration.GetSection(dbOptionsSection).Bind(dbOptions);
+            var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
 
             if (dbOptions.Connection is null)
             {

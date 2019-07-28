@@ -2,13 +2,13 @@
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using U.Common.Behaviours;
-using U.Common.Installers;
+using U.Common.Database;
+using U.Common.Mvc;
+using U.Common.Pipeline;
 using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
 using U.FetchService.Api.IntegrationEvents;
@@ -127,27 +127,6 @@ namespace U.ProductService
             {
                 //maps
             }).CreateMapper());
-
-            return services;
-        }
-
-        public static IServiceCollection AddCustomMvc(this IServiceCollection services)
-        {
-            // AddAsync framework services.
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddControllersAsServices(); //Injecting Controllers themselves thru DI
-            //For further info see: http://docs.autofac.org/en/latest/integration/aspnetcore.html#controllers-as-services
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder
-                        .SetIsOriginAllowed(host => true)
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials());
-            });
 
             return services;
         }

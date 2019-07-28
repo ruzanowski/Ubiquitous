@@ -1,8 +1,7 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using U.Common.Behaviours;
 
-namespace U.Common.Installers
+namespace U.Common.Pipeline
 {
     public static class PipelineInstaller
     {

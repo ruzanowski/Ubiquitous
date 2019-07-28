@@ -17,7 +17,7 @@ namespace U.FetchService.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static void AddAvailableWholesales(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddAvailableWholesales(this IServiceCollection services, IConfiguration configuration)
         {
             IEnumerable<PartySettings> availableWholesales = new List<PartySettings>();
             configuration.GetSection("WholesalesSettings").Bind(availableWholesales);
@@ -39,9 +39,10 @@ namespace U.FetchService.Extensions
                             Protocol = wholesale.Protocol
                         }))
                 });
+            return services;
         }
 
-        public static void AddSubscribedService(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddSubscribedService(this IServiceCollection services, IConfiguration configuration)
         {
             var serviceSettings = new PartySettings();
             configuration.GetSection("ServiceSettings").Bind(serviceSettings);
@@ -63,9 +64,10 @@ namespace U.FetchService.Extensions
                             Protocol = serviceSettings.Protocol
                         })
                 });
+            return services;
         }
 
-        public static void AddHangFire(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddHangFire(this IServiceCollection services, IConfiguration config)
         {
             const string dbOptionsSection = "DbOptions";
             var dbOptions = new DbOptions();
@@ -81,6 +83,7 @@ namespace U.FetchService.Extensions
                 .UseSimpleAssemblyNameTypeSerializer()
                 .UseRecommendedSerializerSettings()
                 .UsePostgreSqlStorage(dbOptions.Connection));
+            return services;
         }
         
     }

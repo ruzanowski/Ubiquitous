@@ -4,7 +4,9 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Serilog;
+using U.Common.Database;
 using U.Common.Extensions;
+using U.Common.Mvc;
 using U.FetchService.Infrastructure.Context;
 using U.IntegrationEventLog;
 
@@ -26,13 +28,17 @@ namespace U.FetchService
             {
                 Log.Information("Configuring web host ({ApplicationContext})...", AppName);
                 var host = BuildWebHost(configuration, args);
+                var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
 
-                Log.Information("Applying migrations ({ApplicationContext})...", AppName);
+                if (dbOptions?.AutoMigration != null && dbOptions.AutoMigration)
+                {
+                    Log.Information("Applying migrations ({ApplicationContext})...", AppName);
 
-                host.MigrateDbContext<FetchServiceContext>((_, __) => { })
-                    .MigrateDbContext<IntegrationEventLogContext>((_, __) => { });
+                    host.MigrateDbContext<FetchServiceContext>((_, __) => { });
 
-                Log.Information("Starting web host ({ApplicationContext})...", AppName);
+                    Log.Information("Starting web host ({ApplicationContext})...", AppName);
+                }
+
                 host.Run();
 
                 return 0;
@@ -71,7 +77,7 @@ namespace U.FetchService
             new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.docker.json", optional: true)
+                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}.json", optional:  true, true)
                 .AddEnvironmentVariables().Build();
     }
 }

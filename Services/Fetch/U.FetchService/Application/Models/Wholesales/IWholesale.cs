@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using U.Common;
+using U.Common.Pagination;
 using U.SmartStoreAdapter.Api.Products;
 
 namespace U.FetchService.Application.Models.Wholesales

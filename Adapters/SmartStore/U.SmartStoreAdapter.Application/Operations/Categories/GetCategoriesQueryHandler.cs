@@ -5,6 +5,7 @@ using AutoMapper;
 using MediatR;
 using SmartStore.Persistance.Context;
 using U.Common;
+using U.Common.Pagination;
 using U.SmartStoreAdapter.Api.Categories;
 using U.SmartStoreAdapter.Domain.Entities.Catalog;
 

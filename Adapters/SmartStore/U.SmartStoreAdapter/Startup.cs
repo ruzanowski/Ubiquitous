@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Reflection;
 using AutoMapper;
+using Consul;
 using MediatR;
 using U.SmartStoreAdapter.Application.MappingProfiles;
 using Microsoft.AspNetCore.Builder;
@@ -10,7 +11,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using SmartStore.Persistance.Context;
-using U.Common.Installers;
+using U.Common.Consul;
+using U.Common.Database;
+using U.Common.Fabio;
+using U.Common.Pipeline;
 using U.SmartStoreAdapter.Application.Operations.Products;
 using U.SmartStoreAdapter.Middleware;
 
@@ -99,16 +103,15 @@ namespace U.SmartStoreAdapter
                 mc.AddProfile(new ManufacturerMappingProfile());
             }).CreateMapper());
 
+            services.AddCustomConsul();
+            services.AddCustomFabio();
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP transaction pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+            IApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            if (env.IsDevelopment())
-                app.UseDeveloperExceptionPage();
-            else
-                app.UseHsts();
-
+            app.UseDeveloperExceptionPage();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -120,6 +123,9 @@ namespace U.SmartStoreAdapter
             app.UseHttpsRedirection();
             app.UseMiniProfiler();
             app.UseMvc();
+            
+            var consulServiceId = app.UseCustomConsul();
+            applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }
     }
 }

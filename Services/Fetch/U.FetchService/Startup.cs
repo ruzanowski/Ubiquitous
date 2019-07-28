@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Reflection;
 using AutoMapper;
+using Consul;
 using Hangfire;
 using U.FetchService.Extensions;
 using MediatR;
@@ -9,7 +10,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using U.Common.Installers;
+using U.Common.Consul;
+using U.Common.Database;
+using U.Common.Fabio;
+using U.Common.Mvc;
+using U.Common.Pipeline;
 using U.EventBus.RabbitMQ;
 using U.FetchService.Application.Commands.Dispatch;
 using U.FetchService.Application.Commands.FetchProducts;
@@ -31,52 +36,46 @@ namespace U.FetchService
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            #region General & Swagger
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            
-
-            #endregion
-
-            #region services
-
-            services.AddSingleton<HttpClient>();
-            services.AddAvailableWholesales(Configuration);
-            services.AddSubscribedService(Configuration);
-
-            #endregion
-
-            services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
-                typeof(FetchDataCommand).GetTypeInfo().Assembly,
-            typeof(DispatchCommand).GetTypeInfo().Assembly);
-            
-            //DbContext
             services
+                .AddCustomMvc()
+                .AddAvailableWholesales(Configuration)
+                .AddSubscribedService(Configuration)
+                .AddCustomMediatR()
                 .AddDatabaseOptionsAsSingleton(Configuration)
-                .AddDatabaseContext<FetchServiceContext>();
-
-            //Hangfire
-            services.AddHangFire(Configuration);
-                        
-            // RabbitMQ Configuration
-            services.AddLoggingBehaviour();
-            
-            //event bus
-            services.AddEventBusRabbitMq(Configuration);
+                .AddDatabaseContext<FetchServiceContext>()
+                .AddLoggingBehaviour()
+                .AddHangFire(Configuration)
+                .AddEventBusRabbitMq(Configuration)
+                .AddCustomConsul()
+                .AddCustomFabio();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+            IApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseDeveloperExceptionPage();
 
             app.UseMvcWithDefaultRoute();
-            app.UseHangfireDashboard();
-            app.UseHangfireServer();
+            app.UseHangfireDashboard("/hangfire", new DashboardOptions()
+            {
+                Authorization = new[] {new HangfireAuthorizationFilter()}
+            });
             app.UseCustomBackgroundJobs();
+            
+            var consulServiceId = app.UseCustomConsul();
+            applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
+        }
+    }
+
+    public static class CustomExtensions
+    {
+        public static IServiceCollection AddCustomMediatR(this IServiceCollection services)
+        {
+            services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
+                typeof(FetchDataCommand).GetTypeInfo().Assembly,
+                typeof(DispatchCommand).GetTypeInfo().Assembly);
+            return services;
         }
     }
 }

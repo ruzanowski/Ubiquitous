@@ -3,6 +3,7 @@ using U.SmartStoreAdapter.Domain.Entities.Catalog;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using U.Common;
+using U.Common.Pagination;
 using U.SmartStoreAdapter.Api.Products;
 
 namespace U.SmartStoreAdapter.Controllers

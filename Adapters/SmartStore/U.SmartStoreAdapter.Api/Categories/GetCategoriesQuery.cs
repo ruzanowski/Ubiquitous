@@ -1,5 +1,6 @@
 using MediatR;
 using U.Common;
+using U.Common.Pagination;
 
 namespace U.SmartStoreAdapter.Api.Categories
 {

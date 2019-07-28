@@ -4,5 +4,6 @@ namespace U.Common.Database
     {
         public string Connection { get; set; }
         public DbType Type { get; set; }
+        public bool AutoMigration { get; set; } = false;
     }
 }
