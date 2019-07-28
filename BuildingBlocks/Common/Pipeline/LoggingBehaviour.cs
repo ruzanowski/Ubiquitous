@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using U.Common.Extensions;
 
-namespace U.Common.Behaviours
+namespace U.Common.Pipeline
 {
     public class LoggingBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {

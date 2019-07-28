@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace U.Common
+namespace U.Common.Pagination
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public interface IPagination

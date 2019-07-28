@@ -3,6 +3,7 @@ using U.SmartStoreAdapter.Domain.Entities.Catalog;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using U.Common;
+using U.Common.Pagination;
 using U.SmartStoreAdapter.Api.Products;
 
 namespace U.SmartStoreAdapter.Controllers
@@ -61,7 +62,7 @@ namespace U.SmartStoreAdapter.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("store")]
-        [ProducesResponseType(typeof(DataTransaction<SmartProductDto, Product>), 201)]
+        [ProducesResponseType(typeof(int), 201)]
         public async Task<IActionResult> StoreProducts([FromBody] StoreProductsCommand products)
         {
             var result = await _mediator.Send(products);

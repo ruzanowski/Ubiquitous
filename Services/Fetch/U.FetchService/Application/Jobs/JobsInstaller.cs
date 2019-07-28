@@ -16,7 +16,7 @@ namespace U.FetchService.Application.Jobs
                     Executor = "Hangfire",
                     ExecutorComment = "Recurring job"
                 }),
-                "*/10 * * * * *",
+                Cron.Minutely,
                 TimeZoneInfo.Utc);
         }
     }

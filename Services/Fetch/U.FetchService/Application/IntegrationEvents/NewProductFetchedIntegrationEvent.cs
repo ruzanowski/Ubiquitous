@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using U.EventBus.Events;
 
-namespace U.FetchService.Api
+namespace U.FetchService.Application.IntegrationEvents
 {
     public class NewProductFetchedIntegrationEvent : IntegrationEvent
     {

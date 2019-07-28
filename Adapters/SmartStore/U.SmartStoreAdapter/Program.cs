@@ -5,7 +5,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using SmartStore.Persistance.Context;
+using U.Common.Database;
 using U.Common.Extensions;
+using U.Common.Mvc;
+using U.IntegrationEventLog;
 
 namespace U.SmartStoreAdapter
 {
@@ -34,11 +37,17 @@ namespace U.SmartStoreAdapter
                 Log.Information("Configuring web host ({ApplicationContext})...", AppName);
                 var host = BuildWebHost(configuration, args);
 
-                Log.Information("Applying migrations ({ApplicationContext})...", AppName);
+                var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
 
-                host.MigrateDbContext<SmartStoreContext>((_, __) => { });
+                if (dbOptions?.AutoMigration != null && dbOptions.AutoMigration)
+                {
+                    Log.Information("Applying migrations ({ApplicationContext})...", AppName);
 
-                Log.Information("Starting web host ({ApplicationContext})...", AppName);
+                    host.MigrateDbContext<SmartStoreContext>((_, __) => { });
+
+                    Log.Information("Starting web host ({ApplicationContext})...", AppName);
+                }
+                
                 host.Run();
 
                 return 0;
@@ -76,7 +85,8 @@ namespace U.SmartStoreAdapter
         private static IConfiguration GetConfiguration() =>
             new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)          
+                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}.json", optional:  true, true)
                 .AddEnvironmentVariables().Build();
     }
 }

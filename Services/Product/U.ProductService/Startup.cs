@@ -1,20 +1,14 @@
 ﻿using System.Reflection;
 using AutoMapper;
-using HealthChecks.UI.Client;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using RabbitMQ.Client;
-using U.Common.Behaviours;
 using U.Common.Database;
-using U.Common.Installers;
+using U.Common.Mvc;
+using U.Common.Pipeline;
 using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
 using U.FetchService.Api.IntegrationEvents;
@@ -47,7 +41,6 @@ namespace U.ProductService
                 .AddDatabaseContext<ProductContext>()
                 .AddEventBusRabbitMq(Configuration)
                 .AddIntegrationEventLog(Configuration)
-                .AddHealthChecks(Configuration)
                 .AddMediatR(typeof(CreateProductCommand).GetTypeInfo().Assembly)
                 .AddCustomPipelineBehaviours()
                 .AddLogging()
@@ -71,7 +64,6 @@ namespace U.ProductService
             app.UseDeveloperExceptionPage()
                 .UseMvcWithDefaultRoute()
                 .UseCors("CorsPolicy")
-                .UseHealthChecks()
                 .AddExceptionMiddleware()
                 .UseCustomSwagger(pathBase);
 
@@ -92,9 +84,6 @@ namespace U.ProductService
 
     public static class CustomServiceRegistrations
     {
-
-        
-        
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -141,67 +130,6 @@ namespace U.ProductService
 
             return services;
         }
-
-        public static IServiceCollection AddHealthChecks(this IServiceCollection services, IConfiguration configuration)
-        {
-            var serviceProvider = services.BuildServiceProvider();
-            var dbOptions = serviceProvider.GetService<DbOptions>();
-            var hcBuilder = services.AddHealthChecks();
-
-            hcBuilder.AddCheck("self", () => HealthCheckResult.Healthy());
-
-            hcBuilder
-                .AddNpgSql(
-                    dbOptions.Connection,
-                    name: "ProductDB-check",
-                    tags: new string[] {"productdb"});
-
-            hcBuilder
-                .AddRabbitMQ(
-                    $"amqp://{configuration["EventBusConnection"]}",
-                    name: "product-rabbitmqbus-check",
-                    tags: new[] {"rabbitmqbus"});
-
-            return services;
-        }
-
-        public static IApplicationBuilder UseHealthChecks(this IApplicationBuilder app)
-        {
-            app.UseHealthChecks("/liveness", new HealthCheckOptions
-            {
-                Predicate = r => r.Name.Contains("self")
-            });
-
-            app.UseHealthChecks("/hc", new HealthCheckOptions()
-            {
-                Predicate = _ => true,
-                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
-            return app;
-        }
-
-        public static IServiceCollection AddCustomMvc(this IServiceCollection services)
-        {
-            // AddAsync framework services.
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddControllersAsServices(); //Injecting Controllers themselves thru DI
-            //For further info see: http://docs.autofac.org/en/latest/integration/aspnetcore.html#controllers-as-services
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder
-                        .SetIsOriginAllowed(host => true)
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials());
-            });
-
-            return services;
-        }
-
-
         
         public static IServiceCollection AddCustomPipelineBehaviours(this IServiceCollection services)
         {

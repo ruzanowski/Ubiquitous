@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using U.ProductService.Application.IntegrationEvents.Events;
 using U.ProductService.Domain.Aggregates.Product;
 
 namespace U.ProductService.Application.Commands

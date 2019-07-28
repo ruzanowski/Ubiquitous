@@ -44,7 +44,7 @@ namespace U.FetchService.Application.Commands.FetchProducts
             if (!(products?.Data is null))
                 return products.Data;
             
-            _logger.LogInformation($"FetchManager: Fetching failed - thread {Thread.CurrentThread.ManagedThreadId}");
+            _logger.LogInformation("FetchDataQueryHandler: Fetching failed.");
             throw new FetchFailedException();
         }
     }

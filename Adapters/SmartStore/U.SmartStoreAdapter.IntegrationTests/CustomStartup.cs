@@ -27,7 +27,7 @@ namespace U.SmartStoreAdapter.IntegrationTests
                     // Add a database context (AppDbContext) using an in-memory database for testing.
                     services.AddDbContext<SmartStoreContext>(options =>
                     {
-                        options.UseSqlServer(dbConnectionString);
+                        options.UseNpgsql(dbConnectionString);
                         options.UseInternalServiceProvider(serviceProvider);
                     });
 

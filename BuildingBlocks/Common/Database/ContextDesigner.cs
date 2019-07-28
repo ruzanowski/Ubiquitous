@@ -1,6 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using U.Common.Mvc;
 
 namespace U.Common.Database
 {
@@ -21,9 +22,7 @@ namespace U.Common.Database
 
         private static void SetDbProviders<T>(ref DbContextOptionsBuilder<T> builder, IConfigurationRoot configuration) where T : DbContext
         {
-            const string dbOptionsSection = "DbOptions";
-            var dbOptions = new DbOptions();
-            configuration.GetSection(dbOptionsSection).Bind(dbOptions);
+            var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
 
             if (dbOptions.Connection is null)
             {

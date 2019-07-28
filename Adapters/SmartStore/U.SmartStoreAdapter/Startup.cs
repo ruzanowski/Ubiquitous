@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Reflection;
 using AutoMapper;
+using Consul;
 using MediatR;
 using U.SmartStoreAdapter.Application.MappingProfiles;
 using Microsoft.AspNetCore.Builder;
@@ -9,14 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using RequestInjector.NetCore;
 using SmartStore.Persistance.Context;
-using U.Common.Installers;
-using U.SmartStoreAdapter.Api.Products;
-using U.SmartStoreAdapter.Application.Operations.Notifications;
+using U.Common.Consul;
+using U.Common.Database;
+using U.Common.Fabio;
+using U.Common.Pipeline;
 using U.SmartStoreAdapter.Application.Operations.Products;
 using U.SmartStoreAdapter.Middleware;
-using IRequest = MediatR.IRequest;
 
 namespace U.SmartStoreAdapter
 {
@@ -37,7 +37,7 @@ namespace U.SmartStoreAdapter
         /// <summary>
         /// 
         /// </summary>
-        private IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
         /// This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -45,9 +45,19 @@ namespace U.SmartStoreAdapter
             //Mini profiler
             services.AddMiniProfiler();
 
-            //Compatibility
-            services.AddMvcCore()
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddControllersAsServices();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                        .SetIsOriginAllowed(host => true)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
             
             //Swagger 
             services.AddSwaggerGen(c =>
@@ -73,32 +83,8 @@ namespace U.SmartStoreAdapter
 
             #endregion
 
-            #region MediatR register
-
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
-                typeof(GetProductsListQueryHandler).GetTypeInfo().Assembly,
-                typeof(FailedToStoreNotificationHandler).GetTypeInfo().Assembly);
-
-            services.Scan(scan => scan
-                .FromAssemblyOf<GetProductsListQuery>()
-                .FromAssemblyOf<SuccessfulStoreNotificationHandler>()
-                .AddClasses()
-                .AsSelf()
-                .WithTransientLifetime());
-
-            var provider = services.BuildServiceProvider();
-
-            services.AddMvc(config =>
-                {
-                    config.ModelMetadataDetailsProviders.Add(new RequestInjectorMetadataProvider());
-                    config.ModelBinderProviders.Insert(0, new RequestInjectorModelBinderProvider());
-                })
-                .AddJsonOptions(options =>
-                {
-                    options.SerializerSettings.Converters.Add(new RequestInjectorHandler<IRequest>(provider));
-                });
-
-            #endregion
+                typeof(GetProductsListQueryHandler).GetTypeInfo().Assembly);
 
             //DbContext            
             services
@@ -109,16 +95,23 @@ namespace U.SmartStoreAdapter
             services.AddLoggingBehaviour();
             //Logging
             services.AddLogging();
+                
+            services.AddSingleton(new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new ProductMappingProfile());
+                mc.AddProfile(new CategoryMappingProfile());
+                mc.AddProfile(new ManufacturerMappingProfile());
+            }).CreateMapper());
+
+            services.AddCustomConsul();
+            services.AddCustomFabio();
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP transaction pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+            IApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            if (env.IsDevelopment())
-                app.UseDeveloperExceptionPage();
-            else
-                app.UseHsts();
-
+            app.UseDeveloperExceptionPage();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -130,6 +123,9 @@ namespace U.SmartStoreAdapter
             app.UseHttpsRedirection();
             app.UseMiniProfiler();
             app.UseMvc();
+            
+            var consulServiceId = app.UseCustomConsul();
+            applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }
     }
 }
