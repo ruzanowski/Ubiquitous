@@ -15,7 +15,7 @@ namespace U.Common.Pagination
             PageIndex = pageIndex;
             Data = data;
         }
-        public IEnumerable<T> Data { get; set; }
+        public IEnumerable<T> Data { get; private set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
 
@@ -25,8 +25,7 @@ namespace U.Common.Pagination
             {
                 return new PaginatedItems<T>(pageIndex,
                     pageSize,
-                    await data
-                        .Skip((pageIndex - 1) * pageSize)
+                    await data.Skip(pageIndex * pageSize) 
                         .Take(pageSize)
                         .ToListAsync());
             }

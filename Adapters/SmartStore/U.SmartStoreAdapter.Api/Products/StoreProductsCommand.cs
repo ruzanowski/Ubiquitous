@@ -1,5 +1,4 @@
 using MediatR;
-using U.Common;
 
 namespace U.SmartStoreAdapter.Api.Products
 {

@@ -4,11 +4,6 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Serilog;
-using U.Common.Database;
-using U.Common.Extensions;
-using U.Common.Mvc;
-using U.FetchService.Infrastructure.Context;
-using U.IntegrationEventLog;
 
 namespace U.FetchService
 {
@@ -28,16 +23,7 @@ namespace U.FetchService
             {
                 Log.Information("Configuring web host ({ApplicationContext})...", AppName);
                 var host = BuildWebHost(configuration, args);
-                var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
-
-                if (dbOptions?.AutoMigration != null && dbOptions.AutoMigration)
-                {
-                    Log.Information("Applying migrations ({ApplicationContext})...", AppName);
-
-                    host.MigrateDbContext<FetchServiceContext>((_, __) => { });
-
-                    Log.Information("Starting web host ({ApplicationContext})...", AppName);
-                }
+                Log.Information($"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");
 
                 host.Run();
 

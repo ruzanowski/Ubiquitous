@@ -3,15 +3,18 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
+using U.Common.Mvc;
 using U.EventBus.Abstractions;
 
 namespace U.EventBus.RabbitMQ
 {
     public static class ServiceCollectionExtensions
     {
+        private const string RabbitSectionName = "rabbit";
         public static IServiceCollection AddEventBusRabbitMq(this IServiceCollection services, IConfiguration configuration)
         {
-            var subscriptionClientName = configuration["SubscriptionClientName"];
+            var rabbit = configuration.GetOptions<RabbitOptions>(RabbitSectionName);
+            services.AddSingleton(rabbit);
 
             services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
             {
@@ -20,13 +23,13 @@ namespace U.EventBus.RabbitMQ
                 var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
 
                 var retryCount = 5;
-                if (!string.IsNullOrEmpty(configuration["EventBusRetryCount"]))
+                if (!string.IsNullOrEmpty(rabbit.EventBusRetryCount))
                 {
-                    retryCount = int.Parse(configuration["EventBusRetryCount"]);
+                    retryCount = int.Parse(rabbit.EventBusRetryCount);
                 }
 
                 return new EventBusRabbitMQ(rabbitMqPersistentConnection, logger, services.BuildServiceProvider(),
-                    eventBusSubcriptionsManager, subscriptionClientName, retryCount);
+                    eventBusSubcriptionsManager, rabbit.SubscriptionClientName, retryCount);
             });
             
             services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
@@ -35,24 +38,24 @@ namespace U.EventBus.RabbitMQ
 
                 var factory = new ConnectionFactory
                 {
-                    HostName = configuration["EventBusConnection"],
+                    HostName = rabbit.EventBusConnection,
                     DispatchConsumersAsync = true
                 };
 
-                if (!string.IsNullOrEmpty(configuration["EventBusUserName"]))
+                if (!string.IsNullOrEmpty(rabbit.EventBusUserName))
                 {
-                    factory.UserName = configuration["EventBusUserName"];
+                    factory.UserName = rabbit.EventBusUserName;
                 }
 
-                if (!string.IsNullOrEmpty(configuration["EventBusPassword"]))
+                if (!string.IsNullOrEmpty(rabbit.EventBusPassword))
                 {
-                    factory.Password = configuration["EventBusPassword"];
+                    factory.Password = rabbit.EventBusPassword;
                 }
 
                 var retryCount = 5;
-                if (!string.IsNullOrEmpty(configuration["EventBusRetryCount"]))
+                if (!string.IsNullOrEmpty(rabbit.EventBusRetryCount))
                 {
-                    retryCount = int.Parse(configuration["EventBusRetryCount"]);
+                    retryCount = int.Parse(rabbit.EventBusRetryCount);
                 }
 
                 return new DefaultRabbitMQPersistentConnection(factory, logger, retryCount);

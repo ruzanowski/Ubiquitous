@@ -1,9 +1,12 @@
-using System.Linq;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace U.Common.Mvc
 {
@@ -45,9 +48,33 @@ namespace U.Common.Mvc
                         .AllowAnyHeader()
                         .AllowCredentials());
             });
+            
+            services.AddSingleton<IServiceId, ServiceId>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             return services;
         }
+        
+        public static IServiceCollection AddLoggingBehaviour(this IServiceCollection services)
+            => services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
+
+        public static (IApplicationBuilder,string) UseCustomPathBase<T>(this IApplicationBuilder app, IConfiguration configuration, ILogger<T> logger)
+        {
+            var pathBase = configuration["PATH_BASE"];
+            if (!string.IsNullOrEmpty(pathBase))
+            {
+                logger.LogDebug("Using PATH BASE '{pathBase}'", pathBase);
+                app.UsePathBase(pathBase);
+            }
+
+            return (app, pathBase);
+        }
+        
+        public static IApplicationBuilder UseAllForwardedHeaders(this IApplicationBuilder builder)
+            => builder.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.All
+            });
 
     }
 }

@@ -7,7 +7,6 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using SmartStore.Persistance.Context;
-using U.Common;
 using U.SmartStoreAdapter.Api.Products;
 using U.SmartStoreAdapter.Application.Validators;
 using U.SmartStoreAdapter.Domain.Entities.Catalog;

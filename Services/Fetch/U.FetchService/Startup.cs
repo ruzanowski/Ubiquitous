@@ -1,32 +1,29 @@
-﻿using System.Net.Http;
-using System.Reflection;
-using AutoMapper;
+﻿using System.Reflection;
 using Consul;
-using Hangfire;
-using U.FetchService.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using U.Common.Consul;
-using U.Common.Database;
 using U.Common.Fabio;
 using U.Common.Mvc;
-using U.Common.Pipeline;
+using U.Common.RestEase;
 using U.EventBus.RabbitMQ;
-using U.FetchService.Application.Commands.Dispatch;
-using U.FetchService.Application.Commands.FetchProducts;
-using U.FetchService.Application.Jobs;
-using FetchServiceContext = U.FetchService.Infrastructure.Context.FetchServiceContext;
+using U.FetchService.BackgroundServices;
+using U.FetchService.Commands.UpdateProducts;
+using U.FetchService.Services;
 
 namespace U.FetchService
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly ILogger<Startup> _logger;
+
+        public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
+            _logger = logger;
             Configuration = configuration;
         }
 
@@ -38,30 +35,22 @@ namespace U.FetchService
         {
             services
                 .AddCustomMvc()
-                .AddAvailableWholesales(Configuration)
-                .AddSubscribedService(Configuration)
                 .AddCustomMediatR()
-                .AddDatabaseOptionsAsSingleton(Configuration)
-                .AddDatabaseContext<FetchServiceContext>()
                 .AddLoggingBehaviour()
-                .AddHangFire(Configuration)
                 .AddEventBusRabbitMq(Configuration)
                 .AddCustomConsul()
-                .AddCustomFabio();
-        }
+                .RegisterServiceForwarder<ISmartStoreAdapter>("u.smartstore-adapter")
+                .AddHostedService<ProductsUpdateWorkerHostedService>();
+        }     
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            IApplicationLifetime applicationLifetime, IConsulClient client)
+        public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            app.UseDeveloperExceptionPage();
-
-            app.UseMvcWithDefaultRoute();
-            app.UseHangfireDashboard("/hangfire", new DashboardOptions()
-            {
-                Authorization = new[] {new HangfireAuthorizationFilter()}
-            });
-            app.UseCustomBackgroundJobs();
+            app.UseCustomPathBase(Configuration, _logger).Item1
+                .UseDeveloperExceptionPage()
+                .UseMvcWithDefaultRoute()
+                .UseServiceId()
+                .UseForwardedHeaders();
             
             var consulServiceId = app.UseCustomConsul();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
@@ -73,8 +62,7 @@ namespace U.FetchService
         public static IServiceCollection AddCustomMediatR(this IServiceCollection services)
         {
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
-                typeof(FetchDataCommand).GetTypeInfo().Assembly,
-                typeof(DispatchCommand).GetTypeInfo().Assembly);
+                typeof(UpdateProductsCommand).GetTypeInfo().Assembly);
             return services;
         }
     }
