@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using U.Common.Extensions;
 using U.Common.Fabio;
 using U.Common.Mvc;
 
@@ -47,18 +46,6 @@ namespace U.Common.Consul
             {
                 var consulOptions = scope.ServiceProvider.GetService<IOptions<ConsulOptions>>();
                 var fabioOptions = scope.ServiceProvider.GetService<IOptions<FabioOptions>>();
-                var enabled = consulOptions.Value.Enabled;
-                var consulEnabled = Environment.GetEnvironmentVariable("CONSUL_ENABLED")?.ToLowerInvariant();
-                if (!string.IsNullOrWhiteSpace(consulEnabled))
-                {
-                    enabled = consulEnabled == "true" || consulEnabled == "1";
-                }
-
-                if (!enabled)
-                {
-                    return string.Empty;
-                }
-
 
                 var address = consulOptions.Value.Address;
                 if (string.IsNullOrWhiteSpace(address))
@@ -67,8 +54,7 @@ namespace U.Common.Consul
                         nameof(consulOptions.Value.PingEndpoint));
                 }
 
-//                var uniqueId = scope.ServiceProvider.GetService<IServiceId>().Id;
-                string uniqueId = "one";
+                var uniqueId = scope.ServiceProvider.GetService<IServiceId>().Id;
                 var client = scope.ServiceProvider.GetService<IConsulClient>();
                 var serviceName = consulOptions.Value.Service;
                 var serviceId = $"{serviceName}:{uniqueId}";
@@ -83,9 +69,9 @@ namespace U.Common.Consul
                     ID = serviceId,
                     Address = address,
                     Port = port,
-                    Tags = fabioOptions.Value.Enabled ? GetFabioTags(serviceName, fabioOptions.Value.Service) : null
+                    Tags = GetFabioTags(serviceName, fabioOptions.Value.Service)
                 };
-                if (consulOptions.Value.PingEnabled || fabioOptions.Value.Enabled)
+                if (consulOptions.Value.PingEnabled)
                 {
                     var scheme = address.StartsWith("http", StringComparison.InvariantCultureIgnoreCase)
                         ? string.Empty

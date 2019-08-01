@@ -1,14 +1,17 @@
 ﻿using System.Reflection;
 using AutoMapper;
+using Consul;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using U.Common.Consul;
 using U.Common.Database;
-using U.Common.Mvc;
-using U.Common.Pipeline;
+using U.Common.Fabio;
+using U.Common.Mvc; 
 using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
 using U.FetchService.Api.IntegrationEvents;
@@ -26,8 +29,11 @@ namespace U.ProductService
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly ILogger<Startup> _logger;
+
+        public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
+            _logger = logger;
             Configuration = configuration;
         }
 
@@ -46,27 +52,27 @@ namespace U.ProductService
                 .AddLogging()
                 .AddCustomSwagger()
                 .AddCustomMapper()
-                .AddCustomServices();
+                .AddCustomServices()                
+                .AddCustomConsul()
+                .AddCustomFabio();
 
             RegisterEventsHandlers(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory,
+            IApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            var pathBase = Configuration["PATH_BASE"];
-            if (!string.IsNullOrEmpty(pathBase))
-            {
-                loggerFactory.CreateLogger<Startup>().LogDebug("Using PATH BASE '{pathBase}'", pathBase);
-                app.UsePathBase(pathBase);
-            }
-
+            var pathBase = app.UseCustomPathBase(Configuration, _logger).Item2;
             app.UseDeveloperExceptionPage()
                 .UseMvcWithDefaultRoute()
                 .UseCors("CorsPolicy")
                 .AddExceptionMiddleware()
-                .UseCustomSwagger(pathBase);
+                .UseCustomSwagger(pathBase)
+                .UseServiceId()
+                .UseForwardedHeaders();
 
+            RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
         }
 
@@ -79,6 +85,12 @@ namespace U.ProductService
         private void RegisterEventsHandlers(IServiceCollection services)
         {
             services.AddTransient<NewProductFetchedIntegrationEventHandler>();
+        }
+
+        private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
+        {
+            var consulServiceId = app.UseCustomConsul();
+            applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }
     }
 

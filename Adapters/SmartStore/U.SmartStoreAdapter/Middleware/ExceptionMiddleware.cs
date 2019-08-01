@@ -26,12 +26,13 @@ namespace U.SmartStoreAdapter.Middleware
         /// 
         /// </summary>
         /// <param name="app"></param>
-        public static void AddExceptionMiddleWare(this IApplicationBuilder app)
+        public static IApplicationBuilder AddExceptionMiddleWare(this IApplicationBuilder app)
         {
             app.UseExceptionHandler(errorApp =>
             {
                 errorApp.Run(ExceptionMiddlewarePipeline);
             });
+            return app;
         }
 
         private static async Task ExceptionMiddlewarePipeline(HttpContext context)

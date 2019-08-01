@@ -164,11 +164,12 @@
             
             </summary>
         </member>
-        <member name="M:U.SmartStoreAdapter.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:U.SmartStoreAdapter.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILogger{U.SmartStoreAdapter.Startup})">
             <summary>
             
             </summary>
             <param name="configuration"></param>
+            <param name="logger"></param>
         </member>
         <member name="P:U.SmartStoreAdapter.Startup.Configuration">
             <summary>
@@ -178,7 +179,7 @@
         <member name="M:U.SmartStoreAdapter.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             This method gets called by the runtime. Use this method to add services to the container.
         </member>
-        <member name="M:U.SmartStoreAdapter.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.AspNetCore.Hosting.IApplicationLifetime,Consul.IConsulClient)">
+        <member name="M:U.SmartStoreAdapter.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IApplicationLifetime,Consul.IConsulClient)">
             This method gets called by the runtime. Use this method to configure the HTTP transaction pipeline.
         </member>
     </members>

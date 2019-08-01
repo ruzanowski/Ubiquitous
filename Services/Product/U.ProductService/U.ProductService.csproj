@@ -24,14 +24,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Update="appsettings.docker.json">
+      <Content Remove="appsettings.json" />
+      <EmbeddedResource Include="appsettings.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Update="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <Content Remove="appsettings.docker.json" />
+      <EmbeddedResource Include="appsettings.docker.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 
 </Project>

@@ -61,7 +61,7 @@ services:
       - redis:/data
 
   u.smartstore-adapter:
-    image: smartstore_adapter:latest
+    image: u.smartstore_adapter:latest
     container_name: u.smartstore-adapter
     build:
       context: .
@@ -72,13 +72,14 @@ services:
       DbOptions__Connection: Server=postgres;Port=5432;Database=smartstore-adapter;User Id=postgres;Password=postgres;Integrated Security=true;Pooling=true;
       DbOptions__Type: Npgsql
       ASPNETCORE_URLS: http://+:5000
+      ASPNETCORE_ENVIRONMENT: docker
     depends_on:
     - postgres
     networks:
       - ubiquitous
 
   u.fetch-service:
-    image: fetch-service:latest
+    image: u.fetch-service:latest
     container_name: u.fetch-service
     build:
       context: .
@@ -90,6 +91,7 @@ services:
       DbOptions__Type: Npgsql
       IntegrationEventLogConnection: Server=postgres;Port=5432;Database=IntegrationEventLog;User Id=postgres;\nPassword=postgres;Integrated Security=true;Pooling=true;
       ASPNETCORE_URLS: http://+:5001
+      ASPNETCORE_ENVIRONMENT: docker
     depends_on:
       - u.smartstore-adapter
       - postgres

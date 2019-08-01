@@ -4,7 +4,9 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Serilog;
+using U.Common.Database;
 using U.Common.Extensions;
+using U.Common.Mvc;
 using U.IntegrationEventLog;
 using U.ProductService.Persistance.Contexts;
 
@@ -26,11 +28,17 @@ namespace U.ProductService
             {
                 Log.Information("Configuring web host ({ApplicationContext})...", AppName);
                 var host = BuildWebHost(configuration, args);
+                var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
 
-                Log.Information("Applying migrations ({ApplicationContext})...", AppName);
+                Log.Information($"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");
 
-                host.MigrateDbContext<ProductContext>((_, __) => { })
-                    .MigrateDbContext<IntegrationEventLogContext>((_, __) => { });
+                if (dbOptions?.AutoMigration != null && dbOptions.AutoMigration)
+                {
+                    Log.Information("Applying migrations ({ApplicationContext})...", AppName);
+
+                    host.MigrateDbContext<ProductContext>((_, __) => { })
+                        .MigrateDbContext<IntegrationEventLogContext>((_, __) => { });
+                }
 
                 Log.Information("Starting web host ({ApplicationContext})...", AppName);
                 host.Run();
@@ -58,8 +66,8 @@ namespace U.ProductService
         
         private static ILogger CreateSerilogLogger(IConfiguration configuration)
         {
-            var seqServerUrl = configuration["Serilog:SeqServerUrl"];
-            var logstashUrl = configuration["Serilog:LogstashgUrl"];
+            //var seqServerUrl = configuration["Serilog:SeqServerUrl"];
+            //var logstashUrl = configuration["Serilog:LogstashgUrl"];
             return new LoggerConfiguration()
                 .MinimumLevel.Verbose()
                 .Enrich.WithProperty("ApplicationContext", AppName)
@@ -75,7 +83,7 @@ namespace U.ProductService
             new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.docker.json", optional: true)
+                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}.json", optional: true, true)
                 .AddEnvironmentVariables().Build();
     }
 }

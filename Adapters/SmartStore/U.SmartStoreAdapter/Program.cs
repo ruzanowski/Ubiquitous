@@ -8,7 +8,6 @@ using SmartStore.Persistance.Context;
 using U.Common.Database;
 using U.Common.Extensions;
 using U.Common.Mvc;
-using U.IntegrationEventLog;
 
 namespace U.SmartStoreAdapter
 {
@@ -38,6 +37,8 @@ namespace U.SmartStoreAdapter
                 var host = BuildWebHost(configuration, args);
 
                 var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
+
+                Log.Information($"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");
 
                 if (dbOptions?.AutoMigration != null && dbOptions.AutoMigration)
                 {

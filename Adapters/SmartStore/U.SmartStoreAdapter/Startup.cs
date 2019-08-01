@@ -9,12 +9,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SmartStore.Persistance.Context;
 using U.Common.Consul;
 using U.Common.Database;
 using U.Common.Fabio;
-using U.Common.Pipeline;
+using U.Common.Mvc;
 using U.SmartStoreAdapter.Application.Operations.Products;
 using U.SmartStoreAdapter.Middleware;
 
@@ -25,12 +26,16 @@ namespace U.SmartStoreAdapter
     /// </summary>
     public class Startup
     {
+        private readonly ILogger<Startup> _logger;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="configuration"></param>
-        public Startup(IConfiguration configuration)
+        /// <param name="logger"></param>
+        public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
+            _logger = logger;
             Configuration = configuration;
         }
 
@@ -45,20 +50,8 @@ namespace U.SmartStoreAdapter
             //Mini profiler
             services.AddMiniProfiler();
 
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddControllersAsServices();
+            services.AddCustomMvc();
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder
-                        .SetIsOriginAllowed(host => true)
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials());
-            });
-            
             //Swagger 
             services.AddSwaggerGen(c =>
             {
@@ -69,20 +62,6 @@ namespace U.SmartStoreAdapter
             //Services
             services.AddScoped<HttpClient>();
 
-            #region Automapper profiles & init
-
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new ProductMappingProfile());
-                mc.AddProfile(new CategoryMappingProfile());
-                mc.AddProfile(new ManufacturerMappingProfile());
-                mc.AllowNullCollections = true;
-            });
-            var mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
-
-            #endregion
-
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
                 typeof(GetProductsListQueryHandler).GetTypeInfo().Assembly);
 
@@ -92,9 +71,8 @@ namespace U.SmartStoreAdapter
                 .AddDatabaseContext<SmartStoreContext>();
             
             //Logging Behaviour Pipeline
-            services.AddLoggingBehaviour();
-            //Logging
-            services.AddLogging();
+            services.AddLoggingBehaviour()
+                    .AddLogging();
                 
             services.AddSingleton(new MapperConfiguration(mc =>
             {
@@ -104,25 +82,25 @@ namespace U.SmartStoreAdapter
             }).CreateMapper());
 
             services.AddCustomConsul();
-            services.AddCustomFabio();
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP transaction pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            IApplicationLifetime applicationLifetime, IConsulClient client)
+        public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            app.UseDeveloperExceptionPage();
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartStore Adapter V1");
-                c.RoutePrefix = string.Empty;
-            });
-            app.AddExceptionMiddleWare();
-            app.UseHttpsRedirection();
-            app.UseMiniProfiler();
-            app.UseMvc();
+            app.UseCustomPathBase(Configuration, _logger).Item1
+                .UseDeveloperExceptionPage()
+                .UseSwagger()
+                .UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartStore Adapter V1");
+                    c.RoutePrefix = string.Empty;
+                }).AddExceptionMiddleWare()
+                .UseHttpsRedirection()
+                .UseMiniProfiler()
+                .UseMvc()
+                .UseServiceId()
+                .UseForwardedHeaders();
+                
             
             var consulServiceId = app.UseCustomConsul();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
