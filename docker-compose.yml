@@ -67,14 +67,12 @@ services:
       context: .
       dockerfile: Adapters/SmartStore/U.SmartStoreAdapter/Dockerfile
     ports:
-      - 5000:5000
+      - 5100:5100
     environment:
       DbOptions__Connection: Server=postgres;Port=5432;Database=smartstore-adapter;User Id=postgres;Password=postgres;Integrated Security=true;Pooling=true;
       DbOptions__Type: Npgsql
-      ASPNETCORE_URLS: http://+:5000
+      ASPNETCORE_URLS: http://+:5100
       ASPNETCORE_ENVIRONMENT: docker
-    depends_on:
-    - postgres
     networks:
       - ubiquitous
 
@@ -85,16 +83,32 @@ services:
       context: .
       dockerfile: Services/Fetch/U.FetchService/Dockerfile
     ports:
-      - 5001:5001
+      - 5200:5200
     environment:
       DbOptions__Connection: Server=postgres;Port=5432;Database=fetch-service;User Id=postgres;Password=postgres;Integrated Security=true;Pooling=true;
       DbOptions__Type: Npgsql
       IntegrationEventLogConnection: Server=postgres;Port=5432;Database=IntegrationEventLog;User Id=postgres;\nPassword=postgres;Integrated Security=true;Pooling=true;
-      ASPNETCORE_URLS: http://+:5001
+      ASPNETCORE_URLS: http://+:5200
       ASPNETCORE_ENVIRONMENT: docker
     depends_on:
       - u.smartstore-adapter
-      - postgres
+    networks:
+      - ubiquitous
+
+  u.product-service:
+    image: u.product-service:latest
+    container_name: u.product-service
+    build:
+      context: .
+      dockerfile: Services/Product/U.ProductService/Dockerfile
+    ports:
+      - 5000:5000
+    environment:
+      DbOptions__Connection: Server=postgres;Port=5432;Database=product-service;User Id=postgres;Password=postgres;Integrated Security=true;Pooling=true;
+      DbOptions__Type: Npgsql
+      IntegrationEventLogConnection: Server=postgres;Port=5432;Database=IntegrationEventLog;User Id=postgres;\nPassword=postgres;Integrated Security=true;Pooling=true;
+      ASPNETCORE_URLS: http://+:5000
+      ASPNETCORE_ENVIRONMENT: docker
     networks:
       - ubiquitous
 

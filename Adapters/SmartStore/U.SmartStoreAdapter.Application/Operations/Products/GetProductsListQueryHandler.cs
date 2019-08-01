@@ -37,7 +37,6 @@ namespace U.SmartStoreAdapter.Application.Operations.Products
                 .OrderBy(request.OrderBy)
                 .Build();
             
-            
             var productsMapped = _mapper.ProjectTo<SmartProductViewModel>(products);
 
             var paginatedProducts = await PaginatedItems<SmartProductViewModel>.PaginatedItemsCreate.CreateAsync(request.PageIndex, request.PageSize, productsMapped);

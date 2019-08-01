@@ -23,10 +23,8 @@
     </ItemGroup>
 
     <ItemGroup>
-<!--      <ProjectReference Include="..\..\..\Adapters\SmartStore\U.SmartStoreAdapter.Api\U.SmartStoreAdapter.Api.csproj" />-->
       <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
       <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
-      <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
     </ItemGroup>
 
     <ItemGroup>

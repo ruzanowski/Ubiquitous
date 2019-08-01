@@ -39,7 +39,6 @@ namespace U.FetchService
                 .AddLoggingBehaviour()
                 .AddEventBusRabbitMq(Configuration)
                 .AddCustomConsul()
-                .AddCustomFabio()
                 .RegisterServiceForwarder<ISmartStoreAdapter>("u.smartstore-adapter")
                 .AddHostedService<ProductsUpdateWorkerHostedService>();
         }     

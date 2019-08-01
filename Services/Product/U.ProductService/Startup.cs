@@ -53,8 +53,7 @@ namespace U.ProductService
                 .AddCustomSwagger()
                 .AddCustomMapper()
                 .AddCustomServices()                
-                .AddCustomConsul()
-                .AddCustomFabio();
+                .AddCustomConsul();
 
             RegisterEventsHandlers(services);
         }

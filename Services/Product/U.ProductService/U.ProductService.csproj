@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <Content Remove="appsettings.json" />
+      <Content Include="Dockerfile" />
       <EmbeddedResource Include="appsettings.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>

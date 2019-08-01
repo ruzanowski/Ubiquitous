@@ -10,7 +10,7 @@ namespace U.FetchService.Services
         [AllowAnyStatusCode]
         [Get("api/smartstore/products/get-list")]
         Task<PaginatedItems<SmartProductViewModel>> GetListAsync(
-            [Query("pageSize")] int pageSize = int.MaxValue,
+            [Query("pageSize")] int pageSize = 99999,
             [Query("pageIndex")] int pageIndex = 0);
     }
 }
