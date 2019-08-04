@@ -10,17 +10,16 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using U.Common.Consul;
 using U.Common.Database;
-using U.Common.Fabio;
 using U.Common.Mvc; 
 using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
-using U.FetchService.Api.IntegrationEvents;
 using U.IntegrationEventLog;
+using U.IntegrationEventLog.Services;
 using U.ProductService.Application.Behaviours;
-using U.ProductService.Application.Commands;
 using U.ProductService.Application.IntegrationEvents;
 using U.ProductService.Application.IntegrationEvents.EventHandling;
-using U.ProductService.Domain.Aggregates.Product;
+using U.ProductService.Application.Products.Commands.CreateProduct;
+using U.ProductService.Domain.Aggregates;
 using U.ProductService.Middleware;
 using U.ProductService.Persistance.Contexts;
 using U.ProductService.Persistance.Repositories;
@@ -45,8 +44,8 @@ namespace U.ProductService
             services.AddCustomMvc()
                 .AddDatabaseOptionsAsSingleton(Configuration)
                 .AddDatabaseContext<ProductContext>()
+                .AddDatabaseContext<IntegrationEventLogContext>()
                 .AddEventBusRabbitMq(Configuration)
-                .AddIntegrationEventLog(Configuration)
                 .AddMediatR(typeof(CreateProductCommand).GetTypeInfo().Assembly)
                 .AddCustomPipelineBehaviours()
                 .AddLogging()
@@ -59,7 +58,7 @@ namespace U.ProductService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory,
+        public void Configure(IApplicationBuilder app,
             IApplicationLifetime applicationLifetime, IConsulClient client)
         {
             var pathBase = app.UseCustomPathBase(Configuration, _logger).Item2;
@@ -98,6 +97,7 @@ namespace U.ProductService
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddIntegrationEventLog();
             services.AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>();
 
             return services;

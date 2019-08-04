@@ -3,6 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using U.Common.Database;
+using U.Common.Mvc;
 using U.IntegrationEventLog;
 
 namespace U.ProductService.Persistance.Contexts.Factories
@@ -12,18 +14,8 @@ namespace U.ProductService.Persistance.Contexts.Factories
     {
         public IntegrationEventLogContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<IntegrationEventLogContext>();
+            var optionsBuilder = ContextDesigner.CreateDbContextOptionsBuilder<IntegrationEventLogContext>("../../../../U.ProductService");
             
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory + @"../../../../U.ProductService")
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            var connection = configuration.GetSection("IntegrationEventLogConnection").Value;
-
-            optionsBuilder.UseNpgsql(connection,
-                options => options.MigrationsAssembly(GetType().Assembly.GetName().Name));
-
             return new IntegrationEventLogContext(optionsBuilder.Options);
         }
     }

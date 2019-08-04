@@ -1,9 +1,10 @@
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
-using U.FetchService.Api.IntegrationEvents;
-using U.ProductService.Application.Commands;
-using U.ProductService.Domain.Aggregates.Product;
+using U.ProductService.Application.Products.Commands.CreateProduct;
+using U.ProductService.Application.Products.Commands.UpdateProduct;
+using U.ProductService.Domain.Aggregates;
 
 namespace U.ProductService.Application.IntegrationEvents.EventHandling
 {
@@ -11,26 +12,46 @@ namespace U.ProductService.Application.IntegrationEvents.EventHandling
     {
         private readonly IMediator _mediator;
         private readonly IProductRepository _productRepository;
+        private readonly ILogger<NewProductFetchedIntegrationEventHandler> _logger;
 
-        public NewProductFetchedIntegrationEventHandler(IMediator mediator, IProductRepository productRepository)
+        public NewProductFetchedIntegrationEventHandler(IMediator mediator, IProductRepository productRepository,
+            ILogger<NewProductFetchedIntegrationEventHandler> logger)
         {
             _mediator = mediator;
             _productRepository = productRepository;
+            _logger = logger;
         }
 
         public async Task Handle(NewProductFetchedIntegrationEvent @event)
         {
-            var isNew = await _productRepository.AnyAsync(@event.ProductUniqueCode);
+            _logger.LogInformation($"--- Received: {nameof(NewProductFetchedIntegrationEvent)} ---");
 
-            if (!isNew)
+            var exists = await _productRepository.AnyAlternateIdAsync(@event.GetUniqueId);
+
+            if (!exists)
             {
-                var createProduct = new CreateProductCommand(null, null, null, null);
-                await _mediator.Send(createProduct);
+                _logger.LogInformation(
+                    $"--- Product does not exist with alternate key: '{@event.GetUniqueId}' ---");
+
+                var dimensions = new Dimensions(@event.Length, @event.Width, @event.Height, @event.Weight);
+                var create = new CreateProductCommand(@event.Name, @event.GetUniqueId, @event.PriceInTax,
+                    @event.Description, dimensions);
+
+                _logger.LogInformation($"--- Raised Command: {nameof(CreateProductCommand)} ---");
+
+                await _mediator.Send(create);
             }
             else
             {
-                var createProduct = new CreateProductCommand(null, null, null, null);
-                await _mediator.Send(createProduct);
+                _logger.LogInformation($"--- Product exists with alternate key: '{@event.GetUniqueId}' ---");
+
+                var dimensions = new Dimensions(@event.Length, @event.Width, @event.Height, @event.Weight);
+                var update = new UpdateProductCommand(null, @event.Name, @event.GetUniqueId,
+                    @event.PriceInTax, @event.Description, dimensions);
+
+                _logger.LogInformation($"--- Raised Command: {nameof(UpdateProductCommand)} ---");
+
+                await _mediator.Send(update);
             }
         }
     }

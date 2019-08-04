@@ -1,19 +1,24 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using U.ProductService.Domain.SeedWork;
 
-namespace U.ProductService.Domain.Aggregates.Product
-{
-    //This is just the RepositoryContracts or Interface defined at the Domain Layer
-    //as requisite for the Product Aggregate
+// ReSharper disable CheckNamespace
 
+
+namespace U.ProductService.Domain.Aggregates
+{
     public interface IProductRepository : IRepository<Product>
     {
         Task<Product> AddAsync(Product product);
-        
+
         void Update(Product product);
 
-        Task<Product> GetAsync(int orderId);
+        Task<Product> GetAsync(Guid productId);
+        
+        Task<Product> GetAlternateIdAsync(string alternateId);
 
-        Task<bool> AnyAsync(string uniqueName);
+        Task<bool> AnyAsync(Guid id);
+
+        Task<bool> AnyAlternateIdAsync(string barCode);
     }
 }

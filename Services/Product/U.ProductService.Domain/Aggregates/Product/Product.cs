@@ -1,52 +1,106 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using U.ProductService.Domain.Events;
 using U.ProductService.Domain.SeedWork;
-// ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
 
-namespace U.ProductService.Domain.Aggregates.Product
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
+// ReSharper disable CheckNamespace
+
+
+namespace U.ProductService.Domain.Aggregates
 {
     public class Product : Entity, IAggregateRoot
     {
-
-        public string UniqueProductCode { get; private set; }
-        
         public string Name { get; private set; }
-        public string ProductUniqueCode { get; private set; }
-        public string ManufacturerPartNumber { get; private set; }
-        public int InStock { get; private set; }
-        public int TaxCategoryId { get; private set; }
-        public decimal PriceInTax { get; private set; }
-        public decimal ProductCost { get; private set; }
-        public decimal PriceMinimumSpecifiedByCustomer { get; private set; }
+        public string BarCode { get; private set; }
+        public decimal Price { get; private set; }
         public string Description { get; private set; }
-        public string CountryMade { get; private set; }
         public bool IsPublished { get; private set; }
-        
-        //ValueObjects
-        public Address Address { get; private set; }
-        public Dimensions Dimensions { get; private set; }
-        
-        public Guid ManufacturerId { get; private set; }
-        public Guid CategoryId { get; private set; }
-        public Guid? MainPictureId { get; private set; }
-        public IEnumerable<Guid> PicturesIds { get; private set; }
+        public DateTime CreatedDateTime { get; private set; }
+        public DateTime? LastFullUpdateDateTime { get; private set; }
 
-        protected Product()
+        //value object
+        public Dimensions Dimensions { get; private set; }
+
+        //manufacturer
+        public Guid ManufacturerId { get; private set; }
+
+        //pictures
+        private readonly List<Picture> _pictures;
+        public IReadOnlyCollection<Picture> Pictures => _pictures;
+
+        private Product()
         {
             Id = Guid.NewGuid();
+            Name = string.Empty;
+            BarCode = string.Empty;
+            Description = string.Empty;
+            IsPublished = default;
+            CreatedDateTime = DateTime.UtcNow;
+            LastFullUpdateDateTime = default; 
+            IsPublished = default;
         }
 
-        public Product(Guid manufacturerId, Address address) : this()
+        public Product(string name, decimal price, string barCode, string description, Dimensions dimensions, Guid manufacturerId) : this()
         {
-            ManufacturerId = manufacturerId; 
-            Address = address;
-            
-            var productAddedEvent = new ProductAddedDomainEvent(Id, manufacturerId);        
-            
-            this.AddDomainEvent(productAddedEvent);
+            Name = name;
+            Price = price;
+            BarCode = barCode;
+            Description = description;
+            Dimensions = dimensions;
+            ManufacturerId = manufacturerId;
+
+            var @event = new ProductAddedDomainEvent(Id, Name, Price, ManufacturerId);
+
+            AddDomainEvent(@event);
         }
 
+        public bool CompareAlternateId(string productUniqueCode) => BarCode.Equals(productUniqueCode);
+
+        public void AddPicture(string seoFilename, string description, string url, string mimeType)
+        {
+            _pictures.Add(new Picture(seoFilename, description, url, mimeType));
+
+            var @event = new ProductPictureAddedDomainEvent(Id, seoFilename);
+            
+            AddDomainEvent(@event);
+        }
+
+        public void ChangePrice(decimal price)
+        {
+            Price = price;
+
+            var @event = new ProductPriceChangedDomainEvent(Id, Price);
+            
+            AddDomainEvent(@event);
+        }
+
+        public void PublishEvent()
+        {
+            IsPublished = true;
+
+            var @event = new ProductPublishedDomainEvent(Id, Name, Price, ManufacturerId);
+            
+            AddDomainEvent(@event);
+        }
+
+        public void UpdateAllProperties(string name, decimal price, Dimensions dimensions, DateTime updateGenerated)
+        {
+            if (LastFullUpdateDateTime < updateGenerated)
+            {
+                //avoiding any lagged-in-time updates 
+                Name = name;
+                Price = price;
+                Dimensions.Height = dimensions.Height;
+                Dimensions.Length = dimensions.Length;
+                Dimensions.Weight = dimensions.Weight;
+                Dimensions.Width = dimensions.Width;
+                
+                //add new update event
+            }
+            
+            // add new update saying event has been raised after last up-to-date update
+        }
     }
 }
-

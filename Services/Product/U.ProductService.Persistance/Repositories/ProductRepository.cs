@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using U.ProductService.Domain.Aggregates;
 using U.ProductService.Domain.SeedWork;
 using U.ProductService.Persistance.Contexts;
 using Aggregates = U.ProductService.Domain.Aggregates.Product;
 
 namespace U.ProductService.Persistance.Repositories
 {
-    public class ProductRepository: Aggregates.IProductRepository
+    public class ProductRepository: IProductRepository
     {
         private readonly ProductContext _context;
 
@@ -18,28 +19,40 @@ namespace U.ProductService.Persistance.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Aggregates.Product> AddAsync(Aggregates.Product product)
+        public async Task<Product> AddAsync(Product product)
         {
             return  (await _context.Products.AddAsync(product)).Entity;
                
         }
 
-        public async Task<U.ProductService.Domain.Aggregates.Product.Product> GetAsync(int productId)
+        public async Task<Product> GetAsync(Guid productId)
         {
             var product = await _context.Products.FindAsync(productId);
             if (product != null)
             {
-                await _context.Entry(product)
-                    .Reference(i => i.Address).LoadAsync();
+                await _context.Entry(product).Reference(i => i.Dimensions).LoadAsync();
+            }
+
+            return product;
+        }
+        
+        public async Task<Product> GetAlternateIdAsync(string alternateId)
+        {
+            var product = await _context.Products.SingleOrDefaultAsync(x => x.CompareAlternateId(alternateId));
+            if (product != null)
+            {
+                await _context.Entry(product).Reference(i => i.Dimensions).LoadAsync();
             }
 
             return product;
         }
 
-        public async Task<bool> AnyAsync(string uniqueCode) =>
-            await _context.Products.AnyAsync(x => x.UniqueProductCode.Equals(uniqueCode));
+        public async Task<bool> AnyAsync(Guid id) => await _context.Products.AnyAsync(x => x.Id.Equals(id));
 
-        public void Update(Aggregates.Product product)
+        public async Task<bool> AnyAlternateIdAsync(string barCode) =>
+            await _context.Products.AnyAsync(x => x.CompareAlternateId(barCode));
+
+        public void Update(Product product)
         {
             _context.Entry(product).State = EntityState.Modified;
         }

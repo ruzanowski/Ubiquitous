@@ -22,8 +22,6 @@ namespace U.ProductService.Application.DomainEventHandlers
 
         public async Task Handle(ProductAddedDomainEvent productAddedEvent, CancellationToken cancellationToken)
         {            
-            //getting manufacturer from domain by repository 
-            //-- mock --
             var mockManufacturer = $"Manufacturer No. {Guid.NewGuid()}";
 
             var newProductEvent = new NewProductAvailableIntegrationEvent(productAddedEvent.ProductId, mockManufacturer);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
 using U.EventBus.Events;
@@ -17,13 +18,12 @@ namespace U.ProductService.Application.IntegrationEvents
 
         public ProductIntegrationEventService(IEventBus eventBus,
             ProductContext productContext,
-            ILogger<ProductIntegrationEventService> logger,
-            IIntegrationEventLogService eventLogService)
+            ILogger<ProductIntegrationEventService> logger)
         {
             _productContext = productContext ?? throw new ArgumentNullException(nameof(productContext));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _eventLogService = eventLogService ?? throw new ArgumentNullException(nameof(eventLogService));
+            _eventLogService = new IntegrationEventLogService(productContext.Database.GetDbConnection());
         }
 
         public async Task PublishEventsThroughEventBusAsync(Guid transactionId)

@@ -16,8 +16,8 @@ namespace U.Common.Pagination
             Data = data;
         }
         public IEnumerable<T> Data { get; private set; }
-        public int PageIndex { get; set; }
-        public int PageSize { get; set; }
+        public int PageIndex { get; private set; }
+        public int PageSize { get; private set; }
 
         public static class PaginatedItemsCreate
         {
