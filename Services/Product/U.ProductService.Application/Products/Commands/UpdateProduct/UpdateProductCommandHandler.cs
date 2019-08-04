@@ -23,21 +23,12 @@ namespace U.ProductService.Application.Products.Commands.UpdateProduct
 
         public async Task<bool> Handle(UpdateProductCommand message, CancellationToken cancellationToken)
         {
-            Product product;
+            var product = await _productRepository.GetAsync(message.ProductId);
             
-            if (message.ProductId.HasValue)
+            if (product is null)
             {
-                product = await _productRepository.GetAsync(message.ProductId.Value);
-            }            
-            else if (message.AlternateId != null)
-            {
-                product = await _productRepository.GetAlternateIdAsync(message.AlternateId);
-            }
-            else
-            {
-                _logger.LogInformation($"Product with id: '{message.ProductId ?? Guid.Empty}' and alternateId '{message.AlternateId}'");
-                throw new ProductNotFoundException(
-                    $"Product with id: '{message.ProductId ?? Guid.Empty}' and alternateId '{message.AlternateId}'");
+                _logger.LogInformation($"Product with id: '{message.ProductId}' has been not found");
+                throw new ProductNotFoundException($"Product with id: '{message.ProductId}' has not been found");
             }
 
             _logger.LogInformation("--- Updating Product: {@Product} ---", product);

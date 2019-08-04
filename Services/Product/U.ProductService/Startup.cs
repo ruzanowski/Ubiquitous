@@ -18,6 +18,7 @@ using U.IntegrationEventLog.Services;
 using U.ProductService.Application.Behaviours;
 using U.ProductService.Application.IntegrationEvents;
 using U.ProductService.Application.IntegrationEvents.EventHandling;
+using U.ProductService.Application.Mapping;
 using U.ProductService.Application.Products.Commands.CreateProduct;
 using U.ProductService.Domain.Aggregates;
 using U.ProductService.Middleware;
@@ -136,7 +137,7 @@ namespace U.ProductService
         {
             services.AddSingleton(new MapperConfiguration(mc =>
             {
-                //maps
+               mc.AddProfile(new ProductMappingProfile());
             }).CreateMapper());
 
             return services;

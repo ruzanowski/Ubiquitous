@@ -15,7 +15,7 @@ namespace U.ProductService.Domain.Aggregates
 
         Task<Product> GetAsync(Guid productId);
         
-        Task<Product> GetAlternateIdAsync(string alternateId);
+        Task<Product> GetByAlternativeIdAsync(string alternateId);
 
         Task<bool> AnyAsync(Guid id);
 

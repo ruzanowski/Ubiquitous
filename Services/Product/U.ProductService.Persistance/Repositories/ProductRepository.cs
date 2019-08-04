@@ -36,7 +36,7 @@ namespace U.ProductService.Persistance.Repositories
             return product;
         }
         
-        public async Task<Product> GetAlternateIdAsync(string alternateId)
+        public async Task<Product> GetByAlternativeIdAsync(string alternateId)
         {
             var product = await _context.Products.SingleOrDefaultAsync(x => x.CompareAlternateId(alternateId));
             if (product != null)

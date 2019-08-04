@@ -26,9 +26,9 @@ namespace U.ProductService.Application.IntegrationEvents.EventHandling
         {
             _logger.LogInformation($"--- Received: {nameof(NewProductFetchedIntegrationEvent)} ---");
 
-            var exists = await _productRepository.AnyAlternateIdAsync(@event.GetUniqueId);
+            var product = await _productRepository.GetByAlternativeIdAsync(@event.GetUniqueId);
 
-            if (!exists)
+            if (product is null)
             {
                 _logger.LogInformation(
                     $"--- Product does not exist with alternate key: '{@event.GetUniqueId}' ---");
@@ -46,8 +46,7 @@ namespace U.ProductService.Application.IntegrationEvents.EventHandling
                 _logger.LogInformation($"--- Product exists with alternate key: '{@event.GetUniqueId}' ---");
 
                 var dimensions = new Dimensions(@event.Length, @event.Width, @event.Height, @event.Weight);
-                var update = new UpdateProductCommand(null, @event.Name, @event.GetUniqueId,
-                    @event.PriceInTax, @event.Description, dimensions);
+                var update = new UpdateProductCommand(product.Id, @event.Name,@event.PriceInTax, @event.Description, dimensions);
 
                 _logger.LogInformation($"--- Raised Command: {nameof(UpdateProductCommand)} ---");
 

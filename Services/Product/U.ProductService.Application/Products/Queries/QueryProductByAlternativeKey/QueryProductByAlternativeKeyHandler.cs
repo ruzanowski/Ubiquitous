@@ -5,7 +5,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using U.ProductService.Application.Exceptions;
 using U.ProductService.Application.Products.Models;
-using U.ProductService.Application.Products.Queries.QueryProduct;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Products.Queries.QueryProductByAlternativeKey

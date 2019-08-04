@@ -7,7 +7,7 @@ namespace U.ProductService.Controllers
     /// </summary>
     [ApiController]
     [Route("api/product")]
-    public class HealthController : ControllerBase
+    public class HealthCheckController : ControllerBase
     {
         /// <summary>
         /// 
