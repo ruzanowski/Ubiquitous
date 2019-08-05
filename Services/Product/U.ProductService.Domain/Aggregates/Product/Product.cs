@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using U.ProductService.Domain.Events;
 using U.ProductService.Domain.SeedWork;
 
@@ -67,7 +66,7 @@ namespace U.ProductService.Domain.Aggregates
             AddDomainEvent(@event);
         }
         
-        public void RemovePicture(Guid pictureId)
+        public void DeletePicture(Guid pictureId)
         {
             _pictures.Remove(_pictures.Find(x => x.Id.Equals(pictureId)));
             

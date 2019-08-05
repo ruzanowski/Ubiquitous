@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using U.ProductService.Domain.Aggregates;
 
-namespace U.ProductService.Application.Products.Commands.CreateProduct
+namespace U.ProductService.Application.Products.Commands.Create
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Guid>
@@ -25,10 +25,10 @@ namespace U.ProductService.Application.Products.Commands.CreateProduct
             var product = new Product(message.Name, message.Price, message.BarCode, message.Description,
                 message.Dimensions, Guid.NewGuid());
 
-            _logger.LogInformation("--- Creating Product: {@Product} ---", product.Id);
-
             await _productRepository.AddAsync(product);
             await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            
+            _logger.LogInformation("--- Creating Product: {@Product} ---", product.Id);
 
             return product.Id;
         }

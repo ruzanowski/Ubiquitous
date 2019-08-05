@@ -1,10 +1,12 @@
 ﻿using System;
 using MediatR;
+using Newtonsoft.Json;
 
 namespace U.ProductService.Application.Products.Commands.AddPicture
 {
-    public class AddProductPictureCommand : IRequest<bool>
+    public class AddProductPictureCommand : IRequest<Guid>
     {
+        [JsonIgnore]
         public Guid ProductId { get; private set; }
 
         public string SeoFilename { get; private set; }

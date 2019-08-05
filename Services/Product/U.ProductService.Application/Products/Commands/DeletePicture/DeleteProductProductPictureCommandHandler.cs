@@ -5,24 +5,23 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Exceptions;
-using U.ProductService.Application.Products.Commands.AddPicture;
 using U.ProductService.Domain.Aggregates;
 
-namespace U.ProductService.Application.Products.Commands.RemovePicture
+namespace U.ProductService.Application.Products.Commands.DeletePicture
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public class RemoveProductPictureCommandHandler : IRequestHandler<RemoveProductPictureCommand, bool>
+    public class DeleteProductPictureCommandHandler : IRequestHandler<DeleteProductPictureCommand>
     {
         private readonly IProductRepository _productRepository;
-        private readonly ILogger<RemoveProductPictureCommandHandler> _logger;
+        private readonly ILogger<DeleteProductPictureCommandHandler> _logger;
 
-        public RemoveProductPictureCommandHandler(ILogger<RemoveProductPictureCommandHandler> logger, IProductRepository productRepository)
+        public DeleteProductPictureCommandHandler(ILogger<DeleteProductPictureCommandHandler> logger, IProductRepository productRepository)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
         }
 
-        public async Task<bool> Handle(RemoveProductPictureCommand command, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteProductPictureCommand command, CancellationToken cancellationToken)
         {
             var product = await _productRepository.GetAsync(command.ProductId);
             
@@ -32,15 +31,16 @@ namespace U.ProductService.Application.Products.Commands.RemovePicture
                 throw new ProductNotFoundException($"Product with id: '{command.ProductId}' has not been found");
             }
 
-            _logger.LogInformation("--- Adding product picture: {@Product} ---", product.Id);
+            _logger.LogInformation("--- Deleting product picture: {@Product}:{@Picture} ---", command.ProductId, command.PictureId);
             
             //todo: VALIDATION OF URL
             
             //todo: FILE STORAGE
 
-            product.RemovePicture(command.ProductId);
+            product.DeletePicture(command.PictureId);
+            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             
-            return await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            return Unit.Value;
         }
     }
 }

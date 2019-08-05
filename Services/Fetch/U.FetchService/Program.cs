@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Serilog;
 using U.Common.WebHost;
 

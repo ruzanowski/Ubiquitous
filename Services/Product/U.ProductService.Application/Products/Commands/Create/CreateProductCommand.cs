@@ -2,7 +2,7 @@
 using MediatR;
 using U.ProductService.Domain.Aggregates;
 
-namespace U.ProductService.Application.Products.Commands.CreateProduct
+namespace U.ProductService.Application.Products.Commands.Create
 {
     public class CreateProductCommand : IRequest<Guid>
     {

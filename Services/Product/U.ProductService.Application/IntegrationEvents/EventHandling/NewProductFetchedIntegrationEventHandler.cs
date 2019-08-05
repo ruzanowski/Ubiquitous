@@ -2,8 +2,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
-using U.ProductService.Application.Products.Commands.CreateProduct;
-using U.ProductService.Application.Products.Commands.UpdateProduct;
+using U.ProductService.Application.Products.Commands.Create;
+using U.ProductService.Application.Products.Commands.Update;
 using U.ProductService.Domain.Aggregates;
 
 namespace U.ProductService.Application.IntegrationEvents.EventHandling

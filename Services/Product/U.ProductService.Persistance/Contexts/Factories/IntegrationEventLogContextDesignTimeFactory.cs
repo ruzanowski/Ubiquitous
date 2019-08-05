@@ -1,10 +1,6 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
 using U.Common.Database;
-using U.Common.Mvc;
 using U.IntegrationEventLog;
 
 namespace U.ProductService.Persistance.Contexts.Factories

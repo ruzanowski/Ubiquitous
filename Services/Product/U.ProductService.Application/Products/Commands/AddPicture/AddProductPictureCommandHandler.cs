@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Exceptions;
-using U.ProductService.Application.Products.Commands.UpdateProduct;
 using U.ProductService.Domain.Aggregates;
 
 namespace U.ProductService.Application.Products.Commands.AddPicture
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public class AddProductPictureCommandHandler : IRequestHandler<AddProductPictureCommand, bool>
+    public class AddProductPictureCommandHandler : IRequestHandler<AddProductPictureCommand, Guid>
     {
         private readonly IProductRepository _productRepository;
         private readonly ILogger<AddProductPictureCommandHandler> _logger;
@@ -22,7 +22,7 @@ namespace U.ProductService.Application.Products.Commands.AddPicture
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
         }
 
-        public async Task<bool> Handle(AddProductPictureCommand command, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(AddProductPictureCommand command, CancellationToken cancellationToken)
         {
             var product = await _productRepository.GetAsync(command.ProductId);
             
@@ -32,15 +32,17 @@ namespace U.ProductService.Application.Products.Commands.AddPicture
                 throw new ProductNotFoundException($"Product with id: '{command.ProductId}' has not been found");
             }
 
-            _logger.LogInformation("--- Adding product picture: {@Product} ---", product.Id);
+            _logger.LogInformation("--- Adding product picture: {@Product} ---", command.ProductId);
             
             //todo: VALIDATION OF URL
             
             //todo: FILE STORAGE
 
-            product.AddPicture(command.SeoFilename, command.Description, command.Url, command.MimeType);
-            
-            return await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+             product.AddPicture(command.SeoFilename, command.Description, command.Url, command.MimeType);
+             var pictureId = product.Pictures.Last().Id;
+             
+             await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+             return pictureId;
         }
     }
 }

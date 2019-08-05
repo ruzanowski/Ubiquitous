@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using U.Common.Consul;
-using U.Common.Fabio;
 using U.Common.Mvc;
 using U.Common.RestEase;
 using U.EventBus.RabbitMQ;

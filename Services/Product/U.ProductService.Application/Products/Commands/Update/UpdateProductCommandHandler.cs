@@ -7,21 +7,21 @@ using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Exceptions;
 using U.ProductService.Domain.Aggregates;
 
-namespace U.ProductService.Application.Products.Commands.UpdateProduct
+namespace U.ProductService.Application.Products.Commands.Update
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, bool>
+    public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
     {
         private readonly IProductRepository _productRepository;
-        private readonly ILogger<UpdateProductCommand> _logger;
+        private readonly ILogger<UpdateProductCommandHandler> _logger;
 
-        public UpdateProductCommandHandler(ILogger<UpdateProductCommand> logger, IProductRepository productRepository)
+        public UpdateProductCommandHandler(ILogger<UpdateProductCommandHandler> logger, IProductRepository productRepository)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
         }
 
-        public async Task<bool> Handle(UpdateProductCommand message, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateProductCommand message, CancellationToken cancellationToken)
         {
             var product = await _productRepository.GetAsync(message.ProductId);
             
@@ -32,10 +32,10 @@ namespace U.ProductService.Application.Products.Commands.UpdateProduct
             }
 
             _logger.LogInformation("--- Updating Product: {@Product} ---", product.Id);
-
             product.UpdateAllProperties(message.Name, message.Price, message.Dimensions, DateTime.UtcNow);
+            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             
-            return await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            return Unit.Value;
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using MediatR;
 
-namespace U.ProductService.Application.Products.Commands.UnPublishProduct
+namespace U.ProductService.Application.Products.Commands.UnPublish
 {
     //marker
     public class UnPublishProductCommand : IRequest

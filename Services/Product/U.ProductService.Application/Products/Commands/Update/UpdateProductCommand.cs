@@ -3,9 +3,9 @@ using MediatR;
 using Newtonsoft.Json;
 using U.ProductService.Domain.Aggregates;
 
-namespace U.ProductService.Application.Products.Commands.UpdateProduct
+namespace U.ProductService.Application.Products.Commands.Update
 {
-    public class UpdateProductCommand : IRequest<bool>
+    public class UpdateProductCommand : IRequest
     {
         [JsonIgnore]
         public Guid ProductId { get; set; }

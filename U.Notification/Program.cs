@@ -2,7 +2,6 @@
 using Serilog;
 using U.Common.WebHost;
 using Microsoft.AspNetCore.Hosting;
-using U.ProductService;
 
 namespace U.Notification
 {
