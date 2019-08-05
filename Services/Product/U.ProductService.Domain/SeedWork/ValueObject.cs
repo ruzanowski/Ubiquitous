@@ -47,13 +47,13 @@ namespace U.ProductService.Domain.SeedWork
         public override int GetHashCode()
         {
             return GetAtomicValues()
-             .Select(x => x != null ? x.GetHashCode() : 0)
-             .Aggregate((x, y) => x ^ y);
+                .Select(x => x != null ? x.GetHashCode() : 0)
+                .Aggregate((x, y) => x ^ y);
         }
 
         public ValueObject GetCopy()
         {
-            return MemberwiseClone() as ValueObject;
+            return this.MemberwiseClone() as ValueObject;
         }
     }
 }

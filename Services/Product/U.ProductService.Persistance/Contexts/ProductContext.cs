@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using U.ProductService.Domain.Aggregates.Product;
+using U.ProductService.Domain.Aggregates;
 using U.ProductService.Domain.SeedWork;
 using U.ProductService.Persistance.EntityConfigurations;
 using U.ProductService.Persistance.Extensions;
@@ -14,7 +14,7 @@ namespace U.ProductService.Persistance.Contexts
 {
     public class ProductContext : DbContext, IUnitOfWork
     {
-        public const string DEFAULT_SCHEMA = "product";
+        public const string DEFAULT_SCHEMA = "Products";
 
         //db sets
         public DbSet<Product> Products { get; set; }
@@ -39,6 +39,7 @@ namespace U.ProductService.Persistance.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductPictureEntityTypeConfiguration());
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)

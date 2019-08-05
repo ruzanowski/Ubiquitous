@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using U.ProductService.Application.Exceptions;
 using U.ProductService.Extensions;
 
 #pragma warning disable 1998
@@ -25,10 +26,7 @@ namespace U.ProductService.Middleware
         /// <param name="app"></param>
         public static IApplicationBuilder AddExceptionMiddleware(this IApplicationBuilder app)
         {
-            app.UseExceptionHandler(errorApp =>
-            {
-                errorApp.Run(ExceptionMiddlewarePipeline);
-            });
+            app.UseExceptionHandler(errorApp => { errorApp.Run(ExceptionMiddlewarePipeline); });
             return app;
         }
 
@@ -40,9 +38,7 @@ namespace U.ProductService.Middleware
             // the IsTrusted() extension method doesn't exist and
             // you should implement your own as you may want to interpret it differently
             // i.e. based on the current principal
-
             var problemDetails = new ProblemDetails {Instance = $"instance:ProductService:error:{Guid.NewGuid()}"};
-
 
             switch (exception)
             {
@@ -78,7 +74,9 @@ namespace U.ProductService.Middleware
                     break;
                 case MissingFieldException missingFieldException:
                     problemDetails.Title = nameof(missingFieldException);
-                    problemDetails.Status = (int) typeof(BadHttpRequestException).GetProperty("StatusCode", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(missingFieldException);
+                    problemDetails.Status = (int) typeof(BadHttpRequestException)
+                        .GetProperty("StatusCode", BindingFlags.NonPublic | BindingFlags.Instance)
+                        .GetValue(missingFieldException);
                     problemDetails.Detail = missingFieldException.Message;
                     break;
                 case MissingMethodException missingMethodException:
@@ -88,8 +86,15 @@ namespace U.ProductService.Middleware
                     break;
                 case MissingMemberException missingMemberException:
                     problemDetails.Title = nameof(missingMemberException);
-                    problemDetails.Status = (int) typeof(BadHttpRequestException).GetProperty("StatusCode", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(missingMemberException);
+                    problemDetails.Status = (int) typeof(BadHttpRequestException)
+                        .GetProperty("StatusCode", BindingFlags.NonPublic | BindingFlags.Instance)
+                        .GetValue(missingMemberException);
                     problemDetails.Detail = missingMemberException.Message;
+                    break;
+                case ProductNotFoundException productNotFoundException:
+                    problemDetails.Title = nameof(productNotFoundException);
+                    problemDetails.Status = 404;
+                    problemDetails.Detail = productNotFoundException.Message;
                     break;
                 default:
                     problemDetails.Title = "An unexpected error occurred!";

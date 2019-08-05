@@ -5,7 +5,7 @@ namespace U.Common.Pagination
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public interface IPagination
     {
-        int PageIndex { get;  set; }
-        int PageSize { get; set; }
+        int PageIndex { get;  }
+        int PageSize { get; }
     }
 }

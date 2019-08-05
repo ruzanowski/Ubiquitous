@@ -18,47 +18,88 @@ namespace U.ProductService.Persistance.Migrations.Product
                 .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("U.ProductService.Domain.AggregatesModel.OrderAggregate.Product", b =>
+            modelBuilder.Entity("U.ProductService.Domain.Aggregates.Picture", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("BuyerId");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
-                    b.Property<bool>("IsDraft");
+                    b.Property<string>("MimeType");
 
-                    b.Property<Guid>("ManufacturerId");
+                    b.Property<Guid?>("ProductId");
 
-                    b.Property<DateTime>("ProductDueDate");
+                    b.Property<string>("SeoFilename")
+                        .IsRequired();
+
+                    b.Property<string>("Url")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products","product");
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Products_Pictures","Products");
                 });
 
-            modelBuilder.Entity("U.ProductService.Domain.AggregatesModel.OrderAggregate.Product", b =>
+            modelBuilder.Entity("U.ProductService.Domain.Aggregates.Product", b =>
                 {
-                    b.OwnsOne("U.ProductService.Domain.AggregatesModel.OrderAggregate.Address", "Address", b1 =>
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("BarCode")
+                        .IsRequired();
+
+                    b.Property<DateTime>("CreatedDateTime");
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<DateTime?>("LastFullUpdateDateTime");
+
+                    b.Property<Guid>("ManufacturerId");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<decimal>("Price");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("products","Products");
+                });
+
+            modelBuilder.Entity("U.ProductService.Domain.Aggregates.Picture", b =>
+                {
+                    b.HasOne("U.ProductService.Domain.Aggregates.Product")
+                        .WithMany("Pictures")
+                        .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("U.ProductService.Domain.Aggregates.Product", b =>
+                {
+                    b.OwnsOne("U.ProductService.Domain.Aggregates.Dimensions", "Dimensions", b1 =>
                         {
                             b1.Property<Guid>("ProductId");
 
-                            b1.Property<string>("City");
+                            b1.Property<decimal>("Height");
 
-                            b1.Property<string>("Country");
+                            b1.Property<decimal>("Length");
 
-                            b1.Property<string>("State");
+                            b1.Property<decimal>("Weight");
 
-                            b1.Property<string>("Street");
-
-                            b1.Property<string>("ZipCode");
+                            b1.Property<decimal>("Width");
 
                             b1.HasKey("ProductId");
 
-                            b1.ToTable("Products","product");
+                            b1.ToTable("products","Products");
 
-                            b1.HasOne("U.ProductService.Domain.AggregatesModel.OrderAggregate.Product")
-                                .WithOne("Address")
-                                .HasForeignKey("U.ProductService.Domain.AggregatesModel.OrderAggregate.Address", "ProductId")
+                            b1.HasOne("U.ProductService.Domain.Aggregates.Product")
+                                .WithOne("Dimensions")
+                                .HasForeignKey("U.ProductService.Domain.Aggregates.Dimensions", "ProductId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
                 });

@@ -20,18 +20,16 @@ namespace U.ProductService.Application.DomainEventHandlers
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task Handle(ProductAddedDomainEvent productAddedEvent, CancellationToken cancellationToken)
-        {            
-            //getting manufacturer from domain by repository 
-            //-- mock --
-            var mockManufacturer = $"Manufacturer No. {Guid.NewGuid()}";
+        public async Task Handle(ProductAddedDomainEvent @event, CancellationToken cancellationToken)
+        {
+            _logger.LogInformation($"--- Domain event handled for '{nameof(ProductAddedDomainEvent)}' with id: '{@event.ProductId}'");
+            
+            //Additional logic for product domain event handler e.g. validation, publish restriction.
+            //event for e.g. SignalR
+            var iEvent = new ProductAddedIntegrationEvent(@event.ProductId, @event.Name, @event.Price, @event.Manufacturer);
+            await _productIntegrationEventService.AddAndSaveEventAsync(iEvent);
 
-            var newProductEvent = new NewProductAvailableIntegrationEvent(productAddedEvent.ProductId, mockManufacturer);
-            await _productIntegrationEventService.AddAndSaveEventAsync(newProductEvent);
-
-            _logger.LogInformation(
-                $"--- Domain event handled for '{nameof(productAddedEvent)}' " +
-                $"with id: '{productAddedEvent.ProductId}' from {mockManufacturer}");
+            _logger.LogInformation($"--- Integration event published: '{nameof(ProductAddedIntegrationEvent)}");
         }
     }
 }

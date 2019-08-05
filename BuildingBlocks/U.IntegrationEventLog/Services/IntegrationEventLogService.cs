@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage;
 using U.EventBus.Events;
 
@@ -11,12 +13,18 @@ namespace U.IntegrationEventLog.Services
 {
     public class IntegrationEventLogService : IIntegrationEventLogService
     {
+        private readonly DbConnection _dbConnection;
         private readonly IntegrationEventLogContext _integrationEventLogContext;
         private readonly List<Type> _eventTypes;
 
-        public IntegrationEventLogService(IntegrationEventLogContext integrationEventLogContext)
+        public IntegrationEventLogService(DbConnection dbConnection)
         {
-            _integrationEventLogContext = integrationEventLogContext;
+            _dbConnection = dbConnection ?? throw new ArgumentNullException(nameof(dbConnection));
+            _integrationEventLogContext = new IntegrationEventLogContext(
+                new DbContextOptionsBuilder<IntegrationEventLogContext>()
+                    .UseNpgsql(_dbConnection)
+                    .ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning))
+                    .Options);
 
             _eventTypes = Assembly.Load(Assembly.GetEntryAssembly()?.FullName)
                 .GetTypes()

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.IO;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Serilog;
+using U.Common.WebHost;
 
 namespace U.FetchService
 {
@@ -15,16 +13,16 @@ namespace U.FetchService
         
         public static int Main(string[] args)
         {
-            var configuration = GetConfiguration();
+            var configuration = SharedWebHost.GetConfiguration();
 
-            Log.Logger = CreateSerilogLogger(configuration);
+            Log.Logger = SharedWebHost.CreateSerilogLogger(configuration, AppName);
 
             try
             {
                 Log.Information("Configuring web host ({ApplicationContext})...", AppName);
-                var host = BuildWebHost(configuration, args);
-                Log.Information($"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");
-
+                var host = SharedWebHost.BuildWebHost<Startup>(configuration, args);
+                Log.Information(
+                    $"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");
                 host.Run();
 
                 return 0;
@@ -39,31 +37,5 @@ namespace U.FetchService
                 Log.CloseAndFlush();
             }
         }
-        private static IWebHost BuildWebHost(IConfiguration configuration, string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .CaptureStartupErrors(false)
-                .UseStartup<Startup>()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseConfiguration(configuration)
-                .UseSerilog()
-                .Build();
-        
-        private static ILogger CreateSerilogLogger(IConfiguration configuration)
-        {
-            return new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .Enrich.WithProperty("ApplicationContext", AppName)
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .ReadFrom.Configuration(configuration)
-                .CreateLogger();
-        }
-
-        private static IConfiguration GetConfiguration() =>
-            new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}.json", optional:  true, true)
-                .AddEnvironmentVariables().Build();
     }
 }

@@ -6,7 +6,6 @@ using MediatR;
 using U.SmartStoreAdapter.Application.MappingProfiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -14,7 +13,6 @@ using Microsoft.OpenApi.Models;
 using SmartStore.Persistance.Context;
 using U.Common.Consul;
 using U.Common.Database;
-using U.Common.Fabio;
 using U.Common.Mvc;
 using U.SmartStoreAdapter.Application.Operations.Products;
 using U.SmartStoreAdapter.Middleware;
@@ -67,8 +65,7 @@ namespace U.SmartStoreAdapter
 
             //DbContext            
             services
-                .AddDatabaseOptionsAsSingleton(Configuration)
-                .AddDatabaseContext<SmartStoreContext>();
+                .AddDatabaseContext<SmartStoreContext>(Configuration);
             
             //Logging Behaviour Pipeline
             services.AddLoggingBehaviour()

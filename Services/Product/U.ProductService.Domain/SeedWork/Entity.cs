@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using MediatR;
 
+//Resharper Disable All 
+
 namespace U.ProductService.Domain.SeedWork
 {
     public abstract class Entity
     {
-        int? _requestedHashCode;
+        private int? _requestedHashCode;
         public Guid Id { get; protected set; }
 
         private List<INotification> _domainEvents;
@@ -53,16 +55,13 @@ namespace U.ProductService.Domain.SeedWork
 
         public override int GetHashCode()
         {
-            if (!IsTransient())
+            unchecked
             {
-                if (!_requestedHashCode.HasValue)
-                    _requestedHashCode = Id.GetHashCode() ^ 31; // XOR for random distribution (http://blogs.msdn.com/b/ericlippert/archive/2011/02/28/guidelines-and-rules-for-gethashcode.aspx)
-
-                return _requestedHashCode.Value;
+                var hashCode = _requestedHashCode.GetHashCode();
+                hashCode = (hashCode * 397) ^ (_domainEvents != null ? _domainEvents.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Id.GetHashCode();
+                return hashCode;
             }
-
-            return base.GetHashCode();
-
         }
         public static bool operator ==(Entity left, Entity right)
         {

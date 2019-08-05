@@ -25,11 +25,8 @@ namespace U.FetchService.Commands.ForwardProducts
             foreach (var product in command.Data)
             {
                 var @event = new NewProductFetchedIntegrationEvent(product.Name, product.ManufacturerId,
-                    product.ProductUniqueCode, product.ManufacturerPartNumber,
-                    product.InStock, product.TaxCategoryId, product.PriceInTax, product.ProductCost,
-                    product.PriceMinimumSpecifiedByCustomer, product.Description, product.Length, product.Width,
-                    product.Height, product.Weight, product.MainPictureId, product.CategoryId, product.ProductTags,
-                    product.PicturesIds, product.UrlSlug, product.Id, product.CountryMade, product.IsPublished);
+                    product.ProductUniqueCode, product.InStock, product.PriceInTax, product.Description, product.Length,
+                    product.Width, product.Height, product.Weight, product.MainPictureId, product.CategoryId, product.Id);
 
                 _logger.LogInformation(
                     "----- Publishing integration event: {IntegrationEventId} from 'FetchService' - ({@IntegrationEvent})",

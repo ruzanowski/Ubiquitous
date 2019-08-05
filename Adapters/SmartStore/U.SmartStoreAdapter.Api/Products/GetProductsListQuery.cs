@@ -6,7 +6,7 @@ namespace U.SmartStoreAdapter.Api.Products
 {
     public class GetProductsListQuery :  IRequest<PaginatedItems<SmartProductViewModel>>, IPagination
     {
-        public int PageIndex { get; set; } = 1;
+        public int PageIndex { get; set; } = 0;
         public int PageSize { get; set; } = 25;
         public ProductOrderBy OrderBy { get; set; }
         public PriceWindow Price { get; set; }

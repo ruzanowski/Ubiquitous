@@ -1,6 +1,10 @@
-﻿namespace U.ProductService.Domain.SeedWork
+﻿
+namespace U.ProductService.Domain.SeedWork
 {
-   
-    public interface IAggregateRoot { }
+
+    public interface IAggregateRoot
+    {
+        
+    }
 
 }

@@ -1,14 +1,24 @@
 using System.Collections.Generic;
 using U.ProductService.Domain.SeedWork;
 
-namespace U.ProductService.Domain.Aggregates.Product
+// ReSharper disable CheckNamespace
+
+namespace U.ProductService.Domain.Aggregates
 {
     public class Dimensions : ValueObject
     {
-        public decimal Length { get; private set; }
-        public decimal Width { get; private set; }
-        public decimal Height { get; private set; }
-        public decimal Weight { get; private set; }
+        public decimal Length { get; protected internal set; }
+        public decimal Width { get; protected internal set; }
+        public decimal Height { get; protected internal set; }
+        public decimal Weight { get; protected internal set; }
+        
+        public Dimensions(decimal length, decimal width, decimal height, decimal weight)
+        {
+            Length = length;
+            Width = width;
+            Height = height;
+            Weight = weight;
+        }
 
         protected override IEnumerable<object> GetAtomicValues()
         {
