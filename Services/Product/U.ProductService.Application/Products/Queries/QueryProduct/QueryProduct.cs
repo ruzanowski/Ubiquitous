@@ -6,6 +6,11 @@ namespace U.ProductService.Application.Products.Queries.QueryProduct
 {
     public class QueryProduct : IRequest<ProductViewModel>
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; private set; }
+
+        public QueryProduct(Guid id)
+        {
+            Id = id;
+        }
     }    
 }

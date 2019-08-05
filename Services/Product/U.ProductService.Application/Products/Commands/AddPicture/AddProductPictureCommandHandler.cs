@@ -11,7 +11,7 @@ using U.ProductService.Domain.Aggregates;
 namespace U.ProductService.Application.Products.Commands.AddPicture
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public class AddProductPictureCommandHandler : IRequestHandler<AddProductPictureCommand, Guid>
+    public class AddProductPictureCommandHandler : IRequestHandler<AddProductPictureCommand>
     {
         private readonly IProductRepository _productRepository;
         private readonly ILogger<AddProductPictureCommandHandler> _logger;
@@ -22,7 +22,7 @@ namespace U.ProductService.Application.Products.Commands.AddPicture
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
         }
 
-        public async Task<Guid> Handle(AddProductPictureCommand command, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AddProductPictureCommand command, CancellationToken cancellationToken)
         {
             var product = await _productRepository.GetAsync(command.ProductId);
             
@@ -42,7 +42,7 @@ namespace U.ProductService.Application.Products.Commands.AddPicture
              var pictureId = product.Pictures.Last().Id;
              
              await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
-             return pictureId;
+             return Unit.Value;
         }
     }
 }

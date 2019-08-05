@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using U.ProductService.Domain.Events;
+using U.ProductService.Domain.Exceptions;
 using U.ProductService.Domain.SeedWork;
 
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
@@ -22,12 +25,9 @@ namespace U.ProductService.Domain.Aggregates
         //value object
         public Dimensions Dimensions { get; private set; }
 
-        //manufacturer
         public Guid ManufacturerId { get; private set; }
 
-        //pictures
-        private readonly List<Picture> _pictures;
-        public IReadOnlyCollection<Picture> Pictures => _pictures;
+        public ICollection<Picture> Pictures { get; set; }
 
         private Product()
         {
@@ -37,11 +37,12 @@ namespace U.ProductService.Domain.Aggregates
             Description = string.Empty;
             IsPublished = default;
             CreatedDateTime = DateTime.UtcNow;
-            LastFullUpdateDateTime = default; 
+            LastFullUpdateDateTime = default;
             IsPublished = default;
         }
 
-        public Product(string name, decimal price, string barCode, string description, Dimensions dimensions, Guid manufacturerId) : this()
+        public Product(string name, decimal price, string barCode, string description, Dimensions dimensions,
+            Guid manufacturerId) : this()
         {
             Name = name;
             Price = price;
@@ -59,30 +60,56 @@ namespace U.ProductService.Domain.Aggregates
 
         public void AddPicture(string seoFilename, string description, string url, string mimeType)
         {
-            _pictures.Add(new Picture(seoFilename, description, url, mimeType));
+            if (string.IsNullOrEmpty(seoFilename))
+                throw new ProductDomainException($"{nameof(seoFilename)} cannot be null or empty!");
 
-            var @event = new ProductPictureAddedDomainEvent(Id, seoFilename);
+            if (string.IsNullOrEmpty(description))
+                throw new ProductDomainException($"{nameof(description)} cannot be null or empty!");
+
+            if (string.IsNullOrEmpty(url))
+                throw new ProductDomainException($"{nameof(url)} cannot be null or empty!");
+
+            if (string.IsNullOrEmpty(mimeType))
+                throw new ProductDomainException($"{nameof(mimeType)} cannot be null or empty!");
+
+            var picture = new Picture(seoFilename, description, url, mimeType);
             
+            Pictures.Add(picture);
+
+            var @event = new ProductPictureAddedDomainEvent(Id, picture.Id, seoFilename);
+
             AddDomainEvent(@event);
         }
-        
+
         public void DeletePicture(Guid pictureId)
         {
-            _pictures.Remove(_pictures.Find(x => x.Id.Equals(pictureId)));
-            
-            var @event = new ProductPictureRemovedDomainEvent(Id);
-            
+            var picture = Pictures.FirstOrDefault(x => x.Id.Equals(pictureId));
+
+            if (picture is null)
+            {
+                throw new ProductDomainException("Picture does not exist!");
+            }
+
+            Pictures.Remove(picture);
+
+            var @event = new ProductPictureRemovedDomainEvent(Id, picture.Id);
+
             AddDomainEvent(@event);
         }
 
         public void ChangePrice(decimal price)
         {
+            if (price < 0)
+            {
+                throw new ProductDomainException("Price cannot be below 0!");
+            }
+
             var previousPrice = Price;
 
             Price = price;
-            
+
             var @event = new ProductPriceChangedDomainEvent(Id, previousPrice, Price);
-            
+
             AddDomainEvent(@event);
         }
 
@@ -92,18 +119,18 @@ namespace U.ProductService.Domain.Aggregates
             IsPublished = true;
 
             var @event = new ProductPublishedDomainEvent(Id, Name, Price, ManufacturerId);
-            
+
             AddDomainEvent(@event);
         }
-        
+
         public void UnPublish()
         {
             if (IsPublished == false) return;
-            
+
             IsPublished = false;
 
             var @event = new ProductUnpublishedDomainEvent(Id, Name, Price, ManufacturerId);
-            
+
             AddDomainEvent(@event);
         }
 
@@ -118,10 +145,10 @@ namespace U.ProductService.Domain.Aggregates
                 Dimensions.Length = dimensions.Length;
                 Dimensions.Weight = dimensions.Weight;
                 Dimensions.Width = dimensions.Width;
-                
+
                 //add new update event
             }
-            
+
             // add new update saying event has been raised after last up-to-date update
         }
     }

@@ -9,10 +9,12 @@ namespace U.ProductService.Domain.Events
     public class ProductPictureRemovedDomainEvent : INotification
     {
         public Guid ProductId { get; }
+        public Guid PictureId { get; }
 
-        public ProductPictureRemovedDomainEvent(Guid productId)
+        public ProductPictureRemovedDomainEvent(Guid productId, Guid pictureId)
         {
             ProductId = productId;
+            PictureId = pictureId;
         }
     }
 }

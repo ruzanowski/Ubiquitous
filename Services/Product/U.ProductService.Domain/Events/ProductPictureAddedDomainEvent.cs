@@ -9,12 +9,14 @@ namespace U.ProductService.Domain.Events
     public class ProductPictureAddedDomainEvent : INotification
     {
         public Guid ProductId { get; }
+        public Guid PictureId { get; }
         
         public string SeoFileName { get; }
 
-        public ProductPictureAddedDomainEvent(Guid productId, string seoFileName)
+        public ProductPictureAddedDomainEvent(Guid productId, Guid pictureId, string seoFileName)
         {
             ProductId = productId;
+            PictureId = pictureId;
             SeoFileName = seoFileName;
         }
     }

@@ -21,7 +21,7 @@ namespace U.ProductService.Controllers
     /// <summary>
     /// Product controller of product service
     /// </summary>
-    [Route("api/product-service/products")]
+    [Route("api/product-service/command")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -37,7 +37,7 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Get list of products 
+        /// Get list of command 
         /// </summary>
         /// <param name="productsListQuery"></param>
         /// <returns></returns>
@@ -51,17 +51,17 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Get product by its id 
+        /// Get product by its productId 
         /// </summary>
-        /// <param name="productQuery"></param>
+        /// <param name="productId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("query/{Id:Guid}")]
+        [Route("query/{productId:Guid}")]
         [ProducesResponseType(typeof(PaginatedItems<ProductViewModel>), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetProductAsync([FromRoute] QueryProduct productQuery)
+        public async Task<IActionResult> GetProductAsync([FromRoute] Guid productId)
         {
-            var queryResult = await _mediator.Send(productQuery);
+            var queryResult = await _mediator.Send(new QueryProduct(productId));
             return Ok(queryResult);
         }
 
@@ -97,21 +97,19 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Create Product
+        /// Update Product
         /// </summary>
-        /// <param name="productId"></param>
-        /// <param name="products"></param>
+        /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("update/{productId:Guid}")]
+        [Route("update/{ProductId}")]
         [ProducesResponseType(typeof(bool), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         [Consumes("application/json")]
-        public async Task<IActionResult> UpdateProductAsync([FromRoute] Guid productId,
-            [FromBody] UpdateProductCommand products)
+        public async Task<IActionResult> UpdateProductAsync([FromQuery] UpdateProductCommand command)
         {
-            await _mediator.Send(products.BindProductId(productId));
+            await _mediator.Send(command);
             return Ok();
         }
 
@@ -122,7 +120,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("publish/{productId:Guid}")]
-        [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> PublishProductAsync([FromRoute] Guid productId)
         {
@@ -148,50 +146,45 @@ namespace U.ProductService.Controllers
         /// <summary>
         /// Change product price
         /// </summary>
-        /// <param name="productId"></param>
-        /// <param name="price"></param>
+        /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("change-price/{productId:Guid}")]
+        [Route("change-price/{ProductId}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        public async Task<IActionResult> ChangeProductPriceAsync([FromRoute] Guid productId, [FromQuery] decimal price)
+        public async Task<IActionResult> ChangeProductPriceAsync([FromQuery] ChangeProductPriceCommand command)
         {
-            await _mediator.Send(new ChangeProductPriceCommand(productId, price));
+            await _mediator.Send(command);
             return Ok();
         }
 
         /// <summary>
         /// Add Product Picture
         /// </summary>
-        /// <param name="productId"></param>
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("add-picture/{productId:Guid}")]
-        [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.Created)]
+        [Route("add-picture/{ProductId}")]
+        [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        [Consumes("application/json")]
-        public async Task<IActionResult> AddPictureAsync([FromRoute] Guid productId,
-            [FromQuery] AddProductPictureCommand command)
+        public async Task<IActionResult> AddPictureAsync([FromQuery] AddProductPictureCommand command)
         {
-            var pictureId = await _mediator.Send(command.BindProductId(productId));
-            return Ok(new {pictureId});
+            await _mediator.Send(command);
+            return Ok();
         }
 
         /// <summary>
         /// Add Product Picture
         /// </summary>
-        /// <param name="productId"></param>
-        /// <param name="pictureId"></param>
+        /// <param name="command"></param>
         /// <returns></returns>
         [HttpDelete]
         [Route("delete-picture/{productId:Guid}/{pictureId:Guid}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        public async Task<IActionResult> DeletePictureAsync([FromRoute] Guid productId, [FromRoute] Guid pictureId)
+        public async Task<IActionResult> DeletePictureAsync([FromRoute] DeleteProductPictureCommand command)
         {
-            await _mediator.Send(new DeleteProductPictureCommand(productId, pictureId));
+            await _mediator.Send(command);
             return Ok();
         }
     }

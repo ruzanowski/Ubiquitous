@@ -22,8 +22,8 @@ namespace U.ProductService.Persistance.EntityConfigurations
             builder.Property(x => x.Price).IsRequired();
             builder.Property(x => x.BarCode).IsRequired();
             builder.Property(x => x.CreatedDateTime).IsRequired();
-
-            builder.HasMany(x => x.Pictures)
+            
+            builder.HasMany(x=>x.Pictures)
                 .WithOne()
                 .IsRequired(false);
         }
