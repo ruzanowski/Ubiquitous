@@ -6,8 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Serilog;
 using SmartStore.Persistance.Context;
 using U.Common.Database;
-using U.Common.Extensions;
 using U.Common.Mvc;
+using U.Common.WebHost;
 
 namespace U.SmartStoreAdapter
 {

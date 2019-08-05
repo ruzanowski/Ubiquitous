@@ -1,12 +1,9 @@
 ﻿using System;
-using System.IO;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Serilog;
 using U.Common.Database;
-using U.Common.Extensions;
 using U.Common.Mvc;
+using U.Common.WebHost;
 using U.IntegrationEventLog;
 using U.ProductService.Persistance.Contexts;
 
@@ -16,21 +13,23 @@ namespace U.ProductService
     {
         private static readonly string Namespace = typeof(Program).Namespace;
 
-        private static readonly string AppName = Namespace.Substring(Namespace.LastIndexOf('.', Namespace.LastIndexOf('.') - 1) + 1);
-        
+        private static readonly string AppName =
+            Namespace.Substring(Namespace.LastIndexOf('.', Namespace.LastIndexOf('.') - 1) + 1);
+
         public static int Main(string[] args)
         {
-            var configuration = GetConfiguration();
+            var configuration = SharedWebHost.GetConfiguration();
 
-            Log.Logger = CreateSerilogLogger(configuration);
+            Log.Logger = SharedWebHost.CreateSerilogLogger(configuration, AppName);
 
             try
             {
                 Log.Information("Configuring web host ({ApplicationContext})...", AppName);
-                var host = BuildWebHost(configuration, args);
+                var host = SharedWebHost.BuildWebHost<Startup>(configuration, args);
                 var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
 
-                Log.Information($"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");
+                Log.Information(
+                    $"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");
 
                 if (dbOptions?.AutoMigration != null && dbOptions.AutoMigration)
                 {
@@ -55,35 +54,5 @@ namespace U.ProductService
                 Log.CloseAndFlush();
             }
         }
-        private static IWebHost BuildWebHost(IConfiguration configuration, string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .CaptureStartupErrors(false)
-                .UseStartup<Startup>()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseConfiguration(configuration)
-                .UseSerilog()
-                .Build();
-        
-        private static ILogger CreateSerilogLogger(IConfiguration configuration)
-        {
-            //var seqServerUrl = configuration["Serilog:SeqServerUrl"];
-            //var logstashUrl = configuration["Serilog:LogstashgUrl"];
-            return new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .Enrich.WithProperty("ApplicationContext", AppName)
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-//                .WriteTo.Seq(string.IsNullOrWhiteSpace(seqServerUrl) ? "http://localhost:6667" : seqServerUrl) // todo:
-//                .WriteTo.Http(string.IsNullOrWhiteSpace(logstashUrl) ? "http://localhost:8801" : logstashUrl)
-                .ReadFrom.Configuration(configuration)
-                .CreateLogger();
-        }
-
-        private static IConfiguration GetConfiguration() =>
-            new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}.json", optional: true, true)
-                .AddEnvironmentVariables().Build();
     }
 }

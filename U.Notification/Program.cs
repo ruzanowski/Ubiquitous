@@ -1,11 +1,9 @@
 ﻿using System;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Serilog;
 using U.Common.WebHost;
+using Microsoft.AspNetCore.Hosting;
 
-namespace U.FetchService
+namespace U.Notification
 {
     public class Program
     {
@@ -25,8 +23,9 @@ namespace U.FetchService
                 var host = SharedWebHost.BuildWebHost<Startup>(configuration, args);
                 Log.Information(
                     $"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");
-                host.Run();
 
+                host.Run();
+    
                 return 0;
             }
             catch (Exception ex)

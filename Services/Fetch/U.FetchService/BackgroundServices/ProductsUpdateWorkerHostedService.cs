@@ -5,31 +5,40 @@ using MediatR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using U.FetchService.Commands.UpdateProducts;
+
 // ReSharper disable ClassNeverInstantiated.Global
 
 namespace U.FetchService.BackgroundServices
 {
-    
     public class ProductsUpdateWorkerHostedService : BackgroundService
     {
         private readonly IMediator _mediator;
         private readonly ILogger<ProductsUpdateWorkerHostedService> _logger;
+        private readonly BackgroundServiceOptions _bgServiceOptions;
+        private readonly int _refreshInterval;
 
-        public ProductsUpdateWorkerHostedService(IMediator mediator, ILogger<ProductsUpdateWorkerHostedService> logger)
+        public ProductsUpdateWorkerHostedService(IMediator mediator, ILogger<ProductsUpdateWorkerHostedService> logger,
+            BackgroundServiceOptions bgServiceOptions)
         {
             _mediator = mediator;
             _logger = logger;
+            _bgServiceOptions = bgServiceOptions;
+            _refreshInterval = bgServiceOptions.RefreshSeconds;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stopToken)
         {
-            _logger.LogInformation($"--- Starting gracefully {nameof(ProductsUpdateWorkerHostedService)} ---");
-            while (!stopToken.IsCancellationRequested)
+            if (_bgServiceOptions.Enabled)
             {
-                await SafeUpdate(stopToken);
-                await Task.Delay(TimeSpan.FromMilliseconds(100), stopToken);
+                _logger.LogInformation($"--- Starting gracefully {nameof(ProductsUpdateWorkerHostedService)} ---");
+                while (!stopToken.IsCancellationRequested)
+                {
+                    await SafeUpdate(stopToken);
+                    await Task.Delay(TimeSpan.FromSeconds(_refreshInterval), stopToken);
+                }
+
+                _logger.LogInformation($"--- Stopping gracefully {nameof(ProductsUpdateWorkerHostedService)} ---");
             }
-            _logger.LogInformation($"--- Stopping gracefully {nameof(ProductsUpdateWorkerHostedService)} ---");
         }
 
         private async Task SafeUpdate(CancellationToken stopToken) =>

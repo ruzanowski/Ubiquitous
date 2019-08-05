@@ -29,8 +29,6 @@ namespace U.FetchService
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services
@@ -40,10 +38,9 @@ namespace U.FetchService
                 .AddEventBusRabbitMq(Configuration)
                 .AddCustomConsul()
                 .RegisterServiceForwarder<ISmartStoreAdapter>("u.smartstore-adapter")
-                .AddHostedService<ProductsUpdateWorkerHostedService>();
+                .AddUpdateWorkerHostedService(Configuration);
         }     
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
         {
             app.UseCustomPathBase(Configuration, _logger).Item1
@@ -63,6 +60,14 @@ namespace U.FetchService
         {
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
                 typeof(UpdateProductsCommand).GetTypeInfo().Assembly);
+            return services;
+        }
+
+        public static IServiceCollection AddUpdateWorkerHostedService(this IServiceCollection services, IConfiguration configuration)
+        {
+            var backgroundService = configuration.GetOptions<BackgroundServiceOptions>("backgroundService");
+            services.AddSingleton(backgroundService);
+            services.AddHostedService<ProductsUpdateWorkerHostedService>();
             return services;
         }
     }

@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using U.Common.Pagination;
 using U.ProductService.Application.Products.Commands.CreateProduct;
 using U.ProductService.Application.Products.Commands.UpdateProduct;
@@ -52,7 +53,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("query/{Id:Guid}")]
-        [ProducesResponseType(typeof(ProductViewModel), 200)]
+        [ProducesResponseType(typeof(PaginatedItems<ProductViewModel>), 200)]
         public async Task<IActionResult> GetProduct([FromRoute] QueryProduct productQuery)
         {
             var queryResult = await _mediator.Send(productQuery);
@@ -66,7 +67,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("query-alt-key/{AlternativeKey}")]
-        [ProducesResponseType(typeof(Guid), 200)]
+        [ProducesResponseType(typeof(ProductViewModel), 200)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetProduct([FromRoute] QueryProductByAlternativeKey productQuery)
         {
@@ -81,8 +82,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("create")]
-        [ProducesResponseType(typeof(int), 201)]
-        [Consume]
+        [ProducesResponseType(typeof(Guid), 201)]
         [Consumes("application/json")]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductCommand products)
         {
@@ -98,7 +98,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("update/{productId:Guid}")]
-        [ProducesResponseType(typeof(int), 200)]
+        [ProducesResponseType(typeof(bool), 200)]
         [Consumes("application/json")]
         public async Task<IActionResult> UpdateProduct([FromRoute] Guid productId, [FromBody] UpdateProductCommand products)
         {

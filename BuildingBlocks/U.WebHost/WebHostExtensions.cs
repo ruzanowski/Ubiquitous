@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Npgsql;
 using Polly;
+using Serilog;
 
-namespace U.Common.Extensions
+namespace U.WebHost
 {
     public static class WebHostExtensions
     {
@@ -60,5 +63,34 @@ namespace U.Common.Extensions
             context.Database.Migrate();
             seeder(context, services);
         }
+        
+        public static IWebHost BuildWebHost<TStartup>(IConfiguration configuration, string[] args) where TStartup : class
+            => Microsoft.AspNetCore.WebHost.CreateDefaultBuilder(args)
+                .CaptureStartupErrors(false)
+                .UseStartup<TStartup>()
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseConfiguration(configuration)
+                .UseSerilog()
+                .Build();
+
+        public static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration, string appName)
+        {
+            return new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .Enrich.WithProperty("ApplicationContext", appName)
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .ReadFrom.Configuration(configuration)
+                .CreateLogger();
+        }
+
+        public static IConfiguration GetConfiguration() =>
+            new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile(
+                    $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}.json",
+                    optional: true, true)
+                .AddEnvironmentVariables().Build();
     }
 }

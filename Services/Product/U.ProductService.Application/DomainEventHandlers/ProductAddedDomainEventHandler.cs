@@ -22,13 +22,13 @@ namespace U.ProductService.Application.DomainEventHandlers
 
         public async Task Handle(ProductAddedDomainEvent productAddedEvent, CancellationToken cancellationToken)
         {            
-            var mockManufacturer = $"Manufacturer No. {Guid.NewGuid()}";
+            var mockManufacturer = $"Manufacturer No. {Guid.Empty}";
 
             var newProductEvent = new NewProductAvailableIntegrationEvent(productAddedEvent.ProductId, mockManufacturer);
             await _productIntegrationEventService.AddAndSaveEventAsync(newProductEvent);
 
             _logger.LogInformation(
-                $"--- Domain event handled for '{nameof(productAddedEvent)}' " +
+                $"--- Domain event handled for '{nameof(ProductAddedDomainEvent)}' " +
                 $"with id: '{productAddedEvent.ProductId}' from {mockManufacturer}");
         }
     }
