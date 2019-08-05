@@ -67,8 +67,7 @@ namespace U.SmartStoreAdapter
 
             //DbContext            
             services
-                .AddDatabaseOptionsAsSingleton(Configuration)
-                .AddDatabaseContext<SmartStoreContext>();
+                .AddDatabaseContext<SmartStoreContext>(Configuration);
             
             //Logging Behaviour Pipeline
             services.AddLoggingBehaviour()

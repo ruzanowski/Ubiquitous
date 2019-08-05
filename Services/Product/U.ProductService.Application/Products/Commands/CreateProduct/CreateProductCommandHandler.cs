@@ -25,7 +25,7 @@ namespace U.ProductService.Application.Products.Commands.CreateProduct
             var product = new Product(message.Name, message.Price, message.BarCode, message.Description,
                 message.Dimensions, Guid.NewGuid());
 
-            _logger.LogInformation("--- Creating Product: {@Product} ---", product);
+            _logger.LogInformation("--- Creating Product: {@Product} ---", product.Id);
 
             await _productRepository.AddAsync(product);
             await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);

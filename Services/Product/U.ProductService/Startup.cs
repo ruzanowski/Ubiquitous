@@ -43,9 +43,8 @@ namespace U.ProductService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCustomMvc()
-                .AddDatabaseOptionsAsSingleton(Configuration)
-                .AddDatabaseContext<ProductContext>()
-                .AddDatabaseContext<IntegrationEventLogContext>()
+                .AddDatabaseContext<ProductContext>(Configuration)
+                .AddDatabaseContext<IntegrationEventLogContext>(Configuration)
                 .AddEventBusRabbitMq(Configuration)
                 .AddMediatR(typeof(CreateProductCommand).GetTypeInfo().Assembly)
                 .AddCustomPipelineBehaviours()

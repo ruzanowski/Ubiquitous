@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using U.Common.Pagination;
 using U.ProductService.Application.Products.Commands.CreateProduct;
+using U.ProductService.Application.Products.Commands.PublishProduct;
+using U.ProductService.Application.Products.Commands.UnPublishProduct;
 using U.ProductService.Application.Products.Commands.UpdateProduct;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Application.Products.Queries.QueryProduct;
@@ -38,7 +40,7 @@ namespace U.ProductService.Controllers
         /// <param name="productsListQuery"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("query-list")]
+        [Route("query")]
         [ProducesResponseType(typeof(PaginatedItems<ProductViewModel>), 200)]
         public async Task<IActionResult> GetProductsList([FromQuery] GetProductsListQuery productsListQuery)
         {
@@ -87,7 +89,7 @@ namespace U.ProductService.Controllers
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductCommand products)
         {
             var commandResult = await _mediator.Send(products);
-            return CreatedAtAction(nameof(CreateProduct), commandResult);
+            return CreatedAtAction(nameof(PublishProduct), commandResult);
         }
 
         /// <summary>
@@ -105,5 +107,36 @@ namespace U.ProductService.Controllers
             var commandResult = await _mediator.Send(products.BindProductId(productId));
             return CreatedAtAction(nameof(UpdateProduct), commandResult);
         }
+
+        /// <summary>
+        /// Publish Product
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("publish/{productId:Guid}")]
+        [ProducesResponseType(typeof(Guid), 201)]
+        [Consumes("application/json")]
+        public async Task<IActionResult> PublishProduct([FromRoute] Guid productId)
+        {
+            var commandResult = await _mediator.Send(new PublishProductCommand(productId));
+            return CreatedAtAction(nameof(PublishProduct), commandResult);
+        }
+        
+        /// <summary>
+        /// Publish Product
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("unpublish/{productId:Guid}")]
+        [ProducesResponseType(typeof(Guid), 201)]
+        [Consumes("application/json")]
+        public async Task<IActionResult> UnPublishProduct([FromRoute] Guid productId)
+        {
+            var commandResult = await _mediator.Send(new UnPublishProductCommand(productId));
+            return CreatedAtAction(nameof(UnPublishProduct), commandResult);
+        }
+        
     }
 }

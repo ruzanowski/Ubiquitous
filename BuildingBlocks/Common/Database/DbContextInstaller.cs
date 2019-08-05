@@ -13,8 +13,8 @@ namespace U.Common.Database
 {
     public static class DbContextInstaller
     {
-        public static IServiceCollection AddDatabaseOptionsAsSingleton(this IServiceCollection services,
-            IConfiguration configuration)
+        public static IServiceCollection AddDatabaseContext<TContext>(this IServiceCollection services, IConfiguration configuration)
+            where TContext : DbContext
         {
             var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
 
@@ -23,19 +23,13 @@ namespace U.Common.Database
                 throw new UnsupportedDatabaseException("Database options are missing.");
             } 
             services.AddSingleton(dbOptions);
+            services.SelectContextProvider<TContext>(dbOptions);
             return services;
         }
-        
-        public static IServiceCollection AddDatabaseContext<TContext>(this IServiceCollection services)
+
+        private static IServiceCollection SelectContextProvider<TContext>(this IServiceCollection services, DbOptions dbOptions)
             where TContext : DbContext
         {
-            var dbOptions = services.BuildServiceProvider().GetService<DbOptions>();
-            
-            if (dbOptions.Connection is null)
-            {
-                throw new UnsupportedDatabaseException("Database options are missing.");
-            }
-
             switch (dbOptions.Type)
             {
                 case DbType.Npgsql:
@@ -59,7 +53,6 @@ namespace U.Common.Database
                     throw new UnsupportedDatabaseException("Unsupported database type selected.");
             }
 
-            services.AddSingleton(dbOptions);
             return services;
         }
     }

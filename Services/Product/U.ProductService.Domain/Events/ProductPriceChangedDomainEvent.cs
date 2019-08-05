@@ -10,11 +10,13 @@ namespace U.ProductService.Domain.Events
     public class ProductPriceChangedDomainEvent : INotification
     {
         public Guid ProductId { get; }
+        public decimal PreviousPrice { get; }
         public decimal CurrentPrice { get; }
 
-        public ProductPriceChangedDomainEvent(Guid productId, decimal currentPrice)
+        public ProductPriceChangedDomainEvent(Guid productId, decimal previousPrice, decimal currentPrice)
         {
             ProductId = productId;
+            PreviousPrice = previousPrice;
             CurrentPrice = currentPrice;
         }
     }

@@ -2,6 +2,7 @@
 using Serilog;
 using U.Common.WebHost;
 using Microsoft.AspNetCore.Hosting;
+using U.ProductService;
 
 namespace U.Notification
 {
@@ -21,11 +22,13 @@ namespace U.Notification
             {
                 Log.Information("Configuring web host ({ApplicationContext})...", AppName);
                 var host = SharedWebHost.BuildWebHost<Startup>(configuration, args);
+
                 Log.Information(
                     $"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");
 
+                Log.Information("Starting web host ({ApplicationContext})...", AppName);
                 host.Run();
-    
+
                 return 0;
             }
             catch (Exception ex)

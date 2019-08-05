@@ -31,11 +31,9 @@ namespace U.ProductService.Application.Products.Commands.UpdateProduct
                 throw new ProductNotFoundException($"Product with id: '{message.ProductId}' has not been found");
             }
 
-            _logger.LogInformation("--- Updating Product: {@Product} ---", product);
+            _logger.LogInformation("--- Updating Product: {@Product} ---", product.Id);
 
-            var generatedTime = DateTime.UtcNow;
-
-            product.UpdateAllProperties(message.Name, message.Price, message.Dimensions, generatedTime);
+            product.UpdateAllProperties(message.Name, message.Price, message.Dimensions, DateTime.UtcNow);
             
             return await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
         }

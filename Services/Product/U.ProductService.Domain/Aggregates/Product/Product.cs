@@ -66,21 +66,44 @@ namespace U.ProductService.Domain.Aggregates
             
             AddDomainEvent(@event);
         }
-
-        public void ChangePrice(decimal price)
+        
+        public void RemovePicture(Guid pictureId)
         {
-            Price = price;
-
-            var @event = new ProductPriceChangedDomainEvent(Id, Price);
+            _pictures.Remove(_pictures.Find(x => x.Id.Equals(pictureId)));
+            
+            var @event = new ProductPictureRemovedDomainEvent(Id);
             
             AddDomainEvent(@event);
         }
 
-        public void PublishEvent()
+        public void ChangePrice(decimal price)
         {
+            var previousPrice = Price;
+
+            Price = price;
+            
+            var @event = new ProductPriceChangedDomainEvent(Id, previousPrice, Price);
+            
+            AddDomainEvent(@event);
+        }
+
+        public void Publish()
+        {
+            if (IsPublished) return;
             IsPublished = true;
 
             var @event = new ProductPublishedDomainEvent(Id, Name, Price, ManufacturerId);
+            
+            AddDomainEvent(@event);
+        }
+        
+        public void UnPublish()
+        {
+            if (IsPublished == false) return;
+            
+            IsPublished = false;
+
+            var @event = new ProductUnpublishedDomainEvent(Id, Name, Price, ManufacturerId);
             
             AddDomainEvent(@event);
         }

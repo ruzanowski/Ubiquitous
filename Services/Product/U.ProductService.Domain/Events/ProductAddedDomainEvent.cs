@@ -19,7 +19,7 @@ namespace U.ProductService.Domain.Events
 
         public ProductAddedDomainEvent(Guid productId, string name, decimal price, Guid manufacturer)
         {
-            ProductId = productId;
+            ProductId = productId;    
             Name = name;
             Price = price;
             Manufacturer = manufacturer;
