@@ -10,14 +10,14 @@ using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.IntegrationTests
 {
-    public class ProductScenarioBase
+    public class TestBase
     {
         protected static TestServer CreateServer()
         {
             TestServer testServer = null;
             try
             {
-                var path = Assembly.GetAssembly(typeof(ProductScenarioBase))
+                var path = Assembly.GetAssembly(typeof(TestBase))
                     .Location;
                 var hostBuilder = new WebHostBuilder()
                     .UseContentRoot(Path.GetDirectoryName(path))
@@ -31,6 +31,7 @@ namespace U.ProductService.IntegrationTests
                 testServer.Host
                 .MigrateDbContext<ProductContext>((_, __) => { })
                 .MigrateDbContext<IntegrationEventLogContext>((_, __) => { });
+                
                 return testServer;
 
             }

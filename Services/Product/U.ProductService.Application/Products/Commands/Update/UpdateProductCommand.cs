@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Application.Products.Models;
 
 namespace U.ProductService.Application.Products.Commands.Update
 {
@@ -12,22 +12,21 @@ namespace U.ProductService.Application.Products.Commands.Update
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string Description { get; set; }
-        public Dimensions Dimensions { get; set; }
+        public DimensionsDto Dimensions { get; set; }
 
-        public UpdateProductCommand(Guid productId, string name, decimal price, string description,
-            Dimensions dimensions)
+        [JsonConstructor]
+        public UpdateProductCommand()
+        {
+                
+        }
+        
+        public UpdateProductCommand(Guid productId, string name, decimal price, string description, DimensionsDto dimensions)
         {
             ProductId = productId;
             Name = name;
             Price = price;
             Description = description;
             Dimensions = dimensions;
-        }
-
-        public UpdateProductCommand BindProductId(Guid productId)
-        {
-            ProductId = productId;
-            return this;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using U.ProductService.Domain.Events;
@@ -146,7 +145,8 @@ namespace U.ProductService.Domain.Aggregates
                 Dimensions.Weight = dimensions.Weight;
                 Dimensions.Width = dimensions.Width;
 
-                //add new update event
+                var @event = new ProductPropertiesChangedDomainEvent(Id, Name, Price);
+                AddDomainEvent(@event);
             }
 
             // add new update saying event has been raised after last up-to-date update

@@ -1,13 +1,13 @@
 using AutoFixture;
 using AutoFixture.Xunit2;
 using U.ProductService.Application.Products.Commands.Create;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Application.Products.Models;
 
 namespace U.ProductService.IntegrationTests.Products.Conventions
 {
-    public class ProductConventionsAttribute : AutoDataAttribute
+    public class ProductAutoDataAttribute : AutoDataAttribute
     {
-        public ProductConventionsAttribute() : base(() => new Fixture().Customize(new CreateProductCustomization()))
+        public ProductAutoDataAttribute() : base(() => new Fixture().Customize(new CreateProductCustomization()))
         {
         }
     }
@@ -29,7 +29,7 @@ namespace U.ProductService.IntegrationTests.Products.Conventions
                 var height = fixture.Create<decimal>();
                 var width = fixture.Create<decimal>();
 
-                var dimensions = new Dimensions(length, width, height, weight);
+                var dimensions = new DimensionsDto(length, width, height, weight);
 
                 var command = new CreateProductCommand(name, barCode, price, description, dimensions);
                 return command;

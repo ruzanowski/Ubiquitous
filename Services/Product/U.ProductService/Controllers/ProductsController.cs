@@ -106,7 +106,6 @@ namespace U.ProductService.Controllers
         [ProducesResponseType(typeof(bool), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        [Consumes("application/json")]
         public async Task<IActionResult> UpdateProductAsync([FromQuery] UpdateProductCommand command)
         {
             await _mediator.Send(command);

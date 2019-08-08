@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Products.Commands.Update;
+using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain.Aggregates;
 
 namespace U.ProductService.Application.IntegrationEvents.EventHandling
@@ -33,7 +34,7 @@ namespace U.ProductService.Application.IntegrationEvents.EventHandling
                 _logger.LogInformation(
                     $"--- Product does not exist with alternate key: '{@event.GetUniqueId}' ---");
 
-                var dimensions = new Dimensions(@event.Length, @event.Width, @event.Height, @event.Weight);
+                var dimensions = new DimensionsDto(@event.Length, @event.Width, @event.Height, @event.Weight);
                 var create = new CreateProductCommand(@event.Name, @event.GetUniqueId, @event.PriceInTax,
                     @event.Description, dimensions);
 
@@ -45,7 +46,9 @@ namespace U.ProductService.Application.IntegrationEvents.EventHandling
             {
                 _logger.LogInformation($"--- Product exists with alternate key: '{@event.GetUniqueId}' ---");
 
-                var dimensions = new Dimensions(@event.Length, @event.Width, @event.Height, @event.Weight);
+                var dimensions = new DimensionsDto(@event.Length, @event.Width, @event.Height, @event.Weight);
+                
+                
                 var update = new UpdateProductCommand(product.Id, @event.Name,@event.PriceInTax, @event.Description, dimensions);
 
                 _logger.LogInformation($"--- Raised Command: {nameof(UpdateProductCommand)} ---");

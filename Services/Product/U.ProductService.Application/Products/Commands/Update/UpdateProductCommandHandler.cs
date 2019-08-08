@@ -32,9 +32,15 @@ namespace U.ProductService.Application.Products.Commands.Update
             }
 
             _logger.LogInformation("--- Updating Product: {@Product} ---", product.Id);
-            product.UpdateAllProperties(message.Name, message.Price, message.Dimensions, DateTime.UtcNow);
-            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+
+            var dimensions = new Dimensions(message.Dimensions.Length,
+                message.Dimensions.Width,
+                message.Dimensions.Height,
+                message.Dimensions.Weight);
+
+            product.UpdateAllProperties(message.Name, message.Price, dimensions, DateTime.UtcNow);
             
+            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             return Unit.Value;
         }
     }

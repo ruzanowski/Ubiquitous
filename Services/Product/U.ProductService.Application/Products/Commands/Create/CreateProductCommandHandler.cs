@@ -22,8 +22,13 @@ namespace U.ProductService.Application.Products.Commands.Create
 
         public async Task<Guid> Handle(CreateProductCommand message, CancellationToken cancellationToken)
         {
+            var dimensions = new Dimensions(message.Dimensions.Length,
+                message.Dimensions.Width,
+                message.Dimensions.Height,
+                message.Dimensions.Weight);
+            
             var product = new Product(message.Name, message.Price, message.BarCode, message.Description,
-                message.Dimensions, Guid.NewGuid());
+                dimensions, Guid.NewGuid());
 
             await _productRepository.AddAsync(product);
             await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);

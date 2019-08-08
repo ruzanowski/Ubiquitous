@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace U.ProductService.Persistance.Migrations.Event
+namespace U.IntegrationEventLog.Migrations
 {
     public partial class InitialCreate : Migration
     {

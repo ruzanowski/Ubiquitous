@@ -1,7 +1,6 @@
 ﻿using System;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace U.ProductService.Application.Products.Commands.ChangePrice
 {
