@@ -21,7 +21,7 @@ namespace U.ProductService.Controllers
     /// <summary>
     /// Product controller of product service
     /// </summary>
-    [Route("api/product-service/command")]
+    [Route("api/product-service/products")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -93,7 +93,7 @@ namespace U.ProductService.Controllers
         public async Task<IActionResult> CreateProductAsync([FromBody] CreateProductCommand products)
         {
             var productId = await _mediator.Send(products);
-            return CreatedAtAction(nameof(CreateProductAsync), new {productId});
+            return CreatedAtAction(nameof(CreateProductAsync), productId);
         }
 
         /// <summary>

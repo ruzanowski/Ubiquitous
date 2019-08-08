@@ -27,14 +27,14 @@ namespace U.SmartStoreAdapter
         /// <returns></returns>
         public static int Main(string[] args)
         {
-            var configuration = GetConfiguration();
+            var configuration = SharedWebHost.GetConfiguration();
 
-            Log.Logger = CreateSerilogLogger(configuration);
+            Log.Logger = SharedWebHost.CreateSerilogLogger(configuration, AppName);
 
             try
             {
                 Log.Information("Configuring web host ({ApplicationContext})...", AppName);
-                var host = BuildWebHost(configuration, args);
+                var host = SharedWebHost.BuildWebHost<Startup>(configuration, args);
 
                 var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
 
@@ -63,31 +63,5 @@ namespace U.SmartStoreAdapter
                 Log.CloseAndFlush();
             }
         }
-        private static IWebHost BuildWebHost(IConfiguration configuration, string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .CaptureStartupErrors(false)
-                .UseStartup<Startup>()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseConfiguration(configuration)
-                .UseSerilog()
-                .Build();
-        
-        private static ILogger CreateSerilogLogger(IConfiguration configuration)
-        {
-            return new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .Enrich.WithProperty("ApplicationContext", AppName)
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .ReadFrom.Configuration(configuration)
-                .CreateLogger();
-        }
-
-        private static IConfiguration GetConfiguration() =>
-            new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)          
-                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}.json", optional:  true, true)
-                .AddEnvironmentVariables().Build();
     }
 }
