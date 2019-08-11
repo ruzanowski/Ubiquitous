@@ -11,10 +11,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\BuildingBlocks\Common\U.Common.csproj" />
-      <ProjectReference Include="..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
-      <ProjectReference Include="..\BuildingBlocks\U.EventBus\U.EventBus.csproj" />
-      <ProjectReference Include="..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+      <ProjectReference Include="..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+      <ProjectReference Include="..\..\BuildingBlocks\Common\U.Common.csproj" />
+      <ProjectReference Include="..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
     </ItemGroup>
 
 </Project>

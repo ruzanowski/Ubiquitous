@@ -24,10 +24,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Services\Product\U.ProductService.Application\U.ProductService.Application.csproj" />
-      <ProjectReference Include="..\Services\Product\U.ProductService.Domain\U.ProductService.Domain.csproj" />
-      <ProjectReference Include="..\Services\Product\U.ProductService.Persistance\U.ProductService.Persistance.csproj" />
-      <ProjectReference Include="..\Services\Product\U.ProductService\U.ProductService.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
+        <ProjectReference Include="..\U.ProductService.Application\U.ProductService.Application.csproj" />
+        <ProjectReference Include="..\U.ProductService\U.ProductService.csproj" />
     </ItemGroup>
 
     <ItemGroup>
