@@ -2,6 +2,7 @@ version: '3.5'
 
 services:
   elasticsearch:
+    container_name: elasticsearch
     build:
       context: elk/elasticsearch/
     volumes:
@@ -15,6 +16,7 @@ services:
       - ubiquitous
 
   logstash:
+    container_name: logstash
     build:
       context: elk/logstash/
     volumes:
@@ -30,6 +32,7 @@ services:
       - ubiquitous
 
   kibana:
+    container_name: kibana
     build:
       context: elk/kibana/
     volumes:
