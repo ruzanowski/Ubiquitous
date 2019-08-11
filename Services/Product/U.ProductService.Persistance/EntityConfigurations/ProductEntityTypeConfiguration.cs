@@ -20,7 +20,10 @@ namespace U.ProductService.Persistance.EntityConfigurations
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Description).IsRequired();
             builder.Property(x => x.Price).IsRequired();
+            
+            builder.HasAlternateKey(x => x.BarCode);
             builder.Property(x => x.BarCode).IsRequired();
+            
             builder.Property(x => x.CreatedDateTime).IsRequired();
             
             builder.HasMany(x=>x.Pictures)

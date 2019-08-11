@@ -12,7 +12,7 @@ namespace U.ProductService.Persistance.EntityConfigurations
             builder.ToTable("Products_Pictures", ProductContext.DEFAULT_SCHEMA);
             
             builder.HasKey(o => o.Id);
-            builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            builder.Property(x => x.Id).ValueGeneratedNever();
             builder.Ignore(b => b.DomainEvents);
             
             builder.Property(x => x.SeoFilename).IsRequired();

@@ -51,7 +51,7 @@ namespace U.ProductService.Application.IntegrationEvents
 
         public async Task AddAndSaveEventAsync(IntegrationEvent evt)
         {
-            _logger.LogInformation("----- Enqueuing integration event {IntegrationEventId} to repository ({@IntegrationEvent})", evt.Id, evt);
+            _logger.LogDebug("----- Enqueuing integration event {IntegrationEventId} to repository ({@IntegrationEvent})", evt.Id, evt);
 
             await _eventLogService.SaveEventAsync(evt, _productContext.GetCurrentTransaction());
         }

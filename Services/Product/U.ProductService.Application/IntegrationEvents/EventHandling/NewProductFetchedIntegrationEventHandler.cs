@@ -25,8 +25,6 @@ namespace U.ProductService.Application.IntegrationEvents.EventHandling
 
         public async Task Handle(NewProductFetchedIntegrationEvent @event)
         {
-            _logger.LogInformation($"--- Received: {nameof(NewProductFetchedIntegrationEvent)} ---");
-
             var product = await _productRepository.GetByAlternativeIdAsync(@event.GetUniqueId);
 
             if (product is null)
@@ -47,11 +45,7 @@ namespace U.ProductService.Application.IntegrationEvents.EventHandling
                 _logger.LogInformation($"--- Product exists with alternate key: '{@event.GetUniqueId}' ---");
 
                 var dimensions = new DimensionsDto(@event.Length, @event.Width, @event.Height, @event.Weight);
-                
-                
                 var update = new UpdateProductCommand(product.Id, @event.Name,@event.PriceInTax, @event.Description, dimensions);
-
-                _logger.LogInformation($"--- Raised Command: {nameof(UpdateProductCommand)} ---");
 
                 await _mediator.Send(update);
             }
