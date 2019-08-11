@@ -168,8 +168,8 @@ namespace U.ProductService.Controllers
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> AddPictureAsync([FromQuery] AddProductPictureCommand command)
         {
-            await _mediator.Send(command);
-            return Ok();
+            var pictureId = await _mediator.Send(command);
+            return Ok(pictureId);
         }
 
         /// <summary>

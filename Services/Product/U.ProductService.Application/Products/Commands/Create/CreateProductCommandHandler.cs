@@ -32,8 +32,6 @@ namespace U.ProductService.Application.Products.Commands.Create
 
             await _productRepository.AddAsync(product);
             await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
-            
-            _logger.LogInformation("--- Creating Product: {@Product} ---", product.Id);
 
             return product.Id;
         }

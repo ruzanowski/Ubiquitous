@@ -57,7 +57,7 @@ namespace U.ProductService.Domain.Aggregates
 
         public bool CompareAlternateId(string productUniqueCode) => BarCode.Equals(productUniqueCode);
 
-        public void AddPicture(string seoFilename, string description, string url, string mimeType)
+        public void AddPicture(Guid id, string seoFilename, string description, string url, string mimeType)
         {
             if (string.IsNullOrEmpty(seoFilename))
                 throw new ProductDomainException($"{nameof(seoFilename)} cannot be null or empty!");
@@ -71,7 +71,7 @@ namespace U.ProductService.Domain.Aggregates
             if (string.IsNullOrEmpty(mimeType))
                 throw new ProductDomainException($"{nameof(mimeType)} cannot be null or empty!");
 
-            var picture = new Picture(seoFilename, description, url, mimeType);
+            var picture = new Picture(id, seoFilename, description, url, mimeType);
             
             Pictures.Add(picture);
 
@@ -85,9 +85,7 @@ namespace U.ProductService.Domain.Aggregates
             var picture = Pictures.FirstOrDefault(x => x.Id.Equals(pictureId));
 
             if (picture is null)
-            {
                 throw new ProductDomainException("Picture does not exist!");
-            }
 
             Pictures.Remove(picture);
 
@@ -99,9 +97,7 @@ namespace U.ProductService.Domain.Aggregates
         public void ChangePrice(decimal price)
         {
             if (price < 0)
-            {
                 throw new ProductDomainException("Price cannot be below 0!");
-            }
 
             var previousPrice = Price;
 

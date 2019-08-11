@@ -47,11 +47,11 @@ namespace U.ProductService.Application.Behaviours
                     using (var transaction = await _dbContext.BeginTransactionAsync())
                     using (LogContext.PushProperty("TransactionContext", transaction.TransactionId))
                     {
-                        _logger.LogInformation("----- Begin transaction {TransactionId} for {CommandName} ({@Command})", transaction.TransactionId, typeName, request);
+                        _logger.LogDebug("----- Begin transaction {TransactionId} for {CommandName}", transaction.TransactionId, typeName);
 
                         response = await next();
 
-                        _logger.LogInformation("----- Commit transaction {TransactionId} for {CommandName}", transaction.TransactionId, typeName);
+                        _logger.LogDebug("----- Commit transaction {TransactionId} for {CommandName}", transaction.TransactionId, typeName);
 
                         await _dbContext.CommitTransactionAsync(transaction);
 

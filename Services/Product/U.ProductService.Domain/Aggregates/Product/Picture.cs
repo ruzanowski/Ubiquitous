@@ -1,3 +1,4 @@
+using System;
 using U.ProductService.Domain.SeedWork;
 // ReSharper disable CheckNamespace
 
@@ -29,8 +30,9 @@ namespace U.ProductService.Domain.Aggregates
         /// </summary>
         public string MimeType { get; private set; }
 
-        public Picture(string seoFilename, string description, string url, string mimeType)
-        {    
+        public Picture(Guid id, string seoFilename, string description, string url, string mimeType)
+        {
+            Id = id;
             SeoFilename = seoFilename;
             Description = description;
             Url = url;

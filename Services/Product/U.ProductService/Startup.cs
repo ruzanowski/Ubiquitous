@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using U.Common.Behaviour;
 using U.Common.Consul;
 using U.Common.Database;
 using U.Common.Mvc; 

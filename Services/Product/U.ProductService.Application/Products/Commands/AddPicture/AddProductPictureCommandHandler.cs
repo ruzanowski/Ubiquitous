@@ -11,7 +11,7 @@ using U.ProductService.Domain.Aggregates;
 namespace U.ProductService.Application.Products.Commands.AddPicture
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public class AddProductPictureCommandHandler : IRequestHandler<AddProductPictureCommand>
+    public class AddProductPictureCommandHandler : IRequestHandler<AddProductPictureCommand, Guid>
     {
         private readonly IProductRepository _productRepository;
         private readonly ILogger<AddProductPictureCommandHandler> _logger;
@@ -22,7 +22,7 @@ namespace U.ProductService.Application.Products.Commands.AddPicture
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
         }
 
-        public async Task<Unit> Handle(AddProductPictureCommand command, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(AddProductPictureCommand command, CancellationToken cancellationToken)
         {
             var product = await _productRepository.GetAsync(command.ProductId);
             
@@ -32,17 +32,15 @@ namespace U.ProductService.Application.Products.Commands.AddPicture
                 throw new ProductNotFoundException($"Product with id: '{command.ProductId}' has not been found");
             }
 
-            _logger.LogInformation("--- Adding product picture: {@Product} ---", command.ProductId);
-            
             //todo: VALIDATION OF URL
             
             //todo: FILE STORAGE
 
-             product.AddPicture(command.SeoFilename, command.Description, command.Url, command.MimeType);
-             var pictureId = product.Pictures.Last().Id;
+            var id = Guid.NewGuid();
+             product.AddPicture(id, command.SeoFilename, command.Description, command.Url, command.MimeType);
              
              await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
-             return Unit.Value;
+             return id;
         }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace U.ProductService.Application.Products.Commands.AddPicture
 {
-    public class AddProductPictureCommand : IRequest
+    public class AddProductPictureCommand : IRequest<Guid>
     {
         [FromRoute] public Guid ProductId { get; set; }
 
