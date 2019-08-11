@@ -1,0 +1,105 @@
+version: "3.5"
+
+services:
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      PGDATA: /data/postgres
+    volumes:
+       - postgres:/data/postgres
+    ports:
+      - 5433:5432
+    networks:
+      - ubiquitous
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@ubiquitous.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+    - postgres
+    volumes:
+       - pgadmin:/root/.pgadmin
+    ports:
+      - 5450:80
+    networks:
+      - ubiquitous
+    restart: unless-stopped
+
+  mongo:
+    container_name: mongo
+    image: mongo:4
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo:/data/db
+    networks:
+      - ubiquitous
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes: 
+      - rabbitmq:/var/lib/rabbitmq
+    networks:
+      - ubiquitous
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes: 
+      - redis:/data
+      
+  consul:
+    image: consul
+    container_name: consul
+    ports:
+      - 8500:8500
+    networks:
+      - ubiquitous
+    volumes:
+      - consul:/consul/data
+
+  fabio:
+    image: fabiolb/fabio
+    container_name: fabio
+    environment:
+    - FABIO_REGISTRY_CONSUL_ADDR=consul:8500
+    networks:
+      - ubiquitous
+    ports:
+    - 9998:9998
+    - 9999:9999
+
+volumes:
+  mongo:
+    driver: local
+  rabbitmq:
+    driver: local
+  redis:
+    driver: local
+  postgres:
+    driver: local
+  pgadmin:
+    driver: local
+  consul:
+    driver: local
+  fabio:
+    driver: local
+
+networks:
+  ubiquitous:
+    name: ubiquitous
+    external: true
