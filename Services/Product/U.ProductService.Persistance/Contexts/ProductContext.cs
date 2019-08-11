@@ -45,6 +45,8 @@ namespace U.ProductService.Persistance.Contexts
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
         {
             await _mediator.DispatchDomainEventsAsync(this);
+
+            OnBeforeSaving();
             await base.SaveChangesAsync(cancellationToken);
 
             return true;
@@ -99,6 +101,41 @@ namespace U.ProductService.Persistance.Contexts
                     _currentTransaction = null;
                 }
             }
+        }
+        
+        private void OnBeforeSaving()
+        {
+            var entries = ChangeTracker.Entries();
+            foreach (var entry in entries)
+            {
+                if (entry.Entity is ITrackable)
+                {
+                    var now = DateTime.UtcNow;
+                    var user = GetCurrentUser();
+                    switch (entry.State)
+                    {
+                        case EntityState.Modified:
+                            entry.CurrentValues["LastUpdatedAt"] = now;
+                            entry.CurrentValues["LastUpdatedBy"] = user;
+                            break;
+
+                        case EntityState.Added:
+                            entry.CurrentValues["CreatedAt"] = now;
+                            entry.CurrentValues["CreatedBy"] = user;
+                            entry.CurrentValues["LastUpdatedAt"] = now;
+                            entry.CurrentValues["LastUpdatedBy"] = user;
+                            break;
+                    }
+                }
+            }
+        }
+        
+        private string GetCurrentUser()
+        {
+            return "todoUser"; // TODO implement your own logic
+
+            // If you are using ASP.NET Core, you should look at this answer on StackOverflow
+            // https://stackoverflow.com/a/48554738/2996339
         }
     }
 }

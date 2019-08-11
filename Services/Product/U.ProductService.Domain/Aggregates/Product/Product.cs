@@ -11,22 +11,30 @@ using U.ProductService.Domain.SeedWork;
 
 namespace U.ProductService.Domain.Aggregates
 {
-    public class Product : Entity, IAggregateRoot
+    public class Product : Entity, IAggregateRoot, ITrackable
     {
         public string Name { get; private set; }
         public string BarCode { get; private set; }
         public decimal Price { get; private set; }
         public string Description { get; private set; }
         public bool IsPublished { get; private set; }
-        public DateTime CreatedDateTime { get; private set; }
-        public DateTime? LastFullUpdateDateTime { get; private set; }
-
-        //value object
+        
+        
+        
+        private DateTime _createdAt;
+        private string _createdBy;
+        private DateTime? _lastUpdatedAt;
+        private string _lastUpdatedBy;
+        public DateTime CreatedAt => _createdAt;
+        public string CreatedBy => _createdBy;
+        public DateTime? LastUpdatedAt => _lastUpdatedAt;
+        public string LastUpdatedBy => _lastUpdatedBy;
+        
+        
         public Dimensions Dimensions { get; private set; }
-
         public Guid ManufacturerId { get; private set; }
-
         public ICollection<Picture> Pictures { get; set; }
+
 
         private Product()
         {
@@ -35,8 +43,10 @@ namespace U.ProductService.Domain.Aggregates
             BarCode = string.Empty;
             Description = string.Empty;
             IsPublished = default;
-            CreatedDateTime = DateTime.UtcNow;
-            LastFullUpdateDateTime = default;
+            _createdAt = DateTime.UtcNow;
+            _createdBy = string.Empty;
+            _lastUpdatedAt = default;
+            _lastUpdatedBy = string.Empty;
             IsPublished = default;
         }
 
@@ -131,21 +141,22 @@ namespace U.ProductService.Domain.Aggregates
 
         public void UpdateAllProperties(string name, decimal price, Dimensions dimensions, DateTime updateGenerated)
         {
-            if (LastFullUpdateDateTime < updateGenerated)
-            {
-                //avoiding any lagged-in-time updates 
-                Name = name;
-                Price = price;
-                Dimensions.Height = dimensions.Height;
-                Dimensions.Length = dimensions.Length;
-                Dimensions.Weight = dimensions.Weight;
-                Dimensions.Width = dimensions.Width;
+            if (!LastUpdatedAt.HasValue || LastUpdatedAt.Value >= updateGenerated) return;
 
-                var @event = new ProductPropertiesChangedDomainEvent(Id, Name, Price);
-                AddDomainEvent(@event);
-            }
+            //avoiding any lagged-in-time updates 
+            Name = name;
+            Price = price;
+            Dimensions.Height = dimensions.Height;
+            Dimensions.Length = dimensions.Length;
+            Dimensions.Weight = dimensions.Weight;
+            Dimensions.Width = dimensions.Width;
+
+            var @event = new ProductPropertiesChangedDomainEvent(Id, Name, Price);
+            AddDomainEvent(@event);
 
             // add new update saying event has been raised after last up-to-date update
         }
+
+
     }
 }

@@ -10,8 +10,8 @@ using U.ProductService.Persistance.Contexts;
 namespace U.ProductService.Persistance.Migrations.Product
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20190811211210_InitialCreate2")]
-    partial class InitialCreate2
+    [Migration("20190811212317_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,8 +50,7 @@ namespace U.ProductService.Persistance.Migrations.Product
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("BarCode")
-                        .IsRequired();
+                    b.Property<string>("BarCode");
 
                     b.Property<DateTime>("CreatedDateTime");
 
@@ -71,7 +70,8 @@ namespace U.ProductService.Persistance.Migrations.Product
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("BarCode");
+                    b.HasIndex("BarCode")
+                        .IsUnique();
 
                     b.ToTable("products","Products");
                 });

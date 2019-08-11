@@ -10,7 +10,6 @@ namespace U.ProductService.Persistance.EntityConfigurations
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.ToTable("products", ProductContext.DEFAULT_SCHEMA);
-            
 
             builder.HasKey(o => o.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
@@ -21,10 +20,19 @@ namespace U.ProductService.Persistance.EntityConfigurations
             builder.Property(x => x.Description).IsRequired();
             builder.Property(x => x.Price).IsRequired();
             
-            builder.HasAlternateKey(x => x.BarCode);
-            builder.Property(x => x.BarCode).IsRequired();
+            builder.HasIndex(x => x.BarCode).IsUnique();
             
-            builder.Property(x => x.CreatedDateTime).IsRequired();
+            builder.Property(post => post.CreatedAt)
+                .HasField("_createdAt");
+
+            builder.Property(post => post.CreatedBy)
+                .HasField("_createdBy");
+
+            builder.Property(post => post.LastUpdatedAt)
+                .HasField("_lastUpdatedAt");
+
+            builder.Property(post => post.LastUpdatedBy)
+                .HasField("_lastUpdatedBy");
             
             builder.HasMany(x=>x.Pictures)
                 .WithOne()

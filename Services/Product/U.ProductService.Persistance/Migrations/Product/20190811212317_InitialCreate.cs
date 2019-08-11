@@ -17,7 +17,7 @@ namespace U.ProductService.Persistance.Migrations.Product
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    BarCode = table.Column<string>(nullable: false),
+                    BarCode = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
                     Description = table.Column<string>(nullable: false),
                     IsPublished = table.Column<bool>(nullable: false),
@@ -57,6 +57,13 @@ namespace U.ProductService.Persistance.Migrations.Product
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_products_BarCode",
+                schema: "Products",
+                table: "products",
+                column: "BarCode",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_Pictures_ProductId",

@@ -37,15 +37,16 @@ namespace U.Common.Database
                         options.UseNpgsql(dbOptions.Connection,
                             postgresOptions =>
                             {
-                                postgresOptions.MigrationsAssembly(typeof(TContext).GetTypeInfo().Assembly.GetName().Name);
+                                postgresOptions.MigrationsAssembly(typeof(TContext).GetTypeInfo().Assembly.GetName()
+                                    .Name);
                                 //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
-                                postgresOptions.EnableRetryOnFailure(10,
-                                    TimeSpan.FromSeconds(30), new List<string>());
+                                postgresOptions.EnableRetryOnFailure(5,
+                                    TimeSpan.FromSeconds(20), new List<string>());
                             });
-                    });
+                    }, ServiceLifetime.Scoped);
                     break;
                 case DbType.Mssql:
-                    services.AddDbContext<TContext>(options => { options.UseSqlServer(dbOptions.Connection); });
+                    services.AddDbContextPool<TContext>(options => { options.UseSqlServer(dbOptions.Connection); });
                     break;
                 case DbType.Unknown:
                 default:
