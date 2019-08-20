@@ -1,2 +1,2 @@
-docker-compose -f ../docker-compose-elk.yml up
+docker-compose -f ../elk/docker-compose.yml up
 TIMEOUT /T 10

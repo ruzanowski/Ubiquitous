@@ -19,8 +19,6 @@ namespace U.ProductService.Domain.Aggregates
         public string Description { get; private set; }
         public bool IsPublished { get; private set; }
         
-        
-        
         private DateTime _createdAt;
         private string _createdBy;
         private DateTime? _lastUpdatedAt;
@@ -30,11 +28,10 @@ namespace U.ProductService.Domain.Aggregates
         public DateTime? LastUpdatedAt => _lastUpdatedAt;
         public string LastUpdatedBy => _lastUpdatedBy;
         
-        
         public Dimensions Dimensions { get; private set; }
         public Guid ManufacturerId { get; private set; }
-        public ICollection<Picture> Pictures { get; set; }
-
+        public ICollection<Picture> Pictures { get; private set; }
+      //  public Guid CategoryId { get; private set; }
 
         private Product()
         {
@@ -51,7 +48,7 @@ namespace U.ProductService.Domain.Aggregates
         }
 
         public Product(string name, decimal price, string barCode, string description, Dimensions dimensions,
-            Guid manufacturerId) : this()
+            Guid manufacturerId, Guid categoryId) : this()
         {
             Name = name;
             Price = price;
@@ -59,6 +56,7 @@ namespace U.ProductService.Domain.Aggregates
             Description = description;
             Dimensions = dimensions;
             ManufacturerId = manufacturerId;
+  //          CategoryId = categoryId;
 
             var @event = new ProductAddedDomainEvent(Id, Name, Price, ManufacturerId);
 
@@ -156,7 +154,5 @@ namespace U.ProductService.Domain.Aggregates
 
             // add new update saying event has been raised after last up-to-date update
         }
-
-
     }
 }

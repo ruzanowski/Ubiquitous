@@ -76,11 +76,13 @@ namespace U.Common.WebHost
 
         public static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration, string appName)
         {
+            var logstashUrl = configuration["Serilog:LogstashgUrl"];
             return new LoggerConfiguration()
                 .MinimumLevel.Verbose()
                 .Enrich.WithProperty("ApplicationContext", appName)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
+                .WriteTo.Http(string.IsNullOrWhiteSpace(logstashUrl) ? "http://logstash:9600" : logstashUrl)
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
         }

@@ -186,5 +186,20 @@ namespace U.ProductService.Controllers
             await _mediator.Send(command);
             return Ok();
         }
+        
+        /// <summary>
+        /// Add Product Picture
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("statistics")]
+        [ProducesResponseType(typeof(ProductStatisticsDto), (int) HttpStatusCode.OK)]
+        [ProducesResponseType((int) HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetStatisticsAsync([FromQuery] GetProductsStatisticsQuery command)
+        {
+            var statistics = await _mediator.Send(command);
+            return Ok(statistics);
+        }
     }
 }

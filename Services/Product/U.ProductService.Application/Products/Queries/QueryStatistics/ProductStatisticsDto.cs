@@ -1,0 +1,17 @@
+using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+namespace U.ProductService.Application.Products.Queries.QueryProducts
+{
+    public class ProductStatisticsDto
+    {
+        public DateTime DateTime { get; set; }
+        public int Count { get; set; }
+        [JsonProperty(NullValueHandling=NullValueHandling.Ignore)]
+        public Guid? CategoryId { get; set; } 
+        [JsonProperty(NullValueHandling=NullValueHandling.Ignore)]
+        public string Description { get; set; }
+        
+    }
+}

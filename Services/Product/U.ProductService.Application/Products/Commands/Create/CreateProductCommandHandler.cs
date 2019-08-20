@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using U.ProductService.Domain.Aggregates;
 
 namespace U.ProductService.Application.Products.Commands.Create
@@ -12,28 +11,34 @@ namespace U.ProductService.Application.Products.Commands.Create
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Guid>
     {
         private readonly IProductRepository _productRepository;
-        private readonly ILogger<CreateProductCommandHandler> _logger;
 
-        public CreateProductCommandHandler(ILogger<CreateProductCommandHandler> logger, IProductRepository productRepository)
+        public CreateProductCommandHandler(IProductRepository productRepository)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
         }
 
-        public async Task<Guid> Handle(CreateProductCommand message, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
-            var dimensions = new Dimensions(message.Dimensions.Length,
-                message.Dimensions.Width,
-                message.Dimensions.Height,
-                message.Dimensions.Weight);
-            
-            var product = new Product(message.Name, message.Price, message.BarCode, message.Description,
-                dimensions, Guid.NewGuid());
+            var product = GetProduct(command);
 
             await _productRepository.AddAsync(product);
             await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
             return product.Id;
+        }
+
+        private Product GetProduct(CreateProductCommand command)
+        {
+            return new Product(command.Name,
+                command.Price,
+                command.BarCode,
+                command.Description,
+                new Dimensions(command.Dimensions.Length,
+                    command.Dimensions.Width,
+                    command.Dimensions.Height,
+                    command.Dimensions.Weight),
+                Guid.NewGuid(),
+                Guid.NewGuid());
         }
     }
 }
