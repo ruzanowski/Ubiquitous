@@ -1,57 +1,32 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
+using U.ProductService.Domain.Events;
 using U.ProductService.Domain.Exceptions;
 using U.ProductService.Domain.SeedWork;
 
 namespace U.ProductService.Domain
 {
-    /// <summary>
-    /// Represents a manufacturer
-    /// </summary>
-    [DataContract]
-    public class Manufacturer : Entity, IAggregateRoot, IDeletable, ITrackable, IPictureManagable
-    {
-        public string Name { get; private set; }
-        public string Description { get; private set; }
 
-        private DateTime _createdAt;
-        private string _createdBy;
-        private DateTime? _lastUpdatedAt;
-        private string _lastUpdatedBy;
-        public DateTime CreatedAt => _createdAt;
-        public string CreatedBy => _createdBy;
-        public DateTime? LastUpdatedAt => _lastUpdatedAt;
-        public string LastUpdatedBy => _lastUpdatedBy;
-        public bool IsDeleted { get; private set; }
+	public class Category : Entity, IPictureManagable
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int? ParentCategoryId { get; set; }
+        public ICollection<Picture> Pictures { get; private set; }
         
-        private Manufacturer()
+        private Category()
         {
             Id = Guid.NewGuid();
             Name = string.Empty;
             Description = string.Empty;
-            _createdAt = DateTime.UtcNow;
-            _createdBy = string.Empty;
-            _lastUpdatedAt = default;
-            _lastUpdatedBy = string.Empty;
         }
         
-        public Manufacturer(Guid id, string name, string description) : this()
+        public Category(Guid id, string name, string description) : this()
         {
             Id = id;
             Name = name;
             Description = description;
-        }
-        
-        public void SetAsDeleted()
-        {
-            if (IsDeleted)
-            {
-                return;
-            }
-
-            IsDeleted = true;
         }
 
         public void AddPicture(Guid id, Guid fileStorageUploadId, string seoFilename, string description, string url, MimeType mimeType)
@@ -79,7 +54,5 @@ namespace U.ProductService.Domain
 
             Pictures.Remove(picture);
         }
-
-        public ICollection<Picture> Pictures { get; }
     }
 }

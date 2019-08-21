@@ -5,9 +5,9 @@ using U.ProductService.Domain;
 
 namespace U.ProductService.Application.Products.Commands.AddPicture
 {
-    public class AddProductPictureCommand : IRequest<Guid>
+    public class AddManufacturerPictureCommand : IRequest<Guid>
     {
-        [FromRoute] public Guid ProductId { get; set; }
+        [FromRoute] public Guid ManufacturerId { get; set; }
 
         public string SeoFilename { get; set; }
 

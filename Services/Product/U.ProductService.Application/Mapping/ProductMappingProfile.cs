@@ -1,6 +1,6 @@
 using AutoMapper;
 using U.ProductService.Application.Products.Models;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 
 namespace U.ProductService.Application.Mapping
 {

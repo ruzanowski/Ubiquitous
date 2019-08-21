@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using U.Common.Pagination;
 using U.ProductService.Application.Products.Models;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Products.Queries.QueryProducts

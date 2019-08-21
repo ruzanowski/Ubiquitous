@@ -5,7 +5,7 @@ using U.EventBus.Abstractions;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Products.Commands.Update;
 using U.ProductService.Application.Products.Models;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 
 namespace U.ProductService.Application.IntegrationEvents.EventHandling
 {

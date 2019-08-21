@@ -1,26 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Persistance.EntityConfigurations
 {
-    class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
+    class ManufacturerEntityTypeConfiguration : IEntityTypeConfiguration<Manufacturer>
     {
-        public void Configure(EntityTypeBuilder<Product> builder)
+        public void Configure(EntityTypeBuilder<Manufacturer> builder)
         {
-            builder.ToTable("products", ProductContext.DEFAULT_SCHEMA);
+            builder.ToTable("Manufacturers", ProductContext.DEFAULT_SCHEMA);
 
             builder.HasKey(o => o.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Ignore(b => b.DomainEvents);
             
-            builder.OwnsOne(o => o.Dimensions);
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Description).IsRequired();
-            builder.Property(x => x.Price).IsRequired();
-            
-            builder.HasIndex(x => x.BarCode).IsUnique();
             
             builder.Property(post => post.CreatedAt)
                 .HasField("_createdAt");

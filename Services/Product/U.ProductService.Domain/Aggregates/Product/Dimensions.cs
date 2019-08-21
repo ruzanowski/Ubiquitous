@@ -3,7 +3,7 @@ using U.ProductService.Domain.SeedWork;
 
 // ReSharper disable CheckNamespace
 
-namespace U.ProductService.Domain.Aggregates
+namespace U.ProductService.Domain
 {
     public class Dimensions : ValueObject
     {

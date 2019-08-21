@@ -6,76 +6,57 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using U.ProductService.Application.Products.Queries.QueryProducts;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Products.Queries.QueryStatistics
 {
-    public class GetProductsStatisticsQueryHandler : IRequestHandler<GetProductsStatisticsQuery, IList<ProductStatisticsDto>>
+    public partial class GetProductsStatisticsQueryHandler : IRequestHandler<GetProductsStatisticsQuery, IList<ProductStatisticsDto>>
     {
         private readonly ProductContext _context;
-        private DateTimePropertiesInclude _dateInclude = new DateTimePropertiesInclude();
-        private PropertiesInclude _propertiesInclude = new PropertiesInclude();
 
-        private class DateTimePropertiesInclude
+        private DateTimePropertiesInclude InitializeDtIncludes(ReportTimeStepFrequency step)
         {
-            public bool Year { get; set; }
-            public bool Month { get; set; }
-            public bool Day { get; set; }
-            public bool Hour { get; set; }
-            public bool Minute { get; set; }
-            public bool Second { get; set; }
-        }
-
-        private class PropertiesInclude
-        {
-            public bool Description { get; set; }
-        }
-
-        private void InitializeDtIncludes(ReportTimeStepFrequency step)
-        {
+            DateTimePropertiesInclude dateInclude = new DateTimePropertiesInclude();
             switch (step)
             {
                 case ReportTimeStepFrequency.Secondly:
-                    _dateInclude.Year = true;
-                    _dateInclude.Month = true;
-                    _dateInclude.Day = true;
-                    _dateInclude.Hour = true;
-                    _dateInclude.Minute = true;
-                    _dateInclude.Second = true;
+                    dateInclude.Year = true;
+                    dateInclude.Month = true;
+                    dateInclude.Day = true;
+                    dateInclude.Hour = true;
+                    dateInclude.Minute = true;
+                    dateInclude.Second = true;
                     break;
                 case ReportTimeStepFrequency.Minutely:
-                    _dateInclude.Year = true;
-                    _dateInclude.Month = true;
-                    _dateInclude.Day = true;
-                    _dateInclude.Hour = true;
-                    _dateInclude.Minute = true;
-                    _dateInclude.Second = false;
+                    dateInclude.Year = true;
+                    dateInclude.Month = true;
+                    dateInclude.Day = true;
+                    dateInclude.Hour = true;
+                    dateInclude.Minute = true;
+                    dateInclude.Second = false;
                     break;
                 case ReportTimeStepFrequency.Hourly:
-                    _dateInclude.Year = true;
-                    _dateInclude.Month = true;
-                    _dateInclude.Day = true;
-                    _dateInclude.Hour = true;
-                    _dateInclude.Minute = false;
-                    _dateInclude.Second = false;
+                    dateInclude.Year = true;
+                    dateInclude.Month = true;
+                    dateInclude.Day = true;
+                    dateInclude.Hour = true;
+                    dateInclude.Minute = false;
+                    dateInclude.Second = false;
                     break;
                 case ReportTimeStepFrequency.Daily:
-                    _dateInclude.Year = true;
-                    _dateInclude.Month = true;
-                    _dateInclude.Day = true;
-                    _dateInclude.Hour = false;
-                    _dateInclude.Minute = false;
-                    _dateInclude.Second = false;
+                    dateInclude.Year = true;
+                    dateInclude.Month = true;
+                    dateInclude.Day = true;
+                    dateInclude.Hour = false;
+                    dateInclude.Minute = false;
+                    dateInclude.Second = false;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(step), step, null);
             }
-        }
 
-        private void InitializePropertiesIncludes()
-        {
-            _propertiesInclude.Description = true;
+            return dateInclude;
         }
 
         public GetProductsStatisticsQueryHandler(ProductContext context)
@@ -85,44 +66,61 @@ namespace U.ProductService.Application.Products.Queries.QueryStatistics
 
         public async Task<IList<ProductStatisticsDto>> Handle(GetProductsStatisticsQuery request, CancellationToken cancellationToken)
         {
-
-            InitializeDtIncludes(request.StepFrequency);
-            InitializePropertiesIncludes();
+            var dateInclude = InitializeDtIncludes(request.StepFrequency);
+            var includeDescription = false;
             var query = GetQuery();
 
-            var results = query
+            var results = await query
                 .GroupBy(g =>
                     new
                     {
-                        //the trick is with includes, to avoid writing complicated group by
-                        //we point always on column that we will be grouping by.
-                        //e.g. if "Day" is not included, then we will group twice by "Year".
-                        
                         g.CreatedAt.Year, // year exists in every query
-                        Month = _dateInclude.Month ? g.CreatedAt.Month : g.CreatedAt.Year,
-                        Day = _dateInclude.Day ? g.CreatedAt.Day : g.CreatedAt.Year,
-                        Hour = _dateInclude.Hour  ? g.CreatedAt.Hour : g.CreatedAt.Year,
-                        Minute = _dateInclude.Minute  ? g.CreatedAt.Minute : g.CreatedAt.Year,
-                        Second = _dateInclude.Second  ? g.CreatedAt.Second : g.CreatedAt.Year,
-                        Description = _propertiesInclude.Description? g.Description:g.CreatedAt.Year.ToString()
+                        Month = dateInclude.Month
+                            ? g.CreatedAt.Month
+                            : default,
+                        Day = dateInclude.Day
+                            ? g.CreatedAt.Day
+                            : default,
+                        Hour = dateInclude.Hour
+                            ? g.CreatedAt.Hour
+                            : default,
+                        Minute = dateInclude.Minute
+                            ? g.CreatedAt.Minute
+                            : default,
+                        Second = dateInclude.Second
+                            ? g.CreatedAt.Second
+                            : default,
+                        Description = includeDescription
+                            ? g.Description
+                            : default
                     })
-                .Select(i => new ProductStatisticsDto
+                .Select(i=> new
                 {
-                    Description = i.Key.Description,
-                    DateTime = DateTimeBuilder(i.Key.Year, i.Key.Month,i.Key.Day,i.Key.Hour, i.Key.Minute, i.Key.Second),
-                    Count  = i.Count()
-                }).ToList();
+                    i.Key.Description,
+                    i.Key.Year,
+                    i.Key.Month,
+                    i.Key.Day,
+                    i.Key.Hour,
+                    i.Key.Minute,
+                    i.Key.Second,
+                    Count = i.Count()
+                }).ToListAsync(cancellationToken);
 
-            return results;
+            var mapped = results.Select(i => new ProductStatisticsDto
+            {
+                Description = i.Description,
+                DateTime = DateTimeBuilder(i.Year, i.Month, i.Day, i.Hour, i.Minute, i.Second),
+                Count = i.Count
+            }).ToList();
+
+            return mapped;
         }
 
         private DateTime DateTimeBuilder(int year, int month, int day, int hour, int minute, int second)
         {
-            month = month.Equals(year) ? 1 : month;
-            day = day.Equals(year) ? 1 : day;
-            hour = hour.Equals(year) ? 12 : hour;
-            minute = minute.Equals(year) ? 0 : minute;
-            second = second.Equals(year) ? 0 : second;
+            month = month is 0 ? 1 : month;
+            day = day is 0 ? 1 : day;
+            hour = hour is 0 ? 12 : hour;
             return new DateTime(year, month, day, hour, minute, second);
         }
         

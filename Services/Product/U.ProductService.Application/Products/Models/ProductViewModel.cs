@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 
 namespace U.ProductService.Application.Products.Models
 {

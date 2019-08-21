@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 using U.ProductService.Domain.SeedWork;
 using U.ProductService.Persistance.EntityConfigurations;
 using U.ProductService.Persistance.Extensions;
@@ -18,6 +18,7 @@ namespace U.ProductService.Persistance.Contexts
 
         //db sets
         public DbSet<Product> Products { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
         
         //fields
         private readonly IMediator _mediator;
@@ -39,7 +40,13 @@ namespace U.ProductService.Persistance.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductPictureEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductTypeEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductCategoryEntityTypeConfiguration());
+            
+            modelBuilder.ApplyConfiguration(new PictureEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MimeTypeEntityTypeConfiguration());
+
+            modelBuilder.ApplyConfiguration(new ManufacturerEntityTypeConfiguration());
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)

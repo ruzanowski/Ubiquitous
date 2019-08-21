@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Exceptions;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 
 namespace U.ProductService.Application.Products.Commands.ChangePrice
 {

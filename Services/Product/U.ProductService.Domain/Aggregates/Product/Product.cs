@@ -9,15 +9,16 @@ using U.ProductService.Domain.SeedWork;
 // ReSharper disable CheckNamespace
 
 
-namespace U.ProductService.Domain.Aggregates
+namespace U.ProductService.Domain
 {
-    public class Product : Entity, IAggregateRoot, ITrackable
+    public class Product : Entity, IAggregateRoot, ITrackable, IPublishable, IDeletable, IPictureManagable
     {
         public string Name { get; private set; }
         public string BarCode { get; private set; }
         public decimal Price { get; private set; }
         public string Description { get; private set; }
         public bool IsPublished { get; private set; }
+        public bool IsDeleted { get; private set; }
         
         private DateTime _createdAt;
         private string _createdBy;
@@ -30,8 +31,9 @@ namespace U.ProductService.Domain.Aggregates
         
         public Dimensions Dimensions { get; private set; }
         public Guid ManufacturerId { get; private set; }
+
         public ICollection<Picture> Pictures { get; private set; }
-      //  public Guid CategoryId { get; private set; }
+        //  public Guid CategoryId { get; private set; }
 
         private Product()
         {
@@ -56,7 +58,7 @@ namespace U.ProductService.Domain.Aggregates
             Description = description;
             Dimensions = dimensions;
             ManufacturerId = manufacturerId;
-  //          CategoryId = categoryId;
+            //          CategoryId = categoryId;
 
             var @event = new ProductAddedDomainEvent(Id, Name, Price, ManufacturerId);
 
@@ -65,7 +67,7 @@ namespace U.ProductService.Domain.Aggregates
 
         public bool CompareAlternateId(string productUniqueCode) => BarCode.Equals(productUniqueCode);
 
-        public void AddPicture(Guid id, string seoFilename, string description, string url, string mimeType)
+        public void AddPicture(Guid id, Guid fileStorageUploadId, string seoFilename, string description, string url, MimeType mimeType)
         {
             if (string.IsNullOrEmpty(seoFilename))
                 throw new ProductDomainException($"{nameof(seoFilename)} cannot be null or empty!");
@@ -76,11 +78,8 @@ namespace U.ProductService.Domain.Aggregates
             if (string.IsNullOrEmpty(url))
                 throw new ProductDomainException($"{nameof(url)} cannot be null or empty!");
 
-            if (string.IsNullOrEmpty(mimeType))
-                throw new ProductDomainException($"{nameof(mimeType)} cannot be null or empty!");
+            var picture = new Picture(id, fileStorageUploadId, seoFilename, description, url,  mimeType);
 
-            var picture = new Picture(id, seoFilename, description, url, mimeType);
-            
             Pictures.Add(picture);
 
             var @event = new ProductPictureAddedDomainEvent(Id, picture.Id, seoFilename);
@@ -153,6 +152,16 @@ namespace U.ProductService.Domain.Aggregates
             AddDomainEvent(@event);
 
             // add new update saying event has been raised after last up-to-date update
+        }
+
+        public void SetAsDeleted()
+        {
+            if (IsDeleted)
+            {
+                return;
+            }
+
+            IsDeleted = true;
         }
     }
 }

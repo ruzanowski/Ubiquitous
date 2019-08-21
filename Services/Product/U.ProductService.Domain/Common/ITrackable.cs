@@ -1,6 +1,6 @@
 using System;
 
-namespace U.ProductService.Domain.Aggregates
+namespace U.ProductService.Domain
 {
     public interface ITrackable
     {

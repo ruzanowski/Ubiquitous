@@ -32,7 +32,7 @@ namespace U.ProductService.Persistance.Migrations.Product
 
                     b.Property<Guid?>("ProductId");
 
-                    b.Property<string>("SeoFilename")
+                    b.Property<string>("FileName")
                         .IsRequired();
 
                     b.Property<string>("Url")

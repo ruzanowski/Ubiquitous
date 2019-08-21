@@ -20,7 +20,7 @@ using U.ProductService.Application.IntegrationEvents;
 using U.ProductService.Application.IntegrationEvents.EventHandling;
 using U.ProductService.Application.Mapping;
 using U.ProductService.Application.Products.Commands.Create;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 using U.ProductService.Middleware;
 using U.ProductService.Persistance.Contexts;
 using U.ProductService.Persistance.Repositories;

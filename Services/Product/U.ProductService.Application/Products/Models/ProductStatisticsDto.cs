@@ -1,6 +1,5 @@
 using System;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace U.ProductService.Application.Products.Queries.QueryProducts
 {

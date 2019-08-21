@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using U.ProductService.Persistance.Contexts;
 
@@ -30,7 +29,7 @@ namespace U.ProductService.Persistance.Migrations.Product
 
                     b.Property<Guid?>("ProductId");
 
-                    b.Property<string>("SeoFilename")
+                    b.Property<string>("FileName")
                         .IsRequired();
 
                     b.Property<string>("Url")
