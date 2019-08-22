@@ -13,7 +13,7 @@ namespace U.ProductService.Controllers
     /// <summary>
     /// Picture controller of Product service
     /// </summary>
-    [Route("api/product-service/Pictures")]
+    [Route("api/product/pictures")]
     [ApiController]
     public class PicturesController : ControllerBase
     {
@@ -54,7 +54,7 @@ namespace U.ProductService.Controllers
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetPictureAsync([FromRoute] Guid pictureId)
         {
-            var queryResult = await _mediator.Send(new QueryPicture(pictureId));
+            var queryResult = await _mediator.Send(new GetPictureQuery(pictureId));
             return Ok(queryResult);
         }
     }

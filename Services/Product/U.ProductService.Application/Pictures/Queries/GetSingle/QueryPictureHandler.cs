@@ -8,7 +8,7 @@ using U.ProductService.Persistance;
 
 namespace U.ProductService.Application.Pictures.Queries.QueryPicture
 {
-    public class GetPictureQueryHandler : IRequestHandler<QueryPicture, PictureViewModel>
+    public class GetPictureQueryHandler : IRequestHandler<GetPictureQuery, PictureViewModel>
     {
         private readonly ProductContext _context;
         private readonly IMapper _mapper;
@@ -19,7 +19,7 @@ namespace U.ProductService.Application.Pictures.Queries.QueryPicture
             _mapper = mapper;
         }
         
-        public async Task<PictureViewModel> Handle(QueryPicture request, CancellationToken cancellationToken)
+        public async Task<PictureViewModel> Handle(GetPictureQuery request, CancellationToken cancellationToken)
         {
             var products = await _context.Pictures.FindAsync(request.Id);
 

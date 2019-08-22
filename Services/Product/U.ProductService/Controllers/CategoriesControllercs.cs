@@ -15,9 +15,9 @@ namespace U.ProductService.Controllers
     /// <summary>
     /// Manufacturer controller of Product service
     /// </summary>
-    [Route("api/product/manufacturers")]
+    [Route("api/product/categories")]
     [ApiController]
-    public class ManufacturersController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
         private readonly IMediator _mediator;
 
@@ -25,7 +25,7 @@ namespace U.ProductService.Controllers
         /// Manufacturer controller of Product service
         /// </summary>
         /// <param name="mediator"></param>
-        public ManufacturersController(IMediator mediator)
+        public CategoriesController(IMediator mediator)
         {
             _mediator = mediator;
         }

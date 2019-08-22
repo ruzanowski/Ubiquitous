@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Exceptions;
-using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Domain;
 
 namespace U.ProductService.Application.Products.Commands

@@ -22,7 +22,7 @@ namespace U.ProductService.Controllers
     /// <summary>
     /// Product controller of product service
     /// </summary>
-    [Route("api/product-service/products")]
+    [Route("api/product/products")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
