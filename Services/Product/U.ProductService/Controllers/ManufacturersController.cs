@@ -38,7 +38,7 @@ namespace U.ProductService.Controllers
         [HttpGet]
         [Route("query")]
         [ProducesResponseType(typeof(PaginatedItems<ManufacturerViewModel>), (int) HttpStatusCode.OK)]
-        public async Task<IActionResult> GetManufacturersListAsync(
+        public async Task<IActionResult> GetManufacturersList(
             [FromQuery] GetManufacturersListQuery manufacturersListQuery)
         {
             var queryResult = await _mediator.Send(manufacturersListQuery);
@@ -54,7 +54,7 @@ namespace U.ProductService.Controllers
         [Route("query/{ManufacturerId:Guid}")]
         [ProducesResponseType(typeof(PaginatedItems<ManufacturerViewModel>), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetManufacturerAsync([FromRoute] Guid manufacturerId)
+        public async Task<IActionResult> GetManufacturer([FromRoute] Guid manufacturerId)
         {
             var queryResult = await _mediator.Send(new QueryManufacturer(manufacturerId));
             return Ok(queryResult);
@@ -70,10 +70,10 @@ namespace U.ProductService.Controllers
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.Created)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
         [Consumes("application/json")]
-        public async Task<IActionResult> CreateManufacturerAsync([FromBody] CreateManufacturerCommand manufacturers)
+        public async Task<IActionResult> CreateManufacturer([FromBody] CreateManufacturerCommand manufacturers)
         {
             var manufacturerId = await _mediator.Send(manufacturers);
-            return CreatedAtAction(nameof(CreateManufacturerAsync), manufacturerId);
+            return CreatedAtAction(nameof(CreateManufacturer), manufacturerId);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace U.ProductService.Controllers
         [Route("add-picture/{ManufacturerId}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        public async Task<IActionResult> AddPictureAsync([FromQuery] AddManufacturerPictureCommand command)
+        public async Task<IActionResult> AddPicture([FromQuery] AddManufacturerPictureCommand command)
         {
             var pictureId = await _mediator.Send(command);
             return Ok(pictureId);
@@ -100,7 +100,7 @@ namespace U.ProductService.Controllers
         [Route("delete-picture/{ManufacturerId:Guid}/{pictureId:Guid}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        public async Task<IActionResult> DeletePictureAsync([FromRoute] DeleteManufacturerPictureCommand command)
+        public async Task<IActionResult> DeletePicture([FromRoute] DeleteManufacturerPictureCommand command)
         {
             await _mediator.Send(command);
             return Ok();

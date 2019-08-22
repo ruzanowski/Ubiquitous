@@ -36,7 +36,7 @@ namespace U.ProductService.Controllers
         [HttpGet]
         [Route("query")]
         [ProducesResponseType(typeof(PaginatedItems<PictureViewModel>), (int) HttpStatusCode.OK)]
-        public async Task<IActionResult> GetPicturesListAsync(
+        public async Task<IActionResult> GetPicturesList(
             [FromQuery] GetPicturesListQuery picturesListQuery)
         {
             var queryResult = await _mediator.Send(picturesListQuery);
@@ -52,7 +52,7 @@ namespace U.ProductService.Controllers
         [Route("query/{PictureId:Guid}")]
         [ProducesResponseType(typeof(PaginatedItems<PictureViewModel>), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetPictureAsync([FromRoute] Guid pictureId)
+        public async Task<IActionResult> GetPicture([FromRoute] Guid pictureId)
         {
             var queryResult = await _mediator.Send(new GetPictureQuery(pictureId));
             return Ok(queryResult);
