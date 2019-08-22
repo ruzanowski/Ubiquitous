@@ -11,8 +11,10 @@ namespace U.ProductService.Domain
     /// Represents a manufacturer
     /// </summary>
     [DataContract]
-    public class Manufacturer : Entity, IAggregateRoot, IDeletable, ITrackable, IPictureManagable
+    public class Manufacturer : Entity, IAggregateRoot, ITrackable, IPictureManagable
     {
+        public Guid AggregateId => Id;
+        public string AggregateTypeName => nameof(Manufacturer);
         public string Name { get; private set; }
         public string Description { get; private set; }
 
@@ -24,11 +26,10 @@ namespace U.ProductService.Domain
         public string CreatedBy => _createdBy;
         public DateTime? LastUpdatedAt => _lastUpdatedAt;
         public string LastUpdatedBy => _lastUpdatedBy;
-        public bool IsDeleted { get; private set; }
+        public ICollection<Picture> Pictures { get; private set; }
         
         private Manufacturer()
         {
-            Id = Guid.NewGuid();
             Name = string.Empty;
             Description = string.Empty;
             _createdAt = DateTime.UtcNow;
@@ -43,16 +44,6 @@ namespace U.ProductService.Domain
             Name = name;
             Description = description;
         }
-        
-        public void SetAsDeleted()
-        {
-            if (IsDeleted)
-            {
-                return;
-            }
-
-            IsDeleted = true;
-        }
 
         public void AddPicture(Guid id, Guid fileStorageUploadId, string seoFilename, string description, string url, MimeType mimeType)
         {
@@ -65,7 +56,7 @@ namespace U.ProductService.Domain
             if (string.IsNullOrEmpty(url))
                 throw new ProductDomainException($"{nameof(url)} cannot be null or empty!");
 
-            var picture = new Picture(id, fileStorageUploadId, seoFilename, description, url,  mimeType);
+            var picture = new Picture(id, AggregateId, AggregateTypeName, fileStorageUploadId, seoFilename, description, url, mimeType);
 
             Pictures.Add(picture);
         }
@@ -79,7 +70,5 @@ namespace U.ProductService.Domain
 
             Pictures.Remove(picture);
         }
-
-        public ICollection<Picture> Pictures { get; }
     }
 }

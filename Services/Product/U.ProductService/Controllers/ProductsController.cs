@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using U.Common.Pagination;
 using U.ProductService.Application.Products.Commands;
 using U.ProductService.Application.Products.Commands.AddPicture;
+using U.ProductService.Application.Products.Commands.ChangeCategory;
 using U.ProductService.Application.Products.Commands.ChangePrice;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Products.Commands.DeletePicture;
@@ -186,7 +187,7 @@ namespace U.ProductService.Controllers
             await _mediator.Send(command);
             return Ok();
         }
-        
+
         /// <summary>
         /// Add Product Picture
         /// </summary>
@@ -200,6 +201,21 @@ namespace U.ProductService.Controllers
         {
             var statistics = await _mediator.Send(command);
             return Ok(statistics);
+        }
+
+        /// <summary>
+        /// Change product category
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("change-category/{ProductId}")]
+        [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
+        [ProducesResponseType((int) HttpStatusCode.NotFound)]
+        public async Task<IActionResult> ChangeProductCategoryAsync([FromQuery] ChangeProductCategoryCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using U.ProductService.Domain;
@@ -31,6 +33,15 @@ namespace U.ProductService.Persistance.Repositories
                 await _context.Entry(product).Reference(i => i.Pictures).LoadAsync();
             }
 
+            return product;
+        }
+        
+        public async Task<IList<Manufacturer>> GetAllAsync(Func<Manufacturer, bool> exp)
+        {
+            var product = _context.Manufacturers.Include(x => x.Pictures)
+                .Where(exp)
+                .ToList();
+            
             return product;
         }
 

@@ -22,6 +22,7 @@ using U.ProductService.Application.Mapping;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Domain;
 using U.ProductService.Middleware;
+using U.ProductService.Persistance;
 using U.ProductService.Persistance.Contexts;
 using U.ProductService.Persistance.Repositories;
 
@@ -97,6 +98,9 @@ namespace U.ProductService
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
+            
             services.AddIntegrationEventLog();
             services.AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>();
 

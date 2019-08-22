@@ -5,9 +5,9 @@ using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Persistance.EntityConfigurations
 {
-    class ProductCategoryEntityTypeConfiguration : IEntityTypeConfiguration<Manufacturer>
+    class ProductCategoryEntityTypeConfiguration : IEntityTypeConfiguration<Category>
     {
-        public void Configure(EntityTypeBuilder<Manufacturer> builder)
+        public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.ToTable("Products_Categories", ProductContext.DEFAULT_SCHEMA);
 
@@ -17,10 +17,6 @@ namespace U.ProductService.Persistance.EntityConfigurations
             
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Description).IsRequired();
-
-            builder.HasMany(x=>x.Pictures)
-                .WithOne()
-                .IsRequired(false);
         }
     }
 }

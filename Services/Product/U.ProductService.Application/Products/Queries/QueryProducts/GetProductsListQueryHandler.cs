@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using U.Common.Pagination;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain;
-using U.ProductService.Persistance.Contexts;
+using U.ProductService.Persistance;
 
 namespace U.ProductService.Application.Products.Queries.QueryProducts
 {
@@ -28,7 +28,7 @@ namespace U.ProductService.Application.Products.Queries.QueryProducts
             
             var productsMapped = _mapper.ProjectTo<ProductViewModel>(products);
 
-            var paginatedProducts = await PaginatedItems<ProductViewModel>.PaginatedItemsCreate.CreateAsync(request.PageIndex, request.PageSize, productsMapped);
+            var paginatedProducts = await PaginatedItems<ProductViewModel>.CreateAsync(request.PageIndex, request.PageSize, productsMapped);
             
             return paginatedProducts;
         }

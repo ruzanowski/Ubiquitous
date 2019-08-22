@@ -5,7 +5,7 @@ using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Persistance.EntityConfigurations
 {
-    class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
+    class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Product>
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
@@ -37,6 +37,11 @@ namespace U.ProductService.Persistance.EntityConfigurations
             builder.HasMany(x=>x.Pictures)
                 .WithOne()
                 .IsRequired(false);
+            
+            builder.HasOne(x=>x.Category)
+                .WithMany()
+                .HasForeignKey(x=>x.CategoryId)
+                .IsRequired();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using U.ProductService.Domain.SeedWork;
 
@@ -14,6 +15,8 @@ namespace U.ProductService.Domain
         void Update(Product product);
 
         Task<Manufacturer> GetAsync(Guid productId);
+        
+        Task<IList<Manufacturer>> GetAllAsync(Func<Manufacturer, bool> exp);
 
         Task<bool> AnyAsync(Guid id);
     }

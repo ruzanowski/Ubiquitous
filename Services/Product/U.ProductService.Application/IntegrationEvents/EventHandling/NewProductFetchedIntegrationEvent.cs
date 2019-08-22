@@ -16,7 +16,7 @@ namespace U.ProductService.Application.IntegrationEvents.EventHandling
         public decimal Weight { get; private set; }
         public int? MainPictureId { get; private set; }
         public int CategoryId { get; private set; }
-        public string Id { get; private set; } // customerId.productId
+        public new string Id { get; private set; } // customerId.productId
 
         public NewProductFetchedIntegrationEvent(string name, int manufacturerId, string productUniqueCode, int inStock, decimal priceInTax, string description, decimal length, decimal width, decimal height, decimal weight, int? mainPictureId, int categoryId, string id)
         {

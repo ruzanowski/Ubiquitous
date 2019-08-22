@@ -38,7 +38,8 @@ namespace U.ProductService.Application.Products.Commands.Create
                     command.Dimensions.Height,
                     command.Dimensions.Weight),
                 Guid.NewGuid(),
-                Guid.NewGuid());
+                Guid.NewGuid(),
+                ProductType.SimpleProduct);
         }
     }
 }

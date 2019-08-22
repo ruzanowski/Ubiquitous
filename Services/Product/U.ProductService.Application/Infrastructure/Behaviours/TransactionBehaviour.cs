@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Serilog.Context;
 using U.Common.Extensions;
 using U.ProductService.Application.IntegrationEvents;
-using U.ProductService.Persistance.Contexts;
+using U.ProductService.Persistance;
 
 namespace U.ProductService.Application.Behaviours
 {

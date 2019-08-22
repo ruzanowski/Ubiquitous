@@ -31,6 +31,7 @@ namespace U.ProductService.Persistance.Repositories
             {
                 await _context.Entry(product).Reference(i => i.Dimensions).LoadAsync();
                 await _context.Entry(product).Reference(i => i.Pictures).LoadAsync();
+                await _context.Entry(product).Reference(i => i.Pictures).LoadAsync();
             }
 
             return product;
@@ -43,6 +44,7 @@ namespace U.ProductService.Persistance.Repositories
             {
                 await _context.Entry(product).Reference(i => i.Dimensions).LoadAsync();
                 await _context.Entry(product).Reference(i => i.Pictures).LoadAsync();
+                await _context.Entry(product).Reference(i => i.Category).LoadAsync();
             }
 
             return product;

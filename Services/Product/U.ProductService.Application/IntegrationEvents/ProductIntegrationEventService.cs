@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
 using U.EventBus.Events;
 using U.IntegrationEventLog.Services;
-using U.ProductService.Persistance.Contexts;
+using U.ProductService.Persistance;
 
 namespace U.ProductService.Application.IntegrationEvents
 {

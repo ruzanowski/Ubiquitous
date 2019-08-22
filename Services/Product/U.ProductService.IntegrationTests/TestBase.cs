@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using U.Common.WebHost;
 using U.IntegrationEventLog;
+using U.ProductService.Persistance;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.IntegrationTests

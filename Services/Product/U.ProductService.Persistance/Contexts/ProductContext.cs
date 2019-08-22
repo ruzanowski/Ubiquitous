@@ -10,7 +10,7 @@ using U.ProductService.Domain.SeedWork;
 using U.ProductService.Persistance.EntityConfigurations;
 using U.ProductService.Persistance.Extensions;
 
-namespace U.ProductService.Persistance.Contexts
+namespace U.ProductService.Persistance
 {
     public class ProductContext : DbContext, IUnitOfWork
     {
@@ -19,6 +19,8 @@ namespace U.ProductService.Persistance.Contexts
         //db sets
         public DbSet<Product> Products { get; set; }
         public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
         
         //fields
         private readonly IMediator _mediator;
@@ -47,6 +49,8 @@ namespace U.ProductService.Persistance.Contexts
             modelBuilder.ApplyConfiguration(new MimeTypeEntityTypeConfiguration());
 
             modelBuilder.ApplyConfiguration(new ManufacturerEntityTypeConfiguration());
+            
+            modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
