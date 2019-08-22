@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.Notification", "Services\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.IntegrationTests", "Services\Product\U.ProductService.IntegrationTests\U.ProductService.IntegrationTests.csproj", "{4A1E232F-0F95-476E-A8C9-8587E307A5FD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.FileStorage", "Service.FileStorage", "{2794A725-2073-4AA0-AD39-AD9826D47F9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
