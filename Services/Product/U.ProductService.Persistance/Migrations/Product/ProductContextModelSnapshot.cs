@@ -20,8 +20,7 @@ namespace U.ProductService.Persistance.Migrations.Product
 
             modelBuilder.Entity("U.ProductService.Domain.Aggregates.Picture", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<Guid>("Id");
 
                     b.Property<string>("Description")
                         .IsRequired();
@@ -30,7 +29,7 @@ namespace U.ProductService.Persistance.Migrations.Product
 
                     b.Property<Guid?>("ProductId");
 
-                    b.Property<string>("SeoFilename")
+                    b.Property<string>("FileName")
                         .IsRequired();
 
                     b.Property<string>("Url")
@@ -48,17 +47,20 @@ namespace U.ProductService.Persistance.Migrations.Product
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("BarCode")
-                        .IsRequired();
+                    b.Property<string>("BarCode");
 
-                    b.Property<DateTime>("CreatedDateTime");
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("CreatedBy");
 
                     b.Property<string>("Description")
                         .IsRequired();
 
                     b.Property<bool>("IsPublished");
 
-                    b.Property<DateTime?>("LastFullUpdateDateTime");
+                    b.Property<DateTime?>("LastUpdatedAt");
+
+                    b.Property<string>("LastUpdatedBy");
 
                     b.Property<Guid>("ManufacturerId");
 
@@ -68,6 +70,9 @@ namespace U.ProductService.Persistance.Migrations.Product
                     b.Property<decimal>("Price");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BarCode")
+                        .IsUnique();
 
                     b.ToTable("products","Products");
                 });

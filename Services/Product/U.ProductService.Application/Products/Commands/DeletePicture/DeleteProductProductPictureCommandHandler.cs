@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Exceptions;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 
 namespace U.ProductService.Application.Products.Commands.DeletePicture
 {
@@ -26,13 +26,8 @@ namespace U.ProductService.Application.Products.Commands.DeletePicture
             var product = await _productRepository.GetAsync(command.ProductId);
             
             if (product is null)
-            {
-                _logger.LogInformation($"Product with id: '{command.ProductId}' has been not found");
                 throw new ProductNotFoundException($"Product with id: '{command.ProductId}' has not been found");
-            }
 
-            _logger.LogInformation("--- Deleting product picture: {@Product}:{@Picture} ---", command.ProductId, command.PictureId);
-            
             //todo: VALIDATION OF URL
             
             //todo: FILE STORAGE

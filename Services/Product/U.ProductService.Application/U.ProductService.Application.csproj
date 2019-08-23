@@ -12,4 +12,14 @@
       <ProjectReference Include="..\U.ProductService.Persistance\U.ProductService.Persistance.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.18" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Common" />
+      <Folder Include="Events" />
+      <Folder Include="Infrastructure" />
+    </ItemGroup>
+
 </Project>

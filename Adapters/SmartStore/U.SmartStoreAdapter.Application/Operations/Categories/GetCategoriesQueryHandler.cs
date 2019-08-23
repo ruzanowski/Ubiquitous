@@ -29,7 +29,7 @@ namespace U.SmartStoreAdapter.Application.Operations.Categories
             var productsMapped = _mapper.ProjectTo<CategoryViewModel>(products);
 
             var paginatedProducts =
-                await PaginatedItems<CategoryViewModel>.PaginatedItemsCreate.CreateAsync(request.PageIndex,
+                await PaginatedItems<CategoryViewModel>.CreateAsync(request.PageIndex,
                     request.PageSize, productsMapped);
 
             return paginatedProducts;

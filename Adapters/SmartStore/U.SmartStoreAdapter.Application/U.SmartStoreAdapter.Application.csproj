@@ -15,9 +15,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\U.SmartStoreAdapter.Api\U.SmartStoreAdapter.Api.csproj" />
       <ProjectReference Include="..\U.SmartStoreAdapter.Domain\U.SmartStoreAdapter.Domain.csproj" />
       <ProjectReference Include="..\U.SmartStoreAdapter.Persistance\U.SmartStoreAdapter.Persistance.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models" />
     </ItemGroup>
 
 </Project>

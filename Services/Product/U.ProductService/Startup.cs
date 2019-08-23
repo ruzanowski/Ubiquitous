@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using U.Common.Behaviour;
 using U.Common.Consul;
 using U.Common.Database;
 using U.Common.Mvc; 
@@ -19,8 +20,9 @@ using U.ProductService.Application.IntegrationEvents;
 using U.ProductService.Application.IntegrationEvents.EventHandling;
 using U.ProductService.Application.Mapping;
 using U.ProductService.Application.Products.Commands.Create;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 using U.ProductService.Middleware;
+using U.ProductService.Persistance;
 using U.ProductService.Persistance.Contexts;
 using U.ProductService.Persistance.Repositories;
 
@@ -96,6 +98,9 @@ namespace U.ProductService
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
+            
             services.AddIntegrationEventLog();
             services.AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>();
 

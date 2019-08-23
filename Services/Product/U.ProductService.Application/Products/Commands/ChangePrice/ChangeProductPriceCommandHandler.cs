@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Exceptions;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 
 namespace U.ProductService.Application.Products.Commands.ChangePrice
 {
@@ -28,11 +28,8 @@ namespace U.ProductService.Application.Products.Commands.ChangePrice
 
             if (product is null)
             {
-                _logger.LogInformation($"Product with id: '{message.ProductId}' has been not found");
                 throw new ProductNotFoundException($"Product with id: '{message.ProductId}' has not been found");
             }
-
-            _logger.LogInformation("--- Changing product price: {@Product} ---", product.Id);
 
             product.ChangePrice(message.Price);
 

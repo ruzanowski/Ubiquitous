@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Exceptions;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 
 namespace U.ProductService.Application.Products.Commands.UnPublish
 {
@@ -26,13 +26,10 @@ namespace U.ProductService.Application.Products.Commands.UnPublish
             var product = await _productRepository.GetAsync(command.Id);
 
             if (product is null)
-            {
                 throw new ProductNotFoundException($"Product with id: '{command.Id}' has not been found.");
-            }
-            
+
             product.UnPublish();
             
-            _logger.LogInformation("--- UnPublishing Product: {@Product} ---", product.Id);
             await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
             return Unit.Value;

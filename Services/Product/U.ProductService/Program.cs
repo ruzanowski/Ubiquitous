@@ -5,6 +5,7 @@ using U.Common.Database;
 using U.Common.Mvc;
 using U.Common.WebHost;
 using U.IntegrationEventLog;
+using U.ProductService.Persistance;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService

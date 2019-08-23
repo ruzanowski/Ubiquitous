@@ -1,0 +1,14 @@
+image : microsoft/dotnet:latest
+stages:
+  - build
+before_script:
+  - 'dotnet restore'
+build:
+  stage: build
+  script:
+    - 'dotnet build'
+#    - 'chmod -R +x ./scripts'
+#    - 'scripts/run-tests.bat'
+  only:
+    - master
+    - develop

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Exceptions;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 
 namespace U.ProductService.Application.Products.Commands.Update
 {
@@ -31,10 +31,14 @@ namespace U.ProductService.Application.Products.Commands.Update
                 throw new ProductNotFoundException($"Product with id: '{message.ProductId}' has not been found");
             }
 
-            _logger.LogInformation("--- Updating Product: {@Product} ---", product.Id);
-            product.UpdateAllProperties(message.Name, message.Price, message.Dimensions, DateTime.UtcNow);
-            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            var dimensions = new Dimensions(message.Dimensions.Length,
+                message.Dimensions.Width,
+                message.Dimensions.Height,
+                message.Dimensions.Weight);
+
+            product.UpdateAllProperties(message.Name, message.Price, dimensions, DateTime.UtcNow);
             
+            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             return Unit.Value;
         }
     }

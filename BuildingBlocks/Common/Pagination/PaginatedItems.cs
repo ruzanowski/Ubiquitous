@@ -19,8 +19,6 @@ namespace U.Common.Pagination
         public int PageIndex { get; private set; }
         public int PageSize { get; private set; }
 
-        public static class PaginatedItemsCreate
-        {
             public static async Task<PaginatedItems<T>> CreateAsync(int pageIndex, int pageSize, IQueryable<T> data)
             {
                 return new PaginatedItems<T>(pageIndex,
@@ -29,6 +27,5 @@ namespace U.Common.Pagination
                         .Take(pageSize)
                         .ToListAsync());
             }
-        }
     }
 }

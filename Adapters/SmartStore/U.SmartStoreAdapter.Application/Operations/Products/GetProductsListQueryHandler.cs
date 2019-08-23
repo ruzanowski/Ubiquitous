@@ -39,7 +39,7 @@ namespace U.SmartStoreAdapter.Application.Operations.Products
             
             var productsMapped = _mapper.ProjectTo<SmartProductViewModel>(products);
 
-            var paginatedProducts = await PaginatedItems<SmartProductViewModel>.PaginatedItemsCreate.CreateAsync(request.PageIndex, request.PageSize, productsMapped);
+            var paginatedProducts = await PaginatedItems<SmartProductViewModel>.CreateAsync(request.PageIndex, request.PageSize, productsMapped);
             
             return paginatedProducts;
         }

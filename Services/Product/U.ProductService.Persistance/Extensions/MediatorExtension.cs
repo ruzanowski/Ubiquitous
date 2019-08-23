@@ -21,12 +21,12 @@ namespace U.ProductService.Persistance.Extensions
 
             domainEntities.ForEach(entity => entity.Entity.ClearDomainEvents());
 
-            var tasks = domainEvents
-                .Select(async (domainEvent) => {
-                    await mediator.Publish(domainEvent);
-                });
+            if (domainEntities.Any())
+            {
+                var tasks = domainEvents.Select(async domainEvent => await mediator.Publish(domainEvent));
 
-            await Task.WhenAll(tasks);
+                await Task.WhenAll(tasks);
+            }
         }
     }
 }

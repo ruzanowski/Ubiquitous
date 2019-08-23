@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 using U.ProductService.Domain.SeedWork;
 using U.ProductService.Persistance.Contexts;
-using Aggregates = U.ProductService.Domain.Aggregates.Product;
 
 namespace U.ProductService.Persistance.Repositories
 {
@@ -31,6 +30,8 @@ namespace U.ProductService.Persistance.Repositories
             if (product != null)
             {
                 await _context.Entry(product).Reference(i => i.Dimensions).LoadAsync();
+                await _context.Entry(product).Reference(i => i.Pictures).LoadAsync();
+                await _context.Entry(product).Reference(i => i.Pictures).LoadAsync();
             }
 
             return product;
@@ -42,6 +43,8 @@ namespace U.ProductService.Persistance.Repositories
             if (product != null)
             {
                 await _context.Entry(product).Reference(i => i.Dimensions).LoadAsync();
+                await _context.Entry(product).Reference(i => i.Pictures).LoadAsync();
+                await _context.Entry(product).Reference(i => i.Category).LoadAsync();
             }
 
             return product;

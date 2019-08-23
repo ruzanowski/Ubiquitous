@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using U.ProductService.Domain.Events;
@@ -10,24 +9,34 @@ using U.ProductService.Domain.SeedWork;
 // ReSharper disable CheckNamespace
 
 
-namespace U.ProductService.Domain.Aggregates
+namespace U.ProductService.Domain
 {
-    public class Product : Entity, IAggregateRoot
+    public class Product : Entity, IAggregateRoot, ITrackable, IPublishable, IPictureManagable
     {
+        public Guid AggregateId => Id;
+        public string AggregateTypeName => nameof(Product);
         public string Name { get; private set; }
         public string BarCode { get; private set; }
         public decimal Price { get; private set; }
         public string Description { get; private set; }
         public bool IsPublished { get; private set; }
-        public DateTime CreatedDateTime { get; private set; }
-        public DateTime? LastFullUpdateDateTime { get; private set; }
-
-        //value object
+        
+        private DateTime _createdAt;
+        private string _createdBy;
+        private DateTime? _lastUpdatedAt;
+        private string _lastUpdatedBy;
+        public DateTime CreatedAt => _createdAt;
+        public string CreatedBy => _createdBy;
+        public DateTime? LastUpdatedAt => _lastUpdatedAt;
+        public string LastUpdatedBy => _lastUpdatedBy;
+        
         public Dimensions Dimensions { get; private set; }
-
         public Guid ManufacturerId { get; private set; }
 
-        public ICollection<Picture> Pictures { get; set; }
+        public ICollection<Picture> Pictures { get; private set; }
+        public Guid CategoryId { get; private set; }
+        public virtual Category Category { get; private set; }
+        public ProductType ProductType { get; private set; }
 
         private Product()
         {
@@ -36,13 +45,16 @@ namespace U.ProductService.Domain.Aggregates
             BarCode = string.Empty;
             Description = string.Empty;
             IsPublished = default;
-            CreatedDateTime = DateTime.UtcNow;
-            LastFullUpdateDateTime = default;
+            _createdAt = DateTime.UtcNow;
+            _createdBy = string.Empty;
+            _lastUpdatedAt = default;
+            _lastUpdatedBy = string.Empty;
             IsPublished = default;
+            ProductType = default;
         }
 
         public Product(string name, decimal price, string barCode, string description, Dimensions dimensions,
-            Guid manufacturerId) : this()
+            Guid manufacturerId, Guid categoryId, ProductType productType) : this()
         {
             Name = name;
             Price = price;
@@ -50,6 +62,8 @@ namespace U.ProductService.Domain.Aggregates
             Description = description;
             Dimensions = dimensions;
             ManufacturerId = manufacturerId;
+            CategoryId = categoryId;
+            ProductType = productType;
 
             var @event = new ProductAddedDomainEvent(Id, Name, Price, ManufacturerId);
 
@@ -58,7 +72,7 @@ namespace U.ProductService.Domain.Aggregates
 
         public bool CompareAlternateId(string productUniqueCode) => BarCode.Equals(productUniqueCode);
 
-        public void AddPicture(string seoFilename, string description, string url, string mimeType)
+        public void AddPicture(Guid id, Guid fileStorageUploadId, string seoFilename, string description, string url, MimeType mimeType)
         {
             if (string.IsNullOrEmpty(seoFilename))
                 throw new ProductDomainException($"{nameof(seoFilename)} cannot be null or empty!");
@@ -69,11 +83,8 @@ namespace U.ProductService.Domain.Aggregates
             if (string.IsNullOrEmpty(url))
                 throw new ProductDomainException($"{nameof(url)} cannot be null or empty!");
 
-            if (string.IsNullOrEmpty(mimeType))
-                throw new ProductDomainException($"{nameof(mimeType)} cannot be null or empty!");
+            var picture = new Picture(id, Id, nameof(Product), fileStorageUploadId, seoFilename, description, url,  mimeType);
 
-            var picture = new Picture(seoFilename, description, url, mimeType);
-            
             Pictures.Add(picture);
 
             var @event = new ProductPictureAddedDomainEvent(Id, picture.Id, seoFilename);
@@ -86,9 +97,7 @@ namespace U.ProductService.Domain.Aggregates
             var picture = Pictures.FirstOrDefault(x => x.Id.Equals(pictureId));
 
             if (picture is null)
-            {
                 throw new ProductDomainException("Picture does not exist!");
-            }
 
             Pictures.Remove(picture);
 
@@ -100,9 +109,7 @@ namespace U.ProductService.Domain.Aggregates
         public void ChangePrice(decimal price)
         {
             if (price < 0)
-            {
                 throw new ProductDomainException("Price cannot be below 0!");
-            }
 
             var previousPrice = Price;
 
@@ -136,20 +143,25 @@ namespace U.ProductService.Domain.Aggregates
 
         public void UpdateAllProperties(string name, decimal price, Dimensions dimensions, DateTime updateGenerated)
         {
-            if (LastFullUpdateDateTime < updateGenerated)
-            {
-                //avoiding any lagged-in-time updates 
-                Name = name;
-                Price = price;
-                Dimensions.Height = dimensions.Height;
-                Dimensions.Length = dimensions.Length;
-                Dimensions.Weight = dimensions.Weight;
-                Dimensions.Width = dimensions.Width;
+            if (!LastUpdatedAt.HasValue || LastUpdatedAt.Value >= updateGenerated) return;
 
-                //add new update event
-            }
+            //avoiding any lagged-in-time updates 
+            Name = name;
+            Price = price;
+            Dimensions.Height = dimensions.Height;
+            Dimensions.Length = dimensions.Length;
+            Dimensions.Weight = dimensions.Weight;
+            Dimensions.Width = dimensions.Width;
+
+            var @event = new ProductPropertiesChangedDomainEvent(Id, Name, Price);
+            AddDomainEvent(@event);
 
             // add new update saying event has been raised after last up-to-date update
+        }
+
+        public void ChangeCategory(Guid newCategoryId)
+        {
+            CategoryId = newCategoryId;
         }
     }
 }

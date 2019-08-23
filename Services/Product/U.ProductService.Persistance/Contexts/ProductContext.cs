@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using U.ProductService.Domain.Aggregates;
+using U.ProductService.Domain;
 using U.ProductService.Domain.SeedWork;
 using U.ProductService.Persistance.EntityConfigurations;
 using U.ProductService.Persistance.Extensions;
 
-namespace U.ProductService.Persistance.Contexts
+namespace U.ProductService.Persistance
 {
     public class ProductContext : DbContext, IUnitOfWork
     {
@@ -18,6 +18,9 @@ namespace U.ProductService.Persistance.Contexts
 
         //db sets
         public DbSet<Product> Products { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
         
         //fields
         private readonly IMediator _mediator;
@@ -39,12 +42,22 @@ namespace U.ProductService.Persistance.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductPictureEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductTypeEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductCategoryEntityTypeConfiguration());
+            
+            modelBuilder.ApplyConfiguration(new PictureEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MimeTypeEntityTypeConfiguration());
+
+            modelBuilder.ApplyConfiguration(new ManufacturerEntityTypeConfiguration());
+            
+            modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
         {
             await _mediator.DispatchDomainEventsAsync(this);
+
+            OnBeforeSaving();
             await base.SaveChangesAsync(cancellationToken);
 
             return true;
@@ -99,6 +112,41 @@ namespace U.ProductService.Persistance.Contexts
                     _currentTransaction = null;
                 }
             }
+        }
+        
+        private void OnBeforeSaving()
+        {
+            var entries = ChangeTracker.Entries();
+            foreach (var entry in entries)
+            {
+                if (entry.Entity is ITrackable)
+                {
+                    var now = DateTime.UtcNow;
+                    var user = GetCurrentUser();
+                    switch (entry.State)
+                    {
+                        case EntityState.Modified:
+                            entry.CurrentValues["LastUpdatedAt"] = now;
+                            entry.CurrentValues["LastUpdatedBy"] = user;
+                            break;
+
+                        case EntityState.Added:
+                            entry.CurrentValues["CreatedAt"] = now;
+                            entry.CurrentValues["CreatedBy"] = user;
+                            entry.CurrentValues["LastUpdatedAt"] = now;
+                            entry.CurrentValues["LastUpdatedBy"] = user;
+                            break;
+                    }
+                }
+            }
+        }
+        
+        private string GetCurrentUser()
+        {
+            return "todoUser"; // TODO implement your own logic
+
+            // If you are using ASP.NET Core, you should look at this answer on StackOverflow
+            // https://stackoverflow.com/a/48554738/2996339
         }
     }
 }

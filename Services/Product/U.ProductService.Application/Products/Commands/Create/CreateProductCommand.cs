@@ -1,6 +1,7 @@
 ﻿using System;
 using MediatR;
-using U.ProductService.Domain.Aggregates;
+using Newtonsoft.Json;
+using U.ProductService.Application.Products.Models;
 
 namespace U.ProductService.Application.Products.Commands.Create
 {
@@ -10,9 +11,15 @@ namespace U.ProductService.Application.Products.Commands.Create
         public string BarCode { get;  set; }
         public decimal Price { get;  set; }
         public string Description { get;  set; }
-        public Dimensions Dimensions { get;  set; }
+        public DimensionsDto Dimensions { get;  set; }
 
-        public CreateProductCommand(string name, string barCode, decimal price, string description, Dimensions dimensions)
+        [JsonConstructor]
+        public CreateProductCommand()
+        {
+                
+        }
+
+        public CreateProductCommand(string name, string barCode, decimal price, string description, DimensionsDto dimensions)
         {
             Name = name;
             BarCode = barCode;
