@@ -16,13 +16,13 @@
 - PostgreSql (Database)
 - MongoDb (NoSql Database)
 - Gitlab DevOps (CI)
-- ELK Stack [todo](logging and analysis) 
-- Redis [todo](Distributed caching)
-- Ocelot [todo](ApiGW)
-- MinIO [todo](FileStorage)
-- SignalR [todo](Asynchronous communication, Notifications)
-- Grafana [todo](metrics visualisation)
-- Prometheus [todo](metrics infrastructure)
+- Redis [todo] Distributed caching
+- Ocelot [todo] ApiGW
+- MinIO [todo] FileStorage
+- SignalR [todo] Asynchronous communication, Notifications
+- Grafana [todo] metrics visualisation
+- Prometheus [todo] metrics infrastructure
+- ELK Stack [todo] logging and analysis
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
