@@ -16,15 +16,15 @@ namespace U.ProductService.Domain.Events
         public decimal Price { get; }
         
         public Guid Manufacturer { get; }
-    //    public Guid CategoryId { get; }
+        public Guid CategoryId { get; }
 
-        public ProductAddedDomainEvent(Guid productId, string name, decimal price, Guid manufacturer)
+        public ProductAddedDomainEvent(Guid productId, string name, decimal price, Guid manufacturer, Guid categoryId)
         {
             ProductId = productId;
             Name = name;
             Price = price;
             Manufacturer = manufacturer;
- //           CategoryId = categoryId;
+            CategoryId = categoryId;
         }
     }
 }

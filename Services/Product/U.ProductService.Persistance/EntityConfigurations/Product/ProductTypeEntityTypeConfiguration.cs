@@ -14,7 +14,6 @@ namespace U.ProductService.Persistance.EntityConfigurations
             cardTypesConfiguration.HasKey(ct => ct.Id);
 
             cardTypesConfiguration.Property(ct => ct.Id)
-                .HasDefaultValue(1)
                 .ValueGeneratedNever()
                 .IsRequired();
 

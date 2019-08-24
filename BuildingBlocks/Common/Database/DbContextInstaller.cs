@@ -32,7 +32,8 @@ namespace U.Common.Database
             switch (dbOptions.Type)
             {
                 case DbType.Npgsql:
-                    services.AddDbContext<TContext>(options =>
+                    services.AddEntityFrameworkNpgsql();
+                    services.AddDbContextPool<TContext>((serviceProvider, options) =>
                     {
                         options.UseNpgsql(dbOptions.Connection,
                             postgresOptions =>
@@ -43,7 +44,9 @@ namespace U.Common.Database
                                 postgresOptions.EnableRetryOnFailure(5,
                                     TimeSpan.FromSeconds(20), new List<string>());
                             });
-                    }, ServiceLifetime.Scoped);
+                        options.UseInternalServiceProvider(serviceProvider);
+
+                    }, poolSize: 1200);
                     break;
                 case DbType.Mssql:
                     services.AddDbContextPool<TContext>(options => { options.UseSqlServer(dbOptions.Connection); });

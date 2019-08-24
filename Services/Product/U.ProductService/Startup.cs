@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
+using System.Threading.Tasks;
 using AutoMapper;
 using Consul;
 using MediatR;
@@ -16,6 +18,9 @@ using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
 using U.ProductService.Application.Behaviours;
+using U.ProductService.Application.Common.Mapping;
+using U.ProductService.Application.Infrastructure;
+using U.ProductService.Application.Infrastructure.Behaviours;
 using U.ProductService.Application.IntegrationEvents;
 using U.ProductService.Application.IntegrationEvents.EventHandling;
 using U.ProductService.Application.Mapping;
@@ -73,12 +78,13 @@ namespace U.ProductService
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
+            SeedAsync(app);
         }
 
         private void RegisterEvents(IApplicationBuilder app)
         {
-            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-            eventBus.Subscribe<NewProductFetchedIntegrationEvent, NewProductFetchedIntegrationEventHandler>();
+//            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+//            eventBus.Subscribe<NewProductFetchedIntegrationEvent, NewProductFetchedIntegrationEventHandler>();
         }
 
         private void RegisterEventsHandlers(IServiceCollection services)
@@ -90,6 +96,26 @@ namespace U.ProductService
         {
             var consulServiceId = app.UseCustomConsul();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
+        }
+
+        private void SeedAsync(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+                .CreateScope())
+            {
+                try
+                {
+                    new ProductContextSeeder()
+                        .SeedAsync(serviceScope.ServiceProvider.GetRequiredService<ProductContext>(),
+                            serviceScope.ServiceProvider.GetRequiredService<DbOptions>(),
+                            serviceScope.ServiceProvider.GetRequiredService<ILogger<ProductContextSeeder>>());
+                }
+                catch (Exception ex)
+                {
+                    var logger = app.ApplicationServices.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred while seeding the database.");
+                }
+            }
         }
     }
 
@@ -141,6 +167,7 @@ namespace U.ProductService
             services.AddSingleton(new MapperConfiguration(mc =>
             {
                mc.AddProfile(new ProductMappingProfile());
+               mc.AddProfile(new CategoryMappingProfile());
             }).CreateMapper());
 
             return services;
@@ -150,6 +177,8 @@ namespace U.ProductService
         {
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TransactionBehaviour<,>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
+          //  services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
+
              return services;
         }
     }

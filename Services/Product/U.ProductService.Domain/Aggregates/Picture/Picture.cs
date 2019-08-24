@@ -19,6 +19,7 @@ namespace U.ProductService.Domain
         public string Description { get; private set; }
         public string Url { get; private set; }
         public MimeType MimeType { get; private set; }
+        private Picture(){}
 
         public Picture(Guid id, Guid aggregateRootId, string aggregateRootName, Guid fileStorageUploadId, string fileName, string description, string url, MimeType mimeType)
         {

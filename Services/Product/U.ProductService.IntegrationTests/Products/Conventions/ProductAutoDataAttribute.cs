@@ -1,3 +1,4 @@
+using System;
 using AutoFixture;
 using AutoFixture.Xunit2;
 using U.ProductService.Application.Products.Commands.Create;

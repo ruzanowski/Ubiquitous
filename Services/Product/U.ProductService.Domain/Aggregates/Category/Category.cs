@@ -12,12 +12,14 @@ namespace U.ProductService.Domain
         public string Name { get; set; }
         public string Description { get; set; }
         public int? ParentCategoryId { get; set; }
+        public bool IsDraft { get; private set; }
 
         private Category()
         {
             Name = string.Empty;
             Description = string.Empty;
             ParentCategoryId = default;
+            IsDraft = false;
         }
         
         public Category(Guid id, string name, string description, int? parentCategoryId = null) : this()
@@ -27,6 +29,14 @@ namespace U.ProductService.Domain
             Description = description;
             ParentCategoryId = parentCategoryId;
         }
+        
+        public static Category GetDraftCategory() => new Category
+        {
+            Name = "DRAFT",
+            Description = "Draft category, which purpose is to aggregate newly added products.",
+            ParentCategoryId = null,
+            IsDraft = true
+        };
 
 
     }

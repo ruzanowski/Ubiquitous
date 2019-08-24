@@ -36,7 +36,10 @@ namespace U.ProductService.Application.Products.Commands.Update
                 message.Dimensions.Height,
                 message.Dimensions.Weight);
 
-            product.UpdateAllProperties(message.Name, message.Price, dimensions, DateTime.UtcNow);
+            product.UpdateAllProperties(message.Name, message.Description, message.Price, dimensions, DateTime.UtcNow);
+            _productRepository.Update(product);
+            
+            _logger.LogInformation($"Product with id: '{message.ProductId}' has been updated");
             
             await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             return Unit.Value;

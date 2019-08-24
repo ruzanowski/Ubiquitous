@@ -23,7 +23,7 @@ namespace U.ProductService.Application.Categories.Queries.GetList
 
         public async Task<PaginatedItems<CategoryViewModel>> Handle(GetCategoriesListQuery request, CancellationToken cancellationToken)
         {
-            var categories = _context.Pictures.AsQueryable();
+            var categories = _context.Categories.AsQueryable();
             
             var categoriesMapped = _mapper.ProjectTo<CategoryViewModel>(categories);
 

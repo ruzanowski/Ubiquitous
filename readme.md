@@ -1,7 +1,9 @@
 # Ubiquitous
 [![Build Status](https://gitlab.com/Ruzanowski/ubiquitous)](https://gitlab.com/Ruzanowski/ubiquitous)
 
-**Ubiquitous is an open-source .NET Core example DDD project with technologies:**
+**Ubiquitous is an open-source .NET Core DDD project, for product notification processing and management 
+
+**used technologies and patterns:**
 ----------------
 - RabbitMQ (service-service communication)
 - Consul (Service discovery, keep alive)
