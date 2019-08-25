@@ -1,5 +1,5 @@
 # Ubiquitous
-| Master | Develop |    
+| Master Build Status | Develop Build Status |    
 | ---------------- |
 | [![Master Build Status](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg) | 
 [![Develop Build Status](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg) |
