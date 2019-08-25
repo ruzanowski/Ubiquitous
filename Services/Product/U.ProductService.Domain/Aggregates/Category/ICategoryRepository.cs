@@ -11,10 +11,12 @@ namespace U.ProductService.Domain
     {
         Task<Category> AddAsync(Category category);
 
-        void Update(Category product);
+        void Update(Category category);
 
         Task<Category> GetAsync(Guid categoryId);
 
         Task<bool> AnyAsync(Guid id);
+
+        Task<Category> GetOrCreateDraftCategoryAsync();
     }
 }

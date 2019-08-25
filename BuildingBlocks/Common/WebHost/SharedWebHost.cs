@@ -84,7 +84,7 @@ namespace U.Common.WebHost
                 .WriteTo.Console()
                 .WriteTo.Http(string.IsNullOrWhiteSpace(logstashUrl) ? "http://logstash:9600" : logstashUrl)
                 .ReadFrom.Configuration(configuration)
-                .CreateLogger();
+                .CreateLogger();    
         }
 
         public static IConfiguration GetConfiguration() =>

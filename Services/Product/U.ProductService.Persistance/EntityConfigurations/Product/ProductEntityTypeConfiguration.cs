@@ -5,7 +5,7 @@ using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Persistance.EntityConfigurations
 {
-    class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Product>
+    class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
@@ -19,7 +19,6 @@ namespace U.ProductService.Persistance.EntityConfigurations
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Description).IsRequired();
             builder.Property(x => x.Price).IsRequired();
-            
             builder.HasIndex(x => x.BarCode).IsUnique();
             
             builder.Property(post => post.CreatedAt)
@@ -41,6 +40,11 @@ namespace U.ProductService.Persistance.EntityConfigurations
             builder.HasOne(x=>x.Category)
                 .WithMany()
                 .HasForeignKey(x=>x.CategoryId)
+                .IsRequired();
+
+            builder.HasOne(o => o.ProductType)
+                .WithMany()
+                .HasForeignKey(x => x.ProductTypeId)
                 .IsRequired();
         }
     }

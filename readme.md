@@ -1,7 +1,10 @@
 # Ubiquitous
-[![Build Status](https://gitlab.com/Ruzanowski/ubiquitous)](https://gitlab.com/Ruzanowski/ubiquitous)
+[![Master Build Status ](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)
+[![Develop Build Status ](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)
 
-**Ubiquitous is an open-source .NET Core example DDD project with technologies:**
+**Ubiquitous is an open-source .NET Core DDD project, for product notification processing and management 
+
+**used technologies and patterns:**
 ----------------
 - RabbitMQ (service-service communication)
 - Consul (Service discovery, keep alive)
@@ -16,13 +19,13 @@
 - PostgreSql (Database)
 - MongoDb (NoSql Database)
 - Gitlab DevOps (CI)
-- ELK Stack [todo](logging and analysis) 
-- Redis [todo](Distributed caching)
-- Ocelot [todo](ApiGW)
-- MinIO [todo](FileStorage)
-- SignalR [todo](Asynchronous communication, Notifications)
-- Grafana [todo](metrics visualisation)
-- Prometheus [todo](metrics infrastructure)
+- Redis [todo] Distributed caching
+- Ocelot [todo] ApiGW
+- MinIO [todo] FileStorage
+- SignalR [todo] Asynchronous communication, Notifications
+- Grafana [todo] metrics visualisation
+- Prometheus [todo] metrics infrastructure
+- ELK Stack [todo] logging and analysis
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

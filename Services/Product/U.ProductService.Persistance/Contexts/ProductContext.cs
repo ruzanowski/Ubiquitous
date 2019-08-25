@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using U.ProductService.Domain;
 using U.ProductService.Domain.SeedWork;
@@ -21,22 +22,21 @@ namespace U.ProductService.Persistance
         public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Picture> Pictures { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
         
         //fields
         private readonly IMediator _mediator;
         private IDbContextTransaction _currentTransaction;
 
-        private ProductContext(DbContextOptions<ProductContext> options) : base(options) { }
-
         public IDbContextTransaction GetCurrentTransaction() => _currentTransaction;
 
         public bool HasActiveTransaction => _currentTransaction != null;
 
-        public ProductContext(DbContextOptions<ProductContext> options, IMediator mediator) : base(options)
+        public ProductContext(DbContextOptions<ProductContext> options) : base(options)
         {
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _mediator = this.GetService<IMediator>() ?? throw new ArgumentNullException("Mediator not initialized");
 
-            System.Diagnostics.Debug.WriteLine("ProductContext::ctor ->" + this.GetHashCode());
+            System.Diagnostics.Debug.WriteLine("ProductContext::ctor ->" + GetHashCode());
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

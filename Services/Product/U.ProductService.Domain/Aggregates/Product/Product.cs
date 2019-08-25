@@ -32,10 +32,10 @@ namespace U.ProductService.Domain
         
         public Dimensions Dimensions { get; private set; }
         public Guid ManufacturerId { get; private set; }
-
         public ICollection<Picture> Pictures { get; private set; }
         public Guid CategoryId { get; private set; }
         public virtual Category Category { get; private set; }
+        public int ProductTypeId { get; private set; }
         public ProductType ProductType { get; private set; }
 
         private Product()
@@ -44,17 +44,15 @@ namespace U.ProductService.Domain
             Name = string.Empty;
             BarCode = string.Empty;
             Description = string.Empty;
-            IsPublished = default;
             _createdAt = DateTime.UtcNow;
             _createdBy = string.Empty;
             _lastUpdatedAt = default;
             _lastUpdatedBy = string.Empty;
-            IsPublished = default;
-            ProductType = default;
+            IsPublished = false;
         }
 
         public Product(string name, decimal price, string barCode, string description, Dimensions dimensions,
-            Guid manufacturerId, Guid categoryId, ProductType productType) : this()
+            Guid manufacturerId, Guid categoryId, int productTypeId) : this()
         {
             Name = name;
             Price = price;
@@ -63,14 +61,14 @@ namespace U.ProductService.Domain
             Dimensions = dimensions;
             ManufacturerId = manufacturerId;
             CategoryId = categoryId;
-            ProductType = productType;
+            ProductTypeId = productTypeId;
 
-            var @event = new ProductAddedDomainEvent(Id, Name, Price, ManufacturerId);
+            var @event = new ProductAddedDomainEvent(Id, Name, Price, ManufacturerId, categoryId);
 
             AddDomainEvent(@event);
         }
 
-        public bool CompareAlternateId(string productUniqueCode) => BarCode.Equals(productUniqueCode);
+
 
         public void AddPicture(Guid id, Guid fileStorageUploadId, string seoFilename, string description, string url, MimeType mimeType)
         {
@@ -141,12 +139,13 @@ namespace U.ProductService.Domain
             AddDomainEvent(@event);
         }
 
-        public void UpdateAllProperties(string name, decimal price, Dimensions dimensions, DateTime updateGenerated)
+        public void UpdateAllProperties(string name, string description, decimal price, Dimensions dimensions, DateTime updateGenerated)
         {
             if (!LastUpdatedAt.HasValue || LastUpdatedAt.Value >= updateGenerated) return;
 
             //avoiding any lagged-in-time updates 
             Name = name;
+            Description = description;
             Price = price;
             Dimensions.Height = dimensions.Height;
             Dimensions.Length = dimensions.Length;

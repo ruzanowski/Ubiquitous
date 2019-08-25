@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using U.ProductService.Domain;
@@ -20,40 +21,35 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<Product> AddAsync(Product product)
         {
-            return  (await _context.Products.AddAsync(product)).Entity;
-               
+            return (await _context.Products.AddAsync(product)).Entity;
         }
 
         public async Task<Product> GetAsync(Guid productId)
         {
-            var product = await _context.Products.FindAsync(productId);
-            if (product != null)
-            {
-                await _context.Entry(product).Reference(i => i.Dimensions).LoadAsync();
-                await _context.Entry(product).Reference(i => i.Pictures).LoadAsync();
-                await _context.Entry(product).Reference(i => i.Pictures).LoadAsync();
-            }
+            var product = await _context.Products
+                .Include(x => x.Dimensions)
+                .Include(x => x.Pictures)
+                .Include(x => x.ProductType)
+                .FirstOrDefaultAsync(x => x.Id.Equals(productId));
 
             return product;
         }
         
         public async Task<Product> GetByAlternativeIdAsync(string alternateId)
         {
-            var product = await _context.Products.SingleOrDefaultAsync(x => x.CompareAlternateId(alternateId));
-            if (product != null)
-            {
-                await _context.Entry(product).Reference(i => i.Dimensions).LoadAsync();
-                await _context.Entry(product).Reference(i => i.Pictures).LoadAsync();
-                await _context.Entry(product).Reference(i => i.Category).LoadAsync();
-            }
+            var product = await _context.Products
+                .Include(x => x.Dimensions)
+                .Include(x => x.Pictures)
+                .Include(x => x.ProductType)
+                .FirstOrDefaultAsync(x=>x.BarCode.Equals(alternateId));
 
             return product;
         }
-
+        
         public async Task<bool> AnyAsync(Guid id) => await _context.Products.AnyAsync(x => x.Id.Equals(id));
 
         public async Task<bool> AnyAlternateIdAsync(string barCode) =>
-            await _context.Products.AnyAsync(x => x.CompareAlternateId(barCode));
+            await _context.Products.AnyAsync(x => x.BarCode.Equals(barCode));
 
         public void Update(Product product)
         {

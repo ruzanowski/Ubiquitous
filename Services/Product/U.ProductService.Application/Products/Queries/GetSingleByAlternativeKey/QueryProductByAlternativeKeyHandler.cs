@@ -5,27 +5,24 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using U.ProductService.Application.Exceptions;
 using U.ProductService.Application.Products.Models;
-using U.ProductService.Persistance;
+using U.ProductService.Domain;
 
 namespace U.ProductService.Application.Products.Queries.QueryProductByAlternativeKey
 {
     public class ProductByAlternativeKeyQueryHandler : IRequestHandler<QueryProductByAlternativeKey, ProductViewModel>
     {
-        private readonly ProductContext _context;
+        private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
 
-        public ProductByAlternativeKeyQueryHandler(ProductContext context, IMapper mapper)
+        public ProductByAlternativeKeyQueryHandler(IMapper mapper, IProductRepository productRepository)
         {
-            _context = context;
             _mapper = mapper;
+            _productRepository = productRepository;
         }
         
         public async Task<ProductViewModel> Handle(QueryProductByAlternativeKey request, CancellationToken cancellationToken)
         {
-            var products = await _context.Products
-                .Include(x => x.Pictures)
-                .FirstOrDefaultAsync(x => x.CompareAlternateId(request.AlternativeKey),
-                    cancellationToken);
+            var products = await _productRepository.GetByAlternativeIdAsync(request.AlternativeKey);
 
             if (products is null)
                 throw new ProductNotFoundException($"Product with alternative key: '{request.AlternativeKey}' has not been found.");

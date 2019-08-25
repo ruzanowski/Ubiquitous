@@ -96,6 +96,21 @@ namespace U.ProductService.Middleware
                     problemDetails.Status = 404;
                     problemDetails.Detail = productNotFoundException.Message;
                     break;
+                case CategoryNotFoundException categoryNotFoundException:
+                    problemDetails.Title = nameof(categoryNotFoundException);
+                    problemDetails.Status = 404;
+                    problemDetails.Detail = categoryNotFoundException.Message;
+                    break;
+                case PictureNotFoundException pictureNotFoundException:
+                    problemDetails.Title = nameof(pictureNotFoundException);
+                    problemDetails.Status = 404;
+                    problemDetails.Detail = pictureNotFoundException.Message;
+                    break;
+                case ProductDuplicatedException productDuplicatedException:
+                    problemDetails.Title = nameof(productDuplicatedException);
+                    problemDetails.Status = 400;
+                    problemDetails.Detail = productDuplicatedException.Message;
+                    break;
                 default:
                     problemDetails.Title = "An unexpected error occurred!";
                     problemDetails.Status = 500;

@@ -13,7 +13,7 @@ namespace U.ProductService.Domain
 
         void Update(Product product);
 
-        Task<Product> GetAsync(Guid productId);
+        Task<Product> GetAsync(Guid productId);    
         
         Task<Product> GetByAlternativeIdAsync(string alternateId);
 

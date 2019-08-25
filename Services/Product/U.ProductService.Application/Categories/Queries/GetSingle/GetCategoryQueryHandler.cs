@@ -27,9 +27,9 @@ namespace U.ProductService.Application.Pictures.Queries.QueryPicture
             if (products is null)
                 throw new CategoryNotFoundException($"Category with primary key: '{request.Id}' has not been found.");
             
-            var productsMapped = _mapper.Map<CategoryViewModel>(products);
+            var mapped = _mapper.Map<CategoryViewModel>(products);
 
-            return productsMapped;
+            return mapped;
         }
     }
 }
