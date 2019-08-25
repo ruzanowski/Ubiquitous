@@ -1,13 +1,15 @@
-# Ubiquitous
-***Master Build Status: ***
-[![Master Build Status](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)
+# Build status
 
-***Develop Build Status: ***   
+***Master Build Status***:
+[![Master Build Status](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)
+***Develop Build Status***:   
 [![Develop Build Status](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)
 
---------------------------------------------------------
-
-**Ubiquitous is an open-source .NET Core DDD project, for product notification processing and management 
+# About project
+Ubiquitous is an open-source .NET Core DDD project for:
+- product management
+- product notification processing
+- product subscription management
 
 **Tech stack:**
 ----------------
