@@ -1,5 +1,6 @@
 # Ubiquitous
-[![Build Status](https://gitlab.com/Ruzanowski/ubiquitous)](https://gitlab.com/Ruzanowski/ubiquitous)
+[![Master Build Status ](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)
+[![Develop Build Status ](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)
 
 **Ubiquitous is an open-source .NET Core DDD project, for product notification processing and management 
 
