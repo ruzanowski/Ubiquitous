@@ -70,9 +70,6 @@ namespace U.ProductService.Application.Products.Queries.GetStatistics
                 DateTime = DateTimeBuilder(i.Year, i.Month, i.Day, i.Hour, i.Minute, i.Second),
                 Count = i.Count
             }).ToList();
-
-
-
                 
             return mapped;
         }
