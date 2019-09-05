@@ -1,38 +1,38 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchService", "Services\Fetch\U.FetchService\U.FetchService.csproj", "{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchService", "src\Services\Fetch\U.FetchService\U.FetchService.csproj", "{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapter.SmartStore", "Adapter.SmartStore", "{F6FEBE1F-9974-4282-8497-97CB808E65CB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapter.SmartStore", "src\Adapter.SmartStore", "{F6FEBE1F-9974-4282-8497-97CB808E65CB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Fetch", "Service.Fetch", "{2F31A504-325D-475E-9B94-5BA9D525A2AA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Fetch", "src\Service.Fetch", "{2F31A504-325D-475E-9B94-5BA9D525A2AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Application", "Adapters\SmartStore\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj", "{F14867ED-37E5-4F19-924A-42766C65D87C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Application", "src\Adapters\SmartStore\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj", "{F14867ED-37E5-4F19-924A-42766C65D87C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter", "Adapters\SmartStore\U.SmartStoreAdapter\U.SmartStoreAdapter.csproj", "{C69F02D4-2798-4039-86B8-D4A28488546E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter", "src\Adapters\SmartStore\U.SmartStoreAdapter\U.SmartStoreAdapter.csproj", "{C69F02D4-2798-4039-86B8-D4A28488546E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Persistance", "Adapters\SmartStore\U.SmartStoreAdapter.Persistance\U.SmartStoreAdapter.Persistance.csproj", "{13B6AD0E-533B-4C72-99B7-4107F3B0DC97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Persistance", "src\Adapters\SmartStore\U.SmartStoreAdapter.Persistance\U.SmartStoreAdapter.Persistance.csproj", "{13B6AD0E-533B-4C72-99B7-4107F3B0DC97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Domain", "Adapters\SmartStore\U.SmartStoreAdapter.Domain\U.SmartStoreAdapter.Domain.csproj", "{B43A5FA0-F92F-41B7-B602-F033C3E442FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Domain", "src\Adapters\SmartStore\U.SmartStoreAdapter.Domain\U.SmartStoreAdapter.Domain.csproj", "{B43A5FA0-F92F-41B7-B602-F033C3E442FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.Common", "BuildingBlocks\Common\U.Common.csproj", "{0631559D-B348-47A5-9CB5-AB7E805A4A7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.Common", "src\BuildingBlocks\Common\U.Common.csproj", "{0631559D-B348-47A5-9CB5-AB7E805A4A7D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{AD753C1A-0D4C-4BC5-8793-FF2795F0F49E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "src\BuildingBlocks", "{AD753C1A-0D4C-4BC5-8793-FF2795F0F49E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Product", "Services\Product\U.ProductService\ProductService", "{51D661E6-65C4-4D1F-977B-1B9281DEAE87}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Product", "src\Services\Product\U.ProductService\ProductService", "{51D661E6-65C4-4D1F-977B-1B9281DEAE87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService", "Services\Product\U.ProductService\U.ProductService.csproj", "{4CE3CE71-D2CA-4C79-A4D6-079F864469FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService", "src\Services\Product\U.ProductService\U.ProductService.csproj", "{4CE3CE71-D2CA-4C79-A4D6-079F864469FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Application", "Services\Product\U.ProductService.Application\U.ProductService.Application.csproj", "{22DAFAE7-B419-459B-8A0D-8FAAFFE92561}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Application", "src\Services\Product\U.ProductService.Application\U.ProductService.Application.csproj", "{22DAFAE7-B419-459B-8A0D-8FAAFFE92561}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Domain", "Services\Product\U.ProductService.Domain\U.ProductService.Domain.csproj", "{DC85C2E0-7301-4999-9A4C-BE86E160FE9A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Domain", "src\Services\Product\U.ProductService.Domain\U.ProductService.Domain.csproj", "{DC85C2E0-7301-4999-9A4C-BE86E160FE9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Persistance", "Services\Product\U.ProductService.Persistance\U.ProductService.Persistance.csproj", "{EF9867D9-6D57-47F0-A88C-F6BEF82089BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Persistance", "src\Services\Product\U.ProductService.Persistance\U.ProductService.Persistance.csproj", "{EF9867D9-6D57-47F0-A88C-F6BEF82089BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.EventBus", "BuildingBlocks\U.EventBus\U.EventBus.csproj", "{9A14CE21-D985-486C-B4A6-5C5528419652}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.EventBus", "src\BuildingBlocks\U.EventBus\U.EventBus.csproj", "{9A14CE21-D985-486C-B4A6-5C5528419652}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.EventBus.RabbitMQ", "BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj", "{610959EC-7BCC-4726-8B72-A677929DA09B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.EventBus.RabbitMQ", "src\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj", "{610959EC-7BCC-4726-8B72-A677929DA09B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IntegrationEventLog", "BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj", "{5034E5F2-6AD5-4D39-895D-CF62FBB97C8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IntegrationEventLog", "src\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj", "{5034E5F2-6AD5-4D39-895D-CF62FBB97C8A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{8EE0DD79-8255-4E04-84A7-830B8947E7C5}"
 ProjectSection(SolutionItems) = preProject
@@ -57,19 +57,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Identity", "Service
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Payment", "Service.Payment", "{7BA1C7FF-1E77-4782-8808-900E8D2FB2E4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".ApiGateway", ".ApiGateway", "{D4B157AD-05AA-4C9B-9A4E-E4E202995408}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.Notification", "src\Services\Notification\U.Notification.csproj", "{50F973C1-F7D9-438F-BA45-9C1BB84B8346}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.Notification", "Services\Notification\U.Notification.csproj", "{50F973C1-F7D9-438F-BA45-9C1BB84B8346}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.IntegrationTests", "Services\Product\U.ProductService.IntegrationTests\U.ProductService.IntegrationTests.csproj", "{4A1E232F-0F95-476E-A8C9-8587E307A5FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.IntegrationTests", "src\Services\Product\U.ProductService.IntegrationTests\U.ProductService.IntegrationTests.csproj", "{4A1E232F-0F95-476E-A8C9-8587E307A5FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.FileStorage", "Service.FileStorage", "{2794A725-2073-4AA0-AD39-AD9826D47F9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.WebApp", "U.WebApp\U.WebApp.csproj", "{F2F394DA-8F0C-42A5-805C-E84F47FFD2FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.WebApp", "src\U.WebApp\U.WebApp.csproj", "{F2F394DA-8F0C-42A5-805C-E84F47FFD2FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{DB82EEF6-6647-4B76-A433-DFE91990734F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.WebApp.Angular", "U.WebApp.Angular\U.WebApp.Angular.csproj", "{16CE2424-2614-482C-89D3-F4212DD59A97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.WebApp.Angular", "src\U.WebApp.Angular\U.WebApp.Angular.csproj", "{16CE2424-2614-482C-89D3-F4212DD59A97}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.ReportService", "Service.ReportService", "{08A3FE13-C570-49A0-8A92-4C27FDD732A9}"
 EndProject
@@ -79,7 +77,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracan.Templates", "..\Car
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracan.Charts", "..\Caracan\Caracan.Pdf\Caracan.Charts\Caracan.Charts.csproj", "{AE780CB2-0403-46CC-ABE8-4F5257FEC14C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ReportService", "U.ReportService\U.ReportService.csproj", "{A514CCFE-758A-47D7-ABA6-1E1FAE589B82}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ReportService", "src\Services\Report\U.ReportService\U.ReportService.csproj", "{A514CCFE-758A-47D7-ABA6-1E1FAE589B82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
