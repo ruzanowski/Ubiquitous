@@ -1,4 +1,5 @@
 using AutoMapper;
+using U.ProductService.Application.Events.IntegrationEvents.Events;
 using U.ProductService.Application.Pictures.Models;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain;
@@ -15,6 +16,8 @@ namespace U.ProductService.Application.Mapping
             
             CreateMap<Picture, PictureViewModel>()
                 .ForMember(x => x.MimeType, opt => opt.MapFrom(src => src.MimeType.Name));
+
+            CreateMap<ProductViewModel, ReportProductPayload>();
         }
     }
 }

@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\..\Caracan\Caracan.Pdf\Caracan.Pdf\Caracan.Pdf.csproj" />
       <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
       <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus\U.EventBus.csproj" />
       <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
@@ -18,7 +19,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Common" />
       <Folder Include="Events" />
     </ItemGroup>
 

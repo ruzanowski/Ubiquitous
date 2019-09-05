@@ -13,6 +13,7 @@ using U.ProductService.Application.Products.Commands.DeletePicture;
 using U.ProductService.Application.Products.Commands.UnPublish;
 using U.ProductService.Application.Products.Commands.Update;
 using U.ProductService.Application.Products.Models;
+using U.ProductService.Application.Products.Queries.GetList;
 using U.ProductService.Application.Products.Queries.QueryProduct;
 using U.ProductService.Application.Products.Queries.QueryProductByAlternativeKey;
 using U.ProductService.Application.Products.Queries.QueryProducts;

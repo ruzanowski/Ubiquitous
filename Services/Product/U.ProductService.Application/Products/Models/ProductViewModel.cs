@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Caracan.Templates;
 using U.ProductService.Application.Categories.Models;
 using U.ProductService.Application.Pictures.Models;
 using U.ProductService.Domain;
 
 namespace U.ProductService.Application.Products.Models
 {
-    public class ProductViewModel
+    public class ProductViewModel : ILiquidTemplateObject
     {
         public Guid Id { get; set; }
         public string Name { get;  set; }

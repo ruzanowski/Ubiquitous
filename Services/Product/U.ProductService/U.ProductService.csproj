@@ -15,22 +15,30 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
-      <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
-      <ProjectReference Include="..\U.ProductService.Application\U.ProductService.Application.csproj" />
-      <ProjectReference Include="..\U.ProductService.Persistance\U.ProductService.Persistance.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+        <ProjectReference Include="..\U.ProductService.Application\U.ProductService.Application.csproj" />
+        <ProjectReference Include="..\U.ProductService.Persistance\U.ProductService.Persistance.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="Dockerfile" />
-      <Content Update="appsettings.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Update="appsettings.docker.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
+        <Content Include="Dockerfile" />
+        <Content Update="appsettings.json">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="appsettings.docker.json">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="images\Caracan.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\templates\template.liquid2" />
     </ItemGroup>
 
 </Project>

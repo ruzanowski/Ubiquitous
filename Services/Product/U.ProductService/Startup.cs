@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
-using System.Threading.Tasks;
 using AutoMapper;
+using Caracan.Pdf.Extensions;
 using Consul;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -13,14 +13,12 @@ using Microsoft.OpenApi.Models;
 using U.Common.Behaviour;
 using U.Common.Consul;
 using U.Common.Database;
-using U.Common.Mvc; 
-using U.EventBus.Abstractions;
+using U.Common.Mvc;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
 using U.ProductService.Application.Behaviours;
 using U.ProductService.Application.Common.Mapping;
 using U.ProductService.Application.Infrastructure;
-using U.ProductService.Application.Infrastructure.Behaviours;
 using U.ProductService.Application.IntegrationEvents;
 using U.ProductService.Application.IntegrationEvents.EventHandling;
 using U.ProductService.Application.Mapping;
@@ -28,7 +26,6 @@ using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Domain;
 using U.ProductService.Middleware;
 using U.ProductService.Persistance;
-using U.ProductService.Persistance.Contexts;
 using U.ProductService.Persistance.Repositories;
 
 namespace U.ProductService
@@ -57,8 +54,9 @@ namespace U.ProductService
                 .AddLogging()
                 .AddCustomSwagger()
                 .AddCustomMapper()
-                .AddCustomServices()                
-                .AddCustomConsul();
+                .AddCustomServices()
+                .AddCustomConsul()
+                .AddCaracan();
 
             RegisterEventsHandlers(services);
         }
@@ -74,7 +72,8 @@ namespace U.ProductService
                 .AddExceptionMiddleware()
                 .UseCustomSwagger(pathBase)
                 .UseServiceId()
-                .UseForwardedHeaders();
+                .UseForwardedHeaders()
+                .UseStaticFiles();
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);

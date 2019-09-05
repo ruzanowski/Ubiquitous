@@ -1,8 +1,8 @@
 # Build status
 
-***Master***:
+- ***Master***:
 [![Master](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)
-***Develop***:
+- ***Develop***:
 [![Develop](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)
 
 # About project
@@ -26,6 +26,7 @@ Ubiquitous is an open-source .NET Core DDD project for:
 - ***PostgreSql*** *(Database)*
 - ***MongoDb*** *(NoSql Database)*
 - ***Gitlab DevOps*** *(CI)*
+------ 
 - ***Redis*** [todo] Distributed caching
 - ***Ocelot*** [todo] ApiGW
 - ***MinIO*** [todo] FileStorage

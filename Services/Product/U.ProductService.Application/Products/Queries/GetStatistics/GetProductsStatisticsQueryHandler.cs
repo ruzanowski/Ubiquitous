@@ -3,70 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Caracan.Pdf.Services.IPdfGenerator;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using U.ProductService.Application.Common.Extensions;
 using U.ProductService.Application.Products.Queries.QueryProducts;
 using U.ProductService.Domain;
 using U.ProductService.Persistance;
 
 namespace U.ProductService.Application.Products.Queries.QueryStatistics
 {
-    public partial class GetProductsStatisticsQueryHandler : IRequestHandler<GetProductsStatisticsQuery, IList<ProductStatisticsDto>>
+    public class GetProductsStatisticsQueryHandler : IRequestHandler<GetProductsStatisticsQuery, IList<ProductStatisticsDto>>
     {
         private readonly ProductContext _context;
 
-        private DateTimePropertiesInclude InitializeDtIncludes(ReportTimeStepFrequency step)
-        {
-            DateTimePropertiesInclude dateInclude = new DateTimePropertiesInclude();
-            switch (step)
-            {
-                case ReportTimeStepFrequency.Secondly:
-                    dateInclude.Year = true;
-                    dateInclude.Month = true;
-                    dateInclude.Day = true;
-                    dateInclude.Hour = true;
-                    dateInclude.Minute = true;
-                    dateInclude.Second = true;
-                    break;
-                case ReportTimeStepFrequency.Minutely:
-                    dateInclude.Year = true;
-                    dateInclude.Month = true;
-                    dateInclude.Day = true;
-                    dateInclude.Hour = true;
-                    dateInclude.Minute = true;
-                    dateInclude.Second = false;
-                    break;
-                case ReportTimeStepFrequency.Hourly:
-                    dateInclude.Year = true;
-                    dateInclude.Month = true;
-                    dateInclude.Day = true;
-                    dateInclude.Hour = true;
-                    dateInclude.Minute = false;
-                    dateInclude.Second = false;
-                    break;
-                case ReportTimeStepFrequency.Daily:
-                    dateInclude.Year = true;
-                    dateInclude.Month = true;
-                    dateInclude.Day = true;
-                    dateInclude.Hour = false;
-                    dateInclude.Minute = false;
-                    dateInclude.Second = false;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(step), step, null);
-            }
 
-            return dateInclude;
-        }
-
-        public GetProductsStatisticsQueryHandler(ProductContext context)
+        public GetProductsStatisticsQueryHandler(ProductContext context, ICaracanPdfGenerator pdfGenerator)
         {
             _context = context;
         }
 
         public async Task<IList<ProductStatisticsDto>> Handle(GetProductsStatisticsQuery request, CancellationToken cancellationToken)
         {
-            var dateInclude = InitializeDtIncludes(request.StepFrequency);
+            var dateInclude = request.StepFrequency.InitializeDtIncludes();
             var includeDescription = false;
             var query = GetQuery();
 
@@ -113,6 +72,9 @@ namespace U.ProductService.Application.Products.Queries.QueryStatistics
                 Count = i.Count
             }).ToList();
 
+
+
+                
             return mapped;
         }
 
