@@ -8,11 +8,11 @@ WORKDIR /src
 
 COPY scripts scripts/
 
-COPY BuildingBlocks/Common/*.csproj /src/csproj-files/
-COPY BuildingBlocks/U.EventBus.RabbitMQ/*.csproj /src/csproj-files/
-COPY BuildingBlocks/*/*.csproj /src/csproj-files/
-COPY BuildingBlocks/U.IntegrationEventLog/*.csproj /src/csproj-files/
-COPY Adapters/SmartStore/*/*.csproj /src/csproj-files/
+COPY src/BuildingBlocks/Common/*.csproj /src/csproj-files/
+COPY src/BuildingBlocks/U.EventBus.RabbitMQ/*.csproj /src/csproj-files/
+COPY src/BuildingBlocks/*/*.csproj /src/csproj-files/
+COPY src/BuildingBlocks/U.IntegrationEventLog/*.csproj /src/csproj-files/
+COPY src/Adapters/SmartStore/*/*.csproj /src/csproj-files/
 
 COPY . .
 WORKDIR /src/Adapters/SmartStore/U.SmartStoreAdapter

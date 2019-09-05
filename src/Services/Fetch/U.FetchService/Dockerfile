@@ -8,9 +8,9 @@ WORKDIR /src
 
 COPY scripts scripts/
 
-COPY BuildingBlocks/Common/*.csproj /src/csproj-files/
-COPY BuildingBlocks/U.EventBus.RabbitMQ/*.csproj /src/csproj-files/
-COPY Services/Fetch/*/*.csproj /src/csproj-files/
+COPY src/BuildingBlocks/Common/*.csproj /src/csproj-files/
+COPY src/BuildingBlocks/U.EventBus.RabbitMQ/*.csproj /src/csproj-files/
+COPY src/Services/Fetch/*/*.csproj /src/csproj-files/
 
 COPY . .
 WORKDIR /src/Services/Fetch/U.FetchService
