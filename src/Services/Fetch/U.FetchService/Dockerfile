@@ -13,7 +13,7 @@ COPY src/BuildingBlocks/U.EventBus.RabbitMQ/*.csproj /src/csproj-files/
 COPY src/Services/Fetch/*/*.csproj /src/csproj-files/
 
 COPY . .
-WORKDIR /src/Services/Fetch/U.FetchService
+WORKDIR /src/src/Services/Fetch/U.FetchService
 RUN dotnet publish -c Release -o /app
 
 FROM build AS publish

@@ -22,7 +22,7 @@ services:
     container_name: u.fetch-service
     build:
       context: .
-      dockerfile: Services/Fetch/U.FetchService/Dockerfile
+      dockerfile: src/Services/Fetch/U.FetchService/Dockerfile
     ports:
       - 5200:5200
     environment:

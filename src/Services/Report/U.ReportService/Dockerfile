@@ -14,7 +14,7 @@ COPY src/BuildingBlocks/U.IntegrationEventLog/*.csproj /src/csproj-files/
 COPY src/Services/Product/*/*.csproj /src/csproj-files/
 
 COPY . .
-WORKDIR /src/Services/Product/U.ProductService
+WORKDIR /src/src/Services/Product/U.ProductService
 RUN dotnet publish -c Release -o /app
 
 FROM build AS publish

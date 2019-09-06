@@ -15,7 +15,7 @@ COPY src/BuildingBlocks/U.IntegrationEventLog/*.csproj /src/csproj-files/
 COPY src/Adapters/SmartStore/*/*.csproj /src/csproj-files/
 
 COPY . .
-WORKDIR /src/Adapters/SmartStore/U.SmartStoreAdapter
+WORKDIR /src/src/Adapters/SmartStore/U.SmartStoreAdapter
 RUN dotnet publish -c Release -o /app
 
 FROM build AS publish
