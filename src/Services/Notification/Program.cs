@@ -3,7 +3,7 @@ using Serilog;
 using U.Common.WebHost;
 using Microsoft.AspNetCore.Hosting;
 
-namespace U.Notification
+namespace U.Notification.SignalR
 {
     public class Program
     {

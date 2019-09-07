@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
 
-namespace U.Notification.IntegrationEvents.EventHandling
+namespace U.Notification.SignalR.IntegrationEvents.EventHandling
 {
     public class ProductPublishedIntegrationEventHandler : IIntegrationEventHandler<ProductPublishedIntegrationEvent>
     {

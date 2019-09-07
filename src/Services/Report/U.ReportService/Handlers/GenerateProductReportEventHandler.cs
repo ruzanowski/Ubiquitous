@@ -34,8 +34,7 @@ namespace U.ReportService.Handlers
                     Top = "40px"
                 },
                 FooterTemplate = "Caracan.Ubiquitous",
-                HeaderTemplate = "Caracan.Ubiquitous",
-                
+                HeaderTemplate = "Caracan.Ubiquitous"
             };
 
             var generatedReport = await _pdfGenerator.CreatePdfAsync(@event, pdfOptions);
