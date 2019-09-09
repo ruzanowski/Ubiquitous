@@ -1,11 +1,10 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 
-namespace DShop.Services.Signalr.Hubs
+namespace U.Notification.SignalR.Hub
 {
-    public class UbiquitousHub : Hub
+    public class UbiquitousHub : Microsoft.AspNetCore.SignalR.Hub
     {
         private readonly ILogger<UbiquitousHub> _logger;
 

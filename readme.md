@@ -26,11 +26,12 @@ Ubiquitous is an open-source .NET Core DDD project for:
 - ***PostgreSql*** *(Database)*
 - ***MongoDb*** *(NoSql Database)*
 - ***Gitlab DevOps*** *(CI)*
+- ***SignalR*** Asynchronous communication, Notifications
 ------ 
+- ***Angular*** [todo] Frontend client
 - ***Redis*** [todo] Distributed caching
 - ***Ocelot*** [todo] ApiGW
 - ***MinIO*** [todo] FileStorage
-- ***SignalR*** [todo] Asynchronous communication, Notifications
 - ***Grafana*** [todo] metrics visualisation
 - ***Prometheus*** [todo] metrics infrastructure
 - ***ELK Stack*** [todo] logging and analysis 
