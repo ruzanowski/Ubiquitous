@@ -6,7 +6,7 @@ services:
     container_name: u.smartstore-adapter
     build:
       context: .
-      dockerfile: Adapters/SmartStore/U.SmartStoreAdapter/Dockerfile
+      dockerfile: src/Adapters/SmartStore/U.SmartStoreAdapter/Dockerfile
     ports:
       - 5100:5100
     environment:
@@ -22,7 +22,7 @@ services:
     container_name: u.fetch-service
     build:
       context: .
-      dockerfile: Services/Fetch/U.FetchService/Dockerfile
+      dockerfile: src/Services/Fetch/U.FetchService/Dockerfile
     ports:
       - 5200:5200
     environment:
@@ -41,7 +41,7 @@ services:
     container_name: u.product-service
     build:
       context: .
-      dockerfile: Services/Product/U.ProductService/Dockerfile
+      dockerfile: src/Services/Product/U.ProductService/Dockerfile
     ports:
       - 5000:5000
     environment:
@@ -49,6 +49,20 @@ services:
       DbOptions__Type: Npgsql
       IntegrationEventLogConnection: Server=postgres;Port=5432;Database=IntegrationEventLog;User Id=postgres;\nPassword=postgres;Integrated Security=true;Pooling=true;
       ASPNETCORE_URLS: http://+:5000
+      ASPNETCORE_ENVIRONMENT: docker
+    networks:
+      - ubiquitous
+
+  u.report-service:
+    image: u.report-service:latest
+    container_name: u.report-service
+    build:
+      context: .
+      dockerfile: src/Services/Report/U.ReportService/Dockerfile
+    ports:
+      - 5300:5300
+    environment:
+      ASPNETCORE_URLS: http://+:5300
       ASPNETCORE_ENVIRONMENT: docker
     networks:
       - ubiquitous
