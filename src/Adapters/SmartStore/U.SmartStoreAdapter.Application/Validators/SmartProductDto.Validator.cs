@@ -41,9 +41,6 @@ namespace U.SmartStoreAdapter.Application.Validators
                     .NotNull()
                     .GreaterThanOrEqualTo(0);
                 
-                RuleFor(x => x.UrlSlug)
-                    .NotNull();
-                
                 RuleFor(x => x.IsAvailable)
                     .NotNull();
                 
@@ -74,20 +71,6 @@ namespace U.SmartStoreAdapter.Application.Validators
                     .When(x=>x.MainPictureId!=null)
                     .WithErrorCode($"Specified MainPictureId: {productDto.MainPictureId} does not exists for table Pictures.")
                     .WithMessage("Please specify existing TaxCategory.");
-
-                RuleFor(x => x.TaxCategoryId)
-                    .NotNull()
-                    .NotEmpty()
-                    .Must(id => context.TaxCategories.Any(product => product.Id.Equals(productDto.TaxCategoryId)))
-                    .WithErrorCode($"Specified TaxCategoryId: {productDto.TaxCategoryId} does not exists for table TaxCategory.")
-                    .WithMessage("Please specify existing TaxCategory.");
-                
-                RuleFor(x => x.TaxCategoryId)
-                    .NotNull()    
-                    .NotEmpty()
-                    .Must(id => context.Settings.Any(product => product.Name.Equals($"tax.taxprovider.fixedrate.taxcategoryid{productDto.TaxCategoryId}")))
-                    .WithErrorCode($"Specified TaxCategoryId: {productDto.TaxCategoryId} does not exists for table Setting.")
-                    .WithMessage("Please specify existing tax in Setting table..");
                 
                 RuleFor(x => x.ManufacturerId)
                     .NotNull()

@@ -33,12 +33,4 @@
         </Content>
     </ItemGroup>
 
-    <ItemGroup>
-      <None Remove="images\Caracan.png" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\templates\template.liquid2" />
-    </ItemGroup>
-
 </Project>

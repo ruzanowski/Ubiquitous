@@ -15,8 +15,8 @@ using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
 using U.Notification.SignalR.IntegrationEvents;
-using U.Notification.SignalR.IntegrationEvents.EventHandling;
 using U.Notification.SignalR.IntegrationEvents.ProductAdded;
+using U.Notification.SignalR.IntegrationEvents.ProductPublished;
 
 namespace U.Notification.SignalR
 {

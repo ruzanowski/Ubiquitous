@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
 using U.Notification.SignalR.Hub;
 
-namespace U.Notification.SignalR.IntegrationEvents.EventHandling
+namespace U.Notification.SignalR.IntegrationEvents.ProductPublished
 {
     public class ProductPublishedIntegrationEventHandler : IIntegrationEventHandler<ProductPublishedIntegrationEvent>
     {

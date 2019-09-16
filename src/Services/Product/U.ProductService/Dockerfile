@@ -9,11 +9,11 @@ WORKDIR /src
 COPY scripts scripts/
 
 COPY src/BuildingBlocks/Common/*.csproj /src/csproj-files/
+COPY src/BuildingBlocks/U.EventBus/*.csproj /src/csproj-files/
 COPY src/BuildingBlocks/U.EventBus.RabbitMQ/*.csproj /src/csproj-files/
 COPY src/BuildingBlocks/U.IntegrationEventLog/*.csproj /src/csproj-files/
 COPY src/Services/Product/*/*.csproj /src/csproj-files/
 
-COPY . .
 WORKDIR /src/src/Services/Product/U.ProductService
 RUN dotnet publish -c Release -o /app
 

@@ -48,7 +48,6 @@ namespace U.SmartStoreAdapter.Application.MappingProfiles
                 .ForMember(x => x.ProductPictures, opt => opt.Ignore())
                 .ForMember(dest => dest.MergedDataValues, opt => opt.Ignore())
                 .ForMember(dest => dest.ProductCategories, opt => opt.Ignore())
-                .ForMember(dest => dest.TaxCategoryId, opt => opt.MapFrom(src => src.TaxCategoryId))
                 .ForMember(dest => dest.IsFreeShipping, opt => opt.MapFrom(src => false))
                 .ForMember(dest => dest.IsShipEnabled, opt => opt.MapFrom(src => true))
                 .ForMember(dest => dest.AllowCustomerReviews, opt => opt.MapFrom(src => true))

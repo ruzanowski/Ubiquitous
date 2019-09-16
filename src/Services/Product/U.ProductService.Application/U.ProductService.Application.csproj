@@ -17,8 +17,4 @@
       <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.18" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Events" />
-    </ItemGroup>
-
 </Project>

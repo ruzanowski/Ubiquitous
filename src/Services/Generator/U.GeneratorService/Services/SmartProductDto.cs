@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
-namespace U.SmartStoreAdapter.Application.Models.Products
+namespace U.GeneratorService.Services
 {
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class SmartProductDto
     {
         public string Name { get; set; }
@@ -23,6 +21,5 @@ namespace U.SmartStoreAdapter.Application.Models.Products
         public int? MainPictureId { get; set; }
         public int CategoryId { get; set; }
         public IEnumerable<int> PicturesIds { get; set; } = new List<int>();
-
     }
 }

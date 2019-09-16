@@ -23,12 +23,7 @@ namespace U.EventBus
 
         public bool IsEmpty => !_handlers.Keys.Any();
         public void Clear() => _handlers.Clear();
-
-        public void AddDynamicSubscription<TH>(string eventName)
-            where TH : IDynamicIntegrationEventHandler
-        {
-            DoAddSubscription(typeof(TH), eventName, isDynamic: true);
-        }
+        
 
         public void AddSubscription<T, TH>()
             where T : IntegrationEvent
@@ -36,7 +31,7 @@ namespace U.EventBus
         {
             var eventName = GetEventKey<T>();
 
-            DoAddSubscription(typeof(TH), eventName, isDynamic: false);
+            DoAddSubscription(typeof(TH), eventName);
 
             if (!_eventTypes.Contains(typeof(T)))
             {
@@ -44,7 +39,7 @@ namespace U.EventBus
             }
         }
 
-        private void DoAddSubscription(Type handlerType, string eventName, bool isDynamic)
+        private void DoAddSubscription(Type handlerType, string eventName)
         {
             if (!HasSubscriptionsForEvent(eventName))
             {
@@ -57,22 +52,7 @@ namespace U.EventBus
                     $"Handler Type {handlerType.Name} already registered for '{eventName}'", nameof(handlerType));
             }
 
-            if (isDynamic)
-            {
-                _handlers[eventName].Add(SubscriptionInfo.Dynamic(handlerType));
-            }
-            else
-            {
-                _handlers[eventName].Add(SubscriptionInfo.Typed(handlerType));
-            }
-        }
-
-
-        public void RemoveDynamicSubscription<TH>(string eventName)
-            where TH : IDynamicIntegrationEventHandler
-        {
-            var handlerToRemove = FindDynamicSubscriptionToRemove<TH>(eventName);
-            DoRemoveHandler(eventName, handlerToRemove);
+            _handlers[eventName].Add(SubscriptionInfo.Typed(handlerType));
         }
 
 
@@ -117,14 +97,6 @@ namespace U.EventBus
             var handler = OnEventRemoved;
             handler?.Invoke(this, eventName);
         }
-
-
-        private SubscriptionInfo FindDynamicSubscriptionToRemove<TH>(string eventName)
-            where TH : IDynamicIntegrationEventHandler
-        {
-            return DoFindSubscriptionToRemove(eventName, typeof(TH));
-        }
-
 
         private SubscriptionInfo FindSubscriptionToRemove<T, TH>()
              where T : IntegrationEvent

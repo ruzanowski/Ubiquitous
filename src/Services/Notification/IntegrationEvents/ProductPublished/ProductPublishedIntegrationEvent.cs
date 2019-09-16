@@ -1,7 +1,7 @@
 using System;
 using U.EventBus.Events;
 
-namespace U.Notification.SignalR.IntegrationEvents
+namespace U.Notification.SignalR.IntegrationEvents.ProductPublished
 {
     public class ProductPublishedIntegrationEvent : IntegrationEvent
     {

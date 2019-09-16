@@ -44,7 +44,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <TypeScriptCompile Include="src\playground.ts" />
+      <TypeScriptCompile Include="src\point.ts" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

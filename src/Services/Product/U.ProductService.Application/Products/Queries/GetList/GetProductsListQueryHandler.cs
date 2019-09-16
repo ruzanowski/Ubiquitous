@@ -54,8 +54,6 @@ namespace U.ProductService.Application.Products.Queries.GetList
             {
                 Products = payload
             });
-
-            await Task.CompletedTask;
         }
     }
 }
