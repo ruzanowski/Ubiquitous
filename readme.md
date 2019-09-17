@@ -1,7 +1,13 @@
-# Build status
+#UBIQUITOUS. Real-Time Notification Manager.
+- _Educational project_
+- _Built in .NET Core 2.2 with Angular._
+- _Domain Driven Design_
 
+# Build status
+-------
 - ***Master***:
 [![Master](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)
+</br>
 - ***Develop***:
 [![Develop](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)
 
@@ -12,39 +18,41 @@ Ubiquitous is an open-source Distributed .NET Core solution for:
 - ***event processing and analysis,*** internal events are being processed and pushed to end user with respective generated event
 
 # Reason behind the project
-Most of code repositories I have visited are POC solutions:
-- ***prime*** goal is educating myself and giving my best around programming topics like DDD, high-performance distributed apps 
-- relatively small, hence no possibility to run into issues of performance
-- relatively easy and well known domain (ordering, shop)
-- size affects quality of code, smaller solutions intentionally well-written(or eventually aspired to be) code 
+- ***prime goal*** is education and giving my best around programming topics like DDD, high-performance, distributed systems 
+- Most of repositories I have visited are:
+    - Relatively small, hence no possibility to run into issues of performance
+    - Easy or well known domain (Orders, eShop)
+    - Unfinished
+    
+**Architecture overview**
+<p align="center">
+   <img alt="Ubiquitous Architecture" src="img/ubiquitous-architecture.png" />
+</p>
 
-**Tech stack:**
+**Tech stack RoadMap**
 ----------------
-- ***CQRS*** *(Command and Queries Pattern used across whole solution)*
+- ***EF Core 2.2*** *(ORM)*
 - ***RabbitMQ*** *(Service-service communication)*
 - ***Consul*** *(Service discovery, keep alive)*
 - ***Fabio*** *(Load balancer)*
-- ***RestEase*** *(REST P2P communication)*
 - ***MediatR*** *(CQRS pattern dispatch)*
 - ***Docker*** *(Containers environment)*
 - ***Polly*** *(Resiliency policies)*
 - ***Serilog*** *(Logging)*
-- ***Swashbuckle*** *(Testing backend functionality & Documentation)*
 - ***AutoMapper*** *(Objects mappings)*
 - ***PostgreSql*** *(Database)*
-- ***MongoDb*** *(NoSql Database)*
 - ***Gitlab DevOps*** *(CI)*
 - ***SignalR*** *(Asynchronous communication, Notifications)*
 ------ 
-- ***Angular*** Currently in development /Educating myself now on it/ 
+- ***Angular*** [todo] Currently in development /Educating myself now on it/ 
 - ***Redis*** [todo] Distributed caching
 - ***Ocelot*** [todo] ApiGW
-- ***Grafana*** [todo] metrics visualisation
+- ***Zipkin*** [todo] tracing
+- ***Grafana*** [todo] metrics
 - ***Prometheus*** [todo] metrics infrastructure
 - ***ELK Stack*** [todo] logging and analysis 
 
-
-**RoadMap of backend services(functionalities)**
+**Services RoadMap**
 -------
 Services
 - ***SmartStore Adapter*** Wholesale, source of data
@@ -66,18 +74,13 @@ Services
 - ***Auth Service*** Handles multi tenant authorization cases allowing to generate expression trees, translatable by LinqToSQL
 -------
 
-**Architecture overview**
-<p align="center">
-    <img alt="Ubiquitous Architecture" src="img/ubiquitous-architecture.png" />
-</p>
-
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Inspired by (Repos worth to see)
 - [DevMentors](https://github.com/devmentors) and their great tutorial about .NET Core with top-class explanation
 - [Dotnet](https://github.com/dotnet-architecture/eShopOnContainers) obviously, #1 architectural hats-off project
-- [ASC-Lab](https://github.com/asc-lab/dotnetcore-microservices-poc)
+- [ASC-Lab](https://github.com/asc-lab/dotnetcore-microservices-poc) 
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
