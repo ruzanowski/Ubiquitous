@@ -67,7 +67,7 @@ Services
 -------
 
 **Architecture overview**
-<img src="img/Ubiquitous architecture.png">
+<img src="img/ubiquitous-architecture.png">
 
 
 ## Contributing
