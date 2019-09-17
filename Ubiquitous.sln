@@ -40,13 +40,10 @@ ProjectSection(SolutionItems) = preProject
 	docker-compose-services.yml = docker-compose-services.yml
 	Tasks.txt = Tasks.txt
 	.gitlab-ci.yml = .gitlab-ci.yml
-	scripts\docker-compose-all.bat = scripts\docker-compose-all.bat
-	scripts\docker-compose-infrastructure.bat = scripts\docker-compose-infrastructure.bat
-	scripts\docker-compose-services.bat = scripts\docker-compose-services.bat
-	scripts\run-tests.bat = scripts\run-tests.bat
 	.gitignore = .gitignore
 	LICENSE = LICENSE
 	readme.md = readme.md
+	Nuget.Config = Nuget.Config
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Notification.SignalR", "Service.Notification.SignalR", "{20AE96FC-F1A7-4CA8-90F8-FEB6EBB6D11A}"
