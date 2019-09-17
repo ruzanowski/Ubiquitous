@@ -67,8 +67,9 @@ Services
 -------
 
 **Architecture overview**
-<img src="img/ubiquitous-architecture.png">
-
+<p align="center">
+    <img alt="Ubiquitous Architecture" src="img/ubiquitous-architecture.png" />
+</p>
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
