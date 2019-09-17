@@ -41,7 +41,6 @@ ProjectSection(SolutionItems) = preProject
 	Tasks.txt = Tasks.txt
 	.gitlab-ci.yml = .gitlab-ci.yml
 	.gitignore = .gitignore
-	LICENSE = LICENSE
 	readme.md = readme.md
 	Nuget.Config = Nuget.Config
 EndProjectSection

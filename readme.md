@@ -43,24 +43,32 @@ Most of code repositories I have visited are POC solutions:
 - ***Prometheus*** [todo] metrics infrastructure
 - ***ELK Stack*** [todo] logging and analysis 
 
+
 **RoadMap of backend services(functionalities)**
-Services:
 -------
+Services
 - ***SmartStore Adapter*** Wholesale, source of data
 - ***Fetch Service*** Fetches data from wholesales(many) and pushes newest items on bus
 - ***Product Service*** Main domain aggregate service, handles products and its business logic
 - ***Report Service*** Handles reports and its generation thanks to [Caracan](https://github.com/caracan-team)
 - ***Notification Service*** Handles notifications and channels it by WebSocket
-Modules:
 -------
+
+**Modules**
 - ***IntegrationEvent Log*** Shared integration events dbContext for each project
 - ***EventBus RabbitMQ*** RawRabbit project encapsulating RabbitMQ asynchronous event bus
 - ***Common*** Shared code, DI registration, snippets
-*Future Services*
 -------
+
+**Future Services**
 - ***Subscription Service*** Handles logic of user's intention for events notification
 - ***Identity Service*** Handles identification of user (rather wrapper over IdentityServer4)
 - ***Auth Service*** Handles multi tenant authorization cases allowing to generate expression trees, translatable by LinqToSQL
+-------
+
+**Architecture overview**
+<img src="img/Ubiquitous architecture.png">
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
