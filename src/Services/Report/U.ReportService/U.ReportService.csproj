@@ -24,10 +24,6 @@
     
     <ItemGroup>
       <Content Remove="Nuget.Config" />
-      <EmbeddedResource Include="Nuget.Config">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
     </ItemGroup>
     
 </Project>

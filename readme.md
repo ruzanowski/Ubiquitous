@@ -1,4 +1,4 @@
-#UBIQUITOUS. Real-Time Notification Manager.
+# UBIQUITOUS. Real-Time Notification Manager.
 - _Educational project_
 - _Built in .NET Core 2.2 with Angular._
 - _Domain Driven Design_
@@ -7,7 +7,6 @@
 -------
 - ***Master***:
 [![Master](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)
-</br>
 - ***Develop***:
 [![Develop](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)
 
