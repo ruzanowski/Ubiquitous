@@ -53,15 +53,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Notification.Signal
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Subscription", "Service.Subscription", "{E17F057E-EC03-4D9A-82E6-4596E8A35277}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Identity", "Service.Identity", "{FEDC7E74-3E77-4137-99E5-1324D19E704D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Payment", "Service.Payment", "{7BA1C7FF-1E77-4782-8808-900E8D2FB2E4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.Notification.SignalR", "src\Services\Notification\U.Notification.SignalR.csproj", "{50F973C1-F7D9-438F-BA45-9C1BB84B8346}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.IntegrationTests", "src\Services\Product\U.ProductService.IntegrationTests\U.ProductService.IntegrationTests.csproj", "{4A1E232F-0F95-476E-A8C9-8587E307A5FD}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.FileStorage", "Service.FileStorage", "{2794A725-2073-4AA0-AD39-AD9826D47F9A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{DB82EEF6-6647-4B76-A433-DFE91990734F}"
 EndProject
