@@ -35,6 +35,7 @@ _ReSharper.*
 bin
 obj
 packages
+Tasks.txt
 
 
 # Visual Studio 2015 cache/options directory

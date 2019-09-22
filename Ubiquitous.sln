@@ -38,7 +38,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution 
 ProjectSection(SolutionItems) = preProject
 	docker-compose-infrastructure.yml = docker-compose-infrastructure.yml
 	docker-compose-services.yml = docker-compose-services.yml
-	Tasks.txt = Tasks.txt
 	.gitlab-ci.yml = .gitlab-ci.yml
 	.gitignore = .gitignore
 	readme.md = readme.md
