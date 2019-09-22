@@ -39,14 +39,6 @@
       <_ContentIncludedByDefault Remove="ClientApp\src\tslint.json" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="ClientApp" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <TypeScriptCompile Include="src\point.ts" />
-    </ItemGroup>
-
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
         <!-- Ensure Node.js is installed -->
         <Exec Command="node --version" ContinueOnError="true">
