@@ -6,9 +6,6 @@
 
     <ItemGroup>
         <PackageReference Include="AutoFixture" Version="4.11.0" />
-        <PackageReference Include="Caracan.Charts" Version="1.0.0" />
-        <PackageReference Include="Caracan.Pdf" Version="1.0.1" />
-        <PackageReference Include="Caracan.Templates" Version="1.0.1" />
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
@@ -19,6 +16,9 @@
       <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
       <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus\U.EventBus.csproj" />
       <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+      <ProjectReference Include="..\Caracan.Charts\Caracan.Charts.csproj" />
+      <ProjectReference Include="..\Caracan.Pdf\Caracan.Pdf.csproj" />
+      <ProjectReference Include="..\Caracan.Templates\Caracan.Templates.csproj" />
     </ItemGroup>
 
     
