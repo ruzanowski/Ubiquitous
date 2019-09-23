@@ -1,20 +1,18 @@
 # UBIQUITOUS. Real-Time Notification Manager.
-- _Educational project_
-- _Built in .NET Core 2.2 with Angular._
-- _Domain Driven Design_
+- _Distributed_
+- _Open Source_
+- _Educational_
 
-# Build status
--------
-- ***Master***:
-[![Master](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)
-- ***Develop***:
-[![Develop](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)
+| *Master*  | *Develop* |
+| --------- | --------- |
+| [![Master](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg) | [![Develop](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)
+  |
 
-# About project
+# Purpose of the project
 Ubiquitous is an open-source Distributed .NET Core solution for:
-- ***product management,*** user has ability to manage products he/she wants to be informed real-time (WebSocket or pulling)
 - ***subscription & notifications management,*** user can specify what products or groups of products he/she is interested to be notified
 - ***event processing and analysis,*** internal events are being processed and pushed to end user with respective generated event
+- ***administrative products management,*** user with admin rights has ability to manage products globally
 
 # Reason behind the project
 - ***prime goal*** is education and giving my best around programming topics like DDD, high-performance, distributed systems 
@@ -53,7 +51,7 @@ Ubiquitous is an open-source Distributed .NET Core solution for:
 
 **Services RoadMap**
 -------
-Services
+**Services**
 - ***SmartStore Adapter*** Wholesale, source of data
 - ***Fetch Service*** Fetches data from wholesales(many) and pushes newest items on bus
 - ***Product Service*** Main domain aggregate service, handles products and its business logic
