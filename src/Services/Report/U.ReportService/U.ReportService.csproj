@@ -5,18 +5,25 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoFixture" Version="4.11.0" />
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\..\Caracan\Caracan.Pdf\Caracan.Pdf\Caracan.Pdf.csproj" />
-      <ProjectReference Include="..\..\..\..\..\Caracan\Caracan.Pdf\Caracan.Templates\Caracan.Templates.csproj" />
       <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
       <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
       <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus\U.EventBus.csproj" />
       <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+      <ProjectReference Include="..\Caracan.Charts\Caracan.Charts.csproj" />
+      <ProjectReference Include="..\Caracan.Pdf\Caracan.Pdf.csproj" />
+      <ProjectReference Include="..\Caracan.Templates\Caracan.Templates.csproj" />
     </ItemGroup>
 
+    
+    <ItemGroup>
+      <Content Remove="Nuget.Config" />
+    </ItemGroup>
+    
 </Project>

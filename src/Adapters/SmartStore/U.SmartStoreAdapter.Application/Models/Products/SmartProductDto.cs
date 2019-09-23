@@ -11,7 +11,6 @@ namespace U.SmartStoreAdapter.Application.Models.Products
         public string ProductUniqueCode { get; set; }
         public string ManufacturerPartNumber { get; set; }
         public int InStock { get; set; }
-        public int TaxCategoryId { get; set; }
         public decimal PriceInTax { get; set; }
         public decimal ProductCost { get; set; }
         public decimal PriceMinimumSpecifiedByCustomer { get; set; }
@@ -23,10 +22,7 @@ namespace U.SmartStoreAdapter.Application.Models.Products
         public decimal Weight { get; set; }
         public int? MainPictureId { get; set; }
         public int CategoryId { get; set; }
-        public IEnumerable<int> ProductTags { get; set; }
-        public IEnumerable<int> PicturesIds { get; set; }
-        public string UrlSlug { get; set; }
-        
-        
+        public IEnumerable<int> PicturesIds { get; set; } = new List<int>();
+
     }
 }

@@ -10,7 +10,6 @@ using SmartStore.Persistance.Context;
 using U.SmartStoreAdapter.Application.Models.Products;
 using U.SmartStoreAdapter.Application.Validators;
 using U.SmartStoreAdapter.Domain.Entities.Catalog;
-using U.SmartStoreAdapter.Domain.Entities.Seo;
 
 namespace U.SmartStoreAdapter.Application.Operations.Products
 {
@@ -44,7 +43,6 @@ namespace U.SmartStoreAdapter.Application.Operations.Products
                         await AddManufacturerAsync(productDb, command);
                         await AddPictures(productDb, command);
                         await AddCategory(productDb, command);
-                        await AddUrlSlug(productDb, command);
                     
                         await _context.SaveChangesAsync(cancellationToken);
                         transaction.Commit();
@@ -107,18 +105,6 @@ namespace U.SmartStoreAdapter.Application.Operations.Products
             {
                 CategoryId = product.CategoryId,
                 ProductId = productDb.Id,
-            });
-        }
-
-        private async Task AddUrlSlug(Product productDb, StoreProductsCommand command)
-        {
-            await _context.AddAsync(new UrlRecord
-            {
-                Slug = command.UrlSlug ?? productDb.MetaTitle.Replace("", "-"),
-                EntityId = productDb.Id,
-                EntityName = "Product",
-                IsActive = true,
-                LanguageId = 0
             });
         }
     }

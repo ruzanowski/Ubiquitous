@@ -1,40 +1,76 @@
-# Build status
+# UBIQUITOUS. Real-Time Notification Manager.
+- [x] _Distributed_
+- [x] _Open Source_
+- [x] _Educational_
 
-- ***Master***:
-[![Master](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)
-- ***Develop***:
-[![Develop](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)
+| *Master*  | *Develop* |
+| --------- | --------- |
+| [![Master](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg) | [![Develop](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)
 
-# About project
-Ubiquitous is an open-source .NET Core DDD project for:
-- product management
-- product notification processing
-- product subscription management
+# Purpose of the project
+Ubiquitous is an open-source Distributed .NET Core solution for:
+- ***subscription & notifications management,*** user can specify what products or groups of products he/she is interested to be notified
+- ***event processing and analysis,*** internal events are being processed and pushed to end user with respective generated event
+- ***administrative products management,*** user with admin rights has ability to manage products globally
 
-**Tech stack:**
+# Reason behind the project
+- ***prime goal*** is education and giving my best around programming topics like DDD, high-performance, distributed systems 
+- Most of repositories I have visited are:
+    - Relatively small, hence no possibility to run into issues of performance
+    - Easy or well known domain (Orders, eShop)
+    - Unfinished
+    
+#Architecture overview
+Whole backend was designed and implemented in .NET Core 2.2(current stable version). Front is (being) written in Angular (the newest). 
+    Down below, a diagram with containers and dependencies between them. 
+<p align="center">
+   <img alt="Ubiquitous Architecture" src="img/ubiquitous-architecture.png" />
+</p>
+
+**Tech stack RoadMap**
 ----------------
-- ***RabbitMQ*** *(service-service communication)*
+- ***EF Core 2.2*** *(ORM)*
+- ***RabbitMQ*** *(Service-service communication)*
 - ***Consul*** *(Service discovery, keep alive)*
 - ***Fabio*** *(Load balancer)*
-- ***RestEase*** *(REST P2P communication)*
 - ***MediatR*** *(CQRS pattern dispatch)*
 - ***Docker*** *(Containers environment)*
 - ***Polly*** *(Resiliency policies)*
 - ***Serilog*** *(Logging)*
-- ***Swashbuckle*** *(Documentation)*
 - ***AutoMapper*** *(Objects mappings)*
 - ***PostgreSql*** *(Database)*
-- ***MongoDb*** *(NoSql Database)*
 - ***Gitlab DevOps*** *(CI)*
-- ***SignalR*** Asynchronous communication, Notifications
+- ***SignalR*** *(Asynchronous communication, Notifications)*
 ------ 
-- ***Angular*** [todo] Frontend client
+- ***Angular*** [todo] Currently in development /Educating myself now on it/ 
 - ***Redis*** [todo] Distributed caching
 - ***Ocelot*** [todo] ApiGW
-- ***MinIO*** [todo] FileStorage
-- ***Grafana*** [todo] metrics visualisation
+- ***Zipkin*** [todo] tracing
+- ***Grafana*** [todo] metrics
 - ***Prometheus*** [todo] metrics infrastructure
 - ***ELK Stack*** [todo] logging and analysis 
+
+**Services RoadMap**
+-------
+**Services**
+- ***SmartStore Adapter*** Wholesale, source of data
+- ***Fetch Service*** Fetches data from wholesales(many) and pushes newest items on bus
+- ***Product Service*** Main domain aggregate service, handles products and its business logic
+- ***Report Service*** Handles reports and its generation thanks to [Caracan](https://github.com/caracan-team)
+- ***Notification Service*** Handles notifications and channels it by WebSocket
+-------
+
+**Modules**
+- ***IntegrationEvent Log*** Shared integration events dbContext for each project
+- ***EventBus RabbitMQ*** RawRabbit project encapsulating RabbitMQ asynchronous event bus
+- ***Common*** Shared code, DI registration, snippets
+-------
+
+**Future Services**
+- ***Subscription Service*** Handles logic of user's intention for events notification
+- ***Identity Service*** Handles identification of user (rather wrapper over IdentityServer4)
+- ***Auth Service*** Handles multi tenant authorization cases allowing to generate expression trees, translatable by LinqToSQL
+-------
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
@@ -42,7 +78,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ## Inspired by (Repos worth to see)
 - [DevMentors](https://github.com/devmentors) and their great tutorial about .NET Core with top-class explanation
 - [Dotnet](https://github.com/dotnet-architecture/eShopOnContainers) obviously, #1 architectural hats-off project
-- [ASC-Lab](https://github.com/asc-lab/dotnetcore-microservices-poc)
+- [ASC-Lab](https://github.com/asc-lab/dotnetcore-microservices-poc) 
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

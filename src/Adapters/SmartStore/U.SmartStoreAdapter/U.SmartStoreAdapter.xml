@@ -105,23 +105,6 @@
             <param name="products"></param>
             <returns></returns>
         </member>
-        <member name="T:U.SmartStoreAdapter.Controllers.TaxCategoryController">
-            <summary>
-            Tax Category
-            </summary>
-        </member>
-        <member name="M:U.SmartStoreAdapter.Controllers.TaxCategoryController.#ctor(MediatR.IMediator)">
-            <summary>
-            
-            </summary>
-            <param name="mediator"></param>
-        </member>
-        <member name="M:U.SmartStoreAdapter.Controllers.TaxCategoryController.StoreTaxCategory(U.SmartStoreAdapter.Application.Models.Products.StoreTaxCategoryCommand)">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:U.SmartStoreAdapter.Extensions.HttpExtensions">
             <summary>
             

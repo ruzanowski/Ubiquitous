@@ -1,12 +1,8 @@
 using U.SmartStoreAdapter.Domain.Entities.Catalog;
 using U.SmartStoreAdapter.Domain.Entities.Media;
-using U.SmartStoreAdapter.Domain.Entities.Seo;
-using U.SmartStoreAdapter.Domain.Entities.Tax;
 using Microsoft.EntityFrameworkCore;
 using SmartStore.Persistance.EntityBuilders.Catalog;
 using SmartStore.Persistance.EntityBuilders.Media;
-using SmartStore.Persistance.EntityBuilders.Seo;
-using SmartStore.Persistance.EntityBuilders.Tax;
 
 namespace SmartStore.Persistance.Context
 {
@@ -23,8 +19,6 @@ namespace SmartStore.Persistance.Context
         public DbSet<ProductPicture> ProductPictures { get; set; }
         public DbSet<MediaStorage> MediaStorages { get; set; }
         public DbSet<Picture> Pictures { get; set; }
-        public DbSet<TaxCategory> TaxCategories { get; set; }
-        public DbSet<Setting> Settings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,9 +30,6 @@ namespace SmartStore.Persistance.Context
             modelBuilder.ApplyConfiguration(new ProductManufacturerMap());
             modelBuilder.ApplyConfiguration(new MediaStorageMap());
             modelBuilder.ApplyConfiguration(new ProductCategoryMap());
-            modelBuilder.ApplyConfiguration(new UrlRecordMap());
-            modelBuilder.ApplyConfiguration(new TaxCategoryMap());
-            modelBuilder.ApplyConfiguration(new SettingMap());
         } 
     }
 }
