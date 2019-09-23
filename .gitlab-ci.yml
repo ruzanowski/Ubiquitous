@@ -3,7 +3,7 @@ stages:
   - build
 before_script:
   - 'dotnet restore'
-  - 'npm install'
+#  - 'npm install'
 build:
   stage: build
   script:
