@@ -1,12 +1,11 @@
 # UBIQUITOUS. Real-Time Notification Manager.
-- _Distributed_
-- _Open Source_
-- _Educational_
+- [x] _Distributed_
+- [x] _Open Source_
+- [x] _Educational_
 
 | *Master*  | *Develop* |
 | --------- | --------- |
 | [![Master](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg) | [![Develop](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)
-  |
 
 # Purpose of the project
 Ubiquitous is an open-source Distributed .NET Core solution for:
@@ -21,7 +20,9 @@ Ubiquitous is an open-source Distributed .NET Core solution for:
     - Easy or well known domain (Orders, eShop)
     - Unfinished
     
-**Architecture overview**
+#Architecture overview
+Whole backend was designed and implemented in .NET Core 2.2(current stable version). Front is (being) written in Angular (the newest). 
+    Down below, a diagram with containers and dependencies between them. 
 <p align="center">
    <img alt="Ubiquitous Architecture" src="img/ubiquitous-architecture.png" />
 </p>
