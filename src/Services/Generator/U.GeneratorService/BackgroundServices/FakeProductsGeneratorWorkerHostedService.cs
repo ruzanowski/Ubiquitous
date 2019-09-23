@@ -50,7 +50,7 @@ namespace U.GeneratorService.BackgroundServices
             try
             {
                 _logger.LogInformation($"--- Executing {nameof(SafeExecution)} ---");
-                var fakeProduct = await _generator.GenerateFakeProductAsync();
+                var fakeProduct = _generator.GenerateFakeProduct();
                 await _smartStoreAdapter.StoreProduct(fakeProduct);
                 _logger.LogInformation($"--- Executing {nameof(SafeExecution)} ---");
             }

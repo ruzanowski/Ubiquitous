@@ -36,15 +36,6 @@ namespace U.ProductService.Persistance.Repositories
 
             return product;
         }
-        
-        public async Task<IList<Manufacturer>> GetAllAsync(Func<Manufacturer, bool> exp)
-        {
-            var product = _context.Manufacturers.Include(x => x.Pictures)
-                .Where(exp)
-                .ToList();
-            
-            return product;
-        }
 
         public async Task<bool> AnyAsync(Guid id) => await _context.Products.AnyAsync(x => x.Id.Equals(id));
 

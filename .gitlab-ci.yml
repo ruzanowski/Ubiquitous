@@ -3,6 +3,8 @@ stages:
   - build
 before_script:
   - 'dotnet restore'
+  - 'RUN npm install'
+  - 'RUN npm run build:prod'
 build:
   stage: build
   script:

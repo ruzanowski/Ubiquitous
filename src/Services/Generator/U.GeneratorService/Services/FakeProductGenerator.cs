@@ -19,7 +19,7 @@ namespace U.GeneratorService.Services
             _fixture = new Fixture();
         }
 
-        public async Task<SmartProductDto> GenerateFakeProductAsync()
+        public SmartProductDto GenerateFakeProduct()
         {
             var fakeProduct = new SmartProductDto
             {
