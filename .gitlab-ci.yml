@@ -4,9 +4,6 @@ stages:
 before_script:
   - 'dotnet restore'
   - 'npm install'
-  artifacts:
-    paths:
-      - node_modules/
 build:
   stage: build
   script:
