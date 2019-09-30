@@ -1,6 +1,24 @@
 version: "3.5"
 
 services:
+
+  u.product-service:
+    image: u.product-service:latest
+    container_name: u.product-service
+    build:
+      context: .
+      dockerfile: src/Services/Product/U.ProductService/Dockerfile
+    ports:
+      - 5000:5000
+    environment:
+      DbOptions__Connection: Server=postgres;Port=5432;Database=product-service;User Id=postgres;Password=postgres;Integrated Security=true;Pooling=true;
+      DbOptions__Type: Npgsql
+      IntegrationEventLogConnection: Server=postgres;Port=5432;Database=IntegrationEventLog;User Id=postgres;\nPassword=postgres;Integrated Security=true;Pooling=true;
+      ASPNETCORE_URLS: http://+:5000
+      ASPNETCORE_ENVIRONMENT: docker
+    networks:
+      - ubiquitous
+
   u.smartstore-adapter:
     image: u.smartstore_adapter:latest
     container_name: u.smartstore-adapter
@@ -36,23 +54,6 @@ services:
     networks:
       - ubiquitous
 
-  u.product-service:
-    image: u.product-service:latest
-    container_name: u.product-service
-    build:
-      context: .
-      dockerfile: src/Services/Product/U.ProductService/Dockerfile
-    ports:
-      - 5000:5000
-    environment:
-      DbOptions__Connection: Server=postgres;Port=5432;Database=product-service;User Id=postgres;Password=postgres;Integrated Security=true;Pooling=true;
-      DbOptions__Type: Npgsql
-      IntegrationEventLogConnection: Server=postgres;Port=5432;Database=IntegrationEventLog;User Id=postgres;\nPassword=postgres;Integrated Security=true;Pooling=true;
-      ASPNETCORE_URLS: http://+:5000
-      ASPNETCORE_ENVIRONMENT: docker
-    networks:
-      - ubiquitous
-
   u.report-service:
     image: u.report-service:latest
     container_name: u.report-service
@@ -63,6 +64,20 @@ services:
       - 5300:5300
     environment:
       ASPNETCORE_URLS: http://+:5300
+      ASPNETCORE_ENVIRONMENT: docker
+    networks:
+      - ubiquitous
+
+  u.notification-service:
+    image: u.notification-service:latest
+    container_name: u.notification-service
+    build:
+      context: .
+      dockerfile: src/Services/Notification/Dockerfile
+    ports:
+      - 5500:5500
+    environment:
+      ASPNETCORE_URLS: http://+:5500
       ASPNETCORE_ENVIRONMENT: docker
     networks:
       - ubiquitous

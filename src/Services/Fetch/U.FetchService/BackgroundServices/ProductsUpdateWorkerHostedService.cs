@@ -34,7 +34,7 @@ namespace U.FetchService.BackgroundServices
                 while (!stopToken.IsCancellationRequested)
                 {
                     await SafeUpdate(stopToken);
-                    await Task.Delay(TimeSpan.FromMilliseconds(_refreshInterval), stopToken);
+                    await Task.Delay(TimeSpan.FromSeconds(_refreshInterval), stopToken);
                 }
 
                 _logger.LogInformation($"--- Stopping gracefully {nameof(ProductsUpdateWorkerHostedService)} ---");

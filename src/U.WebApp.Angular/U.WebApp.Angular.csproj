@@ -25,8 +25,12 @@
     <ItemGroup>
         <!-- Don't publish the SPA source files, but do show them in the project files list -->
         <Content Remove="$(SpaRoot)**" />
+        <Content Include="proxy.conf.json" />
+        <Content Include="src\app\modules\products\components\products.component.css" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+        <None Include="src\app\modules\products\components\products.component.html" />
+        <None Include="src\app\modules\products\components\products.component.ts" />
     </ItemGroup>
 
     <ItemGroup>
@@ -37,6 +41,60 @@
       <_ContentIncludedByDefault Remove="src\tsconfig.server.json" />
       <_ContentIncludedByDefault Remove="src\tsconfig.spec.json" />
       <_ContentIncludedByDefault Remove="src\tslint.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ResolveComReferenceCache Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.csproj.ResolveComReference.cache" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <IntermediateAssembly Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_DebugSymbolsIntermediatePath Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.pdb" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_DeploymentManifestEntryPoint Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ApplicationManifest Remove="obj\Debug\netcoreapp2.2\Native.U.WebApp.Angular.manifest" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <DeployManifest Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.application" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_OutputPathItem Remove="bin\Debug\netcoreapp2.2\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AppConfigFileDestination Remove="bin\Debug\netcoreapp2.2\U.WebApp.Angular.dll.config" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_DebugSymbolsOutputPath Remove="bin\Debug\netcoreapp2.2\U.WebApp.Angular.pdb" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ApplicationManifestFinal Remove="bin\Debug\netcoreapp2.2\Native.U.WebApp.Angular.manifest" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <TypeScriptCompile Include="src\app\guid.ts" />
+      <TypeScriptCompile Include="src\app\modules\products\product.module.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\models\configuration.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\models\paginateditems.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\services\data.service.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\shared.module.ts" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="src\app\modules" />
+      <Folder Include="src\app\modules\shared\components" />
     </ItemGroup>
 
     <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">

@@ -6,7 +6,7 @@ namespace U.GeneratorService.Controllers
     /// 
     /// </summary>
     [ApiController]
-    [Route("api/fakeProductsGenerator")]
+    [Route("api/generator")]
     public class HealthController : ControllerBase
     {
         /// <summary>
