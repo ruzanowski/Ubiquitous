@@ -65,8 +65,8 @@ namespace U.ProductService
         {
             var pathBase = app.UseCustomPathBase(Configuration, _logger).Item2;
             app.UseDeveloperExceptionPage()
-                .UseMvcWithDefaultRoute()
                 .UseCors("CorsPolicy")
+                .UseMvcWithDefaultRoute()
                 .AddExceptionMiddleware()
                 .UseCustomSwagger(pathBase)
                 .UseServiceId()

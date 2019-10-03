@@ -13,7 +13,9 @@ COPY src/BuildingBlocks/U.EventBus.RabbitMQ/*.csproj /src/csproj-files/
 COPY src/BuildingBlocks/U.IntegrationEventLog/*.csproj /src/csproj-files/
 COPY src/Services/Report/Caracan.Templates/*.csproj /src/csproj-files/
 COPY src/Services/Report/Caracan.Pdf/*.csproj /src/csproj-files/
+
 COPY . .
+
 WORKDIR /src/src/Services/Report/U.ReportService
 RUN dotnet publish -c Release -o /app
 

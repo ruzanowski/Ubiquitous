@@ -46,7 +46,9 @@ namespace U.Common.Mvc
                         .SetIsOriginAllowed(host => true)
                         .AllowAnyMethod()
                         .AllowAnyHeader()
-                        .AllowCredentials());
+                        .AllowCredentials()
+                        .WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod().AllowAnyHeader());
             });
             
             services.AddSingleton<IServiceId, ServiceId>();

@@ -6,11 +6,11 @@ ENV ASPNETCORE_URLS http://*:5700
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
 WORKDIR /src
 
-COPY scripts scripts/
 COPY src/BuildingBlocks/Common/*.csproj /src/csproj-files/
 COPY src/Services/Generator/*/*.csproj /src/csproj-files/
 
 COPY . .
+
 WORKDIR /src/src/Services/Generator/U.GeneratorService
 RUN dotnet publish -c Release -o /app
 

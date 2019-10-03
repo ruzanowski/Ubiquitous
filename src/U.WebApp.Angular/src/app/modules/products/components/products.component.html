@@ -1,0 +1,32 @@
+<h1>Products</h1>
+
+<p *ngIf="!products"><em>Loading products...</em></p>
+
+<table class='table table-striped' *ngIf="products">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Description</th>
+      <th class="smaller-col">Height</th>
+      <th class="smaller-col">Width</th>
+      <th class="smaller-col">Length</th>
+      <th class="smaller-col">Weight</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let product of products.data">
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.description }}</td>
+      <td style='margin: 0'>{{ product.dimensions.height }}</td>
+      <td style='margin: 0'>{{ product.dimensions.width }}</td>
+      <td style='margin: 0'>{{ product.dimensions.length }}</td>
+      <td style='margin: 0'>{{ product.dimensions.weight }}</td>
+    </tr>
+  </tbody>
+</table>
+
