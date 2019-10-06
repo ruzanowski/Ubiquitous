@@ -23,7 +23,7 @@ export class ProductService {
 
 
 
-  getProduct(id: number): Observable<Product> {
+  getProduct(id: string): Observable<Product> {
     let url = this.productBaseUrl + '/query/' + id;
 
     return this.service.get(url).pipe(map((response: any) => {

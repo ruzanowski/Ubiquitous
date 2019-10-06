@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SmartStore.Persistance.Context;
 using U.SmartStoreAdapter.Application.Models.Products;
@@ -32,29 +33,34 @@ namespace U.SmartStoreAdapter.Application.Operations.Products
         {
                 var validator = new SmartProductDtoValidator(_context, command);
                 await validator.ValidateAndThrowAsync(command, cancellationToken: cancellationToken);
-                Product productDb;
+                Product productDb = null;
                 
-                using (var transaction = _context.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        productDb = await StoreOrUpdateProduct(command, cancellationToken);
-                    
-                        await AddManufacturerAsync(productDb, command);
-                        await AddPictures(productDb, command);
-                        await AddCategory(productDb, command);
-                    
-                        await _context.SaveChangesAsync(cancellationToken);
-                        transaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        _logger.LogInformation($"Storing products failed. {ex}");
-                        throw new Exception("Storing products failed.");
-                    }
-                }
+                var strategy = _context.Database.CreateExecutionStrategy();
 
+                await strategy.ExecuteAsync(async () =>
+                {
+                    using (var transaction = _context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            productDb = await StoreOrUpdateProduct(command, cancellationToken);
+
+                            await AddManufacturerAsync(productDb, command);
+                            await AddPictures(productDb, command);
+                            await AddCategory(productDb, command);
+
+                            await _context.SaveChangesAsync(cancellationToken);
+                            transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            _logger.LogInformation($"Storing products failed. {ex}");
+                            throw;
+                        }
+                    }
+                });
+                
                 return productDb.Id;
         }
 

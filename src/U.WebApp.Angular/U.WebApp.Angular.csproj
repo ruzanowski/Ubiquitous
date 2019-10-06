@@ -26,9 +26,11 @@
         <!-- Don't publish the SPA source files, but do show them in the project files list -->
         <Content Remove="$(SpaRoot)**" />
         <Content Include="proxy.conf.json" />
+        <Content Include="src\app\modules\products\components\products-details\products-details.component.css" />
         <Content Include="src\app\modules\products\components\products.component.css" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+        <None Include="src\app\modules\products\components\products-details\products.component.html" />
         <None Include="src\app\modules\products\components\products.component.html" />
         <None Include="src\app\modules\products\components\products.component.ts" />
     </ItemGroup>
@@ -90,11 +92,6 @@
       <TypeScriptCompile Include="src\app\modules\shared\models\paginateditems.model.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\services\data.service.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\shared.module.ts" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="src\app\modules" />
-      <Folder Include="src\app\modules\shared\components" />
     </ItemGroup>
 
     <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">

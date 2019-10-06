@@ -7,6 +7,7 @@ import {AppComponent} from './app.component';
 import {ProductsModule} from "./modules/products/product.module";
 import {SharedModule} from "./modules/shared/shared.module";
 import {ProductsComponent} from "./modules/products/components/products.component";
+import {ProductsDetailsComponent} from "./modules/products/components/products-details/products-details.component";
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import {ProductsComponent} from "./modules/products/components/products.componen
     RouterModule.forRoot([
       {path: '', component: ProductsComponent, pathMatch: 'full'},
       {path: 'products', component: ProductsComponent},
+      {path: 'products/:id', component: ProductsDetailsComponent}
     ]),
     // Only module that app module loads
     SharedModule.forRoot(),

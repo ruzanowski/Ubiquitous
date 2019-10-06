@@ -13,6 +13,7 @@ using U.Common.Behaviour;
 using U.Common.Consul;
 using U.Common.Database;
 using U.Common.Mvc;
+using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
 using U.ProductService.Application.Common.Mapping;
@@ -80,8 +81,8 @@ namespace U.ProductService
 
         private void RegisterEvents(IApplicationBuilder app)
         {
-//            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-//            eventBus.Subscribe<NewProductFetchedIntegrationEvent, NewProductFetchedIntegrationEventHandler>();
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+            eventBus.Subscribe<NewProductFetchedIntegrationEvent, NewProductFetchedIntegrationEventHandler>();
         }
 
         private void RegisterEventsHandlers(IServiceCollection services)

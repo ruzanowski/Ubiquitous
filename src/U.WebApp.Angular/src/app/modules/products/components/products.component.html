@@ -9,10 +9,11 @@
       <th>Name</th>
       <th>Price</th>
       <th>Description</th>
-      <th class="smaller-col">Height</th>
-      <th class="smaller-col">Width</th>
-      <th class="smaller-col">Length</th>
-      <th class="smaller-col">Weight</th>
+      <th>Height</th>
+      <th>Width</th>
+      <th>Length</th>
+      <th>Weight</th>
+      <th>Last Updated</th>
     </tr>
   </thead>
 
@@ -22,10 +23,12 @@
       <td>{{ product.name }}</td>
       <td>{{ product.price }}</td>
       <td>{{ product.description }}</td>
-      <td style='margin: 0'>{{ product.dimensions.height }}</td>
-      <td style='margin: 0'>{{ product.dimensions.width }}</td>
-      <td style='margin: 0'>{{ product.dimensions.length }}</td>
-      <td style='margin: 0'>{{ product.dimensions.weight }}</td>
+      <td>{{ product.dimensions.height }}</td>
+      <td>{{ product.dimensions.width }}</td>
+      <td>{{ product.dimensions.length }}</td>
+      <td>{{ product.dimensions.weight }}</td>
+      <td>{{ product.lastFullUpdateDateTime | date: 'short'}}</td>
+      <td><a class="product-detail" routerLink="/products/{{product.id}}">Details</a></td>
     </tr>
   </tbody>
 </table>
