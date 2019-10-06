@@ -42,14 +42,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="appsettings.docker.json">
+      <None Include="appsettings.docker.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </EmbeddedResource>
-      <EmbeddedResource Include="appsettings.json">
+      </None>
+      <None Include="appsettings.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </EmbeddedResource>
+      </None>
     </ItemGroup>
 
 </Project>

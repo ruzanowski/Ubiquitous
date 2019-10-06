@@ -10,11 +10,11 @@ COPY src/BuildingBlocks/Common/*.csproj /src/csproj-files/
 COPY src/BuildingBlocks/U.EventBus/*.csproj /src/csproj-files/
 COPY src/BuildingBlocks/U.EventBus.RabbitMQ/*.csproj /src/csproj-files/
 COPY src/BuildingBlocks/U.IntegrationEventLog/*.csproj /src/csproj-files/
-COPY src/Services/Notification/*.csproj /src/csproj-files/
+COPY src/Services/Notification/*/*.csproj /src/csproj-files/
 
 COPY . .
 
-WORKDIR /src/src/Services/Notification
+WORKDIR /src/src/Services/Notification/U.NotificationService
 RUN dotnet publish -c Release -o /app
 
 FROM build AS publish

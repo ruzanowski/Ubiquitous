@@ -14,11 +14,11 @@ using U.Common.Mvc;
 using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
-using U.Notification.SignalR.IntegrationEvents;
-using U.Notification.SignalR.IntegrationEvents.ProductAdded;
-using U.Notification.SignalR.IntegrationEvents.ProductPublished;
+using U.NotificationService.IntegrationEvents;
+using U.NotificationService.IntegrationEvents.ProductAdded;
+using U.NotificationService.IntegrationEvents.ProductPublished;
 
-namespace U.Notification.SignalR
+namespace U.NotificationService
 {
     public class Startup
     {

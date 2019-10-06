@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace U.Notification.SignalR.Controllers
+namespace U.NotificationService.Controllers
 {
     /// <summary>
     /// 

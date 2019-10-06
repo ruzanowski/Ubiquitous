@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 
-namespace U.Notification.SignalR.Hub
+namespace U.NotificationService.Hub
 {
     public class UbiquitousHub : Microsoft.AspNetCore.SignalR.Hub
     {

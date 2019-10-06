@@ -24,14 +24,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="appsettings.docker.json">
+      <None Include="appsettings.docker.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
-      <EmbeddedResource Include="appsettings.json">
+      </None>
+      <None Include="appsettings.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
+      </None>
       <None Remove="Dockerfile" />
       <Content Include="Dockerfile" />
     </ItemGroup>

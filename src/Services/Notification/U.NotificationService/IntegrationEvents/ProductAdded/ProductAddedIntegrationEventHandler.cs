@@ -2,9 +2,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
-using U.Notification.SignalR.Hub;
+using U.NotificationService.Hub;
 
-namespace U.Notification.SignalR.IntegrationEvents.ProductAdded
+namespace U.NotificationService.IntegrationEvents.ProductAdded
 {
     public class ProductAddedIntegrationEventHandler : IIntegrationEventHandler<ProductAddedIntegrationEvent>
     {

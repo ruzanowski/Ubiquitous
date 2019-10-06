@@ -15,13 +15,24 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
-      <ProjectReference Include="..\..\BuildingBlocks\Common\U.Common.csproj" />
-      <ProjectReference Include="..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Include="Dockerfile" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="appsettings.json" />
+      <None Include="appsettings.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </None>
+      <Content Remove="appsettings.docker.json" />
+      <None Include="appsettings.docker.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
