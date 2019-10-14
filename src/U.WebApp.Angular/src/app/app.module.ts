@@ -22,7 +22,7 @@ import {ProductsDetailsComponent} from "./modules/products/components/products-d
     ]),
     // Only module that app module loads
     SharedModule.forRoot(),
-    ProductsModule
+    ProductsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

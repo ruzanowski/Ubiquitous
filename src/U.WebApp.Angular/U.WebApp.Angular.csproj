@@ -28,6 +28,9 @@
         <Content Include="proxy.conf.json" />
         <Content Include="src\app\modules\products\components\products-details\products-details.component.css" />
         <Content Include="src\app\modules\products\components\products.component.css" />
+        <Content Include="src\app\modules\shared\components\loader\loader.component.css" />
+        <Content Include="src\app\modules\shared\components\loader\loader.component.html" />
+        <Content Include="src\app\modules\shared\components\spinner-overlay\progress-spinner.component.html" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
         <None Include="src\app\modules\products\components\products-details\products.component.html" />
@@ -87,10 +90,16 @@
 
     <ItemGroup>
       <TypeScriptCompile Include="src\app\guid.ts" />
+      <TypeScriptCompile Include="src\app\loader.interceptor.ts" />
       <TypeScriptCompile Include="src\app\modules\products\product.module.ts" />
+      <Content Include="src\app\modules\shared\components\spinner-overlay\progress-spinner.component.css" />
+      <TypeScriptCompile Include="src\app\modules\shared\components\loader\loader.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\components\spinner-overlay\progress-spinner.component.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\models\configuration.model.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\models\paginateditems.model.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\services\data.service.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\services\loader.service.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\services\overlay.service.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\shared.module.ts" />
     </ItemGroup>
 

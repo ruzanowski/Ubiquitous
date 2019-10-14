@@ -5,15 +5,19 @@
   }
 }
 
-.smaller-col{
- column-width: 5px;
- align-items: center;
-}
+/*.smaller-col{*/
+/* column-width: 5px;*/
+/* align-items: center;*/
+/*}*/
 
-td, th {
-  text-align: center;
-}
+/*td, th {*/
+/*  text-align: center;*/
+/*}*/
 
-.product-detail:hover {
-  animation: forwards;
+/*.product-detail:hover {*/
+/*  animation: forwards;*/
+/*}*/
+
+table {
+  width: 100%;
 }

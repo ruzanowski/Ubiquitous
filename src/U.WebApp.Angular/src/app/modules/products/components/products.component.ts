@@ -1,38 +1,43 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Product} from "../models/product.model";
 import {PaginatedItems} from "../../shared/models/paginateditems.model";
-import {catchError} from "rxjs/operators";
+import {catchError, map} from "rxjs/operators";
 import {ProductService} from "../product.service";
 import {throwError} from "rxjs";
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-product',
-  templateUrl: './products.component.html'
+  templateUrl: './products.component.html',
+  styleUrls: ['./products.component.css']
 })
+
 export class ProductsComponent implements OnInit {
-  private products: PaginatedItems<Product>;
   errorReceived: boolean;
+  dataSource = new MatTableDataSource<Product>();
+  displayedColumns: string[] = ['name', 'price', 'description', 'height', 'width', 'length', 'weight', 'lastUpdated'];
 
   constructor(private service: ProductService) {
   }
 
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
   ngOnInit(): void {
     this.getProducts();
+
   }
 
   getProducts(): void {
     this.errorReceived = false;
-    this.service.getProducts()
-      .pipe(catchError((err) => this.handleError(err)))
-      .subscribe(products => {
-        this.products = products;
-        console.log('products retrieved: ' + products.data.length);
-      });
-  }
 
-  private handleError(error: any) {
-    this.errorReceived = true;
-    return throwError(error);
+    this.service.getProducts()
+    .subscribe(products => {
+      this.dataSource = new MatTableDataSource<Product>(products.data);
+      this.dataSource.paginator = this.paginator;
+      console.log('products retrieved: ' + products.data.length);
+    });
   }
 }
 

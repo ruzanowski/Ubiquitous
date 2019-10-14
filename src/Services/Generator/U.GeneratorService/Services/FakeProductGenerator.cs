@@ -31,7 +31,7 @@ namespace U.GeneratorService.Services
                 Name = _fixture.Create<string>(),
                 Weight = _fixture.Create<decimal>(),
                 InStock = _fixture.Create<int>(),
-                ManufacturerId = 1,
+                ManufacturerId = 10,
                 ProductCost = _fixture.Create<decimal>(),
                 MainPictureId = null,
                 ManufacturerPartNumber = _fixture.Create<string>(),

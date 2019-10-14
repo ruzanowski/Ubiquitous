@@ -21,8 +21,6 @@ export class ProductService {
     }));
   }
 
-
-
   getProduct(id: string): Observable<Product> {
     let url = this.productBaseUrl + '/query/' + id;
 
