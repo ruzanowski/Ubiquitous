@@ -1,6 +1,6 @@
-export interface CategoryDto {
+export interface Manufacturer {
+  id: string;
   name: string;
   description: string;
-  parentCategoryId?: number;
   pictureId?: number;
 }

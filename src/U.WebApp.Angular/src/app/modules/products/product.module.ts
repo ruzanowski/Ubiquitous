@@ -4,12 +4,25 @@ import {SharedModule} from '../shared/shared.module';
 import {ProductService} from "./product.service";
 import {ProductsComponent} from "./components/products.component";
 import {ProductsDetailsComponent} from "./components/products-details/products-details.component";
-import {MatPaginatorModule, MatTableModule} from "@angular/material";
+import {
+  MatCardModule,
+  MatDatepickerModule, MatIconModule, MatInputModule,
+  MatListModule,
+  MatOptionModule,
+  MatPaginatorModule,
+  MatSelectModule,
+  MatTableModule
+} from "@angular/material";
+import {CategoryModule} from "../categories/category.module";
+import {CategoryService} from "../categories/category.service";
 
 @NgModule({
-  imports: [BrowserModule, SharedModule, MatTableModule, MatPaginatorModule],
+  imports: [BrowserModule, SharedModule, MatTableModule, MatPaginatorModule, MatOptionModule, MatSelectModule, CategoryModule, MatListModule, MatDatepickerModule, MatInputModule, MatIconModule, MatCardModule],
   declarations: [ProductsComponent, ProductsDetailsComponent],
-  providers: [ProductService, ProductsDetailsComponent]
+  exports: [
+    ProductsComponent
+  ],
+  providers: [ProductService, ProductsDetailsComponent, CategoryService]
 })
 export class ProductsModule {
 }

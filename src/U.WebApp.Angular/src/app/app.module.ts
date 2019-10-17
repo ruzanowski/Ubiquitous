@@ -8,21 +8,34 @@ import {ProductsModule} from "./modules/products/product.module";
 import {SharedModule} from "./modules/shared/shared.module";
 import {ProductsComponent} from "./modules/products/components/products.component";
 import {ProductsDetailsComponent} from "./modules/products/components/products-details/products-details.component";
+import {CategoryModule} from "./modules/categories/category.module";
+import {CategoryComponent} from "./modules/categories/components/table-category/table-categories.component";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatGridListModule, MatNativeDateModule, MatTabsModule} from "@angular/material";
+import {DatepickerModule} from "ng-bootstrap";
+import {ManufacturerModule} from "./modules/manufacturers/manufacturer.module";
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
+    BrowserAnimationsModule,
+    MatNativeDateModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      {path: '', component: ProductsComponent, pathMatch: 'full'},
+      {path: '', component: AppComponent, pathMatch: 'full'},
       {path: 'products', component: ProductsComponent},
-      {path: 'products/:id', component: ProductsDetailsComponent}
+      {path: 'products/:id', component: ProductsDetailsComponent},
+      {path: 'categories', component: CategoryComponent}
     ]),
     // Only module that app module loads
     SharedModule.forRoot(),
     ProductsModule,
+    CategoryModule,
+    MatGridListModule,
+    MatTabsModule,
+    ManufacturerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
