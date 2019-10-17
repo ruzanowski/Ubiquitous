@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using U.Common.Pagination;
+using U.ProductService.Application.Categories.Commands.Create;
 using U.ProductService.Application.Categories.Models;
 using U.ProductService.Application.Categories.Queries.GetList;
 using U.ProductService.Application.Categories.Queries.GetSingle;
@@ -56,6 +57,22 @@ namespace U.ProductService.Controllers
         {
             var queryResult = await _mediator.Send(new GetCategoryQuery(categoryId));
             return Ok(queryResult);
+        }
+        
+        /// <summary>
+        /// Create Category
+        /// </summary>
+        /// <param name="manufacturers"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("create")]
+        [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.Created)]
+        [ProducesResponseType((int) HttpStatusCode.BadRequest)]
+        [Consumes("application/json")]
+        public async Task<IActionResult> CreateManufacturer([FromBody] CreateCategoryCommand categories)
+        {
+            var categoryId = await _mediator.Send(categories);
+            return CreatedAtAction(nameof(CreateManufacturer), categoryId);
         }
     }
 }

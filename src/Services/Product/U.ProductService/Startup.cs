@@ -166,6 +166,7 @@ namespace U.ProductService
             {
                mc.AddProfile(new ProductMappingProfile());
                mc.AddProfile(new CategoryMappingProfile());
+               mc.AddProfile(new ManufacturerMappingProfile());
             }).CreateMapper());
 
             return services;

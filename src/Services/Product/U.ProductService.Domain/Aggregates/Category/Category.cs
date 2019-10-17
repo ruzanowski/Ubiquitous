@@ -11,7 +11,7 @@ namespace U.ProductService.Domain.Aggregates.Category
 
         public string Name { get; set; }
         public string Description { get; set; }
-        public int? ParentCategoryId { get; set; }
+        public Guid? ParentCategoryId { get; set; }
         public bool IsDraft { get; private set; }
 
         private Category()
@@ -22,7 +22,7 @@ namespace U.ProductService.Domain.Aggregates.Category
             IsDraft = false;
         }
         
-        public Category(Guid id, string name, string description, int? parentCategoryId = null) : this()
+        public Category(Guid id, string name, string description, Guid? parentCategoryId = null) : this()
         {
             Id = id;
             Name = name;
@@ -32,12 +32,11 @@ namespace U.ProductService.Domain.Aggregates.Category
         
         public static Category GetDraftCategory() => new Category
         {
+            Id = Guid.Parse("728b6e89-e4b6-40f7-89fc-9a7204dc1300"),
             Name = "DRAFT",
             Description = "Draft category, which purpose is to aggregate newly added products.",
             ParentCategoryId = null,
             IsDraft = true
         };
-
-
     }
 }

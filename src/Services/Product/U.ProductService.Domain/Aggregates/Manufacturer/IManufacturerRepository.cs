@@ -16,6 +16,7 @@ namespace U.ProductService.Domain
         void Update(Product product);
 
         Task<Manufacturer> GetAsync(Guid productId);
+        Task<Manufacturer> GetUniqueClientIdAsync(string uniqueClientId);
 
         Task<bool> AnyAsync(Guid id);
     }

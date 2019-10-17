@@ -29,6 +29,7 @@ namespace U.ProductService.Persistance.Repositories
                 .Include(x => x.Dimensions)
                 .Include(x => x.Pictures)
                 .Include(x => x.ProductType)
+                .Include(x => x.Category)
                 .FirstOrDefaultAsync(x => x.Id.Equals(productId));
 
             return product;
@@ -40,6 +41,7 @@ namespace U.ProductService.Persistance.Repositories
                 .Include(x => x.Dimensions)
                 .Include(x => x.Pictures)
                 .Include(x => x.ProductType)
+                .Include(x => x.Category)
                 .FirstOrDefaultAsync(x=>x.BarCode.Equals(alternateId));
 
             return product;

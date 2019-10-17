@@ -18,6 +18,5 @@ namespace U.ProductService.Domain
 
         Task<bool> AnyAsync(Guid id);
 
-        Task<Category> GetOrCreateDraftCategoryAsync();
     }
 }

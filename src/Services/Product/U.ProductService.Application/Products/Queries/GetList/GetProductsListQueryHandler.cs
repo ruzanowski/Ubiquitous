@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -32,6 +33,16 @@ namespace U.ProductService.Application.Products.Queries.GetList
             CancellationToken cancellationToken)
         {
             var products = GetProductQueryable();
+
+            if (request.CategoryId != null)
+            {
+                products = products.Where(x => x.CategoryId.Equals(request.CategoryId));
+            }
+            
+            if (request.ManufacturerId != null)
+            {
+                products = products.Where(x => x.ManufacturerId.Equals(request.ManufacturerId));
+            }
 
             var productsMapped = _mapper.ProjectTo<ProductViewModel>(products);
 

@@ -19,6 +19,7 @@ namespace U.ProductService.Domain.Aggregates.Manufacturer
         public string AggregateTypeName => nameof(Manufacturer);
         public string Name { get; private set; }
         public string Description { get; private set; }
+        public string UniqueClientId { get; private set; }
 
         private DateTime _createdAt;
         private string _createdBy;
@@ -40,9 +41,10 @@ namespace U.ProductService.Domain.Aggregates.Manufacturer
             _lastUpdatedBy = string.Empty;
         }
         
-        public Manufacturer(Guid id, string name, string description) : this()
+        public Manufacturer(Guid id, string uniqueClientId, string name, string description) : this()
         {
             Id = id;
+            UniqueClientId = uniqueClientId;
             Name = name;
             Description = description;
         }
@@ -72,5 +74,12 @@ namespace U.ProductService.Domain.Aggregates.Manufacturer
 
             Pictures.Remove(picture);
         }
+        
+        public static Manufacturer GetDraftManufacturer() => new Manufacturer
+        {
+            Id = Guid.Parse("73d79ef5-3365-4877-b653-135632bb7a71"),
+            Name = "DRAFT",
+            Description = "Draft category, which purpose is to aggregate newly added products.",
+        };
     }
 }
