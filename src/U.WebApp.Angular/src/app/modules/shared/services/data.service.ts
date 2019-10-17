@@ -22,7 +22,7 @@ export class DataService {
         map((res: Response) => {
           return res;
         }),
-        catchError(this.handleError)
+        catchError(DataService.handleError)
       );
   }
 
@@ -46,7 +46,7 @@ export class DataService {
         map((res: Response) => {
           return res;
         }),
-        catchError(this.handleError)
+        catchError(DataService.handleError)
       );
   }
 
@@ -61,7 +61,7 @@ export class DataService {
       });
   }
 
-  private handleError(error: any) {
+  private static handleError(error: any) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('Client side network error occurred:', error.error.message);
@@ -85,7 +85,7 @@ export class DataService {
         map((res: Response) => {
           return res;
         }),
-        catchError(this.handleError)
+        catchError(DataService.handleError)
       );
   }
 }

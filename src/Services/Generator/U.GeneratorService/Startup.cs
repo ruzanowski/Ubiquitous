@@ -30,7 +30,7 @@ namespace U.GeneratorService
             services
                 .AddCustomMvc()
                 .AddCustomConsul()
-                .RegisterServiceForwarder<ISmartStoreAdapter>("u.generator-service")
+                .RegisterServiceForwarder<ISmartStoreAdapter>("u.smartstore-adapter")
                 .AddUpdateWorkerHostedService(Configuration)
                 .AddCustomServices();
         }     

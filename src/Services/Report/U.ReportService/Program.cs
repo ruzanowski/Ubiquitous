@@ -22,6 +22,8 @@ namespace U.ReportService
             {
                 Log.Information("Configuring web host ({ApplicationContext})...", AppName);
                 var host = SharedWebHost.BuildWebHost<Startup>(configuration, args);
+                Log.Information(
+                    $"Appsettings volume mapped: '{configuration.GetSection("volumeMapping").Value ?? "incorrectly"}'");
                 Log.Information("Starting web host ({ApplicationContext})...", AppName);
                 host.Run();
 

@@ -1,4 +1,4 @@
-import {CategoryDto} from "./categorydto.model";
+import {Category} from "../../categories/models/category.model";
 
 export interface Product {
   id: string;
@@ -11,5 +11,5 @@ export interface Product {
   IsPublished: boolean;
   dimensions: Dimensions;
   manufacturerId: string;
-  category: CategoryDto;
+  category: Category;
 }

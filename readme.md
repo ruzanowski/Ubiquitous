@@ -23,8 +23,9 @@ Ubiquitous is an open-source Distributed .NET Core solution for:
 #Architecture overview
 Whole backend was designed and implemented in .NET Core 2.2(current stable version). Front is (being) written in Angular (the newest). 
     Down below, a diagram with containers and dependencies between them. 
+    
 <p align="center">
-   <img alt="Ubiquitous Architecture" src="img/ubiquitous-architecture.png" />
+   <img alt="Ubiquitous Service Architecture" src="img/ubiquitous-architecture.png" />
 </p>
 
 **Tech stack RoadMap**
@@ -41,14 +42,22 @@ Whole backend was designed and implemented in .NET Core 2.2(current stable versi
 - ***PostgreSql*** *(Database)*
 - ***Gitlab DevOps*** *(CI)*
 - ***SignalR*** *(Asynchronous communication, Notifications)*
+------
+- ***Angular*** **Currently in development**
 ------ 
-- ***Angular*** [todo] Currently in development /Educating myself now on it/ 
 - ***Redis*** [todo] Distributed caching
 - ***Ocelot*** [todo] ApiGW
 - ***Zipkin*** [todo] tracing
 - ***Grafana*** [todo] metrics
 - ***Prometheus*** [todo] metrics infrastructure
 - ***ELK Stack*** [todo] logging and analysis 
+
+**Current Angular-side progress**
+-------
+
+<p align="center">
+   <img alt="Ubiquitous front-end progress" src="img/ubiquitous-current-state.png" />
+</p>
 
 **Services RoadMap**
 -------

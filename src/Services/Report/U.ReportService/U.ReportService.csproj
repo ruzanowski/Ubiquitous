@@ -25,5 +25,17 @@
     <ItemGroup>
       <Content Remove="Nuget.Config" />
     </ItemGroup>
+
+    
+    <ItemGroup>
+      <Content Remove="appsettings.docker.json" />
+      <None Include="appsettings.docker.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </None>
+      <Content Remove="appsettings.json" />
+      <None Include="appsettings.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </None>
+    </ItemGroup>
     
 </Project>

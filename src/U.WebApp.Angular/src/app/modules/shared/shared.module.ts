@@ -2,13 +2,18 @@ import {NgModule, ModuleWithProviders} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
 import {RouterModule} from '@angular/router';
-import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 // Services
 import {DataService} from './services/data.service';
 import {NavMenuComponent} from "./components/nav-menu/nav-menu.component";
-
+import {ProgressSpinnerComponent} from "./components/spinner-overlay/progress-spinner.component";
+import {OverlayService} from "./services/overlay.service";
+import {MatProgressBarModule, MatProgressSpinnerModule} from "@angular/material";
+import {LoaderService} from "./services/loader.service";
+import {LoaderComponent} from "./components/loader/loader.component";
+import {LoaderInterceptor} from "../../loader.interceptor";
 
 @NgModule({
   imports: [
@@ -19,9 +24,11 @@ import {NavMenuComponent} from "./components/nav-menu/nav-menu.component";
     NgbModule,
     // No need to export as these modules don't expose any components/directive etc'
     HttpClientModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ],
-  declarations: [NavMenuComponent],
+  declarations: [NavMenuComponent, ProgressSpinnerComponent, LoaderComponent],
   exports: [
     // Modules
     CommonModule,
@@ -30,7 +37,9 @@ import {NavMenuComponent} from "./components/nav-menu/nav-menu.component";
     RouterModule,
     NgbModule,
     //providers, components
-    NavMenuComponent
+    NavMenuComponent,
+    ProgressSpinnerComponent,
+    LoaderComponent
   ]
 })
 export class SharedModule {
@@ -38,7 +47,10 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        DataService
+        DataService,
+        OverlayService,
+        LoaderService,
+        { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
       ]
     };
   }

@@ -39,6 +39,12 @@ namespace U.Common.Mvc
                 .AddControllersAsServices(); //Injecting Controllers themselves thru DI
             //For further info see: http://docs.autofac.org/en/latest/integration/aspnetcore.html#controllers-as-services
 
+            string[] allowedOrigins =
+            {
+                "http://localhost:4200",
+                "http://docker.for.win.localhost:4200"
+            };
+ 
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -47,7 +53,7 @@ namespace U.Common.Mvc
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials()
-                        .WithOrigins("http://localhost:4200")
+                        .WithOrigins(allowedOrigins)
                         .AllowAnyMethod().AllowAnyHeader());
             });
             

@@ -12,6 +12,7 @@ namespace U.ProductService.Application.Products.Commands.Create
         public decimal Price { get;  set; }
         public string Description { get;  set; }
         public Guid? CategoryId { get; set; }
+        public Guid ManufacturerId { get; set; }
         public DimensionsDto Dimensions { get;  set; }
 
         [JsonConstructor]
@@ -20,12 +21,13 @@ namespace U.ProductService.Application.Products.Commands.Create
                 
         }
 
-        public CreateProductCommand(string name, string barCode, decimal price, string description, DimensionsDto dimensions, Guid? categoryId = null)
+        public CreateProductCommand(string name, string barCode, decimal price, string description, DimensionsDto dimensions, Guid manufacturerId, Guid? categoryId = null)
         {
             Name = name;
             BarCode = barCode;
             Price = price;
             Description = description;
+            ManufacturerId = manufacturerId;
             CategoryId = categoryId;
             Dimensions = dimensions;
         }

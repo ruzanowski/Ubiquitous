@@ -31,6 +31,7 @@ namespace U.ProductService.Application.Manufacturers.Commands.Create
         private Manufacturer GetProduct(CreateManufacturerCommand command)
         {
             return new Manufacturer(Guid.NewGuid(),
+                "not_qualified",
                 command.Name,
                 command.Description);
         }

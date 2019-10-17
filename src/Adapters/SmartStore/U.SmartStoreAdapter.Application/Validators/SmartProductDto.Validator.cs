@@ -70,10 +70,9 @@ namespace U.SmartStoreAdapter.Application.Validators
                     .Must(id => context.Pictures.Any(product => product.Id.Equals(productDto.MainPictureId)))
                     .When(x=>x.MainPictureId!=null)
                     .WithErrorCode($"Specified MainPictureId: {productDto.MainPictureId} does not exists for table Pictures.")
-                    .WithMessage("Please specify existing TaxCategory.");
+                    .WithMessage("Please specify existing Picture.");
                 
                 RuleFor(x => x.ManufacturerId)
-                    .NotNull()
                     .NotEmpty()
                     .Must(id => context.Manufacturers.Any(product => product.Id == productDto.ManufacturerId))
                     .WithErrorCode($"Specified ManufacturerId: {productDto.ManufacturerId} does not exists for table Manufacturers.")

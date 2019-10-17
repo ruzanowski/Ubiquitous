@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Serilog;
 using U.Common.Database;
 using U.Common.Mvc;
@@ -29,12 +30,16 @@ namespace U.ProductService
                 var host = SharedWebHost.BuildWebHost<Startup>(configuration, args);
                 var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
 
-                Log.Information(
-                    $"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");
+                Log.Information($"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");
 
+                Log.Information(
+                    $"Appsettings volume mapped: '{configuration.GetSection("volumeMapping").Value ?? "incorrectly"}'");
+
+                
                 if (dbOptions?.AutoMigration != null && dbOptions.AutoMigration)
                 {
                     Log.Information("Applying migrations ({ApplicationContext})...", AppName);
+                    Log.Information($"Connected to: '{dbOptions.Connection}'");
 
                     host.MigrateDbContext<ProductContext>((_, __) => { })
                         .MigrateDbContext<IntegrationEventLogContext>((_, __) => { });

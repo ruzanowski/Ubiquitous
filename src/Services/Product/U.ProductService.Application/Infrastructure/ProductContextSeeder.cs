@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
 using U.Common.Database;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Aggregates.Category;
+using U.ProductService.Domain.Aggregates.Manufacturer;
 using U.ProductService.Domain.Aggregates.Product;
 using U.ProductService.Domain.SeedWork;
 using U.ProductService.Persistance;
@@ -38,6 +41,17 @@ namespace U.ProductService.Application.Infrastructure
                     {
                         context.ProductTypes.AddRange(GetPredefinedProductTypes());
                     }
+
+                    if (!context.Manufacturers.Any())
+                    {
+                        context.Manufacturers.AddRange(GetPredefinedManufacturer());
+                    }
+                    
+                    if (!context.Categories.Any())
+                    {
+                        context.Categories.AddRange(GetPredefinedCategory());
+                    }
+                    
                     await context.SaveEntitiesAsync();
                 }
             }).Wait();
@@ -46,6 +60,16 @@ namespace U.ProductService.Application.Infrastructure
         private IEnumerable<ProductType> GetPredefinedProductTypes()
         {
             return Enumeration.GetAll<ProductType>();
+        }
+
+        private Category GetPredefinedCategory()
+        {
+            return Category.GetDraftCategory();
+        }
+
+        private Manufacturer GetPredefinedManufacturer()
+        {
+            return Manufacturer.GetDraftManufacturer();
         }
         
         private AsyncRetryPolicy CreatePolicy( ILogger<ProductContextSeeder> logger, string prefix, int retries =3)

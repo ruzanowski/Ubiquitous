@@ -37,7 +37,14 @@ namespace U.ProductService.Persistance.Repositories
             return product;
         }
 
-        public async Task<bool> AnyAsync(Guid id) => await _context.Products.AnyAsync(x => x.Id.Equals(id));
+        public async Task<Manufacturer> GetUniqueClientIdAsync(string uniqueClientId)
+        {
+            var product =
+                await _context.Manufacturers.FirstOrDefaultAsync(x => x.UniqueClientId.Equals(uniqueClientId));
+            return product;
+        }
+
+        public async Task<bool> AnyAsync(Guid id) => await _context.Manufacturers.AnyAsync(x => x.Id.Equals(id));
 
         public void Update(Product product)
         {

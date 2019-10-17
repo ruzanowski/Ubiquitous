@@ -32,19 +32,6 @@ namespace U.ProductService.Persistance.Repositories
         }
 
         public async Task<bool> AnyAsync(Guid id) => await _context.Categories.AnyAsync(x => x.Id.Equals(id));
-        public async Task<Category> GetOrCreateDraftCategoryAsync()
-        {
-            var category = await _context.Categories.FirstOrDefaultAsync(x => x.IsDraft);
-
-            if (category is null)
-            {
-                var newDraftCategory = (await _context.Categories.AddAsync(Category.GetDraftCategory())).Entity;
-                await UnitOfWork.SaveEntitiesAsync();
-                return newDraftCategory;
-            }
-
-            return category;
-        }
 
         public void Update(Category category)
         {

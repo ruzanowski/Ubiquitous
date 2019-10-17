@@ -1,10 +1,12 @@
 using System.Threading.Tasks;
 using MediatR;
 using U.EventBus.Abstractions;
+using U.ProductService.Application.Common.Exceptions;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Products.Commands.Update;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Aggregates.Manufacturer;
 
 namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
 {
@@ -12,11 +14,13 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
     {
         private readonly IMediator _mediator;
         private readonly IProductRepository _productRepository;
+        private readonly IManufacturerRepository _manufacturerRepository;
 
-        public NewProductFetchedIntegrationEventHandler(IMediator mediator, IProductRepository productRepository)
+        public NewProductFetchedIntegrationEventHandler(IMediator mediator, IProductRepository productRepository, IManufacturerRepository manufacturerRepository)
         {
             _mediator = mediator;
             _productRepository = productRepository;
+            _manufacturerRepository = manufacturerRepository;
         }
 
         public async Task Handle(NewProductFetchedIntegrationEvent @event)
@@ -26,7 +30,12 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
             if (product is null)
             {
                 var dimensions = new DimensionsDto(@event.Length, @event.Width, @event.Height, @event.Weight);
-                var create = new CreateProductCommand(@event.Name, @event.GetUniqueId, @event.PriceInTax, @event.Description, dimensions);
+
+                var manufacturer = await _manufacturerRepository.GetUniqueClientIdAsync(@event.ManufacturerId.ToString()) ?? Manufacturer.GetDraftManufacturer();
+
+                // throw new ManufacturerNotFoundException(@event.ManufacturerId.ToString());
+                
+                var create = new CreateProductCommand(@event.Name, @event.GetUniqueId, @event.PriceInTax, @event.Description, dimensions, manufacturer.Id);
 
                 await _mediator.Send(create);
             }

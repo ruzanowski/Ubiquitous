@@ -24,6 +24,7 @@ namespace U.ProductService.Application.Products.Queries.GetSingle
         {
             var products = await _context.Products
                 .Include(x => x.Pictures)
+                .Include(x=>x.Category)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id),
                     cancellationToken);
 
