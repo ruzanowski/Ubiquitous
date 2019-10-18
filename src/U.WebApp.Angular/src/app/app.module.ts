@@ -11,8 +11,7 @@ import {ProductsDetailsComponent} from "./modules/products/components/products-d
 import {CategoryModule} from "./modules/categories/category.module";
 import {CategoryComponent} from "./modules/categories/components/table-category/table-categories.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {MatGridListModule, MatNativeDateModule, MatTabsModule} from "@angular/material";
-import {DatepickerModule} from "ng-bootstrap";
+import {MatGridListModule, MatIconModule, MatNativeDateModule, MatTabsModule} from "@angular/material";
 import {ManufacturerModule} from "./modules/manufacturers/manufacturer.module";
 
 @NgModule({
@@ -36,6 +35,7 @@ import {ManufacturerModule} from "./modules/manufacturers/manufacturer.module";
     MatGridListModule,
     MatTabsModule,
     ManufacturerModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

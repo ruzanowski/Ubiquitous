@@ -1,23 +1,29 @@
 <!--      <td><a class="product-detail" routerLink="/products/{{product.id}}">Details</a></td>-->
 <mat-form-field flex>
   <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker-toggle matSuffix [for]="picker" flex></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
 
-<mat-form-field flex="30">
+<mat-form-field flex>
   <mat-label>Product category</mat-label>
-  <mat-select>
-    <mat-option *ngFor="let category of categories.data" [value]="category.name">
+  <mat-select flex disableRipple>
+    <mat-option *ngFor="let category of categories?.data"
+                [value]="category.categoryId" flex
+                (ngModelChange)="getProducts()"
+                [(ngModel)]="categoryIdFilter"
+                ngDefaultControl>
       {{category.name}}
     </mat-option>
   </mat-select>
 </mat-form-field>
 
-<mat-form-field flex="30">
-  <mat-label>Product manufacturer</mat-label>
-  <mat-select>
-    <mat-option *ngFor="let manufacturer of manufacturers.data" [value]="manufacturer.name">
+<mat-form-field flex>
+  <mat-label flex>Product manufacturer</mat-label>
+  <mat-select flex disableRipple [(ngModel)]="manufacturerIdFilter" (ngModelChange)="getProducts()">
+    <mat-option *ngFor="let manufacturer of manufacturers?.data"
+                [value]="manufacturer.id"
+                ngDefaultControl>
       {{manufacturer.name}}
     </mat-option>
   </mat-select>
