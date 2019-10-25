@@ -21,6 +21,7 @@
     <ItemGroup>
       <PackageReference Include="AutoFixture" Version="4.11.0" />
       <PackageReference Include="Fluid.Core" Version="1.0.0-beta-9588" />
+      <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     </ItemGroup>
 

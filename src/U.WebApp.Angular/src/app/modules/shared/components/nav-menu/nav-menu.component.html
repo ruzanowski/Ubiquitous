@@ -1,30 +1,56 @@
 <header>
-  <nav class='navbar custom-navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3'>
-    <div class="container">
-      <a class="navbar-brand" [routerLink]='["/"]'><b>Ubiquitous</b> - Notifications at one place</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded" (click)="toggle()">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]='{"show": isExpanded}'>
-        <ul class="navbar-nav flex-grow">
-          <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-            <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/products"]'>Products</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/notifications"]'>Notifications</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/payments"]'>Payments</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/profile"]'>Profile</a>
-          </li>
-        </ul>
-      </div>
+  <!--  <nav class='navbar custom-navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3'>-->
+  <!--    <div class="container">-->
+  <!--      <a class="navbar-brand" [routerLink]='["/"]'><b>Ubiquitous</b> - Notifications at one place</a>-->
+  <!--&lt;!&ndash;      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation"&ndash;&gt;-->
+  <!--&lt;!&ndash;        [attr.aria-expanded]="isExpanded" (click)="toggle()">&ndash;&gt;-->
+  <!--&lt;!&ndash;        <span class="navbar-toggler-icon"></span>&ndash;&gt;-->
+  <!--&lt;!&ndash;      </button>&ndash;&gt;-->
+  <!--      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]='{"show": isExpanded}'>-->
+  <!--        <ul class="navbar-nav flex-grow">-->
+  <!--          <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>-->
+  <!--            <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>-->
+  <!--          </li>-->
+  <!--          <li class="nav-item" [routerLinkActive]='["link-active"]'>-->
+  <!--            <a class="nav-link text-dark" [routerLink]='["/products"]'>Products</a>-->
+  <!--          </li>-->
+  <!--          <li class="nav-item" [routerLinkActive]='["link-active"]'>-->
+  <!--            <a class="nav-link text-dark" [routerLink]='["/notifications"]'>Notifications</a>-->
+  <!--          </li>-->
+  <!--          <li class="nav-item" [routerLinkActive]='["link-active"]'>-->
+  <!--            <a class="nav-link text-dark" [routerLink]='["/payments"]'>Payments</a>-->
+  <!--          </li>-->
+  <!--          <li class="nav-item" [routerLinkActive]='["link-active"]'>-->
+  <!--            <a class="nav-link text-dark" [routerLink]='["/profile"]'>Profile</a>-->
+  <!--          </li>-->
+  <!--        </ul>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </nav>-->
+  <!--  -->
+
+  <mat-toolbar color="primary">
+
+
+    <button mat-button routerLink="/">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+    </button>
+    <b> Ubiquitous</b> - Notifications at one place
+    <!-- This fills the remaining space of the current row -->
+    <span class="fill-remaining-space"></span>
+    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+      <button mat-button routerLink="/products">Products</button>
+      <button mat-button routerLink="/dashboard">Dashboard</button>
     </div>
-  </nav>
+    <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+      <mat-icon>menu</mat-icon>
+    </button>
+
+  </mat-toolbar>
+  <mat-menu x-position="before" #menu="matMenu">
+    <button mat-menu-item routerLink="/products">Products</button>
+    <button mat-menu-item routerLink="/dashboard">Dashboard</button>
+    <!--<button mat-menu-item>Help</button>-->
+  </mat-menu>
 </header>
+<!--<router-outlet></router-outlet>-->

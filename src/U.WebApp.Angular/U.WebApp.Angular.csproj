@@ -14,6 +14,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
@@ -41,10 +42,8 @@
         <None Include="src\app\modules\categories\components\table-category\table-categories.component.ts" />
         <None Include="src\app\modules\categories\models\category.model.ts" />
         <None Include="src\app\modules\categories\product.service.ts" />
-        <None Include="src\app\modules\products\components\products-details\products.component.html" />
         <None Include="src\app\modules\products\components\products.component.html" />
         <None Include="src\app\modules\products\components\products.component.ts" />
-        <None Include="src\app\modules\shared\models\category.model.ts" />
     </ItemGroup>
 
     <ItemGroup>
@@ -98,7 +97,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <TypeScriptCompile Include="src\app\guid.ts" />
       <TypeScriptCompile Include="src\app\loader.interceptor.ts" />
       <TypeScriptCompile Include="src\app\modules\categories\category.module.ts" />
       <TypeScriptCompile Include="src\app\modules\manufacturers\manufacturer.module.ts" />
@@ -106,11 +104,14 @@
       <Content Include="src\app\modules\shared\components\spinner-overlay\progress-spinner.component.css" />
       <TypeScriptCompile Include="src\app\modules\shared\components\loader\loader.component.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\components\spinner-overlay\progress-spinner.component.ts" />
-      <TypeScriptCompile Include="src\app\modules\shared\models\configuration.model.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\models\paginateditems.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\models\product-added-event.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\models\product-properties-changed-event.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\models\product-published-event.model.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\services\data.service.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\services\loader.service.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\services\overlay.service.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\services\signalr.service.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\shared.module.ts" />
     </ItemGroup>
 

@@ -3,7 +3,7 @@ using U.EventBus.Events;
 
 namespace U.ProductService.Application.Events.IntegrationEvents.Events
 {
-    public class ProductAddedIntegrationEvent : IntegrationEvent
+    public class ProductPropertiesChangedIntegrationEvent : IntegrationEvent
     {
         public Guid ProductId { get; }
         
@@ -12,7 +12,7 @@ namespace U.ProductService.Application.Events.IntegrationEvents.Events
         public decimal Price { get; }
         
 
-        public ProductAddedIntegrationEvent(Guid productId, string name, decimal price)
+        public ProductPropertiesChangedIntegrationEvent(Guid productId, string name, decimal price)
         {
             ProductId = productId;
             Name = name;

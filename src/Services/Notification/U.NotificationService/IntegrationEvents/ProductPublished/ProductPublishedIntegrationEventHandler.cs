@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
@@ -20,10 +21,10 @@ namespace U.NotificationService.IntegrationEvents.ProductPublished
 
         public async Task Handle(ProductPublishedIntegrationEvent @event)
         {
-            _logger.LogInformation($"--- Received: {nameof(ProductPublishedIntegrationEvent)} ---");
+            await _ubiquitousHubContext.Clients.All.SendAsync(nameof(ProductPublishedIntegrationEvent), @event);
 
-            await _ubiquitousHubContext.Clients.All.SendAsync("ReceiveMessage", "system",
-                $"Product '{@event.ProductId}':{@event.Name} of manufacturer: '{@event.Manufacturer}' has been published.");
+            _logger.LogInformation(
+                $"--- Pushed by SignalR: '{nameof(ProductPublishedIntegrationEvent)} ---");
         }
     }
 }

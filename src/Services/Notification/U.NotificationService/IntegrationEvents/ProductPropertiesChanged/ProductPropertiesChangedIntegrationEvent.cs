@@ -1,7 +1,7 @@
 using System;
 using U.EventBus.Events;
 
-namespace U.ProductService.Application.Events.IntegrationEvents.Events
+namespace U.NotificationService.IntegrationEvents.ProductPropertiesChanged
 {
     public class ProductPropertiesChangedIntegrationEvent : IntegrationEvent
     {

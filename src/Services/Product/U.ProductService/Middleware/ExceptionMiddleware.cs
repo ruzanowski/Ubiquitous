@@ -26,7 +26,7 @@ namespace U.ProductService.Middleware
         /// <param name="app"></param>
         public static IApplicationBuilder AddExceptionMiddleware(this IApplicationBuilder app)
         {
-            app.UseExceptionHandler(errorApp => { errorApp.Run(ExceptionMiddlewarePipeline); });
+            app.UseExceptionHandler(errorApp => errorApp.Run(ExceptionMiddlewarePipeline));
             return app;
         }
 
@@ -100,6 +100,11 @@ namespace U.ProductService.Middleware
                     problemDetails.Title = nameof(categoryNotFoundException);
                     problemDetails.Status = 404;
                     problemDetails.Detail = categoryNotFoundException.Message;
+                    break;
+                case ManufacturerNotFoundException manufacturerNotFoundException:
+                    problemDetails.Title = nameof(manufacturerNotFoundException);
+                    problemDetails.Status = 404;
+                    problemDetails.Detail = manufacturerNotFoundException.Message;
                     break;
                 case PictureNotFoundException pictureNotFoundException:
                     problemDetails.Title = nameof(pictureNotFoundException);

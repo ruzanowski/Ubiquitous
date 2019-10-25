@@ -20,10 +20,10 @@ namespace U.NotificationService.IntegrationEvents.ProductAdded
 
         public async Task Handle(ProductAddedIntegrationEvent @event)
         {
-            _logger.LogInformation($"--- Received: {nameof(ProductAddedIntegrationEvent)} ---");
+            await _ubiquitousHubContext.Clients.All.SendAsync(nameof(ProductAddedIntegrationEvent), @event);
 
-            await _ubiquitousHubContext.Clients.All.SendAsync("ReceiveMessage", "system",
-                $"Product '{@event.ProductId}':{@event.Name} of manufacturer: '{@event.Manufacturer}' has been added.");
+            _logger.LogInformation(
+                $"--- Pushed by SignalR: '{nameof(ProductAddedIntegrationEvent)}' ---");
         }
     }
 }

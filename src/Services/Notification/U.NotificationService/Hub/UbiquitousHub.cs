@@ -1,39 +1,25 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.Logging;
 
 namespace U.NotificationService.Hub
 {
     public class UbiquitousHub : Microsoft.AspNetCore.SignalR.Hub
     {
-        private readonly ILogger<UbiquitousHub> _logger;
-
-        public UbiquitousHub(ILogger<UbiquitousHub> logger)
+        
+        public override async Task OnConnectedAsync()
         {
-            _logger = logger;
+            await Clients.All.SendAsync("connected", Context.ConnectionId);
+            await base.OnConnectedAsync();
         }
 
-        public async Task InitializeAsync()
+        public override async Task OnDisconnectedAsync(Exception ex)
         {
-            try
-            {
-                await ConnectAsync();
-            }
-            catch
-            {
-                _logger.LogCritical("Failed to connect. Disconnecting.");
-                await DisconnectAsync();
-            }
+            await Clients.Others.SendAsync("disconnected", Context.ConnectionId);
+            await base.OnDisconnectedAsync(ex);
         }
-
-        private async Task ConnectAsync()
-        {
-            await Clients.Client(Context.ConnectionId).SendAsync("connected");
-        }
-
-        private async Task DisconnectAsync()
-        {
-            await Clients.Client(Context.ConnectionId).SendAsync("disconnected");
-        }
+        
+        
+        
     }
 }

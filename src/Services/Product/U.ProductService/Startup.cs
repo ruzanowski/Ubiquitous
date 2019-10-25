@@ -121,19 +121,18 @@ namespace U.ProductService
     {
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
+            services = services.AddScoped<IProductRepository, ProductRepository>()
+                .AddScoped<ICategoryRepository, CategoryRepository>()
+                .AddScoped<IManufacturerRepository, ManufacturerRepository>()
+                .AddIntegrationEventLog()
+                .AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>();
             
-            services.AddIntegrationEventLog();
-            services.AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>();
-
             return services;
         }
         
         public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
         {
-            services.AddSwaggerGen(options =>
+            return services.AddSwaggerGen(options =>
             {
                 options.DescribeAllEnumsAsStrings();
                 options.SwaggerDoc("v1", new OpenApiInfo
@@ -143,21 +142,17 @@ namespace U.ProductService
                     Description = "The Product Service HTTP API"
                 });
             });
-
-            return services;
         }
 
         public static IApplicationBuilder UseCustomSwagger(this IApplicationBuilder app, string pathBase)
         {
-            app.UseSwagger()
+            return app.UseSwagger()
                 .UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint(
                         $"{(!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty)}/swagger/v1/swagger.json",
                         "ProductService V1");
                 });
-
-            return app;
         }
 
         public static IServiceCollection AddCustomMapper(this IServiceCollection services)

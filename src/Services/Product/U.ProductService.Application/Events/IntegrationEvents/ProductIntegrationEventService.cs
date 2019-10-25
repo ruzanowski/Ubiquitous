@@ -28,11 +28,11 @@ namespace U.ProductService.Application.Events.IntegrationEvents
 
         public async Task PublishEventsThroughEventBusAsync(Guid transactionId)
         {
-            var pendingLogEvents = await _eventLogService.RetrieveEventLogsPendingToPublishAsync(transactionId);
+            var pendingLogEvents = await _eventLogService.RetrieveEventLogsPendingToPublishAsync();
 
             foreach (var logEvt in pendingLogEvents)
             {
-                _logger.LogInformation("----- Publishing integration event: {IntegrationEventId} from ProductService - ({@IntegrationEvent})", logEvt.EventId, logEvt.IntegrationEvent);
+                _logger.LogDebug("----- Publishing integration event: {IntegrationEventId}", logEvt.EventId);
 
                 try
                 {
@@ -51,8 +51,6 @@ namespace U.ProductService.Application.Events.IntegrationEvents
 
         public async Task AddAndSaveEventAsync(IntegrationEvent evt)
         {
-            _logger.LogDebug("----- Enqueuing integration event {IntegrationEventId} to repository ({@IntegrationEvent})", evt.Id, evt);
-
             await _eventLogService.SaveEventAsync(evt, _productContext.GetCurrentTransaction());
         }
     }

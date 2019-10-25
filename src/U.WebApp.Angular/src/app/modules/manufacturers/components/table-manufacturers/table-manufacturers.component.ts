@@ -1,8 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {Manufacturer} from "../../models/Manufacturer.model";
 import {ManufacturerService} from "../../manufacturers.service";
+import {Component, OnInit, ViewChild} from "@angular/core";
 
 @Component({
   selector: 'table-manufacturers',

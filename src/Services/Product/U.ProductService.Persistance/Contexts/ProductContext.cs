@@ -72,8 +72,7 @@ namespace U.ProductService.Persistance.Contexts
 
         public async Task<IDbContextTransaction> BeginTransactionAsync()
         {
-            if (HasActiveTransaction) 
-                return null;
+            if (_currentTransaction != null) return _currentTransaction;
 
             _currentTransaction = await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
 

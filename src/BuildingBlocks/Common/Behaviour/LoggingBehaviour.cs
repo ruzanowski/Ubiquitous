@@ -13,9 +13,9 @@ namespace U.Common.Behaviour
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            _logger.LogDebug($"----- Handling command {request.GetGenericTypeName()} {request}");
+            _logger.LogDebug($"----- Handling command {request.GetGenericTypeName()}");
             var response = await next();
-            _logger.LogDebug($"----- Command {request.GetGenericTypeName()} handled - response: {response}");
+            _logger.LogDebug($"----- Command {request.GetGenericTypeName()} handled");
 
             return response;
         }

@@ -1,69 +1,64 @@
-﻿import { Injectable } from '@angular/core';
-import { SecurityService } from './security.service';
-import { ConfigurationService } from './configuration.service';
-import { HubConnection, HubConnectionBuilder, LogLevel, HttpTransportType } from '@aspnet/signalr';
-import { ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
+﻿import {Injectable} from '@angular/core';
+import * as signalR from "@aspnet/signalr";
+import {LogLevel} from "@aspnet/signalr";
+import {ProductAddedEvent} from "../models/product-added-event.model";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class SignalrService {
-    private _hubConnection: HubConnection;
-    private SignalrHubUrl: string = '';
-    private msgSignalrSource = new Subject();
-    msgReceived$ = this.msgSignalrSource.asObservable();
+  connection: signalR.HubConnection;
+  public productsAdded: Array<ProductAddedEvent> = [];
+  public productsPublished: Array<ProductAddedEvent> = [];
+  public productsPropertiesChanged: Array<ProductAddedEvent> = [];
+  public usersConnected: Array<string> = [];
 
-    constructor(
-        private securityService: SecurityService,
-        private configurationService: ConfigurationService, private toastr: ToastrService,
-    ) {
-        if (this.configurationService.isReady) {
-            this.SignalrHubUrl = this.configurationService.serverSettings.signalrHubUrl;
-            this.init();
-        }
-        else {
-            this.configurationService.settingsLoaded$.subscribe(x => {
-                this.SignalrHubUrl = this.configurationService.serverSettings.signalrHubUrl;
-                this.init();
-            });
-        }            
-    }
 
-    public stop() {
-        this._hubConnection.stop();
-    }
+  constructor() {
+    this.connection = new signalR.HubConnectionBuilder()
+      .withUrl('http://localhost:5500/signalr')
+      .configureLogging(LogLevel.Trace)
+      .build();
+    this.connect();
+  }
 
-    private init() {
-        if (this.securityService.IsAuthorized == true) {
-            this.register();
-            this.stablishConnection();
-            this.registerHandlers();            
-        }        
+  public connect() {
+    if (this.connection.state === signalR.HubConnectionState.Disconnected) {
+      this.connection
+        .start()
+        .catch(err => console.log(err));
     }
+  }
 
-    private register() {
-        this._hubConnection = new HubConnectionBuilder()
-            .withUrl(this.SignalrHubUrl + '/hub/notificationhub', {
-                transport: HttpTransportType.LongPolling,
-                accessTokenFactory: () => this.securityService.GetToken()
-            })
-            .configureLogging(LogLevel.Information)
-            .build();
-    }
+  public subscribeOnEvents() {
 
-    private stablishConnection() {
-        this._hubConnection.start()
-            .then(() => {
-                console.log('Hub connection started')
-            })
-            .catch(() => {
-                console.log('Error while establishing connection')
-            });
-    }
+    this.connection.on('connected', (user : string) => {
+      console.log(JSON.stringify(user));
+      this.usersConnected.push(user);
+    });
 
-    private registerHandlers() {
-        this._hubConnection.on('UpdatedOrderState', (msg) => {
-            this.toastr.success('Updated to status: ' + msg.status, 'Order Id: ' + msg.orderId);
-            this.msgSignalrSource.next();
-        });
-    }
+    this.connection.on('disconnected', (user : string) => {
+      console.log(JSON.stringify(user));
+      this.usersConnected = this.usersConnected.filter(item => item !== user);
+    });
+
+    this.connection.on('ProductPublishedIntegrationEvent', (product) => {
+      console.log(JSON.stringify(product));
+      this.productsPublished.push(product);
+    });
+
+    this.connection.on('ProductPropertiesChangedIntegrationEvent', (product) => {
+      console.log(JSON.stringify(product));
+      this.productsPropertiesChanged.push(product);
+    });
+
+    this.connection.on('ProductAddedIntegrationEvent', (product) => {
+      console.log(JSON.stringify(product));
+      this.productsAdded.push(product);
+    });
+  }
+
+  public disconnect() {
+    this.connection.stop();
+  }
 }

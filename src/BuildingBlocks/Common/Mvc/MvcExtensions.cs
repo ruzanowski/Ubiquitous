@@ -53,8 +53,7 @@ namespace U.Common.Mvc
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials()
-                        .WithOrigins(allowedOrigins)
-                        .AllowAnyMethod().AllowAnyHeader());
+                        .WithOrigins(allowedOrigins));
             });
             
             services.AddSingleton<IServiceId, ServiceId>();
