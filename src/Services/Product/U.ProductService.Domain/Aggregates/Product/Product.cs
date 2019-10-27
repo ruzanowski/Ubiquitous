@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using U.ProductService.Domain.Aggregates.Category;
 using U.ProductService.Domain.Aggregates.Picture;
 using U.ProductService.Domain.Aggregates.Product;
@@ -143,25 +144,39 @@ namespace U.ProductService.Domain
             AddDomainEvent(@event);
         }
 
-        public void UpdateAllProperties(string name, string description, decimal price, Dimensions dimensions, DateTime updateGenerated)
+        public void UpdateProduct(string name, string description, decimal price, Dimensions dimensions, DateTime updateDispatchedFromOrigin)
         {
-            if (!LastUpdatedAt.HasValue || LastUpdatedAt.Value >= updateGenerated) return;
+            if (!LastUpdatedAt.HasValue || LastUpdatedAt.Value >= updateDispatchedFromOrigin) return;
 
             //avoiding any lagged-in-time updates 
-            Name = name;
-            Description = description;
-            Price = price;
-            Dimensions.Height = dimensions.Height;
-            Dimensions.Length = dimensions.Length;
-            Dimensions.Weight = dimensions.Weight;
-            Dimensions.Width = dimensions.Width;
 
+            UpdateProperties(this, name, description, price, dimensions);
+            
             var @event = new ProductPropertiesChangedDomainEvent(Id, Name, Price);
             AddDomainEvent(@event);
 
             // add new update saying event has been raised after last up-to-date update
         }
 
+        private void UpdateProperties(Product product, string name, string description, decimal price, Dimensions dimensions)
+        {
+            product.Name = name;
+            product.Description = description;
+            product.Price = price;
+            product.Dimensions.Height = dimensions.Height;
+            product.Dimensions.Length = dimensions.Length;
+            product.Dimensions.Weight = dimensions.Weight;
+            product.Dimensions.Width = dimensions.Width;
+        }
+        
+
+        public Product UpdatedDeepCopy(IMapper mapper, string name, string description, decimal price, Dimensions dimensions)
+        {
+            var deepCopyProduct = mapper.Map<Product>(this);
+            UpdateProperties(deepCopyProduct, name, description, price, dimensions);
+            return deepCopyProduct;
+        }
+        
         public void ChangeCategory(Guid newCategoryId)
         {
             CategoryId = newCategoryId;

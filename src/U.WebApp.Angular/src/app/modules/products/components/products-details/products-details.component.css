@@ -12,7 +12,10 @@
 
 td, th {
   text-align: center;
+  animation: forwards;
 }
+
+
 
 .product-detail:hover {
   animation: forwards;

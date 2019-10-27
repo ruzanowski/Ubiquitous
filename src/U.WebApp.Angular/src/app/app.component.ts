@@ -1,4 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {
+  Component, OnDestroy,
+  OnInit, ViewChild
+} from '@angular/core';
 import {LoaderService} from "./modules/shared/services/loader.service";
 import {SignalrService} from "./modules/shared/services/signalr.service";
 
@@ -9,12 +12,14 @@ import {SignalrService} from "./modules/shared/services/signalr.service";
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  public content: any;
+  mobileQuery: MediaQueryList;
+  private navMenuOpened: boolean = false;
 
-
-  constructor(private loaderService: LoaderService, private signalrService: SignalrService) {
+  constructor(private loaderService: LoaderService,
+              private signalrService: SignalrService) {
 
     this.signalrService.subscribeOnEvents();
+
   }
 
   ngOnInit() {
@@ -25,10 +30,15 @@ export class AppComponent implements OnInit, OnDestroy {
       /** spinner ends after 5 seconds */
       this.loaderService.hide();
     }, 5000);
+
   }
 
   ngOnDestroy(): void {
     this.signalrService.disconnect();
   }
+  receiveNavBarToggle($event) {
+    console.log('navbar toggle event received: ' + this.navMenuOpened);
+  }
+
 }
 

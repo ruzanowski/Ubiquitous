@@ -10,22 +10,31 @@ import {BrowserModule} from "@angular/platform-browser";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import {NgModule} from "@angular/core";
-import {MatGridListModule, MatIconModule, MatNativeDateModule, MatTabsModule} from "@angular/material";
+import {
+  MatButtonModule,
+  MatGridListModule,
+  MatIconModule, MatListModule,
+  MatNativeDateModule,
+  MatSidenavModule,
+  MatTabsModule
+} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {ManufacturersComponent} from "./modules/manufacturers/components/table-manufacturers/table-manufacturers.component";
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
-BrowserAnimationsModule,
+    BrowserAnimationsModule,
     MatNativeDateModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {path: '', component: AppComponent, pathMatch: 'full'},
+      {path: 'dashboard', component: AppComponent, pathMatch: 'full'},
       {path: 'products', component: ProductsComponent},
       {path: 'products/:id', component: ProductsDetailsComponent},
-      {path: 'categories', component: CategoryComponent}
+      {path: 'categories', component: CategoryComponent},
+      {path: 'manufacturers', component: ManufacturersComponent}
     ]),
     FlexLayoutModule,
     MatIconModule,
@@ -35,7 +44,10 @@ BrowserAnimationsModule,
     CategoryModule,
     MatGridListModule,
     MatTabsModule,
-    ManufacturerModule
+    ManufacturerModule,
+    MatSidenavModule,
+    MatListModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

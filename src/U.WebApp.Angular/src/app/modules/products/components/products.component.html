@@ -1,11 +1,11 @@
 <!--      <td><a class="product-detail" routerLink="/products/{{product.id}}">Details</a></td>-->
 <mat-form-field flex>
-  <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+  <input matInput [matDatepicker]="picker" placeholder="Choose a date" style="padding: 10px 10px 10px 40px;" >
   <mat-datepicker-toggle matSuffix [for]="picker" flex></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
 
-<mat-form-field flex>
+<mat-form-field style="padding: 10px" flex>
   <mat-label>Product category</mat-label>
   <mat-select flex disableRipple>
     <mat-option *ngFor="let category of categories?.data"
@@ -18,7 +18,7 @@
   </mat-select>
 </mat-form-field>
 
-<mat-form-field flex>
+<mat-form-field style="padding: 10px" flex>
   <mat-label flex>Product manufacturer</mat-label>
   <mat-select flex disableRipple [(ngModel)]="manufacturerIdFilter" (ngModelChange)="getProducts()">
     <mat-option *ngFor="let manufacturer of manufacturers?.data"

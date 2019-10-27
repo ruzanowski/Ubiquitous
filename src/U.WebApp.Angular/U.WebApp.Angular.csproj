@@ -36,8 +36,6 @@
         <Content Include="src\app\modules\shared\components\spinner-overlay\progress-spinner.component.html" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-        <None Include="src\app\modules\categories\components\categories.component.html" />
-        <None Include="src\app\modules\categories\components\categories.component.ts" />
         <None Include="src\app\modules\categories\components\table-category\table-categories.component.html" />
         <None Include="src\app\modules\categories\components\table-category\table-categories.component.ts" />
         <None Include="src\app\modules\categories\models\category.model.ts" />

@@ -1,29 +1,67 @@
 <body>
-<!--The content below is only a placeholder and can be replaced.-->
-<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
-  enabled. Please enable
-  Javascript and reload this page!</h2></noscript>
-
-<app-nav-menu></app-nav-menu>
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript!</h2></noscript>
+<app-nav-menu (navBarToggle)="receiveNavBarToggle($event); sidenav.toggle()"></app-nav-menu>
 <app-loader></app-loader>
-<div class="container">
-  <mat-tab-group>
-    <mat-tab label="Products">
-      <ng-template matTabContent>
-        <table-products></table-products>
-      </ng-template>
-    </mat-tab>
-    <mat-tab label="Categories">
-      <ng-template matTabContent>
-        <table-categories></table-categories>
-      </ng-template>
-    </mat-tab>
-    <mat-tab label="Manufacturers">
-      <ng-template matTabContent>
-        <table-manufacturers></table-manufacturers>
-      </ng-template>
-    </mat-tab>
-  </mat-tab-group>
-</div>
+
+<mat-sidenav-container>
+
+  <mat-sidenav #sidenav>
+    <mat-nav-list style="align-items: flex-start" mode="push" class="sideNavTheme">
+      <a mat-list-item routerLink="/dashboard">
+
+        <mat-icon small-icon aria-hidden="false" aria-label="dashboard icon" style="padding-right: 30px">dashboard
+        </mat-icon>
+        Dashboard</a>
+      <a mat-list-item routerLink="/products">
+        <mat-icon small-icon aria-hidden="false" aria-label="product icon" style="padding-right: 30px">redeem</mat-icon>
+        Products</a>
+      <a mat-list-item routerLink="/categories">
+        <mat-icon small-icon aria-hidden="false" aria-label="category icon" style="padding-right: 30px">category
+        </mat-icon>
+        Categories</a>
+      <a mat-list-item routerLink="/manufacturers">
+        <mat-icon small-icon aria-hidden="false" aria-label="manufacturers icon" style="padding-right: 30px">
+          supervised_user_circle
+        </mat-icon>
+        Manufacturers</a>
+      <a mat-list-item routerLink="/notifications">
+        <mat-icon small-icon aria-hidden="false" aria-label="notifications icon" style="padding-right: 30px">
+          notifications
+        </mat-icon>
+        Notifications</a>
+      <a mat-list-item routerLink="/dashboard">
+        <mat-icon small-icon aria-hidden="false" aria-label="payments icon" style="padding-right: 30px">payments
+        </mat-icon>
+        Payments</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+<!--  <div class="example-sidenav-content" class="contentTheme">-->
+  <mat-sidenav-content #tabs class="example-sidenav-content" class="contentTheme">
+    <mat-tab-group>
+      <mat-tab label="Products">
+        <ng-template matTabContent>
+          <table-products></table-products>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Categories">
+        <ng-template matTabContent>
+          <table-categories></table-categories>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Manufacturers">
+        <ng-template matTabContent>
+          <table-manufacturers></table-manufacturers>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-sidenav-content>
+
+  <div class="example-sidenav-content" class="contentTheme">
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>
+
+
 </body>
 

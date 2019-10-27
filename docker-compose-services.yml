@@ -19,6 +19,7 @@ services:
       - '/c/Users/Sebastian/Desktop/docker/productservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     networks:
       - ubiquitous
+    restart: unless-stopped
 
   u.smartstore-adapter:
     image: u.smartstore_adapter:latest
@@ -37,6 +38,7 @@ services:
       - '/c/Users/Sebastian/Desktop/docker/smartstoreadapter/appsettings.docker.json:/app/appsettings.docker.json:ro'
     networks:
       - ubiquitous
+    restart: unless-stopped
 
   u.fetch-service:
     image: u.fetch-service:latest
@@ -74,6 +76,7 @@ services:
       - '/c/Users/Sebastian/Desktop/docker/reportservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     networks:
       - ubiquitous
+    restart: unless-stopped
 
   u.notification-service:
     image: u.notification-service:latest

@@ -54,7 +54,7 @@ import {FlexLayoutModule, FlexModule} from "@angular/flex-layout";
     //providers, components
     NavMenuComponent,
     ProgressSpinnerComponent,
-    LoaderComponent
+    LoaderComponent,
   ]
 })
 export class SharedModule {
@@ -67,7 +67,8 @@ export class SharedModule {
         LoaderService,
         // ToastrService,
         { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
-        SignalrService
+        SignalrService,
+        NavMenuComponent
       ]
     };
   }
