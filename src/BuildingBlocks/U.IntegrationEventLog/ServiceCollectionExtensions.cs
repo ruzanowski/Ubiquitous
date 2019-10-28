@@ -7,7 +7,7 @@ namespace U.IntegrationEventLog
     {
         public static IServiceCollection AddIntegrationEventLog(this IServiceCollection services)
         {
-            services.AddTransient<IIntegrationEventLogService, IntegrationEventLogService>();
+            services.AddSingleton<IIntegrationEventLogService, IntegrationEventLogService>();
 
             return services;
         }

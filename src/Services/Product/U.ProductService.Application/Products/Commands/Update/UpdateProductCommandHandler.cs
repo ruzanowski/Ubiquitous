@@ -26,9 +26,12 @@ namespace U.ProductService.Application.Products.Commands.Update
 
         public async Task<Unit> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetAsync(command.ProductId);
+            if (command.Product is null)
+            {
+                command.Product = await _productRepository.GetAsync(command.ProductId);
+            }
             
-            if (product is null)
+            if (command.Product is null)
             {
                 _logger.LogInformation($"Product with id: '{command.ProductId}' has been not found");
                 throw new ProductNotFoundException($"Product with id: '{command.ProductId}' has not been found");
@@ -36,19 +39,23 @@ namespace U.ProductService.Application.Products.Commands.Update
 
             var dimensions = GetDimensions(command);
 
-            var deepCopyProduct = product.UpdatedDeepCopy(_mapper, command.Name, command.Description, command.Price, dimensions);
+            var deepCopyProduct = command.Product.UpdatedDeepCopy(_mapper, command.Name, command.Description, command.Price, dimensions);
             //determining properties differences delta
-            var variances = product.DetailedCompare(deepCopyProduct);
-            variances.AddRange(product.Dimensions.DetailedCompare(deepCopyProduct.Dimensions));
+            var variances = command.Product.DetailedCompare(deepCopyProduct);
+            variances.AddRange(command.Product.Dimensions.DetailedCompare(deepCopyProduct.Dimensions));
 
             if (variances.Any())
             {
-                product.UpdateProduct(command.Name, command.Description, command.Price, dimensions, DateTime.UtcNow);
-                _productRepository.Update(product);
+                command.Product.UpdateProduct(command.Name, command.Description, command.Price, dimensions, DateTime.UtcNow);
+                _productRepository.Update(command.Product);
             
                 _logger.LogInformation($"Product with id: '{command.ProductId}' has been updated");
             
                 await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            }
+            else
+            {
+                _logger.LogInformation($"Product with id: '{command.ProductId}' has not been updated - no changes");
             }
 
             return Unit.Value;

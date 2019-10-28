@@ -121,9 +121,9 @@ namespace U.ProductService
     {
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
-            services = services.AddScoped<IProductRepository, ProductRepository>()
-                .AddScoped<ICategoryRepository, CategoryRepository>()
-                .AddScoped<IManufacturerRepository, ManufacturerRepository>()
+            services = services.AddTransient<IProductRepository, ProductRepository>()
+                .AddTransient<ICategoryRepository, CategoryRepository>()
+                .AddTransient<IManufacturerRepository, ManufacturerRepository>()
                 .AddIntegrationEventLog()
                 .AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>();
             
@@ -170,7 +170,7 @@ namespace U.ProductService
         public static IServiceCollection AddCustomPipelineBehaviours(this IServiceCollection services)
         {
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TransactionBehaviour<,>));
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
+//            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
           //  services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
 
              return services;

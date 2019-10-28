@@ -78,8 +78,6 @@ namespace U.Common.WebHost
         {
             return new LoggerConfiguration()
                 .MinimumLevel.Verbose()
-                .Enrich.WithProperty("ApplicationContext", appName)
-                .Enrich.FromLogContext()
                 .WriteTo.Console()
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();    

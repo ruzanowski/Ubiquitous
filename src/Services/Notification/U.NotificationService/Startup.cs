@@ -92,11 +92,6 @@ namespace U.NotificationService
 
             app.UseSignalR(routes => { routes.MapHub<UbiquitousHub>("/signalr"); });
 
-//            app.UseConnections(routes =>
-//            {
-//                routes.MapConnectionHandler<MessagesConnectionHandler>("/signalr1");
-//            });
-
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
         }

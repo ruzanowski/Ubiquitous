@@ -9,6 +9,8 @@ namespace U.NotificationService.Hub
         
         public override async Task OnConnectedAsync()
         {
+            var user = Context.User;
+            
             await Clients.All.SendAsync("connected", Context.ConnectionId);
             await base.OnConnectedAsync();
         }
@@ -18,8 +20,5 @@ namespace U.NotificationService.Hub
             await Clients.Others.SendAsync("disconnected", Context.ConnectionId);
             await base.OnDisconnectedAsync(ex);
         }
-        
-        
-        
     }
 }

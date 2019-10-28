@@ -26,7 +26,7 @@ namespace U.ProductService.Application.Events.IntegrationEvents
             _eventLogService = new IntegrationEventLogService(productContext.Database.GetDbConnection());
         }
 
-        public async Task PublishEventsThroughEventBusAsync(Guid transactionId)
+        public async Task PublishEventsThroughEventBusAsync()
         {
             var pendingLogEvents = await _eventLogService.RetrieveEventLogsPendingToPublishAsync();
 

@@ -14,22 +14,21 @@ namespace U.IntegrationEventLog.Services
 {
     public class IntegrationEventLogService : IIntegrationEventLogService
     {
-        private readonly DbConnection _dbConnection;
         private readonly IntegrationEventLogContext _integrationEventLogContext;
         private readonly List<Type> _eventTypes;
 
         public IntegrationEventLogService(DbConnection dbConnection)
         {
-            _dbConnection = dbConnection ?? throw new ArgumentNullException(nameof(dbConnection));
             _integrationEventLogContext = new IntegrationEventLogContext(
                 new DbContextOptionsBuilder<IntegrationEventLogContext>()
-                    .UseNpgsql(_dbConnection)
+                    .UseNpgsql(dbConnection)
                     .ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning))
                     .Options);
 
             string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            List<Assembly> allAssemblies = Directory.GetFiles(path, "U.*.dll").Select(dll => Assembly.LoadFile(dll)).ToList();
+            List<Assembly> allAssemblies =
+                Directory.GetFiles(path, "U.*.dll").Select(dll => Assembly.LoadFile(dll)).ToList();
 
             _eventTypes = allAssemblies.SelectMany(
                 x => x.GetTypes()
@@ -40,17 +39,17 @@ namespace U.IntegrationEventLog.Services
 
         public async Task<IEnumerable<IntegrationEventLogEntry>> RetrieveEventLogsPendingToPublishAsync()
         {
-            return await _integrationEventLogContext.IntegrationEventLogs
+            var integrationEventLogs = await _integrationEventLogContext.IntegrationEventLogs
                 .Where(e => e.State == EventStateEnum.NotPublished)
                 .OrderBy(o => o.CreationTime)
-                .Select(e => e.DeserializeJsonContent(_eventTypes.Find(t=> t.Name == e.EventTypeShortName)))
-                .ToListAsync();              
+                .ToListAsync();
+            
+            return integrationEventLogs.Select(e =>
+                    e.DeserializeJsonContent(_eventTypes.Find(t => t.Name == e.EventTypeShortName)));
         }
 
         public Task SaveEventAsync(IntegrationEvent @event, IDbContextTransaction transaction)
         {
-//            if (transaction == null) throw new ArgumentNullException(nameof(transaction));
-
             var eventLogEntry = new IntegrationEventLogEntry(@event, transaction?.TransactionId);
 
             _integrationEventLogContext.Database.UseTransaction(transaction?.GetDbTransaction());
@@ -79,7 +78,7 @@ namespace U.IntegrationEventLog.Services
             var eventLogEntry = _integrationEventLogContext.IntegrationEventLogs.Single(ie => ie.EventId == eventId);
             eventLogEntry.State = status;
 
-            if(status == EventStateEnum.InProgress)
+            if (status == EventStateEnum.InProgress)
                 eventLogEntry.TimesSent++;
 
             _integrationEventLogContext.IntegrationEventLogs.Update(eventLogEntry);
