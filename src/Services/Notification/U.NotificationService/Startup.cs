@@ -16,11 +16,13 @@ using U.Common.Mvc;
 using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
-using U.NotificationService.Hub;
 using U.NotificationService.IntegrationEvents.ProductAdded;
 using U.NotificationService.IntegrationEvents.ProductPropertiesChanged;
 using U.NotificationService.IntegrationEvents.ProductPublished;
 using StackExchange.Redis;
+using U.NotificationService.Application.Hub;
+using U.NotificationService.Application.IntegrationEvents.ProductAdded;
+using U.NotificationService.Application.IntegrationEvents.ProductPropertiesChanged;
 
 namespace U.NotificationService
 {
@@ -90,7 +92,11 @@ namespace U.NotificationService
                 .UseServiceId()
                 .UseForwardedHeaders();
 
-            app.UseSignalR(routes => { routes.MapHub<UbiquitousHub>("/signalr"); });
+            app.UseSignalR(routes =>
+                {
+                    routes.MapHub<BaseHub>("/signalr");
+                }
+            );
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
