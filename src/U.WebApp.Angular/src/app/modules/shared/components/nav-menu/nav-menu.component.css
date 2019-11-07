@@ -1,10 +1,10 @@
 
 .fill-remaining-space {
-  flex: 1 1 auto;
+  flex: 2 1 auto;
 }
 
 .mat-icon {
-  font-size: 25px;
+  font-size: 23px;
 }
 
 .mat-button-wrapper{

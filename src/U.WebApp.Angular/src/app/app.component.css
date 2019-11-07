@@ -1,53 +1,18 @@
-.mat-tab-group {
-  margin-bottom: 48px;
-}
-
-/* -------------------  ELEVATION ---------------------------  */
-
-.mat-elevation-z0 {
-  position: relative;
-  z-index: 2;
-}
-
-.mat-elevation-z8 {
-  position: relative;
-  z-index: 2;
-}
-
-mat-sidenav{
+#sidenav {
   left: 0;
-  width: 10%
+  width: 15%
 }
 
-#small-icon{
+#notificationsSideBar {
+  width: 15%
+}
 
+#small-icon {
   font-size: 10px;
 }
 
-.sidenav-style{
-  background: orange;
-  width: 200px;
-}
-
-.body-margin{
-  margin-left: 10%;
-}
-
-md-grid-tile {
-  background:red
-
-}
-
-.sample-div{
-  width: 150px;
-  height: 75px;
-  background: #ff0066;
-  font-weight: bold;
-  color: white;
-}
-.contentTheme {
-  background-color: #ccc9c9;
-  height: 885px;
+.navItems {
+  text-align: center;
 }
 
 .sideNavTheme {
@@ -55,8 +20,3 @@ md-grid-tile {
   background-color: #f5f5f5;
   padding-top: 10px;
 }
-
-.navItems {
-  text-align: center;
-}
-

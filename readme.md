@@ -1,35 +1,69 @@
 # UBIQUITOUS. Real-Time Notification Manager.
-- [x] _Distributed_
 - [x] _Open Source_
-- [x] _Educational_
+- [x] _Distributed Event-Based System with Domain Driven Design approach_
+- [x] _Communication served by RabbitMQ & SignalR_
+
 
 | *Master*  | *Develop* |
 | --------- | --------- |
 | [![Master](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg) | [![Develop](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)
 
-# Purpose of the project
-Ubiquitous is an open-source Distributed .NET Core solution for:
-- ***subscription & notifications management,*** user can specify what products or groups of products he/she is interested to be notified
-- ***event processing and analysis,*** internal events are being processed and pushed to end user with respective generated event
-- ***administrative products management,*** user with admin rights has ability to manage products globally
+[1. Goal functionalities](#1goal-functionalities)
+[2. Purpose](#2purpose)
 
-# Reason behind the project
-- ***prime goal*** is education and giving my best around programming topics like DDD, high-performance, distributed systems 
-- Most of repositories I have visited are:
-    - Relatively small, hence no possibility to run into issues of performance
-    - Easy or well known domain (Orders, eShop)
+
+
+## 1. Goal functionalities
+----
+-  ***Notifications management*** 
+    - Channels
+        * [x] SignalR (WebSocket)
+        * [ ] Push notification (Toastr)
+        * [ ] E-mail
+    - Types
+        * [x] product published
+        * [x] product added
+        * [x] product properties changed
+    - Operations
+        * [ ] auto-confirm received notification
+        * [ ] hide notification
+        * [ ] remove notification
+        * [ ] silence type of notification
+-  ***Notifications persistency*** 
+    - each notification and subscribers state are persisted in PostgreSQL
+    - welcome notifications are sent from last 24hrs for first log-in
+* [ ] ***admin management (next versions)*** 
+    - Operations 
+        * [ ] manage products and its details thru product service API
+        * [ ] manage users subscriptions
+        * [ ] manage subscribers notifications
+
+## 2. Purpose
+- **prime goal** is/was an education and giving my best around programming topics like 
+     - .NET Core
+     - Microservices
+     - Docker
+     - DDD
+     - Angular
+     - ...
+     - and so much more
+- Secondly **most of repositories** I have visited were
+    - Relatively small, no possibility to run into issues of performance
+    - Easy concerns or well known domain (orders, eShop)
     - Unfinished
     
-#Architecture overview
-Whole backend was designed and implemented in .NET Core 2.2(current stable version). Front is (being) written in Angular (the newest). 
-    Down below, a diagram with containers and dependencies between them. 
+## 3. Architecture
+Whole solution is designed and broken down to
+   - **Frontend** is (being) implemented  in **Angular 7** with **Angular Material** as UI component infrastructure and Material Design components.
+   - **Backend** is (being) written in **.NET Core 2.2**(current stable version). 
+
+Down below, a services dependency diagram. See to #3.1 for listed used technologies, tools and their use.
     
 <p align="center">
    <img alt="Ubiquitous Service Architecture" src="img/ubiquitous-architecture.png" />
 </p>
 
-**Tech stack RoadMap**
-----------------
+## 3.1 Technology stack
 - ***EF Core 2.2*** *(ORM)*
 - ***RabbitMQ*** *(Service-service communication)*
 - ***Consul*** *(Service discovery, keep alive)*
@@ -42,17 +76,16 @@ Whole backend was designed and implemented in .NET Core 2.2(current stable versi
 - ***PostgreSql*** *(Database)*
 - ***Gitlab DevOps*** *(CI)*
 - ***SignalR*** *(Asynchronous communication, Notifications)*
-------
-- ***Angular*** **Currently in development**
------- 
-- ***Redis*** [todo] Distributed caching
+- ***Redis*** Distributed caching & SignalR backplane
+
+- ***Angular 7*** - **Currently in development**
+
 - ***Ocelot*** [todo] ApiGW
-- ***Zipkin*** [todo] tracing
+- ***Jaeger*** [todo] tracing
 - ***Grafana*** [todo] metrics
 - ***Prometheus*** [todo] metrics infrastructure
-- ***ELK Stack*** [todo] logging and analysis 
 
-**Current Angular-side progress**
+## 4. Client Side Overview
 -------
 
 <p align="center">
@@ -73,16 +106,33 @@ Whole backend was designed and implemented in .NET Core 2.2(current stable versi
 - ***IntegrationEvent Log*** Shared integration events dbContext for each project
 - ***EventBus RabbitMQ*** RawRabbit project encapsulating RabbitMQ asynchronous event bus
 - ***Common*** Shared code, DI registration, snippets
--------
 
-**Future Services**
-- ***Subscription Service*** Handles logic of user's intention for events notification
-- ***Identity Service*** Handles identification of user (rather wrapper over IdentityServer4)
-- ***Auth Service*** Handles multi tenant authorization cases allowing to generate expression trees, translatable by LinqToSQL
--------
+
+#xxxxxxxxxxxxRoadMap
+
+| *Task*  | *Priority* |*Status* | *Date* |
+| ------- | ---------- | ------  | ------ |
+|SmartStore Adapter|-----|Completed|07.2019|
+|Fetch Service|-----|Completed|07.2019|
+|ProductsGenerator Service|-----|Completed|07.2019|
+|Report Service(Caracan Liquid Project)|-----|Completed|08.2019|
+|Dockerization|-----|Completed|09.2019
+|Gitlab CI Pipelines|-----|Completed|09.2019
+|Product Service - Major Features|Critical|Completed|10.2019|
+|Dashboard Web-Side| Critical|Completed|10.2019|
+|Notifications SignalR & Basic Features|Critical|Completed|10.2019|
+|Notifications Management(confirm, hide, remove, mute)|Critical|In Progress||
+|Identity Service|Critical|||
+|Security (HTTPS)|High|||
+|Notifications new channels (push, e-mail)|Medium||
+|Admin Web-Side Panel (products)|Medium|||
+|Admin Web-Side Panel (subscribers, users)|Medium|||
+|Notification by E-mail| Medium||
+|Migration to .NET Core 3.0 |Low|||
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
 
 ## Inspired by (Repos worth to see)
 - [DevMentors](https://github.com/devmentors) and their great tutorial about .NET Core with top-class explanation

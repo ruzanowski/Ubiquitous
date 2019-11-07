@@ -5,7 +5,7 @@ using U.NotificationService.Infrastracture.Contexts;
 
 namespace U.NotificationService.Infrastracture.EntityConfigurations
 {
-    class ProductCategoryEntityTypeConfiguration : IEntityTypeConfiguration<Notification>
+    class NotificationEntityTypeConfiguration : IEntityTypeConfiguration<Notification>
     {
         public void Configure(EntityTypeBuilder<Notification> builder)
         {
@@ -13,15 +13,13 @@ namespace U.NotificationService.Infrastracture.EntityConfigurations
 
             builder.HasKey(o => o.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
-            
+
             builder.Property(x => x.CreationDate).IsRequired();
+            builder.Property(x => x.IntegrationEvent).IsRequired();
 
             builder.HasMany(x => x.Confirmations)
-                .WithOne(z => z.Notification)
-                .IsRequired(false);
-
-            builder.HasOne(o => o.IntegrationEvent)
-                .WithMany()
+                .WithOne()
+                .HasForeignKey(x => x.NotificationId)
                 .IsRequired();
         }
     }

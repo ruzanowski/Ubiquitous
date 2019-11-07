@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {DataService} from "../shared/services/data.service";
 import {Observable} from "rxjs";
-import {PaginatedItems} from "../shared/models/paginateditems.model";
 import {Product} from "./models/product.model";
 import {map} from "rxjs/operators";
+import {PaginatedItems} from "../shared/components/models/paginateditems.model";
 
 @Injectable()
 export class ProductService {

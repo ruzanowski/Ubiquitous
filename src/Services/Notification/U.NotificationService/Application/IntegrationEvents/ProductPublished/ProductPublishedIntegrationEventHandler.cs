@@ -10,18 +10,18 @@ namespace U.NotificationService.IntegrationEvents.ProductPublished
     public class ProductPublishedIntegrationEventHandler : IIntegrationEventHandler<ProductPublishedIntegrationEvent>
     {
         private readonly ILogger<ProductPublishedIntegrationEventHandler> _logger;
-        private readonly UbiquitousHub _ubiquitousHubContext;
+        private readonly PersistentHub _persistentHubContext;
 
         public ProductPublishedIntegrationEventHandler(ILogger<ProductPublishedIntegrationEventHandler> logger,
-            UbiquitousHub ubiquitousHubContext)
+            PersistentHub persistentHubContext)
         {
             _logger = logger;
-            _ubiquitousHubContext = ubiquitousHubContext;
+            _persistentHubContext = persistentHubContext;
         }
 
         public async Task Handle(ProductPublishedIntegrationEvent @event)
         {
-            await _ubiquitousHubContext.SaveAndSendToAllAsync(nameof(ProductPublishedIntegrationEvent), @event);
+            await _persistentHubContext.SaveAndSendToAllAsync(nameof(ProductPublishedIntegrationEvent), @event);
 
             _logger.LogInformation($"--- Pushed by SignalR: '{nameof(ProductPublishedIntegrationEvent)} ---");
         }

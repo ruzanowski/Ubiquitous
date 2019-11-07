@@ -20,9 +20,11 @@ using U.NotificationService.IntegrationEvents.ProductAdded;
 using U.NotificationService.IntegrationEvents.ProductPropertiesChanged;
 using U.NotificationService.IntegrationEvents.ProductPublished;
 using StackExchange.Redis;
+using U.Common.Database;
 using U.NotificationService.Application.Hub;
 using U.NotificationService.Application.IntegrationEvents.ProductAdded;
 using U.NotificationService.Application.IntegrationEvents.ProductPropertiesChanged;
+using U.NotificationService.Infrastracture.Contexts;
 
 namespace U.NotificationService
 {
@@ -42,6 +44,7 @@ namespace U.NotificationService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCustomMvc()
+                .AddDatabaseContext<NotificationContext>(Configuration)
                 .AddEventBusRabbitMq(Configuration)
                 .AddMediatR(typeof(Startup).GetTypeInfo().Assembly)
                 .AddCustomPipelineBehaviours()
@@ -92,11 +95,7 @@ namespace U.NotificationService
                 .UseServiceId()
                 .UseForwardedHeaders();
 
-            app.UseSignalR(routes =>
-                {
-                    routes.MapHub<BaseHub>("/signalr");
-                }
-            );
+            app.UseSignalR(routes => routes.MapHub<BaseHub>("/signalr"));
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
@@ -107,8 +106,7 @@ namespace U.NotificationService
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
             eventBus.Subscribe<ProductAddedIntegrationEvent, ProductAddedIntegrationEventHandler>();
             eventBus.Subscribe<ProductPublishedIntegrationEvent, ProductPublishedIntegrationEventHandler>();
-            eventBus
-                .Subscribe<ProductPropertiesChangedIntegrationEvent, ProductPropertiesChangedIntegrationEventHandler>();
+            eventBus.Subscribe<ProductPropertiesChangedIntegrationEvent, ProductPropertiesChangedIntegrationEventHandler>();
         }
 
         private void RegisterEventsHandlers(IServiceCollection services)
@@ -130,7 +128,8 @@ namespace U.NotificationService
     {
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
-            services = services.AddIntegrationEventLog();
+            services.AddIntegrationEventLog();
+            services.AddSingleton<PersistentHub>();
             return services;
         }
 

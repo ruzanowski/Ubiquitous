@@ -21,6 +21,10 @@ import {
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {ManufacturersComponent} from "./modules/manufacturers/components/table-manufacturers/table-manufacturers.component";
+import {NotificationsModule} from "./modules/notifications/notifications.module";
+import {DashboardModule} from "./modules/dashboard/dashboard.module";
+import {DashboardComponent} from "./modules/dashboard/components/dashboard/dashboard.component";
+import {OverlayModule} from "@angular/cdk/overlay";
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +34,8 @@ import {ManufacturersComponent} from "./modules/manufacturers/components/table-m
     MatNativeDateModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {path: 'dashboard', component: AppComponent, pathMatch: 'full'},
+      {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+      {path: 'dashboard', component: DashboardComponent},
       {path: 'products', component: ProductsComponent},
       {path: 'products/:id', component: ProductsDetailsComponent},
       {path: 'categories', component: CategoryComponent},
@@ -47,7 +52,10 @@ import {ManufacturersComponent} from "./modules/manufacturers/components/table-m
     ManufacturerModule,
     MatSidenavModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
+    DashboardModule,
+    NotificationsModule,
+    OverlayModule
   ],
   providers: [],
   bootstrap: [AppComponent]

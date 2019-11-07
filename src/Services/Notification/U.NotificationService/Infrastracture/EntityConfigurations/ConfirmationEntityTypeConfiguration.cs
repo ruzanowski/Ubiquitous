@@ -5,7 +5,7 @@ using U.NotificationService.Infrastracture.Contexts;
 
 namespace U.NotificationService.Infrastracture.EntityConfigurations
 {
-    class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Confirmation>
+    class ConfirmationEntityTypeConfiguration : IEntityTypeConfiguration<Confirmation>
     {
         public void Configure(EntityTypeBuilder<Confirmation> builder)
         {
@@ -13,7 +13,7 @@ namespace U.NotificationService.Infrastracture.EntityConfigurations
 
             builder.HasKey(o => o.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
-            
+
             builder.Property(x => x.User).IsRequired();
             builder.Property(x => x.ConfirmationDate).IsRequired();
             builder.Property(x => x.NotificationId).IsRequired();

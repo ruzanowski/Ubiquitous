@@ -46,8 +46,6 @@ EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Notification", "Service.Notification", "{20AE96FC-F1A7-4CA8-90F8-FEB6EBB6D11A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Subscription", "Service.Subscription", "{E17F057E-EC03-4D9A-82E6-4596E8A35277}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService", "src\Services\Notification\U.NotificationService\U.NotificationService.csproj", "{50F973C1-F7D9-438F-BA45-9C1BB84B8346}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.IntegrationTests", "src\Services\Product\U.ProductService.IntegrationTests\U.ProductService.IntegrationTests.csproj", "{4A1E232F-0F95-476E-A8C9-8587E307A5FD}"

@@ -3,11 +3,11 @@ import {Product} from "../models/product.model";
 import {ProductService} from "../product.service";
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {PaginatedItems} from "../../shared/models/paginateditems.model";
 import {Category} from "../../categories/models/category.model";
 import {CategoryService} from "../../categories/category.service";
 import {Manufacturer} from "../../manufacturers/models/Manufacturer.model";
 import {ManufacturerService} from "../../manufacturers/manufacturers.service";
+import {PaginatedItems} from "../../shared/components/models/paginateditems.model";
 
 @Component({
   selector: 'table-products',

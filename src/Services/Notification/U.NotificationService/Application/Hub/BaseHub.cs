@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using U.Common.Extensions;
 using U.EventBus.Events;
 using U.NotificationService.Application.ConnectionMapping;
@@ -12,17 +15,24 @@ using U.NotificationService.Infrastracture.Contexts;
 
 namespace U.NotificationService.Application.Hub
 {
-    public abstract class BaseHub : Microsoft.AspNetCore.SignalR.Hub
+    public class BaseHub : Microsoft.AspNetCore.SignalR.Hub
     {
         public static readonly ConnectionMapping<string> Connections =
             new ConnectionMapping<string>();
 
-        public abstract Task<IList<Notification>> LoadWelcomeMessages(Guid userId);
+        private readonly NotificationContext _context;
+        private readonly ILogger<BaseHub> _logger;
+
+        public BaseHub(NotificationContext context, ILogger<BaseHub> logger)
+        {
+            _context = context;
+            _logger = logger;
+        }
 
         public override async Task OnConnectedAsync()
         {
-            var fakeUserGuid = new Guid();
-            await LoadWelcomeMessages(fakeUserGuid);
+//            var fakeUserGuid = new Guid();
+            await LoadAndPushWelcomeMessages(Context.ConnectionId);
             await Clients.All.SendAsync("connected", Context.ConnectionId);
             await base.OnConnectedAsync();
         }
@@ -33,87 +43,45 @@ namespace U.NotificationService.Application.Hub
             await base.OnDisconnectedAsync(ex);
         }
 
-        public async Task MessageReceived(Guid eventId)
+        public async Task MessageReceived(Guid notifcationId)
         {
         }
 
-        public async Task DeleteMessage(Guid eventId)
+        public async Task DeleteMessage(Guid notifcationId)
         {
         }
 
-        public async Task HideMessage(Guid eventId)
+        public async Task HideMessage(Guid notifcationId)
         {
         }
-    }
 
-
-    public class UbiquitousHub : BaseHub
-    {
-        private readonly NotificationContext _context;
-
-        public UbiquitousHub(NotificationContext context)
+        private async Task LoadAndPushWelcomeMessages(string userId)
         {
-            _context = context;
-        }
-
-        public async Task SaveAndSendToAllAsync(string methodTag, IntegrationEvent @event)
-        {
-            var notification = new Notification
-            {
-                CreationDate = DateTime.UtcNow,
-                IntegrationEvent = @event
-            };
-
-            await _context.AddAsync(notification);
-            await _context.SaveChangesAsync();
-
-            await Clients.All
-                .SendAsync(methodTag, new
-                {
-                    IntegrationEvent = @event,
-                    NotificationId = notification.Id
-                });
-        }
-
-        public async Task SaveAndSendAsync(string methodTag, string who, IntegrationEvent @event)
-        {
-            var notification = new Notification
-            {
-                CreationDate = DateTime.UtcNow,
-                IntegrationEvent = @event
-            };
-
-            await _context.AddAsync(notification);
-            await _context.SaveChangesAsync();
-
-            await Clients.Client(who)
-                .SendAsync(methodTag, new
-                {
-                    IntegrationEvent = @event,
-                    NotificationId = notification.Id
-                });
-        }
-
-        public override async Task<IList<Notification>> LoadWelcomeMessages(Guid userId)
-        {
-            var notifications = await _context.Notifications.Where(notification =>
-                notification.Confirmations.Any(x =>
-                    (x.ConfirmationType == ConfirmationType.Unread ||
-                     x.ConfirmationType == ConfirmationType.Read) &&
-                    x.User.Equals(userId))
-            ).ToListAsync();
+            var notifications = await LoadWelcomeMessages(userId);
 
             foreach (var notification in notifications)
             {
-                await Clients.Client(userId.ToString()).SendAsync(notification.IntegrationEvent.GetGenericTypeName(),
-                    new
-                    {
-                        IntegrationEvent = notification.IntegrationEvent,
-                        NotificationId = notification.Id
-                    });
-            }
+                var welcomeNotification = new NotificationDto(notification.Id,
+                    JsonConvert.DeserializeObject<IntegrationEvent>(notification.IntegrationEvent),
+                    notification.IntegrationEventType);
 
-            return notifications;
+                await Clients.Client(userId).SendAsync("WelcomeNotifications",welcomeNotification);
+                _logger.LogDebug($"Sent historic notification: '{notification.Id}' to userId: '{userId}'.");
+
+            }
         }
+
+        private async Task<List<Notification>> LoadWelcomeMessages(string userId) =>
+            await _context.Notifications.Where(notification => !notification.Confirmations.Any() ||
+                                                               notification.Confirmations.Any(x =>
+//                    x.User.Equals(userId) && //turned off for now for testing
+                                                                   (x.ConfirmationType ==
+                                                                    ConfirmationType.Unread ||
+                                                                    x.ConfirmationType ==
+                                                                    ConfirmationType.Read))
+                ).OrderByDescending(x => x.CreationDate)
+                .Skip(0)
+                .Take(30)
+                .ToListAsync();
     }
 }

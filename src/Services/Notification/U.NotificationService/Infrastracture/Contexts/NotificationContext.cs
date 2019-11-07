@@ -10,15 +10,15 @@ namespace U.NotificationService.Infrastracture.Contexts
 
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Confirmation> Confirmations { get; set; }
-        
+
         public NotificationContext(DbContextOptions<NotificationContext> options) : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductCategoryEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ConfirmationEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new NotificationEntityTypeConfiguration());
         }
 
     }

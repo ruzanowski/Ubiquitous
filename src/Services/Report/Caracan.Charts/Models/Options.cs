@@ -4,9 +4,9 @@
     {
         //CHARTIST.AUTOSCALEAXIS
 
-        // If high is specified then the axis will display values explicitly up to this value and the computed maximum from the data is ignored
+        // If high is specified then the axis will display values explicitly up to this value and the computed maximum from the notificationNavBarToggled is ignored
         public int High { get; set; }
-        // If low is specified then the axis will display values explicitly down to this value and the computed minimum from the data is ignored
+        // If low is specified then the axis will display values explicitly down to this value and the computed minimum from the notificationNavBarToggled is ignored
         public int Low { get; set; }
         // This option will be used when finding the right scale division settings. The amount of ticks on the scale will be determined so that as many ticks as possible will be displayed, while not violating this minimum required space (in pixel).
         public int ScaleMinSpace { get; set; }
@@ -43,7 +43,7 @@
         public bool Donut { get; set; }
 
         public int DonutWidth { get; set; }
-        
+
         public int StartAngle { get; set; }
 
         public int Total { get; set; }

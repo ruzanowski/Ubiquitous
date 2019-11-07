@@ -1,6 +1,6 @@
 import {NgModule, ModuleWithProviders} from '@angular/core';
-import {CommonModule, ViewportScroller} from '@angular/common';
-import {FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {HTTP_INTERCEPTORS, HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -20,8 +20,8 @@ import {
 import {LoaderService} from "./services/loader.service";
 import {LoaderComponent} from "./components/loader/loader.component";
 import {LoaderInterceptor} from "../../loader.interceptor";
-import {SignalrService} from "./services/signalr.service";
 import {FlexLayoutModule, FlexModule} from "@angular/flex-layout";
+import {BrowserModule} from "@angular/platform-browser";
 
 @NgModule({
   imports: [
@@ -30,6 +30,7 @@ import {FlexLayoutModule, FlexModule} from "@angular/flex-layout";
     ReactiveFormsModule,
     RouterModule,
     NgbModule,
+    BrowserModule,
     // No need to export as these modules don't expose any components/directive etc'
     HttpClientModule,
     HttpClientJsonpModule,
@@ -54,7 +55,7 @@ import {FlexLayoutModule, FlexModule} from "@angular/flex-layout";
     //providers, components
     NavMenuComponent,
     ProgressSpinnerComponent,
-    LoaderComponent,
+    LoaderComponent
   ]
 })
 export class SharedModule {
@@ -65,10 +66,7 @@ export class SharedModule {
         DataService,
         OverlayService,
         LoaderService,
-        // ToastrService,
         { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
-        SignalrService,
-        NavMenuComponent
       ]
     };
   }

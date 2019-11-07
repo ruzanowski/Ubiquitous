@@ -15,9 +15,10 @@ import {
 } from "@angular/material";
 import {CategoryModule} from "../categories/category.module";
 import {CategoryService} from "../categories/category.service";
+import {FlexModule} from "@angular/flex-layout";
 
 @NgModule({
-  imports: [BrowserModule, SharedModule, MatTableModule, MatPaginatorModule, MatOptionModule, MatSelectModule, CategoryModule, MatListModule, MatDatepickerModule, MatInputModule, MatIconModule, MatCardModule],
+  imports: [BrowserModule, SharedModule, MatTableModule, MatPaginatorModule, MatOptionModule, MatSelectModule, CategoryModule, MatListModule, MatDatepickerModule, MatInputModule, MatIconModule, MatCardModule, FlexModule],
   declarations: [ProductsComponent, ProductsDetailsComponent],
   exports: [
     ProductsComponent

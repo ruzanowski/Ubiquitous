@@ -1,89 +1,84 @@
 <mat-toolbar>
 
-  <button mat-icon-button>
-    <mat-icon (click)="toggle()">menu</mat-icon>
+  <button fxShow="false" fxShow.gt-sm color="primary" mat-mini-fab #sideNavButton>
+    <mat-icon (click)="toggleSideNavMenu()">menu</mat-icon>
   </button>
 
-  <button mat-button routerLink="/">
-    <h3><b>Ubiquitous </b>- Notifications at one place </h3>
+  <button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm color="primary" mat-mini-fab #sideNavButton>
+    <mat-icon>menu</mat-icon>
   </button>
 
-  <!-- This fills the remaining space of the current row -->
-  <span class="fill-remaining-space"></span>
-  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <button mat-button routerLink="/dashboard">
-      <mat-icon aria-hidden="false" aria-label="dashboard icon" style="padding-right: 30px;">dashboard</mat-icon>
-      Dashboard
-    </button>
-    <button mat-button routerLink="/products">
-      <mat-icon aria-hidden="false" aria-label="product icon" style="padding-right: 30px">redeem</mat-icon>
-      Products
-    </button>
-    <button mat-button routerLink="/categories">
-      <mat-icon aria-hidden="false" aria-label="category icon" style="padding-right: 30px">category</mat-icon>
-      Categories
-    </button>
-    <button mat-button routerLink="/manufacturers">
-      <mat-icon aria-hidden="false" aria-label="manufacturers icon" style="padding-right: 30px">supervised_user_circle
-      </mat-icon>
-      Manufacturers
-    </button>
-    <button mat-button routerLink="/notifications">
-      <mat-icon aria-hidden="false" aria-label="notifications icon" style="padding-right: 30px">notifications</mat-icon>
-      Notifications
-    </button>
-    <button mat-button routerLink="/dashboard">
-      <mat-icon aria-hidden="false" aria-label="payments icon" style="padding-right: 30px">payments</mat-icon>
-      Payments
-    </button>
-
-  </div>
-  <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
-    <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
-  </button>
-
-</mat-toolbar>
-<mat-menu x-position="after" #menu="matMenu" yPosition="below">
-  <button mat-menu-item routerLink="/dashboard">
+  <mat-menu x-position="after" #menu="matMenu" yPosition="below">
+    <button mat-menu-item routerLink="/dashboard">
     <span class="mat-button-wrapper" style="font-size: 30px; size: 40px">
-    <mat-icon aria-hidden="false" aria-label="dashboard icon" style="padding-right: 30px">dashboard</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="dashboard icon"
+              style="padding-right: 30px; font-size: 30px">dashboard</mat-icon>
     Dashboard
     </span>
-  </button>
-  <button mat-menu-item routerLink="/products">
+    </button>
+    <button mat-menu-item routerLink="/products" color="primary">
     <span class="mat-button-wrapper">
-    <mat-icon aria-hidden="false" aria-label="product icon" style="padding-right: 30px; font-size: 30px">redeem</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="product icon"
+              style="padding-right: 30px; font-size: 30px">redeem</mat-icon>
     Products
     </span>
 
-  </button>
-  <button mat-menu-item routerLink="/categories">
+    </button>
+    <button mat-menu-item routerLink="/categories">
     <span class="mat-button-wrapper">
-    <mat-icon aria-hidden="false" aria-label="category icon" style="padding-right: 30px; font-size: 30px">category</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="category icon"
+              style="padding-right: 30px; font-size: 30px">category</mat-icon>
     Categories
     </span>
-
-  </button>
-  <button mat-menu-item routerLink="/manufacturers">
+    </button>
+    <button mat-menu-item routerLink="/manufacturers">
     <span class="mat-button-wrapper">
     <mat-icon aria-hidden="false" aria-label="manufacturers icon" style="padding-right: 30px; font-size: 30px">supervised_user_circle
     </mat-icon>
     Manufacturers
     </span>
 
-  </button>
-  <button mat-menu-item routerLink="/notifications">
+    </button>
+    <button mat-menu-item >
     <span class="mat-button-wrapper">
     <mat-icon aria-hidden="false" aria-label="notifications icon" style="padding-right: 30px; font-size: 30px">notifications</mat-icon>
     Notifications
     </span>
-  </button>
-  <button mat-menu-item routerLink="/dashboard">
+    </button>
+    <button mat-menu-item routerLink="/dashboard">
     <span class="mat-button-wrapper">
-    <mat-icon aria-hidden="false" aria-label="payments icon" style="padding-right: 30px; font-size: 30px">payments</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="payments icon"
+              style="padding-right: 30px; font-size: 30px">payments</mat-icon>
     Payments
     </span>
+    </button>
+  </mat-menu>
+
+  <button mat-button routerLink="/">
+    <h3><b>Ubiquitous</b> - Notifications at one place </h3>
   </button>
-  <!--<button mat-menu-item>Help</button>-->
-</mat-menu>
-<!--<router-outlet></router-outlet>-->
+
+  <span class="fill-remaining-space"></span>
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <button mat-button routerLink="/dashboard" >
+      <mat-icon aria-hidden="false" aria-label="dashboard icon" style="padding-right: 20px;">dashboard</mat-icon>
+    </button>
+    <button mat-button routerLink="/products">
+      <mat-icon aria-hidden="false" aria-label="product icon" style="padding-right: 20px">redeem</mat-icon>
+    </button>
+    <button mat-button routerLink="/categories">
+      <mat-icon aria-hidden="false" aria-label="category icon" style="padding-right: 20px">category</mat-icon>
+    </button>
+    <button mat-button routerLink="/manufacturers">
+      <mat-icon aria-hidden="false" aria-label="manufacturers icon" style="padding-right: 20px">supervised_user_circle
+      </mat-icon>
+    </button>
+  </div>
+
+  <button (click)="toggleNotificationMenu()" #NotificationsSideNavButton color="primary" mat-mini-fab>
+    <mat-icon aria-hidden="false" aria-label="notifications icon" style="padding-right: 20px">notifications
+    </mat-icon>
+  </button>
+
+</mat-toolbar>
+
