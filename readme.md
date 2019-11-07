@@ -3,6 +3,8 @@
 - [x] _Distributed Event-Based System with Domain Driven Design approach_
 - [x] _Communication served by RabbitMQ & SignalR_
 
+
+
 - [1. Functionalities](#-1-functionalities)
     - [1.1 Purpose](#11-purpose)
 - [2. Server Side Architecture](#1goal-functionalities)
