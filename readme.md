@@ -3,11 +3,6 @@
 - [x] _Distributed Event-Based System with Domain Driven Design approach_
 - [x] _Communication served by RabbitMQ & SignalR_
 
-
-| *Master*  | *Develop* |
-| --------- | --------- |
-| [![Master](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg) | [![Develop](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)
-
 - [1. Functionalities](#-1-functionalities)
     - [1.1 Purpose](#11-purpose)
 - [2. Server Side Architecture](#1goal-functionalities)
@@ -25,6 +20,12 @@
 - [7. Author](#7-author)
 - [8. Inspirations & Thanks](#8-inspirations--thanks)
 - [9. License](#9-license)
+
+
+| *Master*  | *Develop* |
+| --------- | --------- |
+| [![Master](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/build.svg) | [![Develop](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/build.svg)
+
 
 # 1. Introduction
 
@@ -68,15 +69,16 @@
     
 ## 1.3 Install
 
-- Prerequisites
+####1.3.0. Prerequisites
+
     - Docker
     - Docker composer
     
-#####1.3.1. Run 
+####1.3.1. Run 
 ```cmd
 docker-compose -f docker-compose-infrastructure.yml up
 ```
-#####1.3.2. Enter localhost:5450 (PGAdmin) and run
+####1.3.2. Enter localhost:5450 (PGAdmin) and run
 ```postgresql
 CREATE DATABASE product-service;
 CREATE DATABASE smartstore-adapter;
@@ -84,15 +86,15 @@ CREATE DATABASE fetch-service;
 CREATE DATABASE notification-service;
 ```
 
-#####1.3.3. Replace value from file '.env' and row 'RELATIVEPATH' to your relative path indicating folder containing folders with appsettings or adjust them to your preferenes.
+####1.3.3. Replace value from file '.env' and row 'RELATIVEPATH' to your relative path indicating folder containing folders with appsettings or adjust them to your preferenes.
 
-#####1.3.4. Run 
+####1.3.4. Run 
 
 ```cmd
 docker-compose -f docker-compose-services.yml up
 ```
 
-#####5. You can manage all containers from portainer dashboard.
+####1.3.5. You can manage all containers from portainer dashboard.
 
 <p align="center">
    <img alt="Portainer dashboard" src="img/Portainer.png" />
@@ -155,6 +157,7 @@ Down below, a services dependency diagram. See to #3.1 for listed used technolog
         - Pagination
         
 ### 2.4 API - Front communication
+
 _To be determined_
   
 ### 2.5 Security
@@ -162,7 +165,6 @@ _To be determined_
 _To be determined_
         
 ## 3. Client Side Overview
--------
 
 <p align="center">
    <img alt="Ubiquitous front-end progress" src="img/ubiquitous-current-state.png" />
