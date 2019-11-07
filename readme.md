@@ -38,7 +38,7 @@
         * [ ] manage users subscriptions
         * [ ] manage subscribers notifications
 
-## 2. Purpose
+## 1.1 Purpose
 - **prime goal** is/was an education and giving my best around programming topics like 
      - .NET Core
      - Microservices
@@ -52,7 +52,7 @@
     - Easy concerns or well known domain (orders, eShop)
     - Unfinished
     
-## 3. Architecture
+## 2. Server Side Architecture
 Whole solution is designed and broken down to
    - **Frontend** is (being) implemented  in **Angular 7** with **Angular Material** as UI component infrastructure and Material Design components.
    - **Backend** is (being) written in **.NET Core 2.2**(current stable version). 
@@ -63,7 +63,7 @@ Down below, a services dependency diagram. See to #3.1 for listed used technolog
    <img alt="Ubiquitous Service Architecture" src="img/ubiquitous-architecture.png" />
 </p>
 
-## 3.1 Technology stack
+## 2.1 Server Side Technologies And Tools
 - ***EF Core 2.2*** *(ORM)*
 - ***RabbitMQ*** *(Service-service communication)*
 - ***Consul*** *(Service discovery, keep alive)*
@@ -78,21 +78,12 @@ Down below, a services dependency diagram. See to #3.1 for listed used technolog
 - ***SignalR*** *(Asynchronous communication, Notifications)*
 - ***Redis*** Distributed caching & SignalR backplane
 
-- ***Angular 7*** - **Currently in development**
-
 - ***Ocelot*** [todo] ApiGW
 - ***Jaeger*** [todo] tracing
 - ***Grafana*** [todo] metrics
 - ***Prometheus*** [todo] metrics infrastructure
 
-## 4. Client Side Overview
--------
-
-<p align="center">
-   <img alt="Ubiquitous front-end progress" src="img/ubiquitous-current-state.png" />
-</p>
-
-**Services RoadMap**
+## 2.2 Services
 -------
 **Services**
 - ***SmartStore Adapter*** Wholesale, source of data
@@ -101,11 +92,34 @@ Down below, a services dependency diagram. See to #3.1 for listed used technolog
 - ***Report Service*** Handles reports and its generation thanks to [Caracan](https://github.com/caracan-team)
 - ***Notification Service*** Handles notifications and channels it by WebSocket
 -------
+## 2.3 Cross-Cutting Concerns
 
 **Modules**
 - ***IntegrationEvent Log*** Shared integration events dbContext for each project
-- ***EventBus RabbitMQ*** RawRabbit project encapsulating RabbitMQ asynchronous event bus
-- ***Common*** Shared code, DI registration, snippets
+- ***EventBus RabbitMQ*** 
+    - RabbitMQ asynchronous queue shared logic
+- ***Common*** 
+    - Shared logic
+        - Tracing (Jaeger)
+        - Logging (Serilog)
+        - Service Discovery (Consul)
+        - Load Balancing (Fabio)
+        - Resiliency (Polly)
+        - Pagination
+## 3. Client Side Overview
+-------
+
+<p align="center">
+   <img alt="Ubiquitous front-end progress" src="img/ubiquitous-current-state.png" />
+</p>
+
+## 4.1 Client Side technologies and tools
+- ***Angular 7***
+- ***Angular Material*** 
+- ***RxJS***
+- ***ASPNET SignalR***
+
+
 
 
 #xxxxxxxxxxxxRoadMap
