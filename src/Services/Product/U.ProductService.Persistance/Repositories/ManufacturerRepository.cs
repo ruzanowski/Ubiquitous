@@ -39,9 +39,9 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<Manufacturer> GetUniqueClientIdAsync(string uniqueClientId)
         {
-            var product =
+            var manufacturer =
                 await _context.Manufacturers.FirstOrDefaultAsync(x => x.UniqueClientId.Equals(uniqueClientId));
-            return product;
+            return manufacturer;
         }
 
         public async Task<bool> AnyAsync(Guid id) => await _context.Manufacturers.AnyAsync(x => x.Id.Equals(id));

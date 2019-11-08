@@ -1,23 +1,29 @@
 <!--      <td><a class="product-detail" routerLink="/products/{{product.id}}">Details</a></td>-->
-<mat-form-field flex>
-  <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+<mat-form-field style="padding-left: 30px; padding-right: 30px">
+  <input matInput [matDatepicker]="picker" placeholder="Choose a date" style="padding: 10px 10px 10px 40px;" >
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
 
-<mat-form-field flex="30">
+<mat-form-field style="padding-left: 30px; padding-right: 30px">
   <mat-label>Product category</mat-label>
-  <mat-select>
-    <mat-option *ngFor="let category of categories.data" [value]="category.name">
+  <mat-select flex disableRipple>
+    <mat-option *ngFor="let category of categories?.data"
+                [value]="category.categoryId"
+                (ngModelChange)="getProducts()"
+                [(ngModel)]="categoryIdFilter"
+                ngDefaultControl>
       {{category.name}}
     </mat-option>
   </mat-select>
 </mat-form-field>
 
-<mat-form-field flex="30">
-  <mat-label>Product manufacturer</mat-label>
-  <mat-select>
-    <mat-option *ngFor="let manufacturer of manufacturers.data" [value]="manufacturer.name">
+<mat-form-field style="padding-left: 30px; padding-right: 30px">
+  <mat-label flex>Product manufacturer</mat-label>
+  <mat-select flex disableRipple [(ngModel)]="manufacturerIdFilter" (ngModelChange)="getProducts()">
+    <mat-option *ngFor="let manufacturer of manufacturers?.data"
+                [value]="manufacturer.id"
+                ngDefaultControl>
       {{manufacturer.name}}
     </mat-option>
   </mat-select>
@@ -25,56 +31,55 @@
 
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
-
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name</th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center"> name</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.name}} </td>
     </ng-container>
 
     <!-- price Column -->
     <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef> price</th>
-      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center"> price</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.price}} </td>
     </ng-container>
 
     <!-- description Column -->
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef> description</th>
-      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    <ng-container matColumnDef="description" >
+      <th mat-header-cell *matHeaderCellDef style="text-align: center"> description</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.description}} </td>
     </ng-container>
 
     <!-- height Column -->
     <ng-container matColumnDef="height">
-      <th mat-header-cell *matHeaderCellDef> height</th>
-      <td mat-cell *matCellDef="let element"> {{element.dimensions.height}} </td>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center"> height</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.dimensions.height}} </td>
     </ng-container>
 
     <!-- width Column -->
     <ng-container matColumnDef="width">
-      <th mat-header-cell *matHeaderCellDef> width</th>
-      <td mat-cell *matCellDef="let element"> {{element.dimensions.width}} </td>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center"> width</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.dimensions.width}} </td>
     </ng-container>
 
     <!-- length Column -->
     <ng-container matColumnDef="length">
-      <th mat-header-cell *matHeaderCellDef> length</th>
-      <td mat-cell *matCellDef="let element"> {{element.dimensions.length}} </td>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center"> length</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.dimensions.length}} </td>
     </ng-container>
 
     <!-- weight Column -->
     <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef> weight</th>
-      <td mat-cell *matCellDef="let element"> {{element.dimensions.weight}} </td>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center"> weight</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.dimensions.weight}} </td>
     </ng-container>
 
     <!-- lastupdated Column -->
     <ng-container matColumnDef="lastUpdated">
-      <th mat-header-cell *matHeaderCellDef> LastUpdated</th>
-      <td mat-cell *matCellDef="let element"> {{element.lastFullUpdateDateTime | date: 'short'}} </td>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center"> last updated at</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.lastFullUpdateDateTime | date: 'short'}} </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" style="text-align: center"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 

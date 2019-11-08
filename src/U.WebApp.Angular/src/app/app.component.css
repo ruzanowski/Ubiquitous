@@ -1,9 +1,22 @@
-/*@media (max-width: 767px) {*/
-/*  !* On small screens, the nav menu spans the full width of the screen. Leave a space for it. *!*/
-/*  .body-content {*/
-/*    padding-top: 50px;*/
-/*  }*/
-/*}*/
-.mat-tab-group {
-  margin-bottom: 48px;
+#sidenav {
+  left: 0;
+  width: 15%
+}
+
+#notificationsSideBar {
+  width: 15%
+}
+
+#small-icon {
+  font-size: 10px;
+}
+
+.navItems {
+  text-align: center;
+}
+
+.sideNavTheme {
+  width: 180px;
+  background-color: #f5f5f5;
+  padding-top: 10px;
 }

@@ -3,7 +3,7 @@
 	public class MediaStorage : BaseEntity
 	{
 		/// <summary>
-		/// Binary data
+		/// Binary notificationNavBarToggled
 		/// </summary>
 		public byte[] Data { get; set; }
 	}

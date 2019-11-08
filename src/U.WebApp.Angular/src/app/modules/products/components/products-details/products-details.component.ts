@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {Product} from "../../models/product.model";
-import {PaginatedItems} from "../../../shared/models/paginateditems.model";
 import {catchError} from "rxjs/operators";
 import {ProductService} from "../../product.service";
 import {throwError} from "rxjs";
-import {stringify} from "@angular/compiler/src/util";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-product',
-  templateUrl: './products-details.component.html'
+  templateUrl: './products-details.component.html',
+  styleUrls: ['./products-details.component.css']
 })
 export class ProductsDetailsComponent implements OnInit {
   private product: Product;
@@ -31,7 +30,7 @@ export class ProductsDetailsComponent implements OnInit {
       .pipe(catchError((err) => this.handleError(err)))
       .subscribe(product => {
         this.product = product;
-        console.log('products retrieved: ' + stringify(product));
+        console.log('products retrieved: ' + product);
       });
   }
 

@@ -1,6 +1,7 @@
 using AutoMapper;
 using U.ProductService.Application.Events.IntegrationEvents.Events;
 using U.ProductService.Application.Pictures.Models;
+using U.ProductService.Application.Products.Commands.Update;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain;
 
@@ -18,6 +19,14 @@ namespace U.ProductService.Application.Common.Mapping
                 .ForMember(x => x.MimeType, opt => opt.MapFrom(src => src.MimeType.Name));
 
             CreateMap<ProductViewModel, ReportProductPayload>();
+
+            CreateMap<UpdateProductCommand, Product>()
+                .ReverseMap()
+                .ForMember(x => x.Dimensions, opt => opt.MapFrom(y => y.Dimensions))
+                .ForMember(x => x.ProductId, opt => opt.MapFrom(y => y.Id))
+                .ForAllOtherMembers(z => z.Ignore());
+
+
         }
     }
 }

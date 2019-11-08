@@ -14,6 +14,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
@@ -28,6 +29,10 @@
         <Content Include="proxy.conf.json" />
         <Content Include="src\app\modules\categories\components\table-category\table-categories.component.css" />
         <Content Include="src\app\modules\manufacturers\components\table-manufacturers\table-manufacturers.component.css" />
+        <Content Include="src\app\modules\notifications\components\notifications-list\notifications.component.css" />
+        <Content Include="src\app\modules\notifications\components\notifications-list\notifications.component.html" />
+        <Content Include="src\app\modules\notifications\components\todo-notification-card\notification-card.component.html" />
+        <Content Include="src\app\modules\notifications\components\todo-notification-card\notification-card.component.css" />
         <Content Include="src\app\modules\products\components\products-details\products-details.component.css" />
         <Content Include="src\app\modules\products\components\products.component.css" />
         <Content Include="src\app\modules\shared\components\loader\loader.component.css" />
@@ -35,16 +40,13 @@
         <Content Include="src\app\modules\shared\components\spinner-overlay\progress-spinner.component.html" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-        <None Include="src\app\modules\categories\components\categories.component.html" />
-        <None Include="src\app\modules\categories\components\categories.component.ts" />
         <None Include="src\app\modules\categories\components\table-category\table-categories.component.html" />
         <None Include="src\app\modules\categories\components\table-category\table-categories.component.ts" />
         <None Include="src\app\modules\categories\models\category.model.ts" />
         <None Include="src\app\modules\categories\product.service.ts" />
-        <None Include="src\app\modules\products\components\products-details\products.component.html" />
+        <None Include="src\app\modules\dashboard\components\dashboard-main-tabs\dashboard-main-tabs.component.ts" />
         <None Include="src\app\modules\products\components\products.component.html" />
         <None Include="src\app\modules\products\components\products.component.ts" />
-        <None Include="src\app\modules\shared\models\category.model.ts" />
     </ItemGroup>
 
     <ItemGroup>
@@ -98,16 +100,23 @@
     </ItemGroup>
 
     <ItemGroup>
-      <TypeScriptCompile Include="src\app\guid.ts" />
       <TypeScriptCompile Include="src\app\loader.interceptor.ts" />
       <TypeScriptCompile Include="src\app\modules\categories\category.module.ts" />
+      <TypeScriptCompile Include="src\app\modules\dashboard\dashboard.module.ts" />
       <TypeScriptCompile Include="src\app\modules\manufacturers\manufacturer.module.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\components\notifications-list\notifications.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\components\todo-notification-card\notification-card.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\models\notification.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\models\product-added-event.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\models\product-properties-changed-event.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\models\product-published-event.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\notifications.module.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\services\signalr.service.ts" />
       <TypeScriptCompile Include="src\app\modules\products\product.module.ts" />
       <Content Include="src\app\modules\shared\components\spinner-overlay\progress-spinner.component.css" />
       <TypeScriptCompile Include="src\app\modules\shared\components\loader\loader.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\components\models\paginateditems.model.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\components\spinner-overlay\progress-spinner.component.ts" />
-      <TypeScriptCompile Include="src\app\modules\shared\models\configuration.model.ts" />
-      <TypeScriptCompile Include="src\app\modules\shared\models\paginateditems.model.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\services\data.service.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\services\loader.service.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\services\overlay.service.ts" />

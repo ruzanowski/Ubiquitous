@@ -1,6 +1,6 @@
 import {NgModule, ModuleWithProviders} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {HTTP_INTERCEPTORS, HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -10,10 +10,18 @@ import {DataService} from './services/data.service';
 import {NavMenuComponent} from "./components/nav-menu/nav-menu.component";
 import {ProgressSpinnerComponent} from "./components/spinner-overlay/progress-spinner.component";
 import {OverlayService} from "./services/overlay.service";
-import {MatProgressBarModule, MatProgressSpinnerModule} from "@angular/material";
+import {
+  MatButtonModule, MatGridListModule,
+  MatIconModule, MatMenuModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatToolbarModule
+} from "@angular/material";
 import {LoaderService} from "./services/loader.service";
 import {LoaderComponent} from "./components/loader/loader.component";
 import {LoaderInterceptor} from "../../loader.interceptor";
+import {FlexLayoutModule, FlexModule} from "@angular/flex-layout";
+import {BrowserModule} from "@angular/platform-browser";
 
 @NgModule({
   imports: [
@@ -22,11 +30,19 @@ import {LoaderInterceptor} from "../../loader.interceptor";
     ReactiveFormsModule,
     RouterModule,
     NgbModule,
+    BrowserModule,
     // No need to export as these modules don't expose any components/directive etc'
     HttpClientModule,
     HttpClientJsonpModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    FlexModule,
+    FlexLayoutModule,
+    MatGridListModule,
   ],
   declarations: [NavMenuComponent, ProgressSpinnerComponent, LoaderComponent],
   exports: [
@@ -50,7 +66,7 @@ export class SharedModule {
         DataService,
         OverlayService,
         LoaderService,
-        { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
       ]
     };
   }

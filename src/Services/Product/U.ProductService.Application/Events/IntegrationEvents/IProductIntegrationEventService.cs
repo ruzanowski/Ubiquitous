@@ -6,7 +6,7 @@ namespace U.ProductService.Application.Events.IntegrationEvents
 {
     public interface IProductIntegrationEventService
     {
-        Task PublishEventsThroughEventBusAsync(Guid transactionId);
+        Task PublishEventsThroughEventBusAsync();
         Task AddAndSaveEventAsync(IntegrationEvent evt);
     }
 }

@@ -35,7 +35,7 @@ namespace U.SmartStoreAdapter.Domain.Entities.Catalog
 		private ICollection<ProductCategory> _productCategories;
         private ICollection<ProductManufacturer> _productManufacturers;
         private ICollection<ProductPicture> _productPictures;
-        
+
         private int _stockQuantity;
 		private string _sku;
 		private string _gtin;
@@ -234,7 +234,7 @@ namespace U.SmartStoreAdapter.Domain.Entities.Catalog
 		/// </summary>
 		[DataMember]
 		public int TaxCategoryId { get; set; }
-		
+
 
 		/// <summary>
 		/// Gets or sets the stock quantity
@@ -302,13 +302,13 @@ namespace U.SmartStoreAdapter.Domain.Entities.Catalog
 		public string AllowedQuantities { get; set; }
 
 		/// <summary>
-		/// Gets or sets a value indicating whether to disable buy (Add to cart) button
+		/// Gets or sets a value indicating whether to disable buy (Add to cart) notificationsSideBar
 		/// </summary>
 		[DataMember]
 		public bool DisableBuyButton { get; set; }
 
 		/// <summary>
-		/// Gets or sets a value indicating whether to disable "Add to wishlist" button
+		/// Gets or sets a value indicating whether to disable "Add to wishlist" notificationsSideBar
 		/// </summary>
 		[DataMember]
 		public bool DisableWishlistButton { get; set; }
@@ -393,8 +393,8 @@ namespace U.SmartStoreAdapter.Domain.Entities.Catalog
 		/// </summary>
 		[DataMember]
 		public bool HasTierPrices { get; set; }
-		
-		
+
+
 		/// <summary>
 		/// Gets or sets a value indicating whether this product has discounts applied
 		/// <remarks>The same as if we run this.AppliedDiscounts.Count > 0
@@ -505,7 +505,7 @@ namespace U.SmartStoreAdapter.Domain.Entities.Catalog
 		public string BasePriceMeasureUnit { get; set; }
 
 		/// <summary>
-		/// Amount of product per packing unit in the given measure unit 
+		/// Amount of product per packing unit in the given measure unit
         /// (e.g. 250 ml shower gel: "0.25" if MeasureUnit = "liter" and BaseAmount = 1)
 		/// </summary>
 		[DataMember]
@@ -517,7 +517,7 @@ namespace U.SmartStoreAdapter.Domain.Entities.Catalog
 		}
 
 		/// <summary>
-		/// Reference value for the given measure unit 
+		/// Reference value for the given measure unit
 		/// (e.g. "1" liter. Formula: [BaseAmount] [MeasureUnit] = [SellingPrice] / [Amount])
 		/// </summary>
 		[DataMember]

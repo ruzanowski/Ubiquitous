@@ -1,0 +1,14 @@
+
+.fill-remaining-space {
+  flex: 2 1 auto;
+}
+
+.mat-icon {
+  font-size: 23px;
+}
+
+.mat-button-wrapper{
+  vertical-align: middle;
+  text-align: center;
+}
+

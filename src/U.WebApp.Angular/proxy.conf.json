@@ -3,5 +3,10 @@
     "target": "http://localhost:5000",
     "secure": false,
     "logLevel": "debug"
+  },
+  "/signalr": {
+    "target": "http://localhost:5500",
+    "secure": false,
+    "logLevel": "debug"
   }
 }

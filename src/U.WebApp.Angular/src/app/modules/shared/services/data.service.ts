@@ -53,7 +53,7 @@ export class DataService {
   delete(url: string, params?: any) {
     let options = {};
 
-    console.log('data.service deleting');
+    console.log('notificationNavBarToggled.service deleting');
 
     this.http.delete(url, options)
       .subscribe((res) => {

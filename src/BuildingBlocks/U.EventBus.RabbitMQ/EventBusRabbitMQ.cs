@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Polly;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -83,14 +82,8 @@ namespace U.EventBus.RabbitMQ
                     });
 
             var eventName = @event.GetType().Name;
-
-            _logger.LogTrace("Creating RabbitMQ channel to publish event: {EventId} ({EventName})", @event.Id,
-                eventName);
-
             using (var channel = _persistentConnection.CreateModel())
             {
-                _logger.LogTrace("Declaring RabbitMQ exchange to publish event: {EventId}", @event.Id);
-
                 channel.ExchangeDeclare(exchange: BROKER_NAME, type: "direct");
 
                 var message = JsonConvert.SerializeObject(@event);
@@ -100,9 +93,7 @@ namespace U.EventBus.RabbitMQ
                 {
                     var properties = channel.CreateBasicProperties();
                     properties.DeliveryMode = 2; // persistent
-
-                    _logger.LogTrace("Publishing event to RabbitMQ: {EventId}", @event.Id);
-
+                    
                     channel.BasicPublish(
                         exchange: BROKER_NAME,
                         routingKey: eventName,

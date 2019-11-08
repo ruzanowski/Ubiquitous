@@ -1,30 +1,84 @@
-<header>
-  <nav class='navbar custom-navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3'>
-    <div class="container">
-      <a class="navbar-brand" [routerLink]='["/"]'><b>Ubiquitous</b> - Notifications at one place</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded" (click)="toggle()">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]='{"show": isExpanded}'>
-        <ul class="navbar-nav flex-grow">
-          <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-            <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/products"]'>Products</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/notifications"]'>Notifications</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/payments"]'>Payments</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/profile"]'>Profile</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</header>
+<mat-toolbar>
+
+  <button fxShow="false" fxShow.gt-sm color="primary" mat-mini-fab #sideNavButton>
+    <mat-icon (click)="toggleSideNavMenu()">menu</mat-icon>
+  </button>
+
+  <button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm color="primary" mat-mini-fab #sideNavButton>
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <mat-menu x-position="after" #menu="matMenu" yPosition="below">
+    <button mat-menu-item routerLink="/dashboard">
+    <span class="mat-button-wrapper" style="font-size: 30px; size: 40px">
+    <mat-icon aria-hidden="false" aria-label="dashboard icon"
+              style="padding-right: 30px; font-size: 30px">dashboard</mat-icon>
+    Dashboard
+    </span>
+    </button>
+    <button mat-menu-item routerLink="/products" color="primary">
+    <span class="mat-button-wrapper">
+    <mat-icon aria-hidden="false" aria-label="product icon"
+              style="padding-right: 30px; font-size: 30px">redeem</mat-icon>
+    Products
+    </span>
+
+    </button>
+    <button mat-menu-item routerLink="/categories">
+    <span class="mat-button-wrapper">
+    <mat-icon aria-hidden="false" aria-label="category icon"
+              style="padding-right: 30px; font-size: 30px">category</mat-icon>
+    Categories
+    </span>
+    </button>
+    <button mat-menu-item routerLink="/manufacturers">
+    <span class="mat-button-wrapper">
+    <mat-icon aria-hidden="false" aria-label="manufacturers icon" style="padding-right: 30px; font-size: 30px">supervised_user_circle
+    </mat-icon>
+    Manufacturers
+    </span>
+
+    </button>
+    <button mat-menu-item >
+    <span class="mat-button-wrapper">
+    <mat-icon aria-hidden="false" aria-label="notifications icon" style="padding-right: 30px; font-size: 30px">notifications</mat-icon>
+    Notifications
+    </span>
+    </button>
+    <button mat-menu-item routerLink="/dashboard">
+    <span class="mat-button-wrapper">
+    <mat-icon aria-hidden="false" aria-label="payments icon"
+              style="padding-right: 30px; font-size: 30px">payments</mat-icon>
+    Payments
+    </span>
+    </button>
+  </mat-menu>
+
+  <button mat-button routerLink="/">
+    <h3><b>Ubiquitous</b> - Notifications at one place </h3>
+  </button>
+
+  <span class="fill-remaining-space"></span>
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <button mat-button routerLink="/dashboard" >
+      <mat-icon aria-hidden="false" aria-label="dashboard icon" style="padding-right: 20px;">dashboard</mat-icon>
+    </button>
+    <button mat-button routerLink="/products">
+      <mat-icon aria-hidden="false" aria-label="product icon" style="padding-right: 20px">redeem</mat-icon>
+    </button>
+    <button mat-button routerLink="/categories">
+      <mat-icon aria-hidden="false" aria-label="category icon" style="padding-right: 20px">category</mat-icon>
+    </button>
+    <button mat-button routerLink="/manufacturers">
+      <mat-icon aria-hidden="false" aria-label="manufacturers icon" style="padding-right: 20px">supervised_user_circle
+      </mat-icon>
+    </button>
+  </div>
+
+  <button (click)="toggleNotificationMenu()" #NotificationsSideNavButton color="primary" mat-mini-fab>
+    <mat-icon aria-hidden="false" aria-label="notifications icon" style="padding-right: 20px">notifications
+    </mat-icon>
+  </button>
+
+</mat-toolbar>
+

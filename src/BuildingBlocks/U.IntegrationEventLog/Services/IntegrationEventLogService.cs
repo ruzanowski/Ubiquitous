@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -13,43 +14,45 @@ namespace U.IntegrationEventLog.Services
 {
     public class IntegrationEventLogService : IIntegrationEventLogService
     {
-        private readonly DbConnection _dbConnection;
         private readonly IntegrationEventLogContext _integrationEventLogContext;
         private readonly List<Type> _eventTypes;
 
         public IntegrationEventLogService(DbConnection dbConnection)
         {
-            _dbConnection = dbConnection ?? throw new ArgumentNullException(nameof(dbConnection));
             _integrationEventLogContext = new IntegrationEventLogContext(
                 new DbContextOptionsBuilder<IntegrationEventLogContext>()
-                    .UseNpgsql(_dbConnection)
+                    .UseNpgsql(dbConnection)
                     .ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning))
                     .Options);
 
-            _eventTypes = Assembly.Load(Assembly.GetEntryAssembly()?.FullName)
-                .GetTypes()
-                .Where(t => t.Name.EndsWith(nameof(IntegrationEvent)))
-                .ToList();
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            List<Assembly> allAssemblies =
+                Directory.GetFiles(path, "U.*.dll").Select(dll => Assembly.LoadFile(dll)).ToList();
+
+            _eventTypes = allAssemblies.SelectMany(
+                x => x.GetTypes()
+                    .Where(t => t.Name.EndsWith(nameof(IntegrationEvent)))
+                    .ToList()
+            ).ToList();
         }
 
-        public async Task<IEnumerable<IntegrationEventLogEntry>> RetrieveEventLogsPendingToPublishAsync(Guid transactionId)
+        public async Task<IEnumerable<IntegrationEventLogEntry>> RetrieveEventLogsPendingToPublishAsync()
         {
-            var tid = transactionId.ToString();
-
-            return await _integrationEventLogContext.IntegrationEventLogs
-                .Where(e => e.TransactionId == tid && e.State == EventStateEnum.NotPublished)
+            var integrationEventLogs = await _integrationEventLogContext.IntegrationEventLogs
+                .Where(e => e.State == EventStateEnum.NotPublished)
                 .OrderBy(o => o.CreationTime)
-                .Select(e => e.DeserializeJsonContent(_eventTypes.Find(t=> t.Name == e.EventTypeShortName)))
-                .ToListAsync();              
+                .ToListAsync();
+            
+            return integrationEventLogs.Select(e =>
+                    e.DeserializeJsonContent(_eventTypes.Find(t => t.Name == e.EventTypeShortName)));
         }
 
         public Task SaveEventAsync(IntegrationEvent @event, IDbContextTransaction transaction)
         {
-            if (transaction == null) throw new ArgumentNullException(nameof(transaction));
+            var eventLogEntry = new IntegrationEventLogEntry(@event, transaction?.TransactionId);
 
-            var eventLogEntry = new IntegrationEventLogEntry(@event, transaction.TransactionId);
-
-            _integrationEventLogContext.Database.UseTransaction(transaction.GetDbTransaction());
+            _integrationEventLogContext.Database.UseTransaction(transaction?.GetDbTransaction());
             _integrationEventLogContext.IntegrationEventLogs.Add(eventLogEntry);
 
             return _integrationEventLogContext.SaveChangesAsync();
@@ -75,7 +78,7 @@ namespace U.IntegrationEventLog.Services
             var eventLogEntry = _integrationEventLogContext.IntegrationEventLogs.Single(ie => ie.EventId == eventId);
             eventLogEntry.State = status;
 
-            if(status == EventStateEnum.InProgress)
+            if (status == EventStateEnum.InProgress)
                 eventLogEntry.TimesSent++;
 
             _integrationEventLogContext.IntegrationEventLogs.Update(eventLogEntry);

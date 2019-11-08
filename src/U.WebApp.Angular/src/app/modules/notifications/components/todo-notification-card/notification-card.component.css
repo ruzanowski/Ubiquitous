@@ -1,0 +1,55 @@
+:host {
+  width: 100%;
+  max-width: 15rem;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.mat-icon-wrap {
+  display: flex;
+  border-left: 8px solid;
+  align-items: center;
+  padding: 0.5rem;
+  width: 2.5rem;
+}
+
+.mat-info-wrap {
+  flex: 1;
+  padding: 0.25rem;
+  overflow: hidden;
+}
+
+.notification-title {
+  flex: 1;
+}
+
+.notification-date {
+  width: auto;
+  align-items: flex-start;
+}
+
+a {
+  text-decoration: none;
+}
+
+.info-field {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+mat-icon {
+  margin-right: 0.5rem;
+}
+
+span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.line {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}
