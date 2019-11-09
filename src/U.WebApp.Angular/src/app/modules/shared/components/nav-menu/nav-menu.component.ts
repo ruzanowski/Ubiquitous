@@ -8,8 +8,19 @@ import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/c
 export class NavMenuComponent {
   public isSideNavMenuExpanded = false;
   public isNotificationNavBarToggled: boolean = false;
-  private colorDefault: string = 'primary';
-  private colorClicked: string = 'warn';
+
+  public primary_color_primary: string = '#00695c';
+  public primary_color_light: string  ='#439889';
+  public primary_color_read: string = '#ffffff';
+
+  public notificationNavColor: string = this.primary_color_light;
+  public notificationNavColor_text: string = this.primary_color_read;
+
+  public sideNavColor: string = this.primary_color_light;
+  public sideNavcolor_text: string = this.primary_color_read;
+
+
+
 
   @Output() navBarToggle = new EventEmitter();
   @Output() notificationBarToggle = new EventEmitter<boolean>();
@@ -23,26 +34,20 @@ export class NavMenuComponent {
   toggleNotificationMenu() {
     this.isNotificationNavBarToggled = !this.isNotificationNavBarToggled;
     this.notificationBarToggle.emit(this.isNotificationNavBarToggled);
-    this.notificationsSideBarActive()
-  }
 
-  @ViewChild('NotificationsSideNavButton', {static: false}) notificationsSideNavButton: ElementRef;
-
-  notificationsSideBarActive() {
-    if ((<any>this.notificationsSideNavButton).color === this.colorDefault) {
-      (<any>this.notificationsSideNavButton).color = this.colorClicked
-    } else {
-      (<any>this.notificationsSideNavButton).color = this.colorDefault;
+    if(this.isNotificationNavBarToggled){
+      this.notificationNavColor = this.primary_color_light;
+    }
+    else {
+      this.notificationNavColor = this.primary_color_primary;
     }
   }
-
-  @ViewChild('sideNavButton', {static: false}) sideNavButton: ElementRef;
-
   sideBarActive() {
-    if ((<any>this.sideNavButton).color === this.colorDefault) {
-      (<any>this.sideNavButton).color = this.colorClicked
-    } else {
-      (<any>this.sideNavButton).color = this.colorDefault;
+    if(this.isSideNavMenuExpanded){
+      this.sideNavColor = this.primary_color_light;
+    }
+    else {
+      this.sideNavColor = this.primary_color_primary;
     }
   }
 }

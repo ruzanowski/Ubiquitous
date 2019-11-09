@@ -1,0 +1,27 @@
+<div class="mat-icon-wrap"
+     [ngStyle]="{ 'border-left-color': getColor()}"
+>
+  <mat-icon>notification</mat-icon>
+</div>
+
+<a class="mat-info-wrap">
+
+  <div class="line">
+    <div class="info-field notification-title">
+      <mat-icon>supervised_user_circle </mat-icon>
+      <span>{{ notification.eventType.toString()}}</span>
+    </div>
+  </div>
+  <div class="info-field info-field--bold">
+    <mat-icon>info</mat-icon>
+    <span>{{getEventType()}}</span>
+  </div>
+  <div class="info-field info-field--bold">
+    <mat-icon>access_time</mat-icon>
+    <span>{{notification.event.creationDate | date: 'dd MMM hh:mm' }}</span>
+  </div>
+</a>
+
+<a class="notification-operators">
+  <mat-icon>more_vert</mat-icon>
+</a>

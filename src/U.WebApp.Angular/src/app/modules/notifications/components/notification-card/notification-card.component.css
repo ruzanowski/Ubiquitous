@@ -1,6 +1,6 @@
 :host {
   width: 100%;
-  max-width: 15rem;
+  max-width: 22rem;
   display: flex;
   align-items: stretch;
   overflow: hidden;
@@ -14,19 +14,8 @@
   width: 2.5rem;
 }
 
-.mat-info-wrap {
-  flex: 1;
-  padding: 0.25rem;
-  overflow: hidden;
-}
-
 .notification-title {
   flex: 1;
-}
-
-.notification-date {
-  width: auto;
-  align-items: flex-start;
 }
 
 a {
@@ -52,4 +41,14 @@ span {
   flex: 1;
   display: flex;
   justify-content: space-between;
+}
+
+.mat-info-wrap {
+  flex: 1;
+  padding: 0.25rem;
+  overflow: hidden;
+}
+
+.notification-operators{
+  padding: 0.75rem;
 }

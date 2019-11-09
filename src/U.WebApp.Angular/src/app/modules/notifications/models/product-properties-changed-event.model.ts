@@ -1,5 +1,6 @@
-export interface ProductPropertiesChangedEvent {
-  ProductId: string;
-  Name: string;
+import {ProductBaseEvent} from "./product-base-event.model";
+
+export interface ProductPropertiesChangedEvent extends ProductBaseEvent
+{
   Price: number;
 }

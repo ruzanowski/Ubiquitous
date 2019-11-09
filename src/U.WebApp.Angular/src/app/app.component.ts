@@ -1,7 +1,6 @@
 import {
-  Component, ElementRef, OnDestroy,
-  OnInit, ViewChild
-} from '@angular/core';
+  Component, OnDestroy,
+  OnInit} from '@angular/core';
 import {LoaderService} from "./modules/shared/services/loader.service";
 
 @Component({

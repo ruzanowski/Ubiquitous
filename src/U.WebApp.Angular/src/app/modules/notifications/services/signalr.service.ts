@@ -2,10 +2,11 @@
 import * as signalR from "@aspnet/signalr";
 import {LogLevel} from "@aspnet/signalr";
 import {ProductAddedEvent} from "../models/product-added-event.model";
-import {IntegrationEventType, NotificationDto} from "../models/notification.model";
 import {ProductPublishedEvent} from "../models/product-published-event.model";
 import {ProductPropertiesChangedEvent} from "../models/product-properties-changed-event.model";
-import {Observable, Subject} from "rxjs";
+import {Subject} from "rxjs";
+import {ProductBaseEvent} from "../models/product-base-event.model";
+import {IntegrationEventType, NotificationDto} from "../models/notificationdto.model";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class SignalrService {
   public productAdded$: Subject<NotificationDto<ProductAddedEvent>> = new Subject();
   public productPublished$: Subject<NotificationDto<ProductAddedEvent>> = new Subject();
   public productPropertiesChanged$: Subject<NotificationDto<ProductPropertiesChangedEvent>> = new Subject();
-  public welcomeMessage$: Subject<NotificationDto<object>> = new Subject();
+  public welcomeMessage$: Subject<NotificationDto<ProductBaseEvent>> = new Subject();
   public usersConnected: Array<string> = [];
 
   constructor() {
@@ -45,27 +46,9 @@ export class SignalrService {
       this.usersConnected = this.usersConnected.filter(item => item !== user);
     });
 
-    this.connection.on('WelcomeNotifications', (welcomeNotification: NotificationDto<object>) => {
-
-      console.log('WelcomeNotifications in signalr' + JSON.stringify(welcomeNotification));
-      this.welcomeMessage$.next(welcomeNotification as NotificationDto<any>);
-
-      switch (welcomeNotification.EventType) {
-        case IntegrationEventType.Unknown:
-          console.log(JSON.stringify('Could not determine type of Notification.' +
-            ' Please resolve this issue! Problem occured with parsing json: ' + welcomeNotification
-          ));
-          break;
-        case IntegrationEventType.ProductPublishedIntegrationEvent:
-          this.productPublished$.next(welcomeNotification as NotificationDto<ProductPublishedEvent>);
-          break;
-        case IntegrationEventType.ProductPropertiesChangedIntegrationEvent:
-          this.productPropertiesChanged$.next(welcomeNotification as NotificationDto<ProductPropertiesChangedEvent>);
-          break;
-        case IntegrationEventType.ProductAddedIntegrationEvent:
-          this.productAdded$.next(welcomeNotification as NotificationDto<ProductAddedEvent>);
-          break;
-      }
+    this.connection.on('WelcomeNotifications', (welcomeNotification: NotificationDto<ProductBaseEvent>) =>
+    {
+      this.MatchTypeOfWelcomeMessage(welcomeNotification);
     });
 
     this.connection.on('ProductPublishedIntegrationEvent', (product: NotificationDto<ProductPublishedEvent>) => {
@@ -81,23 +64,25 @@ export class SignalrService {
     });
   }
 
-  public getProductPropertiesChanged() :Observable<NotificationDto<ProductPropertiesChangedEvent>>
+  private MatchTypeOfWelcomeMessage(welcomeNotification: NotificationDto<ProductBaseEvent>)
   {
-    return this.productPropertiesChanged$.asObservable();
-  }
-
-  public getProductAdded() :Observable<NotificationDto<ProductAddedEvent>>
-  {
-    return this.productAdded$.asObservable();
-  }
-
-  public getProductPublished() :Observable<NotificationDto<ProductPublishedEvent>>
-  {
-    return this.productPublished$.asObservable();
-  }
-  public getWelcomeMessages() :Observable<NotificationDto<object>>
-  {
-    return this.welcomeMessage$.asObservable();
+    switch (welcomeNotification.eventType) {
+      case IntegrationEventType.ProductPublishedIntegrationEvent:
+        this.productPublished$.next(welcomeNotification as NotificationDto<ProductPublishedEvent>);
+        break;
+      case IntegrationEventType.ProductPropertiesChangedIntegrationEvent:
+        this.productPropertiesChanged$.next(welcomeNotification as NotificationDto<ProductPropertiesChangedEvent>);
+        break;
+      case IntegrationEventType.ProductAddedIntegrationEvent:
+        this.productAdded$.next(welcomeNotification as NotificationDto<ProductAddedEvent>);
+        break;
+      default:
+      case IntegrationEventType.Unknown:
+        console.log(JSON.stringify('Could not determine type of Notification.' +
+          ' Please resolve this issue! Problem occured with parsing json: ' + JSON.stringify(welcomeNotification)
+        ));
+        break;
+    }
   }
 
   public disconnect() {

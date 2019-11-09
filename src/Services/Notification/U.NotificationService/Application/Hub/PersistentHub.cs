@@ -22,25 +22,32 @@ namespace U.NotificationService.Application.Hub
 
         public async Task SaveAndSendToAllAsync(string methodTag, IntegrationEvent @event)
         {
-            var notification = new Notification(@event);
-
-            await _context.AddAsync(notification);
-            await _context.SaveChangesAsync();
+            var notificationDto = await SaveNotificationAsync(@event);
 
             await _hubContext.Clients.All
-                .SendAsync(methodTag, new NotificationDto(notification.Id, @event, notification.IntegrationEventType));
+                .SendAsync(methodTag, notificationDto);
         }
 
         public async Task SaveAndSendAsync(string methodTag, string who, IntegrationEvent @event)
+        {
+            var notificationDto = await SaveNotificationAsync(@event);
+
+            await _hubContext.Clients.Client(who)
+                .SendAsync(methodTag, notificationDto);
+
+        }
+
+        private async Task<NotificationDto> SaveNotificationAsync(IntegrationEvent @event)
         {
             var notification = new Notification(@event);
 
             await _context.AddAsync(notification);
             await _context.SaveChangesAsync();
 
-            await _hubContext.Clients.Client(who)
-                .SendAsync(methodTag, new NotificationDto(notification.Id, @event, notification.IntegrationEventType));
-
+            return new NotificationDto(notification.Id,
+                @event,
+                notification.IntegrationEventType,
+                ConfirmationType.Unread);
         }
 
 

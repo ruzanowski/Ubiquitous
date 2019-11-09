@@ -5,7 +5,7 @@
     <div
       [infiniteScrollDisabled]="isFullListDisplayed"
       (scrolled)="onScroll()"
-      [scrollWindow]="false"
+      [scrollWindow]="true"
       infiniteScroll
       class="list"
     >
@@ -18,7 +18,7 @@
 </div>
 
 <ng-template #empty>
-  <div class="message-container">
+  <div class="no-notifications-container">
     <p>
       {{ 'No notifications found'  }}
     </p>

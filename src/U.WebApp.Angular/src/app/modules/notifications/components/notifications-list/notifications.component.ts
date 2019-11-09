@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {MatDrawer} from "@angular/material";
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {SignalrService} from "../../services/signalr.service";
-import {NotificationDto} from "../../models/notification.model";
 import {ProductAddedEvent} from "../../models/product-added-event.model";
 import {ProductPublishedEvent} from "../../models/product-published-event.model";
 import {ProductPropertiesChangedEvent} from "../../models/product-properties-changed-event.model";
 import {Subscription} from "rxjs";
+import {ProductBaseEvent} from "../../models/product-base-event.model";
+import {NotificationDto} from "../../models/notificationdto.model";
 
 @Component({
   selector: 'notifications-drawer',
@@ -14,25 +14,21 @@ import {Subscription} from "rxjs";
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
   @Input()
-  public isNotificationNavBarToggled: boolean = false;
+  private numOfItemsToShow = 12;
+  private itemsToLoad = 15;
+  private isFullListDisplayed = false;
 
-  private notificationsData: Array<NotificationDto<object>> = [];
-  public notificationsToShow: Array<NotificationDto<object>> = [];
-
+  private _notificationsData: Array<NotificationDto<ProductBaseEvent>> = [];
   private productsAddedEventsSubscription: Subscription;
   private productsPropertiesChangedEventsSubscription: Subscription;
   private productsPublishedEventsSubscription: Subscription;
   private welcomeMessagesSubscription: Subscription;
 
+  public notificationsToShow: Array<NotificationDto<ProductBaseEvent>> = [];
+
   public productsAddedEvents: Array<NotificationDto<ProductAddedEvent>> = [];
   public productsPropertiesChangedEvents: Array<NotificationDto<ProductPropertiesChangedEvent>> = [];
   public productsPublishedEvents: Array<NotificationDto<ProductPublishedEvent>> = [];
-  public welcomeMessagesEvents: Array<NotificationDto<any>> = [];
-
-  private numOfItemsToShow = 12;
-  private itemsToLoad = 15;
-
-  isFullListDisplayed = false;
 
   constructor(private signalr: SignalrService) {
     this.signalr.subscribeOnEvents();
@@ -43,64 +39,49 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     this.registerSubscriptions();
   }
 
-  @Input()
-  set notifications(data: Array<NotificationDto<object>>) {
-    this.notificationsToShow = data.slice(0, this.numOfItemsToShow);
-    this.notificationsData = data;
+  set notifications(data: NotificationDto<ProductBaseEvent>) {
+    this._notificationsData.push(data);
+    this.notificationsToShow = this._notificationsData.slice(0, this.numOfItemsToShow);
     this.isFullListDisplayed = false;
-
-    console.log('notificationsToShow updated: '+ JSON.stringify(this.notificationsToShow));
   }
 
   private registerSubscriptions(){
 
-    this.productsAddedEventsSubscription = this.signalr.getProductAdded().subscribe(
+    this.productsAddedEventsSubscription = this.signalr.productAdded$.asObservable().subscribe(
       (productAdded) => {
-        console.log('productsAddedEventsSubscription');
         this.productsAddedEvents.push(productAdded);
-        this.notificationsData.push(productAdded);
-        this.notifications = this.notificationsData;
+        this.notifications = productAdded;
       });
 
-    this.productsPropertiesChangedEventsSubscription = this.signalr.getProductPropertiesChanged().subscribe(
+    this.productsPropertiesChangedEventsSubscription = this.signalr.productPropertiesChanged$.asObservable().subscribe(
       (productPropertiesChanged) => {
-        console.log('productsPropertiesChangedEventsSubscription');
-
         this.productsPropertiesChangedEvents.push(productPropertiesChanged);
-        this.notificationsData.push(productPropertiesChanged);
-        this.notifications = this.notificationsData;
+        this.notifications = productPropertiesChanged;
       });
 
-    this.productsPublishedEventsSubscription = this.signalr.getProductPublished().subscribe(
+    this.productsPublishedEventsSubscription = this.signalr.productPublished$.asObservable().subscribe(
       (productPublished) => {
-        console.log('productsPublishedEventsSubscription');
-
         this.productsPublishedEvents.push(productPublished);
-        this.notificationsData.push(productPublished);
-        this.notifications = this.notificationsData;
+        this.notifications = productPublished;
       });
 
-    this.welcomeMessagesSubscription = this.signalr.getWelcomeMessages().subscribe(
-      (productPublished) => {
-        console.log('welcomeMessagesSubscription');
-
-        this.welcomeMessagesEvents.push(productPublished);
-        this.notificationsData.push(productPublished);
-        this.notifications = this.notificationsData;
+    this.welcomeMessagesSubscription = this.signalr.welcomeMessage$.asObservable().subscribe(
+      (welcomeMessage) => {
+        this.notifications = welcomeMessage;
       });
   }
 
   onScroll() {
-    if (this.numOfItemsToShow <= this.notificationsData.length) {
+    if (this.numOfItemsToShow <= this._notificationsData.length) {
       this.numOfItemsToShow += this.itemsToLoad;
-      this.notificationsToShow = this.notificationsData.slice(0, this.numOfItemsToShow);
+      this.notificationsToShow = this._notificationsData.slice(0, this.numOfItemsToShow);
     } else {
       this.isFullListDisplayed = true;
     }
   }
 
   anyNotifications() {
-    return this.notificationsData.length;
+    return this._notificationsData.length;
   }
 
   ngOnDestroy(): void {

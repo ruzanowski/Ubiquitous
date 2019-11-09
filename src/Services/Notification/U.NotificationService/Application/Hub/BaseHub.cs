@@ -4,11 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using U.Common.Extensions;
-using U.EventBus.Events;
 using U.NotificationService.Application.ConnectionMapping;
 using U.NotificationService.Domain;
 using U.NotificationService.Infrastracture.Contexts;
@@ -61,24 +57,23 @@ namespace U.NotificationService.Application.Hub
 
             foreach (var notification in notifications)
             {
-                var welcomeNotification = new NotificationDto(notification.Id,
-                    JsonConvert.DeserializeObject<IntegrationEvent>(notification.IntegrationEvent),
-                    notification.IntegrationEventType);
+                var welcomeNotification = NotifactionFactory.FromStoredNotification(notification);
 
-                await Clients.Client(userId).SendAsync("WelcomeNotifications",welcomeNotification);
+                await Clients.Client(userId).SendAsync("WelcomeNotifications", welcomeNotification);
                 _logger.LogDebug($"Sent historic notification: '{notification.Id}' to userId: '{userId}'.");
-
             }
         }
 
         private async Task<List<Notification>> LoadWelcomeMessages(string userId) =>
-            await _context.Notifications.Where(notification => !notification.Confirmations.Any() ||
-                                                               notification.Confirmations.Any(x =>
+            await _context.Notifications
+                .Include(x => x.Confirmations)
+                .Where(notification => !notification.Confirmations.Any() ||
+                                       notification.Confirmations.Any(x =>
 //                    x.User.Equals(userId) && //turned off for now for testing
-                                                                   (x.ConfirmationType ==
-                                                                    ConfirmationType.Unread ||
-                                                                    x.ConfirmationType ==
-                                                                    ConfirmationType.Read))
+                                           (x.ConfirmationType ==
+                                            ConfirmationType.Unread ||
+                                            x.ConfirmationType ==
+                                            ConfirmationType.Read))
                 ).OrderByDescending(x => x.CreationDate)
                 .Skip(0)
                 .Take(30)

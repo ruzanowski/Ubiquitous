@@ -31,8 +31,8 @@
         <Content Include="src\app\modules\manufacturers\components\table-manufacturers\table-manufacturers.component.css" />
         <Content Include="src\app\modules\notifications\components\notifications-list\notifications.component.css" />
         <Content Include="src\app\modules\notifications\components\notifications-list\notifications.component.html" />
-        <Content Include="src\app\modules\notifications\components\todo-notification-card\notification-card.component.html" />
-        <Content Include="src\app\modules\notifications\components\todo-notification-card\notification-card.component.css" />
+        <Content Include="src\app\modules\notifications\components\notification-card\notification-card.component.html" />
+        <Content Include="src\app\modules\notifications\components\notification-card\notification-card.component.css" />
         <Content Include="src\app\modules\products\components\products-details\products-details.component.css" />
         <Content Include="src\app\modules\products\components\products.component.css" />
         <Content Include="src\app\modules\shared\components\loader\loader.component.css" />
@@ -47,6 +47,14 @@
         <None Include="src\app\modules\dashboard\components\dashboard-main-tabs\dashboard-main-tabs.component.ts" />
         <None Include="src\app\modules\products\components\products.component.html" />
         <None Include="src\app\modules\products\components\products.component.ts" />
+        <None Remove="out-tsc\**" />
+        <Content Remove="out-tsc\**" />
+        <None Remove="obj\**" />
+        <Content Remove="obj\**" />
+        <None Remove="dist\**" />
+        <Content Remove="dist\**" />
+        <None Remove="bin\**" />
+        <Content Remove="bin\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -61,42 +69,52 @@
 
     <ItemGroup>
       <_ResolveComReferenceCache Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.csproj.ResolveComReference.cache" />
+      <_ResolveComReferenceCache Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.csproj.ResolveComReference.cache" />
     </ItemGroup>
 
     <ItemGroup>
       <IntermediateAssembly Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.dll" />
+      <IntermediateAssembly Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.dll" />
     </ItemGroup>
 
     <ItemGroup>
       <_DebugSymbolsIntermediatePath Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.pdb" />
+      <_DebugSymbolsIntermediatePath Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.pdb" />
     </ItemGroup>
 
     <ItemGroup>
       <_DeploymentManifestEntryPoint Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.dll" />
+      <_DeploymentManifestEntryPoint Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.dll" />
     </ItemGroup>
 
     <ItemGroup>
       <ApplicationManifest Remove="obj\Debug\netcoreapp2.2\Native.U.WebApp.Angular.manifest" />
+      <ApplicationManifest Remove="obj\Release\netcoreapp2.2\Native.U.WebApp.Angular.manifest" />
     </ItemGroup>
 
     <ItemGroup>
       <DeployManifest Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.application" />
+      <DeployManifest Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.application" />
     </ItemGroup>
 
     <ItemGroup>
       <_OutputPathItem Remove="bin\Debug\netcoreapp2.2\" />
+      <_OutputPathItem Remove="bin\Release\netcoreapp2.2\" />
     </ItemGroup>
 
     <ItemGroup>
       <AppConfigFileDestination Remove="bin\Debug\netcoreapp2.2\U.WebApp.Angular.dll.config" />
+      <AppConfigFileDestination Remove="bin\Release\netcoreapp2.2\U.WebApp.Angular.dll.config" />
     </ItemGroup>
 
     <ItemGroup>
       <_DebugSymbolsOutputPath Remove="bin\Debug\netcoreapp2.2\U.WebApp.Angular.pdb" />
+      <_DebugSymbolsOutputPath Remove="bin\Release\netcoreapp2.2\U.WebApp.Angular.pdb" />
     </ItemGroup>
 
     <ItemGroup>
       <_ApplicationManifestFinal Remove="bin\Debug\netcoreapp2.2\Native.U.WebApp.Angular.manifest" />
+      <_ApplicationManifestFinal Remove="bin\Release\netcoreapp2.2\Native.U.WebApp.Angular.manifest" />
     </ItemGroup>
 
     <ItemGroup>
@@ -105,9 +123,10 @@
       <TypeScriptCompile Include="src\app\modules\dashboard\dashboard.module.ts" />
       <TypeScriptCompile Include="src\app\modules\manufacturers\manufacturer.module.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\components\notifications-list\notifications.component.ts" />
-      <TypeScriptCompile Include="src\app\modules\notifications\components\todo-notification-card\notification-card.component.ts" />
-      <TypeScriptCompile Include="src\app\modules\notifications\models\notification.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\components\notification-card\notification-card.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\models\notificationdto.model.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\models\product-added-event.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\models\product-base-event.model.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\models\product-properties-changed-event.model.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\models\product-published-event.model.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\notifications.module.ts" />
@@ -125,6 +144,28 @@
 
     <ItemGroup>
       <Folder Include="src\app\modules\products\components\product-categories" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="out-tsc\**" />
+      <Compile Remove="obj\**" />
+      <Compile Remove="dist\**" />
+      <Compile Remove="bin\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="out-tsc\**" />
+      <EmbeddedResource Remove="obj\**" />
+      <EmbeddedResource Remove="dist\**" />
+      <EmbeddedResource Remove="bin\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <RazorIntermediateAssembly Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.Views.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_RazorDebugSymbolsIntermediatePath Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.Views.pdb" />
     </ItemGroup>
 
     <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">

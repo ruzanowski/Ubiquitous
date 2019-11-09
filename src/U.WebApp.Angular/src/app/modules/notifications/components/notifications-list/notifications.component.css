@@ -10,15 +10,15 @@
 
 .drawer {
   height: 100%;
-  min-width: 25rem;
-  max-width: 35rem;
+  min-width: 18rem;
+  max-width: 22rem;
 }
 
 notification-card {
   cursor: pointer;
 }
 
-.message-container {
+.no-notifications-container {
   display: flex;
   height: 100%;
   align-items: center;
