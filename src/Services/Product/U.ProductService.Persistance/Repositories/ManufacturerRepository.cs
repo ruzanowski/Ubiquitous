@@ -21,14 +21,14 @@ namespace U.ProductService.Persistance.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Manufacturer> AddAsync(Manufacturer product)
+        public async Task<Manufacturer> AddAsync(Manufacturer manufacturer)
         {
-            return (await _context.Manufacturers.AddAsync(product)).Entity;
+            return (await _context.Manufacturers.AddAsync(manufacturer)).Entity;
         }
 
-        public async Task<Manufacturer> GetAsync(Guid productId)
+        public async Task<Manufacturer> GetAsync(Guid manufacturerId)
         {
-            var product = await _context.Manufacturers.FindAsync(productId);
+            var product = await _context.Manufacturers.FindAsync(manufacturerId);
             if (product != null)
             {
                 await _context.Entry(product).Reference(i => i.Pictures).LoadAsync();

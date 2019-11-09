@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import {ProductBaseEvent} from "../../models/product-base-event.model";
 import {ConfirmationType, IntegrationEventType, NotificationDto} from "../../models/notificationdto.model";
+import {ManufacturerService} from "../../../manufacturers/manufacturers.service";
 
 @Component({
   selector: 'notification-card',
@@ -20,6 +21,10 @@ export class NotificationCardComponent {
 
   @Input()
   public notification: NotificationDto<ProductBaseEvent>;
+
+  constructor(private manufacturerService: ManufacturerService){
+
+  }
 
   public getEventType()
   {
@@ -50,5 +55,11 @@ export class NotificationCardComponent {
       case ConfirmationType.hidden:
         return this.primary_color_light;
     }
+  }
+
+  public getManufacturer()
+  {
+    this.notification.event.
+    this.manufacturerService.getManufacturer();
   }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Reflection;
+using U.ProductService.Domain;
 
 namespace U.ProductService.Application.Products.Commands.Update
 {
@@ -18,6 +19,16 @@ namespace U.ProductService.Application.Products.Commands.Update
                 if (!variance.ValueA.Equals(variance.ValueB))
                     variances.Add(variance);
             }
+
+            return variances;
+        }
+
+        public static List<Variance> ExamineProductVariances(this Product product, Product product2)
+        {
+            var variances = product.DetailedCompare(product2);
+            variances.AddRange(product.Dimensions.DetailedCompare(product2.Dimensions));
+            variances.AddRange(product.Category.DetailedCompare(product2.Category));
+            variances.AddRange(product.Pictures.DetailedCompare(product2.Pictures));
 
             return variances;
         }

@@ -15,13 +15,19 @@ namespace U.ProductService.Application.Products.Commands.Update
     public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
     {
         private readonly IProductRepository _productRepository;
+        private readonly IManufacturerRepository _manufacturerRepository;
         private readonly ILogger<UpdateProductCommandHandler> _logger;
         private readonly IMapper _mapper;
-        public UpdateProductCommandHandler(ILogger<UpdateProductCommandHandler> logger, IProductRepository productRepository, IMapper mapper)
+
+        public UpdateProductCommandHandler(ILogger<UpdateProductCommandHandler> logger,
+            IProductRepository productRepository,
+            IMapper mapper,
+            IManufacturerRepository manufacturerRepository)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
             _mapper = mapper;
+            _manufacturerRepository = manufacturerRepository;
         }
 
         public async Task<Unit> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
@@ -30,7 +36,7 @@ namespace U.ProductService.Application.Products.Commands.Update
             {
                 command.Product = await _productRepository.GetAsync(command.ProductId);
             }
-            
+
             if (command.Product is null)
             {
                 _logger.LogInformation($"Product with id: '{command.ProductId}' has been not found");
@@ -39,24 +45,16 @@ namespace U.ProductService.Application.Products.Commands.Update
 
             var dimensions = GetDimensions(command);
 
-            var deepCopyProduct = command.Product.UpdatedDeepCopy(_mapper, command.Name, command.Description, command.Price, dimensions);
-            //determining properties differences delta
-            var variances = command.Product.DetailedCompare(deepCopyProduct);
-            variances.AddRange(command.Product.Dimensions.DetailedCompare(deepCopyProduct.Dimensions));
+            command.Product.UpdateProduct(_mapper,
+                command.Name,
+                command.Description,
+                command.Price,
+                dimensions,
+                DateTime.UtcNow);
 
-            if (variances.Any())
-            {
-                command.Product.UpdateProduct(command.Name, command.Description, command.Price, dimensions, DateTime.UtcNow);
-                _productRepository.Update(command.Product);
-            
-                _logger.LogInformation($"Product with id: '{command.ProductId}' has been updated");
-            
-                await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
-            }
-            else
-            {
-                _logger.LogInformation($"Product with id: '{command.ProductId}' has not been updated - no changes");
-            }
+            _productRepository.Update(command.Product);
+
+            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
             return Unit.Value;
         }
@@ -68,6 +66,5 @@ namespace U.ProductService.Application.Products.Commands.Update
                 command.Dimensions.Height,
                 command.Dimensions.Weight);
         }
-
     }
 }

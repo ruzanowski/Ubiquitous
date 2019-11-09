@@ -11,11 +11,11 @@ namespace U.ProductService.Domain
 {
     public interface IManufacturerRepository : IRepository<Manufacturer>
     {
-        Task<Manufacturer> AddAsync(Manufacturer product);
+        Task<Manufacturer> AddAsync(Manufacturer manufacturer);
 
         void Update(Product product);
 
-        Task<Manufacturer> GetAsync(Guid productId);
+        Task<Manufacturer> GetAsync(Guid manufacturerId);
         Task<Manufacturer> GetUniqueClientIdAsync(string uniqueClientId);
 
         Task<bool> AnyAsync(Guid id);

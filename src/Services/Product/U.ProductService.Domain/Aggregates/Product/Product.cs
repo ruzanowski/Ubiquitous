@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore.Internal;
+using U.ProductService.Application.Products.Commands.Update;
 using U.ProductService.Domain.Aggregates.Category;
 using U.ProductService.Domain.Aggregates.Picture;
 using U.ProductService.Domain.Aggregates.Product;
@@ -25,7 +27,7 @@ namespace U.ProductService.Domain
         public decimal Price { get; private set; }
         public string Description { get; private set; }
         public bool IsPublished { get; private set; }
-        
+
         private DateTime _createdAt;
         private string _createdBy;
         private DateTime? _lastUpdatedAt;
@@ -34,7 +36,7 @@ namespace U.ProductService.Domain
         public string CreatedBy => _createdBy;
         public DateTime? LastUpdatedAt => _lastUpdatedAt;
         public string LastUpdatedBy => _lastUpdatedBy;
-        
+
         public Dimensions Dimensions { get; private set; }
         public Guid ManufacturerId { get; private set; }
         public ICollection<Picture> Pictures { get; private set; }
@@ -74,8 +76,8 @@ namespace U.ProductService.Domain
         }
 
 
-
-        public void AddPicture(Guid id, Guid fileStorageUploadId, string seoFilename, string description, string url, MimeType mimeType)
+        public void AddPicture(Guid id, Guid fileStorageUploadId, string seoFilename, string description, string url,
+            MimeType mimeType)
         {
             if (string.IsNullOrEmpty(seoFilename))
                 throw new ProductDomainException($"{nameof(seoFilename)} cannot be null or empty!");
@@ -86,7 +88,8 @@ namespace U.ProductService.Domain
             if (string.IsNullOrEmpty(url))
                 throw new ProductDomainException($"{nameof(url)} cannot be null or empty!");
 
-            var picture = new Picture(id, Id, nameof(Product), fileStorageUploadId, seoFilename, description, url,  mimeType);
+            var picture = new Picture(id, Id, nameof(Product), fileStorageUploadId, seoFilename, description, url,
+                mimeType);
 
             Pictures.Add(picture);
 
@@ -144,21 +147,26 @@ namespace U.ProductService.Domain
             AddDomainEvent(@event);
         }
 
-        public void UpdateProduct(string name, string description, decimal price, Dimensions dimensions, DateTime updateDispatchedFromOrigin)
+        public void UpdateProduct(IMapper mapper, string name, string description, decimal price, Dimensions dimensions, DateTime updateDispatchedFromOrigin)
         {
             if (!LastUpdatedAt.HasValue || LastUpdatedAt.Value >= updateDispatchedFromOrigin) return;
 
-            //avoiding any lagged-in-time updates 
+            var deepCopyProduct = mapper.Map<Product>(this);
+            var variances = this.ExamineProductVariances(deepCopyProduct);
+            if (variances.Any())
+            {
+                UpdateProperties(this, name, description, price, dimensions);
 
-            UpdateProperties(this, name, description, price, dimensions);
-            
-            var @event = new ProductPropertiesChangedDomainEvent(Id, Name, Price);
-            AddDomainEvent(@event);
+                var @event = new ProductPropertiesChangedDomainEvent(Id, ManufacturerId, variances);
+                AddDomainEvent(@event);
 
-            // add new update saying event has been raised after last up-to-date update
+                // add new update saying event has been raised after last up-to-date update
+            }
         }
 
-        private void UpdateProperties(Product product, string name, string description, decimal price, Dimensions dimensions)
+
+        private void UpdateProperties(Product product, string name, string description, decimal price,
+            Dimensions dimensions)
         {
             product.Name = name;
             product.Description = description;
@@ -168,15 +176,16 @@ namespace U.ProductService.Domain
             product.Dimensions.Weight = dimensions.Weight;
             product.Dimensions.Width = dimensions.Width;
         }
-        
 
-        public Product UpdatedDeepCopy(IMapper mapper, string name, string description, decimal price, Dimensions dimensions)
+
+        public Product UpdatedDeepCopy(IMapper mapper, string name, string description, decimal price,
+            Dimensions dimensions)
         {
             var deepCopyProduct = mapper.Map<Product>(this);
             UpdateProperties(deepCopyProduct, name, description, price, dimensions);
             return deepCopyProduct;
         }
-        
+
         public void ChangeCategory(Guid newCategoryId)
         {
             CategoryId = newCategoryId;

@@ -1,22 +1,24 @@
 using System;
+using System.Collections.Generic;
 using U.EventBus.Events;
+using U.ProductService.Application.Products.Commands.Update;
 
 namespace U.ProductService.Application.Events.IntegrationEvents.Events
 {
     public class ProductPropertiesChangedIntegrationEvent : IntegrationEvent
     {
         public Guid ProductId { get; }
-        
-        public string Name { get; }
-        
-        public decimal Price { get; }
-        
 
-        public ProductPropertiesChangedIntegrationEvent(Guid productId, string name, decimal price)
+        public Guid Manufacturer { get; }
+
+        public List<Variance> Variances { get; set; }
+
+
+        public ProductPropertiesChangedIntegrationEvent(Guid productId, Guid manufacturer, List<Variance> variances)
         {
             ProductId = productId;
-            Name = name;
-            Price = price;
+            Manufacturer = manufacturer;
+            Variances = variances;
         }
     }
 }
