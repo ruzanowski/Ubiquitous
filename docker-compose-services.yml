@@ -16,7 +16,7 @@ services:
       ASPNETCORE_URLS: http://+:5000
       ASPNETCORE_ENVIRONMENT: docker
     volumes:
-      - '{RELATIVE_PATH}/productservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${RELATIVE_PATH}/productservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     networks:
       - ubiquitous
     restart: unless-stopped
@@ -35,7 +35,7 @@ services:
       ASPNETCORE_URLS: http://+:5100
       ASPNETCORE_ENVIRONMENT: docker
     volumes:
-      - '{RELATIVE_PATH}/smartstoreadapter/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${RELATIVE_PATH}/smartstoreadapter/appsettings.docker.json:/app/appsettings.docker.json:ro'
     networks:
       - ubiquitous
     restart: unless-stopped
@@ -55,7 +55,7 @@ services:
       ASPNETCORE_URLS: http://+:5200
       ASPNETCORE_ENVIRONMENT: docker
     volumes:
-      - '{RELATIVE_PATH}/fetchservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${RELATIVE_PATH}/fetchservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     depends_on:
       - u.smartstore-adapter
     networks:
@@ -73,7 +73,7 @@ services:
       ASPNETCORE_URLS: http://+:5300
       ASPNETCORE_ENVIRONMENT: docker
     volumes:
-      - '{RELATIVE_PATH}/reportservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${RELATIVE_PATH}/reportservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     networks:
       - ubiquitous
     restart: unless-stopped
@@ -93,7 +93,7 @@ services:
       DbOptions__Connection: Server=localhost;Port=5432;Database=notification-service;User Id=postgres;Password=postgres;
       DbOptions__Type: Npgsql
     volumes:
-      - '{RELATIVE_PATH}/notificationservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${RELATIVE_PATH}/notificationservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     networks:
       - ubiquitous
 
@@ -106,7 +106,7 @@ services:
     ports:
       - 5700:5700
     volumes:
-      - '{RELATIVE_PATH}/generatorservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${RELATIVE_PATH}/generatorservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     environment:
       ASPNETCORE_URLS: http://+:5700
       ASPNETCORE_ENVIRONMENT: docker
