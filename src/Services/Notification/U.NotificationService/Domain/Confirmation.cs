@@ -4,19 +4,34 @@ namespace U.NotificationService.Domain
 {
     public class Confirmation
     {
-        public Guid Id { get; set; }
-        public Guid User { get; set; }
-        public Guid NotificationId { get; set; }
-        public DateTime ConfirmationDate { get; set; }
-        public ConfirmationType ConfirmationType { get; set; }
-        public Guid DeviceReceivedId { get; set; }
+        //necessary for ef migrations
+        private Confirmation()
+        {
+
+        }
+
+        public Confirmation(Guid user, Guid notificationId, ConfirmationType confirmationType, Guid deviceReceivedId)
+        {
+            User = user;
+            NotificationId = notificationId;
+            ConfirmationDate = DateTime.UtcNow;
+            ConfirmationType = confirmationType;
+            DeviceReceivedId = deviceReceivedId;
+
+        }
+
+        public Guid Id { get; private set; }
+        public Guid User { get; private set; }
+        public Guid NotificationId { get; private set; }
+        public DateTime ConfirmationDate { get; private set; }
+        public ConfirmationType ConfirmationType { get; private set; }
+        public Guid DeviceReceivedId { get; private set; }
     }
 
     public enum ConfirmationType
     {
         Unread,
         Read,
-        Removed,
         Hidden
     }
 }

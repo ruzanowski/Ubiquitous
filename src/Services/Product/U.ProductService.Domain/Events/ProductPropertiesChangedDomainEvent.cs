@@ -13,8 +13,6 @@ namespace U.ProductService.Domain.Events
     {
         public Guid ProductId { get; }
         public Guid Manufacturer { get; set; }
-
-
         public List<Variance> Variances { get; set; }
 
         public ProductPropertiesChangedDomainEvent(Guid productId, Guid manufacturer, List<Variance> variances)

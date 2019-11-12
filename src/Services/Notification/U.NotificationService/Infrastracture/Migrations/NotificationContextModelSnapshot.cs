@@ -50,6 +50,8 @@ namespace U.NotificationService.Migrations
 
                     b.Property<DateTime>("CreationDate");
 
+                    b.Property<int>("Importancy");
+
                     b.Property<string>("IntegrationEvent")
                         .IsRequired();
 

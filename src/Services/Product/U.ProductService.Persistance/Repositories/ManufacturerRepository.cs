@@ -28,11 +28,9 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<Manufacturer> GetAsync(Guid manufacturerId)
         {
-            var product = await _context.Manufacturers.FindAsync(manufacturerId);
-            if (product != null)
-            {
-                await _context.Entry(product).Reference(i => i.Pictures).LoadAsync();
-            }
+            var product = await _context.Manufacturers
+                .Include(x => x.Pictures)
+                .FirstOrDefaultAsync(x => x.Id.Equals(manufacturerId));
 
             return product;
         }

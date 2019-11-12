@@ -6,7 +6,8 @@ import {ProductPublishedEvent} from "../models/product-published-event.model";
 import {ProductPropertiesChangedEvent} from "../models/product-properties-changed-event.model";
 import {Subject} from "rxjs";
 import {ProductBaseEvent} from "../models/product-base-event.model";
-import {IntegrationEventType, NotificationDto} from "../models/notificationdto.model";
+import {NotificationDto} from "../models/notification-dto.model";
+import {IntegrationEventType} from "../models/integration-event-type.model";
 
 @Injectable({
   providedIn: 'root'
@@ -83,6 +84,31 @@ export class SignalrService {
         ));
         break;
     }
+  }
+
+  invokeReadNotification(notificationId: string)
+  {
+    this.connection.invoke('confirmReadNotification', notificationId)
+      .catch(err => console.error(err));
+  }
+
+  invokeHideNotification(notificationId: string)
+  {
+    this.connection.invoke('HideNotification', notificationId)
+      .catch(err => console.error(err));
+  }
+
+
+  invokeDeleteNotification(notificationId: string)
+  {
+    this.connection.invoke('DeleteNotification', notificationId)
+      .catch(err => console.error(err));
+  }
+
+  invokeChangeImportancyNotification(notificationId: string, importancy: Importancy)
+  {
+    this.connection.invoke('ChangeNotificationImportancy', notificationId, importancy.toString())
+      .catch(err => console.error(err));
   }
 
   public disconnect() {

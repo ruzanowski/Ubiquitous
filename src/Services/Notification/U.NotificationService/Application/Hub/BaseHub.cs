@@ -5,16 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using U.NotificationService.Application.ConnectionMapping;
+using U.NotificationService.Application.Models;
 using U.NotificationService.Domain;
 using U.NotificationService.Infrastracture.Contexts;
+// ReSharper disable UnusedMember.Global
 
 namespace U.NotificationService.Application.Hub
 {
     public class BaseHub : Microsoft.AspNetCore.SignalR.Hub
     {
-        public static readonly ConnectionMapping<string> Connections =
-            new ConnectionMapping<string>();
 
         private readonly NotificationContext _context;
         private readonly ILogger<BaseHub> _logger;
@@ -39,16 +38,73 @@ namespace U.NotificationService.Application.Hub
             await base.OnDisconnectedAsync(ex);
         }
 
-        public async Task MessageReceived(Guid notifcationId)
+        public async Task ConfirmReadNotification(Guid notifcationId)
         {
+            var notification = await _context.Notifications
+                .Include(x=>x.Confirmations)
+                .FirstOrDefaultAsync(x => x.Id.Equals(notifcationId));
+
+            if (notification is null)
+            {
+                _logger.LogInformation($"{notifcationId} does not exist and cannot set to state 'Read'");
+                return;
+            }
+
+            notification.ChangeStateToRead(new Guid()); //todo: userid
+
+            await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteMessage(Guid notifcationId)
+        public async Task DeleteNotification(Guid notifcationId)
         {
+            // todo: is user an admin
+
+            var notification = await _context.Notifications
+                .Include(x=>x.Confirmations)
+                .FirstOrDefaultAsync(x => x.Id.Equals(notifcationId));
+
+            if (notification is null)
+            {
+                _logger.LogInformation($"{notifcationId} does not exist and cannot set to state 'Delete'");
+                return;
+            }
+
+            _context.Remove(notification);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task HideMessage(Guid notifcationId)
+        public async Task HideNotification(Guid notifcationId)
         {
+            var notification = await _context.Notifications
+                .Include(x=>x.Confirmations)
+                .FirstOrDefaultAsync(x => x.Id.Equals(notifcationId));
+
+            if (notification is null)
+            {
+                _logger.LogInformation($"{notifcationId} does not exist and cannot set to state 'Read'");
+                return;
+            }
+
+            notification.ChangeStateToHidden(new Guid()); //todo: userid
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ChangeNotificationImportancy(Guid notifcationId, Importancy importancy)
+        {
+            var notification = await _context.Notifications
+                .Include(x=>x.Confirmations)
+                .FirstOrDefaultAsync(x => x.Id.Equals(notifcationId));
+
+            if (notification is null)
+            {
+                _logger.LogInformation($"{notifcationId} does not exist and cannot set importancy");
+                return;
+            }
+
+            notification.SetImportancy(importancy);
+
+            await _context.SaveChangesAsync();
         }
 
         private async Task LoadAndPushWelcomeMessages(string userId)
@@ -69,14 +125,14 @@ namespace U.NotificationService.Application.Hub
                 .Include(x => x.Confirmations)
                 .Where(notification => !notification.Confirmations.Any() ||
                                        notification.Confirmations.Any(x =>
-//                    x.User.Equals(userId) && //turned off for now for testing
+//                    x.User.Equals(userId) && // todo: userId
                                            (x.ConfirmationType ==
                                             ConfirmationType.Unread ||
                                             x.ConfirmationType ==
                                             ConfirmationType.Read))
                 ).OrderByDescending(x => x.CreationDate)
                 .Skip(0)
-                .Take(30)
+                .Take(30) // todo: preferences of welcome messages?
                 .ToListAsync();
     }
 }

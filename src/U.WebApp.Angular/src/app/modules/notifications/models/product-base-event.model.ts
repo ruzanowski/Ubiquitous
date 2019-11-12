@@ -4,5 +4,5 @@ export interface ProductBaseEvent
   productId: string;
   name: string;
   creationDate: Date;
-
+  manufacturer: string;
 }

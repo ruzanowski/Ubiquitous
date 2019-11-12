@@ -85,7 +85,11 @@
     [ngStyle]="{
     'background-color': notificationNavColor,
     'color': notificationNavColor_text}"
-    mat-mini-fab>
+    mat-mini-fab
+    [matBadge]="notificationNavBadgeCounter"
+    [matBadgeHidden]="notificationNavBadgeCounter<=0"
+    matBadgeColor="warn"
+  >
     <mat-icon aria-hidden="false" aria-label="notifications icon" style="padding-right: 20px">notifications
     </mat-icon>
   </button>

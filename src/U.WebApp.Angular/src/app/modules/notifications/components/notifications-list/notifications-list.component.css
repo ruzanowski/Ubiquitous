@@ -10,12 +10,8 @@
 
 .drawer {
   height: 100%;
-  min-width: 18rem;
-  max-width: 22rem;
-}
-
-notification-card {
-  cursor: pointer;
+  min-width: 15rem;
+  max-width: 20rem;
 }
 
 .no-notifications-container {

@@ -1,10 +1,10 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using Newtonsoft.Json;
 using U.EventBus.Events;
+using U.NotificationService.Application.Models;
 using U.NotificationService.Domain;
 using U.NotificationService.Infrastracture.Contexts;
+// ReSharper disable UnusedMember.Global
 
 namespace U.NotificationService.Application.Hub
 {
@@ -47,8 +47,10 @@ namespace U.NotificationService.Application.Hub
             return new NotificationDto(notification.Id,
                 @event,
                 notification.IntegrationEventType,
-                ConfirmationType.Unread);
+                ConfirmationType.Unread,
+                notification.Importancy);
         }
+
 
 
     }

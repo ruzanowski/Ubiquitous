@@ -1,6 +1,8 @@
 import {ProductBaseEvent} from "./product-base-event.model";
+import {Variance} from "./variance.model";
 
 export interface ProductPropertiesChangedEvent extends ProductBaseEvent
 {
-  Price: number;
+  variances: Array<Variance>;
 }
+

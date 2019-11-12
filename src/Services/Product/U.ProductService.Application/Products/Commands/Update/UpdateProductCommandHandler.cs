@@ -15,19 +15,17 @@ namespace U.ProductService.Application.Products.Commands.Update
     public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
     {
         private readonly IProductRepository _productRepository;
-        private readonly IManufacturerRepository _manufacturerRepository;
         private readonly ILogger<UpdateProductCommandHandler> _logger;
         private readonly IMapper _mapper;
 
-        public UpdateProductCommandHandler(ILogger<UpdateProductCommandHandler> logger,
+        public UpdateProductCommandHandler(
+            ILogger<UpdateProductCommandHandler> logger,
             IProductRepository productRepository,
-            IMapper mapper,
-            IManufacturerRepository manufacturerRepository)
+            IMapper mapper)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
             _mapper = mapper;
-            _manufacturerRepository = manufacturerRepository;
         }
 
         public async Task<Unit> Handle(UpdateProductCommand command, CancellationToken cancellationToken)

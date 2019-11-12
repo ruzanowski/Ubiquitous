@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-nav-menu',
@@ -13,14 +13,13 @@ export class NavMenuComponent {
   public primary_color_light: string  ='#439889';
   public primary_color_read: string = '#ffffff';
 
+  @Input()
+  public notificationNavBadgeCounter: number = 2;
   public notificationNavColor: string = this.primary_color_light;
   public notificationNavColor_text: string = this.primary_color_read;
 
   public sideNavColor: string = this.primary_color_light;
   public sideNavcolor_text: string = this.primary_color_read;
-
-
-
 
   @Output() navBarToggle = new EventEmitter();
   @Output() notificationBarToggle = new EventEmitter<boolean>();

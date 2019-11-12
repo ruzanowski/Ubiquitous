@@ -2,11 +2,12 @@
 <app-nav-menu
   (navBarToggle)="sidenav.toggle()"
   (notificationBarToggle)="receiveNotificationBarToggle($event)"
+  [notificationNavBadgeCounter]="notificationsToRead"
 ></app-nav-menu>
 <app-loader></app-loader>
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="over" class="sideNavTheme" fxFlex="20">
+  <mat-sidenav #sidenav mode="over" class="sideNavTheme">
     <mat-nav-list style="align-items: flex-start">
       <a mat-list-item routerLink="/dashboard">
         <mat-icon
@@ -50,12 +51,13 @@
     mode="side"
     position="end"
     [opened]="isNotificationNavBarToggled"
-    >
-    <notifications-drawer>
-    </notifications-drawer>
+  >
+    <notifications-list
+      (notificationsBadgeEvent)="receiveNotificationsBadgeEvent($event)">
+    </notifications-list>
   </mat-sidenav>
 
-  <mat-sidenav-content fxFlex="60" class="container">
+  <mat-sidenav-content class="container">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 

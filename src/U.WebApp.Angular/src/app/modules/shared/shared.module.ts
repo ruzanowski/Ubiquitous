@@ -11,6 +11,7 @@ import {NavMenuComponent} from "./components/nav-menu/nav-menu.component";
 import {ProgressSpinnerComponent} from "./components/spinner-overlay/progress-spinner.component";
 import {OverlayService} from "./services/overlay.service";
 import {
+  MatBadgeModule,
   MatButtonModule, MatGridListModule,
   MatIconModule, MatMenuModule,
   MatProgressBarModule,
@@ -43,6 +44,7 @@ import {BrowserModule} from "@angular/platform-browser";
     FlexModule,
     FlexLayoutModule,
     MatGridListModule,
+    MatBadgeModule,
   ],
   declarations: [NavMenuComponent, ProgressSpinnerComponent, LoaderComponent],
   exports: [

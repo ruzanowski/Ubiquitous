@@ -1,0 +1,40 @@
+<div class="drawer">
+  <ng-container *ngIf="anyNotifications(); then list; else empty"></ng-container>
+
+  <ng-template #list>
+    <div
+      [infiniteScrollDisabled]="notificationService.isFullListDisplayed"
+      (scrolled)="onScroll()"
+      [scrollWindow]="true"
+      infiniteScroll
+      class="list"
+    >
+      <div>
+      <button (click)="setAllStateToRead(notificationService.notificationsToShow)" mat-button>
+        <mat-icon mat-list-icon>done</mat-icon>
+        Mark All as Read
+      </button>
+      <button
+        (click)="setAllStateToRead(notificationService.notificationsToShow)" mat-button>
+        <mat-icon mat-list-icon>settings</mat-icon>
+      </button>
+      </div>
+      <mat-divider></mat-divider>
+
+
+      <ng-container *ngFor="let notification of notificationService.notificationsToShow">
+        <notification-card (mouseenter)="setStateToRead(notification)"
+                           [notification]="notification"></notification-card>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #empty>
+  <div class="no-notifications-container">
+    <p>
+      {{ 'No notifications found'  }}
+    </p>
+  </div>
+</ng-template>
