@@ -4,7 +4,6 @@
 - [x] _Communication served by RabbitMQ & SignalR_
 
 
-
 - [1. Functionalities](#-1-functionalities)
     - [1.1 Purpose](#11-purpose)
 - [2. Server Side Architecture](#1goal-functionalities)
@@ -45,7 +44,10 @@
         * [x] auto-confirmation
         * [x] hide notification
         * [x] remove notification
-        * [ ] mute type of notification
+    - States
+        * [x] Trivial
+        * [x] Normal
+        * [x] Important
 -  ***Notifications persistency*** 
     * [x] each notification and subscribers state are persisted in PostgreSQL
     * [x] welcome notifications are sent from last 24hrs for first log-in
@@ -76,11 +78,11 @@
     - Docker
     - Docker composer
     
-####1.3.1. Run 
+1.3.1. Run 
 ```cmd
 docker-compose -f docker-compose-infrastructure.yml up
 ```
-####1.3.2. Enter localhost:5450 (PGAdmin) and run
+1.3.2. Enter localhost:5450 (PGAdmin) and run
 ```postgresql
 CREATE DATABASE product-service;
 CREATE DATABASE smartstore-adapter;
@@ -88,15 +90,15 @@ CREATE DATABASE fetch-service;
 CREATE DATABASE notification-service;
 ```
 
-####1.3.3. Replace value from file '.env' and row 'RELATIVEPATH' to your relative path indicating folder containing folders with appsettings or adjust them to your preferenes.
+1.3.3. Replace value from file '.env' and row 'RELATIVEPATH' to your relative path indicating folder containing folders with appsettings or adjust them to your preferenes.
 
-####1.3.4. Run 
+1.3.4. Run 
 
 ```cmd
 docker-compose -f docker-compose-services.yml up
 ```
 
-####1.3.5. You can manage all containers from portainer dashboard.
+1.3.5. You can manage all containers from portainer dashboard.
 
 <p align="center">
    <img alt="Portainer dashboard" src="img/Portainer.png" />
