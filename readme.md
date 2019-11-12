@@ -42,10 +42,10 @@
         * [x] product added
         * [x] product properties changed
     - Operations
-        * [ ] auto-confirmation
-        * [ ] hide notification
-        * [ ] remove notification
-        * [ ] silence type of notification
+        * [x] auto-confirmation
+        * [x] hide notification
+        * [x] remove notification
+        * [ ] mute type of notification
 -  ***Notifications persistency*** 
     * [x] each notification and subscribers state are persisted in PostgreSQL
     * [x] welcome notifications are sent from last 24hrs for first log-in
