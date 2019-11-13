@@ -8,6 +8,7 @@ import {Subject} from "rxjs";
 import {ProductBaseEvent} from "../models/product-base-event.model";
 import {NotificationDto} from "../models/notification-dto.model";
 import {IntegrationEventType} from "../models/integration-event-type.model";
+import {Importancy} from "../models/importancy.model";
 
 @Injectable({
   providedIn: 'root'
@@ -94,20 +95,20 @@ export class SignalrService {
 
   invokeHideNotification(notificationId: string)
   {
-    this.connection.invoke('HideNotification', notificationId)
+    this.connection.invoke('hideNotification', notificationId)
       .catch(err => console.error(err));
   }
 
 
   invokeDeleteNotification(notificationId: string)
   {
-    this.connection.invoke('DeleteNotification', notificationId)
+    this.connection.invoke('deleteNotification', notificationId)
       .catch(err => console.error(err));
   }
 
   invokeChangeImportancyNotification(notificationId: string, importancy: Importancy)
   {
-    this.connection.invoke('ChangeNotificationImportancy', notificationId, importancy.toString())
+    this.connection.invoke('changeNotificationImportancy', notificationId, importancy.toString())
       .catch(err => console.error(err));
   }
 

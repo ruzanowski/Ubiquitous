@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 using AutoFixture;
 using Microsoft.Extensions.Logging;
 
@@ -12,24 +12,27 @@ namespace U.GeneratorService.Services
         private readonly ILogger<FakeProductGenerator> _logger;
         private readonly IFixture _fixture;
 
-
         public FakeProductGenerator(ILogger<FakeProductGenerator> logger)
         {
             _logger = logger;
             _fixture = new Fixture();
         }
 
+
         public SmartProductDto GenerateFakeProduct()
         {
+            var random = new Random();
+
+
             var fakeProduct = new SmartProductDto
             {
-                Description = _fixture.Create<string>(),
-                Height = _fixture.Create<decimal>(),
-                Width = _fixture.Create<decimal>(),
-                Length = _fixture.Create<decimal>(),
+                Description = GetRandomizedDescription(),
+                Height = random.Next(350),
+                Width = random.Next(350),
+                Length = random.Next(350),
+                Weight = random.Next(1300),
                 CategoryId = 1,
-                Name = _fixture.Create<string>(),
-                Weight = _fixture.Create<decimal>(),
+                Name = FakeNames.GetNames[random.Next(FakeNames.GetNames.Count)],
                 InStock = _fixture.Create<int>(),
                 ManufacturerId = 10,
                 ProductCost = _fixture.Create<decimal>(),
@@ -44,6 +47,31 @@ namespace U.GeneratorService.Services
 
             _logger.LogDebug($"Created new product: {fakeProduct}");
             return fakeProduct;
+        }
+
+        private string GetRandomizedDescription()
+        {
+            var random = new Random();
+            var descriptionLong = random.Next() % 5;
+
+            var description = String.Empty;
+
+            for (int i = 0; i < descriptionLong; i++)
+            {
+                description += FakeNames.GetNames[random.Next(FakeNames.GetNames.Count)] + ". ";
+            }
+
+            if (descriptionLong > 3)
+            {
+                description += FakeNames.GetNames[random.Next(FakeNames.GetNames.Count)] + "!";
+            }
+
+            else
+            {
+                description += FakeNames.GetNames[random.Next(FakeNames.GetNames.Count)] + "?";
+            }
+
+            return description;
         }
     }
 }

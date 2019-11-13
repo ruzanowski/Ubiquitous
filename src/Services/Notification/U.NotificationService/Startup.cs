@@ -21,9 +21,11 @@ using U.NotificationService.IntegrationEvents.ProductPropertiesChanged;
 using U.NotificationService.IntegrationEvents.ProductPublished;
 using StackExchange.Redis;
 using U.Common.Database;
+using U.Common.Redis;
 using U.NotificationService.Application.Hub;
 using U.NotificationService.Application.IntegrationEvents.ProductAdded;
 using U.NotificationService.Application.IntegrationEvents.ProductPropertiesChanged;
+using U.NotificationService.Application.Models;
 using U.NotificationService.Infrastracture.Contexts;
 
 namespace U.NotificationService
@@ -52,34 +54,8 @@ namespace U.NotificationService
                 .AddCustomSwagger()
                 .AddCustomMapper()
                 .AddCustomServices()
-                .AddCustomConsul();
-
-            services
-                .AddSignalR(options => { options.EnableDetailedErrors = true; })
-                .AddJsonProtocol()
-                .AddMessagePackProtocol()
-                .AddStackExchangeRedis(o =>
-                {
-                    o.ConnectionFactory = async writer =>
-                    {
-                        var config = new ConfigurationOptions
-                        {
-                            AbortOnConnectFail = false
-                        };
-                        config.EndPoints.Add(IPAddress.Loopback, 0);
-                        config.SetDefaultPorts();
-                        var connection = await ConnectionMultiplexer.ConnectAsync(config, writer);
-                        connection.ConnectionFailed += (_, e) => { Console.WriteLine("Connection to Redis failed."); };
-
-                        if (!connection.IsConnected)
-                        {
-                            Console.WriteLine("Did not connect to Redis.");
-                        }
-
-                        return connection;
-                    };
-                });
-
+                .AddCustomConsul()
+                .AddCustomRedisAndSignalR();
 
             RegisterEventsHandlers(services);
         }

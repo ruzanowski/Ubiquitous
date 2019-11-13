@@ -1,18 +1,18 @@
 <div class="mat-icon-wrap"
-     [ngStyle]="{ 'border-left-color': getColor()}"
-     (mouseover)="StateMarkedAsRead()"
+     [ngStyle]="{ 'border-left-color': bindColor()}"
+     (mouseover)="bindStateAsRead()"
 >
     <mat-icon
       style="font-size: 30px"
       class="importancy noselect"
-      (click)="ChangeNotificationImportancy()">
+      (click)="iterateImportancy()">
       {{importancyIcon}}
     </mat-icon>
     <mat-icon>notification</mat-icon>
 </div>
 
 <a class="mat-info-wrap"
-   (mouseover)="StateMarkedAsRead()"
+   (mouseover)="bindStateAsRead()"
 >
   <div class="line">
     <div class="info-field info-field--bold">
@@ -22,7 +22,7 @@
   </div>
   <div class="info-field info-field--bold">
     <mat-icon>info</mat-icon>
-    <span>{{getEventType()}}</span>
+    <span>{{bindEventType()}}</span>
   </div>
   <div class="info-field notification-title">
     <mat-icon>supervised_user_circle</mat-icon>
@@ -36,15 +36,15 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #afterMenu="matMenu" xPosition="after">
-    <button mat-menu-item (click)="ChangeNotificationImportancy()">
+    <button mat-menu-item (click)="iterateImportancy()">
       <mat-icon>star</mat-icon>
       Important
     </button>
-    <button mat-menu-item (click)="HideNotification()">
+    <button mat-menu-item (click)="hideNotification()">
       <mat-icon>cancel</mat-icon>
       Hide
     </button>
-    <button mat-menu-item (click)="DeleteNotification()">
+    <button mat-menu-item (click)="deleteNotification()">
       <mat-icon>delete</mat-icon>
       Delete
     </button>

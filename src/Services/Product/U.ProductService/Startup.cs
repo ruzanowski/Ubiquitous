@@ -126,10 +126,10 @@ namespace U.ProductService
                 .AddTransient<IManufacturerRepository, ManufacturerRepository>()
                 .AddIntegrationEventLog()
                 .AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>();
-            
+
             return services;
         }
-        
+
         public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
         {
             return services.AddSwaggerGen(options =>
@@ -166,12 +166,10 @@ namespace U.ProductService
 
             return services;
         }
-        
+
         public static IServiceCollection AddCustomPipelineBehaviours(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TransactionBehaviour<,>));
-//            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
-          //  services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PublishBehaviour<,>));
 
              return services;
         }

@@ -1,5 +1,5 @@
-const enum Importancy {
-  Trivial,
-  Normal,
-  Important
+export enum Importancy {
+  trivial = 0,
+  normal = 1 ,
+  important = 2
 }

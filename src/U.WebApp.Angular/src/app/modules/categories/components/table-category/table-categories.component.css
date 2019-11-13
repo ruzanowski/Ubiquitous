@@ -6,3 +6,6 @@ table {
   width: 100%;
 }
 
+tr:hover {
+  background: #e2e2e2;
+}

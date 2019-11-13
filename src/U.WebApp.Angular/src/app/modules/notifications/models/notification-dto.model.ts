@@ -1,5 +1,6 @@
 import {ConfirmationType} from "./confirmation-type.model";
 import {IntegrationEventType} from "./integration-event-type.model";
+import {Importancy} from "./importancy.model";
 
 export interface NotificationDto<T>
 {

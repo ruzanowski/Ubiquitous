@@ -6,11 +6,11 @@ using U.ProductService.Application.Events.IntegrationEvents;
 
 namespace U.ProductService.Application.Infrastructure.Behaviours
 {
-    public class TransactionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public class PublishBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
         private readonly IProductIntegrationEventService _productIntegrationEventService;
 
-        public TransactionBehaviour(IProductIntegrationEventService productIntegrationEventService)
+        public PublishBehaviour(IProductIntegrationEventService productIntegrationEventService)
         {
             _productIntegrationEventService = productIntegrationEventService ??
                                               throw new ArgumentException(nameof(productIntegrationEventService));

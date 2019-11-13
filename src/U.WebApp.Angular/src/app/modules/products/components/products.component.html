@@ -33,49 +33,42 @@
   <table mat-table [dataSource]="dataSource">
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center"> name</th>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center">Name</th>
       <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.name}} </td>
     </ng-container>
 
-    <!-- price Column -->
     <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center"> price</th>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center">Price</th>
       <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.price}} </td>
     </ng-container>
 
-    <!-- description Column -->
     <ng-container matColumnDef="description" >
-      <th mat-header-cell *matHeaderCellDef style="text-align: center"> description</th>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center">Description</th>
       <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.description}} </td>
     </ng-container>
 
-    <!-- height Column -->
     <ng-container matColumnDef="height">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center"> height</th>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center">Height</th>
       <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.dimensions.height}} </td>
     </ng-container>
 
-    <!-- width Column -->
     <ng-container matColumnDef="width">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center"> width</th>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center">Width</th>
       <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.dimensions.width}} </td>
     </ng-container>
 
-    <!-- length Column -->
     <ng-container matColumnDef="length">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center"> length</th>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center">Length</th>
       <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.dimensions.length}} </td>
     </ng-container>
 
-    <!-- weight Column -->
     <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center"> weight</th>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center">Weight</th>
       <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.dimensions.weight}} </td>
     </ng-container>
 
-    <!-- lastupdated Column -->
     <ng-container matColumnDef="lastUpdated">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center"> last updated at</th>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center">Last Updated At</th>
       <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.lastFullUpdateDateTime | date: 'short'}} </td>
     </ng-container>
 

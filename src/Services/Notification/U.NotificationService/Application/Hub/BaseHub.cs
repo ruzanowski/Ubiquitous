@@ -130,7 +130,8 @@ namespace U.NotificationService.Application.Hub
                                             ConfirmationType.Unread ||
                                             x.ConfirmationType ==
                                             ConfirmationType.Read))
-                ).OrderByDescending(x => x.CreationDate)
+                ).OrderByDescending(x=>(int)x.Importancy)
+                .ThenByDescending(x => x.CreationDate)
                 .Skip(0)
                 .Take(30) // todo: preferences of welcome messages?
                 .ToListAsync();

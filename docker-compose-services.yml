@@ -84,13 +84,12 @@ services:
     build:
       context: .
       dockerfile: src/Services/Notification/U.NotificationService/Dockerfile
-
     ports:
       - 5500:5500
     environment:
       ASPNETCORE_URLS: http://+:5500
       ASPNETCORE_ENVIRONMENT: docker
-      DbOptions__Connection: Server=localhost;Port=5432;Database=notification-service;User Id=postgres;Password=postgres;
+      DbOptions__Connection: Server=postgres;Port=5432;Database=notification-service;User Id=postgres;Password=postgres;
       DbOptions__Type: Npgsql
     volumes:
       - '${RELATIVE_PATH}/notificationservice/appsettings.docker.json:/app/appsettings.docker.json:ro'

@@ -40,6 +40,12 @@
         <PackageReference Include="Consul" Version="0.7.2.6" />
         <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.0.0-rc2" />
         <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="5.0.0-rc8" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="1.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.Json" Version="1.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="1.1.5" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="1.1.5" />
     </ItemGroup>
 
 </Project>

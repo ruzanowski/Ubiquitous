@@ -1,7 +1,9 @@
-import {Component, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {NotificationService} from "../../services/notification.service";
 import {NotificationDto} from "../../models/notification-dto.model";
 import {ConfirmationType} from "../../models/confirmation-type.model";
+import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
+import {ProductBaseEvent} from "../../models/product-base-event.model";
 
 @Component({
   selector: 'notifications-list',
@@ -10,8 +12,11 @@ import {ConfirmationType} from "../../models/confirmation-type.model";
 })
 export class NotificationsComponent implements OnInit, OnDestroy
 {
+  @Output() notificationsBadgeEvent;
+
   constructor(private notificationService: NotificationService)
   {
+    this.notificationsBadgeEvent = this.notificationService.notificationsBadgeEvent;
   }
 
   ngOnDestroy(): void {
@@ -24,7 +29,6 @@ export class NotificationsComponent implements OnInit, OnDestroy
     this.notificationService.signalr.connect();
     this.notificationService.registerSubscriptions();
   }
-
 
   onScroll() {
 
@@ -48,4 +52,9 @@ export class NotificationsComponent implements OnInit, OnDestroy
   {
     this.notificationService.readAll(notifications);
   }
+
+  drop(event: CdkDragDrop<Array<NotificationDto<ProductBaseEvent>>>) {
+    moveItemInArray(this.notificationService.notificationsToShow, event.previousIndex, event.currentIndex);
+  }
+
 }

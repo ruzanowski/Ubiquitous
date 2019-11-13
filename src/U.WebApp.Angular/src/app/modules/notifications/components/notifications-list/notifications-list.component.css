@@ -15,8 +15,9 @@
 }
 
 .no-notifications-container {
-  display: flex;
-  height: 100%;
   align-items: center;
   justify-content: center;
+  height: 100%;
+  display: flex;
+  font-size: large;
 }

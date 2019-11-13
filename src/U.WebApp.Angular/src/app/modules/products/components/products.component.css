@@ -5,3 +5,7 @@ table {
 .fill-space {
 flex: 1 1 auto;
 }
+
+tr:hover {
+  background: #e2e2e2;
+}

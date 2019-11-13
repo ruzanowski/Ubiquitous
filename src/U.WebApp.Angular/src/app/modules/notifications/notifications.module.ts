@@ -16,6 +16,7 @@ import {NotificationCardComponent} from "./components/notification-card/notifica
 import {NotificationSettingsComponent} from "./components/notification-settings/notification-settings.component";
 import {NotificationsComponent} from "./components/notifications-list/notifications-list.component";
 import {NotificationService} from "./services/notification.service";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import {NotificationService} from "./services/notification.service";
     MatButtonModule,
     MatListModule,
     MatExpansionModule,
-    MatMenuModule
+    MatMenuModule,
+    DragDropModule
   ],
   declarations:
     [

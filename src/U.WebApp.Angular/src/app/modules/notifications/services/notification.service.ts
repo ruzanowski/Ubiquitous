@@ -12,6 +12,7 @@ import {ConfirmationType} from "../models/confirmation-type.model";
   providedIn: 'root'
 })
 export class NotificationService{
+
   @Input()
   numOfItemsToShow = 5;
   itemsToLoad = 5;
@@ -31,11 +32,10 @@ export class NotificationService{
 
   @Output() notificationsBadgeEvent = new EventEmitter();
 
-  constructor(public signalr: SignalrService) {
+  constructor(public signalr: SignalrService)
+  {
     this.signalr.subscribeOnEvents();
   }
-
-
 
   set notifications(data: NotificationDto<ProductBaseEvent>) {
     this.numOfItemsToShow = this._notificationsData.push(data);
@@ -78,7 +78,6 @@ export class NotificationService{
   anyNotifications() {
     return this._notificationsData.length;
   }
-
 
   read(notification: NotificationDto<any>) : void
   {
