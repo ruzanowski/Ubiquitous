@@ -34,7 +34,6 @@ namespace U.NotificationService
                     $"Appsettings volume mapped: '{configuration.GetSection("volumeMapping").Value ?? "incorrectly"}'");
 
 
-
                 if (dbOptions?.AutoMigration != null && dbOptions.AutoMigration)
                 {
                     Log.Information("Applying migrations ({ApplicationContext})...", AppName);

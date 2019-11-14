@@ -17,3 +17,23 @@
   background-color: #f5f5f5;
   padding-top: 10px;
 }
+
+/* Extra small devices (phones, less than 768px) */
+@media (max-width:767px) {
+  body {font-size: 2px;}
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width:768px) {
+  body {font-size: 10px;}
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width:992px) {
+  body {font-size: 20px;}
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width:1200px) {
+  body {font-size: 30px;}
+}
