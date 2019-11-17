@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using MediatR;
-using Serilog.Context;
 using U.EventBus.Abstractions;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Products.Commands.Update;

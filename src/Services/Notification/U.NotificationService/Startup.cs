@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using AutoMapper;
 using Consul;
 using MediatR;
@@ -6,7 +7,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using StackExchange.Redis;
 using U.Common.Consul;
 using U.Common.Mvc;
 using U.EventBus.Abstractions;
@@ -20,6 +23,7 @@ using U.NotificationService.Application.IntegrationEvents.ProductAdded;
 using U.NotificationService.Application.IntegrationEvents.ProductPropertiesChanged;
 using U.NotificationService.Application.IntegrationEvents.ProductPublished;
 using U.NotificationService.Infrastracture.Contexts;
+using U.NotificationService.Infrastracture.SignalR;
 
 namespace U.NotificationService
 {
@@ -104,6 +108,52 @@ namespace U.NotificationService
         public static IServiceCollection AddCustomMapper(this IServiceCollection services)
         {
             services.AddSingleton(new MapperConfiguration(mc => { }).CreateMapper());
+
+            return services;
+        }
+
+        private static string SignalRSectionName = "signalr";
+
+        public static IServiceCollection AddCustomRedisAndSignalR(this IServiceCollection services)
+        {
+            IConfiguration configuration;
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                configuration = serviceProvider.GetService<IConfiguration>();
+            }
+
+            var signalROptions = configuration.GetOptions<SignalROptions>(SignalRSectionName);
+
+            services.TryAddSingleton(signalROptions);
+
+            services
+                .AddSignalR(options => { options.EnableDetailedErrors = true; })
+                .AddJsonProtocol()
+                .AddMessagePackProtocol()
+                .AddStackExchangeRedis(signalROptions.RedisConnectionString);
+//                .AddStackExchangeRedis(o =>
+//                {
+//                    o.ConnectionFactory = async writer =>
+//                    {
+//                        var config = new ConfigurationOptions
+//                        {
+//                            AbortOnConnectFail = false
+//                        };
+//
+//                        config.EndPoints.Clear();
+//                        config.EndPoints.Add($"{redisOptions.RedisConnectionString}");
+//
+//                        var connection = await ConnectionMultiplexer.ConnectAsync(config, writer);
+//                        connection.ConnectionFailed += (_, e) => { Console.WriteLine("Connection to Redis failed."); };
+//
+//                        if (!connection.IsConnected)
+//                        {
+//                            Console.WriteLine("Did not connect to Redis.");
+//                        }
+//
+//                        return connection;
+//                    };
+//                });
 
             return services;
         }

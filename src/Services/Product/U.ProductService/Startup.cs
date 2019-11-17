@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using StackExchange.Redis;
 using U.Common.Consul;
 using U.Common.Database;
 using U.Common.Jwt;
@@ -151,5 +153,7 @@ namespace U.ProductService
 
              return services;
         }
+
+
     }
 }

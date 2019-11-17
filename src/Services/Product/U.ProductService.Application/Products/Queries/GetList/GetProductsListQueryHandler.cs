@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Dynamic.Core;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -11,7 +10,6 @@ using U.EventBus.Abstractions;
 using U.ProductService.Application.Events.IntegrationEvents.Events;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain;
-using U.ProductService.Persistance;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Products.Queries.GetList

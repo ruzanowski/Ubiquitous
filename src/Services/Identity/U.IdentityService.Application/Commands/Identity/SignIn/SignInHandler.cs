@@ -15,17 +15,17 @@ namespace U.IdentityService.Application.Commands.Identity.SignIn
     {
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
-        private readonly IJwtHandler _jwtHandler;
+        private readonly IJwtService _jwtService;
         private readonly IRefreshTokenRepository _refreshTokenRepository;
         private readonly IClaimsProvider _claimsProvider;
 
         public SignInHandler(IClaimsProvider claimsProvider,
-            IRefreshTokenRepository refreshTokenRepository, IJwtHandler jwtHandler,
+            IRefreshTokenRepository refreshTokenRepository, IJwtService jwtService,
             IPasswordHasher<User> passwordHasher, IUserRepository userRepository)
         {
             _claimsProvider = claimsProvider;
             _refreshTokenRepository = refreshTokenRepository;
-            _jwtHandler = jwtHandler;
+            _jwtService = jwtService;
             _passwordHasher = passwordHasher;
             _userRepository = userRepository;
         }
@@ -44,7 +44,7 @@ namespace U.IdentityService.Application.Commands.Identity.SignIn
 
             var refreshToken = new RefreshToken(user, _passwordHasher);
             var claims = await _claimsProvider.GetAsync(user.Id);
-            var jwt = _jwtHandler.CreateToken(user.Id.ToString("N"), user.Role, claims);
+            var jwt = _jwtService.CreateToken(user.Id.ToString("N"), user.Role, claims);
             jwt.RefreshToken = refreshToken.Token;
             await _refreshTokenRepository.AddAndSaveAsync(refreshToken);
 

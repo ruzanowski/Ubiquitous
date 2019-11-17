@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace U.Common.Jwt
@@ -8,5 +9,7 @@ namespace U.Common.Jwt
         Task DeactivateCurrentAsync();
         Task<bool> IsActiveAsync(string token);
         Task DeactivateAsync(string token);
+        JsonWebToken CreateToken(string userId, string role = null, IDictionary<string, string> claims = null);
+        JsonWebTokenPayload GetTokenPayload(string accessToken);
     }
 }

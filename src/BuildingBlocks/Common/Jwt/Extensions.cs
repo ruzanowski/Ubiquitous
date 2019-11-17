@@ -23,7 +23,6 @@ namespace U.Common.Jwt
             var options = configuration.GetOptions<JwtOptions>(SectionName);
             services.Configure<JwtOptions>(section);
             services.AddSingleton(options);
-            services.AddSingleton<IJwtHandler, JwtHandler>();
             services.AddTransient<IJwtService, JwtService>();
             services.AddTransient<JwtTokenValidatorMiddleware>();
             services.AddAuthentication()

@@ -1,55 +1,42 @@
-using System.Linq;
+using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
 using U.Common.Jwt;
 using U.EventBus.Abstractions;
 using U.IdentityService.Application.Services;
+using U.IdentityService.Domain;
+using U.IdentityService.Domain.Domain;
+using U.IdentityService.Domain.Exceptions;
 using U.IdentityService.Persistance.Repositories;
 
 namespace U.IdentityService.Application.Commands.Token
 {
     public class TokenBaseHandler
     {
-        protected readonly IDistributedCache Cache;
-        protected readonly IOptions<JwtOptions> JwtOptions;
         protected readonly IRefreshTokenRepository RefreshTokenRepository;
         protected readonly IUserRepository UserRepository;
-        protected readonly IJwtHandler JwtHandler;
+        protected readonly IJwtService JwtService;
         protected readonly IClaimsProvider ClaimsProvider;
         protected readonly IEventBus BusPublisher;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public TokenBaseHandler(IOptions<JwtOptions> jwtOptions, IHttpContextAccessor httpContextAccessor, IDistributedCache cache, IRefreshTokenRepository refreshTokenRepository, IJwtHandler jwtHandler, IUserRepository userRepository, IClaimsProvider claimsProvider, IEventBus busPublisher)
+        public TokenBaseHandler(IRefreshTokenRepository refreshTokenRepository, IJwtService jwtService, IUserRepository userRepository, IClaimsProvider claimsProvider, IEventBus busPublisher)
         {
-            JwtOptions = jwtOptions;
-            _httpContextAccessor = httpContextAccessor;
-            Cache = cache;
             RefreshTokenRepository = refreshTokenRepository;
-            JwtHandler = jwtHandler;
+            JwtService = jwtService;
             UserRepository = userRepository;
             ClaimsProvider = claimsProvider;
             BusPublisher = busPublisher;
         }
 
-        protected string GetCurrentAsync()
+        protected async Task<User> GetUserOrThrowAsync(Guid userId)
         {
-            var authorizationHeader = _httpContextAccessor
-                .HttpContext.Request.Headers["authorization"];
+            var user = await UserRepository.GetAsync(userId);
+            if (user == null)
+            {
+                throw new IdentityException(Codes.UserNotFound,
+                    $"User: '{userId}' was not found.");
+            }
 
-            return authorizationHeader == StringValues.Empty
-                ? string.Empty
-                : authorizationHeader.Single().Split(' ').Last();
+            return user;
         }
-
-        protected static string GetKey(string token)
-            => $"tokens:{token}";
-
-        private async Task<bool> IsActiveAsync(string token) =>
-            string.IsNullOrWhiteSpace(await Cache.GetStringAsync(GetKey(token)));
-
-        public async Task<bool> IsCurrentActiveToken() => await IsActiveAsync(GetCurrentAsync());
     }
 }

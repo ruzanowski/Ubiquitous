@@ -3,9 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Serilog.Context;
 using U.ProductService.Application.Events.IntegrationEvents;
-using U.ProductService.Application.Events.IntegrationEvents.EventHandling;
 using U.ProductService.Application.Events.IntegrationEvents.Events;
 using U.ProductService.Domain.Events;
 

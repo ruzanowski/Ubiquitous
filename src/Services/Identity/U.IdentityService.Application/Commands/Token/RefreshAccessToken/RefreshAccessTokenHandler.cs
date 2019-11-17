@@ -1,9 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Options;
 using U.Common.Jwt;
 using U.EventBus.Abstractions;
 using U.IdentityService.Application.Events;
@@ -17,10 +14,9 @@ namespace U.IdentityService.Application.Commands.Token.RefreshAccessToken
     public class RefreshAccessTokenHandler : TokenBaseHandler,
         IRequestHandler<RefreshAccessToken, JsonWebToken>
     {
-        public RefreshAccessTokenHandler(IOptions<JwtOptions> jwtOptions, IHttpContextAccessor httpContextAccessor,
-            IDistributedCache cache, IRefreshTokenRepository refreshTokenRepository, IJwtHandler jwtHandler,
-            IUserRepository userRepository, IClaimsProvider claimsProvider, IEventBus busPublisher) : base(jwtOptions,
-            httpContextAccessor, cache, refreshTokenRepository, jwtHandler, userRepository, claimsProvider,
+        public RefreshAccessTokenHandler(IRefreshTokenRepository refreshTokenRepository, IJwtService jwtService,
+            IUserRepository userRepository, IClaimsProvider claimsProvider, IEventBus busPublisher) : base(
+            refreshTokenRepository, jwtService, userRepository, claimsProvider,
             busPublisher)
         {
         }
@@ -43,15 +39,10 @@ namespace U.IdentityService.Application.Commands.Token.RefreshAccessToken
                     $"Refresh token: '{refreshToken.Id}' was revoked.");
             }
 
-            var user = await UserRepository.GetAsync(refreshToken.UserId);
-            if (user == null)
-            {
-                throw new IdentityException(Codes.UserNotFound,
-                    $"User: '{refreshToken.UserId}' was not found.");
-            }
+            var user = await GetUserOrThrowAsync(refreshToken.UserId);
 
             var claims = await ClaimsProvider.GetAsync(user.Id);
-            var jwt = JwtHandler.CreateToken(user.Id.ToString("N"), user.Role, claims);
+            var jwt = JwtService.CreateToken(user.Id.ToString("N"), user.Role, claims);
             jwt.RefreshToken = refreshToken.Token;
             BusPublisher.Publish(new AccessTokenRefreshed(user.Id));
 

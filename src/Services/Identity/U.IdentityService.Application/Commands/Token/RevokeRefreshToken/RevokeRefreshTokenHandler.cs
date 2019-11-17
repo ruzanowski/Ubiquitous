@@ -1,9 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Options;
 using U.Common.Jwt;
 using U.EventBus.Abstractions;
 using U.IdentityService.Application.Events;
@@ -16,16 +13,12 @@ namespace U.IdentityService.Application.Commands.Token.RevokeRefreshToken
 {
     public class RevokeRefreshTokenHandler : TokenBaseHandler, IRequestHandler<RevokeRefreshToken>
     {
-        public RevokeRefreshTokenHandler(IOptions<JwtOptions> jwtOptions,
-            IHttpContextAccessor httpContextAccessor,
-            IDistributedCache cache,
-            IRefreshTokenRepository refreshTokenRepository,
-            IJwtHandler jwtHandler,
+        public RevokeRefreshTokenHandler(IRefreshTokenRepository refreshTokenRepository,
+            IJwtService jwtService,
             IUserRepository userRepository,
             IClaimsProvider claimsProvider,
-            IEventBus busPublisher) : base(jwtOptions,
-            httpContextAccessor, cache, refreshTokenRepository,
-            jwtHandler, userRepository, claimsProvider,
+            IEventBus busPublisher) : base(refreshTokenRepository,
+            jwtService, userRepository, claimsProvider,
             busPublisher)
         {
         }

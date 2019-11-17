@@ -1,12 +1,10 @@
 ﻿using Caracan.Pdf.Installer;
 using Consul;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using U.Common.Consul;
 using U.Common.Mvc;
 using U.Common.Swagger;
