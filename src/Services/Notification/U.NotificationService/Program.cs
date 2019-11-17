@@ -25,7 +25,7 @@ namespace U.NotificationService
             {
                 Log.Information("Configuring web host ({ApplicationContext})...", AppName);
                 var host = SharedWebHost.BuildWebHost<Startup>(configuration, args);
-                var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
+                var dbOptions = configuration.GetOptions<DbOptions>("dbOptions");
 
                 Log.Information(
                     $"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");

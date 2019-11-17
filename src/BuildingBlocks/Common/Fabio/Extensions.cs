@@ -1,14 +1,9 @@
-using System;
 using System.Net.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RestEase;
-using U.Common.Consul;
-using U.Common.Fabio;
-using U.Common.Mvc;
 
-namespace U.Common.RestEase
+namespace U.Common.Fabio
 {
     public static class Extensions
     {
@@ -32,10 +27,11 @@ namespace U.Common.RestEase
 
         private static void ConfigureForwarder<T>(IServiceCollection services, string clientName) where T : class
         {
-            services.AddTransient<T>(c => new RestClient(c.GetService<IHttpClientFactory>().CreateClient(clientName))
-            {
-                RequestQueryParamSerializer = new QueryParamSerializer()
-            }.For<T>());
+            services.AddTransient(c =>
+                new RestClient(c.GetService<IHttpClientFactory>().CreateClient(clientName))
+                {
+                    RequestQueryParamSerializer = new QueryParamSerializer()
+                }.For<T>());
         }
     }
 }

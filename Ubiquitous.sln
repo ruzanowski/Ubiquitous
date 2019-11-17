@@ -1,10 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchService", "src\Services\Fetch\U.FetchService\U.FetchService.csproj", "{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductFetchService", "src\Services\Fetch\U.FetchService\U.FetchService.csproj", "{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapter.SmartStore", "src\Adapter.SmartStore", "{F6FEBE1F-9974-4282-8497-97CB808E65CB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Fetch", "src\Service.Fetch", "{2F31A504-325D-475E-9B94-5BA9D525A2AA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.ProductFetch", "src\Service.Fetch", "{2F31A504-325D-475E-9B94-5BA9D525A2AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Application", "src\Adapters\SmartStore\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj", "{F14867ED-37E5-4F19-924A-42766C65D87C}"
 EndProject
@@ -59,7 +59,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Report", "Service.R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ReportService", "src\Services\Report\U.ReportService\U.ReportService.csproj", "{A514CCFE-758A-47D7-ABA6-1E1FAE589B82}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Generator", "Service.Generator", "{AB4BB1BC-D658-42D0-8B65-74FCBA24EC09}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.ProductGenerator", "Service.ProductGenerator", "{AB4BB1BC-D658-42D0-8B65-74FCBA24EC09}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.GeneratorService", "src\Services\Generator\U.GeneratorService\U.GeneratorService.csproj", "{15D78CF9-F6DB-465C-AEFE-D94E056ADE4A}"
 EndProject
@@ -68,6 +68,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracan.Templates", "src\Services\Report\Caracan.Templates\Caracan.Templates.csproj", "{EC55DC69-C6EC-47F6-A015-8A0D42D153C9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracan.Charts", "src\Services\Report\Caracan.Charts\Caracan.Charts.csproj", "{7F972ABE-49B1-402B-99AF-27CFE1418C91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Identity", "Service.Identity", "{31C78702-0DC3-4A05-AB00-B00FE55776F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService", "src\Services\Identity\U.IdentityService\U.IdentityService.csproj", "{974BAABC-4287-4774-A16C-4BC2D416FC89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.Application", "src\Services\Identity\U.IdentityService.Application\U.IdentityService.Application.csproj", "{5FFE5D8A-F3C4-4A8C-953B-334205210102}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.Domain", "src\Services\Identity\U.IdentityService.Domain\U.IdentityService.Domain.csproj", "{D32B4294-FEB4-4352-BCF9-57859F15BE0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.Persistance", "src\Services\Identity\U.IdentityService.Persistance\U.IdentityService.Persistance.csproj", "{6FBB0868-1FC9-4A2F-A4EB-CA4D3FAAA99A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -159,6 +169,22 @@ Global
 		{7F972ABE-49B1-402B-99AF-27CFE1418C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F972ABE-49B1-402B-99AF-27CFE1418C91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F972ABE-49B1-402B-99AF-27CFE1418C91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{974BAABC-4287-4774-A16C-4BC2D416FC89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{974BAABC-4287-4774-A16C-4BC2D416FC89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{974BAABC-4287-4774-A16C-4BC2D416FC89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{974BAABC-4287-4774-A16C-4BC2D416FC89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FFE5D8A-F3C4-4A8C-953B-334205210102}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FFE5D8A-F3C4-4A8C-953B-334205210102}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FFE5D8A-F3C4-4A8C-953B-334205210102}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FFE5D8A-F3C4-4A8C-953B-334205210102}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D32B4294-FEB4-4352-BCF9-57859F15BE0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D32B4294-FEB4-4352-BCF9-57859F15BE0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D32B4294-FEB4-4352-BCF9-57859F15BE0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D32B4294-FEB4-4352-BCF9-57859F15BE0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FBB0868-1FC9-4A2F-A4EB-CA4D3FAAA99A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FBB0868-1FC9-4A2F-A4EB-CA4D3FAAA99A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FBB0868-1FC9-4A2F-A4EB-CA4D3FAAA99A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FBB0868-1FC9-4A2F-A4EB-CA4D3FAAA99A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8} = {2F31A504-325D-475E-9B94-5BA9D525A2AA}
@@ -182,5 +208,9 @@ Global
 		{4C127E37-2ACE-44C9-88F1-1D5419F894F7} = {08A3FE13-C570-49A0-8A92-4C27FDD732A9}
 		{EC55DC69-C6EC-47F6-A015-8A0D42D153C9} = {08A3FE13-C570-49A0-8A92-4C27FDD732A9}
 		{7F972ABE-49B1-402B-99AF-27CFE1418C91} = {08A3FE13-C570-49A0-8A92-4C27FDD732A9}
+		{974BAABC-4287-4774-A16C-4BC2D416FC89} = {31C78702-0DC3-4A05-AB00-B00FE55776F0}
+		{5FFE5D8A-F3C4-4A8C-953B-334205210102} = {31C78702-0DC3-4A05-AB00-B00FE55776F0}
+		{D32B4294-FEB4-4352-BCF9-57859F15BE0E} = {31C78702-0DC3-4A05-AB00-B00FE55776F0}
+		{6FBB0868-1FC9-4A2F-A4EB-CA4D3FAAA99A} = {31C78702-0DC3-4A05-AB00-B00FE55776F0}
 	EndGlobalSection
 EndGlobal

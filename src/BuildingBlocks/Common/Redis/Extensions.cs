@@ -1,9 +1,9 @@
 using System;
-using System.Net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using StackExchange.Redis;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using U.Common.Mvc;
+using StackExchange.Redis;
 
 namespace U.Common.Redis
 {
@@ -21,6 +21,8 @@ namespace U.Common.Redis
 
             var redisOptions = configuration.GetOptions<RedisOptions>(RedisSectionName);
 
+            services.TryAddSingleton(redisOptions);
+
             services
                 .AddSignalR(options => { options.EnableDetailedErrors = true; })
                 .AddJsonProtocol()
@@ -29,7 +31,7 @@ namespace U.Common.Redis
                 {
                     o.ConnectionFactory = async writer =>
                     {
-                        var config = new ConfigurationOptions
+                        var config = new ConfigurationOptions()
                         {
                             AbortOnConnectFail = false
                         };
@@ -48,6 +50,27 @@ namespace U.Common.Redis
                         return connection;
                     };
                 });
+
+            return services;
+        }
+        public static IServiceCollection AddRedis(this IServiceCollection services)
+        {
+            IConfiguration configuration;
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                configuration = serviceProvider.GetService<IConfiguration>();
+            }
+
+            var redisOptions = configuration.GetOptions<RedisOptions>(RedisSectionName);
+
+            services.TryAddSingleton(redisOptions);
+
+
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = $"{redisOptions.Host}:{redisOptions.Port}";
+                options.InstanceName = redisOptions.Instance;
+            });
 
             return services;
         }

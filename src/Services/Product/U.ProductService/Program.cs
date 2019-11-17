@@ -28,14 +28,14 @@ namespace U.ProductService
             {
                 Log.Information("Configuring web host ({ApplicationContext})...", AppName);
                 var host = SharedWebHost.BuildWebHost<Startup>(configuration, args);
-                var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
+                var dbOptions = configuration.GetOptions<DbOptions>("dbOptions");
 
                 Log.Information($"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");
 
                 Log.Information(
                     $"Appsettings volume mapped: '{configuration.GetSection("volumeMapping").Value ?? "incorrectly"}'");
 
-                
+
                 if (dbOptions?.AutoMigration != null && dbOptions.AutoMigration)
                 {
                     Log.Information("Applying migrations ({ApplicationContext})...", AppName);

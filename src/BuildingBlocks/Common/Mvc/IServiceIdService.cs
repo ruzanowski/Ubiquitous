@@ -1,6 +1,6 @@
 namespace U.Common.Mvc
 {
-    public interface IServiceId
+    public interface IServiceIdService
     {
          string Id { get; }
     }

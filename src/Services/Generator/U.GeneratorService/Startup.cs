@@ -6,8 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using U.Common.Consul;
+using U.Common.Fabio;
 using U.Common.Mvc;
-using U.Common.RestEase;
 using U.GeneratorService.BackgroundServices;
 using U.GeneratorService.Services;
 
@@ -29,7 +29,7 @@ namespace U.GeneratorService
         {
             services
                 .AddCustomMvc()
-                .AddCustomConsul()
+                .AddConsul()
                 .RegisterServiceForwarder<ISmartStoreAdapter>("u.smartstore-adapter")
                 .AddUpdateWorkerHostedService(Configuration)
                 .AddCustomServices();
@@ -37,7 +37,7 @@ namespace U.GeneratorService
 
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            app.UseCustomPathBase(Configuration, _logger).Item1
+            app.UsePathBase(Configuration, _logger).Item1
                 .UseDeveloperExceptionPage()
                 .UseMvcWithDefaultRoute()
                 .UseServiceId()

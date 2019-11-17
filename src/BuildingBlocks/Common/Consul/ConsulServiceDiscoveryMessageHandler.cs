@@ -49,7 +49,7 @@ namespace U.Common.Consul
             string serviceName, Uri uri, CancellationToken cancellationToken)
             => await Policy.Handle<Exception>()
                 .WaitAndRetryAsync(RequestRetries, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)))
-                .ExecuteAsync(async () => 
+                .ExecuteAsync(async () =>
                 {
                     request.RequestUri = await GetRequestUriAsync(request, serviceName, uri);
 
@@ -68,7 +68,8 @@ namespace U.Common.Consul
 
             if (!_options.Value.SkipLocalhostDockerDnsReplace)
             {
-                service.Address = service.Address.Replace("docker.for.mac.localhost", "localhost")
+                service.Address = service.Address
+                    .Replace("docker.for.mac.localhost", "localhost")
                     .Replace("docker.for.win.localhost", "localhost")
                     .Replace("host.docker.internal", "localhost");
             }

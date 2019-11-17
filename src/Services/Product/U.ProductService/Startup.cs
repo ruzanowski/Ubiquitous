@@ -9,10 +9,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using U.Common.Behaviour;
 using U.Common.Consul;
 using U.Common.Database;
 using U.Common.Mvc;
+using U.Common.Swagger;
 using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
@@ -24,7 +24,6 @@ using U.ProductService.Application.Infrastructure.Behaviours;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Domain;
 using U.ProductService.Middleware;
-using U.ProductService.Persistance;
 using U.ProductService.Persistance.Contexts;
 using U.ProductService.Persistance.Repositories;
 
@@ -51,11 +50,11 @@ namespace U.ProductService
                 .AddEventBusRabbitMq(Configuration)
                 .AddMediatR(typeof(CreateProductCommand).GetTypeInfo().Assembly)
                 .AddCustomPipelineBehaviours()
-                .AddLogging()
-                .AddCustomSwagger()
                 .AddCustomMapper()
                 .AddCustomServices()
-                .AddCustomConsul();
+                .AddLogging()
+                .AddSwagger()
+                .AddConsul();
 
             RegisterEventsHandlers(services);
         }
@@ -64,12 +63,12 @@ namespace U.ProductService
         public void Configure(IApplicationBuilder app,
             IApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            var pathBase = app.UseCustomPathBase(Configuration, _logger).Item2;
+            var pathBase = app.UsePathBase(Configuration, _logger).Item2;
             app.UseDeveloperExceptionPage()
                 .UseCors("CorsPolicy")
                 .UseMvcWithDefaultRoute()
                 .AddExceptionMiddleware()
-                .UseCustomSwagger(pathBase)
+                .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseStaticFiles();
@@ -128,31 +127,6 @@ namespace U.ProductService
                 .AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>();
 
             return services;
-        }
-
-        public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
-        {
-            return services.AddSwaggerGen(options =>
-            {
-                options.DescribeAllEnumsAsStrings();
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "Product HTTP API",
-                    Version = "v1",
-                    Description = "The Product Service HTTP API"
-                });
-            });
-        }
-
-        public static IApplicationBuilder UseCustomSwagger(this IApplicationBuilder app, string pathBase)
-        {
-            return app.UseSwagger()
-                .UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint(
-                        $"{(!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty)}/swagger/v1/swagger.json",
-                        "ProductService V1");
-                });
         }
 
         public static IServiceCollection AddCustomMapper(this IServiceCollection services)

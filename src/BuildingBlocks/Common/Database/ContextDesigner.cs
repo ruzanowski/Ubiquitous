@@ -22,7 +22,7 @@ namespace U.Common.Database
 
         private static void SetDbProviders<T>(ref DbContextOptionsBuilder<T> builder, IConfigurationRoot configuration) where T : DbContext
         {
-            var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
+            var dbOptions = configuration.GetOptions<DbOptions>("dbOptions");
 
             if (dbOptions.Connection is null)
             {

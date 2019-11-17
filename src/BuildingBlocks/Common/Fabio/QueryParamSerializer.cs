@@ -65,7 +65,6 @@ namespace U.Common.Fabio
             var properties = obj.GetType().GetProperties();
             //If the prefix won't be empty, then it is needed to specify [Query(null)].
             //Otherwise, the query string will contain the query name e.g. 'query.page' instead of just 'page'.
-            //var prefix = string.IsNullOrWhiteSpace(name) ? string.Empty : $"{name}.";
             var prefix = string.Empty;
             foreach (var prop in properties)
             {
