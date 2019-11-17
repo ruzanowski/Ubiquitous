@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using AutoFixture;
 using Microsoft.Extensions.Logging;
 
-namespace U.GeneratorService.Services
+namespace U.GeneratorService.Services.Generator
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class FakeProductGenerator : IProductGenerator

@@ -12,4 +12,8 @@
       <ProjectReference Include="..\U.IdentityService.Persistance\U.IdentityService.Persistance.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Commands\Identity" />
+    </ItemGroup>
+
 </Project>

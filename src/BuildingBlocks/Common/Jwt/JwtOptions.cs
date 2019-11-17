@@ -1,4 +1,4 @@
-namespace U.Common.Authentication
+namespace U.Common.Jwt
 {
     public class JwtOptions
     {

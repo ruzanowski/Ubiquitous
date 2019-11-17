@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -68,7 +67,10 @@ namespace U.Common.Swagger
                     {securityScheme, new string[] { }},
                 };
                 options.AddSecurityRequirement(securityRequirements);
+
+                options.SchemaFilter<SwaggerExcludeFilter>();
             });
+
 
             return services;
         }

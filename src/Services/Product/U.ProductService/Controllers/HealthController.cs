@@ -1,5 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using U.Common.Mvc;
+using U.Common.Consul;
 
 namespace U.ProductService.Controllers
 {
@@ -10,9 +11,9 @@ namespace U.ProductService.Controllers
     [Route("api/product")]
     public class HealthController : ControllerBase
     {
-        private readonly IServiceIdService _service;
+        private readonly IConsulServiceDifferentator _service;
 
-        public HealthController(IServiceIdService service)
+        public HealthController(IConsulServiceDifferentator service)
         {
             _service = service;
         }
@@ -21,12 +22,13 @@ namespace U.ProductService.Controllers
         ///
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet("health/{serviceId}")]
         public IActionResult HealthCheck(string serviceId)
         {
             return IsCorrectServiceId(serviceId) ? (IActionResult) NoContent() : BadRequest();
         }
 
-        private bool IsCorrectServiceId(string guid) => _service.Id.Equals(guid);
+        private bool IsCorrectServiceId(string guid) => _service.IsTheSame(guid);
     }
 }

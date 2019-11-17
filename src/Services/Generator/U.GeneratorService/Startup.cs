@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using U.Common.Consul;
 using U.Common.Fabio;
 using U.Common.Mvc;
 using U.GeneratorService.BackgroundServices;
 using U.GeneratorService.Services;
+using U.GeneratorService.Services.Generator;
 
 namespace U.GeneratorService
 {

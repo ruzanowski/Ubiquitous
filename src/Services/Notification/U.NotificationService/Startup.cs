@@ -12,15 +12,13 @@ using U.Common.Mvc;
 using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
-using U.NotificationService.IntegrationEvents.ProductAdded;
-using U.NotificationService.IntegrationEvents.ProductPropertiesChanged;
-using U.NotificationService.IntegrationEvents.ProductPublished;
 using U.Common.Database;
 using U.Common.Redis;
 using U.Common.Swagger;
 using U.NotificationService.Application.Hub;
 using U.NotificationService.Application.IntegrationEvents.ProductAdded;
 using U.NotificationService.Application.IntegrationEvents.ProductPropertiesChanged;
+using U.NotificationService.Application.IntegrationEvents.ProductPublished;
 using U.NotificationService.Infrastracture.Contexts;
 
 namespace U.NotificationService

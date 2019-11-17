@@ -11,5 +11,6 @@ namespace U.IdentityService.Domain
         public static string RefreshTokenNotFound => "refresh_token_not_found";
         public static string RefreshTokenAlreadyRevoked => "refresh_token_already_revoked";
         public static string UserNotFound => "user_not_found";
+        public static string ArgumentsCannotBeNull => "arguments_cannot_be_null";
     }
 }

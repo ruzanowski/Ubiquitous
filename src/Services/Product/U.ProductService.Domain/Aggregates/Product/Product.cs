@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore.Internal;
-using U.ProductService.Application.Products.Commands.Update;
 using U.ProductService.Domain.Aggregates.Category;
 using U.ProductService.Domain.Aggregates.Picture;
 using U.ProductService.Domain.Aggregates.Product;
 using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Events;
 using U.ProductService.Domain.Exceptions;
+using U.ProductService.Domain.Helpers;
 using U.ProductService.Domain.SeedWork;
 
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
@@ -147,7 +146,8 @@ namespace U.ProductService.Domain
             AddDomainEvent(@event);
         }
 
-        public void UpdateProduct(IMapper mapper, string name, string description, decimal price, Dimensions dimensions, DateTime updateDispatchedFromOrigin)
+        public void UpdateProduct(IMapper mapper, string name, string description, decimal price, Dimensions dimensions,
+            DateTime updateDispatchedFromOrigin)
         {
             if (!LastUpdatedAt.HasValue || LastUpdatedAt.Value >= updateDispatchedFromOrigin) return;
 

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using U.Common.Mvc;
+using U.Common.Consul;
 
 namespace U.SmartStoreAdapter.Controllers
 {
@@ -10,9 +10,9 @@ namespace U.SmartStoreAdapter.Controllers
     [Route("api/smartstore")]
     public class HealthController : ControllerBase
     {
-        private readonly IServiceIdService _service;
+        private readonly IConsulServiceDifferentator _service;
 
-        public HealthController(IServiceIdService service)
+        public HealthController(IConsulServiceDifferentator service)
         {
             _service = service;
         }
@@ -27,6 +27,6 @@ namespace U.SmartStoreAdapter.Controllers
             return IsCorrectServiceId(serviceId) ? (IActionResult) NoContent() : BadRequest();
         }
 
-        private bool IsCorrectServiceId(string guid) => _service.Id.Equals(guid);
+        private bool IsCorrectServiceId(string guid) => _service.IsTheSame(guid);
     }
 }

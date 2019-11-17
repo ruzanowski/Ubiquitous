@@ -8,10 +8,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using U.Common.Consul;
 using U.Common.Database;
+using U.Common.Jwt;
 using U.Common.Mvc;
+using U.Common.Redis;
 using U.Common.Swagger;
 using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
@@ -54,7 +55,9 @@ namespace U.ProductService
                 .AddCustomServices()
                 .AddLogging()
                 .AddSwagger()
-                .AddConsul();
+                .AddConsul()
+                .AddRedis()
+                .AddJwt();
 
             RegisterEventsHandlers(services);
         }
@@ -66,12 +69,13 @@ namespace U.ProductService
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
             app.UseDeveloperExceptionPage()
                 .UseCors("CorsPolicy")
-                .UseMvcWithDefaultRoute()
                 .AddExceptionMiddleware()
                 .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()
-                .UseStaticFiles();
+                .UseAuthentication()
+                .UseAccessTokenValidator()
+                .UseMvc();
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);

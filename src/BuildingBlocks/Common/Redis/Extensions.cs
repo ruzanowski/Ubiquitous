@@ -65,7 +65,6 @@ namespace U.Common.Redis
 
             services.TryAddSingleton(redisOptions);
 
-
             services.AddStackExchangeRedisCache(options =>
             {
                 options.Configuration = $"{redisOptions.Host}:{redisOptions.Port}";

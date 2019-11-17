@@ -1,11 +1,9 @@
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
 using U.NotificationService.Application.Hub;
 
-namespace U.NotificationService.IntegrationEvents.ProductPublished
+namespace U.NotificationService.Application.IntegrationEvents.ProductPublished
 {
     public class ProductPublishedIntegrationEventHandler : IIntegrationEventHandler<ProductPublishedIntegrationEvent>
     {

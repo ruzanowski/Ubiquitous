@@ -6,15 +6,15 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 
-namespace U.Common.Authentication
+namespace U.Common.Jwt
 {
-    public class AccessTokenService : IAccessTokenService
+    public class JwtService : IJwtService
     {
         private readonly IDistributedCache _cache;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IOptions<JwtOptions> _jwtOptions;
 
-        public AccessTokenService(IDistributedCache cache,
+        public JwtService(IDistributedCache cache,
             IHttpContextAccessor httpContextAccessor,
             IOptions<JwtOptions> jwtOptions)
         {
@@ -25,12 +25,16 @@ namespace U.Common.Authentication
 
         public async Task<bool> IsCurrentActiveToken() => await IsActiveAsync(GetCurrentAsync());
 
-        public async Task DeactivateCurrentAsync(string userId) => await DeactivateAsync(userId, GetCurrentAsync());
+        public async Task DeactivateCurrentAsync() => await DeactivateAsync(GetCurrentAsync());
 
-        public async Task<bool> IsActiveAsync(string token) =>
-            string.IsNullOrWhiteSpace(await _cache.GetStringAsync(GetKey(token)));
+        public async Task<bool> IsActiveAsync(string token)
+        {
+            var cached = await _cache.GetStringAsync(GetKey(token));
 
-        public async Task DeactivateAsync(string userId, string token)
+            return string.IsNullOrEmpty(cached);
+        }
+
+        public async Task DeactivateAsync(string token)
         {
             await _cache.SetStringAsync(GetKey(token),
                 "deactivated", new DistributedCacheEntryOptions
@@ -50,7 +54,6 @@ namespace U.Common.Authentication
                 : authorizationHeader.Single().Split(' ').Last();
         }
 
-        private static string GetKey(string token)
-            => $"tokens:{token}";
+        private static string GetKey(string token) => $"tokens:{token}";
     }
 }

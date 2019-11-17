@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 
-namespace U.Common.Authentication
+namespace U.Common.Jwt
 {
     public class AuthAttribute : AuthorizeAttribute
     {

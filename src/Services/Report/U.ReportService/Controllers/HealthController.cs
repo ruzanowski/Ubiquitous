@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using U.Common.Mvc;
+using U.Common.Consul;
 
 namespace U.ReportService.Controllers
 {
@@ -10,9 +10,9 @@ namespace U.ReportService.Controllers
     [Route("api/report")]
     public class HealthController : ControllerBase
     {
-        private readonly IServiceIdService _service;
+        private readonly IConsulServiceDifferentator _service;
 
-        public HealthController(IServiceIdService service)
+        public HealthController(IConsulServiceDifferentator service)
         {
             _service = service;
         }
@@ -27,6 +27,6 @@ namespace U.ReportService.Controllers
             return IsCorrectServiceId(serviceId) ? (IActionResult) NoContent() : BadRequest();
         }
 
-        private bool IsCorrectServiceId(string guid) => _service.Id.Equals(guid);
+        private bool IsCorrectServiceId(string guid) => _service.IsTheSame(guid);
     }
 }

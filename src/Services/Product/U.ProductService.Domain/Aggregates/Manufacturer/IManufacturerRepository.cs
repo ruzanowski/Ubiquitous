@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using U.ProductService.Domain.Aggregates.Manufacturer;
 using U.ProductService.Domain.SeedWork;

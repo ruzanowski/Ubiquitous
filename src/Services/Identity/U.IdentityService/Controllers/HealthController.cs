@@ -1,6 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using U.Common.Consul;
-using U.Common.Mvc;
 
 namespace U.IdentityService.Controllers
 {
@@ -23,6 +23,7 @@ namespace U.IdentityService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("health/{serviceId}")]
+        [AllowAnonymous]
         public IActionResult HealthCheck(string serviceId)
         {
             return IsCorrectServiceId(serviceId) ? (IActionResult) NoContent() : BadRequest();

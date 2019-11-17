@@ -6,13 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using U.Common.Mvc;
 
-namespace U.Common.Authentication
+namespace U.Common.Jwt
 {
     public static class Extensions
     {
         private static readonly string SectionName = "jwt";
 
-        public static void AddJwt(this IServiceCollection services)
+        public static IServiceCollection AddJwt(this IServiceCollection services)
         {
             IConfiguration configuration;
             using (var serviceProvider = services.BuildServiceProvider())
@@ -24,8 +24,8 @@ namespace U.Common.Authentication
             services.Configure<JwtOptions>(section);
             services.AddSingleton(options);
             services.AddSingleton<IJwtHandler, JwtHandler>();
-            services.AddTransient<IAccessTokenService, AccessTokenService>();
-            services.AddTransient<AccessTokenValidatorMiddleware>();
+            services.AddTransient<IJwtService, JwtService>();
+            services.AddTransient<JwtTokenValidatorMiddleware>();
             services.AddAuthentication()
                 .AddJwtBearer(cfg =>
                 {
@@ -38,10 +38,12 @@ namespace U.Common.Authentication
                         ValidateLifetime = options.ValidateLifetime
                     };
                 });
+
+            return services;
         }
 
         public static IApplicationBuilder UseAccessTokenValidator(this IApplicationBuilder app)
-            => app.UseMiddleware<AccessTokenValidatorMiddleware>();
+            => app.UseMiddleware<JwtTokenValidatorMiddleware>();
 
         public static long ToTimestamp(this DateTime dateTime)
         {

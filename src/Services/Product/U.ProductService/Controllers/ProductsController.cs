@@ -3,8 +3,8 @@ using System.Net;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using U.Common.Jwt;
 using U.Common.Pagination;
-using U.ProductService.Application.Products.Commands;
 using U.ProductService.Application.Products.Commands.AddPicture;
 using U.ProductService.Application.Products.Commands.ChangeCategory;
 using U.ProductService.Application.Products.Commands.ChangePrice;
@@ -40,10 +40,11 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Get list of command 
+        /// Get list of command
         /// </summary>
         /// <param name="productsListQuery"></param>
         /// <returns></returns>
+        [JwtAuth]
         [HttpGet]
         [Route("query")]
         [ProducesResponseType(typeof(PaginatedItems<ProductViewModel>), (int) HttpStatusCode.OK)]
@@ -54,10 +55,11 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Get product by its productId 
+        /// Get product by its productId
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
+        [JwtAuth]
         [HttpGet]
         [Route("query/{productId:Guid}")]
         [ProducesResponseType(typeof(PaginatedItems<ProductViewModel>), (int) HttpStatusCode.OK)]
@@ -73,6 +75,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="productQuery"></param>
         /// <returns></returns>
+        [JwtAuth]
         [HttpGet]
         [Route("query-alt-key/{AlternativeKey}")]
         [ProducesResponseType(typeof(ProductViewModel), (int) HttpStatusCode.OK)]
@@ -88,6 +91,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="products"></param>
         /// <returns></returns>
+        [JwtAuth]
         [HttpPost]
         [Route("create")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.Created)]
@@ -104,6 +108,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
+        [JwtAuth]
         [HttpPut]
         [Route("update/{ProductId}")]
         [ProducesResponseType(typeof(bool), (int) HttpStatusCode.OK)]
@@ -120,6 +125,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
+        [JwtAuth]
         [HttpPut]
         [Route("publish/{productId:Guid}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
@@ -135,6 +141,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
+        [JwtAuth]
         [HttpPut]
         [Route("unpublish/{productId:Guid}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
@@ -150,6 +157,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
+        [JwtAuth]
         [HttpPut]
         [Route("change-price/{ProductId}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
@@ -165,6 +173,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
+        [JwtAuth]
         [HttpPut]
         [Route("add-picture/{ProductId}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
@@ -180,6 +189,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
+        [JwtAuth]
         [HttpDelete]
         [Route("delete-picture/{productId:Guid}/{pictureId:Guid}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
@@ -195,6 +205,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
+        [JwtAuth]
         [HttpGet]
         [Route("statistics")]
         [ProducesResponseType(typeof(ProductStatisticsDto), (int) HttpStatusCode.OK)]
@@ -210,6 +221,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
+        [JwtAuth]
         [HttpPut]
         [Route("change-category/{ProductId}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]

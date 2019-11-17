@@ -1,46 +1,60 @@
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using U.Common.Authentication;
-using U.IdentityService.Application.Commands;
-using U.IdentityService.Application.Services;
+using U.Common.Jwt;
+using U.IdentityService.Application.Commands.Token.RefreshAccessToken;
+using U.IdentityService.Application.Commands.Token.RevokeAccessToken;
+using U.IdentityService.Application.Commands.Token.RevokeRefreshToken;
 
 namespace U.IdentityService.Controllers
 {
     [JwtAuth]
-    [Route("")]
+    [Route("api/identity/token")]
     [ApiController]
     public class TokensController : IdentifiedBaseController
     {
-        private readonly IAccessTokenService _accessTokenService;
-        private readonly IRefreshTokenService _refreshTokenService;
+        private readonly IMediator _mediator;
 
-        public TokensController(IAccessTokenService accessTokenService,
-            IRefreshTokenService refreshTokenService)
+        public TokensController(IMediator mediator)
         {
-            _accessTokenService = accessTokenService;
-            _refreshTokenService = refreshTokenService;
+            _mediator = mediator;
         }
 
-        [HttpPost("access-tokens/{refreshToken}/refresh")]
+        [HttpPost("access/{refreshToken}/refresh")]
         [AllowAnonymous]
-        public async Task<IActionResult> RefreshAccessToken(string refreshToken, RefreshAccessToken command)
-            => Ok(await _refreshTokenService.CreateAccessTokenAsync(refreshToken));
-
-        [HttpPost("access-tokens/revoke")]
-        public async Task<IActionResult> RevokeAccessToken(RevokeAccessToken command)
+        public async Task<IActionResult> RefreshAccessToken(string refreshToken)
         {
-            await _accessTokenService.DeactivateCurrentAsync(UserId.ToString("N"));
+            var refreshAccess = new RefreshAccessToken
+            {
+                Token = refreshToken
+            };
+
+            var refreshedAccess = await _mediator.Send(refreshAccess);
+
+            return Ok(refreshedAccess);
+        }
+
+        [HttpPost("access/revoke")]
+        public async Task<IActionResult> RevokeAccessToken()
+        {
+            var revokeAccess = new RevokeAccessToken();
+
+            await _mediator.Send(revokeAccess);
 
             return NoContent();
         }
 
-        [HttpPost("refresh-tokens/{refreshToken}/revoke")]
-        public async Task<IActionResult> RevokeRefreshToken(string refreshToken, RevokeRefreshToken command)
+        [HttpPost("refresh/{refreshToken}/revoke")]
+        public async Task<IActionResult> RevokeRefreshToken(string refreshToken)
         {
-            await _refreshTokenService.RevokeAsync(
-                refreshToken,
-                UserId);
+            var revokeRefresh = new RevokeRefreshToken
+            {
+                Token = refreshToken,
+                UserId = UserId
+            };
+
+            await _mediator.Send(revokeRefresh);
 
             return NoContent();
         }

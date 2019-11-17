@@ -1,17 +1,20 @@
-﻿using Consul;
+﻿using System.Reflection;
+using Consul;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using U.Common.Authentication;
 using U.Common.Consul;
 using U.Common.Database;
+using U.Common.Jwt;
 using U.Common.Mvc;
 using U.Common.Redis;
 using U.Common.Swagger;
 using U.EventBus.RabbitMQ;
+using U.IdentityService.Application.Commands.Identity.ChangePassword;
 using U.IdentityService.Application.Services;
 using U.IdentityService.Domain.Domain;
 using U.IdentityService.Infrastracture;
@@ -24,7 +27,6 @@ namespace U.IdentityService
     {
         public IConfiguration Configuration { get; }
         private readonly ILogger<Startup> _logger;
-
 
         public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
@@ -41,8 +43,8 @@ namespace U.IdentityService
                 .AddLogging()
                 .AddSwagger()
                 .AddConsul()
-//                .AddRedis()
-                .AddJwt();
+                .AddJwt()
+                .AddRedis();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,14 +54,13 @@ namespace U.IdentityService
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
             app.UseDeveloperExceptionPage()
                 .UseCors("CorsPolicy")
-                .UseMvcWithDefaultRoute()
                 .AddIdentityErrorsHandler()
                 .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseAuthentication()
-                .UseStaticFiles()
-                .UseAccessTokenValidator();
+                .UseAccessTokenValidator()
+                .UseMvc();
 
             RegisterConsul(app, applicationLifetime, client);
         }
@@ -78,11 +79,10 @@ namespace U.IdentityService
         {
             return services
                 .AddTransient<IClaimsProvider, ClaimsProvider>()
-                .AddTransient<IRefreshTokenService, RefreshTokenService>()
-                .AddTransient<IIdentityService, Application.Services.IdentityService>()
                 .AddTransient<IUserRepository, UserRepository>()
                 .AddTransient<IRefreshTokenRepository, RefreshTokenRepository>()
-                .AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
+                .AddTransient<IPasswordHasher<User>, PasswordHasher<User>>()
+                .AddMediatR(typeof(ChangePassword).GetTypeInfo().Assembly);
 
         }
     }

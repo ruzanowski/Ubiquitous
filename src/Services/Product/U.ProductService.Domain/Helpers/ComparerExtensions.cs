@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Reflection;
-using U.ProductService.Domain;
 
-namespace U.ProductService.Application.Products.Commands.Update
+namespace U.ProductService.Domain.Helpers
 {
     public static class ComparerExtensions
     {

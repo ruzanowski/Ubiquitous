@@ -1,10 +1,8 @@
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
 using U.NotificationService.Application.Hub;
-using U.NotificationService.IntegrationEvents.ProductPropertiesChanged;
-using U.NotificationService.IntegrationEvents.ProductPublished;
+using U.NotificationService.Application.IntegrationEvents.ProductPublished;
 
 namespace U.NotificationService.Application.IntegrationEvents.ProductPropertiesChanged
 {

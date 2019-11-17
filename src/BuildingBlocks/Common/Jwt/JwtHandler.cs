@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace U.Common.Authentication
+namespace U.Common.Jwt
 {
     public class JwtHandler : IJwtHandler
     {
