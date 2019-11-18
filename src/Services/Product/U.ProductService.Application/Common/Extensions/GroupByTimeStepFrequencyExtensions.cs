@@ -4,14 +4,14 @@ using U.ProductService.Application.Products.Queries.GetStatistics;
 
 namespace U.ProductService.Application.Common.Extensions
 {
-    public static class ReportTimeStepFrequencyExtensions
+    public static class GroupByTimeStepFrequencyExtensions
     {
-        public static DateTimePropertiesInclude InitializeDtIncludes(this ReportTimeStepFrequency step)
+        public static DateTimePropertiesInclude InitializeDtIncludes(this GroupByTimeStepFrequency step)
         {
             DateTimePropertiesInclude dateInclude = new DateTimePropertiesInclude();
             switch (step)
             {
-                case ReportTimeStepFrequency.Secondly:
+                case GroupByTimeStepFrequency.Secondly:
                     dateInclude.Year = true;
                     dateInclude.Month = true;
                     dateInclude.Day = true;
@@ -19,7 +19,7 @@ namespace U.ProductService.Application.Common.Extensions
                     dateInclude.Minute = true;
                     dateInclude.Second = true;
                     break;
-                case ReportTimeStepFrequency.Minutely:
+                case GroupByTimeStepFrequency.Minutely:
                     dateInclude.Year = true;
                     dateInclude.Month = true;
                     dateInclude.Day = true;
@@ -27,7 +27,7 @@ namespace U.ProductService.Application.Common.Extensions
                     dateInclude.Minute = true;
                     dateInclude.Second = false;
                     break;
-                case ReportTimeStepFrequency.Hourly:
+                case GroupByTimeStepFrequency.Hourly:
                     dateInclude.Year = true;
                     dateInclude.Month = true;
                     dateInclude.Day = true;
@@ -35,7 +35,7 @@ namespace U.ProductService.Application.Common.Extensions
                     dateInclude.Minute = false;
                     dateInclude.Second = false;
                     break;
-                case ReportTimeStepFrequency.Daily:
+                case GroupByTimeStepFrequency.Daily:
                     dateInclude.Year = true;
                     dateInclude.Month = true;
                     dateInclude.Day = true;

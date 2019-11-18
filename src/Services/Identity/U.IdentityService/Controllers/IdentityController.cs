@@ -35,7 +35,7 @@ namespace U.IdentityService.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> SignIn([Required] [FromQuery] SignIn command)
         {
-            var jwt = await _mediator.Send(command);
+            JsonWebToken jwt = await _mediator.Send(command);
 
             return Ok(jwt);
         }

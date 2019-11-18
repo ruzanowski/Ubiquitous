@@ -26,6 +26,7 @@ namespace U.Common.Jwt
             services.AddTransient<IJwtService, JwtService>();
             services.AddTransient<JwtTokenValidatorMiddleware>();
             services.AddAuthentication()
+                .AddCookie()
                 .AddJwtBearer(cfg =>
                 {
                     cfg.TokenValidationParameters = new TokenValidationParameters
