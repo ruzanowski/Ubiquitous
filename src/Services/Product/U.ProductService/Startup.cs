@@ -57,7 +57,7 @@ namespace U.ProductService
                 .AddCustomServices()
                 .AddLogging()
                 .AddSwagger()
-                .AddConsul()
+                .AddConsulServiceDiscovery()
                 .AddRedis()
                 .AddJwt();
 
@@ -97,7 +97,7 @@ namespace U.ProductService
 
         private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            var consulServiceId = app.UseCustomConsul();
+            var consulServiceId = app.UseConsulServiceDiscovery();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }
 

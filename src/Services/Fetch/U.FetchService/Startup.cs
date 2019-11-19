@@ -34,7 +34,7 @@ namespace U.FetchService
                 .AddCustomMvc()
                 .AddCustomMediatR()
                 .AddEventBusRabbitMq(Configuration)
-                .AddConsul()
+                .AddConsulServiceDiscovery()
                 .RegisterServiceForwarder<ISmartStoreAdapter>("u.smartstore-adapter")
                 .AddUpdateWorkerHostedService(Configuration);
         }
@@ -47,7 +47,7 @@ namespace U.FetchService
                 .UseServiceId()
                 .UseForwardedHeaders();
 
-            var consulServiceId = app.UseCustomConsul();
+            var consulServiceId = app.UseConsulServiceDiscovery();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }
     }

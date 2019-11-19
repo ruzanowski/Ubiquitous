@@ -50,7 +50,7 @@ namespace U.NotificationService
                 .AddSwagger()
                 .AddCustomMapper()
                 .AddCustomServices()
-                .AddConsul()
+                .AddConsulServiceDiscovery()
                 .AddCustomRedisAndSignalR();
 
             RegisterEventsHandlers(services);
@@ -91,7 +91,7 @@ namespace U.NotificationService
         private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime,
             IConsulClient client)
         {
-            var consulServiceId = app.UseCustomConsul();
+            var consulServiceId = app.UseConsulServiceDiscovery();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }
     }

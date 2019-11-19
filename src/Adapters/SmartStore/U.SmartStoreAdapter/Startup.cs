@@ -71,7 +71,7 @@ namespace U.SmartStoreAdapter
                 mc.AddProfile(new ManufacturerMappingProfile());
             }).CreateMapper());
 
-            services.AddConsul();
+            services.AddConsulServiceDiscovery();
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP transaction pipeline.
@@ -92,7 +92,7 @@ namespace U.SmartStoreAdapter
                 .UseForwardedHeaders();
 
 
-            var consulServiceId = app.UseCustomConsul();
+            var consulServiceId = app.UseConsulServiceDiscovery();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }
     }
