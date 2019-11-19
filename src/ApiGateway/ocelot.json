@@ -1,33 +1,69 @@
 {
   "ReRoutes": [
     {
-      "DownstreamPathTemplate": "/api/product/{everything}",
+      "UpstreamPathTemplate": "/api/apigateway/health/{everything}",
+      "DownstreamPathTemplate": "/api/apigateway/health/{everything}",
       "DownstreamScheme": "http",
-      "UpstreamPathTemplate": "/product/{everything}",
-      "ServiceName": "u.product-service",
-      "UpstreamHttpMethod": [
-        "Get"
-      ],
-      "FileCacheOptions": {
-        "TtlSeconds": 15
+      "ReRouteIsCaseSensitive": false,
+      "ServiceName": "u.api-gateway"
+    },
+    {
+      "UpstreamPathTemplate": "/api/apigateway/{everything}",
+      "DownstreamPathTemplate": "/api/apigateway/{everything}",
+      "DownstreamScheme": "http",
+      "ReRouteIsCaseSensitive": false,
+      "ServiceName": "u.api-gateway",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     },
     {
-      "DownstreamPathTemplate": "/api/product",
+      "UpstreamPathTemplate": "/api/product/{everything}",
+      "DownstreamPathTemplate": "/api/product/{everything}",
       "DownstreamScheme": "http",
-      "UpstreamPathTemplate": "/product",
-      "ServiceName": "ProductService",
-      "UpstreamHttpMethod": [
-        "Get"
-      ],
-      "FileCacheOptions": {
-        "TtlSeconds": 15
+      "ServiceName": "u.product-service",
+      "ReRouteIsCaseSensitive": false,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/identity/{everything}",
+      "DownstreamPathTemplate": "/api/identity/{everything}",
+      "DownstreamScheme": "http",
+      "ReRouteIsCaseSensitive": false,
+      "ServiceName": "u.identity-service",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/notification/{everything}",
+      "DownstreamPathTemplate": "/api/notification/{everything}",
+      "DownstreamScheme": "http",
+      "ReRouteIsCaseSensitive": false,
+      "ServiceName": "u.notification-service",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/signalr/{everything}",
+      "DownstreamPathTemplate": "/signalr/{everything}",
+      "DownstreamScheme": "ws",
+      "ReRouteIsCaseSensitive": false,
+      "ServiceName": "u.notification-service",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     }
   ],
   "GlobalConfiguration": {
-    "RequestIdKey": "OcRequestId",
-    "AdministrationPath": "/administration",
     "UseServiceDiscovery": true,
     "ServiceDiscoveryProvider": {
       "Host": "localhost",

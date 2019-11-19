@@ -2,6 +2,23 @@ version: "3.5"
 
 services:
 
+  u.api-gateway:
+    image: u.api-gateway:latest
+    container_name: u.api-gateway
+    build:
+      context: .
+      dockerfile: src/ApiGateway/Dockerfile
+    ports:
+      - 4500:4500
+    environment:
+      ASPNETCORE_ENVIRONMENT: docker
+    volumes:
+      - '${RELATIVE_PATH}/apigateway/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${RELATIVE_PATH}/apigateway/ocelot.json:/app/ocelot.json:ro'
+    restart: unless-stopped
+    networks:
+      - ubiquitous
+
   u.product-service:
     image: u.product-service:latest
     container_name: u.product-service

@@ -76,7 +76,7 @@ namespace U.ProductService
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseAuthentication()
-                .UseAccessTokenValidator()
+                .UseJwtTokenValidator()
                 .UseMvc();
 
             RegisterConsul(app, applicationLifetime, client);

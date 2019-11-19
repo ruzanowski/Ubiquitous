@@ -43,7 +43,7 @@ namespace U.Common.Jwt
             return services;
         }
 
-        public static IApplicationBuilder UseAccessTokenValidator(this IApplicationBuilder app)
+        public static IApplicationBuilder UseJwtTokenValidator(this IApplicationBuilder app)
             => app.UseMiddleware<JwtTokenValidatorMiddleware>();
 
         public static long ToTimestamp(this DateTime dateTime)

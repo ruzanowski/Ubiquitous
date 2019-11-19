@@ -59,7 +59,7 @@ namespace U.IdentityService
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseAuthentication()
-                .UseAccessTokenValidator()
+                .UseJwtTokenValidator()
                 .UseMvc();
 
             RegisterConsul(app, applicationLifetime, client);

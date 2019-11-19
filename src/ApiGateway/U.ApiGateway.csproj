@@ -5,21 +5,28 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\**" />
-    <Content Remove="wwwroot\**" />
-    <EmbeddedResource Remove="wwwroot\**" />
-    <None Remove="wwwroot\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Ocelot" Version="13.5.2" />
-    <PackageReference Include="Ocelot.Administration" Version="13.5.2" />
     <PackageReference Include="Ocelot.Cache.CacheManager" Version="13.5.2" />
     <PackageReference Include="Ocelot.Provider.Consul" Version="13.5.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BuildingBlocks\Common\U.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Dockerfile" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="appsettings.docker.json" />
+    <None Include="appsettings.docker.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+    <Content Remove="appsettings.json" />
+    <None Include="appsettings.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
