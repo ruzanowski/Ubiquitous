@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
 using U.NotificationService.Application.Hub;
-using U.NotificationService.IntegrationEvents.ProductAdded;
 
 namespace U.NotificationService.Application.IntegrationEvents.ProductAdded
 {

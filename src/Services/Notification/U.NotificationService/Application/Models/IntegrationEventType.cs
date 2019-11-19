@@ -1,4 +1,4 @@
-namespace U.NotificationService.Application.Hub
+namespace U.NotificationService.Application.Models
 {
     public enum IntegrationEventType
     {

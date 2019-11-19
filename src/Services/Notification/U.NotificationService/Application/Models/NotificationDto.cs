@@ -2,11 +2,10 @@ using System;
 using System.Linq;
 using Newtonsoft.Json;
 using U.EventBus.Events;
-using U.NotificationService.Application.Hub;
+using U.NotificationService.Application.IntegrationEvents.ProductAdded;
+using U.NotificationService.Application.IntegrationEvents.ProductPropertiesChanged;
+using U.NotificationService.Application.IntegrationEvents.ProductPublished;
 using U.NotificationService.Domain;
-using U.NotificationService.IntegrationEvents.ProductAdded;
-using U.NotificationService.IntegrationEvents.ProductPropertiesChanged;
-using U.NotificationService.IntegrationEvents.ProductPublished;
 
 namespace U.NotificationService.Application.Models
 {

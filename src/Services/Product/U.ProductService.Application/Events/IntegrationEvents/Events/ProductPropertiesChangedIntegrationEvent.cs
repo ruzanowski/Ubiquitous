@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using U.EventBus.Events;
-using U.ProductService.Application.Products.Commands.Update;
+using U.ProductService.Domain.Helpers;
 
 namespace U.ProductService.Application.Events.IntegrationEvents.Events
 {

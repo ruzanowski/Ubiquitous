@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace U.GeneratorService.Services
+namespace U.GeneratorService.Services.Generator
 {
     public class FakeNames
     {

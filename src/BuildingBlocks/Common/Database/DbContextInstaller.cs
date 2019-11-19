@@ -15,12 +15,12 @@ namespace U.Common.Database
         public static IServiceCollection AddDatabaseContext<TContext>(this IServiceCollection services, IConfiguration configuration)
             where TContext : DbContext
         {
-            var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
+            var dbOptions = configuration.GetOptions<DbOptions>("dbOptions");
 
             if (dbOptions.Connection is null)
             {
                 throw new UnsupportedDatabaseException("Database options are missing.");
-            } 
+            }
             services.AddSingleton(dbOptions);
             services.SelectContextProvider<TContext>(dbOptions);
             return services;
@@ -40,7 +40,7 @@ namespace U.Common.Database
                             {
                                 postgresOptions.MigrationsAssembly(typeof(TContext).GetTypeInfo().Assembly.GetName()
                                     .Name);
-                                //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
+                                //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency
                                 postgresOptions.EnableRetryOnFailure(5,
                                     TimeSpan.FromSeconds(20), new List<string>());
                             });

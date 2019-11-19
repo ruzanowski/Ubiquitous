@@ -14,11 +14,9 @@ namespace U.ProductService.Application.Common.Mapping
             CreateMap<Product, ProductViewModel>()
                 .ForMember(x => x.CreatedDateTime, opt => opt.MapFrom(src => src.CreatedAt))
                 .ForMember(x => x.LastFullUpdateDateTime, opt => opt.MapFrom(src => src.LastUpdatedAt));
-            
+
             CreateMap<Picture, PictureViewModel>()
                 .ForMember(x => x.MimeType, opt => opt.MapFrom(src => src.MimeType.Name));
-
-            CreateMap<ProductViewModel, ReportProductPayload>();
 
             CreateMap<UpdateProductCommand, Product>()
                 .ReverseMap()

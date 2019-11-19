@@ -6,10 +6,10 @@ namespace U.ProductService.Application.Products.Queries.GetStatistics
 {
     public class GetProductsStatisticsQuery :  IRequest<IList<ProductStatisticsDto>>
     {
-        public ReportTimeStepFrequency StepFrequency { get; set; }
+        public GroupByTimeStepFrequency StepFrequency { get; set; }
     }
 
-    public enum ReportTimeStepFrequency
+    public enum GroupByTimeStepFrequency
     {
         Secondly,
         Minutely,

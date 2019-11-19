@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Reflection;
 using AutoMapper;
 using Consul;
@@ -8,25 +7,23 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using U.Common.Behaviour;
+using StackExchange.Redis;
 using U.Common.Consul;
 using U.Common.Mvc;
 using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
-using U.NotificationService.IntegrationEvents.ProductAdded;
-using U.NotificationService.IntegrationEvents.ProductPropertiesChanged;
-using U.NotificationService.IntegrationEvents.ProductPublished;
-using StackExchange.Redis;
 using U.Common.Database;
 using U.Common.Redis;
+using U.Common.Swagger;
 using U.NotificationService.Application.Hub;
 using U.NotificationService.Application.IntegrationEvents.ProductAdded;
 using U.NotificationService.Application.IntegrationEvents.ProductPropertiesChanged;
-using U.NotificationService.Application.Models;
+using U.NotificationService.Application.IntegrationEvents.ProductPublished;
 using U.NotificationService.Infrastracture.Contexts;
+using U.NotificationService.Infrastracture.SignalR;
 
 namespace U.NotificationService
 {
@@ -49,12 +46,11 @@ namespace U.NotificationService
                 .AddDatabaseContext<NotificationContext>(Configuration)
                 .AddEventBusRabbitMq(Configuration)
                 .AddMediatR(typeof(Startup).GetTypeInfo().Assembly)
-                .AddCustomPipelineBehaviours()
                 .AddLogging()
-                .AddCustomSwagger()
+                .AddSwagger()
                 .AddCustomMapper()
                 .AddCustomServices()
-                .AddCustomConsul()
+                .AddConsul()
                 .AddCustomRedisAndSignalR();
 
             RegisterEventsHandlers(services);
@@ -63,11 +59,11 @@ namespace U.NotificationService
         public void Configure(IApplicationBuilder app,
             IApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            var pathBase = app.UseCustomPathBase(Configuration, _logger).Item2;
+            var pathBase = app.UsePathBase(Configuration, _logger).Item2;
             app.UseDeveloperExceptionPage()
                 .UseMvcWithDefaultRoute()
                 .UseCors("CorsPolicy")
-                .UseCustomSwagger(pathBase)
+                .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders();
 
@@ -109,35 +105,6 @@ namespace U.NotificationService
             return services;
         }
 
-        public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
-        {
-            services.AddSwaggerGen(options =>
-            {
-                options.DescribeAllEnumsAsStrings();
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "Product HTTP API",
-                    Version = "v1",
-                    Description = "The Product Service HTTP API"
-                });
-            });
-
-            return services;
-        }
-
-        public static IApplicationBuilder UseCustomSwagger(this IApplicationBuilder app, string pathBase)
-        {
-            app.UseSwagger()
-                .UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint(
-                        $"{(!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty)}/swagger/v1/swagger.json",
-                        "ProductService V1");
-                });
-
-            return app;
-        }
-
         public static IServiceCollection AddCustomMapper(this IServiceCollection services)
         {
             services.AddSingleton(new MapperConfiguration(mc => { }).CreateMapper());
@@ -145,9 +112,49 @@ namespace U.NotificationService
             return services;
         }
 
-        public static IServiceCollection AddCustomPipelineBehaviours(this IServiceCollection services)
+        private static string SignalRSectionName = "signalr";
+
+        public static IServiceCollection AddCustomRedisAndSignalR(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
+            IConfiguration configuration;
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                configuration = serviceProvider.GetService<IConfiguration>();
+            }
+
+            var signalROptions = configuration.GetOptions<SignalROptions>(SignalRSectionName);
+
+            services.TryAddSingleton(signalROptions);
+
+            services
+                .AddSignalR(options => { options.EnableDetailedErrors = true; })
+                .AddJsonProtocol()
+                .AddMessagePackProtocol()
+                .AddStackExchangeRedis(signalROptions.RedisConnectionString);
+//                .AddStackExchangeRedis(o =>
+//                {
+//                    o.ConnectionFactory = async writer =>
+//                    {
+//                        var config = new ConfigurationOptions
+//                        {
+//                            AbortOnConnectFail = false
+//                        };
+//
+//                        config.EndPoints.Clear();
+//                        config.EndPoints.Add($"{redisOptions.RedisConnectionString}");
+//
+//                        var connection = await ConnectionMultiplexer.ConnectAsync(config, writer);
+//                        connection.ConnectionFailed += (_, e) => { Console.WriteLine("Connection to Redis failed."); };
+//
+//                        if (!connection.IsConnected)
+//                        {
+//                            Console.WriteLine("Did not connect to Redis.");
+//                        }
+//
+//                        return connection;
+//                    };
+//                });
+
             return services;
         }
     }

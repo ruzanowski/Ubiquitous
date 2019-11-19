@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using U.Common.Jwt;
 using U.Common.Pagination;
 using U.ProductService.Application.Categories.Commands.Create;
 using U.ProductService.Application.Categories.Models;
@@ -30,10 +31,11 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Get list of command 
+        /// Get list of command
         /// </summary>
         /// <param name="categorysListQuery"></param>
         /// <returns></returns>
+        [JwtAuth]
         [HttpGet]
         [Route("query")]
         [ProducesResponseType(typeof(PaginatedItems<CategoryViewModel>), (int) HttpStatusCode.OK)]
@@ -45,11 +47,11 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Get category by its categoryId 
+        /// Get category by its categoryId
         /// </summary>
         /// <param name="categoryId"></param>
         /// <returns></returns>
-        [HttpGet]
+        [JwtAuth][HttpGet]
         [Route("query/{categoryId:Guid}")]
         [ProducesResponseType(typeof(PaginatedItems<CategoryViewModel>), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
@@ -58,13 +60,13 @@ namespace U.ProductService.Controllers
             var queryResult = await _mediator.Send(new GetCategoryQuery(categoryId));
             return Ok(queryResult);
         }
-        
+
         /// <summary>
         /// Create Category
         /// </summary>
         /// <param name="manufacturers"></param>
         /// <returns></returns>
-        [HttpPost]
+        [JwtAuth][HttpPost]
         [Route("create")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.Created)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]

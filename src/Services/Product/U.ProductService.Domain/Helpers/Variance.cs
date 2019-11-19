@@ -1,4 +1,4 @@
-namespace U.ProductService.Application.Products.Commands.Update
+namespace U.ProductService.Domain.Helpers
 {
     public class Variance
     {

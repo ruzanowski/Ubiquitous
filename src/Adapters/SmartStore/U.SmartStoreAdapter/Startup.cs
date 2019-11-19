@@ -9,25 +9,25 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using SmartStore.Persistance.Context;
 using U.Common.Consul;
 using U.Common.Database;
 using U.Common.Mvc;
+using U.Common.Swagger;
 using U.SmartStoreAdapter.Application.Operations.Products;
 using U.SmartStoreAdapter.Middleware;
 
 namespace U.SmartStoreAdapter
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class Startup
     {
         private readonly ILogger<Startup> _logger;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="configuration"></param>
         /// <param name="logger"></param>
@@ -38,7 +38,7 @@ namespace U.SmartStoreAdapter
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public IConfiguration Configuration { get; }
 
@@ -48,14 +48,8 @@ namespace U.SmartStoreAdapter
             //Mini profiler
             services.AddMiniProfiler();
 
-            services.AddCustomMvc();
-
-            //Swagger 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo{Title = "My API", Version = "v1"});
-                c.DescribeAllEnumsAsStrings();
-            });
+            services.AddCustomMvc()
+                .AddSwagger();
 
             //Services
             services.AddScoped<HttpClient>();
@@ -63,14 +57,13 @@ namespace U.SmartStoreAdapter
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
                 typeof(GetProductsListQueryHandler).GetTypeInfo().Assembly);
 
-            //DbContext            
+            //DbContext
             services
                 .AddDatabaseContext<SmartStoreContext>(Configuration);
-            
+
             //Logging Behaviour Pipeline
-            services.AddLoggingBehaviour()
-                    .AddLogging();
-                
+            services.AddLogging();
+
             services.AddSingleton(new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new ProductMappingProfile());
@@ -78,13 +71,13 @@ namespace U.SmartStoreAdapter
                 mc.AddProfile(new ManufacturerMappingProfile());
             }).CreateMapper());
 
-            services.AddCustomConsul();
+            services.AddConsul();
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP transaction pipeline.
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            app.UseCustomPathBase(Configuration, _logger).Item1
+            app.UsePathBase(Configuration, _logger).Item1
                 .UseDeveloperExceptionPage()
                 .UseSwagger()
                 .UseSwaggerUI(c =>
@@ -97,8 +90,8 @@ namespace U.SmartStoreAdapter
                 .UseMvc()
                 .UseServiceId()
                 .UseForwardedHeaders();
-                
-            
+
+
             var consulServiceId = app.UseCustomConsul();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }

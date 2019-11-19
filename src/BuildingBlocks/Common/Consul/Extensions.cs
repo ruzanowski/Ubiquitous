@@ -14,7 +14,7 @@ namespace U.Common.Consul
         private static readonly string ConsulSectionName = "consul";
         private static readonly string FabioSectionName = "fabio";
 
-        public static IServiceCollection AddCustomConsul(this IServiceCollection services)
+        public static IServiceCollection AddConsul(this IServiceCollection services)
         {
             IConfiguration configuration;
             using (var serviceProvider = services.BuildServiceProvider())
@@ -25,10 +25,15 @@ namespace U.Common.Consul
             var options = configuration.GetOptions<ConsulOptions>(ConsulSectionName);
             services.Configure<ConsulOptions>(configuration.GetSection(ConsulSectionName));
             services.Configure<FabioOptions>(configuration.GetSection(FabioSectionName));
+
+
             services.AddTransient<IConsulServicesRegistry, ConsulServicesRegistry>();
             services.AddTransient<ConsulServiceDiscoveryMessageHandler>();
-            services.AddHttpClient<IConsulHttpClient, ConsulHttpClient>()
-                .AddHttpMessageHandler<ConsulServiceDiscoveryMessageHandler>();
+
+            services.AddTransient<IConsulServiceDifferentator>(
+                c => new ConsulServiceDiffentator(
+                    c.GetService<IServiceIdService>(),
+                    options));
 
             return services.AddSingleton<IConsulClient>(c => new ConsulClient(cfg =>
             {
@@ -54,7 +59,7 @@ namespace U.Common.Consul
                         nameof(consulOptions.Value.PingEndpoint));
                 }
 
-                var uniqueId = scope.ServiceProvider.GetService<IServiceId>().Id;
+                var uniqueId = scope.ServiceProvider.GetService<IServiceIdService>().Id;
                 var client = scope.ServiceProvider.GetService<IConsulClient>();
                 var serviceName = consulOptions.Value.Service;
                 var serviceId = $"{serviceName}:{uniqueId}";
@@ -80,7 +85,7 @@ namespace U.Common.Consul
                     {
                         Interval = TimeSpan.FromSeconds(pingInterval),
                         DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(removeAfterInterval),
-                        HTTP = $"{scheme}{address}{(port > 0 ? $":{port}" : string.Empty)}/{pingEndpoint}"
+                        HTTP = $"{scheme}{address}{(port > 0 ? $":{port}" : string.Empty)}/{pingEndpoint}/{serviceId}"
                     };
                     registration.Checks = new[] {check};
                 }

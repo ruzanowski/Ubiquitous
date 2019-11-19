@@ -141,7 +141,6 @@ Down below, a services dependency diagram. See to #3.1 for listed used technolog
 - ***SmartStore Adapter*** Wholesale, source of data
 - ***Fetch Service*** Fetches data from wholesales(many) and pushes newest items on bus
 - ***Product Service*** Main domain aggregate service, handles products and its business logic
-- ***Report Service*** Handles reports and its generation thanks to [Caracan](https://github.com/caracan-team)
 - ***Notification Service*** Handles notifications and channels it by WebSocket
 -------
 ### 2.3 Cross-Cutting Concerns
@@ -196,7 +195,7 @@ _To be determined_
 |SmartStore Adapter|-----|Completed|07.2019|
 |Fetch Service|-----|Completed|07.2019|
 |ProductsGenerator Service|-----|Completed|07.2019|
-|Report Service(Caracan Liquid Project)|-----|Completed|08.2019|
+|Report Service(Caracan Liquid Project) -- Deprecated|-----|Completed|08.2019|
 |Dockerization|-----|Completed|09.2019
 |Gitlab CI Pipelines|-----|Completed|09.2019
 |Product Service - Major Features|Critical|Completed|10.2019|

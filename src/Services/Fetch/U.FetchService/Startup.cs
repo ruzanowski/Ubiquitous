@@ -7,8 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using U.Common.Consul;
+using U.Common.Fabio;
 using U.Common.Mvc;
-using U.Common.RestEase;
 using U.EventBus.RabbitMQ;
 using U.FetchService.BackgroundServices;
 using U.FetchService.Commands.UpdateProducts;
@@ -33,21 +33,20 @@ namespace U.FetchService
             services
                 .AddCustomMvc()
                 .AddCustomMediatR()
-                .AddLoggingBehaviour()
                 .AddEventBusRabbitMq(Configuration)
-                .AddCustomConsul()
+                .AddConsul()
                 .RegisterServiceForwarder<ISmartStoreAdapter>("u.smartstore-adapter")
                 .AddUpdateWorkerHostedService(Configuration);
-        }     
+        }
 
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            app.UseCustomPathBase(Configuration, _logger).Item1
+            app.UsePathBase(Configuration, _logger).Item1
                 .UseDeveloperExceptionPage()
                 .UseMvcWithDefaultRoute()
                 .UseServiceId()
                 .UseForwardedHeaders();
-            
+
             var consulServiceId = app.UseCustomConsul();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }

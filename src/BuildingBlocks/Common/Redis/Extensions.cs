@@ -1,7 +1,10 @@
-using System;
 using System.Net;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using StackExchange.Redis;
 using U.Common.Mvc;
 
@@ -11,43 +14,39 @@ namespace U.Common.Redis
     {
         private static string RedisSectionName = "redis";
 
-        public static IServiceCollection AddCustomRedisAndSignalR(this IServiceCollection services)
+        public static IServiceCollection AddRedis(this IServiceCollection services)
         {
             IConfiguration configuration;
+            ILogger<StartupBase> logger;
             using (var serviceProvider = services.BuildServiceProvider())
             {
+                logger = serviceProvider.GetService<ILogger<StartupBase>>();
                 configuration = serviceProvider.GetService<IConfiguration>();
             }
 
             var redisOptions = configuration.GetOptions<RedisOptions>(RedisSectionName);
 
-            services
-                .AddSignalR(options => { options.EnableDetailedErrors = true; })
-                .AddJsonProtocol()
-                .AddMessagePackProtocol()
-                .AddStackExchangeRedis(o =>
+
+            services.TryAddSingleton(redisOptions);
+
+            logger.LogInformation("RedisOptions = " + JsonConvert.SerializeObject(redisOptions, Formatting.Indented));
+
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.ConfigurationOptions = new ConfigurationOptions
                 {
-                    o.ConnectionFactory = async writer =>
+                    EndPoints =
                     {
-                        var config = new ConfigurationOptions
-                        {
-                            AbortOnConnectFail = false
-                        };
-
-                        config.EndPoints.Clear();
-                        config.EndPoints.Add($"{redisOptions.Host}", redisOptions.Port);
-
-                        var connection = await ConnectionMultiplexer.ConnectAsync(config, writer);
-                        connection.ConnectionFailed += (_, e) => { Console.WriteLine("Connection to Redis failed."); };
-
-                        if (!connection.IsConnected)
-                        {
-                            Console.WriteLine("Did not connect to Redis.");
-                        }
-
-                        return connection;
-                    };
-                });
+                        new DnsEndPoint(redisOptions?.Host ?? "redis", redisOptions?.Port ?? 6379),
+                        new DnsEndPoint("localhost", 6379)
+                    },
+                    ResolveDns = redisOptions?.ResolveDns ?? true,
+                    AbortOnConnectFail = redisOptions?.AbortOnConnectFail ?? false,
+                    ServiceName = redisOptions?.ServiceName,
+                    ConnectRetry = redisOptions?.ConnectRetry ?? 10,
+                    AllowAdmin = redisOptions?.AllowAdmin ?? true
+                };
+            });
 
             return services;
         }

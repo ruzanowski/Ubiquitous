@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace U.NotificationService.Migrations
+namespace U.NotificationService.Infrastracture.Migrations
 {
     public partial class InitialCreate : Migration
     {
