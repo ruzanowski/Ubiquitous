@@ -30,13 +30,13 @@ namespace U.IdentityService.Application.Commands.Token.RefreshAccessToken
             if (refreshToken == null)
             {
                 throw new IdentityException(Codes.RefreshTokenNotFound,
-                    "Refresh token was not found.");
+                    "Refresh accessToken was not found.");
             }
 
             if (refreshToken.Revoked)
             {
                 throw new IdentityException(Codes.RefreshTokenAlreadyRevoked,
-                    $"Refresh token: '{refreshToken.Id}' was revoked.");
+                    $"Refresh accessToken: '{refreshToken.Id}' was revoked.");
             }
 
             var user = await GetUserOrThrowAsync(refreshToken.UserId);

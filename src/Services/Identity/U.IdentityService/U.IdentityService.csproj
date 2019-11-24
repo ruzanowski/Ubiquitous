@@ -22,5 +22,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Dockerfile" />
+    <Content Update="appsettings.docker.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 </Project>

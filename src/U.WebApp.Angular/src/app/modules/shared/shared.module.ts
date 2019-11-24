@@ -7,13 +7,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 // Services
 import {DataService} from './services/data.service';
-import {NavMenuComponent} from "./components/nav-menu/nav-menu.component";
 import {ProgressSpinnerComponent} from "./components/spinner-overlay/progress-spinner.component";
 import {OverlayService} from "./services/overlay.service";
 import {
   MatBadgeModule,
-  MatButtonModule, MatGridListModule,
-  MatIconModule, MatMenuModule,
+  MatButtonModule, MatCardModule, MatFormFieldModule, MatGridListModule,
+  MatIconModule, MatInputModule, MatMenuModule,
   MatProgressBarModule,
   MatProgressSpinnerModule,
   MatToolbarModule
@@ -23,14 +22,19 @@ import {LoaderComponent} from "./components/loader/loader.component";
 import {LoaderInterceptor} from "../../loader.interceptor";
 import {FlexLayoutModule, FlexModule} from "@angular/flex-layout";
 import {BrowserModule} from "@angular/platform-browser";
+import {NavbarComponent} from "./components/navbar/navbar.component";
+import {SidebarComponent} from "./components/sidebar/sidebar.component";
+import {FooterComponent} from "./components/footer/footer.component";
+import {LoginComponent} from "../login/components/login/login.component";
+import {AppRoutingModule} from "../../app-routing.module";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule,
     NgbModule,
+    AppRoutingModule,
     BrowserModule,
     // No need to export as these modules don't expose any components/directive etc'
     HttpClientModule,
@@ -45,20 +49,34 @@ import {BrowserModule} from "@angular/platform-browser";
     FlexLayoutModule,
     MatGridListModule,
     MatBadgeModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
-  declarations: [NavMenuComponent, ProgressSpinnerComponent, LoaderComponent],
-  exports: [
-    // Modules
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    NgbModule,
-    //providers, components
-    NavMenuComponent,
-    ProgressSpinnerComponent,
-    LoaderComponent
-  ]
+  declarations:
+    [
+      NavbarComponent,
+      SidebarComponent,
+      ProgressSpinnerComponent,
+      LoaderComponent,
+      LoginComponent,
+      FooterComponent
+    ],
+  exports:
+    [
+      CommonModule,
+      FormsModule,
+      ReactiveFormsModule,
+      RouterModule,
+      NgbModule,
+      //providers, components
+      NavbarComponent,
+      SidebarComponent,
+      ProgressSpinnerComponent,
+      LoaderComponent,
+      LoginComponent,
+      FooterComponent
+    ]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
@@ -68,7 +86,7 @@ export class SharedModule {
         DataService,
         OverlayService,
         LoaderService,
-        { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+        {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}
       ]
     };
   }

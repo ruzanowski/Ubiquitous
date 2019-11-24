@@ -3,7 +3,7 @@ import {DataService} from "../shared/services/data.service";
 import {Observable} from "rxjs";
 import {Product} from "./models/product.model";
 import {map} from "rxjs/operators";
-import {PaginatedItems} from "../shared/components/models/paginateditems.model";
+import {PaginatedItems} from "../shared/models/paginateditems.model";
 
 @Injectable()
 export class ProductService {

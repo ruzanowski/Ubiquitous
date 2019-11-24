@@ -32,7 +32,7 @@ namespace U.IdentityService.Application.Commands.Token.RevokeRefreshToken
             if (refreshToken == null || refreshToken.UserId != userId)
             {
                 throw new IdentityException(Codes.RefreshTokenNotFound,
-                    "Refresh token was not found.");
+                    "Refresh accessToken was not found.");
             }
 
             refreshToken.Revoke();
