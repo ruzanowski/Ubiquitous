@@ -224,6 +224,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <TypeScriptCompile Include="src\app\animations.ts" />
       <TypeScriptCompile Include="src\app\app-routing.module.ts" />
       <TypeScriptCompile Include="src\app\layouts\home-layout\home-layout.component.ts" />
       <TypeScriptCompile Include="src\app\layouts\login-layout\login-layout.component.ts" />
@@ -269,7 +270,7 @@
 
     <ItemGroup>
       <Folder Include="src\app\modules\login\components" />
-      <Folder Include="src\app\modules\products\components\product-categories" />
+      <Folder Include="src\app\modules\user-profile" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component, OnDestroy,
   OnInit
 } from '@angular/core';
@@ -9,13 +10,15 @@ import * as $ from "jquery";
 import PerfectScrollbar from "perfect-scrollbar";
 import {ApplicationUser, AuthenticationService} from "../../modules/auth";
 import {LoaderService} from "../../modules/shared/services/loader.service";
+import {slideInAnimation} from "../../animations";
 
 @Component({
   selector: '<app-home>',
   templateUrl: './home-layout.component.html',
   styleUrls: ['./home-layout.component.css'],
+  animations: [slideInAnimation]
 })
-export class HomeLayoutComponent implements OnInit, OnDestroy {
+export class HomeLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public notificationsToRead: number = 0;
   public isNotificationNavBarToggled: any = false;

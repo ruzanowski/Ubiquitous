@@ -1,5 +1,4 @@
 using AutoMapper;
-using U.ProductService.Application.Events.IntegrationEvents.Events;
 using U.ProductService.Application.Pictures.Models;
 using U.ProductService.Application.Products.Commands.Update;
 using U.ProductService.Application.Products.Models;

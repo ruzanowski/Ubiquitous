@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MediatR;
-using U.ProductService.Domain.Helpers;
+using U.EventBus.Events.Product;
 
 namespace U.ProductService.Domain.Events
 {

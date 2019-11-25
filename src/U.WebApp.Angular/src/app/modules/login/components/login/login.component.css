@@ -6,6 +6,7 @@ main{
   background-image: url('https://www.androidguys.com/wp-content/uploads/2015/07/lone_tree_6_cool_hd.jpg');
   background-size: cover;
   background-repeat: no-repeat;
+  background-blend-mode: darken;
   height: 100%;
   font-family: 'Numans', sans-serif;
 }

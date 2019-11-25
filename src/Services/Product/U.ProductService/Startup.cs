@@ -17,6 +17,8 @@ using U.Common.Mvc;
 using U.Common.Redis;
 using U.Common.Swagger;
 using U.EventBus.Abstractions;
+using U.EventBus.Events.Fetch;
+using U.EventBus.Events.Product;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
 using U.ProductService.Application.Common.Mapping;
@@ -95,7 +97,8 @@ namespace U.ProductService
             services.AddTransient<NewProductFetchedIntegrationEventHandler>();
         }
 
-        private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
+        private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime,
+            IConsulClient client)
         {
             var consulServiceId = app.UseConsulServiceDiscovery();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
@@ -139,9 +142,9 @@ namespace U.ProductService
         {
             services.AddSingleton(new MapperConfiguration(mc =>
             {
-               mc.AddProfile(new ProductMappingProfile());
-               mc.AddProfile(new CategoryMappingProfile());
-               mc.AddProfile(new ManufacturerMappingProfile());
+                mc.AddProfile(new ProductMappingProfile());
+                mc.AddProfile(new CategoryMappingProfile());
+                mc.AddProfile(new ManufacturerMappingProfile());
             }).CreateMapper());
 
             return services;
@@ -151,9 +154,7 @@ namespace U.ProductService
         {
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PublishBehaviour<,>));
 
-             return services;
+            return services;
         }
-
-
     }
 }

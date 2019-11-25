@@ -9,3 +9,9 @@ table {
 tr:hover {
   background: #e2e2e2;
 }
+
+.margined-from-top{
+  margin-top: 100px;
+  margin-left: 30px;
+  margin-right: 30px;
+}

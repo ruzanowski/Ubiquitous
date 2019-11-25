@@ -4,7 +4,7 @@ using U.Common.WebHost;
 using Microsoft.AspNetCore.Hosting;
 using U.Common.Database;
 using U.Common.Mvc;
-using U.NotificationService.Infrastracture.Contexts;
+using U.NotificationService.Infrastructure.Contexts;
 
 namespace U.NotificationService
 {
