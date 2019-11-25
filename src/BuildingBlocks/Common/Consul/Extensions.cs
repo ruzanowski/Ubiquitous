@@ -14,7 +14,7 @@ namespace U.Common.Consul
         private static readonly string ConsulSectionName = "consul";
         private static readonly string FabioSectionName = "fabio";
 
-        public static IServiceCollection AddConsul(this IServiceCollection services)
+        public static IServiceCollection AddConsulServiceDiscovery(this IServiceCollection services)
         {
             IConfiguration configuration;
             using (var serviceProvider = services.BuildServiceProvider())
@@ -45,7 +45,7 @@ namespace U.Common.Consul
         }
 
         //Returns unique service ID used for removing the service from registry.
-        public static string UseCustomConsul(this IApplicationBuilder app)
+        public static string UseConsulServiceDiscovery(this IApplicationBuilder app)
         {
             using (var scope = app.ApplicationServices.CreateScope())
             {

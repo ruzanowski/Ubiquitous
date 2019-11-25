@@ -10,34 +10,15 @@ using U.IdentityService.Application.Commands.Identity.SignUp;
 
 namespace U.IdentityService.Controllers
 {
-    [Route("api/identity")]
+    [Route("api/identity/me")]
     [ApiController]
-    public class IdentityController : IdentifiedBaseController
+    public class MeController : IdentifiedBaseController
     {
         private readonly IMediator _mediator;
 
-        public IdentityController(IMediator mediator)
+        public MeController(IMediator mediator)
         {
             _mediator = mediator;
-        }
-
-
-        [HttpPost("sign-up")]
-        [AllowAnonymous]
-        public async Task<IActionResult> SignUp([Required] [FromQuery] SignUp command)
-        {
-            await _mediator.Send(command);
-
-            return NoContent();
-        }
-
-        [HttpPost("sign-in")]
-        [AllowAnonymous]
-        public async Task<IActionResult> SignIn([Required] [FromQuery] SignIn command)
-        {
-            JsonWebToken jwt = await _mediator.Send(command);
-
-            return Ok(jwt);
         }
 
         [HttpGet("me")]
@@ -48,7 +29,7 @@ namespace U.IdentityService.Controllers
         [JwtAuth]
         public async Task<ActionResult> ChangePassword([Required] [FromQuery] ChangePasswordDto command)
         {
-            var changePassword = new ChangePassword()
+            var changePassword = new ChangePassword
             {
                 UserId = UserId,
                 CurrentPassword = command.CurrentPassword,

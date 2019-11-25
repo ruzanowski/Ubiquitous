@@ -88,7 +88,7 @@ namespace U.Common.Jwt
             {
                 AccessToken = token,
                 RefreshToken = string.Empty,
-                Expires = expires.ToTimestamp(),
+                Expires = expires,
                 Id = userId,
                 Role = role ?? string.Empty,
                 Claims = customClaims.ToDictionary(c => c.Type, c => c.Value)
@@ -108,7 +108,7 @@ namespace U.Common.Jwt
             {
                 Subject = jwt.Subject,
                 Role = jwt.Claims.SingleOrDefault(x => x.Type == ClaimTypes.Role)?.Value,
-                Expires = jwt.ValidTo.ToTimestamp(),
+                Expires = jwt.ValidTo,
                 Claims = jwt.Claims.Where(x => !DefaultClaims.Contains(x.Type))
                     .ToDictionary(k => k.Type, v => v.Value)
             };

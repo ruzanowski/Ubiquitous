@@ -6,6 +6,7 @@ import {IntegrationEventType} from "../../models/integration-event-type.model";
 import {ConfirmationType} from "../../models/confirmation-type.model";
 import {NotificationService} from "../../services/notification.service";
 import {Importancy} from "../../models/importancy.model";
+import {AuthGuard} from "../../../auth";
 
 @Component({
   selector: 'notification-card',
@@ -38,7 +39,8 @@ export class NotificationCardComponent implements OnInit, OnDestroy
     });
 
     console.log('init');
-    this.notificationService.signalr.connect();
+
+    // this.notificationService.signalr.connect();
 
     this.bindColor();
     this.bindImportancy();

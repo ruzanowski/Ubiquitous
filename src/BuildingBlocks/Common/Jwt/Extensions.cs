@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,8 +26,8 @@ namespace U.Common.Jwt
             services.AddSingleton(options);
             services.AddTransient<IJwtService, JwtService>();
             services.AddTransient<JwtTokenValidatorMiddleware>();
-            services.AddAuthentication()
-                .AddCookie()
+            services
+                .AddAuthentication()
                 .AddJwtBearer(cfg =>
                 {
                     cfg.TokenValidationParameters = new TokenValidationParameters
@@ -42,7 +43,7 @@ namespace U.Common.Jwt
             return services;
         }
 
-        public static IApplicationBuilder UseAccessTokenValidator(this IApplicationBuilder app)
+        public static IApplicationBuilder UseJwtTokenValidator(this IApplicationBuilder app)
             => app.UseMiddleware<JwtTokenValidatorMiddleware>();
 
         public static long ToTimestamp(this DateTime dateTime)

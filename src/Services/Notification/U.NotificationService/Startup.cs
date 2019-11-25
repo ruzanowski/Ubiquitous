@@ -16,6 +16,7 @@ using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
 using U.Common.Database;
+using U.Common.Jwt;
 using U.Common.Redis;
 using U.Common.Swagger;
 using U.NotificationService.Application.Hub;
@@ -50,8 +51,10 @@ namespace U.NotificationService
                 .AddSwagger()
                 .AddCustomMapper()
                 .AddCustomServices()
-                .AddConsul()
-                .AddCustomRedisAndSignalR();
+                .AddConsulServiceDiscovery()
+                .AddCustomRedisAndSignalR()
+                .AddJwt()
+                .AddRedis();
 
             RegisterEventsHandlers(services);
         }
@@ -91,7 +94,7 @@ namespace U.NotificationService
         private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime,
             IConsulClient client)
         {
-            var consulServiceId = app.UseCustomConsul();
+            var consulServiceId = app.UseConsulServiceDiscovery();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }
     }
@@ -131,29 +134,6 @@ namespace U.NotificationService
                 .AddJsonProtocol()
                 .AddMessagePackProtocol()
                 .AddStackExchangeRedis(signalROptions.RedisConnectionString);
-//                .AddStackExchangeRedis(o =>
-//                {
-//                    o.ConnectionFactory = async writer =>
-//                    {
-//                        var config = new ConfigurationOptions
-//                        {
-//                            AbortOnConnectFail = false
-//                        };
-//
-//                        config.EndPoints.Clear();
-//                        config.EndPoints.Add($"{redisOptions.RedisConnectionString}");
-//
-//                        var connection = await ConnectionMultiplexer.ConnectAsync(config, writer);
-//                        connection.ConnectionFailed += (_, e) => { Console.WriteLine("Connection to Redis failed."); };
-//
-//                        if (!connection.IsConnected)
-//                        {
-//                            Console.WriteLine("Did not connect to Redis.");
-//                        }
-//
-//                        return connection;
-//                    };
-//                });
 
             return services;
         }

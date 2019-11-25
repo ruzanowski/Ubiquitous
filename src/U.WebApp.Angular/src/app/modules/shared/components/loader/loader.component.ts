@@ -9,7 +9,7 @@ import {LoaderService} from "../../services/loader.service";
 export class LoaderComponent {
   color = 'primary';
   mode = 'indeterminate';
-  value = 70;
+  value = 50;
   isLoading: Subject<boolean> = this.loaderService.isLoading;
   constructor(private loaderService: LoaderService){}
 }

@@ -29,11 +29,11 @@ namespace U.GeneratorService
         {
             services
                 .AddCustomMvc()
-                .AddConsul()
+                .AddConsulServiceDiscovery()
                 .RegisterServiceForwarder<ISmartStoreAdapter>("u.smartstore-adapter")
                 .AddUpdateWorkerHostedService(Configuration)
                 .AddCustomServices();
-        }     
+        }
 
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
         {
@@ -42,8 +42,8 @@ namespace U.GeneratorService
                 .UseMvcWithDefaultRoute()
                 .UseServiceId()
                 .UseForwardedHeaders();
-            
-            var consulServiceId = app.UseCustomConsul();
+
+            var consulServiceId = app.UseConsulServiceDiscovery();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }
     }

@@ -72,13 +72,5 @@ namespace U.Common.Mvc
             return (app, pathBase);
         }
 
-        public static IApplicationBuilder UseAllForwardedHeaders(this IApplicationBuilder builder)
-            => builder.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.All
-            });
-
-
-
     }
 }

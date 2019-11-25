@@ -41,19 +41,19 @@ namespace U.Common.Swagger
                     }
                 });
 
-                // Bearer token authentication
+                // Bearer accessToken authentication
                 OpenApiSecurityScheme securityDefinition = new OpenApiSecurityScheme()
                 {
                     Name = "Bearer",
                     BearerFormat = "JWT",
                     Scheme = "bearer",
-                    Description = "Specify the authorization token.",
+                    Description = "Specify the authorization accessToken.",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http
                 };
                 options.AddSecurityDefinition("jwt_auth", securityDefinition);
 
-                // Make sure swagger UI requires a Bearer token specified
+                // Make sure swagger UI requires a Bearer accessToken specified
                 OpenApiSecurityScheme securityScheme = new OpenApiSecurityScheme()
                 {
                     Reference = new OpenApiReference()

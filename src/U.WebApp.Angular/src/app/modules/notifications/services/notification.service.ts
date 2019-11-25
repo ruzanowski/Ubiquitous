@@ -34,6 +34,7 @@ export class NotificationService{
 
   constructor(public signalr: SignalrService)
   {
+
     this.signalr.subscribeOnEvents();
   }
 

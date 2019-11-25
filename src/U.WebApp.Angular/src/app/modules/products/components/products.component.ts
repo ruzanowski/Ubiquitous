@@ -7,7 +7,7 @@ import {Category} from "../../categories/models/category.model";
 import {CategoryService} from "../../categories/category.service";
 import {Manufacturer} from "../../manufacturers/models/Manufacturer.model";
 import {ManufacturerService} from "../../manufacturers/manufacturers.service";
-import {PaginatedItems} from "../../shared/components/models/paginateditems.model";
+import {PaginatedItems} from "../../shared/models/paginateditems.model";
 
 @Component({
   selector: 'table-products',

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace U.Common.Jwt
@@ -6,7 +7,7 @@ namespace U.Common.Jwt
     {
         public string Subject { get; set; }
         public string Role { get; set; }
-        public long Expires { get; set; }
+        public DateTime Expires { get; set; }
         public IDictionary<string, string> Claims { get; set; }
     }
 }
