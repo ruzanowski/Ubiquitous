@@ -31,27 +31,52 @@
 # 1. Introduction
 
 ## 1.1. Functionalities
-- ***Notification management*** 
+- ***Notifications*** :bell:
     - Channels
-        * [x] SignalR (WebSocket)
-        * [ ] Push notification (Toastr)
-        * [ ] E-mail
+        * [x] signalR (WebSocket)
+        * [ ] push notification (Toastr)
+        * [ ] e-mail
     - Types
         * [x] product published
         * [x] product added
         * [x] product properties changed
+        * [ ] user signed up
+        * [ ] user signed in
     - Operations
         * [x] auto-confirmation
         * [x] hide notification
         * [x] remove notification
     - States
-        * [x] Trivial
-        * [x] Normal
-        * [x] Important
--  ***Notifications persistency*** 
-    * [x] each notification and subscribers state are persisted in PostgreSQL
-    * [x] welcome notifications are sent from last 24hrs for first log-in
-- ***admin management (next versions)*** 
+        * [x] trivial
+        * [x] normal
+        * [x] important
+    - Persistency
+        * [x] notifications with states are persisted in PestgreSQL
+        * [x] notifications from last 24 hours are sent during logging in 
+    - Accessibility
+        * [x] visible and operable from website with all entire specification
+- ***Identity & Authorization*** :bell:
+    - Identity :card_index:
+        - Operations
+            * [x] log in
+            * [x] log out
+            * [x] change password
+        - Properties
+            - sid
+            - email
+            - password
+            - role
+            - name
+            - claims
+            - access token
+            - refresh token
+    - Authorization :old_key:
+        - Jwt Token Operations
+            * [x] create
+            * [x] revoke 
+            * [x] refresh
+    * [x] each user has identificator with 
+- ***Admin Management (next versions)*** 
     - Operations 
         * [ ] manage products and its details thru product service API
         * [ ] manage users subscriptions
@@ -73,7 +98,7 @@
     
 ## 1.3 Install
 
-####1.3.0. Prerequisites
+1.3.0. Prerequisites
 
     - Docker
     - Docker composer

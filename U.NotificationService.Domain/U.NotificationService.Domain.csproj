@@ -10,8 +10,4 @@
       <ProjectReference Include="..\src\Services\Product\U.ProductService.Application\U.ProductService.Application.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Events" />
-    </ItemGroup>
-
 </Project>
