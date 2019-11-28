@@ -2,9 +2,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace U.Common.Mvc
 {
@@ -31,28 +35,22 @@ namespace U.Common.Mvc
 
         public static IServiceCollection AddCustomMvc(this IServiceCollection services)
         {
-            // AddAsync framework services.
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddControllersAsServices(); //Injecting Controllers themselves thru DI
-            //For further info see: http://docs.autofac.org/en/latest/integration/aspnetcore.html#controllers-as-services
-
-            string[] allowedOrigins =
+            services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
             {
-                "http://localhost:4200",
-                "http://docker.for.win.localhost:4200"
-            };
+                builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    .WithOrigins("http://localhost:4200");
+            }));
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder
-                        .SetIsOriginAllowed(host => true)
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials()
-                        .WithOrigins(allowedOrigins));
-            });
+            services
+                .AddMvcCore()
+                .AddJsonFormatters()
+                .AddDataAnnotations()
+                .AddApiExplorer()
+                .AddDefaultJsonOptions()
+                .AddAuthorization();
 
             services.AddSingleton<IServiceIdService, ServiceIdService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -60,7 +58,20 @@ namespace U.Common.Mvc
             return services;
         }
 
-        public static (IApplicationBuilder,string) UsePathBase<T>(this IApplicationBuilder app, IConfiguration configuration, ILogger<T> logger)
+        public static IMvcCoreBuilder AddDefaultJsonOptions(this IMvcCoreBuilder builder)
+            => builder.AddJsonOptions(o =>
+            {
+                o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                o.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+                o.SerializerSettings.DateParseHandling = DateParseHandling.DateTimeOffset;
+                o.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.None;
+                o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                o.SerializerSettings.Formatting = Formatting.Indented;
+                o.SerializerSettings.Converters.Add(new StringEnumConverter());
+            });
+
+        public static (IApplicationBuilder, string) UsePathBase<T>(this IApplicationBuilder app,
+            IConfiguration configuration, ILogger<T> logger)
         {
             var pathBase = configuration["PATH_BASE"];
             if (!string.IsNullOrEmpty(pathBase))
@@ -71,6 +82,5 @@ namespace U.Common.Mvc
 
             return (app, pathBase);
         }
-
     }
 }

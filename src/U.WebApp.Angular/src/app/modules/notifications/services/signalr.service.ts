@@ -1,6 +1,6 @@
 ﻿import {Injectable} from '@angular/core';
 import * as signalR from "@aspnet/signalr";
-import {LogLevel} from "@aspnet/signalr";
+import {IHubProtocol, LogLevel} from "@aspnet/signalr";
 import {ProductAddedEvent} from "../models/product-added-event.model";
 import {ProductPublishedEvent} from "../models/product-published-event.model";
 import {ProductPropertiesChangedEvent} from "../models/product-properties-changed-event.model";
@@ -9,7 +9,6 @@ import {ProductBaseEvent} from "../models/product-base-event.model";
 import {NotificationDto} from "../models/notification-dto.model";
 import {IntegrationEventType} from "../models/integration-event-type.model";
 import {Importancy} from "../models/importancy.model";
-import {AuthGuard} from "../../auth";
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +23,14 @@ export class SignalrService {
 
   constructor() {
     this.connection = new signalR.HubConnectionBuilder()
-      .withUrl('/signalr')
+      .withUrl('http://localhost:5500/signalr')
       .configureLogging(LogLevel.Trace)
       .build();
+    this.subscribeOnEvents();
+    this.connect();
   }
 
-  public connect() {
+  private connect() {
     if (this.connection.state === signalR.HubConnectionState.Disconnected) {
       this.connection
         .start()
@@ -37,7 +38,7 @@ export class SignalrService {
     }
   }
 
-  public subscribeOnEvents() {
+  private subscribeOnEvents() {
 
     this.connection.on('connected', (user: string) => {
       console.log(JSON.stringify(user));

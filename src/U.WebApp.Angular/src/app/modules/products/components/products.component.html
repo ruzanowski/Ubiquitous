@@ -1,5 +1,4 @@
-<!--      <td><a class="product-detail" routerLink="/products/{{product.id}}">Details</a></td>-->
-<mat-form-field style="padding-left: 30px; padding-right: 30px">
+<mat-form-field class="margined-from-top">
   <input matInput [matDatepicker]="picker" placeholder="Choose a date" style="padding: 10px 10px 10px 40px;">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
@@ -21,10 +20,10 @@
 <mat-form-field style="padding-left: 30px; padding-right: 30px">
   <mat-label flex>Product manufacturer</mat-label>
   <mat-select
-              flex
-              disableRipple
-              [(ngModel)]="manufacturerIdFilter"
-              (ngModelChange)="getProducts()">
+    flex
+    disableRipple
+    [(ngModel)]="manufacturerIdFilter"
+    (ngModelChange)="getProducts()">
     <mat-option *ngFor="let manufacturer of manufacturers?.data"
                 [value]="manufacturer.id"
                 ngDefaultControl>
@@ -33,8 +32,8 @@
   </mat-select>
 </mat-form-field>
 
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource">
+<div style="padding-left: 30px; padding-right: 30px">
+  <table mat-table [dataSource]="dataSource" class="mat-margined-from-top">
     <!-- Name Column -->
 
     <ng-container matColumnDef="image">

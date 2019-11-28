@@ -7,9 +7,8 @@
 
     <ItemGroup>
       <Content Include="Dockerfile" />
-      <Content Include="Properties\launchSettings.json">
-        <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-      </Content>
+      <None Remove="Properties\launchSettings.json" />
+      <Content Include="Properties\launchSettings.json" />
     </ItemGroup>
 
     <ItemGroup>

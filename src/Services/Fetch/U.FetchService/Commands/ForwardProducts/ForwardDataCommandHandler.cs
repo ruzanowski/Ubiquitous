@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
-using U.FetchService.Commands.ForwardProducts.IntegrationEvents;
+using U.EventBus.Events.Fetch;
 
 namespace U.FetchService.Commands.ForwardProducts
 {

@@ -1,9 +1,7 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, OnDestroy, OnInit, Output} from '@angular/core';
 import {NotificationService} from "../../services/notification.service";
 import {NotificationDto} from "../../models/notification-dto.model";
 import {ConfirmationType} from "../../models/confirmation-type.model";
-import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
-import {ProductBaseEvent} from "../../models/product-base-event.model";
 
 @Component({
   selector: 'notifications-list',
@@ -21,13 +19,10 @@ export class NotificationsComponent implements OnInit, OnDestroy
 
   ngOnDestroy(): void {
     console.log('destroy');
-    this.notificationService.signalr.disconnect();
   }
 
   ngOnInit(): void {
-    console.log('init');
-    this.notificationService.signalr.connect();
-    this.notificationService.registerSubscriptions();
+    console.log('notification list init');
   }
 
   onScroll() {
@@ -43,6 +38,13 @@ export class NotificationsComponent implements OnInit, OnDestroy
     return this.notificationService._notificationsData.length;
   }
 
+  unreadNotifications(){
+    return this.notificationService._notificationsData.filter(selector => selector.state == ConfirmationType.unread).length;
+  }
+  readNotifications(){
+    return this.notificationService._notificationsData.filter(selector => selector.state == ConfirmationType.read).length;
+  }
+
   setStateToRead(notification: NotificationDto<any>) : void
   {
     this.notificationService.read(notification);
@@ -52,9 +54,4 @@ export class NotificationsComponent implements OnInit, OnDestroy
   {
     this.notificationService.readAll(notifications);
   }
-
-  drop(event: CdkDragDrop<Array<NotificationDto<ProductBaseEvent>>>) {
-    moveItemInArray(this.notificationService.notificationsToShow, event.previousIndex, event.currentIndex);
-  }
-
 }

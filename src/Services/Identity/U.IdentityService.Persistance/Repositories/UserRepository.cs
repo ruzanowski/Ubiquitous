@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using U.IdentityService.Domain.Domain;
@@ -13,6 +15,11 @@ namespace U.IdentityService.Persistance.Repositories
         public UserRepository(IdentityContext identityContext)
         {
             _identityContext = identityContext;
+        }
+
+        public async Task<IList<User>> GetUsersAsync()
+        {
+            return await _identityContext.Users.ToListAsync();
         }
 
         public async Task<User> GetAsync(Guid id)

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using U.EventBus.Abstractions;
-using U.IdentityService.Application.Events;
+using U.EventBus.Events.Identity;
 using U.IdentityService.Domain;
 using U.IdentityService.Domain.Domain;
 using U.IdentityService.Domain.Exceptions;

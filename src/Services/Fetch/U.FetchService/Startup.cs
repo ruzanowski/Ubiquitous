@@ -35,7 +35,7 @@ namespace U.FetchService
                 .AddCustomMediatR()
                 .AddEventBusRabbitMq(Configuration)
                 .AddConsulServiceDiscovery()
-                .RegisterServiceForwarder<ISmartStoreAdapter>("u.smartstore-adapter")
+                .AddHTTPServiceClient<ISmartStoreAdapter>("u.smartstore-adapter")
                 .AddUpdateWorkerHostedService(Configuration);
         }
 

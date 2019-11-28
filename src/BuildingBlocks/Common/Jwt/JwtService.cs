@@ -97,8 +97,11 @@ namespace U.Common.Jwt
 
         public JsonWebTokenPayload GetTokenPayload(string accessToken)
         {
-            _jwtSecurityTokenHandler.ValidateToken(accessToken, _tokenValidationParameters,
+            _jwtSecurityTokenHandler.ValidateToken(
+                accessToken,
+                _tokenValidationParameters,
                 out var validatedSecurityToken);
+
             if (!(validatedSecurityToken is JwtSecurityToken jwt))
             {
                 return null;
@@ -114,6 +117,13 @@ namespace U.Common.Jwt
             };
         }
 
+        public JsonWebTokenPayload GetTokenCurrentPayload()
+        {
+            var currentToken = GetCurrentAsync();
+
+            var currentTokenPayload = GetTokenPayload(currentToken);
+            return currentTokenPayload;
+        }
 
         public async Task<bool> IsCurrentActiveToken() => await IsActiveAsync(GetCurrentAsync());
 

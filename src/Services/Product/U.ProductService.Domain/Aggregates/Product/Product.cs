@@ -8,7 +8,6 @@ using U.ProductService.Domain.Aggregates.Product;
 using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Events;
 using U.ProductService.Domain.Exceptions;
-using U.ProductService.Domain.Helpers;
 using U.ProductService.Domain.SeedWork;
 
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Local

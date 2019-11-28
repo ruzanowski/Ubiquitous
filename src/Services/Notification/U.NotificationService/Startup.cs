@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using AutoMapper;
 using Consul;
 using MediatR;
@@ -9,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using StackExchange.Redis;
 using U.Common.Consul;
 using U.Common.Mvc;
 using U.EventBus.Abstractions;
@@ -19,12 +17,12 @@ using U.Common.Database;
 using U.Common.Jwt;
 using U.Common.Redis;
 using U.Common.Swagger;
-using U.NotificationService.Application.Hub;
+using U.EventBus.Events.Product;
 using U.NotificationService.Application.IntegrationEvents.ProductAdded;
 using U.NotificationService.Application.IntegrationEvents.ProductPropertiesChanged;
 using U.NotificationService.Application.IntegrationEvents.ProductPublished;
-using U.NotificationService.Infrastracture.Contexts;
-using U.NotificationService.Infrastracture.SignalR;
+using U.NotificationService.Application.SignalR;
+using U.NotificationService.Infrastructure.Contexts;
 
 namespace U.NotificationService
 {
@@ -47,7 +45,6 @@ namespace U.NotificationService
                 .AddDatabaseContext<NotificationContext>(Configuration)
                 .AddEventBusRabbitMq(Configuration)
                 .AddMediatR(typeof(Startup).GetTypeInfo().Assembly)
-                .AddLogging()
                 .AddSwagger()
                 .AddCustomMapper()
                 .AddCustomServices()
@@ -62,15 +59,19 @@ namespace U.NotificationService
         public void Configure(IApplicationBuilder app,
             IApplicationLifetime applicationLifetime, IConsulClient client)
         {
+            app.UseCors("CorsPolicy");
+
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
             app.UseDeveloperExceptionPage()
-                .UseMvcWithDefaultRoute()
-                .UseCors("CorsPolicy")
                 .UseSwagger(pathBase)
                 .UseServiceId()
-                .UseForwardedHeaders();
+                .UseForwardedHeaders()
+                .UseCookiePolicy();
+
 
             app.UseSignalR(routes => routes.MapHub<BaseHub>("/signalr"));
+
+            app.UseMvcWithDefaultRoute();
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);

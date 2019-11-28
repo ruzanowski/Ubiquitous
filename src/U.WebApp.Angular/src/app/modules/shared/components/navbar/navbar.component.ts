@@ -117,11 +117,11 @@ export class NavbarComponent {
       $layer.setAttribute('class', 'close-layer');
 
 
-      if (body.querySelectorAll('.main-panel')) {
-        document.getElementsByClassName('main-panel')[0].appendChild($layer);
-      } else if (body.classList.contains('off-canvas-sidebar')) {
-        document.getElementsByClassName('wrapper-full-page')[0].appendChild($layer);
-      }
+      // if (body.querySelectorAll('.main-panel')) {
+      //   document.getElementsByClassName('main-panel')[0].appendChild($layer);
+      // } else if (body.classList.contains('off-canvas-sidebar')) {
+      //   document.getElementsByClassName('wrapper-full-page')[0].appendChild($layer);
+      // }
 
       setTimeout(function () {
         $layer.classList.add('visible');

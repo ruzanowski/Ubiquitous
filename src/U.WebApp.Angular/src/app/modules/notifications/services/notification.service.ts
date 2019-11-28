@@ -32,10 +32,9 @@ export class NotificationService{
 
   @Output() notificationsBadgeEvent = new EventEmitter();
 
-  constructor(public signalr: SignalrService)
+  constructor(private signalr: SignalrService)
   {
-
-    this.signalr.subscribeOnEvents();
+    this.registerSubscriptions();
   }
 
   set notifications(data: NotificationDto<ProductBaseEvent>) {
@@ -75,11 +74,9 @@ export class NotificationService{
   {
     this.notificationsBadgeEvent.emit(this._notificationsData.filter(value => value.state === ConfirmationType.unread).length);
   }
-
-  anyNotifications() {
+  countNotifications() {
     return this._notificationsData.length;
   }
-
   read(notification: NotificationDto<any>) : void
   {
     notification.state = ConfirmationType.read;
