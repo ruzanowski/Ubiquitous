@@ -85,9 +85,9 @@
 ## 1.2 Purpose
 - **prime goal** is/was an education and giving my best around programming topics like 
      - .NET Core
+     - DDD
      - Microservices
      - Docker
-     - DDD
      - Angular
      - ...
      - and so much more
@@ -140,25 +140,22 @@ Down below, a services dependency diagram. See to #3.1 for listed used technolog
    <img alt="Ubiquitous Service Architecture" src="img/ubiquitous-architecture.png" />
 </p>
 
-### 2.1 Technologies And Tools
+### 2.1 Technologies And Patterns
 - ***EF Core 2.2*** *(ORM)*
+- ***AutoMapper*** *(Objects mappings)*
+- ***MediatR*** *(CQRS pattern dispatch)*
+- ***Polly*** *(Resiliency policies)*
 - ***RabbitMQ*** *(Service-service communication)*
 - ***Consul*** *(Service discovery, keep alive)*
 - ***Fabio*** *(Load balancer)*
-- ***MediatR*** *(CQRS pattern dispatch)*
 - ***Docker*** *(Containers environment)*
-- ***Polly*** *(Resiliency policies)*
 - ***Serilog*** *(Logging)*
-- ***AutoMapper*** *(Objects mappings)*
 - ***PostgreSql*** *(Database)*
 - ***Gitlab DevOps*** *(CI)*
 - ***SignalR*** *(Asynchronous communication, Notifications)*
 - ***Redis*** Distributed caching & SignalR backplane
-
-- ***Ocelot*** [todo] API Gateway
+- ***Ocelot*** API Gateway
 - ***Jaeger*** [todo] Tracing
-- ***Grafana*** [todo] Metrics
-- ***Prometheus*** [todo] Metrics infrastructure
 
 ### 2.2 Services
 -------
@@ -167,6 +164,8 @@ Down below, a services dependency diagram. See to #3.1 for listed used technolog
 - ***Fetch Service*** Fetches data from wholesales(many) and pushes newest items on bus
 - ***Product Service*** Main domain aggregate service, handles products and its business logic
 - ***Notification Service*** Handles notifications and channels it by WebSocket
+- ***Identity Service*** Handles identity of user and managed Jwt tokens
+- ***Subscription Service*** Handles subscriptions of users & preferences for notifications types, channels
 -------
 ### 2.3 Cross-Cutting Concerns
 
@@ -226,16 +225,18 @@ _To be determined_
 |Product Service - Major Features|Critical|Completed|10.2019|
 |Dashboard Web-Side| Critical|Completed|10.2019|
 |Notifications SignalR & Basic Features|Critical|Completed|10.2019|
-|Notifications Management(confirm, hide, remove, mute)|Critical|In Progress||
-|Identity Service|Critical|||
-|Security (HTTPS)|High|||
-|Ocelot|High|||
+|Notifications Management(confirm, hide, remove, mute)|Critical|Completed|11.2019|
+|Identity Service|Critical|Completed|11.2019|
+|Jwt Authorization|Critical|Completed|11.2019|
+|API Gateway|High|Completed|11.2019|
+|Subscriptions Service|High|In Progress||
 |Notifications new channels (push, e-mail)|Medium||
 |Tracing (Jaeger)|Medium|||
 |Admin Web-Side Panel (products)|Medium|||
 |Admin Web-Side Panel (subscribers, users)|Medium|||
 |Notification by E-mail| Medium||
 |Migration to .NET Core 3.0 |Low|||
+|Security (HTTPS)|Low|||
 
 ## 6. Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
