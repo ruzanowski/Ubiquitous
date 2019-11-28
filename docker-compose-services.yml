@@ -2,6 +2,23 @@ version: "3.5"
 
 services:
 
+  u.api-gateway:
+    image: u.api-gateway:latest
+    container_name: u.api-gateway
+    build:
+      context: .
+      dockerfile: src/ApiGateway/Dockerfile
+    ports:
+      - 4500:4500
+    environment:
+      ASPNETCORE_ENVIRONMENT: docker
+    volumes:
+      - '${RELATIVE_PATH}/apigateway/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${RELATIVE_PATH}/apigateway/ocelot.json:/app/ocelot.json:ro'
+    restart: unless-stopped
+    networks:
+      - ubiquitous
+
   u.product-service:
     image: u.product-service:latest
     container_name: u.product-service
@@ -16,10 +33,10 @@ services:
       ASPNETCORE_URLS: http://+:5000
       ASPNETCORE_ENVIRONMENT: docker
     volumes:
-      - '/c/Users/Sebastian/Desktop/docker/productservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${RELATIVE_PATH}/productservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+    restart: unless-stopped
     networks:
       - ubiquitous
-    restart: unless-stopped
 
   u.smartstore-adapter:
     image: u.smartstore_adapter:latest
@@ -35,10 +52,10 @@ services:
       ASPNETCORE_URLS: http://+:5100
       ASPNETCORE_ENVIRONMENT: docker
     volumes:
-      - '/c/Users/Sebastian/Desktop/docker/smartstoreadapter/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${RELATIVE_PATH}/smartstoreadapter/appsettings.docker.json:/app/appsettings.docker.json:ro'
+    restart: unless-stopped
     networks:
       - ubiquitous
-    restart: unless-stopped
 
   u.fetch-service:
     image: u.fetch-service:latest
@@ -55,28 +72,32 @@ services:
       ASPNETCORE_URLS: http://+:5200
       ASPNETCORE_ENVIRONMENT: docker
     volumes:
-      - '/c/Users/Sebastian/Desktop/docker/fetchservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${RELATIVE_PATH}/fetchservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     depends_on:
       - u.smartstore-adapter
+    restart: unless-stopped
     networks:
       - ubiquitous
 
-  u.report-service:
-    image: u.report-service:latest
-    container_name: u.report-service
+  u.identity-service:
+    image: u.identity-service:latest
+    container_name: u.identity-service
     build:
       context: .
-      dockerfile: src/Services/Report/U.ReportService/Dockerfile
+      dockerfile: src/Services/Identity/U.IdentityService/Dockerfile
     ports:
-      - 5300:5300
+      - 5400:5400
     environment:
-      ASPNETCORE_URLS: http://+:5300
+      ASPNETCORE_URLS: http://+:5400
       ASPNETCORE_ENVIRONMENT: docker
+      DbOptions__Connection: Server=postgres;Port=5432;Database=identity-service;User Id=postgres;Password=postgres;
+      DbOptions__Type: Npgsql
+      DbOptions__AutoMigration: "true"
     volumes:
-      - '/c/Users/Sebastian/Desktop/docker/reportservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${RELATIVE_PATH}/identityservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+    restart: unless-stopped
     networks:
       - ubiquitous
-    restart: unless-stopped
 
   u.notification-service:
     image: u.notification-service:latest
@@ -84,16 +105,17 @@ services:
     build:
       context: .
       dockerfile: src/Services/Notification/U.NotificationService/Dockerfile
-
     ports:
       - 5500:5500
     environment:
       ASPNETCORE_URLS: http://+:5500
       ASPNETCORE_ENVIRONMENT: docker
-      DbOptions__Connection: Server=localhost;Port=5432;Database=notification-service;User Id=postgres;Password=postgres;
+      DbOptions__Connection: Server=postgres;Port=5432;Database=notification-service;User Id=postgres;Password=postgres;
       DbOptions__Type: Npgsql
+      DbOptions__AutoMigration: "true"
     volumes:
-      - '/c/Users/Sebastian/Desktop/docker/notificationservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${RELATIVE_PATH}/notificationservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+    restart: unless-stopped
     networks:
       - ubiquitous
 
@@ -106,10 +128,11 @@ services:
     ports:
       - 5700:5700
     volumes:
-      - '/c/Users/Sebastian/Desktop/docker/generatorservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${RELATIVE_PATH}/generatorservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     environment:
       ASPNETCORE_URLS: http://+:5700
       ASPNETCORE_ENVIRONMENT: docker
+    restart: unless-stopped
     networks:
       - ubiquitous
 

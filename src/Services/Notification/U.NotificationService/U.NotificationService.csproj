@@ -9,15 +9,14 @@
         <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="1.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.Json" Version="1.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="1.1.5" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="1.1.5" />
+
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\..\U.NotificationService.Application\U.NotificationService.Application.csproj" />
+      <ProjectReference Include="..\..\..\..\U.NotificationService.Domain\U.NotificationService.Domain.csproj" />
+      <ProjectReference Include="..\..\..\Adapters\SmartStore\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj" />
+      <ProjectReference Include="..\..\..\Adapters\SmartStore\U.SmartStoreAdapter.Domain\U.SmartStoreAdapter.Domain.csproj" />
       <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
       <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
       <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />

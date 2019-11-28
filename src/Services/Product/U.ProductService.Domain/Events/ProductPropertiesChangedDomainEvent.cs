@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using MediatR;
+using U.EventBus.Events.Product;
 
 namespace U.ProductService.Domain.Events
 {
@@ -10,15 +12,14 @@ namespace U.ProductService.Domain.Events
     public class ProductPropertiesChangedDomainEvent : INotification
     {
         public Guid ProductId { get; }
-        public string Name { get; }
-        
-        public decimal Price { get; }
+        public Guid Manufacturer { get; set; }
+        public List<Variance> Variances { get; set; }
 
-        public ProductPropertiesChangedDomainEvent(Guid productId, string name, decimal price)
+        public ProductPropertiesChangedDomainEvent(Guid productId, Guid manufacturer, List<Variance> variances)
         {
             ProductId = productId;
-            Name = name;
-            Price = price;
+            Manufacturer = manufacturer;
+            Variances = variances;
         }
     }
 }

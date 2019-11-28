@@ -4,8 +4,7 @@ using U.Common.WebHost;
 using Microsoft.AspNetCore.Hosting;
 using U.Common.Database;
 using U.Common.Mvc;
-using U.IntegrationEventLog;
-using U.NotificationService.Infrastracture.Contexts;
+using U.NotificationService.Infrastructure.Contexts;
 
 namespace U.NotificationService
 {
@@ -25,14 +24,13 @@ namespace U.NotificationService
             {
                 Log.Information("Configuring web host ({ApplicationContext})...", AppName);
                 var host = SharedWebHost.BuildWebHost<Startup>(configuration, args);
-                var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
+                var dbOptions = configuration.GetOptions<DbOptions>("dbOptions");
 
                 Log.Information(
                     $"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");
 
                 Log.Information(
                     $"Appsettings volume mapped: '{configuration.GetSection("volumeMapping").Value ?? "incorrectly"}'");
-
 
 
                 if (dbOptions?.AutoMigration != null && dbOptions.AutoMigration)

@@ -35,7 +35,7 @@ namespace U.Common.Fabio
 
         private Uri GetRequestUri(HttpRequestMessage request)
             =>  new Uri($"{_options.Value.Url}/{_servicePath}{request.RequestUri.Host}{request.RequestUri.PathAndQuery}");
-        
+
         private int RequestRetries => _options.Value.RequestRetries <= 0 ? 3 : _options.Value.RequestRetries;
     }
 }

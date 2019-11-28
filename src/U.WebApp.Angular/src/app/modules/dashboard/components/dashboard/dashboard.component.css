@@ -1,8 +1,19 @@
-.mat-tab-group {
-  margin-bottom: 48px;
+/* Extra small devices (phones, less than 768px) */
+@media (max-width:767px) {
+  body {font-size: 2px;}
 }
 
-mat-sidenav{
-  left: 0;
-  width: 10%
+/* Small devices (tablets, 768px and up) */
+@media (min-width:768px) {
+  body {font-size: 10px;}
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width:992px) {
+  body {font-size: 20px;}
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width:1200px) {
+  body {font-size: 30px;}
 }

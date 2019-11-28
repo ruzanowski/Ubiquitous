@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using U.Common.Jwt;
 using U.Common.Pagination;
 using U.ProductService.Application.Pictures.Models;
 using U.ProductService.Application.Pictures.Queries.GetList;
@@ -29,10 +30,11 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Get list of command 
+        /// Get list of command
         /// </summary>
         /// <param name="picturesListQuery"></param>
         /// <returns></returns>
+        [JwtAuth]
         [HttpGet]
         [Route("query")]
         [ProducesResponseType(typeof(PaginatedItems<PictureViewModel>), (int) HttpStatusCode.OK)]
@@ -44,10 +46,11 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Get Picture by its PictureId 
+        /// Get Picture by its PictureId
         /// </summary>
         /// <param name="pictureId"></param>
         /// <returns></returns>
+        [JwtAuth]
         [HttpGet]
         [Route("query/{PictureId:Guid}")]
         [ProducesResponseType(typeof(PaginatedItems<PictureViewModel>), (int) HttpStatusCode.OK)]

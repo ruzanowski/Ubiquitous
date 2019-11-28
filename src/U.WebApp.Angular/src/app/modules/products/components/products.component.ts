@@ -7,7 +7,7 @@ import {Category} from "../../categories/models/category.model";
 import {CategoryService} from "../../categories/category.service";
 import {Manufacturer} from "../../manufacturers/models/Manufacturer.model";
 import {ManufacturerService} from "../../manufacturers/manufacturers.service";
-import {PaginatedItems} from "../../shared/components/models/paginateditems.model";
+import {PaginatedItems} from "../../shared/models/paginateditems.model";
 
 @Component({
   selector: 'table-products',
@@ -17,15 +17,14 @@ import {PaginatedItems} from "../../shared/components/models/paginateditems.mode
 
 export class ProductsComponent implements OnInit {
   dataSource = new MatTableDataSource<Product>();
-  displayedColumns: string[] = ['name', 'price', 'description', 'height', 'width', 'length', 'weight', 'lastUpdated'];
+  displayedColumns: string[] = ['image', 'name', 'description', 'price','lastUpdated'];
   categories: PaginatedItems<Category>;
   manufacturers: PaginatedItems<Manufacturer>;
-  public manufacturerIdFilter?: string;
-  public categoryIdFilter?: string;
+  public manufacturerIdFilter?: string = null;
+  public categoryIdFilter?: string = null;
 
   constructor(private service: ProductService, private categoryService: CategoryService, private manufacturerService: ManufacturerService) {
-this.categoryIdFilter = null;
-this.manufacturerIdFilter = null;
+
   }
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -58,16 +57,6 @@ this.manufacturerIdFilter = null;
       this.manufacturers = manufacturers;
       console.log('manufacturers retrieved: ' + manufacturers.data.length);
     })
-  }
-
-  setManufacturerFilter(id: string){
-   this.manufacturerIdFilter = id;
-
-    console.log('selected manufacturer filter: ' + id);
-  }
-
-  setCategoryFilter(id: string){
-    this.categoryIdFilter = id;
   }
 }
 

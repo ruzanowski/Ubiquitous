@@ -27,26 +27,140 @@
         <!-- Don't publish the SPA source files, but do show them in the project files list -->
         <Content Remove="$(SpaRoot)**" />
         <Content Include="proxy.conf.json" />
+        <Content Include="src\app\layouts\home-layout\home-layout.component.css" />
+        <Content Include="src\app\layouts\home-layout\home-layout.component.html" />
         <Content Include="src\app\modules\categories\components\table-category\table-categories.component.css" />
+        <Content Include="src\app\modules\login\components\login\login.component.css" />
+        <Content Include="src\app\modules\login\components\login\login.component.html" />
         <Content Include="src\app\modules\manufacturers\components\table-manufacturers\table-manufacturers.component.css" />
-        <Content Include="src\app\modules\notifications\components\notifications-list\notifications.component.css" />
-        <Content Include="src\app\modules\notifications\components\notifications-list\notifications.component.html" />
-        <Content Include="src\app\modules\notifications\components\todo-notification-card\notification-card.component.html" />
-        <Content Include="src\app\modules\notifications\components\todo-notification-card\notification-card.component.css" />
+        <Content Include="src\app\modules\notifications\components\notification-settings\notification-settings.component.css" />
+        <Content Include="src\app\modules\notifications\components\notification-settings\notification-settings.component.html" />
+        <Content Include="src\app\modules\notifications\components\notifications-list\notifications-list.component.css" />
+        <Content Include="src\app\modules\notifications\components\notifications-list\notifications-list.component.html" />
+        <Content Include="src\app\modules\notifications\components\notification-card\notification-card.component.html" />
+        <Content Include="src\app\modules\notifications\components\notification-card\notification-card.component.css" />
         <Content Include="src\app\modules\products\components\products-details\products-details.component.css" />
         <Content Include="src\app\modules\products\components\products.component.css" />
+        <Content Include="src\app\modules\shared\components\footer\footer.component.css" />
+        <Content Include="src\app\modules\shared\components\footer\footer.component.html" />
         <Content Include="src\app\modules\shared\components\loader\loader.component.css" />
         <Content Include="src\app\modules\shared\components\loader\loader.component.html" />
+        <Content Include="src\app\modules\shared\components\navbar\navbar.component.css" />
+        <Content Include="src\app\modules\shared\components\navbar\navbar.component.html" />
+        <Content Include="src\app\modules\shared\components\sidebar\sidebar.component.css" />
+        <Content Include="src\app\modules\shared\components\sidebar\sidebar.component.html" />
         <Content Include="src\app\modules\shared\components\spinner-overlay\progress-spinner.component.html" />
+        <Content Include="src\assets\core\cards\_card-plain.scss" />
+        <Content Include="src\assets\core\cards\_card-profile.scss" />
+        <Content Include="src\assets\core\cards\_card-stats.scss" />
+        <Content Include="src\assets\core\mixins\_alert.scss" />
+        <Content Include="src\assets\core\mixins\_animations.scss" />
+        <Content Include="src\assets\core\mixins\_breakpoints.scss" />
+        <Content Include="src\assets\core\mixins\_buttons.scss" />
+        <Content Include="src\assets\core\mixins\_chartist.scss" />
+        <Content Include="src\assets\core\mixins\_colored-shadows.scss" />
+        <Content Include="src\assets\core\mixins\_drawer.scss" />
+        <Content Include="src\assets\core\mixins\_forms.scss" />
+        <Content Include="src\assets\core\mixins\_hover.scss" />
+        <Content Include="src\assets\core\mixins\_layout.scss" />
+        <Content Include="src\assets\core\mixins\_navbar-colors.scss" />
+        <Content Include="src\assets\core\mixins\_navs.scss" />
+        <Content Include="src\assets\core\mixins\_sidebar-color.scss" />
+        <Content Include="src\assets\core\mixins\_transparency.scss" />
+        <Content Include="src\assets\core\mixins\_type.scss" />
+        <Content Include="src\assets\core\mixins\_utilities.scss" />
+        <Content Include="src\assets\core\mixins\_variables.scss" />
+        <Content Include="src\assets\core\mixins\_vendor-prefixes.scss" />
+        <Content Include="src\assets\core\plugins\_animate.scss" />
+        <Content Include="src\assets\core\plugins\_chartist.scss" />
+        <Content Include="src\assets\core\plugins\_perfect-scrollbar.scss" />
+        <Content Include="src\assets\core\variables\_body.scss" />
+        <Content Include="src\assets\core\variables\_bootstrap-material-design-base.scss" />
+        <Content Include="src\assets\core\variables\_bootstrap-material-design.scss" />
+        <Content Include="src\assets\core\variables\_brand.scss" />
+        <Content Include="src\assets\core\variables\_buttons.scss" />
+        <Content Include="src\assets\core\variables\_card.scss" />
+        <Content Include="src\assets\core\variables\_code.scss" />
+        <Content Include="src\assets\core\variables\_colors-map.scss" />
+        <Content Include="src\assets\core\variables\_colors.scss" />
+        <Content Include="src\assets\core\variables\_custom-forms.scss" />
+        <Content Include="src\assets\core\variables\_drawer.scss" />
+        <Content Include="src\assets\core\variables\_dropdown.scss" />
+        <Content Include="src\assets\core\variables\_forms.scss" />
+        <Content Include="src\assets\core\variables\_layout.scss" />
+        <Content Include="src\assets\core\variables\_list-group.scss" />
+        <Content Include="src\assets\core\variables\_menu.scss" />
+        <Content Include="src\assets\core\variables\_modals.scss" />
+        <Content Include="src\assets\core\variables\_nav.scss" />
+        <Content Include="src\assets\core\variables\_pagination.scss" />
+        <Content Include="src\assets\core\variables\_shadow.scss" />
+        <Content Include="src\assets\core\variables\_snackbar.scss" />
+        <Content Include="src\assets\core\variables\_spacing.scss" />
+        <Content Include="src\assets\core\variables\_state.scss" />
+        <Content Include="src\assets\core\variables\_tables.scss" />
+        <Content Include="src\assets\core\variables\_tooltip.scss" />
+        <Content Include="src\assets\core\variables\_type.scss" />
+        <Content Include="src\assets\core\_alerts.scss" />
+        <Content Include="src\assets\core\_angular-modal.scss" />
+        <Content Include="src\assets\core\_buttons.scss" />
+        <Content Include="src\assets\core\_cards.scss" />
+        <Content Include="src\assets\core\_checkboxes.scss" />
+        <Content Include="src\assets\core\_dropdown.scss" />
+        <Content Include="src\assets\core\_example-pages.scss" />
+        <Content Include="src\assets\core\_fixed-plugin.scss" />
+        <Content Include="src\assets\core\_footers.scss" />
+        <Content Include="src\assets\core\_forms.scss" />
+        <Content Include="src\assets\core\_images.scss" />
+        <Content Include="src\assets\core\_input-group.scss" />
+        <Content Include="src\assets\core\_misc.scss" />
+        <Content Include="src\assets\core\_mixins.scss" />
+        <Content Include="src\assets\core\_navbar.scss" />
+        <Content Include="src\assets\core\_popover.scss" />
+        <Content Include="src\assets\core\_popups.scss" />
+        <Content Include="src\assets\core\_radios.scss" />
+        <Content Include="src\assets\core\_responsive.scss" />
+        <Content Include="src\assets\core\_ripples.scss" />
+        <Content Include="src\assets\core\_sidebar-and-main-panel.scss" />
+        <Content Include="src\assets\core\_tables.scss" />
+        <Content Include="src\assets\core\_tabs.scss" />
+        <Content Include="src\assets\core\_togglebutton.scss" />
+        <Content Include="src\assets\core\_tooltip.scss" />
+        <Content Include="src\assets\core\_type.scss" />
+        <Content Include="src\assets\core\_variables.scss" />
+        <Content Include="src\assets\img\angular.png" />
+        <Content Include="src\assets\img\angular2-logo-red.png" />
+        <Content Include="src\assets\img\angular2-logo.png" />
+        <Content Include="src\assets\img\apple-icon.png" />
+        <Content Include="src\assets\img\cover.jpeg" />
+        <Content Include="src\assets\img\faces\marc.jpg" />
+        <Content Include="src\assets\img\favicon.png" />
+        <Content Include="src\assets\img\gears.gif" />
+        <Content Include="src\assets\img\html.png" />
+        <Content Include="src\assets\img\mask.png" />
+        <Content Include="src\assets\img\new_logo.png" />
+        <Content Include="src\assets\img\sidebar-1.jpg" />
+        <Content Include="src\assets\img\sidebar-2.jpg" />
+        <Content Include="src\assets\img\sidebar-3.jpg" />
+        <Content Include="src\assets\img\sidebar-4.jpg" />
+        <Content Include="src\assets\img\tim_80x80.png" />
+        <Content Include="src\assets\material-dashboard.scss" />
+        <Content Include="src\assets\no-image.png" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
         <None Include="src\app\modules\categories\components\table-category\table-categories.component.html" />
         <None Include="src\app\modules\categories\components\table-category\table-categories.component.ts" />
         <None Include="src\app\modules\categories\models\category.model.ts" />
-        <None Include="src\app\modules\categories\product.service.ts" />
         <None Include="src\app\modules\dashboard\components\dashboard-main-tabs\dashboard-main-tabs.component.ts" />
         <None Include="src\app\modules\products\components\products.component.html" />
         <None Include="src\app\modules\products\components\products.component.ts" />
+        <None Remove="out-tsc\**" />
+        <Content Remove="out-tsc\**" />
+        <None Remove="obj\**" />
+        <Content Remove="obj\**" />
+        <None Remove="dist\**" />
+        <Content Remove="dist\**" />
+        <None Remove="bin\**" />
+        <Content Remove="bin\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -61,62 +175,93 @@
 
     <ItemGroup>
       <_ResolveComReferenceCache Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.csproj.ResolveComReference.cache" />
+      <_ResolveComReferenceCache Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.csproj.ResolveComReference.cache" />
     </ItemGroup>
 
     <ItemGroup>
       <IntermediateAssembly Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.dll" />
+      <IntermediateAssembly Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.dll" />
     </ItemGroup>
 
     <ItemGroup>
       <_DebugSymbolsIntermediatePath Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.pdb" />
+      <_DebugSymbolsIntermediatePath Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.pdb" />
     </ItemGroup>
 
     <ItemGroup>
       <_DeploymentManifestEntryPoint Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.dll" />
+      <_DeploymentManifestEntryPoint Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.dll" />
     </ItemGroup>
 
     <ItemGroup>
       <ApplicationManifest Remove="obj\Debug\netcoreapp2.2\Native.U.WebApp.Angular.manifest" />
+      <ApplicationManifest Remove="obj\Release\netcoreapp2.2\Native.U.WebApp.Angular.manifest" />
     </ItemGroup>
 
     <ItemGroup>
       <DeployManifest Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.application" />
+      <DeployManifest Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.application" />
     </ItemGroup>
 
     <ItemGroup>
       <_OutputPathItem Remove="bin\Debug\netcoreapp2.2\" />
+      <_OutputPathItem Remove="bin\Release\netcoreapp2.2\" />
     </ItemGroup>
 
     <ItemGroup>
       <AppConfigFileDestination Remove="bin\Debug\netcoreapp2.2\U.WebApp.Angular.dll.config" />
+      <AppConfigFileDestination Remove="bin\Release\netcoreapp2.2\U.WebApp.Angular.dll.config" />
     </ItemGroup>
 
     <ItemGroup>
       <_DebugSymbolsOutputPath Remove="bin\Debug\netcoreapp2.2\U.WebApp.Angular.pdb" />
+      <_DebugSymbolsOutputPath Remove="bin\Release\netcoreapp2.2\U.WebApp.Angular.pdb" />
     </ItemGroup>
 
     <ItemGroup>
       <_ApplicationManifestFinal Remove="bin\Debug\netcoreapp2.2\Native.U.WebApp.Angular.manifest" />
+      <_ApplicationManifestFinal Remove="bin\Release\netcoreapp2.2\Native.U.WebApp.Angular.manifest" />
     </ItemGroup>
 
     <ItemGroup>
+      <TypeScriptCompile Include="src\app\animations.ts" />
+      <TypeScriptCompile Include="src\app\app-routing.module.ts" />
+      <TypeScriptCompile Include="src\app\layouts\home-layout\home-layout.component.ts" />
+      <TypeScriptCompile Include="src\app\layouts\login-layout\login-layout.component.ts" />
       <TypeScriptCompile Include="src\app\loader.interceptor.ts" />
+      <TypeScriptCompile Include="src\app\modules\auth\app-auth.module.ts" />
+      <TypeScriptCompile Include="src\app\modules\auth\auth.guard.ts" />
+      <TypeScriptCompile Include="src\app\modules\auth\authentication.service.ts" />
+      <TypeScriptCompile Include="src\app\modules\auth\error.interceptor.ts" />
+      <TypeScriptCompile Include="src\app\modules\auth\index.ts" />
+      <TypeScriptCompile Include="src\app\modules\auth\jwt.interceptor.ts" />
       <TypeScriptCompile Include="src\app\modules\categories\category.module.ts" />
       <TypeScriptCompile Include="src\app\modules\dashboard\dashboard.module.ts" />
+      <TypeScriptCompile Include="src\app\modules\login\components\login\login.component.ts" />
       <TypeScriptCompile Include="src\app\modules\manufacturers\manufacturer.module.ts" />
-      <TypeScriptCompile Include="src\app\modules\notifications\components\notifications-list\notifications.component.ts" />
-      <TypeScriptCompile Include="src\app\modules\notifications\components\todo-notification-card\notification-card.component.ts" />
-      <TypeScriptCompile Include="src\app\modules\notifications\models\notification.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\components\notification-settings\notification-settings.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\components\notifications-list\notifications-list.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\components\notification-card\notification-card.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\models\confirmation-type.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\models\importancy.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\models\integration-event-type.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\models\notification-dto.model.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\models\product-added-event.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\models\product-base-event.model.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\models\product-properties-changed-event.model.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\models\product-published-event.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\models\variance.model.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\notifications.module.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\services\notification.service.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\services\signalr.service.ts" />
       <TypeScriptCompile Include="src\app\modules\products\product.module.ts" />
       <Content Include="src\app\modules\shared\components\spinner-overlay\progress-spinner.component.css" />
+      <TypeScriptCompile Include="src\app\modules\shared\components\footer\footer.component.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\components\loader\loader.component.ts" />
-      <TypeScriptCompile Include="src\app\modules\shared\components\models\paginateditems.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\components\navbar\navbar.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\components\sidebar\sidebar.component.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\components\spinner-overlay\progress-spinner.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\models\paginateditems.model.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\services\data.service.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\services\loader.service.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\services\overlay.service.ts" />
@@ -124,7 +269,30 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="src\app\modules\products\components\product-categories" />
+      <Folder Include="src\app\modules\login\components" />
+      <Folder Include="src\app\modules\user-profile" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="out-tsc\**" />
+      <Compile Remove="obj\**" />
+      <Compile Remove="dist\**" />
+      <Compile Remove="bin\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="out-tsc\**" />
+      <EmbeddedResource Remove="obj\**" />
+      <EmbeddedResource Remove="dist\**" />
+      <EmbeddedResource Remove="bin\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <RazorIntermediateAssembly Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.Views.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_RazorDebugSymbolsIntermediatePath Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.Views.pdb" />
     </ItemGroup>
 
     <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">

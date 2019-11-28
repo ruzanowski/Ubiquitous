@@ -39,7 +39,7 @@ namespace U.Common.Consul
 
         private AgentService GetService(IList<AgentService> services, string name)
         {
-            AgentService service = null;
+            AgentService service;
             var unusedServices = services.Where(s => !_usedServices[name].Contains(s.ID)).ToList();
             if (unusedServices.Any())
             {

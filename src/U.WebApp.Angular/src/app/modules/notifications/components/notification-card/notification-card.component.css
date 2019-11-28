@@ -1,0 +1,71 @@
+:host {
+  width: 100%;
+  max-width: 22rem;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.mat-icon-wrap {
+  display: flex;
+  border-left: 8px solid;
+  align-items: center;
+  padding: 0.5rem;
+  width: 2.5rem;
+}
+
+.notification-title {
+  flex: 1;
+}
+
+a {
+  text-decoration: none;
+}
+
+.info-field {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+mat-icon {
+  margin-right: 0.5rem;
+}
+
+span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.line {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mat-info-wrap {
+  flex: 1;
+  padding: 0.25rem;
+  overflow: hidden;
+}
+
+.notification-operators{
+  /*padding: 1rem;*/
+  /*margin-left: 1rem;*/
+  /*flex: 1;*/
+  float: right;
+}
+
+
+.importancy {
+  cursor: pointer;
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+}

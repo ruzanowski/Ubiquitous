@@ -33,16 +33,6 @@ services:
       - ubiquitous
     restart: unless-stopped
 
-  mongo:
-    container_name: mongo
-    image: mongo:4
-    ports:
-      - 27017:27017
-    volumes:
-      - mongo:/data/db
-    networks:
-      - ubiquitous
-
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
@@ -60,9 +50,12 @@ services:
     container_name: redis
     ports:
       - 6379:6379
+    command: ["redis-server", "--bind", "redis", "--port", "6379"]
     volumes: 
       - redis:/data
     restart: unless-stopped
+    networks:
+      - ubiquitous
       
   consul:
     image: consul

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using U.ProductService.Domain;
@@ -21,18 +19,16 @@ namespace U.ProductService.Persistance.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Manufacturer> AddAsync(Manufacturer product)
+        public async Task<Manufacturer> AddAsync(Manufacturer manufacturer)
         {
-            return (await _context.Manufacturers.AddAsync(product)).Entity;
+            return (await _context.Manufacturers.AddAsync(manufacturer)).Entity;
         }
 
-        public async Task<Manufacturer> GetAsync(Guid productId)
+        public async Task<Manufacturer> GetAsync(Guid manufacturerId)
         {
-            var product = await _context.Manufacturers.FindAsync(productId);
-            if (product != null)
-            {
-                await _context.Entry(product).Reference(i => i.Pictures).LoadAsync();
-            }
+            var product = await _context.Manufacturers
+                .Include(x => x.Pictures)
+                .FirstOrDefaultAsync(x => x.Id.Equals(manufacturerId));
 
             return product;
         }

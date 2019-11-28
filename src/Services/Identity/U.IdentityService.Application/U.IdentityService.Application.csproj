@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <LangVersion>8</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus\U.EventBus.csproj" />
+      <ProjectReference Include="..\U.IdentityService.Domain\U.IdentityService.Domain.csproj" />
+      <ProjectReference Include="..\U.IdentityService.Persistance\U.IdentityService.Persistance.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Commands\Identity" />
+    </ItemGroup>
+
+</Project>

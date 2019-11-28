@@ -7,13 +7,18 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using U.Common.Behaviour;
+using StackExchange.Redis;
 using U.Common.Consul;
 using U.Common.Database;
+using U.Common.Jwt;
 using U.Common.Mvc;
+using U.Common.Redis;
+using U.Common.Swagger;
 using U.EventBus.Abstractions;
+using U.EventBus.Events.Fetch;
+using U.EventBus.Events.Product;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
 using U.ProductService.Application.Common.Mapping;
@@ -24,7 +29,6 @@ using U.ProductService.Application.Infrastructure.Behaviours;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Domain;
 using U.ProductService.Middleware;
-using U.ProductService.Persistance;
 using U.ProductService.Persistance.Contexts;
 using U.ProductService.Persistance.Repositories;
 
@@ -51,11 +55,13 @@ namespace U.ProductService
                 .AddEventBusRabbitMq(Configuration)
                 .AddMediatR(typeof(CreateProductCommand).GetTypeInfo().Assembly)
                 .AddCustomPipelineBehaviours()
-                .AddLogging()
-                .AddCustomSwagger()
                 .AddCustomMapper()
                 .AddCustomServices()
-                .AddCustomConsul();
+                .AddLogging()
+                .AddSwagger()
+                .AddConsulServiceDiscovery()
+                .AddRedis()
+                .AddJwt();
 
             RegisterEventsHandlers(services);
         }
@@ -64,15 +70,16 @@ namespace U.ProductService
         public void Configure(IApplicationBuilder app,
             IApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            var pathBase = app.UseCustomPathBase(Configuration, _logger).Item2;
+            var pathBase = app.UsePathBase(Configuration, _logger).Item2;
             app.UseDeveloperExceptionPage()
                 .UseCors("CorsPolicy")
-                .UseMvcWithDefaultRoute()
                 .AddExceptionMiddleware()
-                .UseCustomSwagger(pathBase)
+                .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()
-                .UseStaticFiles();
+                .UseAuthentication()
+                .UseJwtTokenValidator()
+                .UseMvc();
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
@@ -90,9 +97,10 @@ namespace U.ProductService
             services.AddTransient<NewProductFetchedIntegrationEventHandler>();
         }
 
-        private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
+        private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime,
+            IConsulClient client)
         {
-            var consulServiceId = app.UseCustomConsul();
+            var consulServiceId = app.UseConsulServiceDiscovery();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }
 
@@ -126,54 +134,27 @@ namespace U.ProductService
                 .AddTransient<IManufacturerRepository, ManufacturerRepository>()
                 .AddIntegrationEventLog()
                 .AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>();
-            
-            return services;
-        }
-        
-        public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
-        {
-            return services.AddSwaggerGen(options =>
-            {
-                options.DescribeAllEnumsAsStrings();
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "Product HTTP API",
-                    Version = "v1",
-                    Description = "The Product Service HTTP API"
-                });
-            });
-        }
 
-        public static IApplicationBuilder UseCustomSwagger(this IApplicationBuilder app, string pathBase)
-        {
-            return app.UseSwagger()
-                .UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint(
-                        $"{(!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty)}/swagger/v1/swagger.json",
-                        "ProductService V1");
-                });
+            return services;
         }
 
         public static IServiceCollection AddCustomMapper(this IServiceCollection services)
         {
             services.AddSingleton(new MapperConfiguration(mc =>
             {
-               mc.AddProfile(new ProductMappingProfile());
-               mc.AddProfile(new CategoryMappingProfile());
-               mc.AddProfile(new ManufacturerMappingProfile());
+                mc.AddProfile(new ProductMappingProfile());
+                mc.AddProfile(new CategoryMappingProfile());
+                mc.AddProfile(new ManufacturerMappingProfile());
             }).CreateMapper());
 
             return services;
         }
-        
+
         public static IServiceCollection AddCustomPipelineBehaviours(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TransactionBehaviour<,>));
-//            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
-          //  services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PublishBehaviour<,>));
 
-             return services;
+            return services;
         }
     }
 }

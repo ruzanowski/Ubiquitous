@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using U.Common.Consul;
+using U.Common.Fabio;
 using U.Common.Mvc;
-using U.Common.RestEase;
 using U.GeneratorService.BackgroundServices;
 using U.GeneratorService.Services;
+using U.GeneratorService.Services.Generator;
 
 namespace U.GeneratorService
 {
@@ -29,21 +29,21 @@ namespace U.GeneratorService
         {
             services
                 .AddCustomMvc()
-                .AddCustomConsul()
-                .RegisterServiceForwarder<ISmartStoreAdapter>("u.smartstore-adapter")
+                .AddConsulServiceDiscovery()
+                .AddHTTPServiceClient<ISmartStoreAdapter>("u.smartstore-adapter")
                 .AddUpdateWorkerHostedService(Configuration)
                 .AddCustomServices();
-        }     
+        }
 
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            app.UseCustomPathBase(Configuration, _logger).Item1
+            app.UsePathBase(Configuration, _logger).Item1
                 .UseDeveloperExceptionPage()
-                .UseMvcWithDefaultRoute()
                 .UseServiceId()
-                .UseForwardedHeaders();
-            
-            var consulServiceId = app.UseCustomConsul();
+                .UseForwardedHeaders()
+                .UseMvc();
+
+            var consulServiceId = app.UseConsulServiceDiscovery();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }
     }

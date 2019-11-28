@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
 using U.Common.Database;
-using U.ProductService.Domain;
 using U.ProductService.Domain.Aggregates.Category;
 using U.ProductService.Domain.Aggregates.Manufacturer;
 using U.ProductService.Domain.Aggregates.Product;
 using U.ProductService.Domain.SeedWork;
-using U.ProductService.Persistance;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Infrastructure

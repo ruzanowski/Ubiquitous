@@ -1,6 +1,5 @@
 using AutoMapper;
 using U.ProductService.Application.Categories.Models;
-using U.ProductService.Domain;
 using U.ProductService.Domain.Aggregates.Category;
 
 namespace U.ProductService.Application.Common.Mapping

@@ -9,16 +9,16 @@ using U.Common.WebHost;
 namespace U.SmartStoreAdapter
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class Program
     {
         private static readonly string Namespace = typeof(Program).Namespace;
 
         private static readonly string AppName = Namespace.Substring(Namespace.LastIndexOf('.', Namespace.LastIndexOf('.') - 1) + 1);
-        
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
@@ -33,7 +33,7 @@ namespace U.SmartStoreAdapter
                 Log.Information("Configuring web host ({ApplicationContext})...", AppName);
                 var host = SharedWebHost.BuildWebHost<Startup>(configuration, args);
 
-                var dbOptions = configuration.GetOptions<DbOptions>("DbOptions");
+                var dbOptions = configuration.GetOptions<DbOptions>("dbOptions");
 
                 Log.Information($"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");
 
@@ -45,7 +45,7 @@ namespace U.SmartStoreAdapter
 
                     Log.Information("Starting web host ({ApplicationContext})...", AppName);
                 }
-                
+
                 host.Run();
 
                 return 0;

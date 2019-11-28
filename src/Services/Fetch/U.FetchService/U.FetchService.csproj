@@ -35,4 +35,8 @@
       <Content Include="Dockerfile" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Commands\ForwardProducts\IntegrationEvents" />
+    </ItemGroup>
+
 </Project>

@@ -9,7 +9,6 @@ using Polly;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
-using U.Common.Extensions;
 using U.EventBus.Abstractions;
 using U.EventBus.Events;
 

@@ -1,11 +1,14 @@
 ﻿import {Injectable} from '@angular/core';
 import * as signalR from "@aspnet/signalr";
-import {LogLevel} from "@aspnet/signalr";
+import {IHubProtocol, LogLevel} from "@aspnet/signalr";
 import {ProductAddedEvent} from "../models/product-added-event.model";
-import {IntegrationEventType, NotificationDto} from "../models/notification.model";
 import {ProductPublishedEvent} from "../models/product-published-event.model";
 import {ProductPropertiesChangedEvent} from "../models/product-properties-changed-event.model";
-import {Observable, Subject} from "rxjs";
+import {Subject} from "rxjs";
+import {ProductBaseEvent} from "../models/product-base-event.model";
+import {NotificationDto} from "../models/notification-dto.model";
+import {IntegrationEventType} from "../models/integration-event-type.model";
+import {Importancy} from "../models/importancy.model";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +18,7 @@ export class SignalrService {
   public productAdded$: Subject<NotificationDto<ProductAddedEvent>> = new Subject();
   public productPublished$: Subject<NotificationDto<ProductAddedEvent>> = new Subject();
   public productPropertiesChanged$: Subject<NotificationDto<ProductPropertiesChangedEvent>> = new Subject();
-  public welcomeMessage$: Subject<NotificationDto<object>> = new Subject();
+  public welcomeMessage$: Subject<NotificationDto<ProductBaseEvent>> = new Subject();
   public usersConnected: Array<string> = [];
 
   constructor() {
@@ -23,9 +26,11 @@ export class SignalrService {
       .withUrl('http://localhost:5500/signalr')
       .configureLogging(LogLevel.Trace)
       .build();
+    this.subscribeOnEvents();
+    this.connect();
   }
 
-  public connect() {
+  private connect() {
     if (this.connection.state === signalR.HubConnectionState.Disconnected) {
       this.connection
         .start()
@@ -33,7 +38,7 @@ export class SignalrService {
     }
   }
 
-  public subscribeOnEvents() {
+  private subscribeOnEvents() {
 
     this.connection.on('connected', (user: string) => {
       console.log(JSON.stringify(user));
@@ -45,27 +50,9 @@ export class SignalrService {
       this.usersConnected = this.usersConnected.filter(item => item !== user);
     });
 
-    this.connection.on('WelcomeNotifications', (welcomeNotification: NotificationDto<object>) => {
-
-      console.log('WelcomeNotifications in signalr' + JSON.stringify(welcomeNotification));
-      this.welcomeMessage$.next(welcomeNotification as NotificationDto<any>);
-
-      switch (welcomeNotification.EventType) {
-        case IntegrationEventType.Unknown:
-          console.log(JSON.stringify('Could not determine type of Notification.' +
-            ' Please resolve this issue! Problem occured with parsing json: ' + welcomeNotification
-          ));
-          break;
-        case IntegrationEventType.ProductPublishedIntegrationEvent:
-          this.productPublished$.next(welcomeNotification as NotificationDto<ProductPublishedEvent>);
-          break;
-        case IntegrationEventType.ProductPropertiesChangedIntegrationEvent:
-          this.productPropertiesChanged$.next(welcomeNotification as NotificationDto<ProductPropertiesChangedEvent>);
-          break;
-        case IntegrationEventType.ProductAddedIntegrationEvent:
-          this.productAdded$.next(welcomeNotification as NotificationDto<ProductAddedEvent>);
-          break;
-      }
+    this.connection.on('WelcomeNotifications', (welcomeNotification: NotificationDto<ProductBaseEvent>) =>
+    {
+      this.MatchTypeOfWelcomeMessage(welcomeNotification);
     });
 
     this.connection.on('ProductPublishedIntegrationEvent', (product: NotificationDto<ProductPublishedEvent>) => {
@@ -81,23 +68,50 @@ export class SignalrService {
     });
   }
 
-  public getProductPropertiesChanged() :Observable<NotificationDto<ProductPropertiesChangedEvent>>
+  private MatchTypeOfWelcomeMessage(welcomeNotification: NotificationDto<ProductBaseEvent>)
   {
-    return this.productPropertiesChanged$.asObservable();
+    switch (welcomeNotification.eventType) {
+      case IntegrationEventType.ProductPublishedIntegrationEvent:
+        this.productPublished$.next(welcomeNotification as NotificationDto<ProductPublishedEvent>);
+        break;
+      case IntegrationEventType.ProductPropertiesChangedIntegrationEvent:
+        this.productPropertiesChanged$.next(welcomeNotification as NotificationDto<ProductPropertiesChangedEvent>);
+        break;
+      case IntegrationEventType.ProductAddedIntegrationEvent:
+        this.productAdded$.next(welcomeNotification as NotificationDto<ProductAddedEvent>);
+        break;
+      default:
+      case IntegrationEventType.Unknown:
+        console.log(JSON.stringify('Could not determine type of Notification.' +
+          ' Please resolve this issue! Problem occured with parsing json: ' + JSON.stringify(welcomeNotification)
+        ));
+        break;
+    }
   }
 
-  public getProductAdded() :Observable<NotificationDto<ProductAddedEvent>>
+  invokeReadNotification(notificationId: string)
   {
-    return this.productAdded$.asObservable();
+    this.connection.invoke('confirmReadNotification', notificationId)
+      .catch(err => console.error(err));
   }
 
-  public getProductPublished() :Observable<NotificationDto<ProductPublishedEvent>>
+  invokeHideNotification(notificationId: string)
   {
-    return this.productPublished$.asObservable();
+    this.connection.invoke('hideNotification', notificationId)
+      .catch(err => console.error(err));
   }
-  public getWelcomeMessages() :Observable<NotificationDto<object>>
+
+
+  invokeDeleteNotification(notificationId: string)
   {
-    return this.welcomeMessage$.asObservable();
+    this.connection.invoke('deleteNotification', notificationId)
+      .catch(err => console.error(err));
+  }
+
+  invokeChangeImportancyNotification(notificationId: string, importancy: Importancy)
+  {
+    this.connection.invoke('changeNotificationImportancy', notificationId, importancy.toString())
+      .catch(err => console.error(err));
   }
 
   public disconnect() {

@@ -1,6 +1,11 @@
 {
+  "/api/identity": {
+    "target": "http://localhost:4500",
+    "secure": false,
+    "logLevel": "debug"
+  },
   "/api/product": {
-    "target": "http://localhost:5000",
+    "target": "http://localhost:4500",
     "secure": false,
     "logLevel": "debug"
   },

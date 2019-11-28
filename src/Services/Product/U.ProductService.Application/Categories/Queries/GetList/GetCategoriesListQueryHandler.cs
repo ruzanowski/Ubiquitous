@@ -5,7 +5,6 @@ using AutoMapper;
 using MediatR;
 using U.Common.Pagination;
 using U.ProductService.Application.Categories.Models;
-using U.ProductService.Persistance;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Categories.Queries.GetList

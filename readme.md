@@ -4,7 +4,6 @@
 - [x] _Communication served by RabbitMQ & SignalR_
 
 
-
 - [1. Functionalities](#-1-functionalities)
     - [1.1 Purpose](#11-purpose)
 - [2. Server Side Architecture](#1goal-functionalities)
@@ -32,24 +31,52 @@
 # 1. Introduction
 
 ## 1.1. Functionalities
-- ***Notification management*** 
+- ***Notifications*** :bell:
     - Channels
-        * [x] SignalR (WebSocket)
-        * [ ] Push notification (Toastr)
-        * [ ] E-mail
+        * [x] signalR (WebSocket)
+        * [ ] push notification (Toastr)
+        * [ ] e-mail
     - Types
         * [x] product published
         * [x] product added
         * [x] product properties changed
+        * [ ] user signed up
+        * [ ] user signed in
     - Operations
-        * [ ] auto-confirmation
-        * [ ] hide notification
-        * [ ] remove notification
-        * [ ] silence type of notification
--  ***Notifications persistency*** 
-    * [x] each notification and subscribers state are persisted in PostgreSQL
-    * [x] welcome notifications are sent from last 24hrs for first log-in
-- ***admin management (next versions)*** 
+        * [x] auto-confirmation
+        * [x] hide notification
+        * [x] remove notification
+    - States
+        * [x] trivial
+        * [x] normal
+        * [x] important
+    - Persistency
+        * [x] notifications with states are persisted in PestgreSQL
+        * [x] notifications from last 24 hours are sent during logging in 
+    - Accessibility
+        * [x] visible and operable from website with all entire specification
+- ***Identity & Authorization*** :bell:
+    - Identity :card_index:
+        - Operations
+            * [x] log in
+            * [x] log out
+            * [x] change password
+        - Properties
+            - sid
+            - email
+            - password
+            - role
+            - name
+            - claims
+            - access token
+            - refresh token
+    - Authorization :old_key:
+        - Jwt Token Operations
+            * [x] create
+            * [x] revoke 
+            * [x] refresh
+    * [x] each user has identificator with 
+- ***Admin Management (next versions)*** 
     - Operations 
         * [ ] manage products and its details thru product service API
         * [ ] manage users subscriptions
@@ -58,9 +85,9 @@
 ## 1.2 Purpose
 - **prime goal** is/was an education and giving my best around programming topics like 
      - .NET Core
+     - DDD
      - Microservices
      - Docker
-     - DDD
      - Angular
      - ...
      - and so much more
@@ -71,16 +98,16 @@
     
 ## 1.3 Install
 
-####1.3.0. Prerequisites
+1.3.0. Prerequisites
 
     - Docker
     - Docker composer
     
-####1.3.1. Run 
+1.3.1. Run 
 ```cmd
 docker-compose -f docker-compose-infrastructure.yml up
 ```
-####1.3.2. Enter localhost:5450 (PGAdmin) and run
+1.3.2. Enter localhost:5450 (PGAdmin) and run
 ```postgresql
 CREATE DATABASE product-service;
 CREATE DATABASE smartstore-adapter;
@@ -88,15 +115,15 @@ CREATE DATABASE fetch-service;
 CREATE DATABASE notification-service;
 ```
 
-####1.3.3. Replace value from file '.env' and row 'RELATIVEPATH' to your relative path indicating folder containing folders with appsettings or adjust them to your preferenes.
+1.3.3. Replace value from file '.env' and row 'RELATIVEPATH' to your relative path indicating folder containing folders with appsettings or adjust them to your preferenes.
 
-####1.3.4. Run 
+1.3.4. Run 
 
 ```cmd
 docker-compose -f docker-compose-services.yml up
 ```
 
-####1.3.5. You can manage all containers from portainer dashboard.
+1.3.5. You can manage all containers from portainer dashboard.
 
 <p align="center">
    <img alt="Portainer dashboard" src="img/Portainer.png" />
@@ -113,25 +140,22 @@ Down below, a services dependency diagram. See to #3.1 for listed used technolog
    <img alt="Ubiquitous Service Architecture" src="img/ubiquitous-architecture.png" />
 </p>
 
-### 2.1 Technologies And Tools
+### 2.1 Technologies And Patterns
 - ***EF Core 2.2*** *(ORM)*
+- ***AutoMapper*** *(Objects mappings)*
+- ***MediatR*** *(CQRS pattern dispatch)*
+- ***Polly*** *(Resiliency policies)*
 - ***RabbitMQ*** *(Service-service communication)*
 - ***Consul*** *(Service discovery, keep alive)*
 - ***Fabio*** *(Load balancer)*
-- ***MediatR*** *(CQRS pattern dispatch)*
 - ***Docker*** *(Containers environment)*
-- ***Polly*** *(Resiliency policies)*
 - ***Serilog*** *(Logging)*
-- ***AutoMapper*** *(Objects mappings)*
 - ***PostgreSql*** *(Database)*
 - ***Gitlab DevOps*** *(CI)*
 - ***SignalR*** *(Asynchronous communication, Notifications)*
 - ***Redis*** Distributed caching & SignalR backplane
-
-- ***Ocelot*** [todo] API Gateway
+- ***Ocelot*** API Gateway
 - ***Jaeger*** [todo] Tracing
-- ***Grafana*** [todo] Metrics
-- ***Prometheus*** [todo] Metrics infrastructure
 
 ### 2.2 Services
 -------
@@ -139,8 +163,9 @@ Down below, a services dependency diagram. See to #3.1 for listed used technolog
 - ***SmartStore Adapter*** Wholesale, source of data
 - ***Fetch Service*** Fetches data from wholesales(many) and pushes newest items on bus
 - ***Product Service*** Main domain aggregate service, handles products and its business logic
-- ***Report Service*** Handles reports and its generation thanks to [Caracan](https://github.com/caracan-team)
 - ***Notification Service*** Handles notifications and channels it by WebSocket
+- ***Identity Service*** Handles identity of user and managed Jwt tokens
+- ***Subscription Service*** Handles subscriptions of users & preferences for notifications types, channels
 -------
 ### 2.3 Cross-Cutting Concerns
 
@@ -194,22 +219,24 @@ _To be determined_
 |SmartStore Adapter|-----|Completed|07.2019|
 |Fetch Service|-----|Completed|07.2019|
 |ProductsGenerator Service|-----|Completed|07.2019|
-|Report Service(Caracan Liquid Project)|-----|Completed|08.2019|
+|Report Service(Caracan Liquid Project) -- Deprecated|-----|Completed|08.2019|
 |Dockerization|-----|Completed|09.2019
 |Gitlab CI Pipelines|-----|Completed|09.2019
 |Product Service - Major Features|Critical|Completed|10.2019|
 |Dashboard Web-Side| Critical|Completed|10.2019|
 |Notifications SignalR & Basic Features|Critical|Completed|10.2019|
-|Notifications Management(confirm, hide, remove, mute)|Critical|In Progress||
-|Identity Service|Critical|||
-|Security (HTTPS)|High|||
-|Ocelot|High|||
+|Notifications Management(confirm, hide, remove, mute)|Critical|Completed|11.2019|
+|Identity Service|Critical|Completed|11.2019|
+|Jwt Authorization|Critical|Completed|11.2019|
+|API Gateway|High|Completed|11.2019|
+|Subscriptions Service|High|In Progress||
 |Notifications new channels (push, e-mail)|Medium||
 |Tracing (Jaeger)|Medium|||
 |Admin Web-Side Panel (products)|Medium|||
 |Admin Web-Side Panel (subscribers, users)|Medium|||
 |Notification by E-mail| Medium||
 |Migration to .NET Core 3.0 |Low|||
+|Security (HTTPS)|Low|||
 
 ## 6. Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
@@ -231,6 +258,7 @@ GitLab: [https://gitlab.com/Ruzanowski](https://gitlab.com/Ruzanowski)
     - [ASC Lab](https://github.com/asc-lab/dotnetcore-microservices-poc) 
 - Sites & Blogs
     - [Microservices.io](https://microservices.io/)
+    - [Creative Tim](https://www.creative-tim.com/)
     
 ## 9. License
 [MIT](https://choosealicense.com/licenses/mit/)
