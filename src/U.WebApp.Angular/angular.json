@@ -33,11 +33,10 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/popper.js/dist/umd/popper.js",
-              "node_modules/chartist/dist/chartist.js",
               "node_modules/bootstrap-material-design/dist/js/bootstrap-material-design.js",
               "node_modules/moment/moment.js",
-              "node_modules/ngx-perfect-scrollbar/node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
-              "node_modules/chartist/dist/chartist.js"
+              "node_modules/chartist/dist/chartist.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
           "configurations": {

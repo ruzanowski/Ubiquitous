@@ -1,26 +1,31 @@
 <div class="drawer">
   <ng-container *ngIf="anyNotifications(); then list; else empty"></ng-container>
 
+
   <ng-template #list>
     <div
       [infiniteScrollDisabled]="notificationService.isFullListDisplayed"
       (scrolled)="onScroll()"
       [scrollWindow]="true"
       infiniteScroll
-      class="list"
-    >
-      <div>
-      <button (click)="setAllStateToRead(notificationService.notificationsToShow)" mat-button>
-        <mat-icon mat-list-icon>done</mat-icon>
-        Mark All as Read
-      </button>
-      <button
-        (click)="setAllStateToRead(notificationService.notificationsToShow)" mat-button>
-        <mat-icon mat-list-icon>settings</mat-icon>
-      </button>
-      </div>
-      <mat-divider></mat-divider>
+      class="list">
 
+      <mat-card style="margin-bottom: 5px">
+        <h2 style="text-align: center; margin-bottom: 5px">Notifications</h2>
+        <div>
+          <p style="margin: 0; text-align: right" >Read: {{readNotifications()}},           Unread: {{unreadNotifications()}}</p>
+        </div>
+        <div>
+          <button (click)="setAllStateToRead(notificationService.notificationsToShow)" mat-flat-button>
+            Mark All as Read <mat-icon mat-list-icon>done</mat-icon>
+          </button>
+          <button
+            (click)="setAllStateToRead(notificationService.notificationsToShow)" mat-button>
+            <mat-icon mat-list-icon>settings </mat-icon>
+          </button>
+        </div>
+
+      </mat-card>
 
       <ng-container *ngFor="let notification of notificationService.notificationsToShow">
         <notification-card (mouseenter)="setStateToRead(notification)"

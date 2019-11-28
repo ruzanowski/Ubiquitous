@@ -41,27 +41,21 @@ namespace U.ApiGateway
         {
             app.UseDeveloperExceptionPage();
 
-            app.UseCors
-            (b => b
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials()
-            );
+            app.UseCors("CorsPolicy");
             app.UseServiceId();
-            app.UseAuthentication();
-
-            app.UseWebSockets();
-
-            app.UseJwtTokenValidator();
-
             app.UseForwardedHeaders();
+            app.UseAuthentication();
+            app.UseJwtTokenValidator();
+            app.UseForwardedHeaders();
+            app.UseWebSockets();
 
             var consulServiceId = app.UseConsulServiceDiscovery();
 
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
 
             app.UseOcelot().Wait();
+            app.UseMvc();
+
         }
     }
 }

@@ -30,7 +30,7 @@ namespace U.GeneratorService
             services
                 .AddCustomMvc()
                 .AddConsulServiceDiscovery()
-                .RegisterServiceForwarder<ISmartStoreAdapter>("u.smartstore-adapter")
+                .AddHTTPServiceClient<ISmartStoreAdapter>("u.smartstore-adapter")
                 .AddUpdateWorkerHostedService(Configuration)
                 .AddCustomServices();
         }
@@ -39,9 +39,9 @@ namespace U.GeneratorService
         {
             app.UsePathBase(Configuration, _logger).Item1
                 .UseDeveloperExceptionPage()
-                .UseMvcWithDefaultRoute()
                 .UseServiceId()
-                .UseForwardedHeaders();
+                .UseForwardedHeaders()
+                .UseMvc();
 
             var consulServiceId = app.UseConsulServiceDiscovery();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });

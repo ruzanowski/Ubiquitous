@@ -38,16 +38,14 @@ export class NotificationCardComponent implements OnInit, OnDestroy
       this.manufacturerName = data.name;
     });
 
-    console.log('init');
+    console.log('notification card init');
 
-    // this.notificationService.signalr.connect();
 
     this.bindColor();
     this.bindImportancy();
   }
   ngOnDestroy(): void {
-    console.log('destroy');
-    this.notificationService.signalr.disconnect();
+    console.log('notification card destroy');
   }
 
   public deleteNotification(){

@@ -45,7 +45,6 @@ namespace U.NotificationService
                 .AddDatabaseContext<NotificationContext>(Configuration)
                 .AddEventBusRabbitMq(Configuration)
                 .AddMediatR(typeof(Startup).GetTypeInfo().Assembly)
-                .AddLogging()
                 .AddSwagger()
                 .AddCustomMapper()
                 .AddCustomServices()
@@ -60,15 +59,19 @@ namespace U.NotificationService
         public void Configure(IApplicationBuilder app,
             IApplicationLifetime applicationLifetime, IConsulClient client)
         {
+            app.UseCors("CorsPolicy");
+
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
             app.UseDeveloperExceptionPage()
-                .UseMvcWithDefaultRoute()
-                .UseCors("CorsPolicy")
                 .UseSwagger(pathBase)
                 .UseServiceId()
-                .UseForwardedHeaders();
+                .UseForwardedHeaders()
+                .UseCookiePolicy();
+
 
             app.UseSignalR(routes => routes.MapHub<BaseHub>("/signalr"));
+
+            app.UseMvcWithDefaultRoute();
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);

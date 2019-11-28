@@ -7,7 +7,7 @@ namespace U.Common.Fabio
 {
     public static class Extensions
     {
-        public static IServiceCollection RegisterServiceForwarder<T>(this IServiceCollection services, string serviceName)
+        public static IServiceCollection AddHTTPServiceClient<T>(this IServiceCollection services, string serviceName)
             where T : class
         {
             var clientName = typeof(T).ToString();

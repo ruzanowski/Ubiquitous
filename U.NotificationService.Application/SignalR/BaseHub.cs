@@ -13,7 +13,7 @@ using U.NotificationService.Infrastructure.Contexts;
 
 namespace U.NotificationService.Application.SignalR
 {
-    public class BaseHub : Microsoft.AspNetCore.SignalR.Hub
+    public class BaseHub : Hub
     {
 
         private readonly NotificationContext _context;
