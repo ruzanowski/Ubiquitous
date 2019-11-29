@@ -44,7 +44,7 @@ namespace U.NotificationService.Application.SignalR
         public override async Task OnConnectedAsync()
         {
             var currentUser = await _usersService.GetCurrentUserAsync();
-            await _subscriptionService.BindConnectionToUserAsync(currentUser.Id, Context.ConnectionId);
+            //await _subscriptionService.BindConnectionToUserAsync(currentUser.Id, Context.ConnectionId);
             await LoadAndPushWelcomeMessages(currentUser.Id);
 
 
@@ -62,7 +62,7 @@ namespace U.NotificationService.Application.SignalR
         public override async Task OnDisconnectedAsync(Exception ex)
         {
             var currentUser = await _usersService.GetCurrentUserAsync();
-            await _subscriptionService.UnbindConnectionToUserAsync(currentUser.Id, Context.ConnectionId);
+           // await _subscriptionService.UnbindConnectionToUserAsync(currentUser.Id, Context.ConnectionId);
 
             var doNotNotify = await _preferencesService.DoNotNotifyAnyoneAboutMyActivity();
 

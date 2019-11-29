@@ -28,6 +28,7 @@ using U.NotificationService.Application.Models;
 using U.NotificationService.Application.Services;
 using U.NotificationService.Application.Services.Preferences;
 using U.NotificationService.Application.Services.QueryBuilder;
+using U.NotificationService.Application.Services.Subscription;
 using U.NotificationService.Application.Services.Users;
 using U.NotificationService.Application.Services.WelcomeNotifications;
 using U.NotificationService.Application.SignalR;
@@ -119,6 +120,7 @@ namespace U.NotificationService
             services.AddScoped<INotificationQueryBuilder, NotificationQueryBuilder>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IPreferencesService, PreferencesService>();
+            services.AddScoped<ISubscriptionService, SubscriptionService>();
 
             return services;
         }

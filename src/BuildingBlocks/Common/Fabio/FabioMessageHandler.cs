@@ -1,9 +1,12 @@
 using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Polly;
+using U.Common.Jwt;
 
 namespace U.Common.Fabio
 {
@@ -11,8 +14,9 @@ namespace U.Common.Fabio
     {
         private readonly IOptions<FabioOptions> _options;
         private readonly string _servicePath;
+        private readonly HttpContext _httpContext;
 
-        public FabioMessageHandler(IOptions<FabioOptions> options, string serviceName = null)
+        public FabioMessageHandler(IOptions<FabioOptions> options, IHttpContextAccessor httpContextAccessor, string serviceName = null)
         {
             if (string.IsNullOrWhiteSpace(options.Value.Url))
             {
@@ -20,6 +24,7 @@ namespace U.Common.Fabio
             }
 
             _options = options;
+            _httpContext = httpContextAccessor.HttpContext;
             _servicePath = string.IsNullOrWhiteSpace(serviceName) ? string.Empty : $"{serviceName}/";
         }
 
@@ -27,6 +32,11 @@ namespace U.Common.Fabio
             CancellationToken cancellationToken)
         {
             request.RequestUri = GetRequestUri(request);
+
+            foreach (var header in _httpContext.Request.Headers)
+            {
+                request.Headers.Add(header.Key, header.Value.ToArray());
+            }
 
             return await Policy.Handle<Exception>()
                 .WaitAndRetryAsync(RequestRetries, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)))

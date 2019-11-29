@@ -1,4 +1,5 @@
 using System.Net.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RestEase;
@@ -20,9 +21,11 @@ namespace U.Common.Fabio
         private static void ConfigureFabioClient(IServiceCollection services, string clientName,
             string serviceName)
         {
+            var accessor = services.BuildServiceProvider().GetService<IHttpContextAccessor>();
+
             services.AddHttpClient(clientName)
                 .AddHttpMessageHandler(c =>
-                    new FabioMessageHandler(c.GetService<IOptions<FabioOptions>>(), serviceName));
+                    new FabioMessageHandler(c.GetService<IOptions<FabioOptions>>(), accessor, serviceName));
         }
 
         private static void ConfigureForwarder<T>(IServiceCollection services, string clientName) where T : class
