@@ -35,7 +35,6 @@ namespace U.NotificationService.Application.SignalR
 
             await _hubContext.Clients.Client(who)
                 .SendAsync(methodTag, notificationDto);
-
         }
 
         private async Task<NotificationDto> SaveNotificationAsync(IntegrationEvent @event)

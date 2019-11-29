@@ -30,7 +30,7 @@ namespace U.GeneratorService
             services
                 .AddCustomMvc()
                 .AddConsulServiceDiscovery()
-                .AddHTTPServiceClient<ISmartStoreAdapter>("u.smartstore-adapter")
+                .AddTypedHttpClient<ISmartStoreAdapter>("u.smartstore-adapter")
                 .AddUpdateWorkerHostedService(Configuration)
                 .AddCustomServices();
         }

@@ -5,6 +5,8 @@ namespace U.NotificationService.Domain.Entities
         Unknown,
         ProductPublishedIntegrationEvent,
         ProductPropertiesChangedIntegrationEvent,
-        ProductAddedIntegrationEvent
+        ProductAddedIntegrationEvent,
+        UserConnected,
+        UserDisconnected
     }
 }

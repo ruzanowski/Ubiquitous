@@ -14,6 +14,11 @@ namespace U.IntegrationEventLog.Services
 {
     public class IntegrationEventLogService : IIntegrationEventLogService
     {
+        private IntegrationEventLogService()
+        {
+
+        }
+
         private readonly IntegrationEventLogContext _integrationEventLogContext;
         private readonly List<Type> _eventTypes;
 
@@ -28,7 +33,7 @@ namespace U.IntegrationEventLog.Services
             string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             List<Assembly> allAssemblies =
-                Directory.GetFiles(path, "U.*.dll").Select(dll => Assembly.LoadFile(dll)).ToList();
+                Directory.GetFiles(path, "U.*.dll").Select(dll => AppDomain.CurrentDomain.Load(Assembly.LoadFrom(dll).GetName())).ToList();
 
             _eventTypes = allAssemblies.SelectMany(
                 x => x.GetTypes()
@@ -43,7 +48,7 @@ namespace U.IntegrationEventLog.Services
                 .Where(e => e.State == EventStateEnum.NotPublished)
                 .OrderBy(o => o.CreationTime)
                 .ToListAsync();
-            
+
             return integrationEventLogs.Select(e =>
                     e.DeserializeJsonContent(_eventTypes.Find(t => t.Name == e.EventTypeShortName)));
         }

@@ -14,13 +14,22 @@ using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
 using U.Common.Database;
+using U.Common.Fabio;
 using U.Common.Jwt;
 using U.Common.Redis;
 using U.Common.Swagger;
 using U.EventBus.Events.Product;
+using U.NotificationService.Application.HttpClients;
+using U.NotificationService.Application.HttpClients.Identity;
 using U.NotificationService.Application.IntegrationEvents.ProductAdded;
 using U.NotificationService.Application.IntegrationEvents.ProductPropertiesChanged;
 using U.NotificationService.Application.IntegrationEvents.ProductPublished;
+using U.NotificationService.Application.Models;
+using U.NotificationService.Application.Services;
+using U.NotificationService.Application.Services.Preferences;
+using U.NotificationService.Application.Services.QueryBuilder;
+using U.NotificationService.Application.Services.Users;
+using U.NotificationService.Application.Services.WelcomeNotifications;
 using U.NotificationService.Application.SignalR;
 using U.NotificationService.Infrastructure.Contexts;
 
@@ -50,6 +59,7 @@ namespace U.NotificationService
                 .AddCustomServices()
                 .AddConsulServiceDiscovery()
                 .AddCustomRedisAndSignalR()
+                .AddTypedHttpClient<IIdentityService>("u.identity-service")
                 .AddJwt()
                 .AddRedis();
 
@@ -67,7 +77,6 @@ namespace U.NotificationService
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseCookiePolicy();
-
 
             app.UseSignalR(routes => routes.MapHub<BaseHub>("/signalr"));
 
@@ -106,6 +115,11 @@ namespace U.NotificationService
         {
             services.AddIntegrationEventLog();
             services.AddSingleton<PersistentHub>();
+            services.AddScoped<IWelcomeNotificationsService, WelcomeNotificationsService>();
+            services.AddScoped<INotificationQueryBuilder, NotificationQueryBuilder>();
+            services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IPreferencesService, PreferencesService>();
+
             return services;
         }
 

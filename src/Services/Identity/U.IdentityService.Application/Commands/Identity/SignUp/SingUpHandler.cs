@@ -32,6 +32,7 @@ namespace U.IdentityService.Application.Commands.Identity.SignUp
             var role = request.Role;
             var id = request.Id;
             var email = request.Email;
+            var nickname = request.Nickname;
             var password = request.Password;
 
             if (email is null)
@@ -51,11 +52,11 @@ namespace U.IdentityService.Application.Commands.Identity.SignUp
                 role = Role.User;
             }
 
-            user = new User(id, email, role);
+            user = new User(id, email, nickname, role);
             user.SetPassword(password, _passwordHasher);
             await _userRepository.AddAndSaveAsync(user);
 
-            _busPublisher.Publish(new SignedUp(id, email, role));
+            _busPublisher.Publish(new SignedUpIntegrationEvent(id, email, role));
 
             return Unit.Value;
         }

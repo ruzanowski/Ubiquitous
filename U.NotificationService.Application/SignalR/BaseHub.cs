@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using U.NotificationService.Application.Models;
+using U.NotificationService.Application.Services;
+using U.NotificationService.Application.Services.Preferences;
+using U.NotificationService.Application.Services.Subscription;
+using U.NotificationService.Application.Services.Users;
+using U.NotificationService.Application.Services.WelcomeNotifications;
 using U.NotificationService.Domain.Entities;
 using U.NotificationService.Infrastructure.Contexts;
 
@@ -15,34 +20,65 @@ namespace U.NotificationService.Application.SignalR
 {
     public class BaseHub : Hub
     {
-
         private readonly NotificationContext _context;
         private readonly ILogger<BaseHub> _logger;
+        private readonly IUsersService _usersService;
+        private readonly IWelcomeNotificationsService _welcomeNotificationsService;
+        private readonly ISubscriptionService _subscriptionService;
+        private readonly IPreferencesService _preferencesService;
 
-        public BaseHub(NotificationContext context, ILogger<BaseHub> logger)
+        public BaseHub(NotificationContext context, ILogger<BaseHub> logger,
+            IUsersService usersService,
+            IWelcomeNotificationsService welcomeNotificationsService,
+            ISubscriptionService subscriptionService,
+            IPreferencesService preferencesService)
         {
             _context = context;
             _logger = logger;
+            _usersService = usersService;
+            _welcomeNotificationsService = welcomeNotificationsService;
+            _subscriptionService = subscriptionService;
+            _preferencesService = preferencesService;
         }
 
         public override async Task OnConnectedAsync()
         {
-//            var fakeUserGuid = new Guid();
-            await LoadAndPushWelcomeMessages(Context.ConnectionId);
-            await Clients.All.SendAsync("connected", Context.ConnectionId);
+            var currentUser = await _usersService.GetCurrentUserAsync();
+            await _subscriptionService.BindConnectionToUserAsync(currentUser.Id, Context.ConnectionId);
+            await LoadAndPushWelcomeMessages(currentUser.Id);
+
+
+            var doNotNotify = await _preferencesService.DoNotNotifyAnyoneAboutMyActivity();
+
+            if (!doNotNotify)
+            {
+                var userConnected = NotifactionFactory.UserConnected(currentUser);
+                await Clients.All.SendAsync("connected", userConnected);
+            }
+
             await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception ex)
         {
-            await Clients.Others.SendAsync("disconnected", Context.ConnectionId);
+            var currentUser = await _usersService.GetCurrentUserAsync();
+            await _subscriptionService.UnbindConnectionToUserAsync(currentUser.Id, Context.ConnectionId);
+
+            var doNotNotify = await _preferencesService.DoNotNotifyAnyoneAboutMyActivity();
+
+            if (!doNotNotify)
+            {
+                var userDisonnected = NotifactionFactory.UserDisconnected(currentUser);
+                await Clients.Others.SendAsync("disconnected", userDisonnected);
+            }
+
             await base.OnDisconnectedAsync(ex);
         }
 
         public async Task ConfirmReadNotification(Guid notifcationId)
         {
             var notification = await _context.Notifications
-                .Include(x=>x.Confirmations)
+                .Include(x => x.Confirmations)
                 .FirstOrDefaultAsync(x => x.Id.Equals(notifcationId));
 
             if (notification is null)
@@ -61,7 +97,7 @@ namespace U.NotificationService.Application.SignalR
             // todo: is user an admin
 
             var notification = await _context.Notifications
-                .Include(x=>x.Confirmations)
+                .Include(x => x.Confirmations)
                 .FirstOrDefaultAsync(x => x.Id.Equals(notifcationId));
 
             if (notification is null)
@@ -77,7 +113,7 @@ namespace U.NotificationService.Application.SignalR
         public async Task HideNotification(Guid notifcationId)
         {
             var notification = await _context.Notifications
-                .Include(x=>x.Confirmations)
+                .Include(x => x.Confirmations)
                 .FirstOrDefaultAsync(x => x.Id.Equals(notifcationId));
 
             if (notification is null)
@@ -94,7 +130,7 @@ namespace U.NotificationService.Application.SignalR
         public async Task ChangeNotificationImportancy(Guid notifcationId, Importancy importancy)
         {
             var notification = await _context.Notifications
-                .Include(x=>x.Confirmations)
+                .Include(x => x.Confirmations)
                 .FirstOrDefaultAsync(x => x.Id.Equals(notifcationId));
 
             if (notification is null)
@@ -108,33 +144,17 @@ namespace U.NotificationService.Application.SignalR
             await _context.SaveChangesAsync();
         }
 
-        private async Task LoadAndPushWelcomeMessages(string userId)
+        private async Task LoadAndPushWelcomeMessages(Guid userId)
         {
-            var notifications = await LoadWelcomeMessages(userId);
+            var notifications = await _welcomeNotificationsService.LoadWelcomeMessages(userId);
 
             foreach (var notification in notifications)
             {
                 var welcomeNotification = NotifactionFactory.FromStoredNotification(notification);
 
-                await Clients.Client(userId).SendAsync("WelcomeNotifications", welcomeNotification);
+                await Clients.Client(userId.ToString()).SendAsync("WelcomeNotifications", welcomeNotification);
                 _logger.LogDebug($"Sent historic notification: '{notification.Id}' to userId: '{userId}'.");
             }
         }
-
-        private async Task<List<Notification>> LoadWelcomeMessages(string userId) =>
-            await _context.Notifications
-                .Include(x => x.Confirmations)
-                .Where(notification => !notification.Confirmations.Any() ||
-                                       notification.Confirmations.Any(x =>
-//                    x.User.Equals(userId) && // todo: userId
-                                           (x.ConfirmationType ==
-                                            ConfirmationType.Unread ||
-                                            x.ConfirmationType ==
-                                            ConfirmationType.Read))
-                ).OrderByDescending(x=>(int)x.Importancy)
-                .ThenByDescending(x => x.CreationDate)
-                .Skip(0)
-                .Take(30) // todo: preferences of welcome messages?
-                .ToListAsync();
     }
 }

@@ -1,4 +1,4 @@
-namespace U.NotificationService.Application.SignalR
+namespace U.NotificationService.Application.Models
 {
     public class SignalROptions
     {

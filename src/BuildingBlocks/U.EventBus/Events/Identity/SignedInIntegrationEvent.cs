@@ -3,12 +3,12 @@ using Newtonsoft.Json;
 
 namespace U.EventBus.Events.Identity
 {
-    public class RefreshTokenRevoked : IntegrationEvent
+    public class SignedInIntegrationEvent : IntegrationEvent
     {
         public Guid UserId { get; }
 
         [JsonConstructor]
-        public RefreshTokenRevoked(Guid userId)
+        public SignedInIntegrationEvent(Guid userId)
         {
             UserId = userId;
         }

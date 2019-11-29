@@ -15,6 +15,7 @@ namespace U.IdentityService.Domain.Domain
 
     public Guid Id { get; private set; }
     public string Email { get; private set; }
+    public string Nickname { get; private set; }
     public string Role { get; private set; }
     public string PasswordHash { get; private set; }
     public DateTime CreatedAt { get; private set; }
@@ -24,7 +25,7 @@ namespace U.IdentityService.Domain.Domain
     {
     }
 
-    public User(Guid id, string email, string role)
+    public User(Guid id, string email, string nickname, string role)
     {
         if (!EmailRegex.IsMatch(email))
         {
@@ -39,6 +40,7 @@ namespace U.IdentityService.Domain.Domain
         }
 
         Id = id;
+        Nickname = nickname;
         Email = email.ToLowerInvariant();
         Role = role.ToLowerInvariant();
         CreatedAt = DateTime.UtcNow;

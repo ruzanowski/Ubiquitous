@@ -2,7 +2,9 @@ using System;
 using System.Linq;
 using Newtonsoft.Json;
 using U.EventBus.Events;
+using U.EventBus.Events.Notification;
 using U.EventBus.Events.Product;
+using U.NotificationService.Application.HttpClients.Identity;
 using U.NotificationService.Domain;
 using U.NotificationService.Domain.Entities;
 
@@ -37,6 +39,30 @@ namespace U.NotificationService.Application.Models
                 notification.Confirmations.FirstOrDefault()?.ConfirmationType ?? ConfirmationType.Unread,
                 notification.Importancy);
 
+        public static NotificationDto UserDisconnected(UserDto user) =>
+            new NotificationDto(user.Id,
+                new UserDisconnected
+                {
+                    Nickname = user.Nickname,
+                    Role = user.Role,
+                    UserId = user.Id
+                },
+                IntegrationEventType.UserDisconnected,
+                ConfirmationType.Unread,
+                Importancy.Trivial);
+
+        public static NotificationDto UserConnected(UserDto user) =>
+            new NotificationDto(user.Id,
+                new UserConnectedIntegrationEvent
+                {
+                    Nickname = user.Nickname,
+                    Role = user.Role,
+                    UserId = user.Id
+                },
+                IntegrationEventType.UserConnected,
+                ConfirmationType.Unread,
+                Importancy.Trivial);
+
         static IntegrationEvent DeserializeDependingOnType(string @event, IntegrationEventType eventType)
         {
             switch (eventType)
@@ -53,5 +79,7 @@ namespace U.NotificationService.Application.Models
                     return JsonConvert.DeserializeObject<IntegrationEvent>(@event);
             }
         }
+
+
     }
 }

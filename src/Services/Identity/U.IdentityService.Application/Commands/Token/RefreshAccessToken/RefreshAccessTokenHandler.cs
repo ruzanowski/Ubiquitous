@@ -44,7 +44,7 @@ namespace U.IdentityService.Application.Commands.Token.RefreshAccessToken
             var claims = await ClaimsProvider.GetAsync(user.Id);
             var jwt = JwtService.CreateToken(user.Id.ToString("N"), user.Role, claims);
             jwt.RefreshToken = refreshToken.Token;
-            BusPublisher.Publish(new AccessTokenRefreshed(user.Id));
+            BusPublisher.Publish(new AccessTokenRefreshedIntegrationEvent(user.Id));
 
             return jwt;
         }

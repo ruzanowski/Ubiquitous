@@ -44,13 +44,15 @@ namespace U.Common.Mvc
                     .WithOrigins("http://localhost:4200");
             }));
 
-            services
-                .AddMvcCore()
-                .AddJsonFormatters()
-                .AddDataAnnotations()
-                .AddApiExplorer()
-                .AddDefaultJsonOptions()
-                .AddAuthorization();
+//            services
+//                .AddMvcCore()
+//                .AddJsonFormatters()
+//                .AddDataAnnotations()
+//                .AddApiExplorer()
+//                .AddDefaultJsonOptions()
+//                .AddAuthorization();
+
+services.AddMvc();
 
             services.AddSingleton<IServiceIdService, ServiceIdService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

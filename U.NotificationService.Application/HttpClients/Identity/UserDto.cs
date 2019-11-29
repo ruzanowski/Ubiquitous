@@ -1,6 +1,6 @@
 using System;
 
-namespace U.IdentityService.Application.Models
+namespace U.NotificationService.Application.HttpClients.Identity
 {
     public class UserDto
     {

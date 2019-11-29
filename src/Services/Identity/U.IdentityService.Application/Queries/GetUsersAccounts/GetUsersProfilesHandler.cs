@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -26,6 +25,7 @@ namespace U.IdentityService.Application.Queries.GetUsersProfiles
                     Email = user.Email,
                     Id = user.Id,
                     Role = user.Role,
+                    Nickname = user.Nickname,
                     CreatedAt = user.CreatedAt,
                     UpdatedAt = user.UpdatedAt
                 })
