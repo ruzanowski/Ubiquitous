@@ -10,18 +10,19 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
+using U.Common.Jwt.Claims;
 
-namespace U.Common.Jwt
+namespace U.Common.Jwt.Service
 {
     public class JwtService : IJwtService
     {
         private static readonly ISet<string> DefaultClaims = new HashSet<string>
         {
-            JwtRegisteredClaimNames.Sub,
-            JwtRegisteredClaimNames.UniqueName,
-            JwtRegisteredClaimNames.Jti,
-            JwtRegisteredClaimNames.Iat,
-            ClaimTypes.Role
+            JwtClaimsTypes.Sub,
+            JwtClaimsTypes.UniqueName,
+            JwtClaimsTypes.Jti,
+            JwtClaimsTypes.Iat,
+            JwtClaimsTypes.Role
         };
 
         private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
@@ -51,7 +52,7 @@ namespace U.Common.Jwt
             };
         }
 
-        public JsonWebToken CreateToken(string userId, string role = null, IDictionary<string, string> claims = null)
+        public JsonWebToken CreateToken(string userId, string role = null, IList<Claim> claims = null)
         {
             if (string.IsNullOrWhiteSpace(userId))
             {
@@ -61,18 +62,18 @@ namespace U.Common.Jwt
             var now = DateTime.UtcNow;
             var jwtClaims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, userId),
-                new Claim(JwtRegisteredClaimNames.UniqueName, userId),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString()),
+                new Claim(JwtClaimsTypes.Sub, userId),
+                new Claim(JwtClaimsTypes.UniqueName, userId),
+                new Claim(JwtClaimsTypes.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtClaimsTypes.Iat, now.ToTimestamp().ToString())
             };
             if (!string.IsNullOrWhiteSpace(role))
             {
-                jwtClaims.Add(new Claim(ClaimTypes.Role, role));
+                jwtClaims.Add(new Claim(JwtClaimsTypes.Role, role));
             }
 
-            var customClaims = claims?.Select(claim => new Claim(claim.Key, claim.Value)).ToArray()
-                               ?? Array.Empty<Claim>();
+            var customClaims = claims?.ToArray() ?? Array.Empty<Claim>();
+
             jwtClaims.AddRange(customClaims);
             var expires = now.AddMinutes(_options.ExpiryMinutes);
             var jwt = new JwtSecurityToken(
@@ -82,11 +83,13 @@ namespace U.Common.Jwt
                 expires: expires,
                 signingCredentials: _signingCredentials
             );
-            var token = new JwtSecurityTokenHandler().WriteToken(jwt);
+            var token = new JwtSecurityTokenHandler();
+            token.InboundClaimTypeMap.Clear();
+            var jwtTokenWithCorrectMaps = token.WriteToken(jwt);
 
             return new JsonWebToken
             {
-                AccessToken = token,
+                AccessToken = jwtTokenWithCorrectMaps,
                 RefreshToken = string.Empty,
                 Expires = expires,
                 Id = userId,

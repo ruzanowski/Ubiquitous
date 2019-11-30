@@ -6,6 +6,6 @@ namespace U.ProductService.Application.Events.IntegrationEvents
     public interface IProductIntegrationEventService
     {
         Task PublishEventsThroughEventBusAsync();
-        Task AddAndSaveEventAsync(IntegrationEvent evt);
+        Task AddAndSaveEventAsync<T>(Carrier<T> evt) where T : IntegrationEvent;
     }
 }

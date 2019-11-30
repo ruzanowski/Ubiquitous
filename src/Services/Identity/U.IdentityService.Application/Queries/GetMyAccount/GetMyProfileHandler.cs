@@ -25,6 +25,7 @@ namespace U.IdentityService.Application.Queries.GetMyProfile
                 Email = user.Email,
                 Id = user.Id,
                 Role = user.Role,
+                Nickname = user.Nickname,
                 CreatedAt = user.CreatedAt,
                 UpdatedAt = user.UpdatedAt
             };

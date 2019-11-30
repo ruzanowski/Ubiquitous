@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using U.Common.Jwt;
+using U.Common.Jwt.Claims;
 using U.NotificationService.Application.Models;
 using U.NotificationService.Application.Services;
 using U.NotificationService.Application.Services.Preferences;
@@ -18,59 +21,75 @@ using U.NotificationService.Infrastructure.Contexts;
 
 namespace U.NotificationService.Application.SignalR
 {
+    [JwtAuth]
     public class BaseHub : Hub
     {
         private readonly NotificationContext _context;
         private readonly ILogger<BaseHub> _logger;
-        private readonly IUsersService _usersService;
         private readonly IWelcomeNotificationsService _welcomeNotificationsService;
         private readonly ISubscriptionService _subscriptionService;
         private readonly IPreferencesService _preferencesService;
 
-        public BaseHub(NotificationContext context, ILogger<BaseHub> logger,
-            IUsersService usersService,
+        public BaseHub(NotificationContext context,
+         ILogger<BaseHub> logger,
             IWelcomeNotificationsService welcomeNotificationsService,
             ISubscriptionService subscriptionService,
             IPreferencesService preferencesService)
         {
             _context = context;
             _logger = logger;
-            _usersService = usersService;
             _welcomeNotificationsService = welcomeNotificationsService;
             _subscriptionService = subscriptionService;
             _preferencesService = preferencesService;
+
         }
 
         public override async Task OnConnectedAsync()
         {
-            var currentUser = await _usersService.GetCurrentUserAsync();
-            //await _subscriptionService.BindConnectionToUserAsync(currentUser.Id, Context.ConnectionId);
-            await LoadAndPushWelcomeMessages(currentUser.Id);
+            UserDto currentUser = Context.GetUser();
+            if (Context.IsAuthenticated())
+            {
+                _logger.LogDebug($"User: '{currentUser.Nickname}' has connected");
+            }
+            else
+            {
+                Context.Abort();
+            }
 
+            await _subscriptionService.BindConnectionToUserAsync(currentUser.Id, Context.ConnectionId);
+            await LoadAndPushWelcomeMessages(currentUser.Id, currentUser.Nickname);
 
             var doNotNotify = await _preferencesService.DoNotNotifyAnyoneAboutMyActivity();
-
-            if (!doNotNotify)
-            {
-                var userConnected = NotifactionFactory.UserConnected(currentUser);
-                await Clients.All.SendAsync("connected", userConnected);
-            }
+//
+//            if (!doNotNotify)
+//            {
+//                var userConnected = NotifactionFactory.UserConnected(currentUser);
+//                await Clients.All.SendAsync("connected", userConnected);
+//            }
 
             await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception ex)
         {
-            var currentUser = await _usersService.GetCurrentUserAsync();
+            if (Context.IsAuthenticated())
+            {
+                var currentUser = Context.GetUser();
+                _logger.LogDebug($"User: '{currentUser.Nickname}' has disconnected");
+            }
+            else
+            {
+                Context.Abort();
+            }
            // await _subscriptionService.UnbindConnectionToUserAsync(currentUser.Id, Context.ConnectionId);
 
-            var doNotNotify = await _preferencesService.DoNotNotifyAnyoneAboutMyActivity();
-
-            if (!doNotNotify)
-            {
-                var userDisonnected = NotifactionFactory.UserDisconnected(currentUser);
-                await Clients.Others.SendAsync("disconnected", userDisonnected);
-            }
+//            var doNotNotify = await _preferencesService.DoNotNotifyAnyoneAboutMyActivity();
+//
+//            if (!doNotNotify)
+//            {
+//                var userDisonnected = NotifactionFactory.UserDisconnected(currentUser);
+//                await Clients.Others.SendAsync("disconnected", userDisonnected);
+//            }
 
             await base.OnDisconnectedAsync(ex);
         }
@@ -92,6 +111,7 @@ namespace U.NotificationService.Application.SignalR
             await _context.SaveChangesAsync();
         }
 
+        [JwtAuth("admin")]
         public async Task DeleteNotification(Guid notifcationId)
         {
             // todo: is user an admin
@@ -144,7 +164,7 @@ namespace U.NotificationService.Application.SignalR
             await _context.SaveChangesAsync();
         }
 
-        private async Task LoadAndPushWelcomeMessages(Guid userId)
+        private async Task LoadAndPushWelcomeMessages(Guid userId, string userNickname)
         {
             var notifications = await _welcomeNotificationsService.LoadWelcomeMessages(userId);
 
@@ -153,7 +173,7 @@ namespace U.NotificationService.Application.SignalR
                 var welcomeNotification = NotifactionFactory.FromStoredNotification(notification);
 
                 await Clients.Client(userId.ToString()).SendAsync("WelcomeNotifications", welcomeNotification);
-                _logger.LogDebug($"Sent historic notification: '{notification.Id}' to userId: '{userId}'.");
+                _logger.LogDebug($"Sent historic notification: '{notification.Id}' to '{userNickname}' of id: '{userId}'.");
             }
         }
     }

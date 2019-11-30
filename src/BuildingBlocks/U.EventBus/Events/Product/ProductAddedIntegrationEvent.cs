@@ -1,5 +1,6 @@
 using System;
 using Newtonsoft.Json;
+using U.EventBus.Events.Notification;
 
 namespace U.EventBus.Events.Product
 {

@@ -4,8 +4,7 @@ using Newtonsoft.Json;
 using U.EventBus.Events;
 using U.EventBus.Events.Notification;
 using U.EventBus.Events.Product;
-using U.NotificationService.Application.HttpClients.Identity;
-using U.NotificationService.Domain;
+using U.NotificationService.Application.Services.Users;
 using U.NotificationService.Domain.Entities;
 
 namespace U.NotificationService.Application.Models

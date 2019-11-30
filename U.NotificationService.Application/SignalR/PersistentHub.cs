@@ -21,31 +21,31 @@ namespace U.NotificationService.Application.SignalR
         }
 
 
-        public async Task SaveAndSendToAllAsync(string methodTag, IntegrationEvent @event)
+        public async Task SaveAndSendToAllAsync<T>(string methodTag, Carrier<T> carrier) where T : IntegrationEvent
         {
-            var notificationDto = await SaveNotificationAsync(@event);
+            var notificationDto = await SaveNotificationAsync(carrier);
 
             await _hubContext.Clients.All
                 .SendAsync(methodTag, notificationDto);
         }
 
-        public async Task SaveAndSendAsync(string methodTag, string who, IntegrationEvent @event)
+        public async Task SaveAndSendAsync<T>(string methodTag, string who, Carrier<T> carrier) where T : IntegrationEvent
         {
-            var notificationDto = await SaveNotificationAsync(@event);
+            var notificationDto = await SaveNotificationAsync(carrier);
 
             await _hubContext.Clients.Client(who)
                 .SendAsync(methodTag, notificationDto);
         }
 
-        private async Task<NotificationDto> SaveNotificationAsync(IntegrationEvent @event)
+        private async Task<NotificationDto> SaveNotificationAsync<T>(Carrier<T> carrier) where T : IntegrationEvent
         {
-            var notification = new Notification(@event);
+            var notification = new Notification(carrier.IntegrationEventPayload, carrier.Importancy.GetValueOrDefault());
 
             await _context.AddAsync(notification);
             await _context.SaveChangesAsync();
 
             return new NotificationDto(notification.Id,
-                @event,
+                carrier.IntegrationEventPayload,
                 notification.IntegrationEventType,
                 ConfirmationType.Unread,
                 notification.Importancy);

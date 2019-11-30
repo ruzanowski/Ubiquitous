@@ -3,7 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using U.EventBus.Events;
 using U.EventBus.Events.Product;
+using U.NotificationService.Domain.Entities;
 using U.ProductService.Application.Events.IntegrationEvents;
 using U.ProductService.Domain.Events;
 
@@ -31,7 +33,16 @@ namespace U.ProductService.Application.Events.DomainEventHandlers
             //event for e.g. SignalR
             var iEvent =
                 new ProductAddedIntegrationEvent(@event.ProductId, @event.Name, @event.Price, @event.Manufacturer);
-            await _productIntegrationEventService.AddAndSaveEventAsync(iEvent);
+
+            var carrieredEvent = new Carrier<ProductAddedIntegrationEvent>()
+            {
+                Importancy = Importancy.Trivial,
+                RouteType = RouteType.Primary,
+                IntegrationEventPayload = iEvent,
+                IntegrationEventType = IntegrationEventType.ProductPublishedIntegrationEvent
+            };
+
+            await _productIntegrationEventService.AddAndSaveEventAsync(carrieredEvent);
 
             _logger.LogDebug($"--- Integration event published: '{nameof(ProductAddedIntegrationEvent)}");
         }

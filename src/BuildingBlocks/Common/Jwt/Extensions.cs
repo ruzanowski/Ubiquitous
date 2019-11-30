@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using U.Common.Jwt.Claims;
+using U.Common.Jwt.Service;
 using U.Common.Mvc;
 
 namespace U.Common.Jwt
@@ -26,6 +28,7 @@ namespace U.Common.Jwt
             services.AddSingleton(options);
             services.AddTransient<IJwtService, JwtService>();
             services.AddTransient<JwtTokenValidatorMiddleware>();
+
             services
                 .AddAuthentication()
                 .AddJwtBearer(cfg =>
@@ -36,7 +39,9 @@ namespace U.Common.Jwt
                         ValidIssuer = options.Issuer,
                         ValidAudience = options.ValidAudience,
                         ValidateAudience = options.ValidateAudience,
-                        ValidateLifetime = options.ValidateLifetime
+                        ValidateLifetime = options.ValidateLifetime,
+                        ClockSkew = TimeSpan.Zero,
+
                     };
                 });
 

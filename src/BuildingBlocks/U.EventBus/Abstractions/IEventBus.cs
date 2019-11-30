@@ -4,12 +4,12 @@ namespace U.EventBus.Abstractions
 {
     public interface IEventBus
     {
-        void Publish(IntegrationEvent @event);
+        void Publish<T>(Carrier<T> carrier) where T: IntegrationEvent;
         void Subscribe<T, TH>()
             where T : IntegrationEvent
-            where TH : IIntegrationEventHandler<T>;
+            where TH : ICarrierIntegrationEventHandler<T>;
         void Unsubscribe<T, TH>()
-            where TH : IIntegrationEventHandler<T>
+            where TH : ICarrierIntegrationEventHandler<T>
             where T : IntegrationEvent;
     }
 }

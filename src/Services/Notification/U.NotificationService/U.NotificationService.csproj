@@ -5,36 +5,33 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0"/>
 
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\U.NotificationService.Application\U.NotificationService.Application.csproj" />
-      <ProjectReference Include="..\..\..\..\U.NotificationService.Domain\U.NotificationService.Domain.csproj" />
-      <ProjectReference Include="..\..\..\Adapters\SmartStore\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj" />
-      <ProjectReference Include="..\..\..\Adapters\SmartStore\U.SmartStoreAdapter.Domain\U.SmartStoreAdapter.Domain.csproj" />
-      <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
-      <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
-      <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
+        <ProjectReference Include="..\..\..\..\U.NotificationService.Application\U.NotificationService.Application.csproj"/>
+        <ProjectReference Include="..\..\..\..\U.NotificationService.Domain\U.NotificationService.Domain.csproj"/>
+        <ProjectReference Include="..\..\..\Adapters\SmartStore\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj"/>
+        <ProjectReference Include="..\..\..\Adapters\SmartStore\U.SmartStoreAdapter.Domain\U.SmartStoreAdapter.Domain.csproj"/>
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj"/>
+        <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj"/>
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="Dockerfile" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Remove="appsettings.json" />
-      <None Include="appsettings.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </None>
-      <Content Remove="appsettings.docker.json" />
-      <None Include="appsettings.docker.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </None>
+        <Content Include="Dockerfile"/>
+        <Content Remove="appsettings.json"/>
+        <None Include="appsettings.json">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </None>
+        <Content Remove="appsettings.docker.json"/>
+        <None Include="appsettings.docker.json">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

@@ -15,24 +15,24 @@ namespace U.NotificationService.Domain.Entities
 
         }
 
-        public Notification(IntegrationEvent @event)
+        public Notification(IntegrationEvent @event, Importancy importancy)
         {
             CreationDate = DateTime.UtcNow;
             IntegrationEventId = @event.Id;
             IntegrationEvent = JsonConvert.SerializeObject(@event);
             SetEventType(@event);
-            Importancy = Importancy.Trivial; // todo: ImportancyService or Settings per user.
+            Importancy = importancy;
         }
 
-        public Guid Id { get; set; }
-        public DateTime CreationDate { get; set; }
+        public Guid Id { get; private set; }
+        public DateTime CreationDate { get; private set; }
         /// <summary>
         /// For purposes of filtering by IntegrationEventId
         /// </summary>
-        public Guid IntegrationEventId { get; set; }
-        public string IntegrationEvent { get; set; }
-        public ICollection<Confirmation> Confirmations { get; set; }
-        public IntegrationEventType IntegrationEventType { get; set; }
+        public Guid IntegrationEventId { get; private set; }
+        public string IntegrationEvent { get; private set; }
+        public ICollection<Confirmation> Confirmations { get; private set; }
+        public IntegrationEventType IntegrationEventType { get; private set; }
         public Importancy Importancy { get; private set; }
 
 
@@ -68,7 +68,7 @@ namespace U.NotificationService.Domain.Entities
             var confirmation = new Confirmation(userId,
                 Id,
                 ConfirmationType.Read,
-                Guid.NewGuid()); //todo: device Received
+                Guid.Empty); //todo: device Received
 
             Confirmations.Add(confirmation);
         }
@@ -86,7 +86,7 @@ namespace U.NotificationService.Domain.Entities
             var confirmation = new Confirmation(userId,
                 Id,
                 ConfirmationType.Hidden,
-                Guid.NewGuid()); //todo: device Received
+                Guid.Empty); //todo: device Received
 
             Confirmations.Add(confirmation);
         }

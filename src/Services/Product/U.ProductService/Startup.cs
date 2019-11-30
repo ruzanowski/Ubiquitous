@@ -81,6 +81,8 @@ namespace U.ProductService
                 .UseJwtTokenValidator()
                 .UseMvc();
 
+
+
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
             SeedAsync(app);
@@ -89,12 +91,12 @@ namespace U.ProductService
         private void RegisterEvents(IApplicationBuilder app)
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-            eventBus.Subscribe<NewProductFetchedIntegrationEvent, NewProductFetchedIntegrationEventHandler>();
+            eventBus.Subscribe<NewProductFetchedIntegrationEvent, NewProductFetchedCarrierIntegrationEventHandler>();
         }
 
         private void RegisterEventsHandlers(IServiceCollection services)
         {
-            services.AddTransient<NewProductFetchedIntegrationEventHandler>();
+            services.AddTransient<NewProductFetchedCarrierIntegrationEventHandler>();
         }
 
         private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime,

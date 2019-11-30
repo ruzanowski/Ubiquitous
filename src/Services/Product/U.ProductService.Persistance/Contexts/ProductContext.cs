@@ -3,6 +3,7 @@ using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -30,9 +31,10 @@ namespace U.ProductService.Persistance.Contexts
         public DbSet<Category> Categories { get; set; }
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
-        
+
         //fields
         private readonly IMediator _mediator;
+        private readonly HttpContext _httpContext;
         private IDbContextTransaction _currentTransaction;
 
         public IDbContextTransaction GetCurrentTransaction() => _currentTransaction;
@@ -42,8 +44,7 @@ namespace U.ProductService.Persistance.Contexts
         public ProductContext(DbContextOptions<ProductContext> options) : base(options)
         {
             _mediator = this.GetService<IMediator>() ?? throw new ArgumentNullException("Mediator not initialized");
-
-            System.Diagnostics.Debug.WriteLine("ProductContext::ctor ->" + GetHashCode());
+            _httpContext = this.GetService<IHttpContextAccessor>()?.HttpContext ?? throw new ArgumentNullException("HttpContextAccessor not initialized");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -51,12 +52,12 @@ namespace U.ProductService.Persistance.Contexts
             modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductTypeEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductCategoryEntityTypeConfiguration());
-            
+
             modelBuilder.ApplyConfiguration(new PictureEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new MimeTypeEntityTypeConfiguration());
 
             modelBuilder.ApplyConfiguration(new ManufacturerEntityTypeConfiguration());
-            
+
             modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
         }
 
@@ -119,7 +120,7 @@ namespace U.ProductService.Persistance.Contexts
                 }
             }
         }
-        
+
         private void OnBeforeSaving()
         {
             var entries = ChangeTracker.Entries();
@@ -146,7 +147,7 @@ namespace U.ProductService.Persistance.Contexts
                 }
             }
         }
-        
+
         private string GetCurrentUser()
         {
             return "todoUser"; // TODO implement your own logic

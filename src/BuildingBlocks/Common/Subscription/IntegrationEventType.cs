@@ -6,7 +6,10 @@ namespace U.NotificationService.Domain.Entities
         ProductPublishedIntegrationEvent,
         ProductPropertiesChangedIntegrationEvent,
         ProductAddedIntegrationEvent,
+        NewProductFetched,
         UserConnected,
-        UserDisconnected
+        UserDisconnected,
+        AccessTokenRefreshedIntegrationEvent,
+        SignedUp
     }
 }

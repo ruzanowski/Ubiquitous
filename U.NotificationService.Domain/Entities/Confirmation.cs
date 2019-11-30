@@ -17,7 +17,6 @@ namespace U.NotificationService.Domain.Entities
             ConfirmationDate = DateTime.UtcNow;
             ConfirmationType = confirmationType;
             DeviceReceivedId = deviceReceivedId;
-
         }
 
         public Guid Id { get; private set; }

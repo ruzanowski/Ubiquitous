@@ -9,6 +9,8 @@ import {ProductBaseEvent} from "../models/product-base-event.model";
 import {NotificationDto} from "../models/notification-dto.model";
 import {IntegrationEventType} from "../models/integration-event-type.model";
 import {Importancy} from "../models/importancy.model";
+import {Task} from "protractor/built/taskScheduler";
+import {AuthenticationService} from "../../auth";
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +23,9 @@ export class SignalrService {
   public welcomeMessage$: Subject<NotificationDto<ProductBaseEvent>> = new Subject();
   public usersConnected: Array<string> = [];
 
-  constructor() {
+  constructor(private authenticationService: AuthenticationService) {
     this.connection = new signalR.HubConnectionBuilder()
-      .withUrl('http://localhost:5500/signalr')
+      .withUrl('http://localhost:5500/signalr',  { accessTokenFactory: () => this.authenticationService.currentUserValue.accessToken })
       .configureLogging(LogLevel.Trace)
       .build();
     this.subscribeOnEvents();

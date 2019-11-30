@@ -19,13 +19,8 @@ using U.Common.Jwt;
 using U.Common.Redis;
 using U.Common.Swagger;
 using U.EventBus.Events.Product;
-using U.NotificationService.Application.HttpClients;
-using U.NotificationService.Application.HttpClients.Identity;
-using U.NotificationService.Application.IntegrationEvents.ProductAdded;
-using U.NotificationService.Application.IntegrationEvents.ProductPropertiesChanged;
-using U.NotificationService.Application.IntegrationEvents.ProductPublished;
+using U.NotificationService.Application.EventHandlers;
 using U.NotificationService.Application.Models;
-using U.NotificationService.Application.Services;
 using U.NotificationService.Application.Services.Preferences;
 using U.NotificationService.Application.Services.QueryBuilder;
 using U.NotificationService.Application.Services.Subscription;
@@ -60,7 +55,6 @@ namespace U.NotificationService
                 .AddCustomServices()
                 .AddConsulServiceDiscovery()
                 .AddCustomRedisAndSignalR()
-                .AddTypedHttpClient<IIdentityService>("u.identity-service")
                 .AddJwt()
                 .AddRedis();
 
@@ -79,6 +73,8 @@ namespace U.NotificationService
                 .UseForwardedHeaders()
                 .UseCookiePolicy();
 
+            app.UseJwtTokenValidator();
+
             app.UseSignalR(routes => routes.MapHub<BaseHub>("/signalr"));
 
             app.UseMvcWithDefaultRoute();
@@ -90,16 +86,16 @@ namespace U.NotificationService
         private void RegisterEvents(IApplicationBuilder app)
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-            eventBus.Subscribe<ProductAddedIntegrationEvent, ProductAddedIntegrationEventHandler>();
-            eventBus.Subscribe<ProductPublishedIntegrationEvent, ProductPublishedIntegrationEventHandler>();
-            eventBus.Subscribe<ProductPropertiesChangedIntegrationEvent, ProductPropertiesChangedIntegrationEventHandler>();
+            eventBus.Subscribe<ProductAddedIntegrationEvent, ProductAddedCarrierIntegrationEventHandler>();
+            eventBus.Subscribe<ProductPublishedIntegrationEvent, ProductPublishedCarrierIntegrationEventHandler>();
+            eventBus.Subscribe<ProductPropertiesChangedIntegrationEvent, ProductPropertiesChangedCarrierIntegrationEventHandler>();
         }
 
         private void RegisterEventsHandlers(IServiceCollection services)
         {
-            services.AddTransient<ProductAddedIntegrationEventHandler>();
-            services.AddTransient<ProductPublishedIntegrationEventHandler>();
-            services.AddTransient<ProductPropertiesChangedIntegrationEventHandler>();
+            services.AddTransient<ProductAddedCarrierIntegrationEventHandler>();
+            services.AddTransient<ProductPublishedCarrierIntegrationEventHandler>();
+            services.AddTransient<ProductPropertiesChangedCarrierIntegrationEventHandler>();
         }
 
         private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime,
@@ -118,7 +114,6 @@ namespace U.NotificationService
             services.AddSingleton<PersistentHub>();
             services.AddScoped<IWelcomeNotificationsService, WelcomeNotificationsService>();
             services.AddScoped<INotificationQueryBuilder, NotificationQueryBuilder>();
-            services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IPreferencesService, PreferencesService>();
             services.AddScoped<ISubscriptionService, SubscriptionService>();
 
