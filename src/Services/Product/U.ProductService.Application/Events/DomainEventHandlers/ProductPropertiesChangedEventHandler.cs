@@ -33,15 +33,7 @@ namespace U.ProductService.Application.Events.DomainEventHandlers
             //event for e.g. SignalR
             var iEvent = new ProductPropertiesChangedIntegrationEvent(@event.ProductId, @event.Manufacturer, @event.Variances);
 
-            var carrieredEvent = new Carrier<ProductPropertiesChangedIntegrationEvent>
-            {
-                Importancy = Importancy.Trivial,
-                RouteType = RouteType.Primary,
-                IntegrationEventPayload = iEvent,
-                IntegrationEventType = IntegrationEventType.ProductPublishedIntegrationEvent
-            };
-
-            await _productIntegrationEventService.AddAndSaveEventAsync(carrieredEvent);
+            await _productIntegrationEventService.AddAndSaveEventAsync(iEvent);
 
             _logger.LogDebug($"--- Integration event published: '{nameof(ProductPropertiesChangedIntegrationEvent)}");
         }

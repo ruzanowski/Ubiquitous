@@ -12,10 +12,10 @@ namespace U.EventBus
 
         void AddSubscription<T, TH>()
            where T : IntegrationEvent
-           where TH : ICarrierIntegrationEventHandler<T>;
+           where TH : IIntegrationEventHandler<T>;
 
         void RemoveSubscription<T, TH>()
-             where TH : ICarrierIntegrationEventHandler<T>
+             where TH : IIntegrationEventHandler<T>
              where T : IntegrationEvent;
 
         bool HasSubscriptionsForEvent<T>() where T : IntegrationEvent;

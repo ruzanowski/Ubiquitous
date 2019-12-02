@@ -66,7 +66,7 @@ namespace U.EventBus.RabbitMQ
             }
         }
 
-        public void Publish<T>(Carrier<T> carrier) where T: IntegrationEvent
+        public void Publish<T>(T carrier) where T: IntegrationEvent
         {
             if (!_persistentConnection.IsConnected)
             {
@@ -80,11 +80,11 @@ namespace U.EventBus.RabbitMQ
                     {
                         _logger.LogWarning(ex,
                             "Could not publish event: {EventId} after {Timeout}s ({ExceptionMessage})",
-                            carrier.IntegrationEventPayload.Id,
+                            carrier.Id,
                             $"{time.TotalSeconds:n1}", ex.Message);
                     });
 
-            var eventName = carrier.IntegrationEventPayload.GetType().Name;
+            var eventName = carrier.GetType().Name;
             using (var channel = _persistentConnection.CreateModel())
             {
                 channel.ExchangeDeclare(exchange: BROKER_NAME, type: "direct");
@@ -109,12 +109,12 @@ namespace U.EventBus.RabbitMQ
 
         public void Subscribe<T, TH>()
             where T : IntegrationEvent
-            where TH : ICarrierIntegrationEventHandler<T>
+            where TH : IIntegrationEventHandler<T>
         {
             var eventName = _subsManager.GetEventKey<T>();
             DoInternalSubscription(eventName);
 
-            _logger.LogInformation("Subscribing to carrier {EventName} with {EventHandler}", eventName,
+            _logger.LogInformation("Subscribing to carrier with {EventName} with {EventHandler}", eventName,
                 typeof(TH).GetGenericTypeName());
 
             _subsManager.AddSubscription<T, TH>();
@@ -142,7 +142,7 @@ namespace U.EventBus.RabbitMQ
 
         public void Unsubscribe<T, TH>()
             where T : IntegrationEvent
-            where TH : ICarrierIntegrationEventHandler<T>
+            where TH : IIntegrationEventHandler<T>
         {
             var eventName = _subsManager.GetEventKey<T>();
 
@@ -251,7 +251,7 @@ namespace U.EventBus.RabbitMQ
                         if (handler is null) continue;
                         var eventType = _subsManager.GetEventTypeByName(eventName);
                         var integrationEvent = JsonConvert.DeserializeObject(message, eventType);
-                        var concreteType = typeof(ICarrierIntegrationEventHandler<>).MakeGenericType(eventType);
+                        var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
 
                         await Task.Yield();
                         await (Task) concreteType.GetMethod("Handle").Invoke(handler, new object[] {integrationEvent});

@@ -23,4 +23,22 @@ namespace U.EventBus.Events.Product
             Manufacturer = manufacturer;
         }
     }
+
+    public sealed class ProductAddedSignalRIntegrationEvent : ProductAddedIntegrationEvent
+    {
+        public ProductAddedSignalRIntegrationEvent(Guid productId,
+            string name,
+            decimal price,
+            Guid manufacturer) : base(productId, name, price, manufacturer)
+        {
+        }
+    }
+
+    public sealed class ProductAddedEmailIntegrationEvent : ProductAddedIntegrationEvent
+    {
+        public ProductAddedEmailIntegrationEvent(Guid productId, string name, decimal price, Guid manufacturer) : base(
+            productId, name, price, manufacturer)
+        {
+        }
+    }
 }

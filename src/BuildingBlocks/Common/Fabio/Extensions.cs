@@ -21,11 +21,10 @@ namespace U.Common.Fabio
         private static void ConfigureFabioClient(IServiceCollection services, string clientName,
             string serviceName)
         {
-            var accessor = services.BuildServiceProvider().GetService<IHttpContextAccessor>();
-
             services.AddHttpClient(clientName)
-                .AddHttpMessageHandler(c =>
-                    new FabioMessageHandler(c.GetService<IOptions<FabioOptions>>(), accessor, serviceName));
+                .AddHttpMessageHandler(c => new FabioMessageHandler(c.GetService<IOptions<FabioOptions>>(),
+                    services.BuildServiceProvider(),
+                    serviceName));
         }
 
         private static void ConfigureForwarder<T>(IServiceCollection services, string clientName) where T : class

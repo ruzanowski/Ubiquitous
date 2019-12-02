@@ -1,9 +1,11 @@
 using System;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using U.Common.Jwt.Claims;
 using U.Common.Jwt.Service;
@@ -40,11 +42,29 @@ namespace U.Common.Jwt
                         ValidAudience = options.ValidAudience,
                         ValidateAudience = options.ValidateAudience,
                         ValidateLifetime = options.ValidateLifetime,
-                        ClockSkew = TimeSpan.Zero,
+                        ClockSkew = TimeSpan.Zero
+                    };
 
+                    cfg.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+
+                            // If the request is for our hub...
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken) &&
+                                path.StartsWithSegments("/signalr"))
+                            {
+                                // Read the token out of the query string
+                                context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
                     };
                 });
 
+            services.AddAuthorization();
             return services;
         }
 

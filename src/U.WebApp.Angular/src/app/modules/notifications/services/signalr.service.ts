@@ -57,15 +57,15 @@ export class SignalrService {
       this.MatchTypeOfWelcomeMessage(welcomeNotification);
     });
 
-    this.connection.on('ProductPublishedIntegrationEvent', (product: NotificationDto<ProductPublishedEvent>) => {
+    this.connection.on('ProductPublishedSignalRIntegrationEvent', (product: NotificationDto<ProductPublishedEvent>) => {
       this.productPublished$.next(product);
     });
 
-    this.connection.on('ProductPropertiesChangedIntegrationEvent', (product: NotificationDto<ProductPropertiesChangedEvent>) => {
+    this.connection.on('ProductPropertiesChangedSignalRIntegrationEvent', (product: NotificationDto<ProductPropertiesChangedEvent>) => {
       this.productPropertiesChanged$.next(product);
     });
 
-    this.connection.on('ProductAddedIntegrationEvent', (product: NotificationDto<ProductAddedEvent>) => {
+    this.connection.on('ProductAddedSignalRIntegrationEvent', (product: NotificationDto<ProductAddedEvent>) => {
       this.productAdded$.next(product);
     });
   }

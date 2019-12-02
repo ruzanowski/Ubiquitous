@@ -26,5 +26,7 @@ namespace U.Common.Jwt.Claims
         public static string Role = "role";
         public static string ReferenceTokenId = "reference_token_id";
         public static string Confirmation = "cnf";
+        public static string AccessToken = "access_token";
+
     }
 }

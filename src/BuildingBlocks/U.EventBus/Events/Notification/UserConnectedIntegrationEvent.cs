@@ -8,4 +8,14 @@ namespace U.EventBus.Events.Notification
         public string Nickname { get; set; }
         public string Role { get; set; }
     }
+
+    public sealed class UserConnectedSignalRIntegrationEvent : UserConnectedIntegrationEvent
+    {
+
+    }
+
+    public sealed class UserConnectedEmailIntegrationEvent : UserConnectedIntegrationEvent
+    {
+
+    }
 }

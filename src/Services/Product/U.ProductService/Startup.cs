@@ -91,12 +91,12 @@ namespace U.ProductService
         private void RegisterEvents(IApplicationBuilder app)
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-            eventBus.Subscribe<NewProductFetchedIntegrationEvent, NewProductFetchedCarrierIntegrationEventHandler>();
+            eventBus.Subscribe<NewProductFetchedIntegrationEvent, NewProductFetchedIntegrationEventHandler>();
         }
 
         private void RegisterEventsHandlers(IServiceCollection services)
         {
-            services.AddTransient<NewProductFetchedCarrierIntegrationEventHandler>();
+            services.AddTransient<NewProductFetchedIntegrationEventHandler>();
         }
 
         private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime,

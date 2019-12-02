@@ -75,19 +75,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ApiGateway", "src\ApiGate
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Subscription", "Service.Subscription", "{D240C299-E049-47BF-8BAC-20E1DB6295B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.Domain", "U.NotificationService.Domain\U.NotificationService.Domain.csproj", "{59862F91-ED0D-4048-BF57-18BED02C964F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.Domain", "src\Services\Notification\U.NotificationService.Domain\U.NotificationService.Domain.csproj", "{59862F91-ED0D-4048-BF57-18BED02C964F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.Application", "U.NotificationService.Application\U.NotificationService.Application.csproj", "{FD034EE6-656C-4D3B-B795-13E02127F5D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.Application", "src\Services\Notification\U.NotificationService.Application\U.NotificationService.Application.csproj", "{FD034EE6-656C-4D3B-B795-13E02127F5D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.Infrastructure", "U.NotificationService.Infrastructure\U.NotificationService.Infrastructure.csproj", "{3764066D-BAC6-4493-9DF3-5AFB6DCFE07A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.Infrastructure", "src\Services\Notification\U.NotificationService.Infrastructure\U.NotificationService.Infrastructure.csproj", "{3764066D-BAC6-4493-9DF3-5AFB6DCFE07A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService", "U.SubscriptionService\U.SubscriptionService.csproj", "{ED2B1BC6-37F1-44F6-8DC7-888CAC2D4431}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService", "src\Services\Subscription\U.SubscriptionService\U.SubscriptionService.csproj", "{ED2B1BC6-37F1-44F6-8DC7-888CAC2D4431}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService.Application", "U.SubscriptionService.Application\U.SubscriptionService.Application.csproj", "{EBD54CAC-2F80-4320-9774-8AAE7995B5FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService.Application", "src\Services\Subscription\U.SubscriptionService.Application\U.SubscriptionService.Application.csproj", "{EBD54CAC-2F80-4320-9774-8AAE7995B5FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService.Domain", "U.SubscriptionService.Domain\U.SubscriptionService.Domain.csproj", "{8C530FB6-D2E7-470A-98EF-CAF3BE962AE5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService.Domain", "src\Services\Subscription\U.SubscriptionService.Domain\U.SubscriptionService.Domain.csproj", "{8C530FB6-D2E7-470A-98EF-CAF3BE962AE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService.Persistance", "U.SubscriptionService.Persistance\U.SubscriptionService.Persistance.csproj", "{CE8191E1-9C55-40C4-9823-D3F385590F27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService.Persistance", "src\Services\Subscription\U.SubscriptionService.Persistance\U.SubscriptionService.Persistance.csproj", "{CE8191E1-9C55-40C4-9823-D3F385590F27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

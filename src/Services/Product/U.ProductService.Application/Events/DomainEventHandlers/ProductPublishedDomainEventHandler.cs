@@ -36,15 +36,8 @@ namespace U.ProductService.Application.Events.DomainEventHandlers
                 @event.Price,
                 @event.Manufacturer);
 
-            var carrieredEvent = new Carrier<ProductPublishedIntegrationEvent>()
-            {
-                Importancy = Importancy.Trivial,
-                RouteType = RouteType.Primary,
-                IntegrationEventPayload = iEvent,
-                IntegrationEventType = IntegrationEventType.ProductPublishedIntegrationEvent
-            };
 
-            await _productIntegrationEventService.AddAndSaveEventAsync(carrieredEvent);
+            await _productIntegrationEventService.AddAndSaveEventAsync(iEvent);
 
             _logger.LogDebug($"--- Integration event published: '{nameof(ProductPublishedIntegrationEvent)}");
         }

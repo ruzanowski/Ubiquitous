@@ -53,9 +53,9 @@ namespace U.IntegrationEventLog.Services
                     e.DeserializeJsonContent(_eventTypes.Find(t => t.Name == e.EventTypeShortName)));
         }
 
-        public Task SaveEventAsync<T>(Carrier<T> carrier, IDbContextTransaction transaction) where T : IntegrationEvent
+        public Task SaveEventAsync<T>(T @event, IDbContextTransaction transaction) where T : IntegrationEvent
         {
-            var eventLogEntry = new IntegrationEventLogEntry(carrier.IntegrationEventPayload, transaction?.TransactionId);
+            var eventLogEntry = new IntegrationEventLogEntry(@event, transaction?.TransactionId);
 
             _integrationEventLogContext.Database.UseTransaction(transaction?.GetDbTransaction());
             _integrationEventLogContext.IntegrationEventLogs.Add(eventLogEntry);

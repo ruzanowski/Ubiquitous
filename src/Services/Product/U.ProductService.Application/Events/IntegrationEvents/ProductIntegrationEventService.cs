@@ -40,16 +40,7 @@ namespace U.ProductService.Application.Events.IntegrationEvents
                 try
                 {
                     await _eventLogService.MarkEventAsInProgressAsync(logEvt.EventId);
-
-                    var carriedEvent = new Carrier<IntegrationEvent>
-                    {
-                        Importancy = Importancy.Trivial,
-                        RouteType = RouteType.Primary,
-                        IntegrationEventPayload = logEvt.IntegrationEvent,
-                        IntegrationEventType = (IntegrationEventType) Enum.Parse(typeof(IntegrationEventType), logEvt.EventTypeName)
-                    };
-
-                    _eventBus.Publish(carriedEvent);
+                    _eventBus.Publish(logEvt.IntegrationEvent);
                     await _eventLogService.MarkEventAsPublishedAsync(logEvt.EventId);
                 }
                 catch (Exception ex)
@@ -61,7 +52,7 @@ namespace U.ProductService.Application.Events.IntegrationEvents
             }
         }
 
-        public async Task AddAndSaveEventAsync<T>(Carrier<T> evt) where T : IntegrationEvent
+        public async Task AddAndSaveEventAsync<T>(T evt) where T : IntegrationEvent
         {
             await _eventLogService.SaveEventAsync(evt, _productContext.GetCurrentTransaction());
         }

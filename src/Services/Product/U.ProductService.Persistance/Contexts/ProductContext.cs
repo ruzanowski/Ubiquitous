@@ -34,7 +34,6 @@ namespace U.ProductService.Persistance.Contexts
 
         //fields
         private readonly IMediator _mediator;
-        private readonly HttpContext _httpContext;
         private IDbContextTransaction _currentTransaction;
 
         public IDbContextTransaction GetCurrentTransaction() => _currentTransaction;
@@ -44,7 +43,6 @@ namespace U.ProductService.Persistance.Contexts
         public ProductContext(DbContextOptions<ProductContext> options) : base(options)
         {
             _mediator = this.GetService<IMediator>() ?? throw new ArgumentNullException("Mediator not initialized");
-            _httpContext = this.GetService<IHttpContextAccessor>()?.HttpContext ?? throw new ArgumentNullException("HttpContextAccessor not initialized");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

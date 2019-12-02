@@ -31,18 +31,9 @@ namespace U.ProductService.Application.Events.DomainEventHandlers
 
             //Additional logic for product domain event handler e.g. validation, publish restriction.
             //event for e.g. SignalR
-            var iEvent =
-                new ProductAddedIntegrationEvent(@event.ProductId, @event.Name, @event.Price, @event.Manufacturer);
+            var integrationEvent = new ProductAddedIntegrationEvent(@event.ProductId, @event.Name, @event.Price, @event.Manufacturer);
 
-            var carrieredEvent = new Carrier<ProductAddedIntegrationEvent>()
-            {
-                Importancy = Importancy.Trivial,
-                RouteType = RouteType.Primary,
-                IntegrationEventPayload = iEvent,
-                IntegrationEventType = IntegrationEventType.ProductPublishedIntegrationEvent
-            };
-
-            await _productIntegrationEventService.AddAndSaveEventAsync(carrieredEvent);
+            await _productIntegrationEventService.AddAndSaveEventAsync(integrationEvent);
 
             _logger.LogDebug($"--- Integration event published: '{nameof(ProductAddedIntegrationEvent)}");
         }

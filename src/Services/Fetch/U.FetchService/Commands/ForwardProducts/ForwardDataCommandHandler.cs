@@ -40,20 +40,12 @@ namespace U.FetchService.Commands.ForwardProducts
                     product.CategoryId,
                     product.Id);
 
-                var carriedEvent = new Carrier<NewProductFetchedIntegrationEvent>()
-                {
-                    IntegrationEventPayload = @event,
-                    RouteType = RouteType.Primary,
-                    IntegrationEventType = IntegrationEventType.NewProductFetched,
-
-                };
-
                 _logger.LogInformation(
                     "----- Publishing integration event: {IntegrationEventId} from 'FetchService' - ({@IntegrationEvent})",
                     @event.Id, @event);
 
                 //fire and forget
-                _bus.Publish(carriedEvent);
+                _bus.Publish(@event);
             }
 
             await Task.CompletedTask;

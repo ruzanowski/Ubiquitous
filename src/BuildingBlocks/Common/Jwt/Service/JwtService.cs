@@ -72,7 +72,7 @@ namespace U.Common.Jwt.Service
                 jwtClaims.Add(new Claim(JwtClaimsTypes.Role, role));
             }
 
-            var customClaims = claims?.ToArray() ?? Array.Empty<Claim>();
+            var customClaims = claims?.ToList() ?? new List<Claim>();
 
             jwtClaims.AddRange(customClaims);
             var expires = now.AddMinutes(_options.ExpiryMinutes);
@@ -85,11 +85,13 @@ namespace U.Common.Jwt.Service
             );
             var token = new JwtSecurityTokenHandler();
             token.InboundClaimTypeMap.Clear();
-            var jwtTokenWithCorrectMaps = token.WriteToken(jwt);
+            var jwtToken = token.WriteToken(jwt);
+
+            customClaims.Add(new Claim(JwtClaimsTypes.AccessToken, jwtToken));
 
             return new JsonWebToken
             {
-                AccessToken = jwtTokenWithCorrectMaps,
+                AccessToken = jwtToken,
                 RefreshToken = string.Empty,
                 Expires = expires,
                 Id = userId,
@@ -151,12 +153,22 @@ namespace U.Common.Jwt.Service
 
         private string GetCurrentAsync()
         {
-            var authorizationHeader = _httpContextAccessor
-                .HttpContext.Request.Headers["authorization"];
+            var httpContext = _httpContextAccessor.HttpContext;
+
+            if(httpContext.Request.Path.StartsWithSegments("/signalr"))
+            {
+                var accessToken = httpContext.Request.Query["access_token"];
+
+                return accessToken;
+            }
+
+            var authorizationHeader = httpContext.Request.Headers["authorization"];
 
             return authorizationHeader == StringValues.Empty
                 ? string.Empty
                 : authorizationHeader.Single().Split(' ').Last();
+
+
         }
 
         private static string GetKey(string token) => $"tokens:{token}";

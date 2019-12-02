@@ -23,11 +23,11 @@ namespace U.EventBus
 
         public bool IsEmpty => !_handlers.Keys.Any();
         public void Clear() => _handlers.Clear();
-        
+
 
         public void AddSubscription<T, TH>()
             where T : IntegrationEvent
-            where TH : ICarrierIntegrationEventHandler<T>
+            where TH : IIntegrationEventHandler<T>
         {
             var eventName = GetEventKey<T>();
 
@@ -57,7 +57,7 @@ namespace U.EventBus
 
 
         public void RemoveSubscription<T, TH>()
-            where TH : ICarrierIntegrationEventHandler<T>
+            where TH : IIntegrationEventHandler<T>
             where T : IntegrationEvent
         {
             var handlerToRemove = FindSubscriptionToRemove<T, TH>();
@@ -100,7 +100,7 @@ namespace U.EventBus
 
         private SubscriptionInfo FindSubscriptionToRemove<T, TH>()
              where T : IntegrationEvent
-             where TH : ICarrierIntegrationEventHandler<T>
+             where TH : IIntegrationEventHandler<T>
         {
             var eventName = GetEventKey<T>();
             return DoFindSubscriptionToRemove(eventName, typeof(TH));

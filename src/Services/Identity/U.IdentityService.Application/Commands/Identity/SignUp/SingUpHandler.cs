@@ -58,13 +58,8 @@ namespace U.IdentityService.Application.Commands.Identity.SignUp
             user.SetPassword(password, _passwordHasher);
             await _userRepository.AddAndSaveAsync(user);
 
-            var carriedEvent = new Carrier<SignedUpIntegrationEvent>()
-            {
-                IntegrationEventPayload = new SignedUpIntegrationEvent(id, email, role),
-                IntegrationEventType = IntegrationEventType.SignedUp,
-                RouteType = RouteType.Primary
-            };
-            _busPublisher.Publish(carriedEvent);
+            var @event = new SignedUpIntegrationEvent(id, email, role);
+            _busPublisher.Publish(@event);
 
             return Unit.Value;
         }

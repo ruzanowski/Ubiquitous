@@ -50,14 +50,7 @@ namespace U.IdentityService.Application.Commands.Token.RefreshAccessToken
 
             var @event = new AccessTokenRefreshedIntegrationEvent(user.Id);
 
-            var carriedEvent = new Carrier<AccessTokenRefreshedIntegrationEvent>
-            {
-                IntegrationEventPayload = @event,
-                IntegrationEventType = IntegrationEventType.AccessTokenRefreshedIntegrationEvent,
-                RouteType = RouteType.Primary
-            };
-
-            BusPublisher.Publish(carriedEvent);
+            BusPublisher.Publish(@event);
 
             return jwt;
         }
