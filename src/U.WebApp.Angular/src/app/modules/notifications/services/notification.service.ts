@@ -1,12 +1,14 @@
 import {EventEmitter, Injectable, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {NotificationDto} from "../models/notification-dto.model";
-import {ProductBaseEvent} from "../models/product-base-event.model";
 import {Subscription} from "rxjs";
-import {ProductAddedEvent} from "../models/product-added-event.model";
-import {ProductPropertiesChangedEvent} from "../models/product-properties-changed-event.model";
-import {ProductPublishedEvent} from "../models/product-published-event.model";
 import {SignalrService} from "./signalr.service";
 import {ConfirmationType} from "../models/confirmation-type.model";
+import {ReactiveToasterService} from "./toastr.service";
+import {ProductAddedEvent} from "../models/events/product/product-added-event.model";
+import {ProductPropertiesChangedEvent} from "../models/events/product/product-properties-changed-event.model";
+import {ProductPublishedEvent} from "../models/events/product/product-published-event.model";
+import {BaseEvent} from "../models/events/base-event.model";
+import {UserConnectedEvent} from "../models/events/identity/user-connected.model";
 
 @Injectable({
   providedIn: 'root'
@@ -18,26 +20,28 @@ export class NotificationService{
   itemsToLoad = 5;
   isFullListDisplayed = false;
 
-  public _notificationsData: Array<NotificationDto<ProductBaseEvent>> = [];
-  private productsAddedEventsSubscription: Subscription;
-  private productsPropertiesChangedEventsSubscription: Subscription;
-  private productsPublishedEventsSubscription: Subscription;
-  private welcomeMessagesSubscription: Subscription;
-
-  public notificationsToShow: Array<NotificationDto<ProductBaseEvent>> = [];
-
+  public _notificationsData: Array<NotificationDto<BaseEvent>> = [];
+  public notificationsToShow: Array<NotificationDto<BaseEvent>> = [];
   public productsAddedEvents: Array<NotificationDto<ProductAddedEvent>> = [];
   public productsPropertiesChangedEvents: Array<NotificationDto<ProductPropertiesChangedEvent>> = [];
   public productsPublishedEvents: Array<NotificationDto<ProductPublishedEvent>> = [];
+  public usersLogged: Array<string> = [];
+
+  private productsAddedEvents$: Subscription;
+  private productsPropertiesChangedEvents$: Subscription;
+  private productsPublishedEvents$: Subscription;
+  private welcomeMessages$: Subscription;
+  private usersConnected$: Subscription;
+  private usersDisconnected$: Subscription;
 
   @Output() notificationsBadgeEvent = new EventEmitter();
 
-  constructor(private signalr: SignalrService)
+  constructor(private signalr: SignalrService, private toastr: ReactiveToasterService)
   {
     this.registerSubscriptions();
   }
 
-  set notifications(data: NotificationDto<ProductBaseEvent>) {
+  set notifications(data: NotificationDto<BaseEvent>) {
     this.numOfItemsToShow = this._notificationsData.push(data);
     this.notificationsToShow = this._notificationsData.slice(0, this.numOfItemsToShow);
     this.isFullListDisplayed = false;
@@ -46,28 +50,46 @@ export class NotificationService{
 
   registerSubscriptions(){
 
-    this.productsAddedEventsSubscription = this.signalr.productAdded$.asObservable().subscribe(
+    this.productsAddedEvents$ = this.signalr.productAdded$.asObservable().subscribe(
       (productAdded) => {
         this.productsAddedEvents.push(productAdded);
         this.notifications = productAdded;
+        this.toastr.showToast('', 'New product has been added', 'success');
       });
 
-    this.productsPropertiesChangedEventsSubscription = this.signalr.productPropertiesChanged$.asObservable().subscribe(
+    this.productsPropertiesChangedEvents$ = this.signalr.productPropertiesChanged$.asObservable().subscribe(
       (productPropertiesChanged) => {
         this.productsPropertiesChangedEvents.push(productPropertiesChanged);
         this.notifications = productPropertiesChanged;
+        this.toastr.showToast('', 'Product has been changed', 'success');
       });
 
-    this.productsPublishedEventsSubscription = this.signalr.productPublished$.asObservable().subscribe(
+    this.productsPublishedEvents$ = this.signalr.productPublished$.asObservable().subscribe(
       (productPublished) => {
         this.productsPublishedEvents.push(productPublished);
         this.notifications = productPublished;
+        this.toastr.showToast('', 'Product has been published', 'success');
+
       });
 
-    this.welcomeMessagesSubscription = this.signalr.welcomeMessage$.asObservable().subscribe(
+    this.welcomeMessages$ = this.signalr.welcomeMessage$.asObservable().subscribe(
       (welcomeMessage) => {
         this.notifications = welcomeMessage;
+        this.toastr.showToast('', 'Welcome to Ubiquitous!', 'success');
       });
+
+    this.usersConnected$ = this.signalr.usersConnected$.asObservable().subscribe(
+      (notification : NotificationDto<UserConnectedEvent>) => {
+        this.notifications = notification;
+        this.toastr.showToast('', notification.event.Nickname + ' has joined!', 'info');
+      });
+
+    this.usersDisconnected$ = this.signalr.usersDisconnected$.asObservable().subscribe(
+      (notification : NotificationDto<UserConnectedEvent>) => {
+        this.notifications = notification;
+        this.toastr.showToast('', notification.event.Nickname + ' has left!', 'info');
+      });
+
   }
 
   emitChangeNumberOfNotifications()
@@ -77,6 +99,7 @@ export class NotificationService{
   countNotifications() {
     return this._notificationsData.length;
   }
+
   read(notification: NotificationDto<any>) : void
   {
     notification.state = ConfirmationType.read;

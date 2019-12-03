@@ -1,0 +1,77 @@
+<mat-form-field class="margined-from-top">
+  <input matInput [matDatepicker]="picker" placeholder="Choose a date" style="padding: 10px 10px 10px 40px;">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field style="padding-left: 30px; padding-right: 30px">
+  <mat-label>Product category</mat-label>
+  <mat-select flex disableRipple>
+    <mat-option *ngFor="let category of categories?.data"
+                [value]="category.categoryId"
+                (ngModelChange)="getProducts()"
+                [(ngModel)]="categoryIdFilter"
+                ngDefaultControl>
+      {{category.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field style="padding-left: 30px; padding-right: 30px">
+  <mat-label flex>Product manufacturer</mat-label>
+  <mat-select
+    flex
+    disableRipple
+    [(ngModel)]="manufacturerIdFilter"
+    (ngModelChange)="getProducts()">
+    <mat-option *ngFor="let manufacturer of manufacturers?.data"
+                [value]="manufacturer.id"
+                ngDefaultControl>
+      {{manufacturer.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div style="padding-left: 30px; padding-right: 30px">
+  <table mat-table [dataSource]="dataSource" class="mat-margined-from-top">
+    <!-- Name Column -->
+
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center">Image</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center">
+        <img mat-card-avatar src="../../../../assets/no-image.png" alt="no photo" class="image">
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center">Name</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center"><p class="md-body-1">{{element.name}}</p>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center">Description</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center">Price</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.price | currency}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastUpdated">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center">Updated</th>
+      <td mat-cell *matCellDef="let element"
+          style="text-align: center"> {{element.lastFullUpdateDateTime | date }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" style="text-align: center"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [length]="100"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</div>
+

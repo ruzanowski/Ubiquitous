@@ -111,12 +111,5 @@ namespace U.NotificationService.Domain.Entities
                 userBasedEventImportancy.Importancy = importancy;
             }
         }
-
-        public class UserBasedEventImportancy
-        {
-            public int Id { get; set; }
-            public Importancy Importancy { get; set; }
-            public Guid UserId { get; set; }
-        }
     }
 }

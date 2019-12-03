@@ -28,7 +28,7 @@
             "styles": [
               "node_modules/chartist/dist/chartist.css",
               "src/assets/material-dashboard.scss",
-              "node_modules/ngx-perfect-scrollbar/node_modules/perfect-scrollbar/css/perfect-scrollbar.css"
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",

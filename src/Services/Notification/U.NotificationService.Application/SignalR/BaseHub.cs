@@ -35,7 +35,7 @@ namespace U.NotificationService.Application.SignalR
             _subscriptionService = subscriptionService;
         }
 
-        public UserDto GetCurrentUser() => Context.GetUser();
+        private UserDto GetCurrentUser() => Context.GetUser();
 
         public override async Task OnConnectedAsync()
         {
@@ -54,7 +54,7 @@ namespace U.NotificationService.Application.SignalR
 
             var preferences = await _subscriptionService.GetMyPreferencesAsync();
 
-            if (!preferences.DoNotNotifyAnyoneAboutMyActivity)
+            if (preferences.DoNotNotifyAnyoneAboutMyActivity == false)
             {
                 var userConnected = NotificationDto.NotifactionFactory.UserConnected(currentUser);
                 await Clients.All.SendAsync("connected", userConnected);
@@ -79,7 +79,7 @@ namespace U.NotificationService.Application.SignalR
 
             var preferences = await _subscriptionService.GetMyPreferencesAsync();
 
-            if (!preferences.DoNotNotifyAnyoneAboutMyActivity)
+            if (preferences.DoNotNotifyAnyoneAboutMyActivity == false)
             {
                 var userDisonnected = NotificationDto.NotifactionFactory.UserDisconnected(currentUser);
                 await Clients.Others.SendAsync("disconnected", userDisonnected);
@@ -88,8 +88,19 @@ namespace U.NotificationService.Application.SignalR
             await base.OnDisconnectedAsync(ex);
         }
 
+        [JwtAuth]
         public async Task ConfirmReadNotification(Guid notifcationId)
         {
+            UserDto currentUser = Context.GetUser();
+            if (Context.IsAuthenticated())
+            {
+                _logger.LogDebug($"User: '{currentUser.Nickname}' has disconnected");
+            }
+            else
+            {
+                Context.Abort();
+            }
+
             var notification = await _context.Notifications
                 .Include(x => x.Confirmations)
                 .Include(x=>x.Importancies)
@@ -101,10 +112,8 @@ namespace U.NotificationService.Application.SignalR
                 return;
             }
 
-            var currentUser = GetCurrentUser().Id;
-
-            notification.ChangeStateToRead(currentUser);
-            notification.SetImportancy(currentUser, Importancy.Trivial);
+            notification.ChangeStateToRead(currentUser.Id);
+            notification.SetImportancy(currentUser.Id, Importancy.Trivial);
 
             await _context.SaveChangesAsync();
         }
@@ -127,8 +136,19 @@ namespace U.NotificationService.Application.SignalR
             await _context.SaveChangesAsync();
         }
 
+        [JwtAuth]
         public async Task HideNotification(Guid notifcationId)
         {
+            UserDto currentUser = Context.GetUser();
+            if (Context.IsAuthenticated())
+            {
+                _logger.LogDebug($"User: '{currentUser.Nickname}' has disconnected");
+            }
+            else
+            {
+                Context.Abort();
+            }
+
             var notification = await _context.Notifications
                 .Include(x => x.Confirmations)
                 .Include(x=>x.Importancies)
@@ -140,11 +160,12 @@ namespace U.NotificationService.Application.SignalR
                 return;
             }
 
-            notification.ChangeStateToHidden(new Guid()); //todo: userid
+            notification.ChangeStateToHidden(currentUser.Id);
 
             await _context.SaveChangesAsync();
         }
 
+        [JwtAuth]
         public async Task ChangeNotificationImportancy(Guid notifcationId, Importancy importancy)
         {
             var notification = await _context.Notifications
@@ -172,7 +193,7 @@ namespace U.NotificationService.Application.SignalR
                 var welcomeNotification = NotificationDto.NotifactionFactory.FromNotificationWithPrefferedImportancy(notification, GetCurrentUser().Id);
 
                 await Clients.Client(Context.ConnectionId).SendAsync("WelcomeNotifications", welcomeNotification);
-                _logger.LogDebug($"Sent historic notification: '{notification.Id}' to '{userNickname}' of id: '{userId}'.");
+                _logger.LogInformation($"Sent historic notification: '{notification.Id}' to '{userNickname}' of id: '{userId}'.");
             }
         }
     }

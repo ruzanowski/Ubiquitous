@@ -1,0 +1,14 @@
+<h1>Products</h1>
+
+<p *ngIf="!product"><em>Loading products...</em></p>
+
+  id: {{ product.id }} <br>
+  name: {{ product.name }}<br>
+  price: {{ product.price }}<br>
+  description: {{ product.description }}<br>
+  height: {{ product.dimensions.height }}<br>
+  width: {{ product.dimensions.width }}<br>
+  length: {{ product.dimensions.length }}<br>
+  weight: {{ product.dimensions.weight }}<br>
+  lastUpdate: {{ product.lastFullUpdateDateTime | date: 'short'}}
+

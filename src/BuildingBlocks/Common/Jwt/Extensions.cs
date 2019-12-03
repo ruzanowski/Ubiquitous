@@ -3,10 +3,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using U.Common.Jwt.Claims;
 using U.Common.Jwt.Service;
 using U.Common.Mvc;
@@ -42,8 +44,10 @@ namespace U.Common.Jwt
                         ValidAudience = options.ValidAudience,
                         ValidateAudience = options.ValidateAudience,
                         ValidateLifetime = options.ValidateLifetime,
-                        ClockSkew = TimeSpan.Zero
+                        ClockSkew = TimeSpan.Zero  // remove delay of token when expire
                     };
+
+                    cfg.SaveToken = true;
 
                     cfg.Events = new JwtBearerEvents
                     {
@@ -59,6 +63,11 @@ namespace U.Common.Jwt
                                 // Read the token out of the query string
                                 context.Token = accessToken;
                             }
+                            return Task.CompletedTask;
+                        },
+                        OnAuthenticationFailed = context =>
+                        {
+                            var te = context.Exception;
                             return Task.CompletedTask;
                         }
                     };

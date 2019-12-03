@@ -19,7 +19,8 @@ namespace U.NotificationService.Application.Services.QueryBuilder
             return this;
         }
 
-        public INotificationQueryBuilder FilterByConfirmationType(ConfirmationTypePreferences confirmationTypePreferences)
+        public INotificationQueryBuilder FilterByConfirmationType(
+            ConfirmationTypePreferences confirmationTypePreferences)
         {
             if (confirmationTypePreferences.SeeRead && confirmationTypePreferences.SeeUnread)
             {
@@ -29,7 +30,7 @@ namespace U.NotificationService.Application.Services.QueryBuilder
             {
                 _query = _query.Where(NotAcquiredOrAnyFromRead(_userId));
             }
-            else if(confirmationTypePreferences.SeeUnread)
+            else if (confirmationTypePreferences.SeeUnread)
             {
                 _query = _query.Where(NotAcquiredOrAnyFromUnread(_userId));
             }
@@ -75,15 +76,24 @@ namespace U.NotificationService.Application.Services.QueryBuilder
 
         public INotificationQueryBuilder ThenOrderByState()
         {
-            _query = _query.OrderBy(x => (int) x.Confirmations.FirstOrDefault(y => y.User.Equals(_userId)).ConfirmationType);
+            _query = (_query as IOrderedQueryable<Notification>).ThenByDescending(x =>
+                (int) x.Confirmations.FirstOrDefault(y => y.User.Equals(_userId)).ConfirmationType);
             return this;
         }
 
         public INotificationQueryBuilder ThenOrderByImportancy(bool descending)
         {
-            _query = descending
-                ? _query.OrderByDescending(x => (int) x.Importancies.FirstOrDefault(z=>z.UserId.Equals(_userId)).Importancy)
-                : _query.OrderBy(x =>(int) x.Importancies.FirstOrDefault(z=>z.UserId.Equals(_userId)).Importancy);
+            var anyImportancies = _query.Select(x => x.Importancies.Where(y => y.UserId.Equals(_userId))).Any();
+
+            if (anyImportancies)
+            {
+                _query = descending
+                    ?  (_query as IOrderedQueryable<Notification>).ThenByDescending(x =>
+                        (int) x.Importancies.First(z => z.UserId.Equals(_userId)).Importancy)
+                    :  (_query as IOrderedQueryable<Notification>).ThenBy(x =>
+                        (int) x.Importancies.First(z => z.UserId.Equals(_userId)).Importancy);
+            }
+
 
             return this;
         }

@@ -10,7 +10,7 @@ namespace U.SubscriptionService.Persistance.Contexts
         public const string DEFAULT_SCHEMA = "Subscriptions";
 
         public DbSet<SignalRConnection> SignalRConnections { get; set; }
-        public DbSet<UserSubscription> UserSubscriptions { get; set; }
+        public DbSet<UserSubscription> UsersSubscription { get; set; }
 
         public SubscriptionContext(DbContextOptions<SubscriptionContext> options) : base(options)
         {

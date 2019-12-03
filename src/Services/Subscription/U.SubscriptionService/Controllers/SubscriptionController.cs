@@ -5,18 +5,18 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using U.Common.Jwt;
 using U.Common.Jwt.Claims;
-using U.SubscriptionService.Application.Command;
+using U.NotificationService.Domain.Entities;
+using U.SubscriptionService.Application.Command.AllowedEvents;
 using U.SubscriptionService.Application.Command.SignalRConnections.Bind;
 using U.SubscriptionService.Application.Command.SignalRConnections.Unbind;
 using U.SubscriptionService.Application.Query;
 
 namespace U.SubscriptionService.Controllers
 {
-    [Route("api/subscription/signalrconnection")]
+    [Route("api/subscription/subscription")]
     [ApiController]
-    public class SignalRConnectionController : ControllerBase
+    public class SubscriptionController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IHttpContextAccessor _contextAccessor;
@@ -26,7 +26,7 @@ namespace U.SubscriptionService.Controllers
         /// </summary>
         /// <param name="mediator"></param>
         /// <param name="contextAccessor"></param>
-        public SignalRConnectionController(IMediator mediator, IHttpContextAccessor contextAccessor)
+        public SubscriptionController(IMediator mediator, IHttpContextAccessor contextAccessor)
         {
             _mediator = mediator;
             _contextAccessor = contextAccessor;
@@ -37,37 +37,18 @@ namespace U.SubscriptionService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("bind")]
+        [Route("allowed-events")]
         [ProducesResponseType((int) HttpStatusCode.NoContent)]
-        public async Task<IActionResult> BindAsync(Guid userId, string connectionId)
+        public async Task<IActionResult> SetAllowedEventsAsync(ISet<IntegrationEventType> allowedEvents)
         {
 
-            var preferences = new BindConnectionToUserCommand
+            var preferences = new SetAllowedPreferencesCommand
             {
-                UserId = _contextAccessor.HttpContext.GetUser().Id
+                UserId = _contextAccessor.HttpContext.GetUser().Id,
+                IntegrationEventTypes = allowedEvents
             };
 
             await _mediator.Send(preferences);
-            return NoContent();
-        }
-
-        /// <summary>
-        /// Get my preferences
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("unbind")]
-        [ProducesResponseType((int) HttpStatusCode.NoContent)]
-        public async Task<IActionResult> UnbindAsync(Guid userId, string connectionId)
-        {
-
-            var preferences = new UnbindConnectionToUserCommand
-            {
-                UserId = _contextAccessor.HttpContext.GetUser().Id
-            };
-
-            await _mediator.Send(preferences);
-
             return NoContent();
         }
 
@@ -78,9 +59,9 @@ namespace U.SubscriptionService.Controllers
         [HttpGet]
         [Route("current-user-list")]
         [ProducesResponseType(typeof(List<string>), (int) HttpStatusCode.OK)]
-        public async Task<IActionResult> GetMyConnections()
+        public async Task<IActionResult> GetMyAllowedEvents()
         {
-            var connections = new ListSignalRConnectionQuery
+            var connections = new ListAllowedEventsQuery
             {
                 UserId = _contextAccessor.HttpContext.GetUser().Id
             };

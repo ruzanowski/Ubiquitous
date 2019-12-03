@@ -3,6 +3,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using U.SubscriptionService.Application.Exceptions;
 using U.SubscriptionService.Domain;
 using U.SubscriptionService.Persistance.Contexts;
 
@@ -19,16 +21,17 @@ namespace U.SubscriptionService.Application.Command.Preferences
 
         public async Task<Unit> Handle(SetPreferencesCommand request, CancellationToken cancellationToken)
         {
-            var userSubscription = _context.UserSubscriptions.FirstOrDefault(x => x.UserId.Equals(request.UserId));
-
-            if (userSubscription is null)
-            {
-                userSubscription = UserSubscription.Factory.Create(request.UserId);
-            }
 
             if (request.Preferences is null)
             {
                 throw new ArgumentException("Preferences must not be null");
+            }
+
+            var userSubscription = _context.UsersSubscription.Include(x=>x.Preferences).FirstOrDefault(x => x.UserId.Equals(request.UserId));
+
+            if (userSubscription is null)
+            {
+                throw new SubscriptionNotFoundException();
             }
 
             userSubscription.Preferences = request.Preferences;

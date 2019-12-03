@@ -19,7 +19,8 @@ namespace U.NotificationService.Application.Services.WelcomeNotifications
 
 
         public WelcomeNotificationsService(NotificationContext context,
-            INotificationQueryBuilder queryBuilder, ISubscriptionService subscriptionService)
+            INotificationQueryBuilder queryBuilder,
+            ISubscriptionService subscriptionService)
         {
             _context = context;
             _queryBuilder = queryBuilder;
@@ -45,8 +46,8 @@ namespace U.NotificationService.Application.Services.WelcomeNotifications
                 .FilterByConfirmationType(confirmationType)
                 .FilterByMinimalImportancy(importancy)
                 .OrderByCreationDate(orderByCreationTimeDescending)
-                .ThenOrderByState()
-                .ThenOrderByImportancy(thenOrderByImportancyDescending)
+//                .ThenOrderByState()
+//                .ThenOrderByImportancy(thenOrderByImportancyDescending)
                 .Take(numberOfWelcomeMessages)
                 .Build();
 

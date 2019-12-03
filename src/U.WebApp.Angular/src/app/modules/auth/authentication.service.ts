@@ -36,10 +36,10 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  get isLoggedIn() {
+  get isLoggedIn()
+  {
     return this.loggedIn.asObservable();
   }
-
 
   login(email: string, password: string) {
     return this.http.post<any>('/api/identity/auth/sign-in', { email, password })
@@ -62,5 +62,16 @@ export class AuthenticationService {
     this.currentUserSubject.next(null);
     this.loggedIn.next(false);
     this.router.navigate(['/login']);
+  }
+
+  check()
+  {
+    const currentUser = this.currentUserValue;
+    if(currentUser)
+    {
+      return;
+    }
+
+    this.logout();
   }
 }

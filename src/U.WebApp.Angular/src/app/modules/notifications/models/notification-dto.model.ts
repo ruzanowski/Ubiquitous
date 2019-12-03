@@ -2,8 +2,7 @@ import {ConfirmationType} from "./confirmation-type.model";
 import {IntegrationEventType} from "./integration-event-type.model";
 import {Importancy} from "./importancy.model";
 
-export interface NotificationDto<T>
-{
+export interface NotificationDto<T> {
   event: T;
   id: string;
   eventType: IntegrationEventType;
@@ -11,3 +10,6 @@ export interface NotificationDto<T>
   state: ConfirmationType;
   importancy: Importancy;
 }
+
+
+

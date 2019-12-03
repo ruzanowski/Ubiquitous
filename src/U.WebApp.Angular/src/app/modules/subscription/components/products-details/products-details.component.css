@@ -1,0 +1,20 @@
+@media (max-width: 767px) {
+  /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
+  .body-content {
+    padding-top: 50px;
+  }
+}
+
+.smaller-col{
+ column-width: 5px;
+ align-items: center;
+}
+
+td, th {
+  text-align: center;
+  animation: forwards;
+}
+
+.product-detail:hover {
+  animation: forwards;
+}

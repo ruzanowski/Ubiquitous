@@ -17,6 +17,8 @@ import {NotificationSettingsComponent} from "./components/notification-settings/
 import {NotificationsComponent} from "./components/notifications-list/notifications-list.component";
 import {NotificationService} from "./services/notification.service";
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import {ReactiveToasterService} from "./services/toastr.service";
+import {ToastrModule, ToastrService} from "ngx-toastr";
 
 @NgModule({
   imports: [
@@ -35,7 +37,8 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     MatExpansionModule,
     MatMenuModule,
     DragDropModule,
-    MatCardModule
+    MatCardModule,
+    ToastrModule.forRoot()
   ],
   declarations:
     [
@@ -54,7 +57,9 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
   providers:
     [
     SignalrService,
-    NotificationService
+    NotificationService,
+    ToastrService,
+    ReactiveToasterService
     ]
 })
 export class NotificationsModule {

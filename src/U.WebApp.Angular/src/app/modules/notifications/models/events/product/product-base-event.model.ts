@@ -1,4 +1,6 @@
-export interface ProductBaseEvent
+import {BaseEvent} from "../base-event.model";
+
+export interface ProductBaseEvent extends  BaseEvent
 {
   id: string;
   productId: string;

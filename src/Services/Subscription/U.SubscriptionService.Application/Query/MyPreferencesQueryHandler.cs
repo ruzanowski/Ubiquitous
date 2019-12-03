@@ -1,6 +1,5 @@
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using U.Common.Subscription;
@@ -11,17 +10,16 @@ namespace U.SubscriptionService.Application.Query
     public class MyPreferencesQueryHandler : IRequestHandler<MyPreferencesQuery, Preferences>
     {
         private readonly SubscriptionContext _context;
-        private readonly IMapper _mapper;
 
-        public MyPreferencesQueryHandler(SubscriptionContext context, IMapper mapper)
+        public MyPreferencesQueryHandler(SubscriptionContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<Preferences> Handle(MyPreferencesQuery request, CancellationToken cancellationToken)
         {
-            var userSubscription = await _context.UserSubscriptions
+            var userSubscription = await _context.UsersSubscription
+                .Include(x=>x.Preferences)
                 .FirstOrDefaultAsync(x => x.UserId.Equals(request.UserId),
                     cancellationToken);
 
