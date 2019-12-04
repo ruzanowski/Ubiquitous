@@ -23,7 +23,7 @@ import * as $ from "jquery";
 export class HomeLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public notificationsToRead: number = 0;
-  public isNotificationNavBarToggled: any = true;
+  public isNotificationNavBarToggled: any = false;
   currentUser: ApplicationUser;
   private _router: Subscription;
   private lastPoppedUrl: string;
@@ -41,7 +41,6 @@ export class HomeLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
   logout(): void {
     this.authenticationService.logout();
-    this.router.navigate(['/login']);
   }
 
   ngOnDestroy(): void {

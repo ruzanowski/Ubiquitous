@@ -22,12 +22,17 @@ namespace U.SubscriptionService.Application.Query
 
         public async Task<IList<string>> Handle(ListSignalRConnectionQuery request, CancellationToken cancellationToken)
         {
-            var signalrConnection = await _context.SignalRConnections
-                .Where(x => x.UserId.Equals(request.UserId))
-                .Select(x=>x.ConnectionId)
-                .ToListAsync(cancellationToken);
+            var signalrConnection = _context.SignalRConnections;
 
-            return signalrConnection;
+            if (request.UserId is null)
+            {
+                signalrConnection
+                    .Where(x => x.UserId.Equals(request.UserId));
+            }
+
+            return await signalrConnection
+                .Select(x => x.ConnectionId)
+                .ToListAsync(cancellationToken);
         }
     }
 }

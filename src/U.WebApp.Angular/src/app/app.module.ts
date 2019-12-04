@@ -23,6 +23,7 @@ import {AppAuthModule} from "./modules/auth";
 import {HomeLayoutComponent} from "./layouts/home-layout/home-layout.component";
 import {LoginLayoutComponent} from "./layouts/login-layout/login-layout.component";
 import {AppRoutingModule} from "./app-routing.module";
+import {SubscriptionModule} from "./modules/subscription/subscription.module";
 
 @NgModule({
   declarations: [AppComponent,
@@ -50,7 +51,8 @@ import {AppRoutingModule} from "./app-routing.module";
     NotificationsModule,
     OverlayModule,
     MatToolbarModule,
-    AppAuthModule
+    AppAuthModule,
+    SubscriptionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

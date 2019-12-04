@@ -41,7 +41,7 @@ export class SignalrService {
         .start()
         .catch(err =>
         {
-          this.authenticationService.check();
+          this.authenticationService.logout();
           this.toastr.showToast('Fatal Error','Could not connect to Notification Service', 'error');
           console.log(err)
         });

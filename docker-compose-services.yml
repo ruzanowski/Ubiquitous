@@ -94,7 +94,7 @@ services:
       DbOptions__Type: Npgsql
       DbOptions__AutoMigration: "true"
     volumes:
-      - '${RELATIVE_PATH}/identityservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${RELATIVE_PATH}/subscriptionservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     restart: unless-stopped
     networks:
       - ubiquitous

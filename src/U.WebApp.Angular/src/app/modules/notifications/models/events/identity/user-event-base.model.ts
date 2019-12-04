@@ -1,4 +1,4 @@
-import {BaseEvent} from "./user-connected.model";
+import {BaseEvent} from "../base-event.model";
 
 export interface UserEventBase extends BaseEvent
 {

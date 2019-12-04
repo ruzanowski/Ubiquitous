@@ -1,0 +1,425 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-primary">
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li class="nav-item">
+                    <a mat-button class="nav-link active" href="#settings" data-toggle="tab">
+                      <i class="material-icons">settings</i> Notifications Settings
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a mat-button class="nav-link" href="#events" data-toggle="tab">
+                      <i class="material-icons">bug_report</i> Events Settings
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a mat-button class="nav-link" href="#signalr" data-toggle="tab">
+                      <i class="material-icons">code</i> Current Connections
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="settings">
+                <table class="table">
+                  <tbody>
+                  <tr>
+                    <td>
+                      <b>Name</b>
+                    </td>
+                    <td>
+                      <b>Description</b>
+                    </td>
+                    <td>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Login Welcome Notifications
+                    </td>
+                    <td>
+                      Set number of persisted notifications received during log-in
+                    </td>
+                    <td>
+                      <mat-form-field>
+                        <mat-label>{{preferences.numberOfWelcomeMessages}}</mat-label>
+                        <mat-select placeholder="Select">
+                          <mat-option value="option">15</mat-option>
+                          <mat-option value="option">30</mat-option>
+                          <mat-option value="option">45</mat-option>
+                          <mat-option value="option">60</mat-option>
+                          <mat-option value="option">100</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      See Read Notifications
+                    </td>
+                    <td>
+                      Toggle to receive read notifications
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="" [checked]="preferences.seeReadNotifications">
+                          <span class="form-check-sign">
+                            <span class="check">
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      See Unread Notifications
+                    </td>
+                    <td>
+                      Toggle to receive unread notifications
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="" [checked]="preferences.seeUnreadNotifications">
+                          <span class="form-check-sign">
+                            <span class="check">
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Incognito Mode
+                    </td>
+                    <td>
+                      Toggle to NOT notify anyone about my activity
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="" [checked]="preferences.doNotNotifyAnyoneAboutMyActivity">
+                          <span class="form-check-sign">
+                            <span class="check">
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-pane" id="events">
+                <table class="table">
+                  <tbody>
+                  <tr>
+                    <td>
+                    </td>
+                    <td>
+                      <b>Name</b>
+                    </td>
+                    <td><b>Importancy</b></td>
+                    <td>
+                      <b>Description</b>
+                    </td>
+                    <td>
+                      <i class="material-icons">info</i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="" checked>
+                          <span class="form-check-sign"><span class="check"></span></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      Product Published
+                    </td>
+                    <td>
+                      <mat-form-field>
+                        <mat-select placeholder="Select">
+                          <mat-option value="option">Trivial</mat-option>
+                          <mat-option value="option">Normal</mat-option>
+                          <mat-option value="option">Important</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      Notify me when: product changed state to 'published'
+                    </td>
+                    <td>
+                      <i>persistent</i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="" checked>
+                          <span class="form-check-sign"><span class="check"></span></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>Product Properties Changed
+                    </td>
+                    <td>
+                      <mat-form-field>
+                        <mat-select placeholder="Select">
+                          <mat-option value="option">Trivial</mat-option>
+                          <mat-option value="option">Normal</mat-option>
+                          <mat-option value="option">Important</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      Notify me when: product properties changed e.g. dimensions, price
+                    </td>
+                    <td>
+                      <i>persistent</i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="" checked>
+                          <span class="form-check-sign"><span class="check"></span></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      Product Added
+                    </td>
+                    <td>
+                      <mat-form-field>
+                        <mat-select placeholder="Select">
+                          <mat-option value="option">Trivial</mat-option>
+                          <mat-option value="option">Normal</mat-option>
+                          <mat-option value="option">Important</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      Notify me when: new product has been added to Ubiquitous and it is being tracked
+                    </td>
+                    <td>
+                      <i>persistent</i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="" checked>
+                          <span class="form-check-sign">
+                                                          <span class="check"></span>
+                                                      </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      New User Signed Up
+                    </td>
+                    <td>
+                      <mat-form-field>
+                        <mat-select placeholder="Select">
+                          <mat-option value="option">Trivial</mat-option>
+                          <mat-option value="option">Normal</mat-option>
+                          <mat-option value="option">Important</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      Notify me when: new user has signed up
+                    </td>
+                    <td>
+                      <i>persistent</i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="" checked>
+                          <span class="form-check-sign"><span class="check"></span></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      User Joined
+                    </td>
+                    <td>
+                      <mat-form-field>
+                        <mat-select placeholder="Select">
+                          <mat-option value="option">Trivial</mat-option>
+                          <mat-option value="option">Normal</mat-option>
+                          <mat-option value="option">Important</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      Notify me when: user joined
+                    </td>
+                    <td>
+                      <i>volatile</i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="" checked>
+                          <span class="form-check-sign">
+                                                          <span class="check"></span>
+                                                      </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      User Left
+                    </td>
+                    <td>
+                      <mat-form-field>
+                        <mat-select placeholder="Select">
+                          <mat-option value="option">Trivial</mat-option>
+                          <mat-option value="option">Normal</mat-option>
+                          <mat-option value="option">Important</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      Notify me when: user left
+                    </td>
+                    <td>
+                      <i>volatile</i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="" checked disabled>
+                          <span class="form-check-sign"> <span class="check"></span></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      Access Token Refreshed
+                    </td>
+                    <td>
+                      <mat-form-field>
+                        <mat-select placeholder="Select">
+                          <mat-option value="option">Trivial</mat-option>
+                          <mat-option value="option">Normal</mat-option>
+                          <mat-option value="option">Important</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      Notify me when: access token has been refresh
+                    </td>
+                    <td>
+                      <i>locked due mandatory</i>
+                    </td>
+                  <tr>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="" disabled>
+                          <span class="form-check-sign"><span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      Product Fetched
+                    </td>
+                    <td>
+                      <mat-form-field>
+                        <mat-select placeholder="Select">
+                          <mat-option value="option">Trivial</mat-option>
+                          <mat-option value="option">Normal</mat-option>
+                          <mat-option value="option">Important</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      Notify me when: product has been fetched from adapters
+                    </td>
+                    <td>
+                      <i>locked due too big traffic</i>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-pane" id="signalr">
+                <table class="table">
+                  <tbody>
+                  <tr>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="" checked>
+                          <span class="form-check-sign">
+                                                          <span class="check"></span>
+                                                      </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>Connection 1
+                    </td>
+                    <td class="td-actions text-right">
+                      <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'"
+                              class="btn btn-danger btn-link btn-sm btn-just-icon">
+                        <i class="material-icons">close</i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="">
+                          <span class="form-check-sign">
+                                                          <span class="check"></span>
+                                                      </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>Connection 2</td>
+                    <td class="td-actions text-right">
+                      <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'"
+                              class="btn btn-danger btn-link btn-sm btn-just-icon">
+                        <i class="material-icons">close</i>
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

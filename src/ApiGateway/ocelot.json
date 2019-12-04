@@ -52,6 +52,17 @@
       }
     },
     {
+      "UpstreamPathTemplate": "/api/subscription/{everything}",
+      "DownstreamPathTemplate": "/api/subscription/{everything}",
+      "DownstreamScheme": "http",
+      "ReRouteIsCaseSensitive": false,
+      "ServiceName": "u.subscription-service",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
       "UpstreamPathTemplate": "/signalr/{everything}",
       "DownstreamPathTemplate": "/signalr/{everything}",
       "DownstreamScheme": "ws",

@@ -27,7 +27,11 @@ namespace U.SubscriptionService.Application.Command.Preferences
                 throw new ArgumentException("Preferences must not be null");
             }
 
-            var userSubscription = _context.UsersSubscription.Include(x=>x.Preferences).FirstOrDefault(x => x.UserId.Equals(request.UserId));
+            var userSubscription = _context.UsersSubscription
+                .Include(x=>x.Preferences)
+                .Include(x=>x.Connections)
+                .Include(x=>x.AllowedEvents)
+                .FirstOrDefault(x => x.UserId.Equals(request.UserId));
 
             if (userSubscription is null)
             {

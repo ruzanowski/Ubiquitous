@@ -8,12 +8,13 @@ namespace U.NotificationService.Application.Services.Subscription
 {
     public interface ISubscriptionService
     {
-        [Post("api/subscription/signalrconnection/bind")]
+        [Post("api/subscription/signalr/me/bind")]
         [AllowAnyStatusCode]
-        Task BindConnectionToUserAsync(Guid userId, string connectionId);
-        [Post("api/subscription/signalrconnection/unbind")]
+        Task BindConnectionToUserAsync(string connectionId);
+
+        [Post("api/subscription/signalr/me/unbind")]
         [AllowAnyStatusCode]
-        Task UnbindConnectionToUserAsync(Guid userId, string connectionId);
+        Task UnbindConnectionToUserAsync(string connectionId);
 
         [Get("api/subscription/preferences/me")]
         [AllowAnyStatusCode]

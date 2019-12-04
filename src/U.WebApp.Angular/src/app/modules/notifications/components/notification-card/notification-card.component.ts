@@ -1,12 +1,11 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {ProductBaseEvent} from "../../models/product-base-event.model";
 import {ManufacturerService} from "../../../manufacturers/manufacturers.service";
 import {NotificationDto} from "../../models/notification-dto.model";
 import {IntegrationEventType} from "../../models/integration-event-type.model";
 import {ConfirmationType} from "../../models/confirmation-type.model";
 import {NotificationService} from "../../services/notification.service";
 import {Importancy} from "../../models/importancy.model";
-import {AuthGuard} from "../../../auth";
+import {ProductBaseEvent} from "../../models/events/product/product-base-event.model";
 
 @Component({
   selector: 'notification-card',
@@ -15,10 +14,8 @@ import {AuthGuard} from "../../../auth";
 })
 export class NotificationCardComponent implements OnInit, OnDestroy
 {
-
-  public primary_color_primary: string = '#00695c';
-  public primary_color_light: string  ='#439889';
-  public primary_color_read: string = '#707070';
+  public primary_color_light: string  ='#66bb6a';
+  public primary_color_read: string = '#c4c4c4';
   public primary_color_dark: string  ='#003d33';
 
   public manufacturerName: string = "none";

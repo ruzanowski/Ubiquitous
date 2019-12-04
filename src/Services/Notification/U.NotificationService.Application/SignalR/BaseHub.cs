@@ -49,7 +49,7 @@ namespace U.NotificationService.Application.SignalR
                 Context.Abort();
             }
 
-            await _subscriptionService.BindConnectionToUserAsync(currentUser.Id, Context.ConnectionId);
+            await _subscriptionService.BindConnectionToUserAsync(Context.ConnectionId);
             await LoadAndPushWelcomeMessages(currentUser.Id, currentUser.Nickname);
 
             var preferences = await _subscriptionService.GetMyPreferencesAsync();
@@ -75,7 +75,7 @@ namespace U.NotificationService.Application.SignalR
                 Context.Abort();
             }
 
-            await _subscriptionService.UnbindConnectionToUserAsync(currentUser.Id, Context.ConnectionId);
+            await _subscriptionService.UnbindConnectionToUserAsync(Context.ConnectionId);
 
             var preferences = await _subscriptionService.GetMyPreferencesAsync();
 

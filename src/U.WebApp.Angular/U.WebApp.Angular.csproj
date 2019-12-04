@@ -50,8 +50,7 @@
         <Content Include="src\app\modules\shared\components\sidebar\sidebar.component.css" />
         <Content Include="src\app\modules\shared\components\sidebar\sidebar.component.html" />
         <Content Include="src\app\modules\shared\components\spinner-overlay\progress-spinner.component.html" />
-        <Content Include="src\app\modules\subscription\components\products-details\products-details.component.css" />
-        <Content Include="src\app\modules\subscription\components\products.component.css" />
+        <Content Include="src\app\modules\subscription\components\subscription.component.css" />
         <Content Include="src\assets\core\cards\_card-plain.scss" />
         <Content Include="src\assets\core\cards\_card-profile.scss" />
         <Content Include="src\assets\core\cards\_card-stats.scss" />
@@ -131,20 +130,14 @@
         <Content Include="src\assets\core\_variables.scss" />
         <Content Include="src\assets\img\angular.png" />
         <Content Include="src\assets\img\angular2-logo-red.png" />
-        <Content Include="src\assets\img\angular2-logo.png" />
-        <Content Include="src\assets\img\apple-icon.png" />
         <Content Include="src\assets\img\cover.jpeg" />
-        <Content Include="src\assets\img\faces\marc.jpg" />
-        <Content Include="src\assets\img\favicon.png" />
         <Content Include="src\assets\img\gears.gif" />
         <Content Include="src\assets\img\html.png" />
         <Content Include="src\assets\img\mask.png" />
-        <Content Include="src\assets\img\new_logo.png" />
         <Content Include="src\assets\img\sidebar-1.jpg" />
         <Content Include="src\assets\img\sidebar-2.jpg" />
         <Content Include="src\assets\img\sidebar-3.jpg" />
         <Content Include="src\assets\img\sidebar-4.jpg" />
-        <Content Include="src\assets\img\tim_80x80.png" />
         <Content Include="src\assets\material-dashboard.scss" />
         <Content Include="src\assets\no-image.png" />
         <None Remove="$(SpaRoot)**" />
@@ -273,7 +266,8 @@
       <TypeScriptCompile Include="src\app\modules\shared\services\loader.service.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\services\overlay.service.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\shared.module.ts" />
-      <TypeScriptCompile Include="src\app\modules\subscription\product.module.ts" />
+      <TypeScriptCompile Include="src\app\modules\subscription\models\allowed-events.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\subscription\subscription.module.ts" />
     </ItemGroup>
 
     <ItemGroup>
