@@ -37,7 +37,7 @@ namespace U.SubscriptionService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("bind")]
+        [Route("internal/bind")]
         [ProducesResponseType((int) HttpStatusCode.NoContent)]
         public async Task<IActionResult> BindAsync(Guid userId, string connectionId)
         {
@@ -57,7 +57,7 @@ namespace U.SubscriptionService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("unbind")]
+        [Route("internal/unbind")]
         [ProducesResponseType((int) HttpStatusCode.NoContent)]
         public async Task<IActionResult> UnbindAsync(Guid userId, string connectionId)
         {
@@ -84,7 +84,7 @@ namespace U.SubscriptionService.Controllers
         {
             var connections = new ListSignalRConnectionQuery
             {
-                UserId = _contextAccessor.HttpContext.GetUser().Id,
+                UserId = _contextAccessor.HttpContext.GetUserOrThrow().Id,
             };
 
             var queryResult = await _mediator.Send(connections);
@@ -114,12 +114,13 @@ namespace U.SubscriptionService.Controllers
         [HttpPost]
         [Route("me/bind")]
         [ProducesResponseType((int) HttpStatusCode.NoContent)]
+        [JwtAuth]
         public async Task<IActionResult> BindMeAsync(string connectionId)
         {
 
             var preferences = new BindConnectionToUserCommand
             {
-                UserId = _contextAccessor.HttpContext.GetUser().Id,
+                UserId = _contextAccessor.HttpContext.GetUserOrThrow().Id,
                 ConnectionId = connectionId
             };
 
@@ -134,12 +135,13 @@ namespace U.SubscriptionService.Controllers
         [HttpPost]
         [Route("me/unbind")]
         [ProducesResponseType((int) HttpStatusCode.NoContent)]
+        [JwtAuth]
         public async Task<IActionResult> UnbindMeAsync(string connectionId)
         {
 
             var preferences = new UnbindConnectionToUserCommand
             {
-                UserId = _contextAccessor.HttpContext.GetUser().Id,
+                UserId = _contextAccessor.HttpContext.GetUserOrThrow().Id,
                 ConnectionId = connectionId
             };
 

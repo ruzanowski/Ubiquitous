@@ -64,8 +64,8 @@ namespace U.SubscriptionService
                 .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()
-                .UseCookiePolicy()
-                .UseMvc();
+                .UseCookiePolicy();
+
 
             app.UseJwtTokenValidator();
 

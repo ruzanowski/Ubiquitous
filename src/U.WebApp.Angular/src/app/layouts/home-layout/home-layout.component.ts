@@ -96,9 +96,13 @@ export class HomeLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     //   elemSidebar.scrollTop = 0;
     // });
 
+    if (elemMainPanel != null)
+    {
+
     if (window.matchMedia(`(min-width: 960px)`).matches && !HomeLayoutComponent.isMac()) {
       let ps = new PerfectScrollbar(elemMainPanel);
       ps = new PerfectScrollbar(elemSidebar);
+    }
     }
 
     const window_width = $(window).width();
@@ -181,8 +185,12 @@ export class HomeLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
   static runOnRouteChange(): void {
     if (window.matchMedia(`(min-width: 960px)`).matches && !HomeLayoutComponent.isMac()) {
       const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');
+
+      if (elemMainPanel != null)
+      {
       const ps = new PerfectScrollbar(elemMainPanel);
       ps.update();
+      }
     }
   }
 

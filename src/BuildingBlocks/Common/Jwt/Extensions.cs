@@ -71,6 +71,7 @@ namespace U.Common.Jwt
                             return Task.CompletedTask;
                         }
                     };
+
                 });
 
             services.AddAuthorization();

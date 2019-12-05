@@ -28,6 +28,7 @@ namespace U.SubscriptionService.Application.Command.SignalRConnections.Bind
             if (userSubscription is null)
             {
                 userSubscription = UserSubscription.Factory.Create(request.UserId);
+                _context.Add(userSubscription);
             }
 
             userSubscription.BindConnectionWithUserId(request.ConnectionId, request.UserId);

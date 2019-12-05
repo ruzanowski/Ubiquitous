@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using U.Common.Subscription;
 using U.NotificationService.Application.Models;
 using U.NotificationService.Application.Services.QueryBuilder;
 using U.NotificationService.Application.Services.Subscription;
@@ -27,10 +28,8 @@ namespace U.NotificationService.Application.Services.WelcomeNotifications
             _subscriptionService = subscriptionService;
         }
 
-        public async Task<List<Notification>> LoadWelcomeMessages(Guid userId)
+        public async Task<List<Notification>> LoadWelcomeMessages(Preferences preferences, Guid userId)
         {
-            var preferences = await _subscriptionService.GetMyPreferencesAsync();
-
             var orderByCreationTimeDescending = preferences.OrderByCreationTimeDescending;
             var thenOrderByImportancyDescending = preferences.OrderByImportancyDescending;
             var numberOfWelcomeMessages = preferences.NumberOfWelcomeMessages;

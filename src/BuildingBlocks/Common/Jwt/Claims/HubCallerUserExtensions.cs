@@ -54,13 +54,18 @@ namespace U.Common.Jwt.Claims
                 .FirstOrDefault();
         }
 
-        public static UserDto GetUser(this HubCallerContext callerContext)
+        public static UserDto GetUserOrThrow(this HubCallerContext callerContext)
         {
             var userId = callerContext.GetId();
 
+            if (userId is null)
+            {
+                throw new UnauthorizedAccessException("Not found claims!!!!");
+            }
+
             var user = new UserDto
             {
-                Id = userId is null? Guid.Empty : Guid.Parse(userId),
+                Id = Guid.Parse(userId),
                 Email = callerContext.GetEmail(),
                 Nickname = callerContext.GetNickname(),
                 Role = callerContext.GetRole(),

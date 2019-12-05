@@ -28,7 +28,8 @@ import {ChartistModule} from "ng-chartist";
       MatTabsModule,
       MatGridListModule,
       MatTooltipModule,
-      ChartistModule, MatButtonModule
+      ChartistModule,
+      MatButtonModule
     ],
   declarations: [DashboardMainTabsComponent, DashboardComponent],
   exports: [

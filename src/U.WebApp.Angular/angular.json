@@ -26,7 +26,6 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "node_modules/chartist/dist/chartist.css",
               "src/assets/material-dashboard.scss",
               "node_modules/ngx-toastr/toastr.css"
             ],
@@ -35,8 +34,8 @@
               "node_modules/popper.js/dist/umd/popper.js",
               "node_modules/bootstrap-material-design/dist/js/bootstrap-material-design.js",
               "node_modules/moment/moment.js",
-              "node_modules/chartist/dist/chartist.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/chartist/dist/chartist.js"
             ]
           },
           "configurations": {

@@ -14,7 +14,7 @@ namespace U.Common.Jwt.Claims
         public static string GetId(this HttpContext httpContext)
         {
             return httpContext?.User?.Claims
-                .Where(x => x.Type == JwtClaimsTypes.Sub)
+                .Where(x => x.Type == JwtClaimsTypes.Id)
                 .Select(x => x.Value)
                 .FirstOrDefault();
         }
@@ -51,13 +51,18 @@ namespace U.Common.Jwt.Claims
                 .FirstOrDefault();
         }
 
-        public static UserDto GetUser(this HttpContext callerContext)
+        public static UserDto GetUserOrThrow(this HttpContext callerContext)
         {
             var userId = callerContext.GetId();
 
+            if (userId is null)
+            {
+                throw new UnauthorizedAccessException("Not found claims!!!!");
+            }
+
             var user = new UserDto
             {
-                Id = userId is null? Guid.Empty : Guid.Parse(userId),
+                Id = Guid.Parse(userId),
                 Email = callerContext.GetEmail(),
                 Nickname = callerContext.GetNickname(),
                 Role = callerContext.GetRole(),

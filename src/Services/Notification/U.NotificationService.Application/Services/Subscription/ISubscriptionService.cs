@@ -8,16 +8,16 @@ namespace U.NotificationService.Application.Services.Subscription
 {
     public interface ISubscriptionService
     {
-        [Post("api/subscription/signalr/me/bind")]
+        [Post("api/subscription/signalr/internal/bind")]
         [AllowAnyStatusCode]
-        Task BindConnectionToUserAsync(string connectionId);
+        Task BindConnectionToUserAsync(Guid userId, string connectionId);
 
-        [Post("api/subscription/signalr/me/unbind")]
+        [Post("api/subscription/signalr/internal/unbind")]
         [AllowAnyStatusCode]
-        Task UnbindConnectionToUserAsync(string connectionId);
+        Task UnbindConnectionToUserAsync(Guid userId,  string connectionId);
 
-        [Get("api/subscription/preferences/me")]
+        [Get("api/subscription/preferences/me/signalr")]
         [AllowAnyStatusCode]
-        Task<Preferences> GetMyPreferencesAsync();
+        Task<Preferences> GetMyPreferencesAsync(Guid userId);
     }
 }

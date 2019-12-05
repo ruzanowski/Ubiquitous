@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using U.Common.Jwt;
 using U.Common.Jwt.Claims;
+using U.Common.Subscription;
 using U.NotificationService.Application.Models;
 using U.NotificationService.Application.Services.Subscription;
 using U.NotificationService.Application.Services.Users;
@@ -35,7 +36,7 @@ namespace U.NotificationService.Application.SignalR
             _subscriptionService = subscriptionService;
         }
 
-        private UserDto GetCurrentUser() => Context.GetUser();
+        private UserDto GetCurrentUser() => Context.GetUserOrThrow();
 
         public override async Task OnConnectedAsync()
         {
@@ -49,10 +50,11 @@ namespace U.NotificationService.Application.SignalR
                 Context.Abort();
             }
 
-            await _subscriptionService.BindConnectionToUserAsync(Context.ConnectionId);
-            await LoadAndPushWelcomeMessages(currentUser.Id, currentUser.Nickname);
+            await _subscriptionService.BindConnectionToUserAsync(currentUser.Id,  Context.ConnectionId);
 
-            var preferences = await _subscriptionService.GetMyPreferencesAsync();
+            var preferences = await _subscriptionService.GetMyPreferencesAsync(currentUser.Id);
+            await LoadAndPushWelcomeMessages(preferences, currentUser.Id, currentUser.Nickname);
+
 
             if (preferences.DoNotNotifyAnyoneAboutMyActivity == false)
             {
@@ -65,7 +67,7 @@ namespace U.NotificationService.Application.SignalR
 
         public override async Task OnDisconnectedAsync(Exception ex)
         {
-            UserDto currentUser = Context.GetUser();
+            UserDto currentUser = Context.GetUserOrThrow();
             if (Context.IsAuthenticated())
             {
                 _logger.LogDebug($"User: '{currentUser.Nickname}' has disconnected");
@@ -75,9 +77,9 @@ namespace U.NotificationService.Application.SignalR
                 Context.Abort();
             }
 
-            await _subscriptionService.UnbindConnectionToUserAsync(Context.ConnectionId);
+            var preferences = await _subscriptionService.GetMyPreferencesAsync(currentUser.Id);
 
-            var preferences = await _subscriptionService.GetMyPreferencesAsync();
+            await _subscriptionService.UnbindConnectionToUserAsync(currentUser.Id, Context.ConnectionId);
 
             if (preferences.DoNotNotifyAnyoneAboutMyActivity == false)
             {
@@ -91,7 +93,7 @@ namespace U.NotificationService.Application.SignalR
         [JwtAuth]
         public async Task ConfirmReadNotification(Guid notifcationId)
         {
-            UserDto currentUser = Context.GetUser();
+            UserDto currentUser = Context.GetUserOrThrow();
             if (Context.IsAuthenticated())
             {
                 _logger.LogDebug($"User: '{currentUser.Nickname}' has disconnected");
@@ -139,7 +141,7 @@ namespace U.NotificationService.Application.SignalR
         [JwtAuth]
         public async Task HideNotification(Guid notifcationId)
         {
-            UserDto currentUser = Context.GetUser();
+            UserDto currentUser = Context.GetUserOrThrow();
             if (Context.IsAuthenticated())
             {
                 _logger.LogDebug($"User: '{currentUser.Nickname}' has disconnected");
@@ -184,9 +186,9 @@ namespace U.NotificationService.Application.SignalR
             await _context.SaveChangesAsync();
         }
 
-        private async Task LoadAndPushWelcomeMessages(Guid userId, string userNickname)
+        private async Task LoadAndPushWelcomeMessages(Preferences preferences, Guid userId, string userNickname)
         {
-            var notifications = await _welcomeNotificationsService.LoadWelcomeMessages(userId);
+            var notifications = await _welcomeNotificationsService.LoadWelcomeMessages(preferences, userId);
 
             foreach (var notification in notifications)
             {

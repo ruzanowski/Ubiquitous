@@ -64,6 +64,7 @@ namespace U.Common.Jwt.Service
             {
                 new Claim(JwtClaimsTypes.Sub, userId),
                 new Claim(JwtClaimsTypes.UniqueName, userId),
+                new Claim(JwtClaimsTypes.Name, userId),
                 new Claim(JwtClaimsTypes.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtClaimsTypes.Iat, now.ToTimestamp().ToString())
             };

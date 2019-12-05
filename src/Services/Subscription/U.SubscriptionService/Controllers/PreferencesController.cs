@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using U.Common.Jwt;
 using U.Common.Jwt.Claims;
 using U.Common.Subscription;
 using U.NotificationService.Domain.Entities;
@@ -38,11 +40,29 @@ namespace U.SubscriptionService.Controllers
         [HttpGet]
         [Route("me")]
         [ProducesResponseType(typeof(Preferences), (int) HttpStatusCode.OK)]
+        [JwtAuth]
         public async Task<IActionResult> GetMyPreferencesAsync()
         {
             var preferences = new MyPreferencesQuery
             {
-                UserId = _contextAccessor.HttpContext.GetUser().Id
+                UserId = _contextAccessor.HttpContext.GetUserOrThrow().Id
+            };
+
+            var queryResult = await _mediator.Send(preferences);
+            return Ok(queryResult);
+        }
+        /// <summary>
+        /// Get my preferences
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("me/signalr")]
+        [ProducesResponseType(typeof(Preferences), (int) HttpStatusCode.OK)]
+        public async Task<IActionResult> GetMyPreferencesAsync(Guid userId)
+        {
+            var preferences = new MyPreferencesQuery
+            {
+                UserId = userId
             };
 
             var queryResult = await _mediator.Send(preferences);
@@ -56,12 +76,13 @@ namespace U.SubscriptionService.Controllers
         [HttpPost]
         [Route("me")]
         [ProducesResponseType(typeof(Preferences), (int) HttpStatusCode.OK)]
+        [JwtAuth]
         public async Task<IActionResult> SetPreferences(Preferences preferences)
         {
             var command = new SetPreferencesCommand
             {
                 Preferences = preferences,
-                UserId = _contextAccessor.HttpContext.GetUser().Id
+                UserId = _contextAccessor.HttpContext.GetUserOrThrow().Id
             };
 
             await _mediator.Send(command);
@@ -73,13 +94,14 @@ namespace U.SubscriptionService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("allowed-events")]
+        [Route("me/allowed-events")]
         [ProducesResponseType((int) HttpStatusCode.NoContent)]
+        [JwtAuth]
         public async Task<IActionResult> SetAllowedEventsAsync(ISet<IntegrationEventType> allowedEvents)
         {
             var preferences = new SetAllowedPreferencesCommand
             {
-                UserId = _contextAccessor.HttpContext.GetUser().Id,
+                UserId = _contextAccessor.HttpContext.GetUserOrThrow().Id,
                 IntegrationEventTypes = allowedEvents
             };
 
@@ -92,13 +114,14 @@ namespace U.SubscriptionService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("allowed-events")]
+        [Route("me/allowed-events")]
         [ProducesResponseType(typeof(List<string>), (int) HttpStatusCode.OK)]
+        [JwtAuth]
         public async Task<IActionResult> GetMyAllowedEvents()
         {
             var connections = new ListAllowedEventsQuery
             {
-                UserId = _contextAccessor.HttpContext.GetUser().Id
+                UserId = _contextAccessor.HttpContext.GetUserOrThrow().Id
             };
 
             var queryResult = await _mediator.Send(connections);

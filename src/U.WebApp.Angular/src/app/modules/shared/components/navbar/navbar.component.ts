@@ -33,6 +33,7 @@ export class NavbarComponent {
   private toggleButton: any;
   private sidebarVisible: boolean;
   isLoggedIn$: Observable<boolean>;
+  currentUser: string;
 
 
   toggleNotificationMenu() {
@@ -50,6 +51,10 @@ export class NavbarComponent {
     this.location = location;
     this.sidebarVisible = false;
     this.isLoggedIn$ = this.authService.isLoggedIn;
+    this.authService.currentUser.subscribe(x=>
+      {
+       this.currentUser = x.claims["nickname"]
+      });
   }
 
   ngOnInit() {
@@ -117,11 +122,11 @@ export class NavbarComponent {
       $layer.setAttribute('class', 'close-layer');
 
 
-      // if (body.querySelectorAll('.main-panel')) {
-      //   document.getElementsByClassName('main-panel')[0].appendChild($layer);
-      // } else if (body.classList.contains('off-canvas-sidebar')) {
-      //   document.getElementsByClassName('wrapper-full-page')[0].appendChild($layer);
-      // }
+      if (body.querySelectorAll('.main-panel')) {
+        document.getElementsByClassName('main-panel')[0].appendChild($layer);
+      } else if (body.classList.contains('off-canvas-sidebar')) {
+        document.getElementsByClassName('wrapper-full-page')[0].appendChild($layer);
+      }
 
       setTimeout(function () {
         $layer.classList.add('visible');
