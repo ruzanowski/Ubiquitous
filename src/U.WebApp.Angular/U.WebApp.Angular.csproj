@@ -30,11 +30,10 @@
         <Content Include="src\app\layouts\home-layout\home-layout.component.css" />
         <Content Include="src\app\layouts\home-layout\home-layout.component.html" />
         <Content Include="src\app\modules\categories\components\table-category\table-categories.component.css" />
+        <Content Include="src\app\modules\dashboard\components\dashboard\dashboard-chart-notifications\data.json" />
         <Content Include="src\app\modules\login\components\login\login.component.css" />
         <Content Include="src\app\modules\login\components\login\login.component.html" />
         <Content Include="src\app\modules\manufacturers\components\table-manufacturers\table-manufacturers.component.css" />
-        <Content Include="src\app\modules\notifications\components\notification-settings\notification-settings.component.css" />
-        <Content Include="src\app\modules\notifications\components\notification-settings\notification-settings.component.html" />
         <Content Include="src\app\modules\notifications\components\notifications-list\notifications-list.component.css" />
         <Content Include="src\app\modules\notifications\components\notifications-list\notifications-list.component.html" />
         <Content Include="src\app\modules\notifications\components\notification-card\notification-card.component.html" />
@@ -219,7 +218,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <TypeScriptCompile Include="src\app\animations.ts" />
       <TypeScriptCompile Include="src\app\app-routing.module.ts" />
       <TypeScriptCompile Include="src\app\layouts\home-layout\home-layout.component.ts" />
       <TypeScriptCompile Include="src\app\layouts\login-layout\login-layout.component.ts" />
@@ -231,10 +229,12 @@
       <TypeScriptCompile Include="src\app\modules\auth\index.ts" />
       <TypeScriptCompile Include="src\app\modules\auth\jwt.interceptor.ts" />
       <TypeScriptCompile Include="src\app\modules\categories\category.module.ts" />
+      <TypeScriptCompile Include="src\app\modules\dashboard\components\dashboard\dashboard-chart-notifications\notifications-live-chart.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\dashboard\components\dashboard\dashboard-chart-notifications\notifications-pie-chart.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\dashboard\components\dashboard\dashboard-chart-notifications\notifications-bar-chart.component.ts" />
       <TypeScriptCompile Include="src\app\modules\dashboard\dashboard.module.ts" />
       <TypeScriptCompile Include="src\app\modules\login\components\login\login.component.ts" />
       <TypeScriptCompile Include="src\app\modules\manufacturers\manufacturer.module.ts" />
-      <TypeScriptCompile Include="src\app\modules\notifications\components\notification-settings\notification-settings.component.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\components\notifications-list\notifications-list.component.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\components\notification-card\notification-card.component.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\models\confirmation-type.model.ts" />

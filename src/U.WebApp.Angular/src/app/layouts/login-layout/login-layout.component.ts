@@ -1,7 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {slideInAnimation} from "../../animations";
-
-import {IndividualConfig, ToastrService} from 'ngx-toastr';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-login',

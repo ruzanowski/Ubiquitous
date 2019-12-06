@@ -14,6 +14,13 @@ import {ProductsModule} from "../products/product.module";
 import {DashboardMainTabsComponent} from "./components/dashboard-main-tabs/dashboard-main-tabs.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {ChartistModule} from "ng-chartist";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { ChartsModule } from 'ng2-charts';
+import {NotificationsBarChartComponent} from "./components/dashboard/dashboard-chart-notifications/notifications-bar-chart.component";
+import {
+  AsyncChartComponent,
+} from "./components/dashboard/dashboard-chart-notifications/notifications-pie-chart.component";
+import {LiveChartComponent} from "./components/dashboard/dashboard-chart-notifications/notifications-live-chart.component";
 
 @NgModule({
   imports:
@@ -29,14 +36,15 @@ import {ChartistModule} from "ng-chartist";
       MatGridListModule,
       MatTooltipModule,
       ChartistModule,
-      MatButtonModule
+      MatButtonModule,
+      NgbModule,
+      ChartsModule
     ],
-  declarations: [DashboardMainTabsComponent, DashboardComponent],
+  declarations: [DashboardMainTabsComponent, DashboardComponent, NotificationsBarChartComponent, LiveChartComponent, AsyncChartComponent ],
   exports: [
-    DashboardMainTabsComponent, DashboardComponent
+    DashboardMainTabsComponent, DashboardComponent, NotificationsBarChartComponent, LiveChartComponent, AsyncChartComponent
   ],
-  providers: [DashboardMainTabsComponent, DashboardComponent],
-  entryComponents: [DashboardMainTabsComponent, DashboardComponent]
+  providers: [DashboardMainTabsComponent, DashboardComponent]
 })
 export class DashboardModule {
 }

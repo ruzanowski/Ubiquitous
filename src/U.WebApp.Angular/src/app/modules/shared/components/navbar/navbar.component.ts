@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
 import {ROUTES} from "../sidebar/sidebar.component";
 import {Location} from '@angular/common';
@@ -10,7 +10,9 @@ import {AuthenticationService} from "../../../auth";
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent
+implements OnInit
+{
   public isNotificationNavBarToggled: boolean = false;
 
   public primary_color_primary: string = '#00695c';

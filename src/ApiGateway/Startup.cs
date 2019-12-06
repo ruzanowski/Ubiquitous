@@ -43,19 +43,17 @@ namespace U.ApiGateway
 
             app.UseCors("CorsPolicy");
             app.UseServiceId();
-            app.UseForwardedHeaders();
             app.UseAuthentication();
             app.UseJwtTokenValidator();
             app.UseForwardedHeaders();
             app.UseWebSockets();
 
-            var consulServiceId = app.UseConsulServiceDiscovery();
-
-            applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
-
             app.UseOcelot().Wait();
             app.UseMvc();
 
+            var consulServiceId = app.UseConsulServiceDiscovery();
+
+            applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }
     }
 }

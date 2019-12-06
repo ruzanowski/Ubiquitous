@@ -9,6 +9,8 @@ import {ProductPropertiesChangedEvent} from "../models/events/product/product-pr
 import {ProductPublishedEvent} from "../models/events/product/product-published-event.model";
 import {BaseEvent} from "../models/events/base-event.model";
 import {UserConnectedEvent} from "../models/events/identity/user-connected.model";
+import {UserDisconnectedEvent} from "../models/events/identity/user-disconnected.model";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +45,9 @@ export class NotificationService{
 
   set notifications(data: NotificationDto<BaseEvent>) {
     this.numOfItemsToShow = this._notificationsData.push(data);
+
     this.notificationsToShow = this._notificationsData.slice(0, this.numOfItemsToShow);
+
     this.isFullListDisplayed = false;
     this.emitChangeNumberOfNotifications();
   }
@@ -79,15 +83,17 @@ export class NotificationService{
       });
 
     this.usersConnected$ = this.signalr.usersConnected$.asObservable().subscribe(
-      (notification : NotificationDto<UserConnectedEvent>) => {
+      (notification) => {
         this.notifications = notification;
-        this.toastr.showToast('', notification.event.Nickname + ' has joined!', 'info');
+        this.toastr.showToast('', notification.event.nickname + ' has joined!', 'info');
+        this.usersLogged.push(notification.event.nickname);
       });
 
     this.usersDisconnected$ = this.signalr.usersDisconnected$.asObservable().subscribe(
-      (notification : NotificationDto<UserConnectedEvent>) => {
+      (notification) => {
         this.notifications = notification;
-        this.toastr.showToast('', notification.event.Nickname + ' has left!', 'info');
+        this.toastr.showToast('', notification.event.nickname + ' has left!', 'info');
+        this.usersLogged = this.usersLogged.filter(x=>x != notification.event.nickname);
       });
 
   }

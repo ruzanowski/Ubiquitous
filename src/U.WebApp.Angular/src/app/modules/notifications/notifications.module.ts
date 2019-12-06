@@ -13,7 +13,6 @@ import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {SharedModule} from "../shared/shared.module";
 import {SignalrService} from "./services/signalr.service";
 import {NotificationCardComponent} from "./components/notification-card/notification-card.component";
-import {NotificationSettingsComponent} from "./components/notification-settings/notification-settings.component";
 import {NotificationsComponent} from "./components/notifications-list/notifications-list.component";
 import {NotificationService} from "./services/notification.service";
 import {DragDropModule} from "@angular/cdk/drag-drop";
@@ -45,14 +44,12 @@ import {ToastrModule, ToastrService} from "ngx-toastr";
     NotificationsComponent,
     NotificationCardComponent,
     NotificationCardComponent,
-    NotificationSettingsComponent
     ],
   exports:
     [
     NotificationsComponent,
     NotificationCardComponent,
     InfiniteScrollModule,
-    NotificationSettingsComponent
   ],
   providers:
     [

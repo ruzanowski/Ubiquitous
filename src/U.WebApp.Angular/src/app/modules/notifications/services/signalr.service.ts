@@ -76,6 +76,14 @@ export class SignalrService {
     this.connection.on('ProductAddedSignalRIntegrationEvent', (product: NotificationDto<ProductAddedEvent>) => {
       this.productAdded$.next(product);
     });
+
+    this.connection.on('connected', (product: NotificationDto<UserConnectedEvent>) => {
+      this.usersConnected$.next(product);
+    });
+
+    this.connection.on('disconnected', (product: NotificationDto<UserDisconnectedEvent>) => {
+      this.usersDisconnected$.next(product);
+    });
   }
 
   private MatchTypeOfWelcomeMessage(welcomeNotification: NotificationDto<ProductBaseEvent>)

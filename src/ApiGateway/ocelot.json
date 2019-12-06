@@ -12,11 +12,7 @@
       "DownstreamPathTemplate": "/api/apigateway/{everything}",
       "DownstreamScheme": "http",
       "ReRouteIsCaseSensitive": false,
-      "ServiceName": "u.api-gateway",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      }
+      "ServiceName": "u.api-gateway"
     },
     {
       "UpstreamPathTemplate": "/api/product/{everything}",
