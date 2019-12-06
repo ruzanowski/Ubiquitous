@@ -3,6 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {AuthenticationService} from "../../../auth";
+import {ReactiveToasterService} from "../../../notifications/services/toastr.service";
 
 @Component(
   {
@@ -21,9 +22,12 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private toastr: ReactiveToasterService
   ) {
   }
+
+
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -36,6 +40,7 @@ export class LoginComponent implements OnInit {
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
   }
 
   // convenience getter for easy access to form fields
@@ -63,4 +68,6 @@ export class LoginComponent implements OnInit {
           this.loading = false;
         });
   }
+
+
 }

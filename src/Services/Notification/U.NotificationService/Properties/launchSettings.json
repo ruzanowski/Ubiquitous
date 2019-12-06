@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "U.Notification": {
+    "U.NotificationService": {
       "commandName": "Project",
       "launchBrowser": false,
       "launchUrl": "swagger",

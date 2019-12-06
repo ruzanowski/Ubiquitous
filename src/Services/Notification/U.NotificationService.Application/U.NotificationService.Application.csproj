@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\U.NotificationService.Domain\U.NotificationService.Domain.csproj" />
+      <ProjectReference Include="..\U.NotificationService.Infrastructure\U.NotificationService.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

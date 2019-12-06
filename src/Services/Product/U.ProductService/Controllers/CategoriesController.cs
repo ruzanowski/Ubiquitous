@@ -35,7 +35,6 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="categorysListQuery"></param>
         /// <returns></returns>
-        [JwtAuth]
         [HttpGet]
         [Route("query")]
         [ProducesResponseType(typeof(PaginatedItems<CategoryViewModel>), (int) HttpStatusCode.OK)]
@@ -51,7 +50,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="categoryId"></param>
         /// <returns></returns>
-        [JwtAuth][HttpGet]
+        [HttpGet]
         [Route("query/{categoryId:Guid}")]
         [ProducesResponseType(typeof(PaginatedItems<CategoryViewModel>), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
@@ -66,7 +65,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="manufacturers"></param>
         /// <returns></returns>
-        [JwtAuth][HttpPost]
+        [HttpPost]
         [Route("create")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.Created)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]

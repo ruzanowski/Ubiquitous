@@ -9,8 +9,13 @@
     "secure": false,
     "logLevel": "debug"
   },
+  "/api/subscription": {
+    "target": "http://localhost:4500",
+    "secure": false,
+    "logLevel": "debug"
+  },
   "/signalr": {
-    "target": "http://localhost:5500",
+    "target": "http://localhost:4500",
     "secure": false,
     "logLevel": "debug"
   }

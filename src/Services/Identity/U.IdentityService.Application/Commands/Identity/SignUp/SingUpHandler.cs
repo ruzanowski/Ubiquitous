@@ -4,11 +4,13 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using U.EventBus.Abstractions;
+using U.EventBus.Events;
 using U.EventBus.Events.Identity;
 using U.IdentityService.Domain;
 using U.IdentityService.Domain.Domain;
 using U.IdentityService.Domain.Exceptions;
 using U.IdentityService.Persistance.Repositories;
+using U.NotificationService.Domain.Entities;
 
 namespace U.IdentityService.Application.Commands.Identity.SignUp
 {
@@ -32,6 +34,7 @@ namespace U.IdentityService.Application.Commands.Identity.SignUp
             var role = request.Role;
             var id = request.Id;
             var email = request.Email;
+            var nickname = request.Nickname;
             var password = request.Password;
 
             if (email is null)
@@ -51,11 +54,12 @@ namespace U.IdentityService.Application.Commands.Identity.SignUp
                 role = Role.User;
             }
 
-            user = new User(id, email, role);
+            user = new User(id, email, nickname, role);
             user.SetPassword(password, _passwordHasher);
             await _userRepository.AddAndSaveAsync(user);
 
-            _busPublisher.Publish(new SignedUp(id, email, role));
+            var @event = new SignedUpIntegrationEvent(id, email, role);
+            _busPublisher.Publish(@event);
 
             return Unit.Value;
         }

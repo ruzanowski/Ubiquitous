@@ -37,7 +37,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="manufacturersListQuery"></param>
         /// <returns></returns>
-        [JwtAuth]
+
         [HttpGet]
         [Route("query")]
         [ProducesResponseType(typeof(PaginatedItems<ManufacturerViewModel>), (int) HttpStatusCode.OK)]
@@ -53,7 +53,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="manufacturerId"></param>
         /// <returns></returns>
-        [JwtAuth]
+
         [HttpGet]
         [Route("query/{ManufacturerId:Guid}")]
         [ProducesResponseType(typeof(PaginatedItems<ManufacturerViewModel>), (int) HttpStatusCode.OK)]
@@ -69,7 +69,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="manufacturers"></param>
         /// <returns></returns>
-        [JwtAuth]
+
         [HttpPost]
         [Route("create")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.Created)]
@@ -86,7 +86,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [JwtAuth]
+
         [HttpPut]
         [Route("add-picture/{ManufacturerId}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
@@ -102,7 +102,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [JwtAuth]
+
         [HttpDelete]
         [Route("delete-picture/{ManufacturerId:Guid}/{pictureId:Guid}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]

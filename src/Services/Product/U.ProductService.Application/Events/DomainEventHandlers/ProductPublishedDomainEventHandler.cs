@@ -3,7 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using U.EventBus.Events;
 using U.EventBus.Events.Product;
+using U.NotificationService.Domain.Entities;
 using U.ProductService.Application.Events.IntegrationEvents;
 using U.ProductService.Domain.Events;
 
@@ -29,8 +31,12 @@ namespace U.ProductService.Application.Events.DomainEventHandlers
 
             //Additional logic for product domain event handler e.g. validation, publish restriction.
             //event for e.g. SignalR
-            var iEvent = new ProductPublishedIntegrationEvent(@event.ProductId, @event.Name, @event.Price,
+            var iEvent = new ProductPublishedIntegrationEvent(@event.ProductId,
+                @event.Name,
+                @event.Price,
                 @event.Manufacturer);
+
+
             await _productIntegrationEventService.AddAndSaveEventAsync(iEvent);
 
             _logger.LogDebug($"--- Integration event published: '{nameof(ProductPublishedIntegrationEvent)}");

@@ -23,7 +23,7 @@ namespace U.EventBus
 
         public bool IsEmpty => !_handlers.Keys.Any();
         public void Clear() => _handlers.Clear();
-        
+
 
         public void AddSubscription<T, TH>()
             where T : IntegrationEvent

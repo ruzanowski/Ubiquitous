@@ -1,0 +1,10 @@
+{
+  "Pie": {
+    "series": [
+      60,
+      12,
+      5
+    ],
+    "labels": ["Product Added", "Product Changed", "Product Published"]
+  }
+}

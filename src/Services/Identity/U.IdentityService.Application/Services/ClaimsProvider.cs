@@ -1,20 +1,34 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using U.Common.Jwt.Claims;
+using U.IdentityService.Persistance.Repositories;
 
 namespace U.IdentityService.Application.Services
 {
     public class ClaimsProvider : IClaimsProvider
     {
-        public async Task<IDictionary<string, string>> GetAsync(Guid userId)
+        private readonly IUserRepository _userRepository;
+
+        public ClaimsProvider(IUserRepository userRepository)
         {
-            // Provide your own claims collection if needed.
-            // return await Task.FromResult(new Dictionary<string, string>
-            // {
-            //     ["custom_claim_1"] = "value1, value2, value3",
-            //     ["custom_claim_2"] = "value1, value2, value3",
-            // });
-            return await Task.FromResult(new Dictionary<string, string>());
+            _userRepository = userRepository;
+        }
+
+        public async Task<IList<Claim>> GetAsync(Guid userId)
+        {
+            var user = await _userRepository.GetAsync(userId);
+
+            var jwtClaims = new List<Claim>
+            {
+                new Claim(JwtClaimsTypes.Email, user.Email),
+                new Claim(JwtClaimsTypes.Nickname, user.Nickname),
+                new Claim(JwtClaimsTypes.Id, user.Id.ToString()),
+                new Claim(JwtClaimsTypes.Role, user.Role)
+            };
+
+            return jwtClaims;
         }
     }
 }

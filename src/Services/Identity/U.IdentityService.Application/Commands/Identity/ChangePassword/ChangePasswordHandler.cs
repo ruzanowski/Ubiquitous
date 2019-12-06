@@ -2,7 +2,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using U.EventBus.Abstractions;
 using U.EventBus.Events.Identity;
 using U.IdentityService.Domain;
 using U.IdentityService.Domain.Domain;
@@ -15,15 +14,12 @@ namespace U.IdentityService.Application.Commands.Identity.ChangePassword
     {
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
-        private readonly IEventBus _busPublisher;
 
         public ChangePasswordHandler(IUserRepository userRepository,
-            IPasswordHasher<User> passwordHasher,
-            IEventBus busPublisher)
+            IPasswordHasher<User> passwordHasher)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
-            _busPublisher = busPublisher;
         }
 
         public async Task<Unit> Handle(ChangePassword request, CancellationToken cancellationToken)
@@ -60,8 +56,6 @@ namespace U.IdentityService.Application.Commands.Identity.ChangePassword
             user.SetPassword(newPassword, _passwordHasher);
 
             await _userRepository.UpdateAndSaveAsync(user);
-
-            _busPublisher.Publish(new PasswordChanged(userId));
 
             return Unit.Value;
         }

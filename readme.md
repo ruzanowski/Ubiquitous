@@ -34,12 +34,14 @@
 - ***Notifications*** :bell:
     - Channels
         * [x] signalR (WebSocket)
-        * [ ] push notification (Toastr)
+        * [x] push notification (Toastr)
         * [ ] e-mail
     - Types
         * [x] product published
         * [x] product added
         * [x] product properties changed
+        * [x] user connected
+        * [x] user disconnected
         * [ ] user signed up
         * [ ] user signed in
     - Operations
@@ -62,11 +64,11 @@
             * [x] log out
             * [x] change password
         - Properties
-            - sid
+            - id
             - email
             - password
             - role
-            - name
+            - nickname
             - claims
             - access token
             - refresh token
@@ -113,6 +115,8 @@ CREATE DATABASE product-service;
 CREATE DATABASE smartstore-adapter;
 CREATE DATABASE fetch-service;
 CREATE DATABASE notification-service;
+CREATE DATABASE subscription-service;
+
 ```
 
 1.3.3. Replace value from file '.env' and row 'RELATIVEPATH' to your relative path indicating folder containing folders with appsettings or adjust them to your preferenes.
@@ -190,11 +194,35 @@ _To be determined_
 ### 2.5 Security
 
 _To be determined_
+
+### 2.6 Service Discovery
+
+<p align="center">
+   <img alt="Consul Service Discovery" src="img/Consul.png" />
+</p>
+
+###2.7 Fabio Load Balancer
+
+<p align="center">
+   <img alt="Fabio Load Balancer" src="img/Fabio-LB.png" />
+</p>
         
 ## 3. Client Side Overview
 
 <p align="center">
-   <img alt="Ubiquitous front-end progress" src="img/ubiquitous-current-state.png" />
+   <img alt="Dashboard" src="img/ubiquitous-current-state.png" />
+</p>
+
+<p align="center">
+   <img alt="Subscription first tab" src="img/Subscription.png" />
+</p>
+
+<p align="center">
+   <img alt="Subscription Second tab" src="img/Subscription2.png" />
+</p>
+
+<p align="center">
+   <img alt="Products tabs" src="img/Products.png" />
 </p>
 
 ### 3.1 Client Side technologies and tools
@@ -229,12 +257,15 @@ _To be determined_
 |Identity Service|Critical|Completed|11.2019|
 |Jwt Authorization|Critical|Completed|11.2019|
 |API Gateway|High|Completed|11.2019|
-|Subscriptions Service|High|In Progress||
-|Notifications new channels (push, e-mail)|Medium||
+|Subscriptions Service|High|Completed|12.2019|
+|Notifications new channels (push)|Medium|Completed|12.2019|
+|Preferences FE-BE Integration|High|In Progress||
+|Dashboard FE-BE data sourcing|High|In Progress||
 |Tracing (Jaeger)|Medium|||
 |Admin Web-Side Panel (products)|Medium|||
 |Admin Web-Side Panel (subscribers, users)|Medium|||
 |Notification by E-mail| Medium||
+|Notifications new channels (email)|Medium-Low|||
 |Migration to .NET Core 3.0 |Low|||
 |Security (HTTPS)|Low|||
 
@@ -247,7 +278,7 @@ Sebastian Rużanowski
 
 LinkedIn [https://www.linkedin.com/in/sebastian-ruzanowski](https://www.linkedin.com/in/sebastian-ruzanowski)
 
-GitLab: [https://gitlab.com/Ruzanowski](https://gitlab.com/Ruzanowski)
+GitLab: [https://gitlab.com/ruzanowski](https://gitlab.com/ruzanowski)
 
 ## 8. Inspirations & Thanks
 

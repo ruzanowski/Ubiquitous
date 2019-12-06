@@ -44,6 +44,7 @@ namespace U.IdentityService.Application.Commands.Identity.SignIn
 
             var refreshToken = new RefreshToken(user, _passwordHasher);
             var claims = await _claimsProvider.GetAsync(user.Id);
+
             var jwt = _jwtService.CreateToken(user.Id.ToString("N"), user.Role, claims);
             jwt.RefreshToken = refreshToken.Token;
             await _refreshTokenRepository.AddAndSaveAsync(refreshToken);

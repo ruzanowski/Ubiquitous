@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
 import {ROUTES} from "../sidebar/sidebar.component";
 import {Location} from '@angular/common';
@@ -10,7 +10,9 @@ import {AuthenticationService} from "../../../auth";
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent
+implements OnInit
+{
   public isNotificationNavBarToggled: boolean = false;
 
   public primary_color_primary: string = '#00695c';
@@ -33,6 +35,7 @@ export class NavbarComponent {
   private toggleButton: any;
   private sidebarVisible: boolean;
   isLoggedIn$: Observable<boolean>;
+  currentUser: string;
 
 
   toggleNotificationMenu() {
@@ -50,6 +53,10 @@ export class NavbarComponent {
     this.location = location;
     this.sidebarVisible = false;
     this.isLoggedIn$ = this.authService.isLoggedIn;
+    this.authService.currentUser.subscribe(x=>
+      {
+       this.currentUser = x.claims["nickname"]
+      });
   }
 
   ngOnInit() {
@@ -117,11 +124,11 @@ export class NavbarComponent {
       $layer.setAttribute('class', 'close-layer');
 
 
-      // if (body.querySelectorAll('.main-panel')) {
-      //   document.getElementsByClassName('main-panel')[0].appendChild($layer);
-      // } else if (body.classList.contains('off-canvas-sidebar')) {
-      //   document.getElementsByClassName('wrapper-full-page')[0].appendChild($layer);
-      // }
+      if (body.querySelectorAll('.main-panel')) {
+        document.getElementsByClassName('main-panel')[0].appendChild($layer);
+      } else if (body.classList.contains('off-canvas-sidebar')) {
+        document.getElementsByClassName('wrapper-full-page')[0].appendChild($layer);
+      }
 
       setTimeout(function () {
         $layer.classList.add('visible');

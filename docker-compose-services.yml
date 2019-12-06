@@ -79,6 +79,26 @@ services:
     networks:
       - ubiquitous
 
+  u.subscription-service:
+    image: u.subscription-service:latest
+    container_name: u.subscription-service
+    build:
+      context: .
+      dockerfile: src/Services/Subscription/U.SubscriptionService/Dockerfile
+    ports:
+      - 5300:5300
+    environment:
+      ASPNETCORE_URLS: http://+:5300
+      ASPNETCORE_ENVIRONMENT: docker
+      DbOptions__Connection: Server=postgres;Port=5432;Database=subscription-service;User Id=postgres;Password=postgres;
+      DbOptions__Type: Npgsql
+      DbOptions__AutoMigration: "true"
+    volumes:
+      - '${RELATIVE_PATH}/subscriptionservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+    restart: unless-stopped
+    networks:
+      - ubiquitous
+
   u.identity-service:
     image: u.identity-service:latest
     container_name: u.identity-service

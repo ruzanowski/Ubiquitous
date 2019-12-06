@@ -27,9 +27,12 @@ namespace U.EventBus.RabbitMQ
         private IModel _consumerChannel;
         private string _queueName;
 
-        public EventBusRabbitMQ(IRabbitMQPersistentConnection persistentConnection, ILogger<EventBusRabbitMQ> logger,
+        public EventBusRabbitMQ(IRabbitMQPersistentConnection persistentConnection,
+            ILogger<EventBusRabbitMQ> logger,
             IServiceProvider serviceProvider,
-            IEventBusSubscriptionsManager subsManager, string queueName = null, int retryCount = 5)
+            IEventBusSubscriptionsManager subsManager,
+            string queueName = null,
+             int retryCount = 5)
         {
             ServiceProvider = serviceProvider;
             _persistentConnection =
@@ -63,7 +66,7 @@ namespace U.EventBus.RabbitMQ
             }
         }
 
-        public void Publish(IntegrationEvent @event)
+        public void Publish<T>(T carrier) where T: IntegrationEvent
         {
             if (!_persistentConnection.IsConnected)
             {
@@ -76,23 +79,24 @@ namespace U.EventBus.RabbitMQ
                     (ex, time) =>
                     {
                         _logger.LogWarning(ex,
-                            "Could not publish event: {EventId} after {Timeout}s ({ExceptionMessage})", @event.Id,
+                            "Could not publish event: {EventId} after {Timeout}s ({ExceptionMessage})",
+                            carrier.Id,
                             $"{time.TotalSeconds:n1}", ex.Message);
                     });
 
-            var eventName = @event.GetType().Name;
+            var eventName = carrier.GetType().Name;
             using (var channel = _persistentConnection.CreateModel())
             {
                 channel.ExchangeDeclare(exchange: BROKER_NAME, type: "direct");
 
-                var message = JsonConvert.SerializeObject(@event);
+                var message = JsonConvert.SerializeObject(carrier);
                 var body = Encoding.UTF8.GetBytes(message);
 
                 policy.Execute(() =>
                 {
                     var properties = channel.CreateBasicProperties();
                     properties.DeliveryMode = 2; // persistent
-                    
+
                     channel.BasicPublish(
                         exchange: BROKER_NAME,
                         routingKey: eventName,
@@ -110,7 +114,7 @@ namespace U.EventBus.RabbitMQ
             var eventName = _subsManager.GetEventKey<T>();
             DoInternalSubscription(eventName);
 
-            _logger.LogInformation("Subscribing to event {EventName} with {EventHandler}", eventName,
+            _logger.LogInformation("Subscribing to carrier with {EventName} with {EventHandler}", eventName,
                 typeof(TH).GetGenericTypeName());
 
             _subsManager.AddSubscription<T, TH>();
@@ -142,7 +146,7 @@ namespace U.EventBus.RabbitMQ
         {
             var eventName = _subsManager.GetEventKey<T>();
 
-            _logger.LogInformation("Unsubscribing from event {EventName}", eventName);
+            _logger.LogInformation("Unsubscribing from carrier {EventName}", eventName);
 
             _subsManager.RemoveSubscription<T, TH>();
         }
@@ -195,7 +199,7 @@ namespace U.EventBus.RabbitMQ
             }
 
             // Even on exception we take the message off the queue.
-            // in a REAL WORLD app this should be handled with a Dead Letter Exchange (DLX). 
+            // in a REAL WORLD app this should be handled with a Dead Letter Exchange (DLX).
             // For more information see: https://www.rabbitmq.com/dlx.html
             _consumerChannel.BasicAck(eventArgs.DeliveryTag, multiple: false);
         }
@@ -234,7 +238,7 @@ namespace U.EventBus.RabbitMQ
 
         private async Task ProcessEvent(string eventName, string message)
         {
-            _logger.LogTrace("Processing RabbitMQ event: {EventName}", eventName);
+            _logger.LogTrace("Processing RabbitMQ carrier: {EventName}", eventName);
 
             if (_subsManager.HasSubscriptionsForEvent(eventName))
             {
@@ -256,7 +260,7 @@ namespace U.EventBus.RabbitMQ
             }
             else
             {
-                _logger.LogWarning("No subscription for RabbitMQ event: {EventName}", eventName);
+                _logger.LogWarning("No subscription for RabbitMQ carrier: {EventName}", eventName);
             }
         }
     }

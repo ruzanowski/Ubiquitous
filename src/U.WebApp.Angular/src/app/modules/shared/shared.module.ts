@@ -51,7 +51,7 @@ import {AppRoutingModule} from "../../app-routing.module";
     MatBadgeModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule,
+    MatInputModule
   ],
   declarations:
     [

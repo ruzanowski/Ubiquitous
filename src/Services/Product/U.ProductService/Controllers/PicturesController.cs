@@ -34,7 +34,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="picturesListQuery"></param>
         /// <returns></returns>
-        [JwtAuth]
+
         [HttpGet]
         [Route("query")]
         [ProducesResponseType(typeof(PaginatedItems<PictureViewModel>), (int) HttpStatusCode.OK)]
@@ -50,7 +50,7 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="pictureId"></param>
         /// <returns></returns>
-        [JwtAuth]
+
         [HttpGet]
         [Route("query/{PictureId:Guid}")]
         [ProducesResponseType(typeof(PaginatedItems<PictureViewModel>), (int) HttpStatusCode.OK)]

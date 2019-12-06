@@ -13,6 +13,9 @@ namespace U.IdentityService.Application.Commands.Identity.SignUp
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Required]
+        [DataType(DataType.Text)]
+        public string Nickname { get; set; }
+        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
         [Required]

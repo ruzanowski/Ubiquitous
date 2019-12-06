@@ -9,6 +9,7 @@ import {CategoryComponent} from "./modules/categories/components/table-category/
 import {ManufacturersComponent} from "./modules/manufacturers/components/table-manufacturers/table-manufacturers.component";
 import {HomeLayoutComponent} from "./layouts/home-layout/home-layout.component";
 import {LoginLayoutComponent} from "./layouts/login-layout/login-layout.component";
+import {SubscriptionComponent} from "./modules/subscription/components/subscription.component";
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
       {
         path: 'manufacturers',
         component: ManufacturersComponent
+      },
+      {
+        path: 'subscription',
+        component: SubscriptionComponent
       }
     ]
   },
