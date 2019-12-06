@@ -31,7 +31,7 @@ export class NotificationsBarChartComponent {
       'Sun',
     ],
     series: [
-      [35780, 20310, 45702, 97043, 51012, 31430, 75301]
+      [35780, 50310, 45702, 77043, 51012, 31430, 75301]
     ]
   };
 

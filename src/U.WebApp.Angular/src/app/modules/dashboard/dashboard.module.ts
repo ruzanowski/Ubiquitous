@@ -20,7 +20,6 @@ import {NotificationsBarChartComponent} from "./components/dashboard/dashboard-c
 import {
   AsyncChartComponent,
 } from "./components/dashboard/dashboard-chart-notifications/notifications-pie-chart.component";
-import {LiveChartComponent} from "./components/dashboard/dashboard-chart-notifications/notifications-live-chart.component";
 
 @NgModule({
   imports:
@@ -40,9 +39,9 @@ import {LiveChartComponent} from "./components/dashboard/dashboard-chart-notific
       NgbModule,
       ChartsModule
     ],
-  declarations: [DashboardMainTabsComponent, DashboardComponent, NotificationsBarChartComponent, LiveChartComponent, AsyncChartComponent ],
+  declarations: [DashboardMainTabsComponent, DashboardComponent, NotificationsBarChartComponent,  AsyncChartComponent ],
   exports: [
-    DashboardMainTabsComponent, DashboardComponent, NotificationsBarChartComponent, LiveChartComponent, AsyncChartComponent
+    DashboardMainTabsComponent, DashboardComponent, NotificationsBarChartComponent, AsyncChartComponent
   ],
   providers: [DashboardMainTabsComponent, DashboardComponent]
 })

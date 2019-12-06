@@ -5,8 +5,7 @@ import { ChartType } from 'ng-chartist';
 import * as Chartist from 'chartist';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import {getRandomInt} from "./notifications-live-chart.component";
-import {IBarChartOptions, IPieChartOptions} from "chartist";
+import {IPieChartOptions} from "chartist";
 
 declare var require: any;
 
@@ -32,4 +31,8 @@ export class AsyncChartComponent {
     this.data$ = of(data.Pie).pipe(delay(getRandomInt(500, 1000)));
     this.type$ = of(<ChartType>'Pie').pipe(delay(getRandomInt(500, 1000)));
   }
+
+}
+export function getRandomInt(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min)) + min;
 }

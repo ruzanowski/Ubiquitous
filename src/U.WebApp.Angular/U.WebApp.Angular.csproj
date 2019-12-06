@@ -229,7 +229,6 @@
       <TypeScriptCompile Include="src\app\modules\auth\index.ts" />
       <TypeScriptCompile Include="src\app\modules\auth\jwt.interceptor.ts" />
       <TypeScriptCompile Include="src\app\modules\categories\category.module.ts" />
-      <TypeScriptCompile Include="src\app\modules\dashboard\components\dashboard\dashboard-chart-notifications\notifications-live-chart.component.ts" />
       <TypeScriptCompile Include="src\app\modules\dashboard\components\dashboard\dashboard-chart-notifications\notifications-pie-chart.component.ts" />
       <TypeScriptCompile Include="src\app\modules\dashboard\components\dashboard\dashboard-chart-notifications\notifications-bar-chart.component.ts" />
       <TypeScriptCompile Include="src\app\modules\dashboard\dashboard.module.ts" />

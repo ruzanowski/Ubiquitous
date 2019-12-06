@@ -194,11 +194,35 @@ _To be determined_
 ### 2.5 Security
 
 _To be determined_
+
+### 2.6 Service Discovery
+
+<p align="center">
+   <img alt="Consul Service Discovery" src="img/Consul.png" />
+</p>
+
+###2.7 Fabio Load Balancer
+
+<p align="center">
+   <img alt="Fabio Load Balancer" src="img/Fabio-LB.png" />
+</p>
         
 ## 3. Client Side Overview
 
 <p align="center">
-   <img alt="Ubiquitous front-end progress" src="img/ubiquitous-current-state.png" />
+   <img alt="Dashboard" src="img/ubiquitous-current-state.png" />
+</p>
+
+<p align="center">
+   <img alt="Subscription first tab" src="img/Subscription.png" />
+</p>
+
+<p align="center">
+   <img alt="Subscription Second tab" src="img/Subscription2.png" />
+</p>
+
+<p align="center">
+   <img alt="Products tabs" src="img/Products.png" />
 </p>
 
 ### 3.1 Client Side technologies and tools
