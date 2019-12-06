@@ -20,12 +20,17 @@ namespace U.EventBus.Events.Product
         }
     }
 
-    public class Variance
+    public sealed class ProductPropertiesChangedSignalRIntegrationEvent : ProductPropertiesChangedIntegrationEvent
     {
-        public string Prop { get; set; }
-        public object ValueA { get; set; }
-        public object ValueB { get; set; }
+        public ProductPropertiesChangedSignalRIntegrationEvent(Guid productId, Guid manufacturer, List<Variance> variances) : base(productId, manufacturer, variances)
+        {
+        }
     }
 
-
+    public sealed class ProductPropertiesChangedEmailIntegrationEvent : ProductPropertiesChangedIntegrationEvent
+    {
+        public ProductPropertiesChangedEmailIntegrationEvent(Guid productId, Guid manufacturer, List<Variance> variances) : base(productId, manufacturer, variances)
+        {
+        }
+    }
 }

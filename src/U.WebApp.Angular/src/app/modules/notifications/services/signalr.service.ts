@@ -1,29 +1,34 @@
 ﻿import {Injectable} from '@angular/core';
 import * as signalR from "@aspnet/signalr";
-import {IHubProtocol, LogLevel} from "@aspnet/signalr";
-import {ProductAddedEvent} from "../models/product-added-event.model";
-import {ProductPublishedEvent} from "../models/product-published-event.model";
-import {ProductPropertiesChangedEvent} from "../models/product-properties-changed-event.model";
+import {LogLevel} from "@aspnet/signalr";
 import {Subject} from "rxjs";
-import {ProductBaseEvent} from "../models/product-base-event.model";
 import {NotificationDto} from "../models/notification-dto.model";
 import {IntegrationEventType} from "../models/integration-event-type.model";
 import {Importancy} from "../models/importancy.model";
+import {AuthenticationService} from "../../auth";
+import {ReactiveToasterService} from "./toastr.service";
+import {ProductBaseEvent} from "../models/events/product/product-base-event.model";
+import {ProductPropertiesChangedEvent} from "../models/events/product/product-properties-changed-event.model";
+import {ProductAddedEvent} from "../models/events/product/product-added-event.model";
+import {ProductPublishedEvent} from "../models/events/product/product-published-event.model";
+import {UserConnectedEvent} from "../models/events/identity/user-connected.model";
+import {UserDisconnectedEvent} from "../models/events/identity/user-disconnected.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignalrService {
   connection: signalR.HubConnection;
-  public productAdded$: Subject<NotificationDto<ProductAddedEvent>> = new Subject();
-  public productPublished$: Subject<NotificationDto<ProductAddedEvent>> = new Subject();
+  public productAdded$ = new Subject<NotificationDto<ProductAddedEvent>>();
+  public productPublished$: Subject<NotificationDto<ProductPublishedEvent>> = new Subject();
   public productPropertiesChanged$: Subject<NotificationDto<ProductPropertiesChangedEvent>> = new Subject();
   public welcomeMessage$: Subject<NotificationDto<ProductBaseEvent>> = new Subject();
-  public usersConnected: Array<string> = [];
+  public usersConnected$: Subject<NotificationDto<UserConnectedEvent>> = new Subject();
+  public usersDisconnected$: Subject<NotificationDto<UserDisconnectedEvent>> = new Subject();
 
-  constructor() {
+  constructor(private authenticationService: AuthenticationService, private toastr: ReactiveToasterService) {
     this.connection = new signalR.HubConnectionBuilder()
-      .withUrl('http://localhost:5500/signalr')
+      .withUrl('http://localhost:4500/signalr',  { accessTokenFactory: () => this.authenticationService.currentUserValue.accessToken })
       .configureLogging(LogLevel.Trace)
       .build();
     this.subscribeOnEvents();
@@ -34,20 +39,25 @@ export class SignalrService {
     if (this.connection.state === signalR.HubConnectionState.Disconnected) {
       this.connection
         .start()
-        .catch(err => console.log(err));
+        .catch(err =>
+        {
+          this.authenticationService.logout();
+          this.toastr.showToast('Fatal Error','Could not connect to Notification Service', 'error');
+          console.log(err)
+        });
     }
   }
 
   private subscribeOnEvents() {
 
-    this.connection.on('connected', (user: string) => {
+    this.connection.on('UserConnectedIntegrationEvent', (user: NotificationDto<UserConnectedEvent>) => {
       console.log(JSON.stringify(user));
-      this.usersConnected.push(user);
+      this.usersConnected$.next(user);
     });
 
-    this.connection.on('disconnected', (user: string) => {
+    this.connection.on('UserDisconnectedIntegrationEvent', (user: NotificationDto<UserConnectedEvent>) => {
       console.log(JSON.stringify(user));
-      this.usersConnected = this.usersConnected.filter(item => item !== user);
+      this.usersDisconnected$.next(user);
     });
 
     this.connection.on('WelcomeNotifications', (welcomeNotification: NotificationDto<ProductBaseEvent>) =>
@@ -55,16 +65,24 @@ export class SignalrService {
       this.MatchTypeOfWelcomeMessage(welcomeNotification);
     });
 
-    this.connection.on('ProductPublishedIntegrationEvent', (product: NotificationDto<ProductPublishedEvent>) => {
+    this.connection.on('ProductPublishedSignalRIntegrationEvent', (product: NotificationDto<ProductPublishedEvent>) => {
       this.productPublished$.next(product);
     });
 
-    this.connection.on('ProductPropertiesChangedIntegrationEvent', (product: NotificationDto<ProductPropertiesChangedEvent>) => {
+    this.connection.on('ProductPropertiesChangedSignalRIntegrationEvent', (product: NotificationDto<ProductPropertiesChangedEvent>) => {
       this.productPropertiesChanged$.next(product);
     });
 
-    this.connection.on('ProductAddedIntegrationEvent', (product: NotificationDto<ProductAddedEvent>) => {
+    this.connection.on('ProductAddedSignalRIntegrationEvent', (product: NotificationDto<ProductAddedEvent>) => {
       this.productAdded$.next(product);
+    });
+
+    this.connection.on('connected', (product: NotificationDto<UserConnectedEvent>) => {
+      this.usersConnected$.next(product);
+    });
+
+    this.connection.on('disconnected', (product: NotificationDto<UserDisconnectedEvent>) => {
+      this.usersDisconnected$.next(product);
     });
   }
 

@@ -31,17 +31,13 @@ export class ProductService {
       url = url.concat(manufacturerQuery);
     }
 
-    return this.service.get(url).pipe(map((response: any) => {
-      return response;
-    }));
+    return this.service.get(url).pipe(map((response: any) => response));
   }
 
   getProduct(id: string): Observable<Product> {
     let url = this.productBaseUrl + '/query/' + id;
 
-    return this.service.get(url).pipe(map((response: any) => {
-      return response;
-    }));
+    return this.service.get(url).pipe(map((response: any) => response));
   }
 
   private static manufacturerFilterQuery(id: string) : string

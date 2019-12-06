@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using MediatR;
 using U.EventBus.Abstractions;
+using U.EventBus.Events;
 using U.EventBus.Events.Fetch;
 using U.EventBus.Events.Product;
 using U.ProductService.Application.Products.Commands.Create;

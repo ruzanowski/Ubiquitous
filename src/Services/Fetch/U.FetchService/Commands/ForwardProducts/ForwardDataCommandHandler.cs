@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
+using U.EventBus.Events;
 using U.EventBus.Events.Fetch;
+using U.NotificationService.Domain.Entities;
 
 namespace U.FetchService.Commands.ForwardProducts
 {
@@ -24,14 +26,24 @@ namespace U.FetchService.Commands.ForwardProducts
         {
             foreach (var product in command.Data)
             {
-                var @event = new NewProductFetchedIntegrationEvent(product.Name, product.ManufacturerId,
-                    product.ProductUniqueCode, product.InStock, product.PriceInTax, product.Description, product.Length,
-                    product.Width, product.Height, product.Weight, product.MainPictureId, product.CategoryId, product.Id);
+                var @event = new NewProductFetchedIntegrationEvent(product.Name,
+                    product.ManufacturerId,
+                    product.ProductUniqueCode,
+                    product.InStock,
+                    product.PriceInTax,
+                    product.Description,
+                    product.Length,
+                    product.Width,
+                    product.Height,
+                    product.Weight,
+                    product.MainPictureId,
+                    product.CategoryId,
+                    product.Id);
 
                 _logger.LogInformation(
                     "----- Publishing integration event: {IntegrationEventId} from 'FetchService' - ({@IntegrationEvent})",
                     @event.Id, @event);
-                
+
                 //fire and forget
                 _bus.Publish(@event);
             }

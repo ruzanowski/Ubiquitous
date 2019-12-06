@@ -81,6 +81,8 @@ namespace U.ProductService
                 .UseJwtTokenValidator()
                 .UseMvc();
 
+
+
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
             SeedAsync(app);

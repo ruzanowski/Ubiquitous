@@ -37,7 +37,6 @@ namespace U.IdentityService.Application.Commands.Token.RevokeRefreshToken
 
             refreshToken.Revoke();
             await RefreshTokenRepository.UpdateAndSaveAsync(refreshToken);
-            BusPublisher.Publish(new RefreshTokenRevoked(refreshToken.UserId));
 
             return Unit.Value;
         }

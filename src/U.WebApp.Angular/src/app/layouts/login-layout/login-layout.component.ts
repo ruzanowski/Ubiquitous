@@ -1,13 +1,14 @@
-import { Component} from '@angular/core';
-import {slideInAnimation} from "../../animations";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-login',
   template: `
-<!--    <app-loader></app-loader>-->
     <router-outlet></router-outlet>
   `,
   styles: [],
-  animations: [slideInAnimation]
+  animations: []
 })
-export class LoginLayoutComponent {}
+export class LoginLayoutComponent {
+
+
+}

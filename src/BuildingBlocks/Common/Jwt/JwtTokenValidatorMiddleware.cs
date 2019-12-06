@@ -15,11 +15,9 @@ namespace U.Common.Jwt
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-
             if (await _jwtService.IsCurrentActiveToken())
             {
-                    await next(context);
-
+                await next(context);
                 return;
             }
 

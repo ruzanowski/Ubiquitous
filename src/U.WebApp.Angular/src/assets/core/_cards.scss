@@ -635,13 +635,12 @@
     border-top: none !important;
   }
 }
-
-.card-chart,
-.card-product {
-  .card-body + .card-footer {
-    border-top: 1px solid #eee;
-  }
-}
+//
+//.card-chart, .card-product {
+//  .card-body + .card-footer {
+//    border-top: 1px solid #eee;
+//  }
+//}
 
 .card-product{
   .price{

@@ -13,9 +13,11 @@ namespace U.ProductService.Persistance.EntityConfigurations.Product
             builder.HasKey(o => o.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Ignore(b => b.DomainEvents);
-            
+
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Description).IsRequired();
+
+
         }
     }
 }

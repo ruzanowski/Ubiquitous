@@ -1,4 +1,5 @@
 using System.Net.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RestEase;
@@ -7,7 +8,7 @@ namespace U.Common.Fabio
 {
     public static class Extensions
     {
-        public static IServiceCollection AddHTTPServiceClient<T>(this IServiceCollection services, string serviceName)
+        public static IServiceCollection AddTypedHttpClient<T>(this IServiceCollection services, string serviceName)
             where T : class
         {
             var clientName = typeof(T).ToString();
@@ -21,8 +22,9 @@ namespace U.Common.Fabio
             string serviceName)
         {
             services.AddHttpClient(clientName)
-                .AddHttpMessageHandler(c =>
-                    new FabioMessageHandler(c.GetService<IOptions<FabioOptions>>(), serviceName));
+                .AddHttpMessageHandler(c => new FabioMessageHandler(c.GetService<IOptions<FabioOptions>>(),
+                    services.BuildServiceProvider(),
+                    serviceName));
         }
 
         private static void ConfigureForwarder<T>(IServiceCollection services, string clientName) where T : class

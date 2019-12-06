@@ -14,13 +14,16 @@ using U.EventBus.Abstractions;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
 using U.Common.Database;
+using U.Common.Fabio;
 using U.Common.Jwt;
 using U.Common.Redis;
 using U.Common.Swagger;
 using U.EventBus.Events.Product;
-using U.NotificationService.Application.IntegrationEvents.ProductAdded;
-using U.NotificationService.Application.IntegrationEvents.ProductPropertiesChanged;
-using U.NotificationService.Application.IntegrationEvents.ProductPublished;
+using U.NotificationService.Application.EventHandlers;
+using U.NotificationService.Application.Models;
+using U.NotificationService.Application.Services.QueryBuilder;
+using U.NotificationService.Application.Services.Subscription;
+using U.NotificationService.Application.Services.WelcomeNotifications;
 using U.NotificationService.Application.SignalR;
 using U.NotificationService.Infrastructure.Contexts;
 
@@ -49,6 +52,7 @@ namespace U.NotificationService
                 .AddCustomMapper()
                 .AddCustomServices()
                 .AddConsulServiceDiscovery()
+                .AddTypedHttpClient<ISubscriptionService>("u.subscription-service")
                 .AddCustomRedisAndSignalR()
                 .AddJwt()
                 .AddRedis();
@@ -67,7 +71,9 @@ namespace U.NotificationService
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseCookiePolicy();
+            app.UseStaticFiles();
 
+            app.UseJwtTokenValidator();
 
             app.UseSignalR(routes => routes.MapHub<BaseHub>("/signalr"));
 
@@ -80,16 +86,16 @@ namespace U.NotificationService
         private void RegisterEvents(IApplicationBuilder app)
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-            eventBus.Subscribe<ProductAddedIntegrationEvent, ProductAddedIntegrationEventHandler>();
-            eventBus.Subscribe<ProductPublishedIntegrationEvent, ProductPublishedIntegrationEventHandler>();
-            eventBus.Subscribe<ProductPropertiesChangedIntegrationEvent, ProductPropertiesChangedIntegrationEventHandler>();
+            eventBus.Subscribe<ProductAddedSignalRIntegrationEvent, ProductAddedSignalRIntegrationEventHandler>();
+            eventBus.Subscribe<ProductPublishedSignalRIntegrationEvent, ProductPublishedSignalRIntegrationEventHandler>();
+            eventBus.Subscribe<ProductPropertiesChangedSignalRIntegrationEvent, ProductPropertiesChangedSignalRIntegrationEventHandler>();
         }
 
         private void RegisterEventsHandlers(IServiceCollection services)
         {
-            services.AddTransient<ProductAddedIntegrationEventHandler>();
-            services.AddTransient<ProductPublishedIntegrationEventHandler>();
-            services.AddTransient<ProductPropertiesChangedIntegrationEventHandler>();
+            services.AddTransient<ProductAddedSignalRIntegrationEventHandler>();
+            services.AddTransient<ProductPublishedSignalRIntegrationEventHandler>();
+            services.AddTransient<ProductPropertiesChangedSignalRIntegrationEventHandler>();
         }
 
         private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime,
@@ -106,6 +112,9 @@ namespace U.NotificationService
         {
             services.AddIntegrationEventLog();
             services.AddSingleton<PersistentHub>();
+            services.AddScoped<IWelcomeNotificationsService, WelcomeNotificationsService>();
+            services.AddScoped<INotificationQueryBuilder, NotificationQueryBuilder>();
+
             return services;
         }
 

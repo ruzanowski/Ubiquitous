@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
 using U.EventBus.Events;
+using U.IntegrationEventLog;
 using U.IntegrationEventLog.Services;
+using U.NotificationService.Domain.Entities;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Events.IntegrationEvents
@@ -28,7 +31,7 @@ namespace U.ProductService.Application.Events.IntegrationEvents
 
         public async Task PublishEventsThroughEventBusAsync()
         {
-            var pendingLogEvents = await _eventLogService.RetrieveEventLogsPendingToPublishAsync();
+            IEnumerable<IntegrationEventLogEntry> pendingLogEvents = await _eventLogService.RetrieveEventLogsPendingToPublishAsync();
 
             foreach (var logEvt in pendingLogEvents)
             {
@@ -49,7 +52,7 @@ namespace U.ProductService.Application.Events.IntegrationEvents
             }
         }
 
-        public async Task AddAndSaveEventAsync(IntegrationEvent evt)
+        public async Task AddAndSaveEventAsync<T>(T evt) where T : IntegrationEvent
         {
             await _eventLogService.SaveEventAsync(evt, _productContext.GetCurrentTransaction());
         }
