@@ -1,7 +1,7 @@
 ﻿import {Injectable} from '@angular/core';
 import * as signalR from "@aspnet/signalr";
 import {LogLevel} from "@aspnet/signalr";
-import {Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {NotificationDto} from "../models/notification-dto.model";
 import {IntegrationEventType} from "../models/integration-event-type.model";
 import {Importancy} from "../models/importancy.model";
@@ -17,7 +17,8 @@ import {UserDisconnectedEvent} from "../models/events/identity/user-disconnected
 @Injectable({
   providedIn: 'root'
 })
-export class SignalrService {
+export class SignalrService
+{
   connection: signalR.HubConnection;
   public productAdded$ = new Subject<NotificationDto<ProductAddedEvent>>();
   public productPublished$: Subject<NotificationDto<ProductPublishedEvent>> = new Subject();
@@ -135,4 +136,6 @@ export class SignalrService {
   public disconnect() {
     this.connection.stop();
   }
+
+
 }

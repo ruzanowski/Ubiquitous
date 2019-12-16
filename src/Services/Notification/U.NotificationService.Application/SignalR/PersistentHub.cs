@@ -24,6 +24,7 @@ namespace U.NotificationService.Application.SignalR
         public async Task SaveAndSendToAllAsync<T>(string methodTag, T @event) where T : IntegrationEvent
         {
             var notification = new Notification(@event);
+            notification.IncrementProcessedTimes();
 
             await _context.AddAsync(notification);
             await _context.SaveChangesAsync();
@@ -38,6 +39,7 @@ namespace U.NotificationService.Application.SignalR
             where T : IntegrationEvent
         {
             var notification = new Notification(@event);
+            notification.IncrementProcessedTimes();
 
             await _context.AddAsync(notification);
             await _context.SaveChangesAsync();

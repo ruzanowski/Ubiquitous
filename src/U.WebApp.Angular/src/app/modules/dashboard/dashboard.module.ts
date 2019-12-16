@@ -15,11 +15,12 @@ import {DashboardMainTabsComponent} from "./components/dashboard-main-tabs/dashb
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {ChartistModule} from "ng-chartist";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import { ChartsModule } from 'ng2-charts';
-import {NotificationsBarChartComponent} from "./components/dashboard/dashboard-chart-notifications/notifications-bar-chart.component";
-import {
-  AsyncChartComponent,
-} from "./components/dashboard/dashboard-chart-notifications/notifications-pie-chart.component";
+import {ChartsModule} from 'ng2-charts';
+import {NotificationsBarChartComponent} from "./components/dashboard/charts/notifications-processed-chart.component";
+import {AsyncChartComponent} from "./components/dashboard/charts/notification-types-chart.component";
+import {ProductLineChartComponent} from "./components/dashboard/charts/products-chart.component";
+import {ProductsByManufacturerChartComponent} from './components/dashboard/charts/products-by-manufacturer-chart.component';
+import {ProductsByCategoryChartComponent} from "./components/dashboard/charts/products-by-category-chart.component";
 
 @NgModule({
   imports:
@@ -39,11 +40,25 @@ import {
       NgbModule,
       ChartsModule
     ],
-  declarations: [DashboardMainTabsComponent, DashboardComponent, NotificationsBarChartComponent,  AsyncChartComponent ],
-  exports: [
-    DashboardMainTabsComponent, DashboardComponent, NotificationsBarChartComponent, AsyncChartComponent
+  declarations: [
+    DashboardMainTabsComponent,
+    DashboardComponent,
+    NotificationsBarChartComponent,
+    AsyncChartComponent,
+    ProductLineChartComponent,
+    ProductsByManufacturerChartComponent,
+    ProductsByCategoryChartComponent
   ],
-  providers: [DashboardMainTabsComponent, DashboardComponent]
+  exports: [
+    DashboardMainTabsComponent,
+    DashboardComponent,
+    NotificationsBarChartComponent,
+    AsyncChartComponent,
+    ProductLineChartComponent,
+    ProductsByManufacturerChartComponent,
+    ProductsByCategoryChartComponent
+  ],
+  providers: []
 })
 export class DashboardModule {
 }

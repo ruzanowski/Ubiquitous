@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using U.ProductService.Domain.Aggregates.Manufacturer;
 using U.ProductService.Domain.SeedWork;
@@ -15,6 +16,7 @@ namespace U.ProductService.Domain
         void Update(Product product);
 
         Task<Manufacturer> GetAsync(Guid manufacturerId);
+        Task<IList<Manufacturer>> GetManyAsync();
         Task<Manufacturer> GetUniqueClientIdAsync(string uniqueClientId);
 
         Task<bool> AnyAsync(Guid id);

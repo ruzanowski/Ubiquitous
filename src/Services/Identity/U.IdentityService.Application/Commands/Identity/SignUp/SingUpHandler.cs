@@ -10,7 +10,6 @@ using U.IdentityService.Domain;
 using U.IdentityService.Domain.Domain;
 using U.IdentityService.Domain.Exceptions;
 using U.IdentityService.Persistance.Repositories;
-using U.NotificationService.Domain.Entities;
 
 namespace U.IdentityService.Application.Commands.Identity.SignUp
 {

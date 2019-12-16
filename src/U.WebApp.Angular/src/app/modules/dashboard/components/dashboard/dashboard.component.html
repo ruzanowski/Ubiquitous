@@ -3,21 +3,22 @@
     <div class="row">
       <div class="col-lg-3 col-md-6 col-sm-6">
 
-          <div class="card card-stats">
-            <div class="card-header card-header-info card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">local_shipping</i>
-              </div>
-              <p class="card-category">Manufacturers</p>
-              <h3 class="card-title">3</h3>
+        <div class="card card-stats">
+          <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">local_shipping</i>
             </div>
-            <div class="card-footer">
-              <div class="stats">
-                <a href="/manufacturers">Go to Manufacturers</a>
-              </div>
+            <p class="card-category">Manufacturers</p>
+            <h3 class="card-title">{{manufacturerCardCount | number }}</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons text-info">info</i>
+              <a href="/manufacturers">Go to Manufacturers</a>
             </div>
           </div>
         </div>
+      </div>
 
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card card-stats">
@@ -26,8 +27,7 @@
               <i class="material-icons">redeem</i>
             </div>
             <p class="card-category">Stored Products</p>
-            <h3 class="card-title">5 489
-<!--              <small>GB</small>-->
+            <h3 class="card-title">{{productCardCount | number}}
             </h3>
           </div>
           <div class="card-footer">
@@ -43,14 +43,13 @@
           <div class="card-header card-header-success card-header-icon">
             <div class="card-icon">
               <i class="material-icons">notifications</i>
-<!--              <i class="material-icons">sync</i>-->
             </div>
             <p class="card-category">Processed Notifications</p>
-            <h3 class="card-title">362 719</h3>
+            <h3 class="card-title">{{notificationsCardCount | number}}</h3>
           </div>
           <div class="card-footer">
             <div class="stats">
-              <i class="material-icons">date_range</i> Last 7 days
+              <i class="material-icons">date_range</i> Last 14 days
             </div>
           </div>
         </div>
@@ -61,52 +60,102 @@
             <div class="card-icon">
               <i class="material-icons">how_to_reg</i>
             </div>
-            <p class="card-category">Subscribers</p>
-            <h3 class="card-title">2</h3>
+            <p class="card-category">Users Online</p>
+            <h3 class="card-title">{{usersOnlineCardCount | number}} / {{usersOverallCardCount | number}}</h3>
           </div>
           <div class="card-footer">
             <div class="stats">
-              <i class="material-icons">local_offer</i> Tracked from Github
+              <i class="material-icons">local_offer</i> Updated at: {{created | date: 'shortTime'}}
             </div>
           </div>
         </div>
       </div>
-
     </div>
-
 
     <div class="row">
       <div class="col-lg-8 col-md-8 col-sm-8">
         <div class="card card-chart">
           <div class="card-header">
-            <app-bar-chart></app-bar-chart>
+            <processed-chart></processed-chart>
           </div>
           <div class="card-body">
-            <h4 class="card-title">Notifications Weekly</h4>
+            <h4 class="card-title">Processed Notifications </h4>
           </div>
           <div class="card-footer">
             <div class="stats">
-              <i class="material-icons">access_time</i> updated just now
+              <i class="material-icons">date_range</i> Last 14 days
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-lg-4 col-md-4 col-sm-4  ">
+      <div class="col-lg-4 col-md-4 col-sm-4">
         <div class="card card-chart">
           <div class="card-header">
-            <async-chart></async-chart>
+            <types-chart></types-chart>
           </div>
           <div class="card-body">
-            <h4 class="card-title">Notifcations by Types</h4>
+            <h4 class="card-title">Notifcations Types</h4>
           </div>
           <div class="card-footer">
             <div class="stats">
-              <i class="material-icons">access_time</i> updated just now
+              <i class="material-icons text-info">info</i>
+              <a href="/categories">Go to Products</a>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="card card-chart">
+          <div class="card-header">
+            <products-chart></products-chart>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Added Products</h4>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">date_range</i>Last 14 days
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3">
+        <div class="card card-chart">
+          <div class="card-header">
+            <product-by-manufacturer-chart></product-by-manufacturer-chart>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Products By Manufacturer</h4>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons text-info">info</i>
+              <a href="/categories">Go to Manufacturers</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-3 col-sm-3">
+        <div class="card card-chart">
+          <div class="card-header">
+            <product-by-category-chart></product-by-category-chart>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Products By Category</h4>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons text-info">info</i>
+              <a href="/categories">Go to Categories</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 </div>

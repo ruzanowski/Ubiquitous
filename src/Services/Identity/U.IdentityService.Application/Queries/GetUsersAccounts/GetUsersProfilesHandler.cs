@@ -6,7 +6,7 @@ using MediatR;
 using U.IdentityService.Application.Models;
 using U.IdentityService.Persistance.Repositories;
 
-namespace U.IdentityService.Application.Queries.GetUsersProfiles
+namespace U.IdentityService.Application.Queries.GetUsersAccounts
 {
     public class GetUsersProfilesHandler : IRequestHandler<GetUsersProfiles, IList<UserDto>>
     {
@@ -20,7 +20,8 @@ namespace U.IdentityService.Application.Queries.GetUsersProfiles
         public async Task<IList<UserDto>> Handle(GetUsersProfiles request, CancellationToken cancellationToken)
         {
             var users = await _repository.GetUsersAsync();
-            return users.Select(user => new UserDto
+            return users
+                .Select(user => new UserDto
                 {
                     Email = user.Email,
                     Id = user.Id,

@@ -1,8 +1,6 @@
-using System;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-namespace U.Common.Jwt
+namespace U.Common.Jwt.Attributes
 {
     public class JwtAuthAttribute : AuthAttribute
     {

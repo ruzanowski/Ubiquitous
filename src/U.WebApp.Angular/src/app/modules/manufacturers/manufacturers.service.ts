@@ -25,4 +25,10 @@ export class ManufacturerService {
 
     return this.service.get(url).pipe(map((response: any) => response));
   }
+
+  getManufacturerCount(): Observable<number> {
+    let url = this.manufacturerBaseUrl + '/count';
+
+    return this.service.get(url).pipe(map((response: any) => response));
+  }
 }

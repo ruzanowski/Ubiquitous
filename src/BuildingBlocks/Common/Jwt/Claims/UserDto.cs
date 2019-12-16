@@ -1,6 +1,6 @@
 using System;
 
-namespace U.NotificationService.Application.Services.Users
+namespace U.Common.Jwt.Claims
 {
     public class UserDto
     {

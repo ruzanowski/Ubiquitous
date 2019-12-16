@@ -1,13 +1,17 @@
 using System;
 using System.Linq;
+using U.Common.Subscription;
 using U.NotificationService.Application.Models;
 using U.NotificationService.Domain.Entities;
 
-namespace U.NotificationService.Application.Services.QueryBuilder
+namespace U.NotificationService.Application.SignalR.Services.QueryBuilder
 {
     public interface INotificationQueryBuilder
     {
-        INotificationQueryBuilder WithQueryAndUser(IQueryable<Notification> query, Guid userId);
+        INotificationQueryBuilder WithQueriesAndUser(
+            IQueryable<Notification> query,
+            Guid userId);
+
         INotificationQueryBuilder FilterByConfirmationType(ConfirmationTypePreferences confirmationTypePreferences);
         INotificationQueryBuilder FilterByMinimalImportancy(Importancy minimumLevel);
         INotificationQueryBuilder OrderByCreationDate(bool @descending);

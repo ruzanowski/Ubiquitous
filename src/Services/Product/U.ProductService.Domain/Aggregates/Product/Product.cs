@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using U.EventBus.Events.Product;
 using U.ProductService.Domain.Aggregates.Category;
 using U.ProductService.Domain.Aggregates.Picture;
 using U.ProductService.Domain.Aggregates.Product;
@@ -94,6 +95,18 @@ namespace U.ProductService.Domain
             var @event = new ProductPictureAddedDomainEvent(Id, picture.Id, seoFilename);
 
             AddDomainEvent(@event);
+
+            var propertiesChangedDomainEvent = new ProductPropertiesChangedDomainEvent(Id, ManufacturerId,
+                new List<Variance>
+                {
+                    new Variance
+                    {
+                        Prop = "Picture",
+                        ValueA = null,
+                        ValueB = picture
+                    }
+                });
+            AddDomainEvent(propertiesChangedDomainEvent);
         }
 
         public void DeletePicture(Guid pictureId)
@@ -108,12 +121,27 @@ namespace U.ProductService.Domain
             var @event = new ProductPictureRemovedDomainEvent(Id, picture.Id);
 
             AddDomainEvent(@event);
+
+            var propertiesChangedDomainEvent = new ProductPropertiesChangedDomainEvent(Id, ManufacturerId,
+                new List<Variance>
+                {
+                    new Variance
+                    {
+                        Prop = "Picture",
+                        ValueA = picture,
+                        ValueB = null
+                    }
+                });
+            AddDomainEvent(propertiesChangedDomainEvent);
         }
 
         public void ChangePrice(decimal price)
         {
             if (price < 0)
                 throw new ProductDomainException("Price cannot be below 0!");
+
+            if(price == Price)
+                return;
 
             var previousPrice = Price;
 
@@ -122,6 +150,20 @@ namespace U.ProductService.Domain
             var @event = new ProductPriceChangedDomainEvent(Id, previousPrice, Price);
 
             AddDomainEvent(@event);
+
+            var propertiesChangedDomainEvent = new ProductPropertiesChangedDomainEvent(Id, ManufacturerId,
+                new List<Variance>
+                {
+                    new Variance()
+                    {
+                        Prop = "Price",
+                        ValueA = previousPrice,
+                        ValueB = price
+                    }
+                });
+            AddDomainEvent(propertiesChangedDomainEvent);
+
+            // add new update saying event has been raised after last up-to-date update
         }
 
         public void Publish()
@@ -150,8 +192,7 @@ namespace U.ProductService.Domain
         {
             if (!LastUpdatedAt.HasValue || LastUpdatedAt.Value >= updateDispatchedFromOrigin) return;
 
-            var deepCopyProduct = mapper.Map<Product>(this);
-            var variances = this.ExamineProductVariances(deepCopyProduct);
+            var variances = GetVariances(mapper);
             if (variances.Any())
             {
                 UpdateProperties(this, name, description, price, dimensions);
@@ -176,18 +217,16 @@ namespace U.ProductService.Domain
             product.Dimensions.Width = dimensions.Width;
         }
 
-
-        public Product UpdatedDeepCopy(IMapper mapper, string name, string description, decimal price,
-            Dimensions dimensions)
-        {
-            var deepCopyProduct = mapper.Map<Product>(this);
-            UpdateProperties(deepCopyProduct, name, description, price, dimensions);
-            return deepCopyProduct;
-        }
-
         public void ChangeCategory(Guid newCategoryId)
         {
             CategoryId = newCategoryId;
+        }
+
+        private IList<Variance> GetVariances(IMapper mapper)
+        {
+            var deepCopyProduct = mapper.Map<Product>(this);
+            var variances = this.ExamineProductVariances(deepCopyProduct);
+            return variances;
         }
     }
 }

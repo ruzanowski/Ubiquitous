@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace U.Common.Jwt
+namespace U.Common.Jwt.Models
 {
     public class JsonWebTokenPayload
     {

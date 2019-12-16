@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using U.Common.Subscription;
 using U.NotificationService.Domain.Entities;
 
-namespace U.NotificationService.Application.Services.WelcomeNotifications
+namespace U.NotificationService.Application.SignalR.Services.WelcomeNotifications
 {
     public interface IWelcomeNotificationsService
     {

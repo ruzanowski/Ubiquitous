@@ -11,8 +11,6 @@ namespace U.ProductService.Application.Products.Queries.GetStatistics
 
     public enum GroupByTimeStepFrequency
     {
-        Secondly,
-        Minutely,
         Hourly,
         Daily
     }

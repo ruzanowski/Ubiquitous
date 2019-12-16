@@ -9,10 +9,9 @@ namespace U.EventBus.Events.Product
 
         public Guid Manufacturer { get; }
 
-        public List<Variance> Variances { get; set; }
+        public IList<Variance> Variances { get; set; }
 
-
-        public ProductPropertiesChangedIntegrationEvent(Guid productId, Guid manufacturer, List<Variance> variances)
+        public ProductPropertiesChangedIntegrationEvent(Guid productId, Guid manufacturer, IList<Variance> variances)
         {
             ProductId = productId;
             Manufacturer = manufacturer;

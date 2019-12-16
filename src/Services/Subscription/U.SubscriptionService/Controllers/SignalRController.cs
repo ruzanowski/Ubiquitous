@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using U.Common.Jwt;
+using U.Common.Jwt.Attributes;
 using U.Common.Jwt.Claims;
 using U.SubscriptionService.Application.Command;
 using U.SubscriptionService.Application.Command.SignalRConnections.Bind;

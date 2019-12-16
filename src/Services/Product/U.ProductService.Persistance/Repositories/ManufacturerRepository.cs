@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using U.ProductService.Domain;
@@ -32,6 +33,8 @@ namespace U.ProductService.Persistance.Repositories
 
             return product;
         }
+
+        public async Task<IList<Manufacturer>> GetManyAsync() => await _context.Manufacturers.ToListAsync();
 
         public async Task<Manufacturer> GetUniqueClientIdAsync(string uniqueClientId)
         {

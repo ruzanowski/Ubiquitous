@@ -34,7 +34,6 @@ export class NotificationCardComponent
 
     if (this.notification.eventType > 0 && this.notification.eventType < 4) {
       this.manufacturerService.getManufacturer(((this.notification.event as ProductBaseEvent).manufacturer)).subscribe((data) => {
-        console.log(data);
         this.manufacturerName = data.name;
       });
     }

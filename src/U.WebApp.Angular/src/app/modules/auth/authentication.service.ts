@@ -6,8 +6,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {Router} from "@angular/router";
+import {state} from "@angular/animations";
+import {DataService} from "../shared/services/data.service";
 
 export interface ApplicationUser {
   accessToken: string;
@@ -27,7 +29,9 @@ export class AuthenticationService {
   public currentUser: Observable<ApplicationUser>;
   private loggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private readonly http: HttpClient, private router: Router) {
+  constructor(private readonly http: HttpClient,
+              private router: Router,
+              private readonly dataService: DataService) {
     this.currentUserSubject = new BehaviorSubject<ApplicationUser>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -56,12 +60,23 @@ export class AuthenticationService {
       }));
   }
 
-  logout() {
-    // remove user from local storage to log user out
+  logout()
+  {
+    this.revokeRefreshToken();
+
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     this.loggedIn.next(false);
     this.router.navigate(['/login']);
+  }
+
+  private revokeRefreshToken(){
+    return this.dataService.post('/api/identity/token/access/revoke', {})
+      .pipe(map((response: any) =>
+    {
+      console.log(response);
+      return response;
+    }));
   }
 
   check()

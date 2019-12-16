@@ -27,6 +27,7 @@ import {SidebarComponent} from "./components/sidebar/sidebar.component";
 import {FooterComponent} from "./components/footer/footer.component";
 import {LoginComponent} from "../login/components/login/login.component";
 import {AppRoutingModule} from "../../app-routing.module";
+import {IdentityService} from "./services/identity.service";
 
 @NgModule({
   imports: [
@@ -86,6 +87,7 @@ export class SharedModule {
         DataService,
         OverlayService,
         LoaderService,
+        IdentityService,
         {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}
       ]
     };

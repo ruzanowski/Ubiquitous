@@ -7,6 +7,7 @@ using U.Common.Jwt;
 using U.Common.Pagination;
 using U.ProductService.Application.Categories.Commands.Create;
 using U.ProductService.Application.Categories.Models;
+using U.ProductService.Application.Categories.Queries.GetCount;
 using U.ProductService.Application.Categories.Queries.GetList;
 using U.ProductService.Application.Categories.Queries.GetSingle;
 
@@ -33,15 +34,14 @@ namespace U.ProductService.Controllers
         /// <summary>
         /// Get list of command
         /// </summary>
-        /// <param name="categorysListQuery"></param>
+        /// <param name="query"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("query")]
         [ProducesResponseType(typeof(PaginatedItems<CategoryViewModel>), (int) HttpStatusCode.OK)]
-        public async Task<IActionResult> GetCategoriesList(
-            [FromQuery] GetCategoriesListQuery categorysListQuery)
+        public async Task<IActionResult> GetCategoriesList([FromQuery] GetCategoriesListQuery query)
         {
-            var queryResult = await _mediator.Send(categorysListQuery);
+            var queryResult = await _mediator.Send(query);
             return Ok(queryResult);
         }
 
@@ -61,19 +61,34 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Create Category
+        /// Create category
         /// </summary>
-        /// <param name="manufacturers"></param>
+        /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("create")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.Created)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
         [Consumes("application/json")]
-        public async Task<IActionResult> CreateManufacturer([FromBody] CreateCategoryCommand categories)
+        public async Task<IActionResult> CreateManufacturer([FromBody] CreateCategoryCommand command)
         {
-            var categoryId = await _mediator.Send(categories);
+            var categoryId = await _mediator.Send(command);
             return CreatedAtAction(nameof(CreateManufacturer), categoryId);
+        }
+
+        /// <summary>
+        /// Get categories total count
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("count")]
+        [ProducesResponseType(typeof(int), (int) HttpStatusCode.OK)]
+        [ProducesResponseType((int) HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetCount([FromQuery] GetCategoriesCount query)
+        {
+            var statistics = await _mediator.Send(query);
+            return Ok(statistics);
         }
     }
 }

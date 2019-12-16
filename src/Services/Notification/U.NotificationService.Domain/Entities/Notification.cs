@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore.Internal;
 using Newtonsoft.Json;
+using U.Common.Subscription;
 using U.EventBus.Events;
 using U.EventBus.Events.Product;
 
@@ -37,6 +38,7 @@ namespace U.NotificationService.Domain.Entities
         public ICollection<UserBasedEventImportancy> Importancies { get; private set; }
 
         public IntegrationEventType IntegrationEventType { get; private set; }
+        public int TimesSent { get; private set; }
 
         private void SetEventType(IntegrationEvent @event)
         {
@@ -110,6 +112,11 @@ namespace U.NotificationService.Domain.Entities
             {
                 userBasedEventImportancy.Importancy = importancy;
             }
+        }
+
+        public void IncrementProcessedTimes(int recipients = 1)
+        {
+            TimesSent += recipients;
         }
     }
 }

@@ -61,7 +61,7 @@ export class DataService {
       });
   }
 
-  private static handleError(error: any) {
+  public static handleError(error: any) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('Client side network error occurred:', error.error.message);

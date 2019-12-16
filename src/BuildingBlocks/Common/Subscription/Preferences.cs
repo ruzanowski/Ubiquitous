@@ -1,5 +1,3 @@
-using U.NotificationService.Domain.Entities;
-
 namespace U.Common.Subscription
 {
     public class Preferences
