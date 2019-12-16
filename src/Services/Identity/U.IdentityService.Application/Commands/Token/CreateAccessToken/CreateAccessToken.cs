@@ -9,7 +9,7 @@ namespace U.IdentityService.Application.Commands.Token.CreateAccessToken
 
         public CreateAccessToken(Guid userId)
         {
-            this.UserId = userId;
+            UserId = userId;
         }
     }
 }

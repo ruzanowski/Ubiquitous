@@ -10,6 +10,7 @@ using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using U.Common.Jwt.Claims;
+using U.Common.Jwt.Models;
 using U.Common.Jwt.Service;
 using U.Common.Mvc;
 

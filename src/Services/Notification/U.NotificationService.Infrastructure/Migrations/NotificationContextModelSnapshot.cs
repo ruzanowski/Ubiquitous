@@ -57,12 +57,14 @@ namespace U.NotificationService.Infrastructure.Migrations
 
                     b.Property<int>("IntegrationEventType");
 
+                    b.Property<int>("TimesSent");
+
                     b.HasKey("Id");
 
                     b.ToTable("Notification","Notifications");
                 });
 
-            modelBuilder.Entity("U.NotificationService.Domain.Entities.Notification+UserBasedEventImportancy", b =>
+            modelBuilder.Entity("U.NotificationService.Domain.Entities.UserBasedEventImportancy", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -88,7 +90,7 @@ namespace U.NotificationService.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("U.NotificationService.Domain.Entities.Notification+UserBasedEventImportancy", b =>
+            modelBuilder.Entity("U.NotificationService.Domain.Entities.UserBasedEventImportancy", b =>
                 {
                     b.HasOne("U.NotificationService.Domain.Entities.Notification")
                         .WithMany("Importancies")

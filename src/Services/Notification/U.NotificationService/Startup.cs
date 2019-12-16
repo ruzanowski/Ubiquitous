@@ -21,10 +21,12 @@ using U.Common.Swagger;
 using U.EventBus.Events.Product;
 using U.NotificationService.Application.EventHandlers;
 using U.NotificationService.Application.Models;
-using U.NotificationService.Application.Services.QueryBuilder;
-using U.NotificationService.Application.Services.Subscription;
-using U.NotificationService.Application.Services.WelcomeNotifications;
+using U.NotificationService.Application.Queries.GetCount;
 using U.NotificationService.Application.SignalR;
+using U.NotificationService.Application.SignalR.Services.Notifications;
+using U.NotificationService.Application.SignalR.Services.QueryBuilder;
+using U.NotificationService.Application.SignalR.Services.Subscription;
+using U.NotificationService.Application.SignalR.Services.WelcomeNotifications;
 using U.NotificationService.Infrastructure.Contexts;
 
 namespace U.NotificationService
@@ -47,7 +49,7 @@ namespace U.NotificationService
             services.AddCustomMvc()
                 .AddDatabaseContext<NotificationContext>(Configuration)
                 .AddEventBusRabbitMq(Configuration)
-                .AddMediatR(typeof(Startup).GetTypeInfo().Assembly)
+                .AddMediatR(typeof(GetNotificationCount).GetTypeInfo().Assembly)
                 .AddSwagger()
                 .AddCustomMapper()
                 .AddCustomServices()
@@ -87,8 +89,11 @@ namespace U.NotificationService
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
             eventBus.Subscribe<ProductAddedSignalRIntegrationEvent, ProductAddedSignalRIntegrationEventHandler>();
-            eventBus.Subscribe<ProductPublishedSignalRIntegrationEvent, ProductPublishedSignalRIntegrationEventHandler>();
-            eventBus.Subscribe<ProductPropertiesChangedSignalRIntegrationEvent, ProductPropertiesChangedSignalRIntegrationEventHandler>();
+            eventBus
+                .Subscribe<ProductPublishedSignalRIntegrationEvent, ProductPublishedSignalRIntegrationEventHandler>();
+            eventBus
+                .Subscribe<ProductPropertiesChangedSignalRIntegrationEvent,
+                    ProductPropertiesChangedSignalRIntegrationEventHandler>();
         }
 
         private void RegisterEventsHandlers(IServiceCollection services)
@@ -114,6 +119,7 @@ namespace U.NotificationService
             services.AddSingleton<PersistentHub>();
             services.AddScoped<IWelcomeNotificationsService, WelcomeNotificationsService>();
             services.AddScoped<INotificationQueryBuilder, NotificationQueryBuilder>();
+            services.AddScoped<INotificationsService, Application.SignalR.Services.Notifications.NotificationsService>();
 
             return services;
         }

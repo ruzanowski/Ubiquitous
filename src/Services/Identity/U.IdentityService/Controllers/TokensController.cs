@@ -3,13 +3,14 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using U.Common.Jwt;
+using U.Common.Jwt.Attributes;
 using U.IdentityService.Application.Commands.Token.RefreshAccessToken;
 using U.IdentityService.Application.Commands.Token.RevokeAccessToken;
 using U.IdentityService.Application.Commands.Token.RevokeRefreshToken;
 
 namespace U.IdentityService.Controllers
 {
-    [JwtAuth]
+
     [Route("api/identity/token")]
     [ApiController]
     public class TokensController : IdentifiedBaseController
@@ -36,6 +37,7 @@ namespace U.IdentityService.Controllers
         }
 
         [HttpPost("access/revoke")]
+        [JwtAuth]
         public async Task<IActionResult> RevokeAccessToken()
         {
             var revokeAccess = new RevokeAccessToken();
@@ -46,6 +48,7 @@ namespace U.IdentityService.Controllers
         }
 
         [HttpPost("refresh/{refreshToken}/revoke")]
+        [JwtAuth]
         public async Task<IActionResult> RevokeRefreshToken(string refreshToken)
         {
             var revokeRefresh = new RevokeRefreshToken

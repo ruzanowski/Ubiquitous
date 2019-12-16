@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using U.EventBus.Abstractions;
@@ -28,29 +30,44 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
 
         public async Task Handle(NewProductFetchedIntegrationEvent @event)
         {
-                var product = await _productRepository.GetByAlternativeIdAsync(@event.GetUniqueId);
+            var product = await _productRepository.GetByAlternativeIdAsync(@event.GetUniqueId);
 
-                if (product is null)
-                {
-                    var dimensions = new DimensionsDto(@event.Length, @event.Width, @event.Height, @event.Weight);
+            if (product is null)
+            {
+                var dimensions = new DimensionsDto(@event.Length, @event.Width, @event.Height, @event.Weight);
 
-                    var manufacturer =
-                        await _manufacturerRepository.GetUniqueClientIdAsync(@event.ManufacturerId.ToString()) ??
-                        Manufacturer.GetDraftManufacturer();
+                var manufacturer =
+                    await _manufacturerRepository.GetUniqueClientIdAsync(@event.ManufacturerId.ToString()) ??
+                    await ShuffleManufacturerAsync();
 
-                    var create = new CreateProductCommand(@event.Name, @event.GetUniqueId, @event.PriceInTax,
-                        @event.Description, dimensions, manufacturer.Id);
+                var create = new CreateProductCommand(@event.Name, @event.GetUniqueId, @event.PriceInTax,
+                    @event.Description, dimensions, manufacturer.Id);
 
-                    await _mediator.Send(create);
-                }
-                else
-                {
-                    var dimensions = new DimensionsDto(@event.Length, @event.Width, @event.Height, @event.Weight);
-                    var update = new UpdateProductCommand(product.Id, @event.Name, @event.PriceInTax,
-                        @event.Description, dimensions);
+                await _mediator.Send(create);
+            }
+            else
+            {
+                var dimensions = new DimensionsDto(@event.Length, @event.Width, @event.Height, @event.Weight);
+                var update = new UpdateProductCommand(product.Id, @event.Name, @event.PriceInTax,
+                    @event.Description, dimensions);
 
-                    await _mediator.Send(update);
-                }
+                await _mediator.Send(update);
+            }
+        }
+
+        private async Task<Manufacturer> ShuffleManufacturerAsync()
+        {
+            var rnd = new Random();
+            var manufacturers = await _manufacturerRepository.GetManyAsync();
+
+            if (manufacturers.Count == 0)
+            {
+                return Manufacturer.GetDraftManufacturer();
+            }
+
+            var mod = rnd.Next() % manufacturers.Count;
+
+            return manufacturers[mod];
         }
     }
 }

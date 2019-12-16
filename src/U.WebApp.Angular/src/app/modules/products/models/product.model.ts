@@ -13,3 +13,8 @@ export interface Product {
   manufacturerId: string;
   category: Category;
 }
+export interface ProductStatistics
+{
+  dateTime: Date;
+  count: number;
+}

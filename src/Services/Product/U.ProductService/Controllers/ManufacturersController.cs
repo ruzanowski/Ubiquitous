@@ -9,6 +9,7 @@ using U.ProductService.Application.Manufacturers.Commands.AddPicture;
 using U.ProductService.Application.Manufacturers.Commands.Create;
 using U.ProductService.Application.Manufacturers.Commands.DeletePicture;
 using U.ProductService.Application.Manufacturers.Models;
+using U.ProductService.Application.Manufacturers.Queries.GetCount;
 using U.ProductService.Application.Manufacturers.Queries.GetList;
 using U.ProductService.Application.Manufacturers.Queries.GetSingle;
 
@@ -49,7 +50,7 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Get Manufacturer by its ManufacturerId
+        /// Get manufacturer by its ManufacturerId
         /// </summary>
         /// <param name="manufacturerId"></param>
         /// <returns></returns>
@@ -65,7 +66,7 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Create Manufacturer
+        /// Create manufacturer
         /// </summary>
         /// <param name="manufacturers"></param>
         /// <returns></returns>
@@ -82,7 +83,7 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Add Manufacturer Picture
+        /// Add manufacturer picture
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
@@ -98,7 +99,7 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Add Manufacturer Picture
+        /// Add manufacturer picture
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
@@ -111,6 +112,21 @@ namespace U.ProductService.Controllers
         {
             await _mediator.Send(command);
             return Ok();
+        }
+
+        /// <summary>
+        /// Get manufacturers total count
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("count")]
+        [ProducesResponseType(typeof(int), (int) HttpStatusCode.OK)]
+        [ProducesResponseType((int) HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetCount([FromQuery] GetManufacturersCount query)
+        {
+            var statistics = await _mediator.Send(query);
+            return Ok(statistics);
         }
     }
 }

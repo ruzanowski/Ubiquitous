@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using U.Common.Jwt.Claims;
+using U.Common.Jwt.Models;
 
 namespace U.Common.Jwt.Service
 {

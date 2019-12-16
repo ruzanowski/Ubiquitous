@@ -1,10 +1,11 @@
 using System;
 using System.Linq;
 using Newtonsoft.Json;
+using U.Common.Jwt.Claims;
+using U.Common.Subscription;
 using U.EventBus.Events;
 using U.EventBus.Events.Notification;
 using U.EventBus.Events.Product;
-using U.NotificationService.Application.Services.Users;
 using U.NotificationService.Domain.Entities;
 
 namespace U.NotificationService.Application.Models
@@ -14,10 +15,10 @@ namespace U.NotificationService.Application.Models
         //needed for messagepack
         public NotificationDto()
         {
-
         }
 
-        protected NotificationDto(Guid id, IntegrationEvent @event, IntegrationEventType eventType, ConfirmationType state, Importancy importancy)
+        protected NotificationDto(Guid id, IntegrationEvent @event, IntegrationEventType eventType,
+            ConfirmationType state, Importancy importancy)
         {
             Id = id;
             Event = @event;
@@ -35,66 +36,65 @@ namespace U.NotificationService.Application.Models
         public Importancy Importancy { get; private set; }
 
         public static class NotifactionFactory
-    {
-
-        public static NotificationDto FromNotificationWithPrefferedImportancy(Notification notification, Guid currentUserId) =>
-            new NotificationDto(notification.Id,
-                DeserializeDependingOnType(notification.IntegrationEvent, notification.IntegrationEventType),
-                notification.IntegrationEventType,
-                notification.Confirmations.FirstOrDefault()?.ConfirmationType ?? ConfirmationType.Unread,
-                notification.Importancies.FirstOrDefault(x=>x.UserId.Equals(currentUserId))?.Importancy ?? Importancy.Trivial); // many to one conversion
-
-        public static NotificationDto GlobalVolatileNotification(Notification notification, IntegrationEvent @event) =>
-            new NotificationDto(notification.Id,
-                @event,
-                notification.IntegrationEventType,
-                notification.Confirmations.FirstOrDefault()?.ConfirmationType ?? ConfirmationType.Unread,
-                Importancy.Important);
-
-        public static NotificationDto UserDisconnected(UserDto user) =>
-            new NotificationDto(user.Id,
-                new UserDisconnectedSignalRIntegrationEvent
-                {
-                    Nickname = user.Nickname,
-                    Role = user.Role,
-                    UserId = user.Id
-                },
-                IntegrationEventType.UserDisconnected,
-                ConfirmationType.Unread,
-                Importancy.Trivial);
-
-        public static NotificationDto UserConnected(UserDto user) =>
-            new NotificationDto(user.Id,
-                new UserConnectedSignalRIntegrationEvent
-                {
-                    Nickname = user.Nickname,
-                    Role = user.Role,
-                    UserId = user.Id
-                },
-                IntegrationEventType.UserConnected,
-                ConfirmationType.Unread,
-                Importancy.Trivial);
-
-        static IntegrationEvent DeserializeDependingOnType(string @event, IntegrationEventType eventType)
         {
-            switch (eventType)
+            public static NotificationDto FromNotificationWithPrefferedImportancy(Notification notification,
+                Guid currentUserId) =>
+                new NotificationDto(notification.Id,
+                    DeserializeDependingOnType(notification.IntegrationEvent, notification.IntegrationEventType),
+                    notification.IntegrationEventType,
+                    notification.Confirmations.FirstOrDefault(x => x.User.Equals(currentUserId))?.ConfirmationType ??
+                    ConfirmationType.Unread,
+                    notification.Importancies.FirstOrDefault(x => x.UserId.Equals(currentUserId))?.Importancy ??
+                    Importancy.Trivial); // many to one conversion
+
+            public static NotificationDto
+                GlobalVolatileNotification(Notification notification, IntegrationEvent @event) =>
+                new NotificationDto(notification.Id,
+                    @event,
+                    notification.IntegrationEventType,
+                    notification.Confirmations.FirstOrDefault()?.ConfirmationType ?? ConfirmationType.Unread,
+                    Importancy.Important);
+
+            public static NotificationDto UserDisconnected(UserDto user) =>
+                new NotificationDto(user.Id,
+                    new UserDisconnectedSignalRIntegrationEvent
+                    {
+                        Nickname = user.Nickname,
+                        Role = user.Role,
+                        UserId = user.Id
+                    },
+                    IntegrationEventType.UserDisconnected,
+                    ConfirmationType.Unread,
+                    Importancy.Trivial);
+
+            public static NotificationDto UserConnected(UserDto user) =>
+                new NotificationDto(user.Id,
+                    new UserConnectedSignalRIntegrationEvent
+                    {
+                        Nickname = user.Nickname,
+                        Role = user.Role,
+                        UserId = user.Id
+                    },
+                    IntegrationEventType.UserConnected,
+                    ConfirmationType.Unread,
+                    Importancy.Trivial);
+
+            static IntegrationEvent DeserializeDependingOnType(string @event, IntegrationEventType eventType)
             {
-                case IntegrationEventType.ProductPublishedIntegrationEvent:
-                    return JsonConvert.DeserializeObject<ProductPublishedIntegrationEvent>(@event);
-                case IntegrationEventType.ProductPropertiesChangedIntegrationEvent:
-                    return JsonConvert.DeserializeObject<ProductPropertiesChangedIntegrationEvent>(@event);
-                case IntegrationEventType.ProductAddedIntegrationEvent:
-                    return JsonConvert.DeserializeObject<ProductAddedIntegrationEvent>(@event);
-                // ReSharper disable once RedundantCaseLabel
-                default:
-                case IntegrationEventType.Unknown:
-                    return JsonConvert.DeserializeObject<IntegrationEvent>(@event);
+                switch (eventType)
+                {
+                    case IntegrationEventType.ProductPublishedIntegrationEvent:
+                        return JsonConvert.DeserializeObject<ProductPublishedIntegrationEvent>(@event);
+                    case IntegrationEventType.ProductPropertiesChangedIntegrationEvent:
+                        return JsonConvert.DeserializeObject<ProductPropertiesChangedIntegrationEvent>(@event);
+                    case IntegrationEventType.ProductAddedIntegrationEvent:
+                        return JsonConvert.DeserializeObject<ProductAddedIntegrationEvent>(@event);
+                    // ReSharper disable once RedundantCaseLabel
+                    default:
+                    case IntegrationEventType.Unknown:
+                        return JsonConvert.DeserializeObject<IntegrationEvent>(@event);
+                }
             }
         }
-
-
     }
-    }
-
-
 }

@@ -11,22 +11,6 @@ namespace U.ProductService.Application.Common.Extensions
             DateTimePropertiesInclude dateInclude = new DateTimePropertiesInclude();
             switch (step)
             {
-                case GroupByTimeStepFrequency.Secondly:
-                    dateInclude.Year = true;
-                    dateInclude.Month = true;
-                    dateInclude.Day = true;
-                    dateInclude.Hour = true;
-                    dateInclude.Minute = true;
-                    dateInclude.Second = true;
-                    break;
-                case GroupByTimeStepFrequency.Minutely:
-                    dateInclude.Year = true;
-                    dateInclude.Month = true;
-                    dateInclude.Day = true;
-                    dateInclude.Hour = true;
-                    dateInclude.Minute = true;
-                    dateInclude.Second = false;
-                    break;
                 case GroupByTimeStepFrequency.Hourly:
                     dateInclude.Year = true;
                     dateInclude.Month = true;

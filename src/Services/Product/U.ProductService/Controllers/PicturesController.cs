@@ -21,7 +21,7 @@ namespace U.ProductService.Controllers
         private readonly IMediator _mediator;
 
         /// <summary>
-        /// Picture controller of Product service
+        /// Picture controller of product service
         /// </summary>
         /// <param name="mediator"></param>
         public PicturesController(IMediator mediator)
@@ -46,7 +46,7 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Get Picture by its PictureId
+        /// Get picture by its pictureId
         /// </summary>
         /// <param name="pictureId"></param>
         /// <returns></returns>

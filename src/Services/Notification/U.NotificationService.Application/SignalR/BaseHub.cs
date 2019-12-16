@@ -1,17 +1,18 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using U.Common.Jwt;
+using U.Common.Jwt.Attributes;
 using U.Common.Jwt.Claims;
 using U.Common.Subscription;
 using U.NotificationService.Application.Models;
-using U.NotificationService.Application.Services.Subscription;
-using U.NotificationService.Application.Services.Users;
-using U.NotificationService.Application.Services.WelcomeNotifications;
-using U.NotificationService.Domain.Entities;
-using U.NotificationService.Infrastructure.Contexts;
+using U.NotificationService.Application.SignalR.Services;
+using U.NotificationService.Application.SignalR.Services.Notifications;
+using U.NotificationService.Application.SignalR.Services.Subscription;
+using U.NotificationService.Application.SignalR.Services.WelcomeNotifications;
 
 // ReSharper disable UnusedMember.Global
 
@@ -20,46 +21,44 @@ namespace U.NotificationService.Application.SignalR
     [JwtAuth]
     public class BaseHub : Hub
     {
-        private readonly NotificationContext _context;
         private readonly ILogger<BaseHub> _logger;
         private readonly IWelcomeNotificationsService _welcomeNotificationsService;
         private readonly ISubscriptionService _subscriptionService;
+        private readonly INotificationsService _notificationsService;
 
-        public BaseHub(NotificationContext context,
-         ILogger<BaseHub> logger,
+        public BaseHub(ILogger<BaseHub> logger,
             IWelcomeNotificationsService welcomeNotificationsService,
-            ISubscriptionService subscriptionService)
+            ISubscriptionService subscriptionService,
+            INotificationsService notificationsService)
         {
-            _context = context;
             _logger = logger;
             _welcomeNotificationsService = welcomeNotificationsService;
             _subscriptionService = subscriptionService;
+            _notificationsService = notificationsService;
         }
 
         private UserDto GetCurrentUser() => Context.GetUserOrThrow();
 
         public override async Task OnConnectedAsync()
         {
-            UserDto currentUser = GetCurrentUser();
-            if (Context.IsAuthenticated())
-            {
-                _logger.LogInformation($"User: '{currentUser.Nickname}' has connected");
-            }
-            else
-            {
-                Context.Abort();
-            }
+            UserDto currentUser = GetUserOrAbort();
 
-            await _subscriptionService.BindConnectionToUserAsync(currentUser.Id,  Context.ConnectionId);
+            await _subscriptionService.BindConnectionToUserAsync(currentUser.Id, Context.ConnectionId);
 
             var preferences = await _subscriptionService.GetMyPreferencesAsync(currentUser.Id);
-            await LoadAndPushWelcomeMessages(preferences, currentUser.Id, currentUser.Nickname);
+            var welcomeNotifications = await LoadWelcomeMessages(preferences, currentUser.Id);
 
+            foreach (var welcomeNotification in welcomeNotifications)
+            {
+                await Clients.Client(Context.ConnectionId).SendAsync("WelcomeNotifications", welcomeNotification);
+                _logger.LogInformation(
+                    $"Sent historic notification: '{welcomeNotification.Id}' to '{currentUser.Nickname}' of id: '{currentUser.Id}'.");
+            }
 
             if (preferences.DoNotNotifyAnyoneAboutMyActivity == false)
             {
                 var userConnected = NotificationDto.NotifactionFactory.UserConnected(currentUser);
-                await Clients.All.SendAsync("connected", userConnected);
+                await Clients.Others.SendAsync("connected", userConnected);
             }
 
             await base.OnConnectedAsync();
@@ -67,15 +66,7 @@ namespace U.NotificationService.Application.SignalR
 
         public override async Task OnDisconnectedAsync(Exception ex)
         {
-            UserDto currentUser = Context.GetUserOrThrow();
-            if (Context.IsAuthenticated())
-            {
-                _logger.LogDebug($"User: '{currentUser.Nickname}' has disconnected");
-            }
-            else
-            {
-                Context.Abort();
-            }
+            UserDto currentUser = GetUserOrAbort();
 
             var preferences = await _subscriptionService.GetMyPreferencesAsync(currentUser.Id);
 
@@ -91,112 +82,39 @@ namespace U.NotificationService.Application.SignalR
         }
 
         [JwtAuth]
-        public async Task ConfirmReadNotification(Guid notifcationId)
-        {
-            UserDto currentUser = Context.GetUserOrThrow();
-            if (Context.IsAuthenticated())
-            {
-                _logger.LogDebug($"User: '{currentUser.Nickname}' has disconnected");
-            }
-            else
-            {
-                Context.Abort();
-            }
-
-            var notification = await _context.Notifications
-                .Include(x => x.Confirmations)
-                .Include(x=>x.Importancies)
-                .FirstOrDefaultAsync(x => x.Id.Equals(notifcationId));
-
-            if (notification is null)
-            {
-                _logger.LogInformation($"{notifcationId} does not exist and cannot set to state 'Read'");
-                return;
-            }
-
-            notification.ChangeStateToRead(currentUser.Id);
-            notification.SetImportancy(currentUser.Id, Importancy.Trivial);
-
-            await _context.SaveChangesAsync();
-        }
+        public async Task ConfirmReadNotification(Guid notifcationId) =>
+            await _notificationsService.ConfirmReadNotification(GetCurrentUser(), notifcationId);
 
         [JwtAuth("admin")]
-        public async Task DeleteNotification(Guid notifcationId)
-        {
-            var notification = await _context.Notifications
-                .Include(x => x.Confirmations)
-                .Include(x=>x.Importancies)
-                .FirstOrDefaultAsync(x => x.Id.Equals(notifcationId));
-
-            if (notification is null)
-            {
-                _logger.LogInformation($"{notifcationId} does not exist and cannot set to state 'Delete'");
-                return;
-            }
-
-            _context.Remove(notification);
-            await _context.SaveChangesAsync();
-        }
+        public async Task DeleteNotification(Guid notifcationId) =>
+            await _notificationsService.DeleteNotification(notifcationId);
 
         [JwtAuth]
-        public async Task HideNotification(Guid notifcationId)
-        {
-            UserDto currentUser = Context.GetUserOrThrow();
-            if (Context.IsAuthenticated())
-            {
-                _logger.LogDebug($"User: '{currentUser.Nickname}' has disconnected");
-            }
-            else
-            {
-                Context.Abort();
-            }
-
-            var notification = await _context.Notifications
-                .Include(x => x.Confirmations)
-                .Include(x=>x.Importancies)
-                .FirstOrDefaultAsync(x => x.Id.Equals(notifcationId));
-
-            if (notification is null)
-            {
-                _logger.LogInformation($"{notifcationId} does not exist and cannot set to state 'Read'");
-                return;
-            }
-
-            notification.ChangeStateToHidden(currentUser.Id);
-
-            await _context.SaveChangesAsync();
-        }
+        public async Task HideNotification(Guid notifcationId) =>
+            await _notificationsService.HideNotification(GetCurrentUser(), notifcationId);
 
         [JwtAuth]
-        public async Task ChangeNotificationImportancy(Guid notifcationId, Importancy importancy)
-        {
-            var notification = await _context.Notifications
-                .Include(x => x.Confirmations)
-                .Include(x=>x.Importancies)
-                .FirstOrDefaultAsync(x => x.Id.Equals(notifcationId));
+        public async Task ChangeNotificationImportancy(Guid notifcationId, Importancy importancy) =>
+            await _notificationsService.ChangeNotificationImportancy(GetCurrentUser(), notifcationId, importancy);
 
-            if (notification is null)
-            {
-                _logger.LogInformation($"{notifcationId} does not exist and cannot set importancy");
-                return;
-            }
-
-            notification.SetImportancy(GetCurrentUser().Id, importancy);
-
-            await _context.SaveChangesAsync();
-        }
-
-        private async Task LoadAndPushWelcomeMessages(Preferences preferences, Guid userId, string userNickname)
+        private async Task<List<NotificationDto>> LoadWelcomeMessages(Preferences preferences, Guid userId)
         {
             var notifications = await _welcomeNotificationsService.LoadWelcomeMessages(preferences, userId);
 
-            foreach (var notification in notifications)
-            {
-                var welcomeNotification = NotificationDto.NotifactionFactory.FromNotificationWithPrefferedImportancy(notification, GetCurrentUser().Id);
+            return notifications
+                .Select(x =>
+                    NotificationDto.NotifactionFactory.FromNotificationWithPrefferedImportancy(x, GetCurrentUser().Id))
+                .ToList();
+        }
 
-                await Clients.Client(Context.ConnectionId).SendAsync("WelcomeNotifications", welcomeNotification);
-                _logger.LogInformation($"Sent historic notification: '{notification.Id}' to '{userNickname}' of id: '{userId}'.");
-            }
+        private UserDto GetUserOrAbort()
+        {
+            if (Context.IsAuthenticated())
+                _logger.LogDebug($"User: '{GetCurrentUser().Nickname}' has disconnected");
+            else
+                Context.Abort();
+
+            return Context.GetUserOrThrow();
         }
     }
 }

@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using MediatR;
 using U.Common.Jwt;
+using U.Common.Jwt.Attributes;
 using U.IdentityService.Application.Commands.Identity.ChangePassword;
-using U.IdentityService.Application.Queries.GetMyProfile;
-using U.IdentityService.Application.Queries.GetUsersProfiles;
+using U.IdentityService.Application.Queries.GetMyAccount;
+using U.IdentityService.Application.Queries.GetUsersAccounts;
+using U.IdentityService.Application.Queries.GetUsersOnline;
 
 namespace U.IdentityService.Controllers
 {
@@ -35,12 +37,21 @@ namespace U.IdentityService.Controllers
         }
 
         [HttpGet("all")]
-        [JwtAuth(Roles = "admin")]
+        [JwtAuth]
         public async Task<IActionResult> GetUsersAsync()
         {
             var users = await _mediator.Send(new GetUsersProfiles());
 
             return Ok(users);
+        }
+
+        [HttpGet("online")]
+        [JwtAuth]
+        public async Task<IActionResult> GetUsersOnlineAsync()
+        {
+            var online = await _mediator.Send(new GetUsersOnline());
+
+            return Ok(online);
         }
 
         [HttpPut("me/password")]

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using MediatR;
-using U.NotificationService.Domain.Entities;
+using U.Common.Subscription;
 
 namespace U.SubscriptionService.Application.Command.AllowedEvents
 {
