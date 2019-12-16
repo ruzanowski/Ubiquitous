@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using U.Common.Jwt;
+using U.Common.Jwt.Service;
 using U.EventBus.Abstractions;
 using U.IdentityService.Application.Services;
 using U.IdentityService.Domain.Domain;

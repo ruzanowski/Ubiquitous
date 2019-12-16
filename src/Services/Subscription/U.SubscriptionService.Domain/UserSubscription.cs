@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Internal;
 using U.Common.Subscription;
-using U.NotificationService.Domain.Entities;
 
 namespace U.SubscriptionService.Domain
 {
@@ -59,14 +58,14 @@ namespace U.SubscriptionService.Domain
 
         public void UnBindConnectionWithUserId(string connectionId, Guid userId)
         {
-            var binded = Connections.FirstOrDefault(x => x.ConnectionId.Equals(connectionId) && UserId.Equals(userId));
+            var bound = Connections.FirstOrDefault(x => x.ConnectionId.Equals(connectionId) && UserId.Equals(userId));
 
-            if (binded is null)
+            if (bound is null)
             {
                 return;
             }
 
-            Connections.Remove(binded);
+            Connections.Remove(bound);
         }
 
 

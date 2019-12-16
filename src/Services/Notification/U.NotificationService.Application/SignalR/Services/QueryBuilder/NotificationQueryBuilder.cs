@@ -2,19 +2,24 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Internal;
+using U.Common.Subscription;
 using U.NotificationService.Application.Models;
 using U.NotificationService.Domain.Entities;
 
-namespace U.NotificationService.Application.Services.QueryBuilder
+namespace U.NotificationService.Application.SignalR.Services.QueryBuilder
 {
     public class NotificationQueryBuilder : INotificationQueryBuilder
     {
         private IQueryable<Notification> _query;
+        private IQueryable<Notification> _pureQuery;
         private Guid _userId;
 
-        public INotificationQueryBuilder WithQueryAndUser(IQueryable<Notification> query, Guid userId)
+        public INotificationQueryBuilder WithQueriesAndUser(
+            IQueryable<Notification> notifications,
+            Guid userId)
         {
-            _query = query;
+            _pureQuery = notifications;
+            _query = notifications;
             _userId = userId;
             return this;
         }
@@ -40,18 +45,31 @@ namespace U.NotificationService.Application.Services.QueryBuilder
 
         public INotificationQueryBuilder FilterByMinimalImportancy(Importancy minimumLevel)
         {
-            _query = _query.Where(x => !x.Importancies.Any(y => y.UserId.Equals(_userId)) ||
-                                       x.Importancies.Any(y => y.UserId.Equals(_userId)) &&
-                                       x.Importancies.First(y => y.UserId.Equals(_userId)).Importancy <= minimumLevel);
-            return this;
+            var importancy = _pureQuery
+                .SelectMany(x => x.Importancies)
+                .FirstOrDefault(x => x.UserId.Equals(_userId));
+
+            if (minimumLevel == Importancy.Trivial)
+                return this;
+
+            switch (importancy)
+            {
+                case null:
+                    return this;
+                default:
+                    _query = _query.Where(x => x.Importancies.Single(y => y.Id.Equals(importancy.Id)).Importancy >= importancy.Importancy);
+                    return this;
+            }
         }
 
-        private Expression<Func<Notification, bool>> NotAcquiredOrAnyFromReadOrUnread(Guid userId) =>
-            notification => !notification.Confirmations.Any() ||
-                            notification.Confirmations.Any(x =>
-                                x.User.Equals(userId) &&
-                                (x.ConfirmationType == ConfirmationType.Unread ||
-                                 x.ConfirmationType == ConfirmationType.Read));
+        private Expression<Func<Notification, bool>> NotAcquiredOrAnyFromReadOrUnread(Guid userId)
+        {
+            return notification => !notification.Confirmations.Any() ||
+                                   notification.Confirmations.Any(x =>
+                                       x.User.Equals(userId) &&
+                                       (x.ConfirmationType == ConfirmationType.Unread ||
+                                        x.ConfirmationType == ConfirmationType.Read));
+        }
 
         private Expression<Func<Notification, bool>> NotAcquiredOrAnyFromRead(Guid userId) =>
             notification => !notification.Confirmations.Any() ||
@@ -88,9 +106,9 @@ namespace U.NotificationService.Application.Services.QueryBuilder
             if (anyImportancies)
             {
                 _query = descending
-                    ?  (_query as IOrderedQueryable<Notification>).ThenByDescending(x =>
+                    ? (_query as IOrderedQueryable<Notification>).ThenByDescending(x =>
                         (int) x.Importancies.First(z => z.UserId.Equals(_userId)).Importancy)
-                    :  (_query as IOrderedQueryable<Notification>).ThenBy(x =>
+                    : (_query as IOrderedQueryable<Notification>).ThenBy(x =>
                         (int) x.Importancies.First(z => z.UserId.Equals(_userId)).Importancy);
             }
 

@@ -30,7 +30,6 @@
         <Content Include="src\app\layouts\home-layout\home-layout.component.css" />
         <Content Include="src\app\layouts\home-layout\home-layout.component.html" />
         <Content Include="src\app\modules\categories\components\table-category\table-categories.component.css" />
-        <Content Include="src\app\modules\dashboard\components\dashboard\dashboard-chart-notifications\data.json" />
         <Content Include="src\app\modules\login\components\login\login.component.css" />
         <Content Include="src\app\modules\login\components\login\login.component.html" />
         <Content Include="src\app\modules\manufacturers\components\table-manufacturers\table-manufacturers.component.css" />
@@ -155,6 +154,7 @@
         <Content Remove="dist\**" />
         <None Remove="bin\**" />
         <Content Remove="bin\**" />
+        <None Include="src\app\modules\shared\services\identity.service.ts" />
     </ItemGroup>
 
     <ItemGroup>
@@ -229,8 +229,11 @@
       <TypeScriptCompile Include="src\app\modules\auth\index.ts" />
       <TypeScriptCompile Include="src\app\modules\auth\jwt.interceptor.ts" />
       <TypeScriptCompile Include="src\app\modules\categories\category.module.ts" />
-      <TypeScriptCompile Include="src\app\modules\dashboard\components\dashboard\dashboard-chart-notifications\notifications-pie-chart.component.ts" />
-      <TypeScriptCompile Include="src\app\modules\dashboard\components\dashboard\dashboard-chart-notifications\notifications-bar-chart.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\dashboard\components\dashboard\charts\notification-types-chart.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\dashboard\components\dashboard\charts\notifications-processed-chart.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\dashboard\components\dashboard\charts\products-by-category-chart.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\dashboard\components\dashboard\charts\products-by-manufacturer-chart.component.ts" />
+      <TypeScriptCompile Include="src\app\modules\dashboard\components\dashboard\charts\products-chart.component.ts" />
       <TypeScriptCompile Include="src\app\modules\dashboard\dashboard.module.ts" />
       <TypeScriptCompile Include="src\app\modules\login\components\login\login.component.ts" />
       <TypeScriptCompile Include="src\app\modules\manufacturers\manufacturer.module.ts" />
@@ -249,10 +252,13 @@
       <TypeScriptCompile Include="src\app\modules\notifications\models\importancy.model.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\models\integration-event-type.model.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\models\notification-dto.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\models\notification-statistics.model.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\notifications.module.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\services\notification.service.ts" />
+      <TypeScriptCompile Include="src\app\modules\notifications\services\notification-http.service.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\services\signalr.service.ts" />
       <TypeScriptCompile Include="src\app\modules\notifications\services\toastr.service.ts" />
+      <TypeScriptCompile Include="src\app\modules\products\models\product-statistics.model.ts" />
       <TypeScriptCompile Include="src\app\modules\products\product.module.ts" />
       <Content Include="src\app\modules\shared\components\spinner-overlay\progress-spinner.component.css" />
       <TypeScriptCompile Include="src\app\modules\shared\components\footer\footer.component.ts" />
@@ -261,6 +267,7 @@
       <TypeScriptCompile Include="src\app\modules\shared\components\sidebar\sidebar.component.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\components\spinner-overlay\progress-spinner.component.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\models\paginateditems.model.ts" />
+      <TypeScriptCompile Include="src\app\modules\shared\models\user.model.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\services\data.service.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\services\loader.service.ts" />
       <TypeScriptCompile Include="src\app\modules\shared\services\overlay.service.ts" />

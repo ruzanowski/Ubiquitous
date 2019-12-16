@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using U.Common.Subscription;
 using U.NotificationService.Application.Models;
-using U.NotificationService.Application.Services.QueryBuilder;
-using U.NotificationService.Application.Services.Subscription;
+using U.NotificationService.Application.SignalR.Services.QueryBuilder;
+using U.NotificationService.Application.SignalR.Services.Subscription;
 using U.NotificationService.Domain.Entities;
 using U.NotificationService.Infrastructure.Contexts;
 
-namespace U.NotificationService.Application.Services.WelcomeNotifications
+namespace U.NotificationService.Application.SignalR.Services.WelcomeNotifications
 {
     public class WelcomeNotificationsService : IWelcomeNotificationsService
     {
@@ -41,7 +41,8 @@ namespace U.NotificationService.Application.Services.WelcomeNotifications
                 SeeUnread = preferences.SeeUnreadNotifications
             };
 
-            var notificationsQuery = _queryBuilder.WithQueryAndUser(GetQuery(), userId)
+            var notificationsQuery = _queryBuilder
+                .WithQueriesAndUser(GetNotificationQuery(),  userId)
                 .FilterByConfirmationType(confirmationType)
                 .FilterByMinimalImportancy(importancy)
                 .OrderByCreationDate(orderByCreationTimeDescending)
@@ -50,14 +51,18 @@ namespace U.NotificationService.Application.Services.WelcomeNotifications
                 .Take(numberOfWelcomeMessages)
                 .Build();
 
+            await notificationsQuery.ForEachAsync(notification => notification.IncrementProcessedTimes());
+            await _context.SaveChangesAsync();
+
             var notifications = notificationsQuery.ToList();
 
             return notifications;
         }
 
-        private IQueryable<Notification> GetQuery() =>
+        private IQueryable<Notification> GetNotificationQuery() =>
             _context.Notifications
                 .Include(x => x.Confirmations)
                 .Include(x => x.Importancies);
+
     }
 }

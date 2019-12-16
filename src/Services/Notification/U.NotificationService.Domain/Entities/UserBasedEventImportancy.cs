@@ -1,4 +1,5 @@
 using System;
+using U.Common.Subscription;
 
 namespace U.NotificationService.Domain.Entities
 {

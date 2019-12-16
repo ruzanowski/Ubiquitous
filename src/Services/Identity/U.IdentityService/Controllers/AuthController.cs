@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using U.Common.Jwt;
+using U.Common.Jwt.Models;
 using U.IdentityService.Application.Commands.Identity.SignIn;
 using U.IdentityService.Application.Commands.Identity.SignUp;
 

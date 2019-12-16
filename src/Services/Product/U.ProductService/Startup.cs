@@ -154,7 +154,7 @@ namespace U.ProductService
 
         public static IServiceCollection AddCustomPipelineBehaviours(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PublishBehaviour<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(EventPublishBehaviour<,>));
 
             return services;
         }

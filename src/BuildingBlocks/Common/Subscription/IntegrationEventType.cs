@@ -1,4 +1,4 @@
-namespace U.NotificationService.Domain.Entities
+namespace U.Common.Subscription
 {
     public enum IntegrationEventType
     {

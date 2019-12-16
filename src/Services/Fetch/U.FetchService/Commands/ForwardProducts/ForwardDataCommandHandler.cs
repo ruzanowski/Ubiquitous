@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
 using U.EventBus.Events;
 using U.EventBus.Events.Fetch;
-using U.NotificationService.Domain.Entities;
 
 namespace U.FetchService.Commands.ForwardProducts
 {

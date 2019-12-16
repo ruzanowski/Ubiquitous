@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.SignalR;
-using U.NotificationService.Application.Services.Users;
 
 
 namespace U.Common.Jwt.Claims

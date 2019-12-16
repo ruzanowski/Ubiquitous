@@ -1,5 +1,6 @@
 using MediatR;
 using U.Common.Jwt;
+using U.Common.Jwt.Models;
 
 namespace U.IdentityService.Application.Commands.Token.RefreshAccessToken
 {

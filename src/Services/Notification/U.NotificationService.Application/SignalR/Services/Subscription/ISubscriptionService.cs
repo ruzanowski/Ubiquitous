@@ -1,10 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using RestEase;
-using U.Common.Jwt;
 using U.Common.Subscription;
 
-namespace U.NotificationService.Application.Services.Subscription
+namespace U.NotificationService.Application.SignalR.Services.Subscription
 {
     public interface ISubscriptionService
     {

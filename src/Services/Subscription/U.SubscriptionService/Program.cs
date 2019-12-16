@@ -4,7 +4,6 @@ using Serilog;
 using U.Common.Database;
 using U.Common.Mvc;
 using U.Common.WebHost;
-using U.NotificationService;
 using U.SubscriptionService.Persistance.Contexts;
 
 namespace U.SubscriptionService

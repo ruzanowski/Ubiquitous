@@ -45,12 +45,10 @@ export class HomeLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
   receiveNotificationBarToggle(event) {
     this.isNotificationNavBarToggled = event;
-    console.log('navbar notificationBarToggle event received: ' + this.isNotificationNavBarToggled);
   }
 
   receiveNotificationsBadgeEvent(event) {
     this.notificationsToRead = event;
-    console.log('notifications badge event received: ' + this.notificationsToRead);
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-using U.NotificationService.Domain.Entities;
+using U.Common.Subscription;
 
 namespace U.SubscriptionService.Domain
 {

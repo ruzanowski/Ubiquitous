@@ -25,4 +25,10 @@ export class CategoryService {
 
     return this.service.get(url).pipe(map((response: any) => response));
   }
+
+  getCategoryCount(): Observable<number> {
+    let url = this.categoryBaseUrl + '/count';
+
+    return this.service.get(url).pipe(map((response: any) => response));
+  }
 }

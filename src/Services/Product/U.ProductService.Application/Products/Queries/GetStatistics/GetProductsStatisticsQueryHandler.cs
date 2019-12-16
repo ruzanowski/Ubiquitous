@@ -15,7 +15,7 @@ namespace U.ProductService.Application.Products.Queries.GetStatistics
     public class GetProductsStatisticsQueryHandler : IRequestHandler<GetProductsStatisticsQuery, IList<ProductStatisticsDto>>
     {
         private readonly ProductContext _context;
-
+        private const int Days = 14;
 
         public GetProductsStatisticsQueryHandler(ProductContext context)
         {
@@ -29,6 +29,7 @@ namespace U.ProductService.Application.Products.Queries.GetStatistics
             var query = GetQuery();
 
             var results = await query
+                .Where(x => x.CreatedAt.Date.AddDays(Days) >= DateTime.UtcNow.Date)
                 .GroupBy(g =>
                     new
                     {
@@ -64,14 +65,17 @@ namespace U.ProductService.Application.Products.Queries.GetStatistics
                     Count = i.Count()
                 }).ToListAsync(cancellationToken);
 
-            var mapped = results.Select(i => new ProductStatisticsDto
+            var statisticsWithGaps = results.Select(i => new ProductStatisticsDto
             {
                 Description = i.Description,
                 DateTime = DateTimeBuilder(i.Year, i.Month, i.Day, i.Hour, i.Minute, i.Second),
                 Count = i.Count
             }).ToList();
-                
-            return mapped;
+
+            var fillingDays = GetZeroTimesForGaps();
+            var statisticsWithoutGaps = FulfillGaps(statisticsWithGaps, fillingDays);
+
+            return statisticsWithoutGaps;
         }
 
         private DateTime DateTimeBuilder(int year, int month, int day, int hour, int minute, int second)
@@ -81,7 +85,42 @@ namespace U.ProductService.Application.Products.Queries.GetStatistics
             hour = hour is 0 ? 12 : hour;
             return new DateTime(year, month, day, hour, minute, second);
         }
-        
+
+        private IList<ProductStatisticsDto> GetZeroTimesForGaps()
+        {
+            var dateTimes = new List<DateTime>();
+            for (var i = 0; i < Days; i++)
+            {
+                dateTimes.Add(DateTime.Now.AddDays(-i).Date);
+            }
+
+            var missingDateTimes = dateTimes.Select(x => new ProductStatisticsDto
+            {
+                Count = 0,
+                DateTime = x
+            });
+
+            return missingDateTimes.ToList();
+        }
+
+        private IList<ProductStatisticsDto> FulfillGaps(IList<ProductStatisticsDto> statisticsWithGaps,
+            IList<ProductStatisticsDto> fillers)
+        {
+            foreach (var filler in fillers)
+            {
+                if (!statisticsWithGaps.Select(x => x.DateTime.Date).Contains(filler.DateTime.Date))
+                {
+                    statisticsWithGaps.Add(filler);
+                }
+            }
+
+            var statisticsWithoutGaps = statisticsWithGaps
+                .OrderBy(x => x.DateTime)
+                .ToList();
+
+            return statisticsWithoutGaps;
+        }
+
         private IQueryable<Product> GetQuery()
         {
             return _context.Products

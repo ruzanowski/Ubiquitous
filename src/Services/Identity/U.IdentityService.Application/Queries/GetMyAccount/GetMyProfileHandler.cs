@@ -1,11 +1,10 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using U.IdentityService.Application.Models;
 using U.IdentityService.Persistance.Repositories;
 
-namespace U.IdentityService.Application.Queries.GetMyProfile
+namespace U.IdentityService.Application.Queries.GetMyAccount
 {
     public class GetMyProfileHandler : IRequestHandler<GetMyProfile, UserDto>
     {

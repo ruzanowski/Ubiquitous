@@ -3,7 +3,6 @@ using System.Net;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using U.Common.Jwt;
 using U.Common.Pagination;
 using U.ProductService.Application.Products.Commands.AddPicture;
 using U.ProductService.Application.Products.Commands.ChangeCategory;
@@ -14,10 +13,13 @@ using U.ProductService.Application.Products.Commands.Publish;
 using U.ProductService.Application.Products.Commands.UnPublish;
 using U.ProductService.Application.Products.Commands.Update;
 using U.ProductService.Application.Products.Models;
+using U.ProductService.Application.Products.Queries.GetCount;
 using U.ProductService.Application.Products.Queries.GetList;
 using U.ProductService.Application.Products.Queries.GetSingle;
 using U.ProductService.Application.Products.Queries.GetSingleByAlternativeKey;
 using U.ProductService.Application.Products.Queries.GetStatistics;
+using U.ProductService.Application.Products.Queries.GetStatisticsByCategory;
+using U.ProductService.Application.Products.Queries.GetStatisticsByManufacturers;
 
 namespace U.ProductService.Controllers
 {
@@ -40,7 +42,7 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Get list of command
+        /// Get list of query
         /// </summary>
         /// <param name="productsListQuery"></param>
         /// <returns></returns>
@@ -184,7 +186,7 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Add Product Picture
+        /// Delete Product Picture
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
@@ -200,18 +202,45 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Add Product Picture
+        /// Get Product statistics
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="query"></param>
         /// <returns></returns>
-
         [HttpGet]
-        [Route("statistics")]
+        [Route("statistics/creation")]
         [ProducesResponseType(typeof(ProductStatisticsDto), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetStatistics([FromQuery] GetProductsStatisticsQuery command)
+        public async Task<IActionResult> GetProductCreationStatistics([FromQuery] GetProductsStatisticsQuery query)
         {
-            var statistics = await _mediator.Send(command);
+            var statistics = await _mediator.Send(query);
+            return Ok(statistics);
+        }
+        /// <summary>
+        /// Get Product statistics by manufacturer
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("statistics/manufacturer")]
+        [ProducesResponseType(typeof(ProductByManufacturersStatisticsDto), (int) HttpStatusCode.OK)]
+        [ProducesResponseType((int) HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetProductStatisticsByManufacturer([FromQuery] GetProductsStatisticsByManufacturers query)
+        {
+            var statistics = await _mediator.Send(query);
+            return Ok(statistics);
+        }
+        /// <summary>
+        /// Get Product statistics by category
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("statistics/category")]
+        [ProducesResponseType(typeof(ProductByCategoryStatisticsDto), (int) HttpStatusCode.OK)]
+        [ProducesResponseType((int) HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetProductStatisticsByCategory([FromQuery] GetProductsStatisticsByCategory query)
+        {
+            var statistics = await _mediator.Send(query);
             return Ok(statistics);
         }
 
@@ -220,7 +249,6 @@ namespace U.ProductService.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-
         [HttpPut]
         [Route("change-category/{ProductId}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
@@ -229,6 +257,22 @@ namespace U.ProductService.Controllers
         {
             await _mediator.Send(command);
             return Ok();
+        }
+
+
+        /// <summary>
+        /// Get Product total count
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("count")]
+        [ProducesResponseType(typeof(int), (int) HttpStatusCode.OK)]
+        [ProducesResponseType((int) HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetCount([FromQuery] GetProductsCount query)
+        {
+            var statistics = await _mediator.Send(query);
+            return Ok(statistics);
         }
     }
 }

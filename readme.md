@@ -53,7 +53,7 @@
         * [x] normal
         * [x] important
     - Persistency
-        * [x] notifications with states are persisted in PestgreSQL
+        * [x] notifications with states are persisted in PostgreSQL
         * [x] notifications from last 24 hours are sent during logging in 
     - Accessibility
         * [x] visible and operable from website with all entire specification
@@ -259,8 +259,8 @@ _To be determined_
 |API Gateway|High|Completed|11.2019|
 |Subscriptions Service|High|Completed|12.2019|
 |Notifications new channels (push)|Medium|Completed|12.2019|
+|Dashboard FE-BE charts data sourcing|High|Completed|12.2019|
 |Preferences FE-BE Integration|High|In Progress||
-|Dashboard FE-BE data sourcing|High|In Progress||
 |Tracing (Jaeger)|Medium|||
 |Admin Web-Side Panel (products)|Medium|||
 |Admin Web-Side Panel (subscribers, users)|Medium|||

@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using U.Common.Jwt.Models;
 
-namespace U.Common.Jwt
+namespace U.Common.Jwt.Service
 {
     public interface IJwtService
     {

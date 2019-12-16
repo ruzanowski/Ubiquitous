@@ -53,7 +53,7 @@ namespace U.ProductService.Domain.SeedWork
 
         public ValueObject GetCopy()
         {
-            return this.MemberwiseClone() as ValueObject;
+            return MemberwiseClone() as ValueObject;
         }
     }
 }

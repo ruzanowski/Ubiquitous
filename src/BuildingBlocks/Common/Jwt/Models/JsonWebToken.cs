@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace U.Common.Jwt
+namespace U.Common.Jwt.Models
 {
     public class JsonWebToken
     {
