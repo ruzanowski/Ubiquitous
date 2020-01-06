@@ -48,7 +48,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
 
         [HttpGet]
-        [Route("query")]
+        [Route("")]
         [ProducesResponseType(typeof(PaginatedItems<ProductViewModel>), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> GetProductsList([FromQuery] GetProductsListQuery productsListQuery)
         {
@@ -62,7 +62,7 @@ namespace U.ProductService.Controllers
         /// <param name="productId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("query/{productId:Guid}")]
+        [Route("{productId}")]
         [ProducesResponseType(typeof(PaginatedItems<ProductViewModel>), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetProduct([FromRoute] Guid productId)
@@ -78,7 +78,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
 
         [HttpGet]
-        [Route("query-alt-key/{AlternativeKey}")]
+        [Route("{alternativeKey}/alternative")]
         [ProducesResponseType(typeof(ProductViewModel), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetProduct([FromRoute] QueryProductByAlternativeKey productQuery)
@@ -101,7 +101,7 @@ namespace U.ProductService.Controllers
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductCommand products)
         {
             var productId = await _mediator.Send(products);
-            return CreatedAtAction(nameof(CreateProduct), productId);
+            return CreatedAtAction(nameof(GetProduct), new {productId}, productId);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
 
         [HttpPut]
-        [Route("update/{ProductId}")]
+        [Route("{productId}/update")]
         [ProducesResponseType(typeof(bool), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
@@ -128,7 +128,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
 
         [HttpPut]
-        [Route("publish/{productId:Guid}")]
+        [Route("{productId}/publish")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> PublishProduct([FromRoute] Guid productId)
@@ -144,7 +144,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
 
         [HttpPut]
-        [Route("unpublish/{productId:Guid}")]
+        [Route("{productId}/unpublish")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> UnPublishProduct([FromRoute] Guid productId)
@@ -160,7 +160,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
 
         [HttpPut]
-        [Route("change-price/{ProductId}")]
+        [Route("{productId}/price")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> ChangeProductPrice([FromQuery] ChangeProductPriceCommand command)
@@ -176,7 +176,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
 
         [HttpPut]
-        [Route("add-picture/{ProductId}")]
+        [Route("{productId}/picture")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> AddPicture([FromQuery] AddProductPictureCommand command)
@@ -192,7 +192,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
 
         [HttpDelete]
-        [Route("delete-picture/{productId:Guid}/{pictureId:Guid}")]
+        [Route("{productId}/picture/{pictureId}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> DeletePicture([FromRoute] DeleteProductPictureCommand command)
@@ -250,7 +250,7 @@ namespace U.ProductService.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("change-category/{ProductId}")]
+        [Route("{productId}/category")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> ChangeProductCategory([FromQuery] ChangeProductCategoryCommand command)

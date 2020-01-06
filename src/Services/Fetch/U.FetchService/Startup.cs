@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using U.Common.Consul;
 using U.Common.Fabio;
+using U.Common.Jaeger;
 using U.Common.Mvc;
 using U.EventBus.RabbitMQ;
 using U.FetchService.BackgroundServices;
@@ -36,7 +37,8 @@ namespace U.FetchService
                 .AddEventBusRabbitMq(Configuration)
                 .AddConsulServiceDiscovery()
                 .AddTypedHttpClient<ISmartStoreAdapter>("u.smartstore-adapter")
-                .AddUpdateWorkerHostedService(Configuration);
+                .AddBackgroundService(Configuration)
+                .AddJaeger();
         }
 
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
@@ -61,7 +63,7 @@ namespace U.FetchService
             return services;
         }
 
-        public static IServiceCollection AddUpdateWorkerHostedService(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddBackgroundService(this IServiceCollection services, IConfiguration configuration)
         {
             var backgroundService = configuration.GetOptions<BackgroundServiceOptions>("backgroundService");
             services.AddSingleton(backgroundService);

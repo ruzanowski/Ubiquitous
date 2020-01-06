@@ -36,7 +36,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
 
         [HttpGet]
-        [Route("query")]
+        [Route("")]
         [ProducesResponseType(typeof(PaginatedItems<PictureViewModel>), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> GetPicturesList(
             [FromQuery] GetPicturesListQuery picturesListQuery)
@@ -52,7 +52,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
 
         [HttpGet]
-        [Route("query/{PictureId:Guid}")]
+        [Route("{pictureId}")]
         [ProducesResponseType(typeof(PaginatedItems<PictureViewModel>), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetPicture([FromRoute] Guid pictureId)

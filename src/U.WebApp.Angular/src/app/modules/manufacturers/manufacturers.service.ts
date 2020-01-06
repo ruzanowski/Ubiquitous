@@ -15,13 +15,13 @@ export class ManufacturerService {
   }
 
   getManufacturers(): Observable<PaginatedItems<Manufacturer>> {
-    let url = this.manufacturerBaseUrl + '/query' + this.pageSizeQuery;
+    let url = this.manufacturerBaseUrl  + this.pageSizeQuery;
 
     return this.service.get(url).pipe(map((response: any) => response));
   }
 
   getManufacturer(id: string): Observable<Manufacturer> {
-    let url = this.manufacturerBaseUrl + '/query/' + id;
+    let url = this.manufacturerBaseUrl + id;
 
     return this.service.get(url).pipe(map((response: any) => response));
   }

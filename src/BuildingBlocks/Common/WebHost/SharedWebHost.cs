@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Npgsql;
 using Polly;
 using Serilog;
+using U.Common.Metrics;
 
 namespace U.Common.WebHost
 {
@@ -72,6 +73,7 @@ namespace U.Common.WebHost
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseConfiguration(configuration)
                 .UseSerilog()
+                .UseAppMetrics()
                 .Build();
 
         public static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration, string appName)
@@ -80,7 +82,7 @@ namespace U.Common.WebHost
                 .MinimumLevel.Verbose()
                 .WriteTo.Console()
                 .ReadFrom.Configuration(configuration)
-                .CreateLogger();    
+                .CreateLogger();
         }
 
         public static IConfiguration GetConfiguration() =>

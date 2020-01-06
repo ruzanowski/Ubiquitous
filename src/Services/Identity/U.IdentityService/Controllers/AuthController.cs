@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using U.Common.Jwt;
+using U.Common.Jwt.Attributes;
 using U.Common.Jwt.Models;
+using U.IdentityService.Application.Commands.Identity.ChangePassword;
 using U.IdentityService.Application.Commands.Identity.SignIn;
 using U.IdentityService.Application.Commands.Identity.SignUp;
 
@@ -38,6 +40,22 @@ namespace U.IdentityService.Controllers
             JsonWebToken jwt = await _mediator.Send(command);
 
             return Ok(jwt);
+        }
+
+        [HttpPut("password")]
+        [JwtAuth]
+        public async Task<ActionResult> ChangePasswordAsync([Required] [FromQuery] ChangePasswordDto command)
+        {
+            var changePassword = new ChangePassword
+            {
+                UserId = UserId,
+                CurrentPassword = command.CurrentPassword,
+                NewPassword = command.NewPassword
+            };
+
+            await _mediator.Send(changePassword);
+
+            return NoContent();
         }
     }
 }

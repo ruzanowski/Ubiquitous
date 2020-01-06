@@ -9,9 +9,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using OpenTracing;
+using RawRabbit.Instantiation;
 using StackExchange.Redis;
 using U.Common.Consul;
 using U.Common.Database;
+using U.Common.Jaeger;
 using U.Common.Jwt;
 using U.Common.Mvc;
 using U.Common.Redis;
@@ -61,14 +64,17 @@ namespace U.ProductService
                 .AddSwagger()
                 .AddConsulServiceDiscovery()
                 .AddRedis()
-                .AddJwt();
+                .AddJwt()
+                .AddJaeger();
+
 
             RegisterEventsHandlers(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
-            IApplicationLifetime applicationLifetime, IConsulClient client)
+            IApplicationLifetime applicationLifetime,
+            IConsulClient client)
         {
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
             app.UseDeveloperExceptionPage()
@@ -80,8 +86,6 @@ namespace U.ProductService
                 .UseAuthentication()
                 .UseJwtTokenValidator()
                 .UseMvc();
-
-
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);

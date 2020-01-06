@@ -87,9 +87,9 @@ namespace U.SmartStoreAdapter
                 }).AddExceptionMiddleWare()
                 .UseHttpsRedirection()
                 .UseMiniProfiler()
-                .UseMvc()
                 .UseServiceId()
-                .UseForwardedHeaders();
+                .UseForwardedHeaders()
+                .UseMvc();
 
 
             var consulServiceId = app.UseConsulServiceDiscovery();

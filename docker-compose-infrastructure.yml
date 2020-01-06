@@ -39,7 +39,7 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
-    volumes: 
+    volumes:
       - rabbitmq:/var/lib/rabbitmq
     networks:
       - ubiquitous
@@ -51,12 +51,12 @@ services:
     ports:
       - 6379:6379
     command: ["redis-server", "--bind", "redis", "--port", "6379"]
-    volumes: 
+    volumes:
       - redis:/data
     restart: unless-stopped
     networks:
       - ubiquitous
-      
+
   consul:
     image: consul
     container_name: consul
@@ -80,6 +80,59 @@ services:
     - 9999:9999
     restart: unless-stopped
 
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    networks:
+      - ubiquitous
+    volumes:
+      - grafana:/var/lib/grafana
+
+  influxdb:
+    image: influxdb
+    container_name: influxdb
+    ports:
+      - '8086:8086'
+    networks:
+      - ubiquitous
+    volumes:
+      - influxdb:/var/lib/influxdb
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - '9090:9090'
+    networks:
+      - ubiquitous
+    volumes:
+      - prometheus:/prometheus
+      - ${RELATIVE_PATH}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      
+  jaeger:
+    container_name: jaeger
+    image: jaegertracing/all-in-one
+    restart: always
+    networks:
+      - ubiquitous
+    ports:
+      - "5775:5775/udp"
+      - 5778:5778 
+      - "6831:6831/udp" 
+      - "6832:6832/udp" 
+      - 9411:9411 
+      - 14268:14268 
+      - 16686:16686
+    environment:
+        - memory.max-traces=75
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+
 volumes:
   mongo:
     driver: local
@@ -94,6 +147,12 @@ volumes:
   consul:
     driver: local
   fabio:
+    driver: local
+  grafana:
+    driver: local
+  influxdb:
+    driver: local
+  prometheus:
     driver: local
 
 networks:

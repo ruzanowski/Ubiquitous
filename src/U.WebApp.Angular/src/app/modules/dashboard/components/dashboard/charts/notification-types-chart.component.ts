@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 import {IBarChartOptions, IChartistData} from "chartist";
 import {NotificationHttpService} from "../../../../notifications/services/notification-http.service";
 import {IntegrationEventType} from "../../../../notifications/models/integration-event-type.model";
-import ChartistTooltip from 'chartist-plugin-tooltips-updated';
+// import ChartistTooltip from 'chartist-plugin-tooltips-updated';
 
 @Component({
   selector: 'types-chart',
@@ -22,12 +22,12 @@ export class AsyncChartComponent {
   options: IBarChartOptions = {
 
     height: 250,
-    plugins: [
-      ChartistTooltip({
-        anchorToPoint: true,
-        appendToBody: true
-      })
-    ],
+    // plugins: [
+    //   ChartistTooltip({
+    //     anchorToPoint: true,
+    //     appendToBody: true
+    //   })
+    // ],
     distributeSeries: true
   };
 

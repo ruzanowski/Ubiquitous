@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using U.Common.Consul;
 using U.Common.Database;
+using U.Common.Jaeger;
 using U.Common.Jwt;
 using U.Common.Mvc;
 using U.Common.Redis;
@@ -44,7 +45,9 @@ namespace U.IdentityService
                 .AddSwagger()
                 .AddConsulServiceDiscovery()
                 .AddJwt()
-                .AddRedis();
+                .AddRedis()
+                .AddJaeger();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

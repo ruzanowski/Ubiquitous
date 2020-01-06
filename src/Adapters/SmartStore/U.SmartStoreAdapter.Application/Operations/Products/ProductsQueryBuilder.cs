@@ -5,20 +5,20 @@ using U.SmartStoreAdapter.Domain.Entities.Catalog;
 
 namespace U.SmartStoreAdapter.Application.Operations.Products
 {
-    public class ProductsQueryBuilder 
+    public class ProductsQueryBuilder
     {
-        private IQueryable<Product> Query { get; set; }
+        private IQueryable<Product> _query { get; set; }
 
         public ProductsQueryBuilder(IQueryable<Product> query)
         {
-            Query = query;
+            _query = query;
         }
 
         public ProductsQueryBuilder FilterByAvailableTime(TimeWindow timeWindow)
         {
             if (timeWindow != null)
             {
-                Query = Query
+                _query = _query
                     .Where(x => x.AvailableStartDateTimeUtc.HasValue)
                     .Where(x => x.AvailableStartDateTimeUtc >= timeWindow.TimeFrom)
                     .Where(x => x.AvailableEndDateTimeUtc.HasValue)
@@ -26,49 +26,49 @@ namespace U.SmartStoreAdapter.Application.Operations.Products
             }
             return this;
         }
-        
+
         public ProductsQueryBuilder FilterByPrice(PriceWindow priceWindow)
         {
             if (priceWindow != null)
             {
-                Query = Query
+                _query = _query
                     .Where(x => x.Price >= priceWindow.PriceFrom)
                     .Where(x => x.Price <= priceWindow.PriceTo);
             }
             return this;
         }
-        
+
         public ProductsQueryBuilder FilterByStockQuantity(StockQuantity stockQuantity)
         {
             if (stockQuantity != null)
             {
-                Query = Query
+                _query = _query
                     .Where(x => x.StockQuantity >= stockQuantity.QuantityFrom)
                     .Where(x => x.StockQuantity <= stockQuantity.QuantityTo);
             }
             return this;
         }
-        
+
         public ProductsQueryBuilder FilterByCategory(string category)
         {
             if (category != null)
             {
-                Query = Query
+                _query = _query
                     .Where(x => x.ProductCategories.Any(y => y.Category.Name.Contains(category)));
             }
             return this;
         }
-        
+
         public ProductsQueryBuilder OrderBy(ProductOrderBy orderBy)
         {
-            Query = Query.OrderBy(orderBy.ToString());
+            _query = _query.OrderBy(orderBy.ToString());
             return this;
         }
-        
+
         public IQueryable<Product> Build()
         {
-            return Query;
+            return _query;
         }
-        
+
     }
 }

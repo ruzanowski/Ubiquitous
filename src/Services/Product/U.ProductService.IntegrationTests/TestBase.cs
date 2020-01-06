@@ -31,14 +31,14 @@ namespace U.ProductService.IntegrationTests
                 testServer.Host
                 .MigrateDbContext<ProductContext>((_, __) => { })
                 .MigrateDbContext<IntegrationEventLogContext>((_, __) => { });
-                
+
                 return testServer;
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-            }         
+            }
             return testServer;
         }
 
@@ -47,10 +47,10 @@ namespace U.ProductService.IntegrationTests
             private const string EndpointPrefix = "api/product-service";
             private const string ProductPrefix = "products";
             private static readonly string BaseUrl = $"/{EndpointPrefix}/{ProductPrefix}";
-        
-            public static readonly string QueryProducts = $"{BaseUrl}/query";
+
+            public static readonly string QueryProducts = $"{BaseUrl}";
             public static readonly string CreateProduct = $"{BaseUrl}/create";
-            public static readonly string QueryProduct = $"{BaseUrl}/query";
+            public static readonly string QueryProduct = $"{BaseUrl}";
             public static readonly string UpdateProduct = $"{BaseUrl}/update";
         }
     }

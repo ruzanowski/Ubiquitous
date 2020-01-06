@@ -15,6 +15,7 @@ using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
 using U.Common.Database;
 using U.Common.Fabio;
+using U.Common.Jaeger;
 using U.Common.Jwt;
 using U.Common.Redis;
 using U.Common.Swagger;
@@ -57,7 +58,9 @@ namespace U.NotificationService
                 .AddTypedHttpClient<ISubscriptionService>("u.subscription-service")
                 .AddCustomRedisAndSignalR()
                 .AddJwt()
-                .AddRedis();
+                .AddRedis()
+                .AddJaeger();
+
 
             RegisterEventsHandlers(services);
         }

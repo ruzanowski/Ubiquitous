@@ -40,7 +40,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
 
         [HttpGet]
-        [Route("query")]
+        [Route("")]
         [ProducesResponseType(typeof(PaginatedItems<ManufacturerViewModel>), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> GetManufacturersList(
             [FromQuery] GetManufacturersListQuery manufacturersListQuery)
@@ -56,7 +56,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
 
         [HttpGet]
-        [Route("query/{ManufacturerId:Guid}")]
+        [Route("{manufacturerId}")]
         [ProducesResponseType(typeof(PaginatedItems<ManufacturerViewModel>), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetManufacturer([FromRoute] Guid manufacturerId)
@@ -89,7 +89,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
 
         [HttpPut]
-        [Route("add-picture/{ManufacturerId}")]
+        [Route("{manufacturerId}/picture")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> AddPicture([FromQuery] AddManufacturerPictureCommand command)
@@ -105,7 +105,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
 
         [HttpDelete]
-        [Route("delete-picture/{ManufacturerId:Guid}/{pictureId:Guid}")]
+        [Route("{manufacturerId}/picture/{pictureId}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> DeletePicture([FromRoute] DeleteManufacturerPictureCommand command)

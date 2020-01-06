@@ -54,20 +54,5 @@ namespace U.IdentityService.Controllers
             return Ok(online);
         }
 
-        [HttpPut("me/password")]
-        [JwtAuth]
-        public async Task<ActionResult> ChangePasswordAsync([Required] [FromQuery] ChangePasswordDto command)
-        {
-            var changePassword = new ChangePassword
-            {
-                UserId = UserId,
-                CurrentPassword = command.CurrentPassword,
-                NewPassword = command.NewPassword
-            };
-
-            await _mediator.Send(changePassword);
-
-            return NoContent();
-        }
     }
 }

@@ -30,7 +30,7 @@ namespace U.IdentityService.Domain.Domain
             if (Revoked)
             {
                 throw new IdentityException(Codes.RefreshTokenAlreadyRevoked,
-                    $"Refresh accessToken: '{Id}' was already revoked at '{RevokedAt}'.");
+                    $"AccessToken: '{Id}' was already revoked at '{RevokedAt}'.");
             }
             RevokedAt = DateTime.UtcNow;
         }

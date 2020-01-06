@@ -7,6 +7,7 @@ using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
 using U.Common.Consul;
+using U.Common.Jaeger;
 using U.Common.Jwt;
 using U.Common.Mvc;
 using U.Common.Redis;
@@ -29,7 +30,8 @@ namespace U.ApiGateway
                 .AddLogging()
                 .AddConsulServiceDiscovery()
                 .AddJwt()
-                .AddRedis();
+                .AddRedis()
+                .AddJaeger();
 
             services.AddOcelot(Configuration)
                 .AddConsul();
