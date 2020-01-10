@@ -26,6 +26,7 @@ using U.NotificationService.Application.Queries.GetCount;
 using U.NotificationService.Application.SignalR;
 using U.NotificationService.Application.SignalR.Services.Notifications;
 using U.NotificationService.Application.SignalR.Services.QueryBuilder;
+using U.NotificationService.Application.SignalR.Services.Service;
 using U.NotificationService.Application.SignalR.Services.Subscription;
 using U.NotificationService.Application.SignalR.Services.WelcomeNotifications;
 using U.NotificationService.Infrastructure.Contexts;

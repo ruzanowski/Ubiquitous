@@ -11,6 +11,7 @@ using U.Common.Subscription;
 using U.NotificationService.Application.Models;
 using U.NotificationService.Application.SignalR.Services;
 using U.NotificationService.Application.SignalR.Services.Notifications;
+using U.NotificationService.Application.SignalR.Services.Service;
 using U.NotificationService.Application.SignalR.Services.Subscription;
 using U.NotificationService.Application.SignalR.Services.WelcomeNotifications;
 

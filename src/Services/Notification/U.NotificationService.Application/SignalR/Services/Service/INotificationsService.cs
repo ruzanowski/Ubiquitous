@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using U.Common.Jwt.Claims;
 using U.Common.Subscription;
 
-namespace U.NotificationService.Application.SignalR.Services.Notifications
+namespace U.NotificationService.Application.SignalR.Services.Service
 {
     public interface INotificationsService
     {

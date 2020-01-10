@@ -19,7 +19,7 @@ export class ProductService {
 
   getProducts(categoryId?: string, manufacturerId?: string): Observable<PaginatedItems<Product>> {
 
-    let url = this.productBaseUrl + this.pageSizeQuery;
+    let url = this.productBaseUrl + "/query" + this.pageSizeQuery;
 
     if(categoryId != null)
     {

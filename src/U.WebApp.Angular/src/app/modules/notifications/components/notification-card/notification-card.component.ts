@@ -15,8 +15,7 @@ import {UserEventBase} from "../../models/events/identity/user-event-base.model"
   styleUrls: ['./notification-card.component.css']
 })
 export class NotificationCardComponent
-  implements OnInit
-{
+  implements OnInit {
   public primary_color_light: string = '#66bb6a';
   public primary_color_read: string = '#c4c4c4';
   public primary_color_dark: string = '#003d33';
@@ -32,12 +31,20 @@ export class NotificationCardComponent
   ngOnInit(): void {
 
 
-    if (this.notification.eventType > 0 && this.notification.eventType < 4) {
-      this.manufacturerService.getManufacturer(((this.notification.event as ProductBaseEvent).manufacturer)).subscribe((data) => {
-        this.manufacturerName = data.name;
-      });
-    }
-    else if (this.notification.eventType == 5 || this.notification.eventType == 6)
+    if (this.notification.eventType > 0 && this.notification.eventType < 4)
+    {
+
+      this.manufacturerService.getManufacturer(((this.notification.event as ProductBaseEvent).manufacturer))
+        .subscribe(res =>
+         {
+            this.manufacturerName = res.name;
+         },
+          () =>
+          {
+            this.manufacturerName = "unavailable"
+          });
+
+    } else if (this.notification.eventType == 5 || this.notification.eventType == 6)
     {
       this.manufacturerName = (this.notification.event as UserEventBase).nickname;
     }
