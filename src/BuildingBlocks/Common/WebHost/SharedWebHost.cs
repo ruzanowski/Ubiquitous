@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Npgsql;
 using Polly;
 using Serilog;
-using U.Common.Metrics;
+using U.Common.Monitoring.Influx;
 
 namespace U.Common.WebHost
 {

@@ -4,7 +4,7 @@ using Jaeger.Reporters;
 using Jaeger.Samplers;
 using OpenTracing;
 
-namespace U.Common.Jaeger
+namespace U.Common.Monitoring.Jaeger
 {
     public class DefaultTracer
     {

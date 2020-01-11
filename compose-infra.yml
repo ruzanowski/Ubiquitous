@@ -1,0 +1,315 @@
+version: "3.5"
+
+services:
+  portainer:
+    container_name: portainer
+    image: portainer/portainer
+    ports:
+      - 9000:9000
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer:/data
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - 5433:5432
+    networks:
+      - ubiquitous
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@ubiquitous.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+    - postgres
+    volumes:
+       - pgadmin:/root/.pgadmin
+    ports:
+      - 5450:80
+    networks:
+      - ubiquitous
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+    networks:
+      - ubiquitous
+    restart: unless-stopped
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - 6379:6379
+    command: ["redis-server", "--bind", "redis", "--port", "6379"]
+    volumes:
+      - redis:/data
+    restart: unless-stopped
+    networks:
+      - ubiquitous
+
+  consul:
+    image: consul
+    container_name: consul
+    ports:
+      - 8500:8500
+    networks:
+      - ubiquitous
+    volumes:
+      - consul:/consul/data
+    restart: unless-stopped
+
+  fabio:
+    image: fabiolb/fabio
+    container_name: fabio
+    environment:
+    - FABIO_REGISTRY_CONSUL_ADDR=consul:8500
+    networks:
+      - ubiquitous
+    ports:
+    - 9998:9998
+    - 9999:9999
+    restart: unless-stopped
+
+  influxdb:
+    image: influxdb
+    container_name: influxdb
+    ports:
+      - '8086:8086'
+    networks:
+      - ubiquitous
+    volumes:
+      - influxdb:/var/lib/influxdb
+
+  telegraf:
+    container_name: telegraf
+    image: telegraf:latest
+    restart: always
+    links:
+      - influxdb
+    ports:
+      - "8092:8092/udp"
+      - "8094:8094"
+      - "8125:8125/udp"
+    environment:
+      HOST_PROC: /rootfs/proc
+      HOST_SYS: /rootfs/sys
+      HOST_ETC: /rootfs/etc
+    volumes:
+      - ./tick/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys:/rootfs/sys:ro
+      - /proc:/rootfs/proc:ro
+      - /etc:/rootfs/etc:ro
+    networks:
+      - ubiquitous
+
+  chronograf:
+    container_name: chronograf
+    image: chronograf:latest
+    ports:
+      - "8888:8888"
+    links:
+      - influxdb
+    volumes:
+      - chronograf:/var/lib/chronograf
+    networks:
+      - ubiquitous
+
+  kapacitor:
+    container_name: kapacitor
+    image: kapacitor:latest
+    environment:
+      KAPACITOR_HOSTNAME: kapacitor
+      KAPACITOR_INFLUXDB_0_URLS_0: http://influxdb:8086
+    links:
+      - influxdb
+    ports:
+      - "9092:9092"
+    volumes:
+      - kapacitor:/var/lib/kapacitor
+    networks:
+      - ubiquitous
+
+  elasticsearch:
+    container_name: elasticsearch
+    hostname: elasticsearch
+    build:
+      context: elk/elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    ports:
+      - "127.0.0.1:9200:9200"
+      - "127.0.0.1:9300:9300"
+    environment:
+      - cluster.name=jaeger-cluster
+      - discovery.type=single-node
+      - http.host=0.0.0.0
+      - transport.host=127.0.0.1
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - xpack.security.enabled=false
+    volumes:
+      - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - elasticsearch:/usr/share/elasticsearch/data
+      - elasticsearchlogs:/usr/share/elasticsearch/logs
+    networks:
+      - ubiquitous
+
+  logstash:
+    container_name: logstash
+    hostname: logstash
+    build:
+      context: elk/logstash/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./elk/logstash/pipeline:/usr/share/logstash/pipeline:ro
+    ports:
+      - "9450:9450"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - ubiquitous
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    container_name: kibana
+    hostname: kibana
+    build:
+      context: elk/kibana/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./elk/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    ports:
+      - "5601:5601"
+    networks:
+      - ubiquitous
+    depends_on:
+      - elasticsearch
+
+  jaeger-collector:
+    container_name: jaeger-collector
+    hostname: jaeger-collector
+    image: jaegertracing/jaeger-collector
+    ports:
+      - "14269:14269"
+      - "14268:14268"
+      - "14267:14267"
+      - "9411:9411"
+    networks:
+      - ubiquitous
+    restart: on-failure
+    environment:
+      - SPAN_STORAGE_TYPE=elasticsearch
+    command: [
+      "--es.server-urls=http://elasticsearch:9200",
+      "--es.tags-as-fields.all=true",
+      "--es.num-shards=1",
+      "--span-storage.type=elasticsearch",
+      "--log-level=error"
+    ]
+    depends_on:
+      - elasticsearch
+
+  jaeger-agent:
+    container_name: jaeger-agent
+    hostname: jaeger-agent
+    image: jaegertracing/jaeger-agent
+    command: ["--collector.host-port=jaeger-collector:14267"]
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+    networks:
+      - ubiquitous
+    restart: on-failure
+    environment:
+      - SPAN_STORAGE_TYPE=elasticsearch
+    depends_on:
+      - jaeger-collector
+
+  jaeger-query:
+    container_name: jaeger-query
+    hostname: jaeger-query
+    image: jaegertracing/jaeger-query
+    environment:
+      - SPAN_STORAGE_TYPE=elasticsearch
+    ports:
+      - "16686:16686"
+      - "16687:16687"
+    networks:
+      - ubiquitous
+    restart: on-failure
+    command: [
+      "--es.server-urls=http://elasticsearch:9200",
+      "--SPAN_STORAGE_TYPE=elasticsearch",
+      "--log-level=debug"
+    ]
+    depends_on:
+      - jaeger-agent
+
+volumes:
+  portainer:
+    driver: local
+  rabbitmq:
+    driver: local
+  redis:
+    driver: local
+  postgres:
+    driver: local
+  pgadmin:
+    driver: local
+  consul:
+    driver: local
+  fabio:
+    driver: local
+  influxdb:
+    driver: local
+  telegraf:
+    driver: local
+  kapacitor:
+    driver: local
+  chronograf:
+    driver: local
+  elasticsearch:
+    driver: local
+  elasticsearchlogs:
+    driver: local
+  logstash:
+    driver: local
+  kibana:
+    driver: local
+  jaeger-query:
+    driver: local
+  jaeger-agent:
+    driver: local
+  jaeger-collector:
+    driver: local
+
+networks:
+  ubiquitous:
+    name: ubiquitous
+    external: true

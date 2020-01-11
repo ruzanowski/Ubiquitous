@@ -15,8 +15,8 @@ using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
 using U.Common.Database;
 using U.Common.Fabio;
-using U.Common.Jaeger;
 using U.Common.Jwt;
+using U.Common.Monitoring.Jaeger;
 using U.Common.Redis;
 using U.Common.Swagger;
 using U.EventBus.Events.Product;
@@ -24,10 +24,9 @@ using U.NotificationService.Application.EventHandlers;
 using U.NotificationService.Application.Models;
 using U.NotificationService.Application.Queries.GetCount;
 using U.NotificationService.Application.SignalR;
-using U.NotificationService.Application.SignalR.Services.Notifications;
+using U.NotificationService.Application.SignalR.Services.Clients;
 using U.NotificationService.Application.SignalR.Services.QueryBuilder;
 using U.NotificationService.Application.SignalR.Services.Service;
-using U.NotificationService.Application.SignalR.Services.Subscription;
 using U.NotificationService.Application.SignalR.Services.WelcomeNotifications;
 using U.NotificationService.Infrastructure.Contexts;
 
@@ -123,7 +122,7 @@ namespace U.NotificationService
             services.AddSingleton<PersistentHub>();
             services.AddScoped<IWelcomeNotificationsService, WelcomeNotificationsService>();
             services.AddScoped<INotificationQueryBuilder, NotificationQueryBuilder>();
-            services.AddScoped<INotificationsService, Application.SignalR.Services.Notifications.NotificationsService>();
+            services.AddScoped<INotificationsService, NotificationsService>();
 
             return services;
         }

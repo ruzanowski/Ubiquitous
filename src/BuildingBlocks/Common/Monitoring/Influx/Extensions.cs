@@ -3,9 +3,8 @@ using App.Metrics;
 using App.Metrics.AspNetCore.Health;
 using Microsoft.AspNetCore.Hosting;
 using U.Common.Mvc;
-using U.Common.Observability.Influx;
 
-namespace U.Common.Metrics
+namespace U.Common.Monitoring.Influx
 {
     public static class Extensions
     {

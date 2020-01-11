@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using RestEase;
 using U.Common.Pagination;
-using U.FetchService.Commands.UpdateProducts.ViewModel;
+using U.FetchService.Models.SmartStore;
 
 namespace U.FetchService.Services
 {

@@ -4,10 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using U.Common.Jwt.Claims;
 using U.Common.Subscription;
-using U.NotificationService.Application.SignalR.Services.Service;
 using U.NotificationService.Infrastructure.Contexts;
 
-namespace U.NotificationService.Application.SignalR.Services.Notifications
+namespace U.NotificationService.Application.SignalR.Services.Service
 {
     public class NotificationsService : INotificationsService
     {

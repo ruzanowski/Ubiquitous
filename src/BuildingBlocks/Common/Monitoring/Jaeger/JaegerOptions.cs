@@ -1,4 +1,4 @@
-namespace U.Common.Jaeger
+namespace U.Common.Monitoring.Jaeger
 {
     public class JaegerOptions
     {

@@ -8,11 +8,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using U.Common.Consul;
 using U.Common.Fabio;
-using U.Common.Jaeger;
+using U.Common.Monitoring.Jaeger;
 using U.Common.Mvc;
 using U.EventBus.RabbitMQ;
 using U.FetchService.BackgroundServices;
-using U.FetchService.Commands.UpdateProducts;
+using U.FetchService.Commands.FetchProducts;
 using U.FetchService.Services;
 
 namespace U.FetchService

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using U.FetchService.Commands.UpdateProducts;
+using U.FetchService.Commands.FetchProducts;
 
 // ReSharper disable ClassNeverInstantiated.Global
 

@@ -7,10 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OpenTracing;
 using OpenTracing.Util;
-using RawRabbit.Instantiation;
 using U.Common.Mvc;
 
-namespace U.Common.Jaeger
+namespace U.Common.Monitoring.Jaeger
 {
     public static class Extensions
     {

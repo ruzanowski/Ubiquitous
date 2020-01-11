@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace U.FetchService.Commands.UpdateProducts
+namespace U.FetchService.Commands.FetchProducts
 {
     public class FetchProductsCommand : IRequest
     {

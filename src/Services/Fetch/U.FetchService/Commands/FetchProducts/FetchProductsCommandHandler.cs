@@ -7,7 +7,7 @@ using U.EventBus.Events.Fetch;
 using U.FetchService.Exceptions;
 using U.FetchService.Services;
 
-namespace U.FetchService.Commands.UpdateProducts
+namespace U.FetchService.Commands.FetchProducts
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class FetchProductsCommandHandler : IRequestHandler<FetchProductsCommand>

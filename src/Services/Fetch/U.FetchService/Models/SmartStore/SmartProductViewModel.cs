@@ -1,8 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
-using U.FetchService.Models.SmartStore;
 
-namespace U.FetchService.Commands.UpdateProducts.ViewModel
+namespace U.FetchService.Models.SmartStore
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class SmartProductViewModel : SmartProductDto

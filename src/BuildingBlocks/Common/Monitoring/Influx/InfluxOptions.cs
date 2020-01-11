@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace U.Common.Observability.Influx
+namespace U.Common.Monitoring.Influx
 {
     public class InfluxOptions
     {

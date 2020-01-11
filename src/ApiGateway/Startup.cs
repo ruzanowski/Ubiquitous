@@ -7,8 +7,8 @@ using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
 using U.Common.Consul;
-using U.Common.Jaeger;
 using U.Common.Jwt;
+using U.Common.Monitoring.Jaeger;
 using U.Common.Mvc;
 using U.Common.Redis;
 
