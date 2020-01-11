@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductFetchService", "src\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmartStore", "src\Adapter.SmartStore", "{F6FEBE1F-9974-4282-8497-97CB808E65CB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductFetch", "src\Service.Fetch", "{2F31A504-325D-475E-9B94-5BA9D525A2AA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fetch", "src\Service.Fetch", "{2F31A504-325D-475E-9B94-5BA9D525A2AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Application", "src\Adapters\SmartStore\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj", "{F14867ED-37E5-4F19-924A-42766C65D87C}"
 EndProject
@@ -36,10 +36,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IntegrationEventLog", "sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{8EE0DD79-8255-4E04-84A7-830B8947E7C5}"
 ProjectSection(SolutionItems) = preProject
-	docker-compose-infrastructure.yml = docker-compose-infrastructure.yml
-	docker-compose-services.yml = docker-compose-services.yml
 	.gitlab-ci.yml = .gitlab-ci.yml
 	.gitignore = .gitignore
+	.compose-infra.yml = compose-infra.yml
+	.compose-services.yml = compose-services.yml
 	readme.md = readme.md
 	Nuget.Config = Nuget.Config
 	.env = .env

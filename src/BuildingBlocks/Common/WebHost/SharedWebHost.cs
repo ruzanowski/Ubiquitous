@@ -73,7 +73,7 @@ namespace U.Common.WebHost
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseConfiguration(configuration)
                 .UseSerilog()
-                .UseAppMetrics()
+                .UseInflux()
                 .Build();
 
         public static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration, string appName)

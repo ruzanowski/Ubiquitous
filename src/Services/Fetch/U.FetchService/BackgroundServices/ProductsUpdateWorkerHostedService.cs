@@ -42,7 +42,7 @@ namespace U.FetchService.BackgroundServices
         }
 
         private async Task SafeUpdate(CancellationToken stopToken) =>
-            await SafeExecution(async () => await _mediator.Send(new UpdateProductsCommand(), stopToken));
+            await SafeExecution(async () => await _mediator.Send(new FetchProductsCommand(), stopToken));
 
         /// <summary>
         /// Caution!

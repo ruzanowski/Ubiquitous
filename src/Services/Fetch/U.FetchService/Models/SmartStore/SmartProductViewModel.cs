@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
+using U.FetchService.Models.SmartStore;
 
 namespace U.FetchService.Commands.UpdateProducts.ViewModel
 {

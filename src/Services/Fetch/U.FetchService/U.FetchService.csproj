@@ -36,7 +36,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Commands\ForwardProducts\IntegrationEvents" />
+      <Folder Include="Models" />
     </ItemGroup>
 
 </Project>

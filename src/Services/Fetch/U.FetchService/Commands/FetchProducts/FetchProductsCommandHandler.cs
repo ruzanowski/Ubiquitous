@@ -2,28 +2,41 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
-using U.EventBus.Events;
 using U.EventBus.Events.Fetch;
+using U.FetchService.Exceptions;
+using U.FetchService.Services;
 
-namespace U.FetchService.Commands.ForwardProducts
+namespace U.FetchService.Commands.UpdateProducts
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public class ForwardDataCommandHandler : IRequestHandler<ForwardDataCommand>
+    public class FetchProductsCommandHandler : IRequestHandler<FetchProductsCommand>
     {
+        private readonly ISmartStoreAdapter _adapter;
         private readonly IEventBus _bus;
-        private readonly ILogger<ForwardDataCommandHandler> _logger;
 
-        public ForwardDataCommandHandler(IEventBus bus, ILogger<ForwardDataCommandHandler> logger)
+
+        public FetchProductsCommandHandler(ISmartStoreAdapter adapter, IEventBus bus)
         {
+            _adapter = adapter;
             _bus = bus;
-            _logger = logger;
         }
 
-        public async Task<Unit> Handle(ForwardDataCommand command, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(FetchProductsCommand request, CancellationToken cancellationToken)
         {
-            foreach (var product in command.Data)
+            var products = await _adapter.GetProductsAsync();
+
+            if (products?.Data is null)
+            {
+                throw new FetchFailedException();
+            }
+
+            if (products.PageSize == 0)
+            {
+                throw new ZeroProductsFetchedException();
+            }
+
+            foreach (var product in products.Data)
             {
                 var @event = new NewProductFetchedIntegrationEvent(product.Name,
                     product.ManufacturerId,
@@ -39,15 +52,8 @@ namespace U.FetchService.Commands.ForwardProducts
                     product.CategoryId,
                     product.Id);
 
-                _logger.LogInformation(
-                    "----- Publishing integration event: {IntegrationEventId} from 'FetchService' - ({@IntegrationEvent})",
-                    @event.Id, @event);
-
-                //fire and forget
                 _bus.Publish(@event);
             }
-
-            await Task.CompletedTask;
 
             return Unit.Value;
         }

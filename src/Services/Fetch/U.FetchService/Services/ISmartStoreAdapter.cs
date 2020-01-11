@@ -8,8 +8,8 @@ namespace U.FetchService.Services
     public interface ISmartStoreAdapter
     {
         [AllowAnyStatusCode]
-        [Get("api/smartstore/products/get-list")]
-        Task<PaginatedItems<SmartProductViewModel>> GetListAsync(
+        [Get("api/smartstore/products")]
+        Task<PaginatedItems<SmartProductViewModel>> GetProductsAsync(
             [Query("pageSize")] int pageSize = 99999,
             [Query("pageIndex")] int pageIndex = 0);
     }

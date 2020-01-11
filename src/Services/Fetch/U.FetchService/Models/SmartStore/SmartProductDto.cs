@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace U.FetchService.Commands.UpdateProducts.ViewModel
+namespace U.FetchService.Models.SmartStore
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class SmartProductDto
@@ -26,7 +26,7 @@ namespace U.FetchService.Commands.UpdateProducts.ViewModel
         public IEnumerable<int> ProductTags { get; set; }
         public IEnumerable<int> PicturesIds { get; set; }
         public string UrlSlug { get; set; }
-        
-        
+
+
     }
 }

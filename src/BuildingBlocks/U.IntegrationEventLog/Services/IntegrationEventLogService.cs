@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
 using U.EventBus.Events;
 
@@ -48,6 +49,11 @@ namespace U.IntegrationEventLog.Services
                 .Where(e => e.State == EventStateEnum.NotPublished)
                 .OrderBy(o => o.CreationTime)
                 .ToListAsync();
+
+            if (!integrationEventLogs.Any())
+            {
+                return integrationEventLogs;
+            }
 
             return integrationEventLogs.Select(e =>
                     e.DeserializeJsonContent(_eventTypes.Find(t => t.Name == e.EventTypeShortName)));

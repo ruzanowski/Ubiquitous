@@ -59,7 +59,7 @@ namespace U.FetchService
         public static IServiceCollection AddCustomMediatR(this IServiceCollection services)
         {
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
-                typeof(UpdateProductsCommand).GetTypeInfo().Assembly);
+                typeof(FetchProductsCommand).GetTypeInfo().Assembly);
             return services;
         }
 
