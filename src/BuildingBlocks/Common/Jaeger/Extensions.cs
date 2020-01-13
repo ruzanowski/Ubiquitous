@@ -9,7 +9,7 @@ using OpenTracing;
 using OpenTracing.Util;
 using U.Common.Mvc;
 
-namespace U.Common.Monitoring.Jaeger
+namespace U.Common.Jaeger
 {
     public static class Extensions
     {

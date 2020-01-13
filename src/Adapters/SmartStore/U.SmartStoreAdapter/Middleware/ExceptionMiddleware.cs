@@ -23,7 +23,7 @@ namespace U.SmartStoreAdapter.Middleware
     public static class ExceptionMiddleware
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="app"></param>
         public static IApplicationBuilder AddExceptionMiddleWare(this IApplicationBuilder app)
@@ -74,30 +74,10 @@ namespace U.SmartStoreAdapter.Middleware
                     problemDetails.Status = 400;
                     problemDetails.Detail = invalidOperationException.Message;
                     break;
-                case InvalidDataException invalidDataException:
-                    problemDetails.Title = nameof(invalidDataException);
-                    problemDetails.Status = 400;
-                    problemDetails.Detail = invalidDataException.Message;
-                    break;
-                case ParseException parseException:
-                    problemDetails.Title = nameof(parseException);
-                    problemDetails.Status = 400;
-                    problemDetails.Detail = parseException.Message;
-                    break;
-                case MissingFieldException missingFieldException:
-                    problemDetails.Title = nameof(missingFieldException);
-                    problemDetails.Status = (int) typeof(BadHttpRequestException).GetProperty("StatusCode", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(missingFieldException);
-                    problemDetails.Detail = missingFieldException.Message;
-                    break;
                 case MissingMethodException missingMethodException:
                     problemDetails.Title = nameof(missingMethodException);
                     problemDetails.Status = 400;
                     problemDetails.Detail = missingMethodException.Message;
-                    break;
-                case MissingMemberException missingMemberException:
-                    problemDetails.Title = nameof(missingMemberException);
-                    problemDetails.Status = (int) typeof(BadHttpRequestException).GetProperty("StatusCode", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(missingMemberException);
-                    problemDetails.Detail = missingMemberException.Message;
                     break;
                 case ValidationException validationException:
                     problemDetails.Title = nameof(validationException);

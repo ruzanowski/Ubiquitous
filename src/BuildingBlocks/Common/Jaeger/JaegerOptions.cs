@@ -1,4 +1,4 @@
-namespace U.Common.Monitoring.Jaeger
+namespace U.Common.Jaeger
 {
     public class JaegerOptions
     {
@@ -7,7 +7,5 @@ namespace U.Common.Monitoring.Jaeger
         public string UdpHost { get; set; }
         public int UdpPort { get; set; }
         public int MaxPacketSize { get; set; }
-        public double MaxTracesPerSecond { get; set; } = 5;
-        public double SamplingRate { get; set; } = 0.2;
     }
 }

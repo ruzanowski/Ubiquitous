@@ -61,9 +61,6 @@ namespace U.SmartStoreAdapter
             services
                 .AddDatabaseContext<SmartStoreContext>(Configuration);
 
-            //Logging Behaviour Pipeline
-            services.AddLogging();
-
             services.AddSingleton(new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new ProductMappingProfile());
@@ -78,7 +75,6 @@ namespace U.SmartStoreAdapter
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
         {
             app.UsePathBase(Configuration, _logger).Item1
-                .UseDeveloperExceptionPage()
                 .UseSwagger()
                 .UseSwaggerUI(c =>
                 {

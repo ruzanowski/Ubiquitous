@@ -26,10 +26,12 @@
       <Content Remove="appsettings.docker.json" />
       <None Include="appsettings.docker.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <Content Remove="appsettings.json" />
       <None Include="appsettings.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
 

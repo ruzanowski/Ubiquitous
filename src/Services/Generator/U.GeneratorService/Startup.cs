@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using U.Common.Consul;
 using U.Common.Fabio;
-using U.Common.Monitoring.Jaeger;
+using U.Common.Jaeger;
 using U.Common.Mvc;
 using U.GeneratorService.BackgroundServices;
 using U.GeneratorService.Services;
@@ -41,7 +41,6 @@ namespace U.GeneratorService
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
         {
             app.UsePathBase(Configuration, _logger).Item1
-                .UseDeveloperExceptionPage()
                 .UseCors("CorsPolicy")
                 .UseServiceId()
                 .UseForwardedHeaders()

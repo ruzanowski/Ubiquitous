@@ -19,7 +19,7 @@ namespace U.Common.Mvc
             {
                 using (var scope = c.ApplicationServices.CreateScope())
                 {
-                    var id = scope.ServiceProvider.GetService<IServiceIdService>().Id;
+                    var id = scope.ServiceProvider.GetService<ISelfInfoService>().Id;
                     await ctx.Response.WriteAsync(id);
                 }
             }));
@@ -46,7 +46,7 @@ namespace U.Common.Mvc
 
             services.AddMvc();
 
-            services.AddSingleton<IServiceIdService, ServiceIdService>();
+            services.AddSingleton<ISelfInfoService, SelfInfoService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             return services;

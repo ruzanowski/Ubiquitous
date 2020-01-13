@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using U.Common.Consul;
 using U.Common.Fabio;
-using U.Common.Monitoring.Jaeger;
+using U.Common.Jaeger;
 using U.Common.Mvc;
 using U.EventBus.RabbitMQ;
 using U.FetchService.BackgroundServices;
@@ -44,7 +44,6 @@ namespace U.FetchService
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
         {
             app.UsePathBase(Configuration, _logger).Item1
-                .UseDeveloperExceptionPage()
                 .UseMvcWithDefaultRoute()
                 .UseServiceId()
                 .UseForwardedHeaders();

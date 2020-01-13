@@ -14,8 +14,8 @@ using RawRabbit.Instantiation;
 using StackExchange.Redis;
 using U.Common.Consul;
 using U.Common.Database;
+using U.Common.Jaeger;
 using U.Common.Jwt;
-using U.Common.Monitoring.Jaeger;
 using U.Common.Mvc;
 using U.Common.Redis;
 using U.Common.Swagger;
@@ -60,7 +60,6 @@ namespace U.ProductService
                 .AddCustomPipelineBehaviours()
                 .AddCustomMapper()
                 .AddCustomServices()
-                .AddLogging()
                 .AddSwagger()
                 .AddConsulServiceDiscovery()
                 .AddRedis()
@@ -77,9 +76,8 @@ namespace U.ProductService
             IConsulClient client)
         {
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
-            app.UseDeveloperExceptionPage()
-                .UseCors("CorsPolicy")
-                .AddExceptionMiddleware()
+            app.UseCors("CorsPolicy")
+                .UseExceptionMiddleware()
                 .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()

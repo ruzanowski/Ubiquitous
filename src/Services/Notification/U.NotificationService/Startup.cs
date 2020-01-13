@@ -15,8 +15,8 @@ using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
 using U.Common.Database;
 using U.Common.Fabio;
+using U.Common.Jaeger;
 using U.Common.Jwt;
-using U.Common.Monitoring.Jaeger;
 using U.Common.Redis;
 using U.Common.Swagger;
 using U.EventBus.Events.Product;
@@ -71,8 +71,7 @@ namespace U.NotificationService
             app.UseCors("CorsPolicy");
 
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
-            app.UseDeveloperExceptionPage()
-                .UseSwagger(pathBase)
+            app.UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseCookiePolicy();

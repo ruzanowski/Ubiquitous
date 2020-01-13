@@ -10,8 +10,8 @@ using Microsoft.Extensions.Logging;
 using U.Common.Consul;
 using U.Common.Database;
 using U.Common.Fabio;
+using U.Common.Jaeger;
 using U.Common.Jwt;
-using U.Common.Monitoring.Jaeger;
 using U.Common.Mvc;
 using U.Common.Redis;
 using U.Common.Swagger;
@@ -62,7 +62,7 @@ namespace U.SubscriptionService
             app.UseCors("CorsPolicy");
 
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
-            app.UseDeveloperExceptionPage()
+            app
                 .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()

@@ -32,7 +32,7 @@ namespace U.Common.Consul
 
             services.AddTransient<IConsulServiceDifferentator>(
                 c => new ConsulServiceDiffentator(
-                    c.GetService<IServiceIdService>(),
+                    c.GetService<ISelfInfoService>(),
                     options));
 
             return services.AddSingleton<IConsulClient>(c => new ConsulClient(cfg =>
@@ -59,7 +59,7 @@ namespace U.Common.Consul
                         nameof(consulOptions.Value.PingEndpoint));
                 }
 
-                var uniqueId = scope.ServiceProvider.GetService<IServiceIdService>().Id;
+                var uniqueId = scope.ServiceProvider.GetService<ISelfInfoService>().Id;
                 var client = scope.ServiceProvider.GetService<IConsulClient>();
                 var serviceName = consulOptions.Value.Service;
                 var serviceId = $"{serviceName}:{uniqueId}";

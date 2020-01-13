@@ -9,8 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using U.Common.Consul;
 using U.Common.Database;
+using U.Common.Jaeger;
 using U.Common.Jwt;
-using U.Common.Monitoring.Jaeger;
 using U.Common.Mvc;
 using U.Common.Redis;
 using U.Common.Swagger;
@@ -41,7 +41,6 @@ namespace U.IdentityService
                 .AddDatabaseContext<IdentityContext>(Configuration)
                 .AddEventBusRabbitMq(Configuration)
                 .AddCustomServices()
-                .AddLogging()
                 .AddSwagger()
                 .AddConsulServiceDiscovery()
                 .AddJwt()
@@ -55,8 +54,7 @@ namespace U.IdentityService
             IApplicationLifetime applicationLifetime, IConsulClient client)
         {
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
-            app.UseDeveloperExceptionPage()
-                .UseCors("CorsPolicy")
+            app.UseCors("CorsPolicy")
                 .AddIdentityErrorsHandler()
                 .UseSwagger(pathBase)
                 .UseServiceId()
@@ -72,7 +70,10 @@ namespace U.IdentityService
             IConsulClient client)
         {
             var consulServiceId = app.UseConsulServiceDiscovery();
-            applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
+            applicationLifetime.ApplicationStopped.Register(() =>
+            {
+                client.Agent.ServiceDeregister(consulServiceId);
+            });
         }
     }
 

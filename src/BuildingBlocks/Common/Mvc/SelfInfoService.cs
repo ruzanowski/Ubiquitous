@@ -1,11 +1,19 @@
 using System;
+using System.Reflection;
 
 namespace U.Common.Mvc
 {
     public class SelfInfoService : ISelfInfoService
     {
-        private static readonly string UniqueId = $"{Guid.NewGuid():N}";
+        public SelfInfoService()
+        {
+            Id = NewGuid;
+            Name = Assembly.GetEntryAssembly()?.GetName().Name;
+        }
 
-        public string Id => UniqueId;
+        private static string NewGuid => $"{Guid.NewGuid():N}";
+
+        public string Id { get; }
+        public string Name { get; }
     }
 }

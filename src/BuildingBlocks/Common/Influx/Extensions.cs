@@ -4,7 +4,7 @@ using App.Metrics.AspNetCore.Health;
 using Microsoft.AspNetCore.Hosting;
 using U.Common.Mvc;
 
-namespace U.Common.Monitoring.Influx
+namespace U.Common.Influx
 {
     public static class Extensions
     {
