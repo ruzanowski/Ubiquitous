@@ -2,7 +2,7 @@ using System;
 
 namespace U.Common.Mvc
 {
-    public class ServiceIdService : IServiceIdService
+    public class SelfInfoService : ISelfInfoService
     {
         private static readonly string UniqueId = $"{Guid.NewGuid():N}";
 
