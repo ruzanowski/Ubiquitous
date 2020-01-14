@@ -14,6 +14,7 @@ services:
     environment:
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
       - xpack.security.enabled=false
+    restart: unless-stopped
     volumes:
       - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
       - elasticsearch:/usr/share/elasticsearch/data
@@ -36,6 +37,7 @@ services:
       - "9600:9600"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    restart: unless-stopped
     networks:
       - ubiquitous
     depends_on:
@@ -54,6 +56,7 @@ services:
       - "5601:5601"
     networks:
       - ubiquitous
+    restart: unless-stopped
     depends_on:
       - elasticsearch
 

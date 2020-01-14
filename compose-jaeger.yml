@@ -12,10 +12,11 @@ services:
       - "9411:9411"
     networks:
       - ubiquitous
-    restart: on-failure
+    restart: unless-stopped
     environment:
       - SPAN_STORAGE_TYPE=elasticsearch
-    command: [
+    command:
+    [
       "--es.server-urls=http://elasticsearch:9200",
       "--es.tags-as-fields.all=true",
       "--es.num-shards=1",
@@ -29,7 +30,9 @@ services:
     container_name: jaeger-agent
     hostname: jaeger-agent
     image: jaegertracing/jaeger-agent
-    command: ["--collector.host-port=jaeger-collector:14267"]
+    command: [
+      "--collector.host-port=jaeger-collector:14267"
+    ]
     ports:
       - "5775:5775/udp"
       - "6831:6831/udp"
@@ -37,7 +40,7 @@ services:
       - "5778:5778"
     networks:
       - ubiquitous
-    restart: on-failure
+    restart: unless-stopped
     environment:
       - SPAN_STORAGE_TYPE=elasticsearch
     depends_on:
@@ -54,8 +57,9 @@ services:
       - "16687:16687"
     networks:
       - ubiquitous
-    restart: on-failure
-    command: [
+    restart: unless-stopped
+    command:
+    [
       "--es.server-urls=http://elasticsearch:9200",
       "--span-storage.type=elasticsearch",
       "--log-level=debug"
