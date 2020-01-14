@@ -1,9 +1,6 @@
 # UBIQUITOUS. Real-Time Notification Manager.
-- [x] _Open Source_
-- [x] _Distributed Event-Based System with Domain Driven Design approach_
-- [x] _Communication served by RabbitMQ & SignalR_
-- [x] _Heavy load scenarios included_
-
+***.NET Core with Angular on microservices.*** <br> 
+***Subscribe on **newest state** of your products.***   
 
 - [1. Functionalities](#-1-functionalities)
     - [1.1 Purpose](#11-purpose)
@@ -20,8 +17,8 @@
 - [4. Notification Management](#4-notification-management)
     - [4.1 Handling User Subscriptions](#41-handling-user-subscriptions)
 - [5. RoadMap](#5-roadmap)
-    - [5.1. V.0.2](#51-v02)
-    - [5.2. V.0.3](#52-v03)
+    - [5.1. Release V.0.2](#51-release-v02)
+    - [5.2. Release V.0.3](#52-release-v03)
 - [6. Contributing](#6-contributing)
 - [7. Author](#7-author)
 - [8. Inspirations & Thanks](#8-inspirations--thanks)
@@ -53,18 +50,15 @@
         * [x] confirmation, hide, remove
         * [x] welcome notifications specified timespan by user preferences
 - ***Processing & Capabilities***
-    - Distributed processing huge number of products paralelly among different adapters
+    - Distributed processing number of products paralelly among different adapters
 - ***Identity & Authorization*** 
-    - Identity
-        - Ability to _signup, log in, log out, change password_
-        - Identification thanks to jwt token across entire system
+    - Ability to _signup, log in, log out, change password_
+    - Identification & auth thanks to jwt token across entire system
 - ***Admin Management (next versions)*** 
-    - Operations 
-        * [ ] manage products and its details thru product service API
-        * [ ] manage users subscriptions
-        * [ ] manage subscribers notifications
+    * [ ] manage products, users, subscriptions
 ## 1.2 Purpose
-- **prime goal** is/was an education and giving my best around programming topics like 
+
+- primarily, **self-education** is and was my mmotivation, as well as giving my best around topics like 
      - .NET Core
      - DDD
      - Microservices
@@ -73,14 +67,15 @@
      - ...
      - and so much more
 - Secondly **most of repositories** I have visited were
-    - Relatively small, no possibility to run into issues of performance
-    - Easy concerns or well known domain (orders, eShop)
-    - Unfinished
+    - Relatively small, no possibility to run into performance issues 
+    - Easy concerns or well known domain (orders, eShop) or unfinished
     
 ## 1.3 Install
 
-1.3.0. Prerequisites
+<details>
+<summary>Click to expand!</summary>
 
+1.3.0. Prerequisites
     - Docker
     - Docker composer
     
@@ -113,16 +108,21 @@ docker-compose -f docker-compose-services.yml up
 <p align="center">
    <img alt="Portainer dashboard" src="img/Portainer.png" />
 </p>
+
+</details>
     
-## 2. Server Side Architecture
-Whole solution is designed and broken down to
-   - **Frontend** is (being) implemented  in **Angular 7** with **Angular Material** as UI component infrastructure and Material Design components.
-   - **Backend** is (being) written in **.NET Core 2.2**(current stable version). 
+## 2. Server Side
+Whole solution is broken down to
+   - **Frontend** developed with [Angular 7](https://angular.io/)
+   - **Backend** developed with  [.NET Core 2.2](https://docs.microsoft.com/en-us/dotnet/core/). 
+        - **Services** Functionality-oriented e.g.: products, notifications 
+        - **Adapters** Encapsulates shops, wholesales logic and enables communication
+        - **Infrastructure**, external libraries listed in []
 
 Down below, a services dependency diagram. See to #3.1 for listed used technologies, tools and their use.
     
 <p align="center">
-   <img alt="Ubiquitous Service Architecture" src="img/ubiquitous-architecture.png" />
+   <img alt="Containers diagram v0.2" src="img/containers-v.0.2.png" />
 </p>
 
 ### 2.1 Technologies And Patterns
@@ -139,14 +139,14 @@ What you might see in the scope of my project. Things mentioned below are implem
 - CI & CD defined with [***Gitlab DevOps***](https://gitlab.com/)
 - Docker stacks created with [***Docker Compose***](https://docs.docker.com/compose/)
 - API Gateway wtih [***Ocelot***](https://ocelot.readthedocs.io/) with integrated Service Discovery served by [***Consul***](https://www.consul.io/)
-- Websocket push communication (server to client) with [***SignalR***] with [***Redis***](https://redis.io/) backplane
+- Websocket push communication (server to client) with [***SignalR***]() with [***Redis***](https://redis.io/) backplane
 - [***Polly***](https://github.com/App-vNext/Polly) Resiliency policies
 - Message queue [***RabbitMQ***](https://www.rabbitmq.com/) with [***RawRabbit***](https://github.com/pardahlman/RawRabbit) implementation
 - HTTP Call [Load Balancing](https://www.citrix.com/glossary/load-balancing.html) between services with [***Fabio***](https://github.com/fabiolb/fabio)
 
 #### ***V0.2***
 - Monitoring stack thanks by ELK stack ([***Elasticsearch***](https://www.elastic.co/) [***Logstash***](https://www.elastic.co/) [***Kibana***](https://www.elastic.co/))
-- Logging with [***Serilog***](https://serilog.net/) with sink to [***Elasticsearch***](https://www.elastic.co/)
+- Logging with [***Serilog***](https://serilog.net/), [***Elasticsearch***](https://www.elastic.co/)
 - Tracing with [OpenTracing](https://opentracing.io/), [***Jaeger***](https://github.com/jaegertracing/jaeger)
 - Metrics with [AppMetrics](https://www.app-metrics.io/), [***Influx***](https://www.influxdata.com/)
 
@@ -165,17 +165,17 @@ What you might see in the scope of my project. Things mentioned below are implem
 **Modules**
 - ***Event Logs*** 
     - Module with connectivity to database, storing event for any integration event dispatched
-- ***EventBus RabbitMQ*** 
-    - Asynchronous queue shared logic of subscription and publishing
+- ***Event Bus*** 
+    - Asynchronous queue shared logic of subscription and publishing typically for RabbitMQ
 - ***Common*** 
-    - Metrics (Influx)
-    - Tracing (Jaeger)
-    - Logging (Serilog)
-    - Service Discovery (Consul)
-    - Load Balancing (Ocelot, Fabio)
-    - Resiliency (Polly)
-    - Authentication (JWT)
-    - Cache (Redis)
+    - Metrics - [AppMetrics](https://www.app-metrics.io/), [***Influx***](https://www.influxdata.com/)
+    - Tracing - [OpenTracing](https://opentracing.io/), [***Jaeger***](https://github.com/jaegertracing/jaeger)
+    - Logging - [***Serilog***](https://serilog.net/), [***Elasticsearch***](https://www.elastic.co/)
+    - Service Discovery - [***Consul***](https://www.consul.io/)
+    - Load Balancing - [***Ocelot***](https://ocelot.readthedocs.io/), [***Fabio***](https://github.com/fabiolb/fabio)
+    - Resiliency [***Polly***]()
+    - Authentication [***JWT***]()
+    - Cache [***Redis***]()
     - Pagination
         
 ### 2.4 API - Front communication
@@ -209,7 +209,9 @@ Each service is self registering to the Consul registry, containing every active
    <img alt="Consul Service Discovery" src="img/Consul.png" />
 </p>
         
-## 3. Client Side Overview
+## 3. Client Side
+
+
 
 <p align="center">
    <img alt="Dashboard" src="img/ubiquitous-current-state.png" />
@@ -227,18 +229,15 @@ Each service is self registering to the Consul registry, containing every active
    <img alt="Products tabs" src="img/Products.png" />
 </p>
 
-### 3.1 Client Side technologies and tools
-- ***Angular 7***
-- ***Angular Material*** 
-- ***Bootstrap*** 
-- ***ChartistJS*** 
-- ***RxJS***
-- ***SignalR***
+### 3.1 Technologies and tools
+
+- Entire web app is written in [***Angular 7***](https://angular.io/) with [Angular Material](https://material.angular.io/), [***Bootstrap*** ](https://getbootstrap.com/)
+- Communication is done with  [***Rx.JS***](https://rxjs-dev.firebaseapp.com/) and [***SignalR***]()
+- Charts rendered with [***ChartistJS***](https://gionkunz.github.io/chartist-js/) 
 
 ## 4. Notification Management
 
 _To be determined_
-
 
 ### 4.1 Handling User Subscriptions
 
@@ -277,9 +276,9 @@ _To be determined_
 |Notifications by email|Low||||
 |Security (HTTPS)|Low||||
 
-### 5.1 V.0.2
+### 5.1 Release V.0.2
 
-Next version will bring
+Release V0.2 brings
 + Heavily extended readme with graphics
 + Elasticsearch, Logstash, Kibana
 + AppMetrics, Influx
@@ -288,13 +287,10 @@ Next version will bring
 + Routing fixes
 + Preferences page fix
 
-<p align="center">
-   <img alt="Containers diagram v0.2" src="img/containers-v.0.2.png" />
-</p>
 
-### 5.2 V.0.3
+### 5.2 Release V.0.3
 
-Version scope shall bring
+Release V0.2 scope shall bring
 
 + Moved major load of determining product's change from Product Service to Adapter
 + Adapters Management Service
@@ -306,7 +302,7 @@ Version scope shall bring
 Below diagram depicts change between upper, current (v.0.1, v.0.2) adapters architecture and below (v.0.3) with newest structure and data flow.
 
 <p align="center">
-    <img alt="Containers diagram v0.2" src="img/adapters-v.0.2.png" />
+    <img alt="Containers diagram v0.3" src="img/adapters-v.0.3.png" />
 </p>
 
 
