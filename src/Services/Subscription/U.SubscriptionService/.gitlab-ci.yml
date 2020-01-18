@@ -1,7 +1,8 @@
+image: gitlab/dind
 stages:
   - build
 
-common:
+subscription_service_registry_deploy:
   stage: build
   script:
     - 'docker build -t registry.gitlab.com/ruzanowski/ubiquitous/subscriptionservice .'
