@@ -1,13 +1,8 @@
-image: mcr.microsoft.com/dotnet/core/sdk:2.2.301
-
 stages:
   - build
-  - test
-  - performance
-  - deploy
 
 common:
   stage: build
   script:
-    docker build -t registry.gitlab.com/ruzanowski/ubiquitous .
-    docker push registry.gitlab.com/ruzanowski/ubiquitous
+    - 'docker build -t registry.gitlab.com/ruzanowski/ubiquitous/common .'
+    - 'docker push registry.gitlab.com/ruzanowski/ubiquitous/common'

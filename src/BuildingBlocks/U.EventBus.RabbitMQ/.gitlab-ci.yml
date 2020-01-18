@@ -1,0 +1,8 @@
+stages:
+  - build
+
+common:
+  stage: build
+  script:
+    - 'docker build -t registry.gitlab.com/ruzanowski/ubiquitous/eventbus.rabbitmq .'
+    - 'docker push registry.gitlab.com/ruzanowski/ubiquitous/eventbus.rabbimq'

@@ -54,6 +54,17 @@ release:
 
 include:
     - local: src/BuildingBlocks/Common/.gitlab-ci.yml
+    - local: src/BuildingBlocks/U.EventBus/.gitlab-ci.yml
+    - local: src/BuildingBlocks/U.EventBus.RabbitMQ/.gitlab-ci.yml
+    - local: src/BuildingBlocks/U.IntegrationEventLog/.gitlab-ci.yml
+    - local: src/Services/Fetch/U.FetchService/.gitlab-ci.yml
+    - local: src/Services/Generator/U.GeneratorService/.gitlab-ci.yml
+    - local: src/Services/Identity/U.IdentityService/.gitlab-ci.yml
+    - local: src/Services/Notification/U.NotificationService/.gitlab-ci.yml
+    - local: src/Services/Product/U.ProductService/.gitlab-ci.yml
+    - local: src/Services/Subscription/U.SubscriptionService/.gitlab-ci.yml
+    - local: src/Services/ApiGateway/U.ApiGateway/.gitlab-ci.yml
+    - local: src/Adapters/SmartStore/U.SmartStoreAdapter/.gitlab-ci.yml
 #    - local: ci/Browser-Performance.gitlab-ci.yml
 #    - local: ci/Container-Scanning.gitlab-ci.yml
 #    - local: ci/Dependency-Scanning.gitlab-ci.yml
