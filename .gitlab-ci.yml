@@ -63,7 +63,7 @@ include:
     - local: src/Services/Notification/U.NotificationService/.gitlab-ci.yml
     - local: src/Services/Product/U.ProductService/.gitlab-ci.yml
     - local: src/Services/Subscription/U.SubscriptionService/.gitlab-ci.yml
-    - local: src/Services/ApiGateway/U.ApiGateway/.gitlab-ci.yml
+    - local: src/ApiGateway/U.ApiGateway/.gitlab-ci.yml
     - local: src/Adapters/SmartStore/U.SmartStoreAdapter/.gitlab-ci.yml
 #    - local: ci/Browser-Performance.gitlab-ci.yml
 #    - local: ci/Container-Scanning.gitlab-ci.yml
