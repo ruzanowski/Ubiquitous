@@ -17,7 +17,16 @@ image: mcr.microsoft.com/dotnet/core/sdk:2.2.301
 
 stages:
   - test
+  - performance
   - deploy
+
+include:
+  - template: ci/Browser-Performance.gitlab-ci.yml
+  - template: ci/Container-Scanning.gitlab-ci.yml
+  - template: ci/DAST.gitlab-ci.yml
+  - template: ci/Dependency-Scanning.gitlab-ci.yml
+  - template: ci/License-Management.gitlab-ci.yml
+  - template: ci/SAST.gitlab-ci.yml
 
 release:
   stage: deploy
@@ -78,3 +87,7 @@ code_quality:
   except:
     variables:
       - $CODE_QUALITY_DISABLED
+
+
+
+
