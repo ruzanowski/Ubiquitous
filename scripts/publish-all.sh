@@ -1,6 +1,6 @@
 #!/bin/bash
 export ASPNETCORE_ENVIRONMENT=local
-PREFIX=src
+PREFIX=..\src
 SERVICE=$PREFIX.Services
 ADAPTER=$PREFIX.Adapters
 BUILDINGBLOCK=$PREFIX.BuldingBlocks

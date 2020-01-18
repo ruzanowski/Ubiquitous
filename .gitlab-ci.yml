@@ -48,10 +48,12 @@ release:
     paths:
       - publish/
   script:
+    - 'chmod -R +x .'
     # The output path is relative to the position of the csproj-file
     - ./publish-all.sh
 
-#include:
+include:
+    - local: src/BuildingBlocks/Common/.gitlab-ci.yml
 #    - local: ci/Browser-Performance.gitlab-ci.yml
 #    - local: ci/Container-Scanning.gitlab-ci.yml
 #    - local: ci/Dependency-Scanning.gitlab-ci.yml

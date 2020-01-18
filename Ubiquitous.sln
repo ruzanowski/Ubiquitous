@@ -55,7 +55,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{DB82EE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.WebApp.Angular", "src\U.WebApp.Angular\U.WebApp.Angular.csproj", "{16CE2424-2614-482C-89D3-F4212DD59A97}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductGenerator", "Service.ProductGenerator", "{AB4BB1BC-D658-42D0-8B65-74FCBA24EC09}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generator", "Service.ProductGenerator", "{AB4BB1BC-D658-42D0-8B65-74FCBA24EC09}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.GeneratorService", "src\Services\Generator\U.GeneratorService\U.GeneratorService.csproj", "{15D78CF9-F6DB-465C-AEFE-D94E056ADE4A}"
 EndProject
