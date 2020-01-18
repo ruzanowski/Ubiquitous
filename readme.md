@@ -1,21 +1,22 @@
-# UBIQUITOUS. Real-Time Notification Manager.
-***.NET Core with Angular on microservices.*** <br> 
-***Subscribe on **newest state** of your products.***   
+# UBIQUITOUS. Real-Time State & Notification Platform.
+.NET Core with Angular on microservices. <br> 
+Subscribe on **the newest state** of products you like.
 
-- [1. Functionalities](#-1-functionalities)
-    - [1.1 Purpose](#11-purpose)
-- [2. Server Side Architecture](#1goal-functionalities)
-    - [2.1 Technologies And Tools](#21-technologies-and-tools)
-    - [2.2 Services](#-22-services)
+- [1. Introduction](#1-introduction)
+    - [1.1 Functionalities](#11-functionalities)
+    - [1.2 Purpose](#12-purpose)
+    - [1.3 Installation On-Premises](#13-installation-on-premises)
+    - [1.4](#14-api-usage)
+- [2. Server Side](#2-server-side)
+    - [2.1 Technologies](#21-technologies)
+    - [2.2 Services](#22-services)
     - [2.3 Cross-Cutting Concerns](#23-cross-cutting-concerns)
-    - [2.4 API - Front communication](#24-api---front-communication)
-        - [2.4.1 HTTP](#241-http)
-        - [2.4.2 SignalR](#242-signalr)    
-    - [2.5 Security](#25-security)
-- [3. Client Side Overview](#-3-client-side-overview)
-    - [3.1 Client Side technologies and tools](#31-client-side-technologies-and-tools)
-- [4. Notification Management](#4-notification-management)
-    - [4.1 Handling User Subscriptions](#41-handling-user-subscriptions)
+    - [2.4 Server-Side Service Discovery](#24-server-side-service-discovery)
+- [3. Client Side](#3-client-side)
+    - [3.1 Technologies and tools](#31-technologies-and-tools)
+- [4. Communication](#4-communication)
+    - [4.1 HTTP Protocol](#41-http-protocol)
+    - [4.2 WebSocket (SignalR)](#42-websocket-signalr)
 - [5. RoadMap](#5-roadmap)
     - [5.1. Release V.0.2](#51-release-v02)
     - [5.2. Release V.0.3](#52-release-v03)
@@ -30,8 +31,7 @@
 | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop) |
 | [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) | [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop)
 
-# 1. Introduction
-
+## 1. Introduction
 ## 1.1. Functionalities
 - ***Notifications***
     - Channels
@@ -70,7 +70,7 @@
     - Relatively small, no possibility to run into performance issues 
     - Easy concerns or well known domain (orders, eShop) or unfinished
     
-## 1.3 Install
+## 1.3 Installation On-Premises
 
 <details>
 <summary>Click to expand!</summary>
@@ -111,6 +111,10 @@ docker-compose -f docker-compose-services.yml up
 
 </details>
     
+###1.4 API Usage
+
+_To be determined_
+
 ## 2. Server Side
 Whole solution is broken down to
    - **Frontend** developed with [Angular 7](https://angular.io/)
@@ -118,6 +122,7 @@ Whole solution is broken down to
         - **Services** Functionality-oriented e.g.: products, notifications 
         - **Adapters** Encapsulates shops, wholesales logic and enables communication
         - **Infrastructure**, external libraries listed in []
+   - **Solution Files**, there can be found anything like [GitLab CI]() manifesto, [Docker Compose]() yml, starting batch files and other solution configurations.
 
 Down below, a services dependency diagram. See to #3.1 for listed used technologies, tools and their use.
     
@@ -125,9 +130,10 @@ Down below, a services dependency diagram. See to #3.1 for listed used technolog
    <img alt="Containers diagram v0.2" src="img/containers-v.0.2.png" />
 </p>
 
-### 2.1 Technologies And Patterns
 
-What you might see in the scope of my project. Things mentioned below are implemented or used, feel free to use and free to contribute.
+### 2.1 Technologies
+
+What you might see in the scope of my project. Things mentioned below are implemented or used from legal external sources, feel free to use and free to contribute.
 
 #### ***V0.1***
 - RESTful API implemented in [***ASP.NET Core***](https://docs.microsoft.com/en-us/aspnet/core) 
@@ -177,31 +183,8 @@ What you might see in the scope of my project. Things mentioned below are implem
     - Authentication [***JWT***]()
     - Cache [***Redis***]()
     - Pagination
-        
-### 2.4 API - Front communication
 
-### 2.4.1 HTTP
-UI Dashboard statistics are pull-based calls. Each call returns definite data, sourcing charts, either dashboard cards.  
-
-<p align="center">
-   <img alt="Dashboard composition of synchronous calls" src="img/dashboard-calls.png" />
-</p>
-
-### 2.4.2 SignalR
-
-On the right, notification bar is websocket-based. Each notification that falls in the bar, is being managed by signalR. You can operate on notifications. Hide, delete or prioritze.
-
-Every command is pushed to the server via web-socket. Any signalr connectivity failure or 401 http call **results with loggout** and SignalR connection abort.   
-
-<p align="center">
-   <img alt="Dashboard composition of synchronous calls" src="img/signalr.png" />
-</p>
-  
-### 2.5 Security
-
-_To be determined_
-
-### 2.6 Service Discovery
+### 2.4 Server-Side Service Discovery
 
 Each service is self registering to the Consul registry, containing every active service. This registry as well checks healthness of service with optional keep-alive with specified per-service interval.
 
@@ -231,17 +214,36 @@ Each service is self registering to the Consul registry, containing every active
 
 ### 3.1 Technologies and tools
 
-- Entire web app is written in [***Angular 7***](https://angular.io/) with [Angular Material](https://material.angular.io/), [***Bootstrap*** ](https://getbootstrap.com/)
+- Entire web app is written in [***Angular 7***](https://angular.io/) with [***Angular Material***](https://material.angular.io/), [***Bootstrap*** ](https://getbootstrap.com/)
 - Communication is done with  [***Rx.JS***](https://rxjs-dev.firebaseapp.com/) and [***SignalR***]()
 - Charts rendered with [***ChartistJS***](https://gionkunz.github.io/chartist-js/) 
 
-## 4. Notification Management
+### 4 Communication
 
-_To be determined_
+Ubiquitous communicates in two ways, synchronous (HTTP) and asynchronous (WebSocket). These two protocols are used for communication between frontend and backend. Check out the table below explaining differences between them.
 
-### 4.1 Handling User Subscriptions
+| *Protocol* | *Communication* | *Architecture* |  *Server Side Transit*  | *Traffic* | *Difficulty* |   
+| --------- | --------- | --------- | --------- | --------- | --------- |
+|WebSocket | asynchronous| Push | indirect, through EventBus | Low | High |
+|HTTP | synchronous| Pull | direct | High | Low |
 
-_To be determined_
+
+### 4.1 HTTP Protocol
+UI Dashboard statistics are pull-based calls. Each call returns definite data, sourcing charts, either dashboard cards.  
+
+<p align="center">
+   <img alt="Dashboard composition of synchronous calls" src="img/dashboard-calls.png" />
+</p>
+
+### 4.2 WebSocket (SignalR)
+
+On the right, notification bar is websocket-based. Each notification that falls in the bar, is being managed by signalR. You can operate on notifications. Hide, delete or prioritze.
+
+Every command is pushed to the server via web-socket. Any signalr connectivity failure or 401 http call **results with loggout** and SignalR connection abort.   
+
+<p align="center">
+   <img alt="Dashboard composition of synchronous calls" src="img/signalr.png" />
+</p>
 
 ## 5. RoadMap
 
@@ -251,12 +253,9 @@ _To be determined_
 |Fetch Service|-----|Completed|07.2019|V.0.1|
 |ProductsGenerator Service|-----|Completed|07.2019|V.0.1|
 |Report Service(Caracan Liquid Project) -- Deprecated|-----|Completed|08.2019|V.0.1|
-|Dockerization|-----|Completed|09.2019|V.0.1|
-|Gitlab CI Pipelines|-----|Completed|09.2019|V.0.1|
+|Dockerization, Gitlab CI building pipeline|-----|Completed|09.2019|V.0.1|
 |Product Service - Major Features|-----|Completed|10.2019|V.0.1|
-|Dashboard Web-Side|-----|Completed|10.2019|V.0.1|
-|Notifications SignalR & Basic Features|-----|Completed|10.2019|V.0.1|
-|Notifications Management(confirm, hide, remove, mute)|-----|Completed|11.2019|V.0.1|
+|Notifications SignalR & Basic Features|-----|Completed|11.2019|V.0.1|
 |Identity Service|-----|Completed|11.2019|V.0.1|
 |Jwt Authorization|-----|Completed|11.2019|V.0.1|
 |API Gateway|-----|Completed|11.2019|V.0.1|
@@ -270,6 +269,8 @@ _To be determined_
 |ELK stack (Elasticsearch, Logstash, Kibana) integration|Medium|In Progress| |V.0.2|
 |Create Adapters Managmenent Service with Observer pattern|High| | |V.0.3|
 |Create Adapters with product's change compare functionality on adapters level|High| | |V.0.3|
+|Integration Tests across every service|<span style="color:red">Critical</span>|||v.0.4|
+|Extended CI pipelines |Medium|||v.0.4|
 |Migration to .NET Core 3.1 |Medium||||
 |Admin Panel (products)|Medium||||
 |Admin Panel (subscribers)|Medium||||
@@ -287,16 +288,15 @@ Release V0.2 brings
 + Routing fixes
 + Preferences page fix
 
-
 ### 5.2 Release V.0.3
 
-Release V0.2 scope shall bring
+Release V0.3 scope shall bring
 
 + Moved major load of determining product's change from Product Service to Adapter
 + Adapters Management Service
 
 <p align="center">
-   <img alt="Containers diagram v0.2" src="img/containers-v.0.2.png" />
+   <img alt="Containers diagram v0.3 src="img/containers-v.0.3.png" />
 </p>
 
 Below diagram depicts change between upper, current (v.0.1, v.0.2) adapters architecture and below (v.0.3) with newest structure and data flow.
@@ -304,7 +304,6 @@ Below diagram depicts change between upper, current (v.0.1, v.0.2) adapters arch
 <p align="center">
     <img alt="Containers diagram v0.3" src="img/adapters-v.0.3.png" />
 </p>
-
 
 ## 6. Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
