@@ -1,8 +1,8 @@
 image: mcr.microsoft.com/dotnet/core/sdk:2.2.301
 
 stages:
-  - test
   - build
+  - test
   - performance
   - deploy
 
@@ -64,19 +64,6 @@ build:
   #    - 'chmod -R +x ./scripts'
   #    - 'scripts/run-tests.bat'
 
-sast:
-  image: registry.gitlab.com/gitlab-org/gl-sast:latest
-  script:
-    - export SAST_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
-    - docker run
-      --env SAST_CONFIDENCE_LEVEL="${SAST_CONFIDENCE_LEVEL:-3}"
-      --env SAST_DISABLE_REMOTE_CHECKS="${SAST_DISABLE_REMOTE_CHECKS:-false}"
-      --volume "$PWD:/code"
-      --volume /var/run/docker.sock:/var/run/docker.sock
-      "registry.gitlab.com/gitlab-org/security-products/sast:$SAST_VERSION" /app/bin/run /code
-  artifacts:
-    paths: [gl-sast-report.json]
-
 release:
   stage: deploy
   only:
@@ -91,8 +78,7 @@ release:
 include:
     - local: ci/Browser-Performance.gitlab-ci.yml
     - local: ci/Container-Scanning.gitlab-ci.yml
-    - local: ci/DAST.gitlab-ci.yml
+#    - local: ci/DAST.gitlab-ci.yml
     - local: ci/Dependency-Scanning.gitlab-ci.yml
     - local: ci/License-Management.gitlab-ci.yml
     - local: ci/SAST.gitlab-ci.yml
-
