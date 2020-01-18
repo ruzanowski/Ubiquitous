@@ -44,8 +44,6 @@ build:
 
 release:
   stage: deploy
-  only:
-    - master
   artifacts:
     paths:
       - publish/
@@ -53,9 +51,9 @@ release:
     # The output path is relative to the position of the csproj-file
     - ./publish-all.sh
 
-include:
-    - local: ci/Browser-Performance.gitlab-ci.yml
-    - local: ci/Container-Scanning.gitlab-ci.yml
-    - local: ci/Dependency-Scanning.gitlab-ci.yml
-    - local: ci/License-Management.gitlab-ci.yml
-    - local: ci/SAST.gitlab-ci.yml
+#include:
+#    - local: ci/Browser-Performance.gitlab-ci.yml
+#    - local: ci/Container-Scanning.gitlab-ci.yml
+#    - local: ci/Dependency-Scanning.gitlab-ci.yml
+#    - local: ci/License-Management.gitlab-ci.yml
+#    - local: ci/SAST.gitlab-ci.yml
