@@ -23,7 +23,7 @@ namespace U.ProductService.IntegrationTests
                     .UseContentRoot(Path.GetDirectoryName(path))
                     .ConfigureAppConfiguration(cb =>
                     {
-                        cb.AddJsonFile("appsettings.json", optional: false)
+                        cb.AddJsonFile("appsettings.IT.json", optional: false)
                             .AddEnvironmentVariables();
                     }).UseStartup<Startup>();
                 testServer = new TestServer(hostBuilder);

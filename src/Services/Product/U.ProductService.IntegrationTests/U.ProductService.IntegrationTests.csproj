@@ -32,7 +32,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="appsettings.json">
+      <Content Include="appsettings.IT.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
