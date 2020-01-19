@@ -28,19 +28,18 @@ namespace U.SmartStoreAdapter.Application.Operations.Products
                 .Include(x => x.ProductPictures)
                 .Include(x => x.ProductCategories)
                 .AsQueryable();
-            
+
             products = new ProductsQueryBuilder(products)
                 .FilterByCategory(request.Category)
                 .FilterByPrice(request.Price)
                 .FilterByAvailableTime(request.Time)
                 .FilterByStockQuantity(request.StockQuantity)
-                .OrderBy(request.OrderBy)
                 .Build();
-            
+
             var productsMapped = _mapper.ProjectTo<SmartProductViewModel>(products);
 
             var paginatedProducts = await PaginatedItems<SmartProductViewModel>.CreateAsync(request.PageIndex, request.PageSize, productsMapped);
-            
+
             return paginatedProducts;
         }
     }

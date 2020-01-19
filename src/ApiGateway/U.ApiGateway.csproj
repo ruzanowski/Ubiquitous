@@ -10,8 +10,14 @@
     <PackageReference Include="Ocelot.Provider.Consul" Version="13.5.2" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
     <ProjectReference Include="..\BuildingBlocks\Common\U.Common.csproj" />
+    <ProjectReference Include="..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <PackageReference Include="Ubiquitous.Common" Version="*" />
+    <PackageReference Include="Ubiquitous.IntegrationEventLog" Version="*" />
   </ItemGroup>
 
   <ItemGroup>

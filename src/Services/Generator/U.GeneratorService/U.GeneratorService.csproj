@@ -5,12 +5,19 @@
         <OutputType>Exe</OutputType>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Content Include="Dockerfile" />
-      <None Remove="Properties\launchSettings.json" />
-      <Content Include="Properties\launchSettings.json" />
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
     </ItemGroup>
 
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <PackageReference Include="Ubiquitous.Common" Version="*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoFixture" Version="4.11.0" />
+        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
+    </ItemGroup>
+    
     <ItemGroup>
       <None Include="appsettings.docker.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -21,14 +28,5 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="AutoFixture" Version="4.11.0" />
-      <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
-    </ItemGroup>
-
+    
 </Project>

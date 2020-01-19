@@ -14,7 +14,7 @@ REPOSITORIES=(
  $SERVICE\Fetch\U.FetchService
  $SERVICE\Generator\U.GeneratorService
  $SERVICE\Identity\U.IdentityService
- $SERVICE\Notification\U.NotificationService 
+ $SERVICE\Notification\U.NotificationService
  $SERVICE\Product\U.ProductService
  $SERVICE\Subscription\U.SubscriptionService)
 

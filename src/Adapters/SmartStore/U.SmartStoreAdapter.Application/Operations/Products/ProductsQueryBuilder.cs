@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Linq.Dynamic.Core;
 using U.SmartStoreAdapter.Application.Models.QueryModels;
 using U.SmartStoreAdapter.Domain.Entities.Catalog;
 
@@ -56,12 +55,6 @@ namespace U.SmartStoreAdapter.Application.Operations.Products
                 _query = _query
                     .Where(x => x.ProductCategories.Any(y => y.Category.Name.Contains(category)));
             }
-            return this;
-        }
-
-        public ProductsQueryBuilder OrderBy(ProductOrderBy orderBy)
-        {
-            _query = _query.OrderBy(orderBy.ToString());
             return this;
         }
 

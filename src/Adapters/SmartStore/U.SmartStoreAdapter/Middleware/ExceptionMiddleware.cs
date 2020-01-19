@@ -1,15 +1,11 @@
 using System;
 using System.Data;
-using System.IO;
-using System.Linq.Dynamic.Core.Exceptions;
-using System.Reflection;
 using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using U.SmartStoreAdapter.Application.Exceptions;
 using U.SmartStoreAdapter.Extensions;
 
@@ -92,7 +88,7 @@ namespace U.SmartStoreAdapter.Middleware
                 default:
                     problemDetails.Title = "An unexpected error occurred!";
                     problemDetails.Status = 500;
-                    problemDetails.Detail = exception.StackTrace.ToString();
+                    problemDetails.Detail = exception.StackTrace;
                     break;
             }
             // log the exception etc..

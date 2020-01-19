@@ -1,15 +1,15 @@
 stages:
-  - eventbus
+  - deploy_eventbus
 
 eventbus:
-  stage: eventbus
+  stage: deploy_eventbus
   image: docker:latest
   variables:
     DOCKER_DRIVER: overlay
   services:
     - docker:dind
   before_script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
+    - chmod -R a+x scripts
   script:
-    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/eventbus ./src/BuildingBlocks/U.EventBus
-    - docker push registry.gitlab.com/ruzanowski/ubiquitous/eventbus
+    - ./scripts/dotnet-publish.sh
+    - ./scripts/docker-publish.sh

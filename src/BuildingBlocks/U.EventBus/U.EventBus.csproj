@@ -2,18 +2,20 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
-        <PackageId>ubiquitous.eventbus</PackageId>
-        <Authors>sebastianruzanowski</Authors>
+        <PackageId>Ubiquitous.EventBus</PackageId>
+        <Authors>SebastianRuzanowski</Authors>
+        <Title>Ubiquitous.EventBus</Title>
+        <PackageTags>Ubiquitous.EventBus</PackageTags>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Common\U.Common.csproj" />
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <ProjectReference Include="..\Common\U.Common.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <PackageReference Include="Ubiquitous.Common" Version="*" />
     </ItemGroup>
-
+    
     <ItemGroup>
       <Content Include="Dockerfile" />
     </ItemGroup>

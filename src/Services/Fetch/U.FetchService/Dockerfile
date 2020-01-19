@@ -1,24 +1,7 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS base
+FROM microsoft/dotnet:2.2-aspnetcore-runtime-alpine
 WORKDIR /app
+COPY ./src/Services/Fetch/U.FetchService/bin/docker .
 EXPOSE 5200/tcp
 ENV ASPNETCORE_URLS http://*:5200
-
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
-WORKDIR /src
-
-COPY src/BuildingBlocks/Common/*.csproj /src/csproj-files/
-COPY src/BuildingBlocks/U.EventBus.RabbitMQ/*.csproj /src/csproj-files/
-COPY src/Services/Fetch/*/*.csproj /src/csproj-files/
-
-COPY . .
-
-WORKDIR /src/src/Services/Fetch/U.FetchService
-RUN dotnet publish -c Release -o /app
-
-FROM build AS publish
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app .
-
+ENV ASPNETCORE_ENVIRONMENT Docker
 ENTRYPOINT ["dotnet", "U.FetchService.dll"]

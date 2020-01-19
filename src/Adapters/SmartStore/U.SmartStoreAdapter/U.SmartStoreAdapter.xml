@@ -5,9 +5,9 @@
     </assembly>
     <members>
         <member name="T:U.SmartStoreAdapter.Controllers.CategoriesController">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="M:U.SmartStoreAdapter.Controllers.CategoriesController.#ctor(MediatR.IMediator)">
             <summary>
@@ -16,10 +16,10 @@
             <param name="mediator"></param>
         </member>
         <member name="M:U.SmartStoreAdapter.Controllers.CategoriesController.StoreCategory(U.SmartStoreAdapter.Application.Models.Categories.StoreCategoryCommand)">
-            <summary>
+             <summary>
             
-            </summary>
-            <returns></returns>
+             </summary>
+             <returns></returns>
         </member>
         <member name="M:U.SmartStoreAdapter.Controllers.CategoriesController.GetCategories(U.SmartStoreAdapter.Application.Models.Categories.GetCategoriesQuery)">
             <summary>
@@ -28,33 +28,38 @@
             <returns></returns>
         </member>
         <member name="T:U.SmartStoreAdapter.Controllers.HealthController">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
-        <member name="M:U.SmartStoreAdapter.Controllers.HealthController.HealthCheck">
-            <summary>
+        <member name="M:U.SmartStoreAdapter.Controllers.HealthController.#ctor(U.Common.Consul.IConsulServiceDifferentator)">
+             <summary>
             
-            </summary>
-            <returns></returns>
+             </summary>
+             <param name="service"></param>
+        </member>
+        <member name="M:U.SmartStoreAdapter.Controllers.HealthController.HealthCheck(System.String)">
+             <summary>
+            
+             </summary>
+             <returns></returns>
         </member>
         <member name="T:U.SmartStoreAdapter.Controllers.ManufacturersController">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
-        <member name="M:U.SmartStoreAdapter.Controllers.ManufacturersController.#ctor(MediatR.IMediator,Microsoft.Extensions.Logging.ILogger{U.SmartStoreAdapter.Controllers.ManufacturersController})">
-            <summary>
+        <member name="M:U.SmartStoreAdapter.Controllers.ManufacturersController.#ctor(MediatR.IMediator)">
+             <summary>
             
-            </summary>
-            <param name="mediator"></param>
-            <param name="logger"></param>
+             </summary>
+             <param name="mediator"></param>
         </member>
         <member name="M:U.SmartStoreAdapter.Controllers.ManufacturersController.Store(U.SmartStoreAdapter.Application.Models.Manufacturers.StoreManufacturerCommand)">
-            <summary>
+             <summary>
             
-            </summary>
-            <returns></returns>
+             </summary>
+             <returns></returns>
         </member>
         <member name="T:U.SmartStoreAdapter.Controllers.PicturesController">
             <summary>
@@ -74,19 +79,19 @@
             <returns></returns>
         </member>
         <member name="T:U.SmartStoreAdapter.Controllers.ProductsController">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="M:U.SmartStoreAdapter.Controllers.ProductsController.#ctor(MediatR.IMediator)">
-            <summary>
+             <summary>
             
-            </summary>
-            <param name="mediator"></param>
+             </summary>
+             <param name="mediator"></param>
         </member>
         <member name="M:U.SmartStoreAdapter.Controllers.ProductsController.GetProductsList(U.SmartStoreAdapter.Application.Models.Products.GetProductsListQuery)">
             <summary>
-            Get list of products 
+            Get list of products
             </summary>
             <param name="productsListQuery"></param>
             <returns></returns>
@@ -125,39 +130,39 @@
             </summary>
         </member>
         <member name="M:U.SmartStoreAdapter.Middleware.ExceptionMiddleware.AddExceptionMiddleWare(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
-            <summary>
+             <summary>
             
-            </summary>
-            <param name="app"></param>
+             </summary>
+             <param name="app"></param>
         </member>
         <member name="T:U.SmartStoreAdapter.Program">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="M:U.SmartStoreAdapter.Program.Main(System.String[])">
-            <summary>
+             <summary>
             
-            </summary>
-            <param name="args"></param>
-            <returns></returns>
+             </summary>
+             <param name="args"></param>
+             <returns></returns>
         </member>
         <member name="T:U.SmartStoreAdapter.Startup">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="M:U.SmartStoreAdapter.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILogger{U.SmartStoreAdapter.Startup})">
-            <summary>
+             <summary>
             
-            </summary>
-            <param name="configuration"></param>
-            <param name="logger"></param>
+             </summary>
+             <param name="configuration"></param>
+             <param name="logger"></param>
         </member>
         <member name="P:U.SmartStoreAdapter.Startup.Configuration">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="M:U.SmartStoreAdapter.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             This method gets called by the runtime. Use this method to add services to the container.

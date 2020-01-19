@@ -1,5 +1,5 @@
 stages:
-  - build
+  - deploy
 
 subscriptionservice:
   image: docker:latest
@@ -7,9 +7,9 @@ subscriptionservice:
     DOCKER_DRIVER: overlay
   services:
     - docker:dind
-  stage: build
+  stage: deploy
   before_script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
+    - chmod -R a+x scripts
   script:
-    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/subscriptionservice ./src/Services/Subscription/U.SubscriptionService
-    - docker push registry.gitlab.com/ruzanowski/ubiquitous/subscriptionservice
+    - ./scripts/dotnet-publish.sh
+    - ./scripts/docker-publish.sh

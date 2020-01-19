@@ -1,16 +1,25 @@
 image: mcr.microsoft.com/dotnet/core/sdk:2.2.301
 
 stages:
-  - common
-  - eventbus
-  - eventbus_rabbitmq
-  - integrationeventlog
   - build
   - test
   - performance
   - deploy
+  - nuget_common
+  - nuget_eventbus
+  - nuget_eventbus_rabbitmq
+  - nuget_integrationeventlog
 
-# takes upwards of 10 minutes, make manual
+build:
+  stage: build
+  before_script:
+    - 'dotnet restore'
+  #  - 'npm install' todo
+  script:
+    - 'dotnet build'
+#    - 'chmod -R +x ./scripts'
+#    - 'scripts/run-tests.bat' todo
+
 code_quality:
   stage: test
   when: manual
@@ -28,23 +37,12 @@ code_quality:
       --volume /var/run/docker.sock:/var/run/docker.sock
       --volume /tmp/cc:/tmp/cc
       codeclimate/codeclimate analyze -f html > report.html
-    #- cat report.html
   artifacts:
     paths: [report.html]
   dependencies: []
   except:
     variables:
       - $CODE_QUALITY_DISABLED
-
-release:
-  stage: deploy
-  artifacts:
-    paths:
-      - publish/
-  script:
-    - 'chmod -R +x .'
-    # The output path is relative to the position of the csproj-file
-    - ./publish-all.sh
 
 include:
     - local: src/BuildingBlocks/Common/.gitlab-ci.yml

@@ -1,13 +1,15 @@
 stages:
-  - build
+  - deploy
 
 smartstoreadapter:
-  stage: build
+  stage: deploy
   image: docker:latest
   variables:
     DOCKER_DRIVER: overlay
   services:
     - docker:dind
+  before_script:
+    - chmod -R a+x scripts
   script:
-    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/smartstoreadapter ./src/Adapters/SmartStore/U.SmartStoreAdapter
-    - docker push registry.gitlab.com/ruzanowski/ubiquitous/smartstoreadapter
+    - ./scripts/dotnet-publish.sh
+    - ./scripts/docker-publish.sh

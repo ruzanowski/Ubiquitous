@@ -12,6 +12,10 @@ namespace U.SmartStoreAdapter.Controllers
     {
         private readonly IConsulServiceDifferentator _service;
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="service"></param>
         public HealthController(IConsulServiceDifferentator service)
         {
             _service = service;

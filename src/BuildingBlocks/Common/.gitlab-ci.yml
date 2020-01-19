@@ -1,15 +1,15 @@
 stages:
-  - common
+  - deploy_common
 
 common:
-  stage: common
+  stage: deploy_common
   image: docker:latest
   variables:
     DOCKER_DRIVER: overlay
   services:
     - docker:dind
   before_script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
+    - chmod -R a+x scripts
   script:
-    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/common ./src/BuildingBlocks/Common
-    - docker push registry.gitlab.com/ruzanowski/ubiquitous/common
+    - ./scripts/dotnet-publish.sh
+    - ./scripts/docker-publish.sh

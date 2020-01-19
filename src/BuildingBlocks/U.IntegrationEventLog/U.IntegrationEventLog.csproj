@@ -2,8 +2,10 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
-        <PackageId>ubiquitous.integrationeventlog</PackageId>
-        <Authors>sebastianruzanowski</Authors>
+        <PackageId>Ubiquitous.IntegrationEventLog</PackageId>
+        <Authors>SebastianRuzanowski</Authors>
+        <Title>Ubiquitous.EventBus.RabbitMQ</Title>
+        <PackageTags>Ubiquitous.EventBus.RabbitMQ</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
