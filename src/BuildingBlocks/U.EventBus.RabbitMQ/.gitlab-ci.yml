@@ -11,5 +11,5 @@ eventbus.rabbitmq:
   before_script:
     - chmod -R a+x scripts
   script:
+    - ./scripts/dotnet-nuget-push.sh
     - ./scripts/dotnet-publish.sh
-    - ./scripts/docker-publish.sh

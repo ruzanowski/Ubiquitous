@@ -11,5 +11,5 @@ eventbus:
   before_script:
     - chmod -R a+x scripts
   script:
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/docker-publish.sh
+    - ./scripts/dotnet-pack.sh
+    - ./scripts/dotnet-nuget-push.sh
