@@ -11,5 +11,6 @@ common:
   before_script:
     - chmod -R a+x scripts
   script:
+    - 'ls'
     - ./scripts/dotnet-nuget-push.sh
     - ./scripts/dotnet-publish.sh
