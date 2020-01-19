@@ -9,5 +9,5 @@ common:
   services:
     - docker:dind
   script:
-    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/common ./src/BuildingBlocks/U.Common
+    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/common ./src/BuildingBlocks/Common
     - docker push registry.gitlab.com/ruzanowski/ubiquitous/common
