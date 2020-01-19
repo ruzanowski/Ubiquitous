@@ -2,7 +2,7 @@ stages:
   - integrationeventlog
 
 integrationeventlog:
-  stage: lib_integrationeventlog
+  stage: integrationeventlog
   image: docker:latest
   variables:
     DOCKER_DRIVER: overlay
