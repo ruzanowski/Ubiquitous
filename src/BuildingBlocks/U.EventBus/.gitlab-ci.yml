@@ -1,11 +1,13 @@
-image: docker:19.03.1
 stages:
-  - build
+  - eventbus
 
 eventbus:
-  stage: build
+  stage: eventbus
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay
   services:
-    - docker:19.03.1-dind
+    - docker:dind
   script:
-    - 'docker build -t registry.gitlab.com/ruzanowski/ubiquitous/eventbus .'
-    - 'docker push registry.gitlab.com/ruzanowski/ubiquitous/eventbus'
+    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/eventbus ./src/BuildingBlocks/U.EventBus
+    - docker push registry.gitlab.com/ruzanowski/ubiquitous/eventbus

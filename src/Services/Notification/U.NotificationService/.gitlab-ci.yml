@@ -9,5 +9,5 @@ notificationservice:
   services:
     - docker:dind
   script:
-    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/notificationservice .
+    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/notificationservice ./src/Services/Notification/U.NotificationService
     - docker push registry.gitlab.com/ruzanowski/ubiquitous/notificationservice

@@ -1,11 +1,13 @@
-image: docker:19.03.1
 stages:
-  - build
+  - integrationeventlog
 
 integrationeventlog:
-  stage: build
+  stage: lib_integrationeventlog
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay
   services:
-    - docker:19.03.1-dind
+    - docker:dind
   script:
-    - 'docker build -t registry.gitlab.com/ruzanowski/ubiquitous/integrationeventlog .'
-    - 'docker push registry.gitlab.com/ruzanowski/ubiquitous/integrationeventlog'
+    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/integrationeventlog ./src/BuildingBlocks/U.IntegrationEventLog
+    - docker push registry.gitlab.com/ruzanowski/ubiquitous/integrationeventlog

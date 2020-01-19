@@ -1,11 +1,13 @@
-image: docker:19.03.1
 stages:
   - build
 
 fetchservice:
   stage: build
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay
   services:
-    - docker:19.03.1-dind
+    - docker:dind
   script:
-    - 'docker build -t registry.gitlab.com/ruzanowski/ubiquitous/fetchservice .'
-    - 'docker push registry.gitlab.com/ruzanowski/ubiquitous/fetchservice'
+    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/fetchservice ./src/Services/Fetch/U.FetchService
+    - docker push registry.gitlab.com/ruzanowski/ubiquitous/fetchservice

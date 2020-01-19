@@ -1,11 +1,13 @@
-image: docker:19.03.1
 stages:
-  - build
+  - common
 
 common:
-  stage: build
+  stage: common
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay
   services:
-    - docker:19.03.1-dind
+    - docker:dind
   script:
-    - 'docker build -t registry.gitlab.com/ruzanowski/ubiquitous/common .'
-    - 'docker push registry.gitlab.com/ruzanowski/ubiquitous/common'
+    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/common ./src/BuildingBlocks/U.Common
+    - docker push registry.gitlab.com/ruzanowski/ubiquitous/common

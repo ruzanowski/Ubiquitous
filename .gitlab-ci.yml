@@ -1,6 +1,10 @@
 image: mcr.microsoft.com/dotnet/core/sdk:2.2.301
 
 stages:
+  - common
+  - eventbus
+  - eventbus_rabbitmq
+  - integrationeventlog
   - build
   - test
   - performance
@@ -31,16 +35,6 @@ code_quality:
   except:
     variables:
       - $CODE_QUALITY_DISABLED
-
-build:
-  stage: build
-  before_script:
-    - 'dotnet restore'
-  #  - 'npm install'
-  script:
-    - 'dotnet build'
-  #    - 'chmod -R +x ./scripts'
-  #    - 'scripts/run-tests.bat'
 
 release:
   stage: deploy

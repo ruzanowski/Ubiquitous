@@ -9,5 +9,5 @@ subscriptionservice:
     - docker:dind
   stage: build
   script:
-    - 'docker build -t registry.gitlab.com/ruzanowski/ubiquitous/subscriptionservice .'
-    - 'docker push registry.gitlab.com/ruzanowski/ubiquitous/subscriptionservice'
+    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/subscriptionservice ./src/Services/Subscription/U.SubscriptionService
+    - docker push registry.gitlab.com/ruzanowski/ubiquitous/subscriptionservice
