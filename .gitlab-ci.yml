@@ -44,6 +44,20 @@ code_quality:
     variables:
       - $CODE_QUALITY_DISABLED
 
+common:
+  stage: deploy_common
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay
+  services:
+    - docker:dind
+  before_script:
+    - chmod -R a+x ./src/BuildingBlocks/Common/scripts
+    - ./src/BuildingBlocks/Common/scripts/dotnet-build.sh
+  script:
+    - ./src/BuildingBlocks/Common/scripts/dotnet-nuget-push.sh
+    - ./src/BuildingBlocks/Common/scripts/dotnet-publish.sh
+
 include:
     - local: src/BuildingBlocks/Common/.gitlab-ci.yml
     - local: src/BuildingBlocks/U.EventBus/.gitlab-ci.yml
