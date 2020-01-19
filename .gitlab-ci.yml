@@ -4,11 +4,11 @@ stages:
   - build
   - test
   - performance
+  - deploy_common
+  - deploy_eventbus
+  - deploy_eventbus_rabbitmq
+  - deploy_integrationeventlog
   - deploy
-  - nuget_common
-  - nuget_eventbus
-  - nuget_eventbus_rabbitmq
-  - nuget_integrationeventlog
 
 build:
   stage: build
