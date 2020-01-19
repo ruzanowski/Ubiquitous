@@ -9,8 +9,7 @@ common:
   services:
     - docker:dind
   before_script:
-    - chmod -R a+x scripts
+    - chmod -R a+x ./src/BuildingBlocks/Common/scripts
   script:
-    - 'ls'
-    - ./scripts/dotnet-nuget-push.sh
-    - ./scripts/dotnet-publish.sh
+    - ./src/BuildingBlocks/Common/scripts/dotnet-nuget-push.sh
+    - ./src/BuildingBlocks/Common/scripts/dotnet-publish.sh
