@@ -11,5 +11,5 @@ integrationeventlog:
   before_script:
     - chmod -R a+x scripts
   script:
+    - ./scripts/dotnet-nuget-publish.sh
     - ./scripts/dotnet-publish.sh
-    - ./scripts/docker-publish.sh

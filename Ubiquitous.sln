@@ -48,6 +48,12 @@ ProjectSection(SolutionItems) = preProject
 	scripts\build-jaeger.bat = scripts\build-jaeger.bat
 	scripts\build-services.bat = scripts\build-services.bat
 	scripts\publish-all.sh = scripts\publish-all.sh
+	ci\Browser-Performance.gitlab-ci.yml = ci\Browser-Performance.gitlab-ci.yml
+	ci\Container-Scanning.gitlab-ci.yml = ci\Container-Scanning.gitlab-ci.yml
+	ci\DAST.gitlab-ci.yml = ci\DAST.gitlab-ci.yml
+	ci\Dependency-Scanning.gitlab-ci.yml = ci\Dependency-Scanning.gitlab-ci.yml
+	ci\License-Management.gitlab-ci.yml = ci\License-Management.gitlab-ci.yml
+	ci\SAST.gitlab-ci.yml = ci\SAST.gitlab-ci.yml
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notification", "Notification", "{20AE96FC-F1A7-4CA8-90F8-FEB6EBB6D11A}"

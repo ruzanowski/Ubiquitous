@@ -1,4 +1,6 @@
 FROM microsoft/dotnet:2.2-aspnetcore-runtime-alpine
+RUN apk add --no-cache bash
+
 WORKDIR /app
 EXPOSE 5100/tcp
 COPY ./src/Adapters/SmartStore/U.SmartStoreAdapter/bin/docker .
