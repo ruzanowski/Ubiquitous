@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 cd src/BuildingBlocks/U.EventBus
 dotnet pack /p:PackageVersion=${UBIQUITOUS_VERSION}.$CI_JOB_ID --no-restore -o .
 

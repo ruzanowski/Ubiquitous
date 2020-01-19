@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 cd src/BuildingBlocks/Common
 dotnet pack /p:PackageVersion=${UBIQUITOUS_VERSION}.$CI_JOB_ID --no-restore -o .
 

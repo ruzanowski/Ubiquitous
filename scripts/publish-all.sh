@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 export ASPNETCORE_ENVIRONMENT=local
 PREFIX=..\src
 SERVICE=$PREFIX.Services

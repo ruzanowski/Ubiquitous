@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 DOCKER_TAG=''
 
 case "$CI_COMMIT_REF_NAME" in
