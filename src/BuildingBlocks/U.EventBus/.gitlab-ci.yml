@@ -8,6 +8,8 @@ eventbus:
     DOCKER_DRIVER: overlay
   services:
     - docker:dind
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
   script:
     - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/eventbus ./src/BuildingBlocks/U.EventBus
     - docker push registry.gitlab.com/ruzanowski/ubiquitous/eventbus
