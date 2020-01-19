@@ -9,5 +9,5 @@ productservice:
   services:
     - docker:dind
   script:
-    - 'docker build -t registry.gitlab.com/ruzanowski/ubiquitous/productservice .'
-    - 'docker push registry.gitlab.com/ruzanowski/ubiquitous/productservice'
+    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/productservice ./src/Services/Product/U.ProductService
+    - docker push registry.gitlab.com/ruzanowski/ubiquitous/productservice
