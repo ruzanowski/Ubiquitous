@@ -1,9 +1,11 @@
-image: gitlab/dind
+image: docker:19.03.1
 stages:
   - build
 
 common:
   stage: build
+  services:
+    - docker:19.03.1-dind
   script:
     - 'docker build -t registry.gitlab.com/ruzanowski/ubiquitous/common .'
     - 'docker push registry.gitlab.com/ruzanowski/ubiquitous/common'
