@@ -48,10 +48,10 @@ common:
   stage: deploy_common
   before_script:
     - chmod -R a+x ./src/BuildingBlocks/Common/scripts
-    - 'dotnet restore'
+    - 'cd src/BuildingBlocks/Common/scripts'
   script:
-    - ./src/BuildingBlocks/Common/scripts/dotnet-build.sh
-    - ./src/BuildingBlocks/Common/scripts/dotnet-nuget-push.sh
+    - ./dotnet-build.sh
+    - ./dotnet-nuget-push.sh
 
 include:
     - local: src/BuildingBlocks/U.EventBus/.gitlab-ci.yml
