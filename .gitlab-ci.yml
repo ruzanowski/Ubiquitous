@@ -52,7 +52,6 @@ MyGet_Common:
   script:
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-nuget-push.sh
-    - 'dotnet nuget push *.nupkg -k ${MYGET_API_KEY} -s ${MYGET_URL_DEVELOP}'
 
 MyGet_EventBus:
   stage: myget_eventbus
