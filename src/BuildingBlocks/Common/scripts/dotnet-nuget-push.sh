@@ -15,6 +15,6 @@ case "$CI_COMMIT_REF_NAME" in
   dotnet nuget push *.nupkg -k $MYGET_API_KEY -s "https://www.myget.org/F/ubiquitous/api/v2/package"
     ;;
   * | "develop")
-  dotnet nuget push *.nupkg -k $MYGET_API_KEY -s https://www.myget.org/F/ubiquitous/api/v3/package
+  dotnet nuget push *.nupkg -k $MYGET_API_KEY
     ;;
 esac
