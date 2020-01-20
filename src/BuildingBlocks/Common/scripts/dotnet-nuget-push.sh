@@ -12,9 +12,9 @@ ls
 
 case "$CI_COMMIT_REF_NAME" in
   "master")
-    dotnet nuget push ${UBIQUITOUS_VERSION}.${CI_JOB_ID}.nupkg -k ${MYGET_API_KEY} -source "https://www.myget.org/F/ubiquitous/api/v2/package"
+    dotnet nuget push *.nupkg -k ${MYGET_API_KEY} -source "https://www.myget.org/F/ubiquitous/api/v2/package"
     ;;
   * | "develop")
-    dotnet nuget push ${UBIQUITOUS_VERSION}.${CI_JOB_ID}.nupkg -k ${MYGET_API_KEY} -source "https://www.myget.org/F/ubiquitous-develop/api/v2/package"
+    dotnet nuget push *.nupkg -source https://www.myget.org/F/ubiquitous-develop/api/v2/package -k ${MYGET_API_KEY}
     ;;
 esac
