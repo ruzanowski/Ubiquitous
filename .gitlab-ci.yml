@@ -4,10 +4,10 @@ stages:
   - build
   - test
   - performance
-  - deploy_common
-  - deploy_eventbus
-  - deploy_eventbus_rabbitmq
-  - deploy_integrationeventlog
+  - myget_common
+  - myget_eventbus
+  - myget_eventbus_rabbitmq
+  - myget_integrationeventlog
   - deploy
 
 build:
@@ -44,19 +44,43 @@ code_quality:
     variables:
       - $CODE_QUALITY_DISABLED
 
-common:
-  stage: deploy_common
+MyGet_Common:
+  stage: myget_common
   before_script:
-    - chmod -R a+x ./src/BuildingBlocks/Common/scripts
     - 'cd src/BuildingBlocks/Common'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/dotnet-build.sh
+    - ./scripts/dotnet-nuget-push.sh
+
+MyGet_EventBus:
+  stage: myget_eventbus
+  before_script:
+    - 'cd src/BuildingBlocks/U.EventBus'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/dotnet-build.sh
+    - ./scripts/dotnet-nuget-push.sh
+
+MyGet_EventBus_RabbitMQ:
+  stage: myget_integrationeventlog
+  before_script:
+    - 'cd src/BuildingBlocks/U.EventBus'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/dotnet-build.sh
+    - ./scripts/dotnet-nuget-push.sh
+
+MyGet_IntegrationEventLog:
+  stage: myget_integrationeventlog
+  before_script:
+    - 'cd src/BuildingBlocks/U.IntegrationEventLog'
+    - chmod -R a+x ./scripts
   script:
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-nuget-push.sh
 
 include:
-    - local: src/BuildingBlocks/U.EventBus/.gitlab-ci.yml
-    - local: src/BuildingBlocks/U.EventBus.RabbitMQ/.gitlab-ci.yml
-    - local: src/BuildingBlocks/U.IntegrationEventLog/.gitlab-ci.yml
     - local: src/Services/Fetch/U.FetchService/.gitlab-ci.yml
     - local: src/Services/Generator/U.GeneratorService/.gitlab-ci.yml
     - local: src/Services/Identity/U.IdentityService/.gitlab-ci.yml
