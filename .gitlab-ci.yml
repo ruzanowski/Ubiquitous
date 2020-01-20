@@ -51,7 +51,7 @@ common:
     DOCKER_DRIVER: overlay
   services:
     - docker:dind
-    before_script:
+  before_script:
     - chmod -R a+x ./src/BuildingBlocks/Common/scripts
     - 'dotnet restore'
   script:
