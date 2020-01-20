@@ -10,11 +10,11 @@ echo Currently in
 pwd
 ls
 
-case "$CI_COMMIT_REF_NAME" in
-  "master")
-  dotnet nuget push *.nupkg -k $MYGET_API_KEY -s "https://www.myget.org/F/ubiquitous/api/v2/package"
-    ;;
-  * | "develop")
-  dotnet nuget push *.nupkg -k $MYGET_API_KEY -s $MYGET_URL_DEVELOP
-    ;;
-esac
+#case "$CI_COMMIT_REF_NAME" in
+#  "master")
+#  dotnet nuget push *.nupkg -k $MYGET_API_KEY -s "https://www.myget.org/F/ubiquitous/api/v2/package"
+#    ;;
+#  * | "develop")
+#  dotnet nuget push *.nupkg -k $MYGET_API_KEY -s $MYGET_URL_DEVELOP
+#    ;;
+#esac
