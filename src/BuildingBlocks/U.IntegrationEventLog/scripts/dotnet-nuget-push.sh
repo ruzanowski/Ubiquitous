@@ -1,5 +1,4 @@
 #!/bin/sh
-cd src/BuildingBlocks/U.IntegrationEventLog
 dotnet pack /p:PackageVersion=${UBIQUITOUS_VERSION}.$CI_JOB_ID --no-restore -o .
 
 echo Uploading package to MyGet using branch $CI_COMMIT_REF_NAME
