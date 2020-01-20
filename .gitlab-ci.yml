@@ -59,7 +59,6 @@ common:
     - ./src/BuildingBlocks/Common/scripts/dotnet-publish.sh
 
 include:
-    - local: src/BuildingBlocks/Common/.gitlab-ci.yml
     - local: src/BuildingBlocks/U.EventBus/.gitlab-ci.yml
     - local: src/BuildingBlocks/U.EventBus.RabbitMQ/.gitlab-ci.yml
     - local: src/BuildingBlocks/U.IntegrationEventLog/.gitlab-ci.yml
