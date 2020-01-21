@@ -38,6 +38,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.ApiExplorer" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="1.1.5" />
@@ -101,7 +102,7 @@
 
     <ItemGroup>
         <Content Include="Dockerfile" />
-        <Content Include="Nuget.Config"/>
+        <Content Include="Nuget.Config" />
     </ItemGroup>
 
 </Project>

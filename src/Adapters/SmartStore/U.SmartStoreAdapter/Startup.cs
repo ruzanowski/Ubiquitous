@@ -81,7 +81,6 @@ namespace U.SmartStoreAdapter
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartStore Adapter V1");
                     c.RoutePrefix = string.Empty;
                 }).AddExceptionMiddleWare()
-                .UseHttpsRedirection()
                 .UseMiniProfiler()
                 .UseServiceId()
                 .UseForwardedHeaders()
