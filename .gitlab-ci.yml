@@ -50,9 +50,6 @@ MyGet_Common:
     - 'cd src/BuildingBlocks/Common'
     - chmod -R a+x ./scripts
   script:
-    - apt-get update && apt-get install -y nuget
-    - nuget sources Add -Name MyGet -Source https://www.myget.org/F/ubiquitous-develop/api/v2/package -username ${MYGET_USERNAME} -password ${MYGET_PASSWORD}
-    - nuget setapikey ${$MYGET_API_KEY} -source https://www.myget.org/F/ubiquitous-develop/api/v2/package
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-nuget-push.sh
 
