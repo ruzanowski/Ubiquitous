@@ -56,6 +56,8 @@ MyGet_Common:
 MyGet_EventBus:
   stage: myget_eventbus
   before_script:
+    - chmod -R a+x ./scripts
+    - ./scripts/dotnet-restore.sh
     - 'cd src/BuildingBlocks/U.EventBus'
     - chmod -R a+x ./scripts
   script:
@@ -65,6 +67,8 @@ MyGet_EventBus:
 MyGet_EventBus_RabbitMQ:
   stage: myget_integrationeventlog
   before_script:
+    - chmod -R a+x ./scripts
+    - ./scripts/dotnet-restore.sh
     - 'cd src/BuildingBlocks/U.EventBus'
     - chmod -R a+x ./scripts
   script:
@@ -74,6 +78,8 @@ MyGet_EventBus_RabbitMQ:
 MyGet_IntegrationEventLog:
   stage: myget_integrationeventlog
   before_script:
+    - chmod -R a+x ./scripts
+    - ./scripts/dotnet-restore.sh
     - 'cd src/BuildingBlocks/U.IntegrationEventLog'
     - chmod -R a+x ./scripts
   script:

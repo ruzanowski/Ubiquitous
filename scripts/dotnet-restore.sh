@@ -7,5 +7,3 @@ case "$CI_COMMIT_REF_NAME" in
   dotnet restore -s https://www.myget.org/F/ubiquitous-develop
     ;;
 esac
-
-dotnet build -c Release --no-cache

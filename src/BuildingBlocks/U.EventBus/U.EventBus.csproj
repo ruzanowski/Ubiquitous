@@ -13,11 +13,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="Dockerfile" />
+        <PackageReference Include="Ubiquitous.Common" Version="*" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Ubiquitous.Common" Version="*" />
+      <Content Include="Dockerfile" />
     </ItemGroup>
+
+
 
 </Project>
