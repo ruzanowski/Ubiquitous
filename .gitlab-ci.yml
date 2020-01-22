@@ -50,28 +50,27 @@ MyGet_Common:
     - 'cd src/BuildingBlocks/Common'
     - chmod -R a+x ./scripts
   script:
+    - ./scripts/dotnet-restore.sh
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-nuget-push.sh
 
 MyGet_EventBus:
   stage: myget_eventbus
   before_script:
-    - chmod -R a+x ./scripts
-    - ./scripts/dotnet-restore.sh
     - 'cd src/BuildingBlocks/U.EventBus'
     - chmod -R a+x ./scripts
   script:
+    - ./scripts/dotnet-restore.sh
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-nuget-push.sh
 
 MyGet_EventBus_RabbitMQ:
   stage: myget_integrationeventlog
   before_script:
-    - chmod -R a+x ./scripts
-    - ./scripts/dotnet-restore.sh
-    - 'cd src/BuildingBlocks/U.EventBus'
+    - 'cd src/BuildingBlocks/U.EventBus.RabbitMQ'
     - chmod -R a+x ./scripts
   script:
+    - ./scripts/dotnet-restore.sh
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-nuget-push.sh
 

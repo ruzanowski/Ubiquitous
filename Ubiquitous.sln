@@ -53,7 +53,6 @@ ProjectSection(SolutionItems) = preProject
 	ci\Dependency-Scanning.gitlab-ci.yml = ci\Dependency-Scanning.gitlab-ci.yml
 	ci\License-Management.gitlab-ci.yml = ci\License-Management.gitlab-ci.yml
 	ci\SAST.gitlab-ci.yml = ci\SAST.gitlab-ci.yml
-	scripts\dotnet-restore.sh = scripts\dotnet-restore.sh
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notification", "Notification", "{20AE96FC-F1A7-4CA8-90F8-FEB6EBB6D11A}"
