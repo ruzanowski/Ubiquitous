@@ -12,14 +12,11 @@
         <ProjectReference Include="..\Common\U.Common.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <PackageReference Include="Ubiquitous.Common" Version="0.2.*" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Include="Dockerfile" />
     </ItemGroup>
-
-
-
 </Project>
