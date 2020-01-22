@@ -59,6 +59,7 @@ MyGet_EventBus:
   before_script:
     - 'cd src/BuildingBlocks/U.EventBus'
     - chmod -R a+x ./scripts
+    - 'export DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=0'
   script:
     - ./scripts/dotnet-restore.sh
     - ./scripts/dotnet-build.sh
