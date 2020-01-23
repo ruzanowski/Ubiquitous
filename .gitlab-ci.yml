@@ -66,7 +66,7 @@ MyGet_EventBus:
     - ./scripts/dotnet-nuget-push.sh
 
 MyGet_EventBus_RabbitMQ:
-  stage: myget_rabbit_mq
+  stage: myget_eventbus_rabbit_mq
   before_script:
     - 'cd src/BuildingBlocks/U.EventBus.RabbitMQ'
     - chmod -R a+x ./scripts
