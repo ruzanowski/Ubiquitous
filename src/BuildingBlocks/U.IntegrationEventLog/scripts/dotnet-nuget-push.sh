@@ -1,5 +1,5 @@
-#!/bin/sh
-dotnet pack /p:PackageVersion=${UBIQUITOUS_VERSION}.$CI_JOB_ID --no-restore -o .
+#!/bin/bash
+dotnet pack /p:PackageVersion=${UBIQUITOUS_VERSION}.${CI_JOB_ID} -o .
 
 echo Uploading package to MyGet using branch $CI_COMMIT_REF_NAME
 
