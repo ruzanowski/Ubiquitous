@@ -59,7 +59,6 @@ MyGet_EventBus:
   before_script:
     - 'cd src/BuildingBlocks/U.EventBus'
     - chmod -R a+x ./scripts
-    - 'export DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=0'
   script:
     - ./scripts/dotnet-restore.sh
     - ./scripts/dotnet-build.sh
@@ -67,24 +66,25 @@ MyGet_EventBus:
     - ./scripts/dotnet-nuget-push.sh
 
 MyGet_EventBus_RabbitMQ:
-  stage: myget_integrationeventlog
+  stage: myget_rabbit_mq
   before_script:
     - 'cd src/BuildingBlocks/U.EventBus.RabbitMQ'
     - chmod -R a+x ./scripts
   script:
     - ./scripts/dotnet-restore.sh
     - ./scripts/dotnet-build.sh
+    - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
 
 MyGet_IntegrationEventLog:
   stage: myget_integrationeventlog
   before_script:
-    - chmod -R a+x ./scripts
-    - ./scripts/dotnet-restore.sh
     - 'cd src/BuildingBlocks/U.IntegrationEventLog'
     - chmod -R a+x ./scripts
   script:
+    - ./scripts/dotnet-restore.sh
     - ./scripts/dotnet-build.sh
+    - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
 
 include:
