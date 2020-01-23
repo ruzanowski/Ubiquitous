@@ -102,7 +102,6 @@
 
     <ItemGroup>
         <Content Include="Dockerfile" />
-        <Content Include="Nuget.Config" />
     </ItemGroup>
 
 </Project>

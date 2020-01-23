@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 case "$CI_COMMIT_REF_NAME" in
   "master")
-  dotnet restore -s https://www.myget.org/F/ubiquitous -s https://api.nuget.org/v3/index.json
+  dotnet restore /property:Configuration=Release --configfile nuget.config
     ;;
   * | "develop")
-  dotnet restore -s https://www.myget.org/F/ubiquitous-develop -s https://api.nuget.org/v3/index.json
+  dotnet restore /property:Configuration=Release --configfile nuget.develop.config
     ;;
 esac

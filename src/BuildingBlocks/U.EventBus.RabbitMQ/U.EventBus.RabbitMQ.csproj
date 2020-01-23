@@ -10,10 +10,12 @@
 
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">
         <ProjectReference Include="..\U.EventBus\U.EventBus.csproj" />
+        <ProjectReference Include="..\Common\U.Common.csproj" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <PackageReference Include="Ubiquitous.EventBus" Version="*" />
+        <PackageReference Include="Ubiquitous.Common" Version="*" />
     </ItemGroup>
     
     <ItemGroup>

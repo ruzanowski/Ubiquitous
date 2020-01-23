@@ -52,6 +52,7 @@ MyGet_Common:
   script:
     - ./scripts/dotnet-restore.sh
     - ./scripts/dotnet-build.sh
+    - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
 
 MyGet_EventBus:
