@@ -7,6 +7,8 @@
         <Title>Ubiquitous.EventBus</Title>
         <PackageTags>Ubiquitous.EventBus</PackageTags>
         <PackageVersion>0.2</PackageVersion>
+        <AssemblyName>Ubiquitous.EventBus</AssemblyName>
+
     </PropertyGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">

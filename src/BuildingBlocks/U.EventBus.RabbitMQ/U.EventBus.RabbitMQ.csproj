@@ -7,6 +7,7 @@
         <Title>Ubiquitous.EventBus.RabbitMQ</Title>
         <PackageTags>Ubiquitous.EventBus.RabbitMQ</PackageTags>
         <PackageVersion>0.2</PackageVersion>
+        <AssemblyName>Ubiquitous.EventBus.RabbitMQ</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">
