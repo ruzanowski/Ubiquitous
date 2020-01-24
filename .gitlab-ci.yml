@@ -88,15 +88,28 @@ MyGet_IntegrationEventLog:
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
 
+fetchservice:
+  stage: deploy
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay
+  services:
+    - docker:dind
+  before_script:
+    - 'cd src/Services/Fetch/U.FetchService'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/dotnet-publish.sh
+    - ./scripts/docker-publish.sh
+
 include:
-    - local: src/Services/Fetch/U.FetchService/.gitlab-ci.yml
-    - local: src/Services/Generator/U.GeneratorService/.gitlab-ci.yml
-    - local: src/Services/Identity/U.IdentityService/.gitlab-ci.yml
-    - local: src/Services/Notification/U.NotificationService/.gitlab-ci.yml
-    - local: src/Services/Product/U.ProductService/.gitlab-ci.yml
-    - local: src/Services/Subscription/U.SubscriptionService/.gitlab-ci.yml
-    - local: src/ApiGateway/.gitlab-ci.yml
-    - local: src/Adapters/SmartStore/U.SmartStoreAdapter/.gitlab-ci.yml
+#    - local: src/Services/Generator/U.GeneratorService/.gitlab-ci.yml
+#    - local: src/Services/Identity/U.IdentityService/.gitlab-ci.yml
+#    - local: src/Services/Notification/U.NotificationService/.gitlab-ci.yml
+#    - local: src/Services/Product/U.ProductService/.gitlab-ci.yml
+#    - local: src/Services/Subscription/U.SubscriptionService/.gitlab-ci.yml
+#    - local: src/ApiGateway/.gitlab-ci.yml
+#    - local: src/Adapters/SmartStore/U.SmartStoreAdapter/.gitlab-ci.yml
 #    - local: ci/Browser-Performance.gitlab-ci.yml
 #    - local: ci/Container-Scanning.gitlab-ci.yml
 #    - local: ci/Dependency-Scanning.gitlab-ci.yml

@@ -1,15 +1,3 @@
 stages:
   - deploy
 
-fetchservice:
-  stage: deploy
-  image: docker:latest
-  variables:
-    DOCKER_DRIVER: overlay
-  services:
-    - docker:dind
-  before_script:
-    - chmod -R a+x scripts
-  script:
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/docker-publish.sh
