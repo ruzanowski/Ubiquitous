@@ -6,6 +6,7 @@
         <Authors>SebastianRuzanowski</Authors>
         <Title>Ubiquitous.EventBus.RabbitMQ</Title>
         <PackageTags>Ubiquitous.EventBus.RabbitMQ</PackageTags>
+        <PackageVersion>0.2</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">
@@ -14,8 +15,8 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <PackageReference Include="Ubiquitous.EventBus" Version="*" />
-        <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.EventBus" Version="0.2" />
+        <PackageReference Include="Ubiquitous.Common" Version="0.2" />
     </ItemGroup>
     
     <ItemGroup>
