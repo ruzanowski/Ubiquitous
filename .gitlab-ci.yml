@@ -9,6 +9,7 @@ stages:
   - myget_eventbus_rabbitmq
   - myget_integrationeventlog
   - deploy
+  - docker_deploy
 
 build:
   stage: build
@@ -88,6 +89,7 @@ MyGet_IntegrationEventLog:
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
 
+
 fetchservice:
   stage: deploy
   before_script:
@@ -96,7 +98,18 @@ fetchservice:
   script:
     - ./scripts/dotnet-restore.sh
     - ./scripts/dotnet-publish.sh
-    - ./scripts/docker-publish.sh
+
+deploy_fetchservice:
+  stage: docker_deploy
+  services:
+    - docker:dind
+  before_script:
+    - 'cd src/Services/Fetch/U.FetchService'
+    - docker login -u $CI_REGISTRY_USER -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
+    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/fetchservice:${DOCKER_TAG} ./src/Services/Fetch/U.FetchService
+    - docker push registry.gitlab.com/ruzanowski/ubiquitous/fetchservice:${DOCKER_TAG}
 
 include:
 #    - local: src/Services/Generator/U.GeneratorService/.gitlab-ci.yml
