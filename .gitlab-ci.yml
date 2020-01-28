@@ -90,15 +90,11 @@ MyGet_IntegrationEventLog:
 
 fetchservice:
   stage: deploy
-#  image: docker:latest
-#  variables:
-#    DOCKER_DRIVER: overlay
-#  services:
-#    - docker:dind
   before_script:
     - 'cd src/Services/Fetch/U.FetchService'
     - chmod -R a+x ./scripts
   script:
+    - ./scripts/dotnet-restore.sh
     - ./scripts/dotnet-publish.sh
     - ./scripts/docker-publish.sh
 
