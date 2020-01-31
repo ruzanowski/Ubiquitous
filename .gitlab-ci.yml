@@ -55,6 +55,10 @@ MyGet_Common:
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
+#  only:
+#    - branches:
+#        - master
+#        - develop
 
 MyGet_EventBus:
   stage: myget_eventbus
@@ -66,6 +70,10 @@ MyGet_EventBus:
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
+#    only:
+#      - branches:
+#          - master
+#          - develop
 
 MyGet_EventBus_RabbitMQ:
   stage: myget_eventbus_rabbitmq
@@ -77,6 +85,11 @@ MyGet_EventBus_RabbitMQ:
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
+#  only:
+#    - branches:
+#        - master
+#        - develop
+
 
 MyGet_IntegrationEventLog:
   stage: myget_integrationeventlog
@@ -88,7 +101,10 @@ MyGet_IntegrationEventLog:
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
-
+#  only:
+#    - branches:
+#        - master
+#        - develop
 
 fetchservice:
   stage: deploy
@@ -98,6 +114,10 @@ fetchservice:
   script:
     - ./scripts/dotnet-restore.sh
     - ./scripts/dotnet-publish.sh
+#  only:
+#    - branches:
+#        - master
+#        - develop
 
 deploy_fetchservice:
   stage: docker_deploy
@@ -109,13 +129,17 @@ deploy_fetchservice:
     - docker info
     - apk update
     - apk upgrade
-    - apk add python python-dev py-pip build-base
+    - apk add python python-dev py-pip build-base libffi-dev openssl-dev
     - pip install docker-compose
     - docker login -u $CI_REGISTRY_USER -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
-    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/fetchservice:${DOCKER_TAG} ./src/Services/Fetch/U.FetchService
+    - docker build -t registry.gitlab.com/ruzanowski/ubiquitous/fetchservice:${DOCKER_TAG} .
     - docker push registry.gitlab.com/ruzanowski/ubiquitous/fetchservice:${DOCKER_TAG}
+#  only:
+#    - branches:
+#        - master
+#        - develop
 
 include:
 #    - local: src/Services/Generator/U.GeneratorService/.gitlab-ci.yml
