@@ -101,10 +101,12 @@ fetchservice:
 
 deploy_fetchservice:
   stage: docker_deploy
+  image: docker:17.06.0-ce
   services:
-    - docker:dind
+    - docker:17.06.0-ce-dind
   before_script:
     - 'cd src/Services/Fetch/U.FetchService'
+    - apk add --update py-pip && pip install docker-compose
     - docker login -u $CI_REGISTRY_USER -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
