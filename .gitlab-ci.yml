@@ -106,19 +106,6 @@ MyGet_IntegrationEventLog:
 #        - master
 #        - develop
 
-#fetchservice:
-#  stage: deploy
-#  before_script:
-#    - 'cd src/Services/Fetch/U.FetchService'
-#    - chmod -R a+x ./scripts
-#  script:
-#    - ./scripts/dotnet-restore.sh
-#    - ./scripts/dotnet-publish.sh
-##  only:
-##    - branches:
-##        - master
-##        - develop
-
 deploy_fetchservice:
   stage: docker_deploy
   image: docker:17.06.0-ce
@@ -127,12 +114,82 @@ deploy_fetchservice:
   before_script:
     - 'cd src/Services/Fetch/U.FetchService'
     - chmod -R a+x ./scripts
-#    - docker info
-#    - apk update
-#    - apk upgrade
-#    - apk add python python-dev py-pip build-base libffi-dev openssl-dev
-#    - pip install docker-compose
-#    - docker login -u $CI_REGISTRY_USER -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - ./scripts/docker-publish.sh
+#  only:
+#    - branches:
+#        - master
+#        - develop
+
+deploy_generatorservice:
+  stage: docker_deploy
+  image: docker:17.06.0-ce
+  services:
+    - docker:17.06.0-ce-dind
+  before_script:
+    - 'cd src/Services/Generator/U.GeneratorService'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/docker-publish.sh
+#  only:
+#    - branches:
+#        - master
+#        - develop
+
+deploy_identityservice:
+  stage: docker_deploy
+  image: docker:17.06.0-ce
+  services:
+    - docker:17.06.0-ce-dind
+  before_script:
+    - 'cd src/Services/Identity/U.IdentityService'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/docker-publish.sh
+#  only:
+#    - branches:
+#        - master
+#        - develop
+
+deploy_notificationservice:
+  stage: docker_deploy
+  image: docker:17.06.0-ce
+  services:
+    - docker:17.06.0-ce-dind
+  before_script:
+    - 'cd src/Services/Notification/U.NotificationService'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/docker-publish.sh
+#  only:
+#    - branches:
+#        - master
+#        - develop
+
+deploy_productservice:
+  stage: docker_deploy
+  image: docker:17.06.0-ce
+  services:
+    - docker:17.06.0-ce-dind
+  before_script:
+    - 'cd src/Services/Product/U.ProductService'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/docker-publish.sh
+#  only:
+#    - branches:
+#        - master
+#        - develop
+
+
+deploy_subscriptionservice:
+  stage: docker_deploy
+  image: docker:17.06.0-ce
+  services:
+    - docker:17.06.0-ce-dind
+  before_script:
+    - 'cd src/Services/Subscription/U.SubscriptionService'
+    - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
 #  only:
@@ -141,11 +198,6 @@ deploy_fetchservice:
 #        - develop
 
 include:
-#    - local: src/Services/Generator/U.GeneratorService/.gitlab-ci.yml
-#    - local: src/Services/Identity/U.IdentityService/.gitlab-ci.yml
-#    - local: src/Services/Notification/U.NotificationService/.gitlab-ci.yml
-#    - local: src/Services/Product/U.ProductService/.gitlab-ci.yml
-#    - local: src/Services/Subscription/U.SubscriptionService/.gitlab-ci.yml
 #    - local: src/ApiGateway/.gitlab-ci.yml
 #    - local: src/Adapters/SmartStore/U.SmartStoreAdapter/.gitlab-ci.yml
 #    - local: ci/Browser-Performance.gitlab-ci.yml
