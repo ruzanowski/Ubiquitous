@@ -106,18 +106,18 @@ MyGet_IntegrationEventLog:
 #        - master
 #        - develop
 
-fetchservice:
-  stage: deploy
-  before_script:
-    - 'cd src/Services/Fetch/U.FetchService'
-    - chmod -R a+x ./scripts
-  script:
-    - ./scripts/dotnet-restore.sh
-    - ./scripts/dotnet-publish.sh
-#  only:
-#    - branches:
-#        - master
-#        - develop
+#fetchservice:
+#  stage: deploy
+#  before_script:
+#    - 'cd src/Services/Fetch/U.FetchService'
+#    - chmod -R a+x ./scripts
+#  script:
+#    - ./scripts/dotnet-restore.sh
+#    - ./scripts/dotnet-publish.sh
+##  only:
+##    - branches:
+##        - master
+##        - develop
 
 deploy_fetchservice:
   stage: docker_deploy
