@@ -197,6 +197,36 @@ deploy_subscriptionservice:
 #        - master
 #        - develop
 
+deploy_smartstoreadapter:
+  stage: docker_deploy
+  image: docker:17.06.0-ce
+  services:
+    - docker:17.06.0-ce-dind
+  before_script:
+    - 'cd src/Adapters/SmartStore/U.SmartStoreAdapter'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/docker-publish.sh
+#  only:
+#    - branches:
+#        - master
+#        - develop
+
+deploy_apigateway:
+  stage: docker_deploy
+  image: docker:17.06.0-ce
+  services:
+    - docker:17.06.0-ce-dind
+  before_script:
+    - 'cd src/ApiGateway'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/docker-publish.sh
+#  only:
+#    - branches:
+#        - master
+#        - develop
+
 include:
 #    - local: src/ApiGateway/.gitlab-ci.yml
 #    - local: src/Adapters/SmartStore/U.SmartStoreAdapter/.gitlab-ci.yml
