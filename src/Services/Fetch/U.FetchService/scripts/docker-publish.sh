@@ -5,7 +5,7 @@ case "$CI_COMMIT_REF_NAME" in
   "master")
     DOCKER_TAG=latest
     ;;
-  "develop")
+  * | "develop")
     DOCKER_TAG=develop
     ;;
 esac
