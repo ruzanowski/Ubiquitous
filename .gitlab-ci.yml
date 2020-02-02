@@ -3,6 +3,7 @@ image: mcr.microsoft.com/dotnet/core/sdk:2.2.301
 stages:
   - build
   - test
+  - performance
   - myget_common
   - myget_eventbus
   - myget_eventbus_rabbitmq
