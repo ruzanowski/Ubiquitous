@@ -21,6 +21,7 @@ dotnet_build:
 #    - 'scripts/run-tests.bat' todo
 
 angular_build:
+  image: node:latest
   stage: build
   before_script:
     - 'cd src/U.WebApp.Angular'
