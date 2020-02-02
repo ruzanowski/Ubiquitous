@@ -53,7 +53,7 @@ code_quality:
     variables:
       - $CODE_QUALITY_DISABLED
 
-MyGet_Common:m
+MyGet_Common:
   stage: myget_common
   before_script:
     - 'cd src/BuildingBlocks/Common'
