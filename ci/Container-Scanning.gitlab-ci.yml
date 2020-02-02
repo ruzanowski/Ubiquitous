@@ -22,8 +22,8 @@ container_scanning:
     - name: $CLAIR_DB_IMAGE
       alias: clair-vulnerabilities-db
   before_script:
-    - docker info
-    - docker login -u $CI_REGISTRY_USER -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - export DOCKER_USER=$CI_REGISTRY_USER
+    - export DOCKER_PASSWORD=$CI_REGISTRY_PASSWORD
   script:
     # the kubernetes executor currently ignores the Docker image entrypoint value, so the start.sh script must
     # be explicitly executed here in order for this to work with both the kubernetes and docker executors
