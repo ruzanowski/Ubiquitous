@@ -6,13 +6,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
-      <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
-      <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus\U.EventBus.csproj" />
       <ProjectReference Include="..\U.IdentityService.Domain\U.IdentityService.Domain.csproj" />
       <ProjectReference Include="..\U.IdentityService.Persistance\U.IdentityService.Persistance.csproj" />
     </ItemGroup>
+    
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus\U.EventBus.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
+    </ItemGroup>
 
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.EventBus" Version="*" />
+        <PackageReference Include="Ubiquitous.EventBus.RabbitMQ" Version="*" />
+    </ItemGroup>
+    
     <ItemGroup>
       <Folder Include="Commands\Identity" />
     </ItemGroup>

@@ -37,7 +37,7 @@ namespace U.ProductService.Controllers
         /// <param name="query"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("query")]
+        [Route("")]
         [ProducesResponseType(typeof(PaginatedItems<CategoryViewModel>), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> GetCategoriesList([FromQuery] GetCategoriesListQuery query)
         {
@@ -51,7 +51,7 @@ namespace U.ProductService.Controllers
         /// <param name="categoryId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("query/{categoryId:Guid}")]
+        [Route("{categoryId}")]
         [ProducesResponseType(typeof(PaginatedItems<CategoryViewModel>), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetCategory([FromRoute] Guid categoryId)

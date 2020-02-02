@@ -19,7 +19,6 @@
     "format:check": "prettier --write --config ./.prettierrc --list-different \"src/{app,environments,styles}/**/*{.ts,.json,.scss}\"",
     "build": "ng build",
     "build:server": "ng run universal-demo:server:production",
-    "build:prod": "ng build --prod",
     "build:universal": "ng run universal-demo:build:production && ng run universal-demo:server:production && webpack --progress --colors",
     "server": "node server.js",
     "test": "ng test",
@@ -32,7 +31,10 @@
     "build:prerender": "npm run build:universal && npm run generate:prerender",
     "generate:prerender": "node prerender.js",
     "bundle-report": "ng build --stats-json && webpack-bundle-analyzer dist/stats.json",
-    "bundle-report:prod": "ng build --stats-json --prod && webpack-bundle-analyzer dist/stats.json"
+    "bundle-report:prod": "ng build --stats-json --prod && webpack-bundle-analyzer dist/stats.json",
+    "serve": "ng serve --sourcemap=false --verbose",
+    "build:prod": "ng build --env=prod --prod --build-optimizer",
+    "build:sandbox": "ng build --env=sandbox ---prod --build-optimizer"
   },
   "private": true,
   "dependencies": {

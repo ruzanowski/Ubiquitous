@@ -1,13 +1,12 @@
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using U.SmartStoreAdapter.Application.Models.Manufacturers;
 
 namespace U.SmartStoreAdapter.Controllers
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [ApiController]
     [Route("api/smartstore/manufacturers")]
@@ -16,18 +15,17 @@ namespace U.SmartStoreAdapter.Controllers
         private readonly IMediator _mediator;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="mediator"></param>
-        /// <param name="logger"></param>
-        public ManufacturersController(IMediator mediator, ILogger<ManufacturersController> logger)
+        public ManufacturersController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -35,8 +33,8 @@ namespace U.SmartStoreAdapter.Controllers
         [ProducesResponseType(typeof(ManufacturerViewModel), 201)]
         public async Task<IActionResult> Store([FromBody] StoreManufacturerCommand products)
         {
-            var result = await _mediator.Send(products);
-            return CreatedAtAction(nameof(Store), result);
+            var id = await _mediator.Send(products);
+            return CreatedAtAction(nameof(Store), id);
         }
     }
 }

@@ -36,6 +36,7 @@ bin
 obj
 packages
 Tasks.txt
+.env
 
 
 # Visual Studio 2015 cache/options directory

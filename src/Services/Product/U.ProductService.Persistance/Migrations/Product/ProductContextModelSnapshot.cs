@@ -112,7 +112,7 @@ namespace U.ProductService.Persistance.Migrations.Product
 
                     b.Property<Guid?>("ProductId");
 
-                    b.Property<string>("Url")
+                    b.Property<string>("Uri")
                         .IsRequired();
 
                     b.HasKey("Id");

@@ -7,7 +7,7 @@ using U.SmartStoreAdapter.Application.Models.Products;
 namespace U.SmartStoreAdapter.Controllers
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Route("api/smartstore/products")]
     [ApiController]
@@ -16,7 +16,7 @@ namespace U.SmartStoreAdapter.Controllers
         private readonly IMediator _mediator;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="mediator"></param>
         public ProductsController(IMediator mediator)
@@ -25,12 +25,12 @@ namespace U.SmartStoreAdapter.Controllers
         }
 
         /// <summary>
-        /// Get list of products 
+        /// Get list of products
         /// </summary>
         /// <param name="productsListQuery"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("get-list")]
+        [Route("")]
         [Consumes("application/json")]
         [ProducesResponseType(typeof(PaginatedItems<SmartProductViewModel>), 200)]
         public async Task<IActionResult> GetProductsList([FromQuery] GetProductsListQuery productsListQuery)
@@ -45,7 +45,7 @@ namespace U.SmartStoreAdapter.Controllers
         /// <param name="productQuery"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("get")]
+        [Route("{id}")]
         [ProducesResponseType(typeof(SmartProductViewModel), 200)]
         public async Task<IActionResult> GetProduct([FromQuery] GetProductQuery productQuery)
         {
@@ -63,8 +63,8 @@ namespace U.SmartStoreAdapter.Controllers
         [ProducesResponseType(typeof(int), 201)]
         public async Task<IActionResult> StoreProducts([FromBody] StoreProductsCommand products)
         {
-            var result = await _mediator.Send(products);
-            return CreatedAtAction(nameof(StoreProducts), result);
+            var id = await _mediator.Send(products);
+            return CreatedAtAction(nameof(GetProduct), new {id}, id);
         }
     }
 }

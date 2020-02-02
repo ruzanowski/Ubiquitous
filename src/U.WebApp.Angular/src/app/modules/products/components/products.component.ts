@@ -5,7 +5,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {Category} from "../../categories/models/category.model";
 import {CategoryService} from "../../categories/category.service";
-import {Manufacturer} from "../../manufacturers/models/Manufacturer.model";
+import {Manufacturer} from "../../manufacturers/models/manufacturer.model";
 import {ManufacturerService} from "../../manufacturers/manufacturers.service";
 import {PaginatedItems} from "../../shared/models/paginateditems.model";
 

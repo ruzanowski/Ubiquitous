@@ -2,6 +2,13 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
+        <PackageId>Ubiquitous.IntegrationEventLog</PackageId>
+        <Authors>SebastianRuzanowski</Authors>
+        <Title>Ubiquitous.IntegrationEventLog</Title>
+        <PackageTags>Ubiquitous.IntegrationEventLog</PackageTags>
+        <VersionPrefix>0.2</VersionPrefix>
+        <Description>Ubiquitous IntegrationEventLog</Description>
+        <AssemblyName>Ubiquitous.IntegrationEventLog</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
@@ -9,8 +16,13 @@
       <ProjectReference Include="..\U.EventBus\U.EventBus.csproj" />
     </ItemGroup>
 
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <PackageReference Include="Ubiquitous.Common" Version="0.2" />
+        <PackageReference Include="Ubiquitous.EventBus" Version="0.2" />
+    </ItemGroup>
+
     <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
+      <Content Include="Dockerfile" />
     </ItemGroup>
 
 </Project>

@@ -8,39 +8,61 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using U.Common.Mvc;
 using U.ProductService.Application.Common.Exceptions;
-using U.ProductService.Extensions;
 
 #pragma warning disable 1998
 
 namespace U.ProductService.Middleware
 {
+    public static class ExceptionMiddlewareExtensions
+    {
+        public static IApplicationBuilder UseExceptionMiddleware(this IApplicationBuilder builder)
+            => builder.UseMiddleware<ExceptionMiddleware>();
+    }
+
     /// <summary>
     /// Exception Middleware that catches all exceptions
     /// </summary>
-    public static class ExceptionMiddleware
+    public class ExceptionMiddleware
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="app"></param>
-        public static IApplicationBuilder AddExceptionMiddleware(this IApplicationBuilder app)
+
+        private readonly RequestDelegate _next;
+        private readonly ILogger<ExceptionMiddleware> _logger;
+        private readonly ISelfInfoService _selfInfoServiceId;
+
+        public ExceptionMiddleware(RequestDelegate next,
+            ISelfInfoService selfInfoServiceId,
+            ILogger<ExceptionMiddleware> logger)
         {
-            app.UseExceptionHandler(errorApp => errorApp.Run(ExceptionMiddlewarePipeline));
-            return app;
+            _selfInfoServiceId = selfInfoServiceId;
+            _logger = logger;
+            _next = next;
         }
 
-        private static async Task ExceptionMiddlewarePipeline(HttpContext context)
+
+        public async Task Invoke(HttpContext context)
         {
-            var errorFeature = context.Features.Get<IExceptionHandlerFeature>();
-            var exception = errorFeature.Error;
+            try
+            {
+                await _next(context);
+            }
+            catch (Exception exception)
+            {
+                await HandleException(context, exception);
+            }
+        }
 
-            // the IsTrusted() extension method doesn't exist and
-            // you should implement your own as you may want to interpret it differently
-            // i.e. based on the current principal
-            var problemDetails = new ProblemDetails {Instance = $"instance:ProductService:error:{Guid.NewGuid()}"};
+        private Task HandleException(HttpContext context, Exception exception)
+        {
+            var problemDetails = new ProblemDetails
+            {
+                Instance = $"{_selfInfoServiceId.Name}:{_selfInfoServiceId.Id}"
+            };
 
-            switch (exception)
+            switch (exception.InnerException)
             {
                 case ArgumentNullException argumentNullException:
                     problemDetails.Title = nameof(argumentNullException);
@@ -66,30 +88,6 @@ namespace U.ProductService.Middleware
                     problemDetails.Title = nameof(invalidOperationException);
                     problemDetails.Status = 400;
                     problemDetails.Detail = invalidOperationException.Message;
-                    break;
-                case InvalidDataException invalidDataException:
-                    problemDetails.Title = nameof(invalidDataException);
-                    problemDetails.Status = 400;
-                    problemDetails.Detail = invalidDataException.Message;
-                    break;
-                case MissingFieldException missingFieldException:
-                    problemDetails.Title = nameof(missingFieldException);
-                    problemDetails.Status = (int) typeof(BadHttpRequestException)
-                        .GetProperty("StatusCode", BindingFlags.NonPublic | BindingFlags.Instance)
-                        .GetValue(missingFieldException);
-                    problemDetails.Detail = missingFieldException.Message;
-                    break;
-                case MissingMethodException missingMethodException:
-                    problemDetails.Title = nameof(missingMethodException);
-                    problemDetails.Status = 400;
-                    problemDetails.Detail = missingMethodException.Message;
-                    break;
-                case MissingMemberException missingMemberException:
-                    problemDetails.Title = nameof(missingMemberException);
-                    problemDetails.Status = (int) typeof(BadHttpRequestException)
-                        .GetProperty("StatusCode", BindingFlags.NonPublic | BindingFlags.Instance)
-                        .GetValue(missingMemberException);
-                    problemDetails.Detail = missingMemberException.Message;
                     break;
                 case ProductNotFoundException productNotFoundException:
                     problemDetails.Title = nameof(productNotFoundException);
@@ -122,11 +120,16 @@ namespace U.ProductService.Middleware
                     problemDetails.Detail = exception.StackTrace;
                     break;
             }
-            // log the exception etc.. 
-            // logger.LogInformation(problemDetails.ToString());
+
+            if (problemDetails.Status.Value >= 500)
+                _logger.LogError(exception, exception.Message);
+            else
+                _logger.LogDebug(exception, exception.Message);
 
             context.Response.StatusCode = problemDetails.Status.Value;
-            context.Response.WriteJson(problemDetails, "application/problem+json");
+            return context.Response.WriteAsync(JsonConvert.SerializeObject(problemDetails));
         }
     }
+
+
 }

@@ -26,6 +26,7 @@ namespace U.SubscriptionService.Application.Multiplexers
             var signalRIntegrationEvent = _mapper.Map<ProductPublishedSignalRIntegrationEvent>(@event);
             _eventBus.Publish(signalRIntegrationEvent);
             _logger.LogInformation($"--- Pushed to SignalR: '{nameof(ProductPublishedSignalRIntegrationEvent)} ---");
+            await Task.CompletedTask;
 
 //            var emailRIntegrationEvent = _mapper.Map<ProductPublishedEmailIntegrationEvent>(@event);
 //            _eventBus.Publish(emailRIntegrationEvent);

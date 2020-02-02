@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using U.Common.Jwt.Claims;
 using U.Common.Jwt.Models;
@@ -166,7 +165,7 @@ namespace U.Common.Jwt.Service
 
             var authorizationHeader = httpContext.Request.Headers["authorization"];
 
-            return authorizationHeader == StringValues.Empty
+            return string.IsNullOrEmpty(authorizationHeader)
                 ? string.Empty
                 : authorizationHeader.Single().Split(' ').Last();
 

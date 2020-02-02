@@ -38,11 +38,10 @@ namespace U.SubscriptionService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("internal/bind")]
+        [Route("{userId}/bind")]
         [ProducesResponseType((int) HttpStatusCode.NoContent)]
         public async Task<IActionResult> BindAsync(Guid userId, string connectionId)
         {
-
             var preferences = new BindConnectionToUserCommand
             {
                 UserId = userId,
@@ -58,7 +57,7 @@ namespace U.SubscriptionService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("internal/unbind")]
+        [Route("{userId}/unbind")]
         [ProducesResponseType((int) HttpStatusCode.NoContent)]
         public async Task<IActionResult> UnbindAsync(Guid userId, string connectionId)
         {

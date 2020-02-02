@@ -61,9 +61,6 @@ namespace U.SmartStoreAdapter
             services
                 .AddDatabaseContext<SmartStoreContext>(Configuration);
 
-            //Logging Behaviour Pipeline
-            services.AddLogging();
-
             services.AddSingleton(new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new ProductMappingProfile());
@@ -78,18 +75,16 @@ namespace U.SmartStoreAdapter
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
         {
             app.UsePathBase(Configuration, _logger).Item1
-                .UseDeveloperExceptionPage()
                 .UseSwagger()
                 .UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartStore Adapter V1");
                     c.RoutePrefix = string.Empty;
                 }).AddExceptionMiddleWare()
-                .UseHttpsRedirection()
                 .UseMiniProfiler()
-                .UseMvc()
                 .UseServiceId()
-                .UseForwardedHeaders();
+                .UseForwardedHeaders()
+                .UseMvc();
 
 
             var consulServiceId = app.UseConsulServiceDiscovery();

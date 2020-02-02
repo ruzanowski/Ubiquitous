@@ -56,7 +56,7 @@ namespace U.SubscriptionService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("me/signalr")]
+        [Route("{userId}")]
         [ProducesResponseType(typeof(Preferences), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> GetMyPreferencesAsync(Guid userId)
         {

@@ -7,7 +7,7 @@ using U.SmartStoreAdapter.Application.Models.Categories;
 namespace U.SmartStoreAdapter.Controllers
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [ApiController]
     [Route("api/smartstore/categories")]
@@ -25,7 +25,7 @@ namespace U.SmartStoreAdapter.Controllers
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -42,7 +42,7 @@ namespace U.SmartStoreAdapter.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("get-list")]
+        [Route("")]
         [ProducesResponseType(typeof(IEnumerable<CategoryViewModel>),200)]
         public async Task<IActionResult> GetCategories([FromQuery] GetCategoriesQuery query)
         {

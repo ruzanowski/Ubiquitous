@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using U.Common.Subscription;
 using U.NotificationService.Application.Models;
+using U.NotificationService.Application.SignalR.Services.Clients;
 using U.NotificationService.Application.SignalR.Services.QueryBuilder;
-using U.NotificationService.Application.SignalR.Services.Subscription;
 using U.NotificationService.Domain.Entities;
 using U.NotificationService.Infrastructure.Contexts;
 

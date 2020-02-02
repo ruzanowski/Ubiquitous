@@ -19,7 +19,7 @@ export class ProductService {
 
   getProducts(categoryId?: string, manufacturerId?: string): Observable<PaginatedItems<Product>> {
 
-    let url = this.productBaseUrl + '/query' + this.pageSizeQuery;
+    let url = this.productBaseUrl + "/query" + this.pageSizeQuery;
 
     if(categoryId != null)
     {
@@ -37,7 +37,7 @@ export class ProductService {
   }
 
   getProduct(id: string): Observable<Product> {
-    let url = this.productBaseUrl + '/query/' + id;
+    let url = this.productBaseUrl + '/' + id;
 
     return this.service.get(url).pipe(map((response: any) => response));
   }

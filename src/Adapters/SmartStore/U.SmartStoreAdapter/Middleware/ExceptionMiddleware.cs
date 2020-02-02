@@ -1,15 +1,11 @@
 using System;
 using System.Data;
-using System.IO;
-using System.Linq.Dynamic.Core.Exceptions;
-using System.Reflection;
 using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using U.SmartStoreAdapter.Application.Exceptions;
 using U.SmartStoreAdapter.Extensions;
 
@@ -23,7 +19,7 @@ namespace U.SmartStoreAdapter.Middleware
     public static class ExceptionMiddleware
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="app"></param>
         public static IApplicationBuilder AddExceptionMiddleWare(this IApplicationBuilder app)
@@ -74,30 +70,10 @@ namespace U.SmartStoreAdapter.Middleware
                     problemDetails.Status = 400;
                     problemDetails.Detail = invalidOperationException.Message;
                     break;
-                case InvalidDataException invalidDataException:
-                    problemDetails.Title = nameof(invalidDataException);
-                    problemDetails.Status = 400;
-                    problemDetails.Detail = invalidDataException.Message;
-                    break;
-                case ParseException parseException:
-                    problemDetails.Title = nameof(parseException);
-                    problemDetails.Status = 400;
-                    problemDetails.Detail = parseException.Message;
-                    break;
-                case MissingFieldException missingFieldException:
-                    problemDetails.Title = nameof(missingFieldException);
-                    problemDetails.Status = (int) typeof(BadHttpRequestException).GetProperty("StatusCode", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(missingFieldException);
-                    problemDetails.Detail = missingFieldException.Message;
-                    break;
                 case MissingMethodException missingMethodException:
                     problemDetails.Title = nameof(missingMethodException);
                     problemDetails.Status = 400;
                     problemDetails.Detail = missingMethodException.Message;
-                    break;
-                case MissingMemberException missingMemberException:
-                    problemDetails.Title = nameof(missingMemberException);
-                    problemDetails.Status = (int) typeof(BadHttpRequestException).GetProperty("StatusCode", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(missingMemberException);
-                    problemDetails.Detail = missingMemberException.Message;
                     break;
                 case ValidationException validationException:
                     problemDetails.Title = nameof(validationException);
@@ -112,7 +88,7 @@ namespace U.SmartStoreAdapter.Middleware
                 default:
                     problemDetails.Title = "An unexpected error occurred!";
                     problemDetails.Status = 500;
-                    problemDetails.Detail = exception.StackTrace.ToString();
+                    problemDetails.Detail = exception.StackTrace;
                     break;
             }
             // log the exception etc..
