@@ -5,46 +5,45 @@
         <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <DocumentationFile>U.SmartStoreAdapter.xml</DocumentationFile>
+        <IsPackable>true</IsPackable>
+        <PackageId>ubiquitous.smartstoreadapter</PackageId>
+        <Authors>sebastianruzanowski</Authors>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentValidation" Version="8.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.App" />
-        <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
         <PackageReference Include="MiniProfiler.AspNetCore" Version="4.0.165" />
         <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.0.165" />
         <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.0.165" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.0" />
-        <PackageReference Include="Serilog.AspNetCore" Version="2.*" />
-        <PackageReference Include="Serilog.Enrichers.Environment" Version="2.*" />
-        <PackageReference Include="Serilog.Settings.Configuration" Version="3.*" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="3.*" />
-        <PackageReference Include="Serilog.Sinks.Http" Version="4.*" />
+        <ProjectReference Include="..\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <DocumentationFile>U.SmartStoreAdapter.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Remove="dockerfile" />
+        <Content Include="Dockerfile" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.IntegrationEventLog" Version="*" />
+        <PackageReference Include="Ubiquitous.EventBus" Version="*" />
+        <PackageReference Include="Ubiquitous.EventBus.RabbitMQ" Version="*" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="dockerfile" />
-      <Content Include="Dockerfile" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
-      <ProjectReference Include="..\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Include="appsettings.docker.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </None>
-      <None Include="appsettings.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </None>
+        <None Include="appsettings.docker.json">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </None>
+        <None Include="appsettings.json">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

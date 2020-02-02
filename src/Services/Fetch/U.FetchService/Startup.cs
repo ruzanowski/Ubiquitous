@@ -8,10 +8,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using U.Common.Consul;
 using U.Common.Fabio;
+using U.Common.Jaeger;
 using U.Common.Mvc;
 using U.EventBus.RabbitMQ;
 using U.FetchService.BackgroundServices;
-using U.FetchService.Commands.UpdateProducts;
+using U.FetchService.Commands.FetchProducts;
 using U.FetchService.Services;
 
 namespace U.FetchService
@@ -36,13 +37,13 @@ namespace U.FetchService
                 .AddEventBusRabbitMq(Configuration)
                 .AddConsulServiceDiscovery()
                 .AddTypedHttpClient<ISmartStoreAdapter>("u.smartstore-adapter")
-                .AddUpdateWorkerHostedService(Configuration);
+                .AddBackgroundService(Configuration)
+                .AddJaeger();
         }
 
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
         {
             app.UsePathBase(Configuration, _logger).Item1
-                .UseDeveloperExceptionPage()
                 .UseMvcWithDefaultRoute()
                 .UseServiceId()
                 .UseForwardedHeaders();
@@ -57,11 +58,11 @@ namespace U.FetchService
         public static IServiceCollection AddCustomMediatR(this IServiceCollection services)
         {
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
-                typeof(UpdateProductsCommand).GetTypeInfo().Assembly);
+                typeof(FetchProductsCommand).GetTypeInfo().Assembly);
             return services;
         }
 
-        public static IServiceCollection AddUpdateWorkerHostedService(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddBackgroundService(this IServiceCollection services, IConfiguration configuration)
         {
             var backgroundService = configuration.GetOptions<BackgroundServiceOptions>("backgroundService");
             services.AddSingleton(backgroundService);

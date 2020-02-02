@@ -33,6 +33,7 @@ namespace U.SubscriptionService.Application.Query
             }
 
             var enumerable = allowedEvents.Select(x => x.Allowed.ToString()).ToList();
+            await Task.CompletedTask;
 
             return enumerable;
         }

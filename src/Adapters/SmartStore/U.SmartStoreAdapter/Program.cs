@@ -25,17 +25,17 @@ namespace U.SmartStoreAdapter
         public static int Main(string[] args)
         {
             var configuration = SharedWebHost.GetConfiguration();
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-            Log.Logger = SharedWebHost.CreateSerilogLogger(configuration, AppName);
-
+            Log.Logger = SharedWebHost.CreateSerilog(configuration, env, AppName);
             try
             {
                 Log.Information("Configuring web host ({ApplicationContext})...", AppName);
-                var host = SharedWebHost.BuildWebHost<Startup>(configuration, args);
+                var host = SharedWebHost.BuildWebHost<Startup>(configuration, args, AppName);
 
                 var dbOptions = configuration.GetOptions<DbOptions>("dbOptions");
 
-                Log.Information($"Application started in mode: '{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}'");
+                Log.Information($"Application started in mode: '{env?.ToLower()}'");
 
                 if (dbOptions?.AutoMigration != null && dbOptions.AutoMigration)
                 {

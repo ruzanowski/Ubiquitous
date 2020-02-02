@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {DataService} from "../shared/services/data.service";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {Manufacturer} from "./models/Manufacturer.model";
+import {Manufacturer} from "./models/manufacturer.model";
 import {PaginatedItems} from "../shared/models/paginateditems.model";
 
 @Injectable()
@@ -15,13 +15,13 @@ export class ManufacturerService {
   }
 
   getManufacturers(): Observable<PaginatedItems<Manufacturer>> {
-    let url = this.manufacturerBaseUrl + '/query' + this.pageSizeQuery;
+    let url = this.manufacturerBaseUrl + "/query" + this.pageSizeQuery;
 
     return this.service.get(url).pipe(map((response: any) => response));
   }
 
   getManufacturer(id: string): Observable<Manufacturer> {
-    let url = this.manufacturerBaseUrl + '/query/' + id;
+    let url = this.manufacturerBaseUrl + "/query/" + id;
 
     return this.service.get(url).pipe(map((response: any) => response));
   }

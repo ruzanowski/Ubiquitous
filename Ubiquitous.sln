@@ -2,9 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductFetchService", "src\Services\Fetch\U.FetchService\U.FetchService.csproj", "{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapter.SmartStore", "src\Adapter.SmartStore", "{F6FEBE1F-9974-4282-8497-97CB808E65CB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmartStore", "src\Adapter.SmartStore", "{F6FEBE1F-9974-4282-8497-97CB808E65CB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.ProductFetch", "src\Service.Fetch", "{2F31A504-325D-475E-9B94-5BA9D525A2AA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fetch", "src\Service.Fetch", "{2F31A504-325D-475E-9B94-5BA9D525A2AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Application", "src\Adapters\SmartStore\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj", "{F14867ED-37E5-4F19-924A-42766C65D87C}"
 EndProject
@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.Common", "src\BuildingBlo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "src\BuildingBlocks", "{AD753C1A-0D4C-4BC5-8793-FF2795F0F49E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Product", "src\Services\Product\U.ProductService\ProductService", "{51D661E6-65C4-4D1F-977B-1B9281DEAE87}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Product", "src\Services\Product\U.ProductService\ProductService", "{51D661E6-65C4-4D1F-977B-1B9281DEAE87}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService", "src\Services\Product\U.ProductService\U.ProductService.csproj", "{4CE3CE71-D2CA-4C79-A4D6-079F864469FF}"
 EndProject
@@ -36,16 +36,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IntegrationEventLog", "sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{8EE0DD79-8255-4E04-84A7-830B8947E7C5}"
 ProjectSection(SolutionItems) = preProject
-	docker-compose-infrastructure.yml = docker-compose-infrastructure.yml
-	docker-compose-services.yml = docker-compose-services.yml
-	.gitlab-ci.yml = .gitlab-ci.yml
 	.gitignore = .gitignore
+	.compose-infra.yml = compose-infra.yml
+	.compose-services.yml = compose-services.yml
 	readme.md = readme.md
 	Nuget.Config = Nuget.Config
 	.env = .env
 EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Notification", "Service.Notification", "{20AE96FC-F1A7-4CA8-90F8-FEB6EBB6D11A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notification", "Notification", "{20AE96FC-F1A7-4CA8-90F8-FEB6EBB6D11A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService", "src\Services\Notification\U.NotificationService\U.NotificationService.csproj", "{50F973C1-F7D9-438F-BA45-9C1BB84B8346}"
 EndProject
@@ -55,11 +54,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{DB82EE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.WebApp.Angular", "src\U.WebApp.Angular\U.WebApp.Angular.csproj", "{16CE2424-2614-482C-89D3-F4212DD59A97}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.ProductGenerator", "Service.ProductGenerator", "{AB4BB1BC-D658-42D0-8B65-74FCBA24EC09}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generator", "Service.ProductGenerator", "{AB4BB1BC-D658-42D0-8B65-74FCBA24EC09}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.GeneratorService", "src\Services\Generator\U.GeneratorService\U.GeneratorService.csproj", "{15D78CF9-F6DB-465C-AEFE-D94E056ADE4A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Identity", "Service.Identity", "{31C78702-0DC3-4A05-AB00-B00FE55776F0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{31C78702-0DC3-4A05-AB00-B00FE55776F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService", "src\Services\Identity\U.IdentityService\U.IdentityService.csproj", "{974BAABC-4287-4774-A16C-4BC2D416FC89}"
 EndProject
@@ -69,11 +68,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.Domain", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.Persistance", "src\Services\Identity\U.IdentityService.Persistance\U.IdentityService.Persistance.csproj", "{6FBB0868-1FC9-4A2F-A4EB-CA4D3FAAA99A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{82713F4A-A573-4003-BD20-53C974839094}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{82713F4A-A573-4003-BD20-53C974839094}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ApiGateway", "src\ApiGateway\U.ApiGateway.csproj", "{834C1AA7-44F0-40D5-A2BB-2A9C5C19AB6D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Subscription", "Service.Subscription", "{D240C299-E049-47BF-8BAC-20E1DB6295B6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Subscription", "Service.Subscription", "{D240C299-E049-47BF-8BAC-20E1DB6295B6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.Domain", "src\Services\Notification\U.NotificationService.Domain\U.NotificationService.Domain.csproj", "{59862F91-ED0D-4048-BF57-18BED02C964F}"
 EndProject
@@ -88,6 +87,33 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService.Domain", "src\Services\Subscription\U.SubscriptionService.Domain\U.SubscriptionService.Domain.csproj", "{8C530FB6-D2E7-470A-98EF-CAF3BE962AE5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService.Persistance", "src\Services\Subscription\U.SubscriptionService.Persistance\U.SubscriptionService.Persistance.csproj", "{CE8191E1-9C55-40C4-9823-D3F385590F27}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{6CA40410-5753-4010-AAD8-1E06D76C4601}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{37E79B3B-FDE5-446E-9B91-D42B174A97C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{156CA4CF-7690-4597-91B9-1BFDBEE196F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gitlab", "Gitlab", "{EAD0C789-AB13-4AE9-AA60-6A7E2CF4DA01}"
+ProjectSection(SolutionItems) = preProject
+	ci\Container-Scanning.gitlab-ci.yml = ci\Container-Scanning.gitlab-ci.yml
+	ci\DAST.gitlab-ci.yml = ci\DAST.gitlab-ci.yml
+	ci\Dependency-Scanning.gitlab-ci.yml = ci\Dependency-Scanning.gitlab-ci.yml
+	ci\License-Management.gitlab-ci.yml = ci\License-Management.gitlab-ci.yml
+	ci\Browser-Performance.gitlab-ci.yml = ci\Browser-Performance.gitlab-ci.yml
+	ci\SAST.gitlab-ci.yml = ci\SAST.gitlab-ci.yml
+	.gitlab-ci.yml = .gitlab-ci.yml
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DockerCompose", "DockerCompose", "{7112E37D-6184-46D9-898A-3D28207AC8E8}"
+ProjectSection(SolutionItems) = preProject
+	compose-elk.yml = compose-elk.yml
+	compose-infra.yml = compose-infra.yml
+	compose-jaeger.yml = compose-jaeger.yml
+	compose-services.yml = compose-services.yml
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -242,5 +268,19 @@ Global
 		{EBD54CAC-2F80-4320-9774-8AAE7995B5FA} = {D240C299-E049-47BF-8BAC-20E1DB6295B6}
 		{8C530FB6-D2E7-470A-98EF-CAF3BE962AE5} = {D240C299-E049-47BF-8BAC-20E1DB6295B6}
 		{CE8191E1-9C55-40C4-9823-D3F385590F27} = {D240C299-E049-47BF-8BAC-20E1DB6295B6}
+		{D240C299-E049-47BF-8BAC-20E1DB6295B6} = {E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC}
+		{AB4BB1BC-D658-42D0-8B65-74FCBA24EC09} = {E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC}
+		{2F31A504-325D-475E-9B94-5BA9D525A2AA} = {E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC}
+		{51D661E6-65C4-4D1F-977B-1B9281DEAE87} = {E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC}
+		{20AE96FC-F1A7-4CA8-90F8-FEB6EBB6D11A} = {E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC}
+		{31C78702-0DC3-4A05-AB00-B00FE55776F0} = {E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC}
+		{F6FEBE1F-9974-4282-8497-97CB808E65CB} = {6CA40410-5753-4010-AAD8-1E06D76C4601}
+		{AD753C1A-0D4C-4BC5-8793-FF2795F0F49E} = {37E79B3B-FDE5-446E-9B91-D42B174A97C9}
+		{82713F4A-A573-4003-BD20-53C974839094} = {37E79B3B-FDE5-446E-9B91-D42B174A97C9}
+		{6CA40410-5753-4010-AAD8-1E06D76C4601} = {37E79B3B-FDE5-446E-9B91-D42B174A97C9}
+		{E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC} = {37E79B3B-FDE5-446E-9B91-D42B174A97C9}
+		{DB82EEF6-6647-4B76-A433-DFE91990734F} = {156CA4CF-7690-4597-91B9-1BFDBEE196F0}
+		{EAD0C789-AB13-4AE9-AA60-6A7E2CF4DA01} = {8EE0DD79-8255-4E04-84A7-830B8947E7C5}
+		{7112E37D-6184-46D9-898A-3D28207AC8E8} = {8EE0DD79-8255-4E04-84A7-830B8947E7C5}
 	EndGlobalSection
 EndGlobal

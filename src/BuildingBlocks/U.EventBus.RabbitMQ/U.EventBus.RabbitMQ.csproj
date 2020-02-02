@@ -2,21 +2,41 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
+        <PackageId>Ubiquitous.EventBus.RabbitMQ</PackageId>
+        <Authors>SebastianRuzanowski</Authors>
+        <Title>Ubiquitous.EventBus.RabbitMQ</Title>
+        <PackageTags>Ubiquitous.EventBus.RabbitMQ</PackageTags>
+        <PackageVersion>0.2</PackageVersion>
+        <AssemblyName>Ubiquitous.EventBus.RabbitMQ</AssemblyName>
     </PropertyGroup>
 
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <ProjectReference Include="..\U.EventBus\U.EventBus.csproj" />
+        <ProjectReference Include="..\Common\U.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <PackageReference Include="Ubiquitous.EventBus" Version="0.2" />
+        <PackageReference Include="Ubiquitous.Common" Version="0.2" />
+    </ItemGroup>
+    
     <ItemGroup>
-      <ProjectReference Include="..\U.EventBus\U.EventBus.csproj" />
+        <PackageReference Include="RawRabbit" Version="2.0.0-rc5" />
+        <PackageReference Include="RawRabbit.DependencyInjection.ServiceCollection" Version="2.0.0-rc5" />
+        <PackageReference Include="RawRabbit.Enrichers.Polly" Version="2.0.0-rc5" />
+        <PackageReference Include="RawRabbit.Operations.Tools" Version="2.0.0-rc5" />
+        <PackageReference Include="RawRabbit.Enrichers.RetryLater" Version="2.0.0-rc5" />
+        <PackageReference Include="RawRabbit.Operations.Publish" Version="2.0.0-rc5" />
+        <PackageReference Include="RawRabbit.Operations.Subscribe" Version="2.0.0-rc5" />
+        <PackageReference Include="RawRabbit.DependencyInjection.ServiceCollection" Version="2.0.0-rc5" />
+        <PackageReference Include="RawRabbit.Enrichers.Attributes" Version="2.0.0-rc5" />
+        <PackageReference Include="RawRabbit.Enrichers.Polly" Version="2.0.0-rc5" />
+        <PackageReference Include="RawRabbit.Enrichers.MessageContext" Version="2.0.0-rc5" />
+        <PackageReference Include="RawRabbit.Enrichers.MessageContext.Subscribe" Version="2.0.0-rc5" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
-      <PackageReference Include="RawRabbit" Version="2.0.0-rc5" />
-      <PackageReference Include="RawRabbit.DependencyInjection.ServiceCollection" Version="2.0.0-rc5" />
-      <PackageReference Include="RawRabbit.Enrichers.Polly" Version="2.0.0-rc5" />
-      <PackageReference Include="RawRabbit.Operations.Tools" Version="2.0.0-rc5" />
+      <Content Include="Dockerfile" />
     </ItemGroup>
 
 </Project>

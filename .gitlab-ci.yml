@@ -1,15 +1,236 @@
-image : microsoft/dotnet:latest
+image: mcr.microsoft.com/dotnet/core/sdk:2.2.301
+
 stages:
   - build
-before_script:
-  - 'dotnet restore'
-#  - 'npm install'
-build:
+  - test
+  - performance
+  - myget_common
+  - myget_eventbus
+  - myget_eventbus_rabbitmq
+  - myget_integrationeventlog
+  - deploy
+  - docker_deploy
+
+dotnet_build:
   stage: build
+  before_script:
+    - 'dotnet restore'
   script:
     - 'dotnet build'
 #    - 'chmod -R +x ./scripts'
-#    - 'scripts/run-tests.bat'
+#    - 'scripts/run-tests.bat' todo
+
+angular_build:
+  image: node:latest
+  stage: build
+  before_script:
+    - 'cd src/U.WebApp.Angular'
+  script:
+    - npm install @angular/cli
+    - npm run ng -- build --prod
+
+code_quality:
+  stage: test
+  when: manual
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay
+  services:
+    - docker:dind
+  script:
+    - docker pull codeclimate/codeclimate
+    - docker run
+      --env CODECLIMATE_DEBUG=1
+      --env CODECLIMATE_CODE="$PWD"
+      --volume "$PWD":/code
+      --volume /var/run/docker.sock:/var/run/docker.sock
+      --volume /tmp/cc:/tmp/cc
+      codeclimate/codeclimate analyze -f html > report.html
+  artifacts:
+    paths: [report.html]
+  dependencies: []
+  except:
+    variables:
+      - $CODE_QUALITY_DISABLED
+
+MyGet_Common:
+  stage: myget_common
+  before_script:
+    - 'cd src/BuildingBlocks/Common'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/dotnet-restore.sh
+    - ./scripts/dotnet-build.sh
+    - ./scripts/dotnet-publish.sh
+    - ./scripts/dotnet-nuget-push.sh
   only:
     - master
     - develop
+
+MyGet_EventBus:
+  stage: myget_eventbus
+  before_script:
+    - 'cd src/BuildingBlocks/U.EventBus'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/dotnet-restore.sh
+    - ./scripts/dotnet-build.sh
+    - ./scripts/dotnet-publish.sh
+    - ./scripts/dotnet-nuget-push.sh
+  only:
+    - master
+    - develop
+
+MyGet_EventBus_RabbitMQ:
+  stage: myget_eventbus_rabbitmq
+  before_script:
+    - 'cd src/BuildingBlocks/U.EventBus.RabbitMQ'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/dotnet-restore.sh
+    - ./scripts/dotnet-build.sh
+    - ./scripts/dotnet-publish.sh
+    - ./scripts/dotnet-nuget-push.sh
+  only:
+    - master
+    - develop
+
+
+MyGet_IntegrationEventLog:
+  stage: myget_integrationeventlog
+  before_script:
+    - 'cd src/BuildingBlocks/U.IntegrationEventLog'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/dotnet-restore.sh
+    - ./scripts/dotnet-build.sh
+    - ./scripts/dotnet-publish.sh
+    - ./scripts/dotnet-nuget-push.sh
+  only:
+    - master
+    - develop
+
+deploy_fetchservice:
+  stage: docker_deploy
+  image: docker:17.06.0-ce
+  services:
+    - docker:17.06.0-ce-dind
+  before_script:
+    - 'cd src/Services/Fetch/U.FetchService'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/docker-publish.sh
+  only:
+    - master
+    - develop
+
+deploy_generatorservice:
+  stage: docker_deploy
+  image: docker:17.06.0-ce
+  services:
+    - docker:17.06.0-ce-dind
+  before_script:
+    - 'cd src/Services/Generator/U.GeneratorService'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/docker-publish.sh
+  only:
+    - master
+    - develop
+
+deploy_identityservice:
+  stage: docker_deploy
+  image: docker:17.06.0-ce
+  services:
+    - docker:17.06.0-ce-dind
+  before_script:
+    - 'cd src/Services/Identity/U.IdentityService'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/docker-publish.sh
+  only:
+    - master
+    - develop
+
+deploy_notificationservice:
+  stage: docker_deploy
+  image: docker:17.06.0-ce
+  services:
+    - docker:17.06.0-ce-dind
+  before_script:
+    - 'cd src/Services/Notification/U.NotificationService'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/docker-publish.sh
+  only:
+    - master
+    - develop
+deploy_productservice:
+  stage: docker_deploy
+  image: docker:17.06.0-ce
+  services:
+    - docker:17.06.0-ce-dind
+  before_script:
+    - 'cd src/Services/Product/U.ProductService'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/docker-publish.sh
+  only:
+    - master
+    - develop
+
+
+deploy_subscriptionservice:
+  stage: docker_deploy
+  image: docker:17.06.0-ce
+  services:
+    - docker:17.06.0-ce-dind
+  before_script:
+    - 'cd src/Services/Subscription/U.SubscriptionService'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/docker-publish.sh
+  only:
+    - master
+    - develop
+
+deploy_smartstoreadapter:
+  stage: docker_deploy
+  image: docker:17.06.0-ce
+  services:
+    - docker:17.06.0-ce-dind
+  before_script:
+    - 'cd src/Adapters/SmartStore/U.SmartStoreAdapter'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/docker-publish.sh
+  only:
+    - master
+    - develop
+
+deploy_apigateway:
+  stage: docker_deploy
+  image: docker:17.06.0-ce
+  services:
+    - docker:17.06.0-ce-dind
+  before_script:
+    - 'cd src/ApiGateway'
+    - chmod -R a+x ./scripts
+  script:
+    - ./scripts/docker-publish.sh
+  only:
+    - master
+    - develop
+
+variables:
+  DOCKER_DRIVER: overlay2
+
+services:
+  - docker:stable-dind
+
+include:
+    - local: ci/Dependency-Scanning.gitlab-ci.yml
+    - local: ci/License-Management.gitlab-ci.yml
+#    - local: ci/Browser-Performance.gitlab-ci.yml //todo
+#    - local: ci/Container-Scanning.gitlab-ci.yml //todo
+#    - local: ci/SAST.gitlab-ci.yml //todo

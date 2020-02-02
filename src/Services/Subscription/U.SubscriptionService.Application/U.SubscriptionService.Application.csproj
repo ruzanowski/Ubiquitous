@@ -5,15 +5,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
-      <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
-      <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus\U.EventBus.csproj" />
-      <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
       <ProjectReference Include="..\U.SubscriptionService.Persistance\U.SubscriptionService.Persistance.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Command\SignalRConnections" />
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus\U.EventBus.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.EventBus" Version="*" />
+        <PackageReference Include="Ubiquitous.EventBus.RabbitMQ" Version="*" />
+        <PackageReference Include="Ubiquitous.IntegrationEventLog" Version="*" />
     </ItemGroup>
 
 </Project>

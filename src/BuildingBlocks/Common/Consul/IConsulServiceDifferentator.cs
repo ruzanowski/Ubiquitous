@@ -9,10 +9,10 @@ namespace U.Common.Consul
 
     public class ConsulServiceDiffentator : IConsulServiceDifferentator
     {
-        private readonly IServiceIdService _idService;
+        private readonly ISelfInfoService _idService;
         private readonly ConsulOptions _consulOptions;
 
-        public ConsulServiceDiffentator(IServiceIdService idService, ConsulOptions consulOptions)
+        public ConsulServiceDiffentator(ISelfInfoService idService, ConsulOptions consulOptions)
         {
             _idService = idService;
             _consulOptions = consulOptions;

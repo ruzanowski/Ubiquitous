@@ -11,7 +11,7 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./products-details.component.css']
 })
 export class ProductsDetailsComponent implements OnInit {
-  private product: Product;
+  public product: Product;
   errorReceived: boolean;
 
   constructor(private service: ProductService, private route: ActivatedRoute) {
