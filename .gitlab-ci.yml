@@ -64,7 +64,7 @@ MyGet_Common:
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
   only:
-    - branches:
+    - refs:
         - master
         - develop
 
@@ -79,7 +79,7 @@ MyGet_EventBus:
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
     only:
-      - branches:
+      - refs:
           - master
           - develop
 
@@ -94,7 +94,7 @@ MyGet_EventBus_RabbitMQ:
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
   only:
-    - branches:
+    - refs:
         - master
         - develop
 
@@ -110,7 +110,7 @@ MyGet_IntegrationEventLog:
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
   only:
-    - branches:
+    - refs:
         - master
         - develop
 
@@ -125,7 +125,7 @@ deploy_fetchservice:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - branches:
+    - refs:
         - master
         - develop
 
@@ -140,7 +140,7 @@ deploy_generatorservice:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - branches:
+    - refs:
         - master
         - develop
 
@@ -155,7 +155,7 @@ deploy_identityservice:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - branches:
+    - refs:
         - master
         - develop
 
@@ -170,7 +170,7 @@ deploy_notificationservice:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - branches:
+    - refs:
         - master
         - develop
 
@@ -185,7 +185,7 @@ deploy_productservice:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - branches:
+    - refs:
         - master
         - develop
 
@@ -201,7 +201,7 @@ deploy_subscriptionservice:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - branches:
+    - refs:
         - master
         - develop
 
@@ -216,7 +216,7 @@ deploy_smartstoreadapter:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - branches:
+    - refs:
         - master
         - develop
 
@@ -231,7 +231,7 @@ deploy_apigateway:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - branches:
+    - refs:
         - master
         - develop
 
