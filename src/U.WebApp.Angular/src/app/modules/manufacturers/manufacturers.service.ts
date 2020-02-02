@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {DataService} from "../shared/services/data.service";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {Manufacturer} from "./models/Manufacturer.model";
+import {Manufacturer} from "./models/manufacturer.model";
 import {PaginatedItems} from "../shared/models/paginateditems.model";
 
 @Injectable()
