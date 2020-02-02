@@ -234,8 +234,8 @@ services:
   - docker:stable-dind
 
 include:
-#    - local: ci/Browser-Performance.gitlab-ci.yml
-    - local: ci/Container-Scanning.gitlab-ci.yml
     - local: ci/Dependency-Scanning.gitlab-ci.yml
     - local: ci/License-Management.gitlab-ci.yml
-#    - local: ci/SAST.gitlab-ci.yml
+#    - local: ci/Browser-Performance.gitlab-ci.yml //todo
+#    - local: ci/Container-Scanning.gitlab-ci.yml //todo
+#    - local: ci/SAST.gitlab-ci.yml //todo
