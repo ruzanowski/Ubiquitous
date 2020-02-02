@@ -35,6 +35,9 @@ dast:
   # Perform ZAP Full Scan, which includes both passive and active scanning:
   # DAST_FULL_SCAN_ENABLED: "true"
   allow_failure: true
+  before_script:
+    - docker info
+    - docker login -u $CI_REGISTRY_USER -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
     - export DAST_WEBSITE=${DAST_WEBSITE:-$(cat environment_url.txt)}
     - /analyze -t $DAST_WEBSITE

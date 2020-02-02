@@ -15,6 +15,9 @@ license_management:
   variables:
     SETUP_CMD: $LICENSE_MANAGEMENT_SETUP_CMD
   allow_failure: true
+  before_script:
+    - docker info
+    - docker login -u $CI_REGISTRY_USER -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
     - /run.sh analyze .
   artifacts:
