@@ -1,4 +1,4 @@
-version: "3.5"
+version: "2"
 
 services:
 
@@ -12,7 +12,7 @@ services:
     volumes:
       - '${RELATIVE_PATH}/apigateway/appsettings.docker.json:/app/appsettings.docker.json:ro'
       - '${RELATIVE_PATH}/apigateway/ocelot.json:/app/ocelot.json:ro'
-    restart: unless-stopped
+    restart: on-failure
     networks:
       - ubiquitous
 
@@ -28,7 +28,7 @@ services:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
     volumes:
       - '${RELATIVE_PATH}/productservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
-    restart: unless-stopped
+    restart: on-failure
     networks:
       - ubiquitous
 
@@ -44,7 +44,7 @@ services:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
     volumes:
       - '${RELATIVE_PATH}/smartstoreadapter/appsettings.docker.json:/app/appsettings.docker.json:ro'
-    restart: unless-stopped
+    restart: on-failure
     networks:
       - ubiquitous
 
@@ -62,7 +62,7 @@ services:
       - '${RELATIVE_PATH}/fetchservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     depends_on:
       - u.smartstore-adapter
-    restart: unless-stopped
+    restart: on-failure
     networks:
       - ubiquitous
 
@@ -79,7 +79,7 @@ services:
       DbOptions__AutoMigration: "true"
     volumes:
       - '${RELATIVE_PATH}/subscriptionservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
-    restart: unless-stopped
+    restart: on-failure
     networks:
       - ubiquitous
 
@@ -96,7 +96,7 @@ services:
       DbOptions__AutoMigration: "true"
     volumes:
       - '${RELATIVE_PATH}/identityservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
-    restart: unless-stopped
+    restart: on-failure
     networks:
       - ubiquitous
 
@@ -113,7 +113,7 @@ services:
       DbOptions__AutoMigration: "true"
     volumes:
       - '${RELATIVE_PATH}/notificationservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
-    restart: unless-stopped
+    restart: on-failure
     networks:
       - ubiquitous
 
@@ -127,11 +127,10 @@ services:
     environment:
       ASPNETCORE_URLS: http://+:5700
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
-    restart: unless-stopped
+    restart: on-failure
     networks:
       - ubiquitous
 
 networks:
   ubiquitous:
     name: ubiquitous
-    external: true
