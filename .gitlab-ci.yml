@@ -25,9 +25,9 @@ angular_build:
   stage: build
   before_script:
     - 'cd src/U.WebApp.Angular'
-    - npm install
+    - npm install @angular/cli
   script:
-    - ng build
+    - ./node_modules/.bin/ng build -prod
 
 code_quality:
   stage: test
