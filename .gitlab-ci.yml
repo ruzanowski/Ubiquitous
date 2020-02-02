@@ -227,9 +227,15 @@ deploy_apigateway:
 #        - master
 #        - develop
 
+variables:
+  DOCKER_DRIVER: overlay2
+
+services:
+  - docker:stable-dind
+
 include:
 #    - local: ci/Browser-Performance.gitlab-ci.yml
-    - remote: 'https://gitlab.com/gitlab-org/gitlab-ce/raw/11448-fix-cs-with-k8s-runners/lib/gitlab/ci/templates/Security/Container-Scanning.gitlab-ci.yml'
+    - local: ci/Container-Scanning.gitlab-ci.yml
     - local: ci/Dependency-Scanning.gitlab-ci.yml
     - local: ci/License-Management.gitlab-ci.yml
 #    - local: ci/SAST.gitlab-ci.yml
