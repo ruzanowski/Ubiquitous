@@ -64,9 +64,8 @@ MyGet_Common:
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
   only:
-    - refs:
-        - master
-        - develop
+    - master
+    - develop
 
 MyGet_EventBus:
   stage: myget_eventbus
@@ -78,10 +77,9 @@ MyGet_EventBus:
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
-    only:
-      - refs:
-          - master
-          - develop
+  only:
+    - master
+    - develop
 
 MyGet_EventBus_RabbitMQ:
   stage: myget_eventbus_rabbitmq
@@ -94,9 +92,8 @@ MyGet_EventBus_RabbitMQ:
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
   only:
-    - refs:
-        - master
-        - develop
+    - master
+    - develop
 
 
 MyGet_IntegrationEventLog:
@@ -110,9 +107,8 @@ MyGet_IntegrationEventLog:
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
   only:
-    - refs:
-        - master
-        - develop
+    - master
+    - develop
 
 deploy_fetchservice:
   stage: docker_deploy
@@ -125,9 +121,8 @@ deploy_fetchservice:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - refs:
-        - master
-        - develop
+    - master
+    - develop
 
 deploy_generatorservice:
   stage: docker_deploy
@@ -140,9 +135,8 @@ deploy_generatorservice:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - refs:
-        - master
-        - develop
+    - master
+    - develop
 
 deploy_identityservice:
   stage: docker_deploy
@@ -155,9 +149,8 @@ deploy_identityservice:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - refs:
-        - master
-        - develop
+    - master
+    - develop
 
 deploy_notificationservice:
   stage: docker_deploy
@@ -170,10 +163,8 @@ deploy_notificationservice:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - refs:
-        - master
-        - develop
-
+    - master
+    - develop
 deploy_productservice:
   stage: docker_deploy
   image: docker:17.06.0-ce
@@ -185,9 +176,8 @@ deploy_productservice:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - refs:
-        - master
-        - develop
+    - master
+    - develop
 
 
 deploy_subscriptionservice:
@@ -201,9 +191,8 @@ deploy_subscriptionservice:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - refs:
-        - master
-        - develop
+    - master
+    - develop
 
 deploy_smartstoreadapter:
   stage: docker_deploy
@@ -216,9 +205,8 @@ deploy_smartstoreadapter:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - refs:
-        - master
-        - develop
+    - master
+    - develop
 
 deploy_apigateway:
   stage: docker_deploy
@@ -231,9 +219,8 @@ deploy_apigateway:
   script:
     - ./scripts/docker-publish.sh
   only:
-    - refs:
-        - master
-        - develop
+    - master
+    - develop
 
 variables:
   DOCKER_DRIVER: overlay2
