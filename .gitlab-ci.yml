@@ -3,7 +3,6 @@ image: mcr.microsoft.com/dotnet/core/sdk:2.2.301
 stages:
   - build
   - test
-  - performance
   - myget_common
   - myget_eventbus
   - myget_eventbus_rabbitmq
@@ -63,10 +62,10 @@ MyGet_Common:
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
-#  only:
-#    - branches:
-#        - master
-#        - develop
+  only:
+    - branches:
+        - master
+        - develop
 
 MyGet_EventBus:
   stage: myget_eventbus
@@ -78,10 +77,10 @@ MyGet_EventBus:
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
-#    only:
-#      - branches:
-#          - master
-#          - develop
+    only:
+      - branches:
+          - master
+          - develop
 
 MyGet_EventBus_RabbitMQ:
   stage: myget_eventbus_rabbitmq
@@ -93,10 +92,10 @@ MyGet_EventBus_RabbitMQ:
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
-#  only:
-#    - branches:
-#        - master
-#        - develop
+  only:
+    - branches:
+        - master
+        - develop
 
 
 MyGet_IntegrationEventLog:
@@ -109,10 +108,10 @@ MyGet_IntegrationEventLog:
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
-#  only:
-#    - branches:
-#        - master
-#        - develop
+  only:
+    - branches:
+        - master
+        - develop
 
 deploy_fetchservice:
   stage: docker_deploy
@@ -124,10 +123,10 @@ deploy_fetchservice:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - branches:
-#        - master
-#        - develop
+  only:
+    - branches:
+        - master
+        - develop
 
 deploy_generatorservice:
   stage: docker_deploy
@@ -139,10 +138,10 @@ deploy_generatorservice:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - branches:
-#        - master
-#        - develop
+  only:
+    - branches:
+        - master
+        - develop
 
 deploy_identityservice:
   stage: docker_deploy
@@ -154,10 +153,10 @@ deploy_identityservice:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - branches:
-#        - master
-#        - develop
+  only:
+    - branches:
+        - master
+        - develop
 
 deploy_notificationservice:
   stage: docker_deploy
@@ -169,10 +168,10 @@ deploy_notificationservice:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - branches:
-#        - master
-#        - develop
+  only:
+    - branches:
+        - master
+        - develop
 
 deploy_productservice:
   stage: docker_deploy
@@ -184,10 +183,10 @@ deploy_productservice:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - branches:
-#        - master
-#        - develop
+  only:
+    - branches:
+        - master
+        - develop
 
 
 deploy_subscriptionservice:
@@ -200,10 +199,10 @@ deploy_subscriptionservice:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - branches:
-#        - master
-#        - develop
+  only:
+    - branches:
+        - master
+        - develop
 
 deploy_smartstoreadapter:
   stage: docker_deploy
@@ -215,10 +214,10 @@ deploy_smartstoreadapter:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - branches:
-#        - master
-#        - develop
+  only:
+    - branches:
+        - master
+        - develop
 
 deploy_apigateway:
   stage: docker_deploy
@@ -230,10 +229,10 @@ deploy_apigateway:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - branches:
-#        - master
-#        - develop
+  only:
+    - branches:
+        - master
+        - develop
 
 variables:
   DOCKER_DRIVER: overlay2
