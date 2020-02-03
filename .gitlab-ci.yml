@@ -20,14 +20,14 @@ dotnet_build:
 #    - 'chmod -R +x ./scripts'
 #    - 'scripts/run-tests.bat' todo
 
-angular_build:
-  image: node:latest
-  stage: build
-  before_script:
-    - 'cd src/U.WebApp.Angular'
-  script:
-    - npm install @angular/cli
-    - npm run ng -- build --prod
+#angular_build:
+#  image: node:latest
+#  stage: build
+#  before_script:
+#    - 'cd src/U.WebApp.Angular'
+#  script:
+#    - npm install @angular/cli
+#    - npm run ng -- build --prod
 
 code_quality:
   stage: test
@@ -53,159 +53,159 @@ code_quality:
     variables:
       - $CODE_QUALITY_DISABLED
 
-MyGet_Common:
-  stage: myget_common
-  before_script:
-    - 'cd src/BuildingBlocks/Common'
-    - chmod -R a+x ./scripts
-  script:
-    - ./scripts/dotnet-restore.sh
-    - ./scripts/dotnet-build.sh
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/dotnet-nuget-push.sh
-  only:
-    - master
-    - develop
+#MyGet_Common:
+#  stage: myget_common
+#  before_script:
+#    - 'cd src/BuildingBlocks/Common'
+#    - chmod -R a+x ./scripts
+#  script:
+#    - ./scripts/dotnet-restore.sh
+#    - ./scripts/dotnet-build.sh
+#    - ./scripts/dotnet-publish.sh
+#    - ./scripts/dotnet-nuget-push.sh
+#  only:
+#    - master
+#    - develop
+#
+#MyGet_EventBus:
+#  stage: myget_eventbus
+#  before_script:
+#    - 'cd src/BuildingBlocks/U.EventBus'
+#    - chmod -R a+x ./scripts
+#  script:
+#    - ./scripts/dotnet-restore.sh
+#    - ./scripts/dotnet-build.sh
+#    - ./scripts/dotnet-publish.sh
+#    - ./scripts/dotnet-nuget-push.sh
+#  only:
+#    - master
+#    - develop
+#
+#MyGet_EventBus_RabbitMQ:
+#  stage: myget_eventbus_rabbitmq
+#  before_script:
+#    - 'cd src/BuildingBlocks/U.EventBus.RabbitMQ'
+#    - chmod -R a+x ./scripts
+#  script:
+#    - ./scripts/dotnet-restore.sh
+#    - ./scripts/dotnet-build.sh
+#    - ./scripts/dotnet-publish.sh
+#    - ./scripts/dotnet-nuget-push.sh
+#  only:
+#    - master
+#    - develop
+#
+#
+#MyGet_IntegrationEventLog:
+#  stage: myget_integrationeventlog
+#  before_script:
+#    - 'cd src/BuildingBlocks/U.IntegrationEventLog'
+#    - chmod -R a+x ./scripts
+#  script:
+#    - ./scripts/dotnet-restore.sh
+#    - ./scripts/dotnet-build.sh
+#    - ./scripts/dotnet-publish.sh
+#    - ./scripts/dotnet-nuget-push.sh
+#  only:
+#    - master
+#    - develop
 
-MyGet_EventBus:
-  stage: myget_eventbus
-  before_script:
-    - 'cd src/BuildingBlocks/U.EventBus'
-    - chmod -R a+x ./scripts
-  script:
-    - ./scripts/dotnet-restore.sh
-    - ./scripts/dotnet-build.sh
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/dotnet-nuget-push.sh
-  only:
-    - master
-    - develop
-
-MyGet_EventBus_RabbitMQ:
-  stage: myget_eventbus_rabbitmq
-  before_script:
-    - 'cd src/BuildingBlocks/U.EventBus.RabbitMQ'
-    - chmod -R a+x ./scripts
-  script:
-    - ./scripts/dotnet-restore.sh
-    - ./scripts/dotnet-build.sh
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/dotnet-nuget-push.sh
-  only:
-    - master
-    - develop
-
-
-MyGet_IntegrationEventLog:
-  stage: myget_integrationeventlog
-  before_script:
-    - 'cd src/BuildingBlocks/U.IntegrationEventLog'
-    - chmod -R a+x ./scripts
-  script:
-    - ./scripts/dotnet-restore.sh
-    - ./scripts/dotnet-build.sh
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/dotnet-nuget-push.sh
-  only:
-    - master
-    - develop
-
-deploy_fetchservice:
-  stage: docker_deploy
-  image: docker:17.06.0-ce
-  services:
-    - docker:17.06.0-ce-dind
-  before_script:
-    - 'cd src/Services/U.FetchService'
-    - chmod -R a+x ./scripts
-    - ./scripts/dotnet-build.sh
-  script:
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/docker-publish.sh
-  only:
-    - master
-    - develop
-
-deploy_generatorservice:
-  stage: docker_deploy
-  image: docker:17.06.0-ce
-  services:
-    - docker:17.06.0-ce-dind
-  before_script:
-    - 'cd src/Services/U.GeneratorService'
-    - chmod -R a+x ./scripts
-    - ./scripts/dotnet-build.sh
-  script:
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/docker-publish.sh
-  only:
-    - master
-    - develop
-
-deploy_identityservice:
-  stage: docker_deploy
-  image: docker:17.06.0-ce
-  services:
-    - docker:17.06.0-ce-dind
-  before_script:
-    - 'cd src/Services/U.IdentityService'
-    - chmod -R a+x ./scripts
-    - ./scripts/dotnet-build.sh
-  script:
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/docker-publish.sh
-  only:
-    - master
-    - develop
-
-deploy_notificationservice:
-  stage: docker_deploy
-  image: docker:17.06.0-ce
-  services:
-    - docker:17.06.0-ce-dind
-  before_script:
-    - 'cd src/Services/U.NotificationService'
-    - chmod -R a+x ./scripts
-    - ./scripts/dotnet-build.sh
-  script:
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/docker-publish.sh
-  only:
-    - master
-    - develop
-
-deploy_productservice:
-  stage: docker_deploy
-  image: docker:17.06.0-ce
-  services:
-    - docker:17.06.0-ce-dind
-  before_script:
-    - 'cd src/Services/U.ProductService'
-    - chmod -R a+x ./scripts
-    - ./scripts/dotnet-build.sh
-  script:
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/docker-publish.sh
-  only:
-    - master
-    - develop
-
-
-deploy_subscriptionservice:
-  stage: docker_deploy
-  image: docker:17.06.0-ce
-  services:
-    - docker:17.06.0-ce-dind
-  before_script:
-    - 'cd src/Services/U.SubscriptionService'
-    - chmod -R a+x ./scripts
-    - ./scripts/dotnet-build.sh
-  script:
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/docker-publish.sh
-  only:
-    - master
-    - develop
+#deploy_fetchservice:
+#  stage: docker_deploy
+#  image: docker:17.06.0-ce
+#  services:
+#    - docker:17.06.0-ce-dind
+#  before_script:
+#    - 'cd src/Services/U.FetchService'
+#    - chmod -R a+x ./scripts
+#    - ./scripts/dotnet-build.sh
+#  script:
+#    - ./scripts/dotnet-publish.sh
+#    - ./scripts/docker-publish.sh
+#  only:
+#    - master
+#    - develop
+#
+#deploy_generatorservice:
+#  stage: docker_deploy
+#  image: docker:17.06.0-ce
+#  services:
+#    - docker:17.06.0-ce-dind
+#  before_script:
+#    - 'cd src/Services/U.GeneratorService'
+#    - chmod -R a+x ./scripts
+#    - ./scripts/dotnet-build.sh
+#  script:
+#    - ./scripts/dotnet-publish.sh
+#    - ./scripts/docker-publish.sh
+#  only:
+#    - master
+#    - develop
+#
+#deploy_identityservice:
+#  stage: docker_deploy
+#  image: docker:17.06.0-ce
+#  services:
+#    - docker:17.06.0-ce-dind
+#  before_script:
+#    - 'cd src/Services/U.IdentityService'
+#    - chmod -R a+x ./scripts
+#    - ./scripts/dotnet-build.sh
+#  script:
+#    - ./scripts/dotnet-publish.sh
+#    - ./scripts/docker-publish.sh
+#  only:
+#    - master
+#    - develop
+#
+#deploy_notificationservice:
+#  stage: docker_deploy
+#  image: docker:17.06.0-ce
+#  services:
+#    - docker:17.06.0-ce-dind
+#  before_script:
+#    - 'cd src/Services/U.NotificationService'
+#    - chmod -R a+x ./scripts
+#    - ./scripts/dotnet-build.sh
+#  script:
+#    - ./scripts/dotnet-publish.sh
+#    - ./scripts/docker-publish.sh
+#  only:
+#    - master
+#    - develop
+#
+#deploy_productservice:
+#  stage: docker_deploy
+#  image: docker:17.06.0-ce
+#  services:
+#    - docker:17.06.0-ce-dind
+#  before_script:
+#    - 'cd src/Services/U.ProductService'
+#    - chmod -R a+x ./scripts
+#    - ./scripts/dotnet-build.sh
+#  script:
+#    - ./scripts/dotnet-publish.sh
+#    - ./scripts/docker-publish.sh
+#  only:
+#    - master
+#    - develop
+#
+#
+#deploy_subscriptionservice:
+#  stage: docker_deploy
+#  image: docker:17.06.0-ce
+#  services:
+#    - docker:17.06.0-ce-dind
+#  before_script:
+#    - 'cd src/Services/U.SubscriptionService'
+#    - chmod -R a+x ./scripts
+#    - ./scripts/dotnet-build.sh
+#  script:
+#    - ./scripts/dotnet-publish.sh
+#    - ./scripts/docker-publish.sh
+#  only:
+#    - master
+#    - develop
 
 deploy_smartstoreadapter:
   stage: docker_deploy
@@ -215,29 +215,29 @@ deploy_smartstoreadapter:
   before_script:
     - 'cd src/Adapters/U.SmartStoreAdapter'
     - chmod -R a+x ./scripts
-    - ./scripts/dotnet-build.sh
+#    - ./scripts/dotnet-build.sh
   script:
-    - ./scripts/dotnet-publish.sh
+#    - ./scripts/dotnet-publish.sh
     - ./scripts/docker-publish.sh
   only:
     - master
     - develop
 
-deploy_apigateway:
-  stage: docker_deploy
-  image: docker:17.06.0-ce
-  services:
-    - docker:17.06.0-ce-dind
-  before_script:
-    - 'cd src/ApiGateway'
-    - chmod -R a+x ./scripts
-    - ./scripts/dotnet-build.sh
-  script:
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/docker-publish.sh
-  only:
-    - master
-    - develop
+#deploy_apigateway:
+#  stage: docker_deploy
+#  image: docker:17.06.0-ce
+#  services:
+#    - docker:17.06.0-ce-dind
+#  before_script:
+#    - 'cd src/ApiGateway'
+#    - chmod -R a+x ./scripts
+#    - ./scripts/dotnet-build.sh
+#  script:
+#    - ./scripts/dotnet-publish.sh
+#    - ./scripts/docker-publish.sh
+#  only:
+#    - master
+#    - develop
 
 variables:
   DOCKER_DRIVER: overlay2
