@@ -8,9 +8,11 @@ WORKDIR /source
 COPY ["U.SmartStoreAdapter.csproj", "./U.SmartStoreAdapter.csproj"]
 
 # Restore
-ARG NUGET_BRANCH_RESTORE
-RUN if [ "$CI_COMMIT_REF_NAME" = "master" ] ; then echo Branch is $CI_COMMIT_REF_NAME ; else $NUGET_BRANCH_RESTORE=.develop ; fi
-RUN dotnet restore "./U.SmartStoreAdapter.csproj" --configfile nuget"${NUGET_BRANCH_RESTORE}".config
+#ARG NUGET_BRANCH_RESTORE
+#RUN if [ "$CI_COMMIT_REF_NAME" = "master" ] ; then echo Branch is $CI_COMMIT_REF_NAME ; else $NUGET_BRANCH_RESTORE=.develop ; fi
+#echo $NUGET_BRANCH_RESTORE
+
+RUN dotnet restore "./U.SmartStoreAdapter.csproj" --configfile nuget.develop.config
 
 # Copy all source code
 COPY . .
