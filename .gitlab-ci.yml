@@ -11,14 +11,14 @@ stages:
   - deploy
   - docker_deploy
 
-dotnet_build:
-  stage: build
-  before_script:
-    - 'dotnet restore'
-  script:
-    - 'dotnet build'
-#    - 'chmod -R +x ./scripts'
-#    - 'scripts/run-tests.bat' todo
+#dotnet_build:
+#  stage: build
+#  before_script:
+#    - 'dotnet restore'
+#  script:
+#    - 'dotnet build'
+##    - 'chmod -R +x ./scripts'
+##    - 'scripts/run-tests.bat' todo
 
 #angular_build:
 #  image: node:latest
@@ -29,29 +29,29 @@ dotnet_build:
 #    - npm install @angular/cli
 #    - npm run ng -- build --prod
 
-code_quality:
-  stage: test
-  when: manual
-  image: docker:latest
-  variables:
-    DOCKER_DRIVER: overlay
-  services:
-    - docker:dind
-  script:
-    - docker pull codeclimate/codeclimate
-    - docker run
-      --env CODECLIMATE_DEBUG=1
-      --env CODECLIMATE_CODE="$PWD"
-      --volume "$PWD":/code
-      --volume /var/run/docker.sock:/var/run/docker.sock
-      --volume /tmp/cc:/tmp/cc
-      codeclimate/codeclimate analyze -f html > report.html
-  artifacts:
-    paths: [report.html]
-  dependencies: []
-  except:
-    variables:
-      - $CODE_QUALITY_DISABLED
+#code_quality:
+#  stage: test
+#  when: manual
+#  image: docker:latest
+#  variables:
+#    DOCKER_DRIVER: overlay
+#  services:
+#    - docker:dind
+#  script:
+#    - docker pull codeclimate/codeclimate
+#    - docker run
+#      --env CODECLIMATE_DEBUG=1
+#      --env CODECLIMATE_CODE="$PWD"
+#      --volume "$PWD":/code
+#      --volume /var/run/docker.sock:/var/run/docker.sock
+#      --volume /tmp/cc:/tmp/cc
+#      codeclimate/codeclimate analyze -f html > report.html
+#  artifacts:
+#    paths: [report.html]
+#  dependencies: []
+#  except:
+#    variables:
+#      - $CODE_QUALITY_DISABLED
 
 #MyGet_Common:
 #  stage: myget_common

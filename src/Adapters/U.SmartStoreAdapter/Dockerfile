@@ -12,7 +12,7 @@ COPY ["U.SmartStoreAdapter.csproj", "./U.SmartStoreAdapter.csproj"]
 #RUN if [ "$CI_COMMIT_REF_NAME" = "master" ] ; then echo Branch is $CI_COMMIT_REF_NAME ; else $NUGET_BRANCH_RESTORE=.develop ; fi
 #echo $NUGET_BRANCH_RESTORE
 
-RUN dotnet restore "./U.SmartStoreAdapter.csproj" --configfile nuget.develop.config
+RUN dotnet restore /property:Configuration=Release --configfile nuget.develop.config
 
 # Copy all source code
 COPY . .
