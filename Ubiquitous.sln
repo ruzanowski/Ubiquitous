@@ -1,32 +1,32 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductFetchService", "src\Services\Fetch\U.FetchService\U.FetchService.csproj", "{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductFetchService", "src\Services\U.FetchService\U.FetchService.csproj", "{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmartStore", "src\Adapter.SmartStore", "{F6FEBE1F-9974-4282-8497-97CB808E65CB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fetch", "src\Service.Fetch", "{2F31A504-325D-475E-9B94-5BA9D525A2AA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fetch", "src\Services\U.FetchService", "{2F31A504-325D-475E-9B94-5BA9D525A2AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Application", "src\Adapters\SmartStore\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj", "{F14867ED-37E5-4F19-924A-42766C65D87C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Application", "src\Adapters\U.SmartStoreAdapter\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj", "{F14867ED-37E5-4F19-924A-42766C65D87C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter", "src\Adapters\SmartStore\U.SmartStoreAdapter\U.SmartStoreAdapter.csproj", "{C69F02D4-2798-4039-86B8-D4A28488546E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter", "src\Adapters\U.SmartStoreAdapter\U.SmartStoreAdapter.csproj", "{C69F02D4-2798-4039-86B8-D4A28488546E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Persistance", "src\Adapters\SmartStore\U.SmartStoreAdapter.Persistance\U.SmartStoreAdapter.Persistance.csproj", "{13B6AD0E-533B-4C72-99B7-4107F3B0DC97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Persistance", "src\Adapters\U.SmartStoreAdapter\U.SmartStoreAdapter.Persistance\U.SmartStoreAdapter.Persistance.csproj", "{13B6AD0E-533B-4C72-99B7-4107F3B0DC97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Domain", "src\Adapters\SmartStore\U.SmartStoreAdapter.Domain\U.SmartStoreAdapter.Domain.csproj", "{B43A5FA0-F92F-41B7-B602-F033C3E442FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Domain", "src\Adapters\U.SmartStoreAdapter\U.SmartStoreAdapter.Domain\U.SmartStoreAdapter.Domain.csproj", "{B43A5FA0-F92F-41B7-B602-F033C3E442FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.Common", "src\BuildingBlocks\Common\U.Common.csproj", "{0631559D-B348-47A5-9CB5-AB7E805A4A7D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "src\BuildingBlocks", "{AD753C1A-0D4C-4BC5-8793-FF2795F0F49E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Product", "src\Services\Product\U.ProductService\ProductService", "{51D661E6-65C4-4D1F-977B-1B9281DEAE87}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Product", "src\Services\U.ProductService", "{51D661E6-65C4-4D1F-977B-1B9281DEAE87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService", "src\Services\Product\U.ProductService\U.ProductService.csproj", "{4CE3CE71-D2CA-4C79-A4D6-079F864469FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService", "src\Services\U.ProductService\U.ProductService.csproj", "{4CE3CE71-D2CA-4C79-A4D6-079F864469FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Application", "src\Services\Product\U.ProductService.Application\U.ProductService.Application.csproj", "{22DAFAE7-B419-459B-8A0D-8FAAFFE92561}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Application", "src\Services\U.ProductService\U.ProductService.Application\U.ProductService.Application.csproj", "{22DAFAE7-B419-459B-8A0D-8FAAFFE92561}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Domain", "src\Services\Product\U.ProductService.Domain\U.ProductService.Domain.csproj", "{DC85C2E0-7301-4999-9A4C-BE86E160FE9A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Domain", "src\Services\U.ProductService\U.ProductService.Domain\U.ProductService.Domain.csproj", "{DC85C2E0-7301-4999-9A4C-BE86E160FE9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Persistance", "src\Services\Product\U.ProductService.Persistance\U.ProductService.Persistance.csproj", "{EF9867D9-6D57-47F0-A88C-F6BEF82089BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Persistance", "src\Services\U.ProductService\U.ProductService.Persistance\U.ProductService.Persistance.csproj", "{EF9867D9-6D57-47F0-A88C-F6BEF82089BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.EventBus", "src\BuildingBlocks\U.EventBus\U.EventBus.csproj", "{9A14CE21-D985-486C-B4A6-5C5528419652}"
 EndProject
@@ -46,27 +46,27 @@ EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notification", "Notification", "{20AE96FC-F1A7-4CA8-90F8-FEB6EBB6D11A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService", "src\Services\Notification\U.NotificationService\U.NotificationService.csproj", "{50F973C1-F7D9-438F-BA45-9C1BB84B8346}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService", "src\Services\U.NotificationService\U.NotificationService.csproj", "{50F973C1-F7D9-438F-BA45-9C1BB84B8346}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.IntegrationTests", "src\Services\Product\U.ProductService.IntegrationTests\U.ProductService.IntegrationTests.csproj", "{4A1E232F-0F95-476E-A8C9-8587E307A5FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.IntegrationTests", "src\Services\U.ProductService\U.ProductService.IntegrationTests\U.ProductService.IntegrationTests.csproj", "{4A1E232F-0F95-476E-A8C9-8587E307A5FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{DB82EEF6-6647-4B76-A433-DFE91990734F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.WebApp.Angular", "src\U.WebApp.Angular\U.WebApp.Angular.csproj", "{16CE2424-2614-482C-89D3-F4212DD59A97}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generator", "Service.ProductGenerator", "{AB4BB1BC-D658-42D0-8B65-74FCBA24EC09}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generator", "Generator", "{AB4BB1BC-D658-42D0-8B65-74FCBA24EC09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.GeneratorService", "src\Services\Generator\U.GeneratorService\U.GeneratorService.csproj", "{15D78CF9-F6DB-465C-AEFE-D94E056ADE4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.GeneratorService", "src\Services\U.GeneratorService\U.GeneratorService.csproj", "{15D78CF9-F6DB-465C-AEFE-D94E056ADE4A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{31C78702-0DC3-4A05-AB00-B00FE55776F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService", "src\Services\Identity\U.IdentityService\U.IdentityService.csproj", "{974BAABC-4287-4774-A16C-4BC2D416FC89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService", "src\Services\U.IdentityService\U.IdentityService.csproj", "{974BAABC-4287-4774-A16C-4BC2D416FC89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.Application", "src\Services\Identity\U.IdentityService.Application\U.IdentityService.Application.csproj", "{5FFE5D8A-F3C4-4A8C-953B-334205210102}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.Application", "src\Services\U.IdentityService\U.IdentityService.Application\U.IdentityService.Application.csproj", "{5FFE5D8A-F3C4-4A8C-953B-334205210102}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.Domain", "src\Services\Identity\U.IdentityService.Domain\U.IdentityService.Domain.csproj", "{D32B4294-FEB4-4352-BCF9-57859F15BE0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.Domain", "src\Services\U.IdentityService\U.IdentityService.Domain\U.IdentityService.Domain.csproj", "{D32B4294-FEB4-4352-BCF9-57859F15BE0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.Persistance", "src\Services\Identity\U.IdentityService.Persistance\U.IdentityService.Persistance.csproj", "{6FBB0868-1FC9-4A2F-A4EB-CA4D3FAAA99A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.Persistance", "src\Services\U.IdentityService\U.IdentityService.Persistance\U.IdentityService.Persistance.csproj", "{6FBB0868-1FC9-4A2F-A4EB-CA4D3FAAA99A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{82713F4A-A573-4003-BD20-53C974839094}"
 EndProject
@@ -74,19 +74,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ApiGateway", "src\ApiGate
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Subscription", "Service.Subscription", "{D240C299-E049-47BF-8BAC-20E1DB6295B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.Domain", "src\Services\Notification\U.NotificationService.Domain\U.NotificationService.Domain.csproj", "{59862F91-ED0D-4048-BF57-18BED02C964F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.Domain", "src\Services\U.NotificationService\U.NotificationService.Domain\U.NotificationService.Domain.csproj", "{59862F91-ED0D-4048-BF57-18BED02C964F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.Application", "src\Services\Notification\U.NotificationService.Application\U.NotificationService.Application.csproj", "{FD034EE6-656C-4D3B-B795-13E02127F5D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.Application", "src\Services\U.NotificationService\U.NotificationService.Application\U.NotificationService.Application.csproj", "{FD034EE6-656C-4D3B-B795-13E02127F5D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.Infrastructure", "src\Services\Notification\U.NotificationService.Infrastructure\U.NotificationService.Infrastructure.csproj", "{3764066D-BAC6-4493-9DF3-5AFB6DCFE07A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.Infrastructure", "src\Services\U.NotificationService\U.NotificationService.Infrastructure\U.NotificationService.Infrastructure.csproj", "{3764066D-BAC6-4493-9DF3-5AFB6DCFE07A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService", "src\Services\Subscription\U.SubscriptionService\U.SubscriptionService.csproj", "{ED2B1BC6-37F1-44F6-8DC7-888CAC2D4431}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService", "src\Services\U.SubscriptionService\U.SubscriptionService.csproj", "{ED2B1BC6-37F1-44F6-8DC7-888CAC2D4431}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService.Application", "src\Services\Subscription\U.SubscriptionService.Application\U.SubscriptionService.Application.csproj", "{EBD54CAC-2F80-4320-9774-8AAE7995B5FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService.Application", "src\Services\U.SubscriptionService\U.SubscriptionService.Application\U.SubscriptionService.Application.csproj", "{EBD54CAC-2F80-4320-9774-8AAE7995B5FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService.Domain", "src\Services\Subscription\U.SubscriptionService.Domain\U.SubscriptionService.Domain.csproj", "{8C530FB6-D2E7-470A-98EF-CAF3BE962AE5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService.Domain", "src\Services\U.SubscriptionService\U.SubscriptionService.Domain\U.SubscriptionService.Domain.csproj", "{8C530FB6-D2E7-470A-98EF-CAF3BE962AE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService.Persistance", "src\Services\Subscription\U.SubscriptionService.Persistance\U.SubscriptionService.Persistance.csproj", "{CE8191E1-9C55-40C4-9823-D3F385590F27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SubscriptionService.Persistance", "src\Services\U.SubscriptionService\U.SubscriptionService.Persistance\U.SubscriptionService.Persistance.csproj", "{CE8191E1-9C55-40C4-9823-D3F385590F27}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC}"
 EndProject

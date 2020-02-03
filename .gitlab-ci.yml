@@ -116,9 +116,11 @@ deploy_fetchservice:
   services:
     - docker:17.06.0-ce-dind
   before_script:
-    - 'cd src/Services/Fetch/U.FetchService'
+    - 'cd src/Services/U.FetchService'
     - chmod -R a+x ./scripts
+    - ./scripts/dotnet-build.sh
   script:
+    - ./scripts/dotnet-publish.sh
     - ./scripts/docker-publish.sh
   only:
     - master
@@ -130,9 +132,11 @@ deploy_generatorservice:
   services:
     - docker:17.06.0-ce-dind
   before_script:
-    - 'cd src/Services/Generator/U.GeneratorService'
+    - 'cd src/Services/U.GeneratorService'
     - chmod -R a+x ./scripts
+    - ./scripts/dotnet-build.sh
   script:
+    - ./scripts/dotnet-publish.sh
     - ./scripts/docker-publish.sh
   only:
     - master
@@ -144,9 +148,11 @@ deploy_identityservice:
   services:
     - docker:17.06.0-ce-dind
   before_script:
-    - 'cd src/Services/Identity/U.IdentityService'
+    - 'cd src/Services/U.IdentityService'
     - chmod -R a+x ./scripts
+    - ./scripts/dotnet-build.sh
   script:
+    - ./scripts/dotnet-publish.sh
     - ./scripts/docker-publish.sh
   only:
     - master
@@ -158,22 +164,27 @@ deploy_notificationservice:
   services:
     - docker:17.06.0-ce-dind
   before_script:
-    - 'cd src/Services/Notification/U.NotificationService'
+    - 'cd src/Services/U.NotificationService'
     - chmod -R a+x ./scripts
+    - ./scripts/dotnet-build.sh
   script:
+    - ./scripts/dotnet-publish.sh
     - ./scripts/docker-publish.sh
   only:
     - master
     - develop
+
 deploy_productservice:
   stage: docker_deploy
   image: docker:17.06.0-ce
   services:
     - docker:17.06.0-ce-dind
   before_script:
-    - 'cd src/Services/Product/U.ProductService'
+    - 'cd src/Services/U.ProductService'
     - chmod -R a+x ./scripts
+    - ./scripts/dotnet-build.sh
   script:
+    - ./scripts/dotnet-publish.sh
     - ./scripts/docker-publish.sh
   only:
     - master
@@ -186,9 +197,11 @@ deploy_subscriptionservice:
   services:
     - docker:17.06.0-ce-dind
   before_script:
-    - 'cd src/Services/Subscription/U.SubscriptionService'
+    - 'cd src/Services/U.SubscriptionService'
     - chmod -R a+x ./scripts
+    - ./scripts/dotnet-build.sh
   script:
+    - ./scripts/dotnet-publish.sh
     - ./scripts/docker-publish.sh
   only:
     - master
@@ -200,9 +213,11 @@ deploy_smartstoreadapter:
   services:
     - docker:17.06.0-ce-dind
   before_script:
-    - 'cd src/Adapters/SmartStore/U.SmartStoreAdapter'
+    - 'cd src/Adapters/U.SmartStoreAdapter'
     - chmod -R a+x ./scripts
+    - ./scripts/dotnet-build.sh
   script:
+    - ./scripts/dotnet-publish.sh
     - ./scripts/docker-publish.sh
   only:
     - master
@@ -216,7 +231,9 @@ deploy_apigateway:
   before_script:
     - 'cd src/ApiGateway'
     - chmod -R a+x ./scripts
+    - ./scripts/dotnet-build.sh
   script:
+    - ./scripts/dotnet-publish.sh
     - ./scripts/docker-publish.sh
   only:
     - master
