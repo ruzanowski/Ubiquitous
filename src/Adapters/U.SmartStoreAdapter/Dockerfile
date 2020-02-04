@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.2-sdk AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk AS build-env
 WORKDIR /app
 COPY . .
 RUN dotnet restore /property:Configuration=Release --configfile nuget.develop.config
@@ -9,7 +9,7 @@ RUN dotnet publish -c Release -o /out
 #RUN if [ "$CI_COMMIT_REF_NAME" = "master" ] ; then echo Branch is $CI_COMMIT_REF_NAME ; else $NUGET_BRANCH_RESTORE=.develop ; fi
 #echo $NUGET_BRANCH_RESTORE
 
-FROM microsoft/dotnet:2.2-aspnetcore-runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 WORKDIR /app
 COPY --from=build-env /app/out .
 EXPOSE 5000/tcp
