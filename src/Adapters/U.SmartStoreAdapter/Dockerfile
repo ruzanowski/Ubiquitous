@@ -2,7 +2,7 @@ FROM microsoft/dotnet:2.2-sdk AS build-env
 WORKDIR /app
 COPY . .
 RUN dotnet restore /property:Configuration=Release --configfile nuget.develop.config
-RUN dotnet publish -c Release -o /publish
+RUN dotnet publish -c Release -o /out
 
 # Restore
 #ARG NUGET_BRANCH_RESTORE
@@ -11,7 +11,7 @@ RUN dotnet publish -c Release -o /publish
 
 FROM microsoft/dotnet:2.2-aspnetcore-runtime
 WORKDIR /app
-COPY --from=build-env /publish .
+COPY --from=build-env /app/out .
 EXPOSE 5000/tcp
 ENV ASPNETCORE_URLS http://*:5000
 ENTRYPOINT ["dotnet", "U.SmartStoreAdapter.dll"]
