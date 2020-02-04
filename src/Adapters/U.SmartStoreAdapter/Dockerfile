@@ -9,7 +9,7 @@ COPY *.csproj .
 COPY $PROJECT_NAME.Application/*.csproj .
 COPY $PROJECT_NAME.Domain/*.csproj .
 COPY $PROJECT_NAME.Persistance/*.csproj .
-RUN dotnet restore "./$PROJECT_NAME.csproj" $CONFIG_FILE_FEED
+RUN dotnet restore "./$PROJECT_NAME.csproj" -c release $CONFIG_FILE_FEED
 
 # copy everything else and build app
 WORKDIR /source
