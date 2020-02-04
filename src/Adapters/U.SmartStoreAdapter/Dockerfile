@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
 WORKDIR /app
 COPY . .
 RUN dotnet restore /property:Configuration=Release --configfile nuget.develop.config
