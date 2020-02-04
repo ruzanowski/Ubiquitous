@@ -23,6 +23,5 @@ WORKDIR /app
 COPY --from=build /app ./
 
 # environment variables
-EXPOSE $PORT/tcp
-ENV ASPNETCORE_URLS http://*:$PORT
+ENV ASPNETCORE_URLS http://*:${PORT}
 ENTRYPOINT ["dotnet", "$PROJECT_NAME.dll"]
