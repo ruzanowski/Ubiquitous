@@ -8,7 +8,7 @@ COPY $PROJECT_NAME.Application/*.csproj ./$PROJECT_NAME.Application
 COPY $PROJECT_NAME.Domain/*.csproj ./$PROJECT_NAME.Domain
 COPY $PROJECT_NAME.Persistance/*.csproj ./$PROJECT_NAME.Persistance
 COPY . .
-RUN dotnet restore "./$PROJECT_NAME.csproj" /property:Configuration=Release --configfile nuget.develop.config
+RUN dotnet restore "./$PROJECT_NAME.csproj" /property:Configuration=Release --configfile "${NUGET_CONFIG_FILE}"
 
 # copy everything else and build app
 WORKDIR /source
