@@ -4,7 +4,7 @@ WORKDIR /source
 
 # copy csproj and restore as distinct layers
 COPY *.csproj .
-COPY */*.csproj .
+COPY U.*/*.csproj .
 RUN dotnet restore /property:Configuration=Release --configfile $NUGET_CONFIG_FILE
 
 # copy everything else and build app
