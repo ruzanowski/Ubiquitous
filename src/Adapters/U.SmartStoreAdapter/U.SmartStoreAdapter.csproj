@@ -116,6 +116,14 @@
         <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Persistance\obj\project.packagespec.json" />
         <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Persistance\obj\SmartStore.Persistance.csproj.nuget.dgspec.json" />
         <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Persistance\obj\U.SmartStoreAdapter.Persistance.csproj.nuget.dgspec.json" />
+        <Content Update="nuget.develop.config">
+          <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="nuget.config">
+          <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>
