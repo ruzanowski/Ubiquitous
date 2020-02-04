@@ -1,7 +1,8 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
 WORKDIR /source
-ARG PROJECT_NAME='U.SmartStoreAdapter'
-ENV NUGET_CONFIG_FILE;
+ARG PROJECT_NAME
+ARG NUGET_CONFIG_FILE
+ARG PORT
 
 # copy csproj and restore as distinct layers
 COPY *.csproj .
@@ -22,6 +23,6 @@ WORKDIR /app
 COPY --from=build /app ./
 
 # environment variables
-EXPOSE 5000/tcp
-ENV ASPNETCORE_URLS http://*:5000
+EXPOSE $PORT/tcp
+ENV ASPNETCORE_URLS http://*:$PORT
 ENTRYPOINT ["dotnet", "$PROJECT_NAME.dll"]
