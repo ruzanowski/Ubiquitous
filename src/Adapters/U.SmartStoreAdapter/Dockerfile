@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
 WORKDIR /source
 ARG PROJECT_NAME='U.SmartStoreAdapter'
+ARG NUGET_CONFIG_FILE
 
 # copy csproj and restore as distinct layers
 COPY *.csproj .
