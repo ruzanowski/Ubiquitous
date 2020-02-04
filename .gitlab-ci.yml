@@ -212,12 +212,13 @@ deploy_smartstoreadapter:
   image: docker:17.06.0-ce
   services:
     - docker:17.06.0-ce-dind
+  variables:
+    PORT: 5000
+    PROJECT_NAME: 'U.SmartStoreAdapter'
   before_script:
     - 'cd src/Adapters/U.SmartStoreAdapter'
     - chmod -R a+x ./scripts
-#    - ./scripts/dotnet-build.sh
   script:
-#    - ./scripts/dotnet-publish.sh
     - ./scripts/docker-publish.sh
   only:
     - master
