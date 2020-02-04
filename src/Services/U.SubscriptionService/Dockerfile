@@ -7,7 +7,6 @@ COPY *.csproj .
 COPY U.SubscriptionService.Application/*.csproj ./U.SubscriptionService.Application
 COPY U.SubscriptionService.Domain/*.csproj ./U.SubscriptionService.Domain
 COPY U.SubscriptionService.Persistance/*.csproj ./U.SubscriptionService.Persistance
-COPY U.SubscriptionService.IntegrationTests/*.csproj ./U.SubscriptionService.IntegrationTests
 COPY . .
 RUN dotnet restore "./U.SubscriptionService.csproj" /property:Configuration=Release --configfile "${NUGET_CONFIG_FILE}"
 

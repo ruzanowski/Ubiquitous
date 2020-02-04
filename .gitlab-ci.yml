@@ -147,7 +147,7 @@ deploy_identityservice:
     - 'cd src/Services/U.IdentityService'
     - chmod -R a+x ./scripts
   script:
-    - ./scripts/dotnet-publish.sh
+    - ./scripts/docker-publish.sh
   only:
     - master
     - develop
