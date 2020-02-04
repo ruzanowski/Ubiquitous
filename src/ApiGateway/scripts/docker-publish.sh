@@ -6,7 +6,6 @@ case "$CI_COMMIT_REF_NAME" in
   "master")
     DOCKER_TAG=latest
     NUGET_CONFIG_FILE=nuget.config
-
     ;;
   * | "develop")
     DOCKER_TAG=develop
