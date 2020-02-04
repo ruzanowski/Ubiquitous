@@ -1,29 +1,18 @@
-# Define base image
 FROM microsoft/dotnet:2.2-sdk AS build-env
-EXPOSE 5000/tcp
-ENV ASPNETCORE_URLS http://*:5000
-
-# Copy project files
-WORKDIR /source
-COPY ["U.SmartStoreAdapter.csproj", "./U.SmartStoreAdapter.csproj"]
+WORKDIR /app
+COPY . .
+RUN dotnet restore /property:Configuration=Release --configfile nuget.develop.config
+RUN dotnet publish -c Release -o /publish
 
 # Restore
 #ARG NUGET_BRANCH_RESTORE
 #RUN if [ "$CI_COMMIT_REF_NAME" = "master" ] ; then echo Branch is $CI_COMMIT_REF_NAME ; else $NUGET_BRANCH_RESTORE=.develop ; fi
 #echo $NUGET_BRANCH_RESTORE
 
-RUN dotnet restore /property:Configuration=Release --configfile nuget.develop.config
-
-# Copy all source code
-COPY . .
-
-# Publish
-WORKDIR /source/src
-RUN dotnet publish -c Release -o /publish
-
-# Runtime
 FROM microsoft/dotnet:2.2-aspnetcore-runtime
-WORKDIR /publish
+WORKDIR /app
 COPY --from=build-env /publish .
+EXPOSE 5000/tcp
+ENV ASPNETCORE_URLS http://*:5000
 ENTRYPOINT ["dotnet", "U.SmartStoreAdapter.dll"]
 
