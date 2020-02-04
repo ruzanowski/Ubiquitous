@@ -1,5 +1,6 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
-ARG NUGET_CONFIG_FILE=nuget.develop.config
+ARG NUGET_CONFIG_FILE='nuget.develop.config'
+ARG CONFIG_FILE_FEED='--configfile "${NUGET_CONFIG_FILE}"'
 WORKDIR /source
 
 # copy csproj and restore as distinct layers
@@ -7,7 +8,7 @@ COPY *.csproj .
 COPY U.SmartStoreAdapter.Application/*.csproj .
 COPY U.SmartStoreAdapter.Domain/*.csproj .
 COPY U.SmartStoreAdapter.Persistance/*.csproj .
-RUN dotnet restore /property:Configuration=Release --configfile $NUGET_CONFIG_FILE
+RUN dotnet restore /property:Configuration=Release $CONFIG_FILE_FEED
 
 # copy everything else and build app
 WORKDIR /source
