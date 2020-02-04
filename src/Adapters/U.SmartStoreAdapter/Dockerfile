@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
-ARG NUGET_CONFIG_FILE
+ARG NUGET_CONFIG_FILE=nuget.develop.config
 WORKDIR /source
 
 # copy csproj and restore as distinct layers
