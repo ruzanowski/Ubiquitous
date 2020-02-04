@@ -1,16 +1,14 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
 WORKDIR /source
-ARG PROJECT_NAME
 ARG NUGET_CONFIG_FILE
-ARG PORT
 
 # copy csproj and restore as distinct layers
 COPY *.csproj .
-COPY $PROJECT_NAME.Application/*.csproj ./$PROJECT_NAME.Application
-COPY $PROJECT_NAME.Domain/*.csproj ./$PROJECT_NAME.Domain
-COPY $PROJECT_NAME.Persistance/*.csproj ./$PROJECT_NAME.Persistance
+COPY U.IdentityService.Application/*.csproj ./U.IdentityService.Application
+COPY U.IdentityService.Domain/*.csproj ./U.IdentityService.Domain
+COPY U.IdentityService.Persistance/*.csproj ./U.IdentityService.Persistance
 COPY . .
-RUN dotnet restore "./$PROJECT_NAME.csproj" /property:Configuration=Release --configfile "${NUGET_CONFIG_FILE}"
+RUN dotnet restore "./U.IdentityService.csproj" /property:Configuration=Release --configfile "${NUGET_CONFIG_FILE}"
 
 # copy everything else and build app
 WORKDIR /source
@@ -23,5 +21,5 @@ WORKDIR /app
 COPY --from=build /app ./
 
 # environment variables
-ENV ASPNETCORE_URLS http://*:${PORT}
-ENTRYPOINT ["dotnet", "$PROJECT_NAME.dll"]
+ENV ASPNETCORE_URLS http://*:5400
+ENTRYPOINT ["dotnet", "U.IdentityService.dll"]
