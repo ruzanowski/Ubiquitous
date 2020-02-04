@@ -19,5 +19,5 @@ apk upgrade
 apk add python python-dev py-pip build-base libffi-dev openssl-dev
 pip install docker-compose
 docker login -u $CI_REGISTRY_USER -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-docker build --build-arg NUGET_CONFIG_FILE=${NUGET_CONFIG_FILE} -t registry.gitlab.com/ruzanowski/ubiquitous/smartstoreadapter:$DOCKER_TAG .
+docker build --build-arg NUGET_CONFIG_FILE=${NUGET_CONFIG_FILE} --build-arg PROJECT_NAME=U.SmartStoreAdapter --build-arg PORT=5000 -t registry.gitlab.com/ruzanowski/ubiquitous/smartstoreadapter:$DOCKER_TAG .
 docker push registry.gitlab.com/ruzanowski/ubiquitous/smartstoreadapter:$DOCKER_TAG
