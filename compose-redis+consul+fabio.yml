@@ -1,46 +1,7 @@
 version: "3.5"
 
 services:
-  portainer:
-    container_name: portainer
-    image: portainer/portainer
-    ports:
-      - 9000:9000
-    restart: always
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer:/data
 
-  postgres:
-    container_name: postgres
-    image: postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      PGDATA: /data/postgres
-    volumes:
-      - postgres:/data/postgres
-    ports:
-      - 5433:5432
-    networks:
-      - ubiquitous
-    restart: unless-stopped
-
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@ubiquitous.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    depends_on:
-    - postgres
-    volumes:
-       - pgadmin:/root/.pgadmin
-    ports:
-      - 5450:80
-    networks:
-      - ubiquitous
-    restart: unless-stopped
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -111,11 +72,11 @@ volumes:
     driver: local
   rabbitmq:
     driver: local
+  redis:
+    driver: local
   postgres:
     driver: local
   pgadmin:
-    driver: local
-  redis:
     driver: local
   consul:
     driver: local

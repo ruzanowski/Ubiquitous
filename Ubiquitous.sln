@@ -109,10 +109,10 @@ EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DockerCompose", "DockerCompose", "{7112E37D-6184-46D9-898A-3D28207AC8E8}"
 ProjectSection(SolutionItems) = preProject
-	compose-elk.yml = compose-elk.yml
-	compose-infra.yml = compose-infra.yml
-	compose-jaeger.yml = compose-jaeger.yml
-	compose-services.yml = compose-services.yml
+	compose-elk+jaeger.yml = compose-elk+jaeger.yml
+	build-elk+jaeger.bat = build-elk+jaeger.bat
+	build-infra.bat = build-infra.bat
+	build-services.bat = build-services.bat
 EndProjectSection
 EndProject
 Global
