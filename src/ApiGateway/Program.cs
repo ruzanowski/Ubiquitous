@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore;
+﻿using System;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
@@ -20,8 +21,15 @@ namespace U.ApiGateway
                         .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
                         .AddJsonFile("appsettings.json", true, true)
                         .AddJsonFile($"appsettings.docker.json", false,
-                            true)
-                        .AddJsonFile("ocelot.json", false, true)
+                            true);
+
+                    var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                    if (env != null)
+                    {
+                        env += ".";
+                    }
+
+                    config.AddJsonFile($"ocelot.{env?.ToLower()}json", false, true)
                         .AddEnvironmentVariables();
                 })
                 .UseStartup<Startup>();

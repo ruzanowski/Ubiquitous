@@ -38,7 +38,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution 
 ProjectSection(SolutionItems) = preProject
 	.gitignore = .gitignore
 	.compose-infra.yml = compose-infra.yml
-	.compose-services.yml = compose-services.yml
+	.compose-services.local.yml = compose-services.local.yml
+	.compose-services.prod.yml = compose-services.prod.yml
 	readme.md = readme.md
 	Nuget.Config = Nuget.Config
 	.env = .env
@@ -112,7 +113,13 @@ ProjectSection(SolutionItems) = preProject
 	compose-elk+jaeger.yml = compose-elk+jaeger.yml
 	build-elk+jaeger.bat = build-elk+jaeger.bat
 	build-infra.bat = build-infra.bat
-	build-services.bat = build-services.bat
+	compose-services.local.yml = compose-services.local.yml
+	compose-services.prod.yml = compose-services.prod.yml
+	compose-infra.yml = compose-infra.yml
+	compose-redis+consul+fabio.yml = compose-redis+consul+fabio.yml
+	build-services.prod.bat = build-services.prod.bat
+	build-services.local.bat = build-services.local.bat
+	build-redis+consul+fabio.bat = build-redis+consul+fabio.bat
 EndProjectSection
 EndProject
 Global

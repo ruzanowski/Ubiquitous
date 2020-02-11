@@ -3,7 +3,7 @@ version: "2"
 services:
 
   u.api-gateway:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/apigateway:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/apigateway:${DOCKER_TAG}
     container_name: u.api-gateway
     ports:
       - 4500:4500
@@ -17,7 +17,7 @@ services:
       - ubiquitous
 
   u.product-service:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/productservice:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/productservice:${DOCKER_TAG}
     container_name: u.product-service
     ports:
       - 5000:5000
@@ -33,7 +33,7 @@ services:
       - ubiquitous
 
   u.smartstore-adapter:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/smartstoreadapter:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/smartstoreadapter:${DOCKER_TAG}
     container_name: u.smartstore-adapter
     ports:
       - 5100:5100
@@ -49,7 +49,7 @@ services:
       - ubiquitous
 
   u.fetch-service:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/fetchservice:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/fetchservice:${DOCKER_TAG}
     container_name: u.fetch-service
     ports:
       - 5200:5200
@@ -67,7 +67,7 @@ services:
       - ubiquitous
 
   u.subscription-service:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/subscriptionservice:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/subscriptionservice:${DOCKER_TAG}
     container_name: u.subscription-service
     ports:
       - 5300:5300
@@ -84,7 +84,7 @@ services:
       - ubiquitous
 
   u.identity-service:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/identityservice:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/identityservice:${DOCKER_TAG}
     container_name: u.identity-service
     ports:
       - 5400:5400
@@ -101,7 +101,7 @@ services:
       - ubiquitous
 
   u.notification-service:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/notificationservice:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/notificationservice:${DOCKER_TAG}
     container_name: u.notification-service
     ports:
       - 5500:5500
@@ -118,7 +118,7 @@ services:
       - ubiquitous
 
   u.generator-service:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/generator-service:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/generator-service:${DOCKER_TAG}
     container_name: u.generator-service
     ports:
       - 5700:5700
