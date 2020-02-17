@@ -3,21 +3,21 @@ version: "2"
 services:
 
   u.api-gateway:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/apigateway:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/apigateway:${DOCKER_TAG}
     container_name: u.api-gateway
     ports:
       - 4500:4500
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
     volumes:
-      - '${RELATIVE_PATH}/apigateway/appsettings.docker.json:/app/appsettings.docker.json:ro'
-      - '${RELATIVE_PATH}/apigateway/ocelot.json:/app/ocelot.json:ro'
+      - '${ABSOLUTE_PATH}/apigateway/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/apigateway/ocelot.json:/app/ocelot.json:ro'
     restart: on-failure
     networks:
       - ubiquitous
 
   u.product-service:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/productservice:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/productservice:${DOCKER_TAG}
     container_name: u.product-service
     ports:
       - 5000:5000
@@ -27,13 +27,13 @@ services:
       ASPNETCORE_URLS: http://+:5000
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
     volumes:
-      - '${RELATIVE_PATH}/productservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/productservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     restart: on-failure
     networks:
       - ubiquitous
 
   u.smartstore-adapter:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/smartstoreadapter:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/smartstoreadapter:${DOCKER_TAG}
     container_name: u.smartstore-adapter
     ports:
       - 5100:5100
@@ -43,13 +43,13 @@ services:
       ASPNETCORE_URLS: http://+:5100
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
     volumes:
-      - '${RELATIVE_PATH}/smartstoreadapter/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/smartstoreadapter/appsettings.docker.json:/app/appsettings.docker.json:ro'
     restart: on-failure
     networks:
       - ubiquitous
 
   u.fetch-service:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/fetchservice:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/fetchservice:${DOCKER_TAG}
     container_name: u.fetch-service
     ports:
       - 5200:5200
@@ -59,7 +59,7 @@ services:
       ASPNETCORE_URLS: http://+:5200
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
     volumes:
-      - '${RELATIVE_PATH}/fetchservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/fetchservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     depends_on:
       - u.smartstore-adapter
     restart: on-failure
@@ -67,7 +67,7 @@ services:
       - ubiquitous
 
   u.subscription-service:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/subscriptionservice:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/subscriptionservice:${DOCKER_TAG}
     container_name: u.subscription-service
     ports:
       - 5300:5300
@@ -78,13 +78,13 @@ services:
       DbOptions__Type: ${DATABASE_TYPE}
       DbOptions__AutoMigration: "true"
     volumes:
-      - '${RELATIVE_PATH}/subscriptionservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/subscriptionservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     restart: on-failure
     networks:
       - ubiquitous
 
   u.identity-service:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/identityservice:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/identityservice:${DOCKER_TAG}
     container_name: u.identity-service
     ports:
       - 5400:5400
@@ -95,13 +95,13 @@ services:
       DbOptions__Type: ${DATABASE_TYPE}
       DbOptions__AutoMigration: "true"
     volumes:
-      - '${RELATIVE_PATH}/identityservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/identityservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     restart: on-failure
     networks:
       - ubiquitous
 
   u.notification-service:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/notificationservice:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/notificationservice:${DOCKER_TAG}
     container_name: u.notification-service
     ports:
       - 5500:5500
@@ -112,18 +112,18 @@ services:
       DbOptions__Type: ${DATABASE_TYPE}
       DbOptions__AutoMigration: "true"
     volumes:
-      - '${RELATIVE_PATH}/notificationservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/notificationservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     restart: on-failure
     networks:
       - ubiquitous
 
   u.generator-service:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/generator-service:develop
+    image: registry.gitlab.com/ruzanowski/ubiquitous/generator-service:${DOCKER_TAG}
     container_name: u.generator-service
     ports:
       - 5700:5700
     volumes:
-      - '${RELATIVE_PATH}/generatorservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/generatorservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
     environment:
       ASPNETCORE_URLS: http://+:5700
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}

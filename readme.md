@@ -1,12 +1,12 @@
 # UBIQUITOUS. Real-Time State & Notification Platform.
 .NET Core with Angular on microservices. <br> 
-Subscribe on **the newest state** of products you like.
+Subscribe for **the newest state** of products you like.
 
 - [1. Introduction](#1-introduction)
     - [1.1 Functionalities](#11-functionalities)
     - [1.2 Purpose](#12-purpose)
     - [1.3 Installation On-Premises](#13-installation-on-premises)
-    - [1.4](#14-api-usage)
+    - [1.4 API Usage](#14-api-usage)
 - [2. Server Side](#2-server-side)
     - [2.1 Technologies](#21-technologies)
     - [2.2 Services](#22-services)
@@ -35,20 +35,20 @@ Subscribe on **the newest state** of products you like.
 ## 1.1. Functionalities
 - ***Notifications***
     - Channels
-        * [x] signalR (WebSocket)
-        * [x] push notification (Toastr)
-        * [ ] e-mail
+        * [x] SignalR (WebSocket)
+        * [x] Push notification (Toastr)
+        * [ ] E-mail
     - Types
-        * [x] product published, added, changed
-        * [x] user connected, disconnected
+        * [x] Product published, added, changed
+        * [x] User connected, disconnected
     - States
-        * [x] trivial, normal, important
+        * [x] Trivial, normal, important
     - Persistency
         * [x] PostgreSQL
         * [ ] Elasticsearch _(in tests)_
     - Operations
-        * [x] confirmation, hide, remove
-        * [x] welcome notifications specified timespan by user preferences
+        * [x] Confirmation, hide, remove
+        * [x] Welcome notifications specified timespan by user preferences
 - ***Processing & Capabilities***
     - Distributed processing number of products paralelly among different adapters
 - ***Identity & Authorization*** 
@@ -58,7 +58,7 @@ Subscribe on **the newest state** of products you like.
     * [ ] manage products, users, subscriptions
 ## 1.2 Purpose
 
-- primarily, **self-education** is and was my mmotivation, as well as giving my best around topics like 
+- primarily, **self-education** has been my motivation, as well as giving my best around topics like 
      - .NET Core
      - DDD
      - Microservices
@@ -66,9 +66,9 @@ Subscribe on **the newest state** of products you like.
      - Angular
      - ...
      - and so much more
-- Secondly **most of repositories** I have visited were
-    - Relatively small, no possibility to run into performance issues 
-    - Easy concerns or well known domain (orders, eShop) or unfinished
+- Secondly, **most of repositories** I have visited were
+    - Relatively small, no possibility to run into performance, integration, authorization issues et cetera 
+    - Easy concerns or unfinished
     
 ## 1.3 Installation On-Premises
 
@@ -80,9 +80,9 @@ Subscribe on **the newest state** of products you like.
     - Docker composer
     
 1.3.1. Run 
-```cmd
-docker-compose -f docker-compose-infrastructure.yml up
-```
+
+> build-infra.bat
+
 1.3.2. Enter localhost:5450 (PGAdmin) and run
 ```postgresql
 
@@ -95,23 +95,28 @@ CREATE DATABASE "identity-service";
 
 ```
 
-1.3.3. Replace value from file '.env' and row 'RELATIVEPATH' to your relative path indicating folder containing folders with appsettings or adjust them to your preferenes.
-
+1.3.3 Install services
+1.3.3a External run e.g. portainer stack 
+    - Replace environment 'ABSOLUTE_PATH' in '.env' file and indicate folder containing configuration
+    - Run >
+    > build-services.external.bat 
+1.3.3b Local run
+    - Run
+    > build-services.loca.bat
 1.3.4. Run 
-
 ```cmd
 docker-compose -f docker-compose-services.yml up
 ```
 
-1.3.5. You can manage all containers from portainer dashboard.
+1.3.5. You can manage all containers from portainer dashboard or through Docker CLI.
 
 <p align="center">
-   <img alt="Portainer dashboard" src="img/Portainer.png" />
+   <img alt="Portainer dashboard" src="img/Portainer-min.png" />
 </p>
 
 </details>
     
-###1.4 API Usage
+### 1.4 API Usage
 
 _To be determined_
 
@@ -127,15 +132,14 @@ Whole solution is broken down to
 Down below, a services dependency diagram. See to #3.1 for listed used technologies, tools and their use.
     
 <p align="center">
-   <img alt="Containers diagram v0.2" src="img/containers-v.0.2.png" />
+   <img alt="Containers diagram v0.2" src="img/containers-v.0.2-min.png" />
 </p>
-
 
 ### 2.1 Technologies
 
-What you might see in the scope of my project. Things mentioned below are implemented or used from legal external sources, feel free to use and free to contribute.
+What you might see in the scope of my project. Things mentioned below are implemented or used from legal external sources, feel free to use and to contribute.
 
-#### ***V0.1***
+#### ***Release V0.1***
 - RESTful API implemented in [***ASP.NET Core***](https://docs.microsoft.com/en-us/aspnet/core) 
 - [CQRS](https://martinfowler.com/bliki/CQRS.html), [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design), [EDA](https://en.wikipedia.org/wiki/Event-driven_architecture) might be found extensively
 - Object-Relational Mapping serving easier database connectivity with [***Entity Framework Core***](https://docs.microsoft.com/en-US/ef/core/) 
@@ -150,7 +154,7 @@ What you might see in the scope of my project. Things mentioned below are implem
 - Message queue [***RabbitMQ***](https://www.rabbitmq.com/) with [***RawRabbit***](https://github.com/pardahlman/RawRabbit) implementation
 - HTTP Call [Load Balancing](https://www.citrix.com/glossary/load-balancing.html) between services with [***Fabio***](https://github.com/fabiolb/fabio)
 
-#### ***V0.2***
+#### ***Release V0.2***
 - Monitoring stack thanks by ELK stack ([***Elasticsearch***](https://www.elastic.co/) [***Logstash***](https://www.elastic.co/) [***Kibana***](https://www.elastic.co/))
 - Logging with [***Serilog***](https://serilog.net/), [***Elasticsearch***](https://www.elastic.co/)
 - Tracing with [OpenTracing](https://opentracing.io/), [***Jaeger***](https://github.com/jaegertracing/jaeger)
@@ -160,7 +164,7 @@ What you might see in the scope of my project. Things mentioned below are implem
 
 **Services**
 - ***SmartStore Adapter*** Mock Adapter, source of products ((v.0.3) is going to deprecate this definition, see 5.2) 
-- ***Fetch Service*** Fetches data from wholesales(many) and pushes newest items on bus ((v.0.3) is going to deprecate this definition see 5.2) 
+- ***Fetch Service*** Fetches data from wholesales(many) and pushes newest items on the bus ((v.0.3) is going to deprecate this definition see 5.2) 
 - ***Product Service*** Main domain aggregate service, handles products and its business logic
 - ***Notification Service*** Handles notifications and channels it by WebSocket
 - ***Identity Service*** Handles identity of user and managed Jwt tokens
@@ -189,28 +193,19 @@ What you might see in the scope of my project. Things mentioned below are implem
 Each service is self registering to the Consul registry, containing every active service. This registry as well checks healthness of service with optional keep-alive with specified per-service interval.
 
 <p align="center">
-   <img alt="Consul Service Discovery" src="img/Consul.png" />
+   <img alt="Consul Service Discovery" src="img/Consul-min.png" />
 </p>
         
-## 3. Client Side
+## 3. Client Side 
+
+Login Page             |  Dashboard
+:-------------------------:|:-------------------------:
+![](img/login-page.png)  |  ![](img/ubiquitous-current-state-min.png)
 
 
-
-<p align="center">
-   <img alt="Dashboard" src="img/ubiquitous-current-state.png" />
-</p>
-
-<p align="center">
-   <img alt="Subscription first tab" src="img/Subscription.png" />
-</p>
-
-<p align="center">
-   <img alt="Subscription Second tab" src="img/Subscription2.png" />
-</p>
-
-<p align="center">
-   <img alt="Products tabs" src="img/Products.png" />
-</p>
+Subscription             |  Products
+:-------------------------:|:-------------------------:
+![](img/Subscription-min.png)  |  ![](img/Products-min.png)
 
 ### 3.1 Technologies and tools
 
@@ -232,7 +227,7 @@ Ubiquitous communicates in two ways, synchronous (HTTP) and asynchronous (WebSoc
 UI Dashboard statistics are pull-based calls. Each call returns definite data, sourcing charts, either dashboard cards.  
 
 <p align="center">
-   <img alt="Dashboard composition of synchronous calls" src="img/dashboard-calls.png" />
+   <img alt="Dashboard composition of synchronous calls" src="img/dashboard-calls-min.png" />
 </p>
 
 ### 4.2 WebSocket (SignalR)
@@ -242,7 +237,7 @@ On the right, notification bar is websocket-based. Each notification that falls 
 Every command is pushed to the server via web-socket. Any signalr connectivity failure or 401 http call **results with loggout** and SignalR connection abort.   
 
 <p align="center">
-   <img alt="Dashboard composition of synchronous calls" src="img/signalr.png" />
+   <img alt="Dashboard composition of synchronous calls" src="img/signalr-min.png" />
 </p>
 
 ## 5. RoadMap
@@ -266,11 +261,11 @@ Every command is pushed to the server via web-socket. Any signalr connectivity f
 |Metrics (App.Metrics + Influx)|-----|Completed|01.2020|V.0.2|
 |Tracing (Jaeger)|-----|Completed|01.2020|V.0.2|
 |Logging (Serilog + Elasticsearch)|-----|Completed|01.2020|V.0.2|
+|Extended CI pipelines |-----|Completed|02.2020|v.0.2|
 |ELK stack (Elasticsearch, Logstash, Kibana) integration|Medium|In Progress| |V.0.2|
-|Create Adapters Managmenent Service with Observer pattern|High| | |V.0.3|
-|Create Adapters with product's change compare functionality on adapters level|High| | |V.0.3|
-|Integration Tests across every service|<span style="color:red">Critical</span>|||v.0.4|
-|Extended CI pipelines |Medium|||v.0.4|
+|Create Adapters Managmenent Service with Observer pattern|High| | |V.0.3 (March)|
+|Create Adapters with product's change compare functionality on adapters level|High| | |V.0.3 (March)|
+|Integration Tests across every service|<span style="color:red">Critical</span>|||v.0.4 (April)|
 |Migration to .NET Core 3.1 |Medium||||
 |Admin Panel (products)|Medium||||
 |Admin Panel (subscribers)|Medium||||
@@ -296,13 +291,13 @@ Release V0.3 scope shall bring
 + Adapters Management Service
 
 <p align="center">
-   <img alt="Containers diagram v0.3 src="img/containers-v.0.3.png" />
+   <img alt="Containers diagram v0.3" src="img/containers-v.0.3-min.png" />
 </p>
 
 Below diagram depicts change between upper, current (v.0.1, v.0.2) adapters architecture and below (v.0.3) with newest structure and data flow.
 
 <p align="center">
-    <img alt="Containers diagram v0.3" src="img/adapters-v.0.3.png" />
+    <img alt="Containers diagram v0.3" src="img/adapters-v.0.3-min.png" />
 </p>
 
 ## 6. Contributing

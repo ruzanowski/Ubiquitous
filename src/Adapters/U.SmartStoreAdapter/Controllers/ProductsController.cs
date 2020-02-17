@@ -31,7 +31,6 @@ namespace U.SmartStoreAdapter.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("")]
-        [Consumes("application/json")]
         [ProducesResponseType(typeof(PaginatedItems<SmartProductViewModel>), 200)]
         public async Task<IActionResult> GetProductsList([FromQuery] GetProductsListQuery productsListQuery)
         {
