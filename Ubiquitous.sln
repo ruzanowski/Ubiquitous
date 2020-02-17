@@ -113,13 +113,19 @@ ProjectSection(SolutionItems) = preProject
 	compose-elk+jaeger.yml = compose-elk+jaeger.yml
 	build-elk+jaeger.bat = build-elk+jaeger.bat
 	build-infra.bat = build-infra.bat
-	compose-services.local.yml = compose-services.local.yml
-	compose-services.prod.yml = compose-services.prod.yml
 	compose-infra.yml = compose-infra.yml
 	compose-redis+consul+fabio.yml = compose-redis+consul+fabio.yml
 	build-services.prod.bat = build-services.prod.bat
 	build-services.local.bat = build-services.local.bat
 	build-redis+consul+fabio.bat = build-redis+consul+fabio.bat
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ELK", "ELK", "{33842299-9FA9-4243-966B-F0537547CE3B}"
+ProjectSection(SolutionItems) = preProject
+	elk\elasticsearch\config\elasticsearch.yml = elk\elasticsearch\config\elasticsearch.yml
+	elk\kibana\config\kibana.yml = elk\kibana\config\kibana.yml
+	elk\logstash\pipeline\logstash.conf = elk\logstash\pipeline\logstash.conf
+	elk\logstash\config\logstash.yml = elk\logstash\config\logstash.yml
 EndProjectSection
 EndProject
 Global
@@ -289,5 +295,6 @@ Global
 		{DB82EEF6-6647-4B76-A433-DFE91990734F} = {156CA4CF-7690-4597-91B9-1BFDBEE196F0}
 		{EAD0C789-AB13-4AE9-AA60-6A7E2CF4DA01} = {8EE0DD79-8255-4E04-84A7-830B8947E7C5}
 		{7112E37D-6184-46D9-898A-3D28207AC8E8} = {8EE0DD79-8255-4E04-84A7-830B8947E7C5}
+		{33842299-9FA9-4243-966B-F0537547CE3B} = {8EE0DD79-8255-4E04-84A7-830B8947E7C5}
 	EndGlobalSection
 EndGlobal
