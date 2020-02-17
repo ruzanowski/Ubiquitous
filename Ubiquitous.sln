@@ -39,8 +39,7 @@ ProjectSection(SolutionItems) = preProject
 	.gitignore = .gitignore
 	.compose-infra.yml = compose-infra.yml
 	.compose-services.local.yml = compose-services.local.yml
-	.compose-services.prod.yml = compose-services.prod.yml
-	readme.md = readme.md
+	.compose-services.external.yml = compose-services.external.yml
 	Nuget.Config = Nuget.Config
 	.env = .env
 EndProjectSection
@@ -114,10 +113,10 @@ ProjectSection(SolutionItems) = preProject
 	build-elk+jaeger.bat = build-elk+jaeger.bat
 	build-infra.bat = build-infra.bat
 	compose-infra.yml = compose-infra.yml
-	compose-redis+consul+fabio.yml = compose-redis+consul+fabio.yml
-	build-services.prod.bat = build-services.prod.bat
+	build-services.external.bat = build-services.external.bat
 	build-services.local.bat = build-services.local.bat
-	build-redis+consul+fabio.bat = build-redis+consul+fabio.bat
+	compose-services.local.yml = compose-services.local.yml
+	compose-services.external.yml = compose-services.external.yml
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ELK", "ELK", "{33842299-9FA9-4243-966B-F0537547CE3B}"
@@ -126,6 +125,25 @@ ProjectSection(SolutionItems) = preProject
 	elk\kibana\config\kibana.yml = elk\kibana\config\kibana.yml
 	elk\logstash\pipeline\logstash.conf = elk\logstash\pipeline\logstash.conf
 	elk\logstash\config\logstash.yml = elk\logstash\config\logstash.yml
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{75552B0A-F300-4444-ACEB-04CCD8D1556A}"
+ProjectSection(SolutionItems) = preProject
+	readme.md = readme.md
+	img\adapters-v.0.3-min.png = img\adapters-v.0.3-min.png
+	img\bell.gif = img\bell.gif
+	img\Consul-min.png = img\Consul-min.png
+	img\containers-v.0.2-min.png = img\containers-v.0.2-min.png
+	img\containers-v.0.3-min.png = img\containers-v.0.3-min.png
+	img\dashboard-calls-min.png = img\dashboard-calls-min.png
+	img\Fabio-LB-min.png = img\Fabio-LB-min.png
+	img\Portainer-min.png = img\Portainer-min.png
+	img\Products-min.png = img\Products-min.png
+	img\RabbitMQ-min.PNG = img\RabbitMQ-min.PNG
+	img\signalr-min.png = img\signalr-min.png
+	img\Subscription-min.png = img\Subscription-min.png
+	img\Subscription2-min.png = img\Subscription2-min.png
+	img\ubiquitous-current-state-min.png = img\ubiquitous-current-state-min.png
 EndProjectSection
 EndProject
 Global
@@ -296,5 +314,6 @@ Global
 		{EAD0C789-AB13-4AE9-AA60-6A7E2CF4DA01} = {8EE0DD79-8255-4E04-84A7-830B8947E7C5}
 		{7112E37D-6184-46D9-898A-3D28207AC8E8} = {8EE0DD79-8255-4E04-84A7-830B8947E7C5}
 		{33842299-9FA9-4243-966B-F0537547CE3B} = {8EE0DD79-8255-4E04-84A7-830B8947E7C5}
+		{75552B0A-F300-4444-ACEB-04CCD8D1556A} = {8EE0DD79-8255-4E04-84A7-830B8947E7C5}
 	EndGlobalSection
 EndGlobal
