@@ -270,11 +270,11 @@ Every command is pushed to the server via web-socket. Any signalr connectivity f
 |Metrics (App.Metrics + Influx)|-----|Completed|01.2020|V.0.2|
 |Tracing (Jaeger)|-----|Completed|01.2020|V.0.2|
 |Logging (Serilog + Elasticsearch)|-----|Completed|01.2020|V.0.2|
+|Extended CI pipelines |-----|Completed|02.2020|v.0.2|
 |ELK stack (Elasticsearch, Logstash, Kibana) integration|Medium|In Progress| |V.0.2|
-|Create Adapters Managmenent Service with Observer pattern|High| | |V.0.3|
-|Create Adapters with product's change compare functionality on adapters level|High| | |V.0.3|
-|Integration Tests across every service|<span style="color:red">Critical</span>|||v.0.4|
-|Extended CI pipelines |Medium|||v.0.4|
+|Create Adapters Managmenent Service with Observer pattern|High| | |V.0.3 (March)|
+|Create Adapters with product's change compare functionality on adapters level|High| | |V.0.3 (March)|
+|Integration Tests across every service|<span style="color:red">Critical</span>|||v.0.4 (April)|
 |Migration to .NET Core 3.1 |Medium||||
 |Admin Panel (products)|Medium||||
 |Admin Panel (subscribers)|Medium||||
@@ -300,7 +300,7 @@ Release V0.3 scope shall bring
 + Adapters Management Service
 
 <p align="center">
-   <img alt="Containers diagram v0.3 src="img/containers-v.0.3-min.png" />
+   <img alt="Containers diagram v0.3" src="img/containers-v.0.3-min.png" />
 </p>
 
 Below diagram depicts change between upper, current (v.0.1, v.0.2) adapters architecture and below (v.0.3) with newest structure and data flow.
