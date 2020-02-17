@@ -144,6 +144,7 @@ ProjectSection(SolutionItems) = preProject
 	img\Subscription-min.png = img\Subscription-min.png
 	img\Subscription2-min.png = img\Subscription2-min.png
 	img\ubiquitous-current-state-min.png = img\ubiquitous-current-state-min.png
+	img\login-page.png = img\login-page.png
 EndProjectSection
 EndProject
 Global
