@@ -111,12 +111,12 @@ docker-compose -f docker-compose-services.yml up
 1.3.5. You can manage all containers from portainer dashboard or through Docker CLI.
 
 <p align="center">
-   <img alt="Portainer dashboard" src="img/Portainer.min.png" />
+   <img alt="Portainer dashboard" src="img/Portainer-min.png" />
 </p>
 
 </details>
     
-###1.4 API Usage
+### 1.4 API Usage
 
 _To be determined_
 
@@ -132,7 +132,7 @@ Whole solution is broken down to
 Down below, a services dependency diagram. See to #3.1 for listed used technologies, tools and their use.
     
 <p align="center">
-   <img alt="Containers diagram v0.2" src="img/containers-v.0.2.min.png" />
+   <img alt="Containers diagram v0.2" src="img/containers-v.0.2-min.png" />
 </p>
 
 ### 2.1 Technologies
@@ -193,7 +193,7 @@ What you might see in the scope of my project. Things mentioned below are implem
 Each service is self registering to the Consul registry, containing every active service. This registry as well checks healthness of service with optional keep-alive with specified per-service interval.
 
 <p align="center">
-   <img alt="Consul Service Discovery" src="img/Consul.min.png" />
+   <img alt="Consul Service Discovery" src="img/Consul-min.png" />
 </p>
         
 ## 3. Client Side
@@ -201,19 +201,19 @@ Each service is self registering to the Consul registry, containing every active
 
 
 <p align="center">
-   <img alt="Dashboard" src="img/ubiquitous-current-state.min.png" />
+   <img alt="Dashboard" src="img/ubiquitous-current-state-min.png" />
 </p>
 
 <p align="center">
-   <img alt="Subscription first tab" src="img/Subscription.min.png" />
+   <img alt="Subscription first tab" src="img/Subscription-min.png" />
 </p>
 
 <p align="center">
-   <img alt="Subscription Second tab" src="img/Subscription2.min.png" />
+   <img alt="Subscription Second tab" src="img/Subscription2-min.png" />
 </p>
 
 <p align="center">
-   <img alt="Products tabs" src="img/Products.min.png" />
+   <img alt="Products tabs" src="img/Products-min.png" />
 </p>
 
 ### 3.1 Technologies and tools
@@ -236,7 +236,7 @@ Ubiquitous communicates in two ways, synchronous (HTTP) and asynchronous (WebSoc
 UI Dashboard statistics are pull-based calls. Each call returns definite data, sourcing charts, either dashboard cards.  
 
 <p align="center">
-   <img alt="Dashboard composition of synchronous calls" src="img/dashboard-calls.min.png" />
+   <img alt="Dashboard composition of synchronous calls" src="img/dashboard-calls-min.png" />
 </p>
 
 ### 4.2 WebSocket (SignalR)
@@ -246,7 +246,7 @@ On the right, notification bar is websocket-based. Each notification that falls 
 Every command is pushed to the server via web-socket. Any signalr connectivity failure or 401 http call **results with loggout** and SignalR connection abort.   
 
 <p align="center">
-   <img alt="Dashboard composition of synchronous calls" src="img/signalr.min.png" />
+   <img alt="Dashboard composition of synchronous calls" src="img/signalr-min.png" />
 </p>
 
 ## 5. RoadMap
@@ -300,13 +300,13 @@ Release V0.3 scope shall bring
 + Adapters Management Service
 
 <p align="center">
-   <img alt="Containers diagram v0.3 src="img/containers-v.0.3.min.png" />
+   <img alt="Containers diagram v0.3 src="img/containers-v.0.3-min.png" />
 </p>
 
 Below diagram depicts change between upper, current (v.0.1, v.0.2) adapters architecture and below (v.0.3) with newest structure and data flow.
 
 <p align="center">
-    <img alt="Containers diagram v0.3" src="img/adapters-v.0.3.min.png" />
+    <img alt="Containers diagram v0.3" src="img/adapters-v.0.3-min.png" />
 </p>
 
 ## 6. Contributing
