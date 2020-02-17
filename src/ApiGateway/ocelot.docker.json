@@ -1,0 +1,94 @@
+{
+  "ReRoutes": [
+    {
+      "UpstreamPathTemplate": "/api/apigateway/health/{everything}",
+      "DownstreamPathTemplate": "/api/apigateway/health/{everything}",
+      "DownstreamScheme": "http",
+      "ReRouteIsCaseSensitive": false,
+      "UpstreamHttpMethod": [ "Get","Post","Put", "Delete" ],
+      "ServiceName": "u.api-gateway"
+    },
+    {
+      "UpstreamPathTemplate": "/api/product/{everything}",
+      "DownstreamPathTemplate": "/api/product/{everything}",
+      "DownstreamScheme": "http",
+      "ServiceName": "u.product-service",
+      "ReRouteIsCaseSensitive": false,
+      "UpstreamHttpMethod": [ "Get","Post","Put", "Delete" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/identity/auth/{everything}",
+      "DownstreamPathTemplate": "/api/identity/auth/{everything}",
+      "DownstreamScheme": "http",
+      "ReRouteIsCaseSensitive": false,
+      "UpstreamHttpMethod": [ "Get","Post","Put", "Delete" ],
+      "ServiceName": "u.identity-service"
+    },
+    {
+      "UpstreamPathTemplate": "/api/identity/{everything}",
+      "DownstreamPathTemplate": "/api/identity/{everything}",
+      "DownstreamScheme": "http",
+      "ReRouteIsCaseSensitive": false,
+      "UpstreamHttpMethod": [ "Get","Post","Put", "Delete" ],
+      "ServiceName": "u.identity-service",
+      "AuthenticationOptions":
+      {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/notification/{everything}",
+      "DownstreamPathTemplate": "/api/notification/{everything}",
+      "DownstreamScheme": "http",
+      "ReRouteIsCaseSensitive": false,
+      "UpstreamHttpMethod": [ "Get","Post","Put", "Delete" ],
+      "ServiceName": "u.notification-service",
+      "AuthenticationOptions":
+      {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/subscription/{everything}",
+      "DownstreamPathTemplate": "/api/subscription/{everything}",
+      "DownstreamScheme": "http",
+      "ReRouteIsCaseSensitive": false,
+      "UpstreamHttpMethod": [ "Get","Post","Put", "Delete" ],
+      "ServiceName": "u.subscription-service",
+      "AuthenticationOptions":
+      {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/signalr",
+      "DownstreamPathTemplate": "/signalr",
+      "DownstreamScheme": "ws",
+      "ReRouteIsCaseSensitive": false,
+      "UpstreamHttpMethod": [ "Get","Post","Put", "Delete" ],
+      "ServiceName": "u.notification-service"
+    },
+    {
+      "UpstreamPathTemplate": "/signalr/{everything}",
+      "DownstreamPathTemplate": "/signalr/{everything}",
+      "DownstreamScheme": "ws",
+      "ReRouteIsCaseSensitive": false,
+      "ServiceName": "u.notification-service"
+    }
+  ],
+  "GlobalConfiguration": {
+    "UseServiceDiscovery": true,
+    "ServiceDiscoveryProvider": {
+      "Host": "consul",
+      "Port": 8500,
+      "Type": "Consul"
+    }
+  }
+}

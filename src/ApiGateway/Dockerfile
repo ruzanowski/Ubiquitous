@@ -1,23 +1,22 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS base
-WORKDIR /app
-EXPOSE 4500/tcp
-ENV ASPNETCORE_URLS http://*:4500
-
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
-WORKDIR /src
+WORKDIR /source
+ARG NUGET_CONFIG_FILE
 
-COPY src/BuildingBlocks/Common/*.csproj /src/csproj-files/
-COPY src/ApiGateway/*.csproj /src/csproj-files/
-
+# copy csproj and restore as distinct layers
+COPY *.csproj .
 COPY . .
+RUN dotnet restore "./U.ApiGateway.csproj" /property:Configuration=Release --configfile "${NUGET_CONFIG_FILE}"
 
-WORKDIR /src/src/ApiGateway
-RUN dotnet publish -c Release -o /app
+# copy everything else and build app
+WORKDIR /source
+COPY . .
+RUN dotnet publish -c release -o /app --no-restore
 
-FROM build AS publish
-
-FROM base AS final
+# final stage/image
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 WORKDIR /app
-COPY --from=publish /app .
+COPY --from=build /app ./
 
+# environment variables
+ENV ASPNETCORE_URLS http://*:4500
 ENTRYPOINT ["dotnet", "U.ApiGateway.dll"]

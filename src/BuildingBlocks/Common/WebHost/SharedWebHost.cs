@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using Npgsql;
 using Polly;
 using Serilog;
+using U.Common.Elasticsearch;
+using U.Common.Influx;
 
 namespace U.Common.WebHost
 {
@@ -64,7 +66,7 @@ namespace U.Common.WebHost
             seeder(context, services);
         }
 
-        public static IWebHost BuildWebHost<TStartup>(IConfiguration configuration, string[] args)
+        public static IWebHost BuildWebHost<TStartup>(IConfiguration configuration, string[] args, string appName)
             where TStartup : class
             => Microsoft.AspNetCore.WebHost.CreateDefaultBuilder(args)
                 .CaptureStartupErrors(false)
@@ -72,16 +74,8 @@ namespace U.Common.WebHost
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseConfiguration(configuration)
                 .UseSerilog()
+                .UseInflux()
                 .Build();
-
-        public static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration, string appName)
-        {
-            return new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .WriteTo.Console()
-                .ReadFrom.Configuration(configuration)
-                .CreateLogger();    
-        }
 
         public static IConfiguration GetConfiguration() =>
             new ConfigurationBuilder()
@@ -89,7 +83,25 @@ namespace U.Common.WebHost
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile(
                     $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower()}.json",
-                    optional: true, true)
+                    true, true)
                 .AddEnvironmentVariables().Build();
+
+
+        public static Serilog.ILogger CreateSerilog(IConfiguration configuration, string env, string appName)
+        {
+            return new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .Enrich.WithEnvironmentUserName()
+                .Enrich.WithMachineName()
+                .Enrich.FromLogContext()
+                .WriteToSinks(configuration)
+                .CreateLogger();
+        }
+
+        private static LoggerConfiguration WriteToSinks(this LoggerConfiguration loggerConfiguration,
+            IConfiguration configuration) =>
+            loggerConfiguration
+                .WriteTo.Console()
+                .ElasticsearchSink(configuration);
     }
 }

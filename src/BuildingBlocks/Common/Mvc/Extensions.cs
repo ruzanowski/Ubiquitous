@@ -19,7 +19,7 @@ namespace U.Common.Mvc
             {
                 using (var scope = c.ApplicationServices.CreateScope())
                 {
-                    var id = scope.ServiceProvider.GetService<IServiceIdService>().Id;
+                    var id = scope.ServiceProvider.GetService<ISelfInfoService>().Id;
                     await ctx.Response.WriteAsync(id);
                 }
             }));
@@ -46,23 +46,11 @@ namespace U.Common.Mvc
 
             services.AddMvc();
 
-            services.AddSingleton<IServiceIdService, ServiceIdService>();
+            services.AddSingleton<ISelfInfoService, SelfInfoService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             return services;
         }
-
-        public static IMvcCoreBuilder AddDefaultJsonOptions(this IMvcCoreBuilder builder)
-            => builder.AddJsonOptions(o =>
-            {
-                o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                o.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
-                o.SerializerSettings.DateParseHandling = DateParseHandling.DateTimeOffset;
-                o.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.None;
-                o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                o.SerializerSettings.Formatting = Formatting.Indented;
-                o.SerializerSettings.Converters.Add(new StringEnumConverter());
-            });
 
         public static (IApplicationBuilder, string) UsePathBase<T>(this IApplicationBuilder app,
             IConfiguration configuration, ILogger<T> logger)

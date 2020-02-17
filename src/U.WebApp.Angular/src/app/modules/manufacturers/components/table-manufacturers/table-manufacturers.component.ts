@@ -1,6 +1,6 @@
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {Manufacturer} from "../../models/Manufacturer.model";
+import {Manufacturer} from "../../models/manufacturer.model";
 import {ManufacturerService} from "../../manufacturers.service";
 import {Component, OnInit, ViewChild} from "@angular/core";
 

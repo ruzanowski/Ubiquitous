@@ -4,7 +4,7 @@ import {
 } from 'chartist';
 import {ChartEvent, ChartType} from 'ng-chartist';
 import {Component} from "@angular/core";
-import ChartistTooltip from 'chartist-plugin-tooltips-updated';
+// import ChartistTooltip from 'chartist-plugin-tooltips-updated';
 import {Observable, of} from "rxjs";
 import {NotificationHttpService} from "../../../../notifications/services/notification-http.service";
 import * as moment from "moment";
@@ -37,12 +37,12 @@ export class NotificationsBarChartComponent {
       showGrid: true,
     },
     height: 250,
-    plugins: [
-      ChartistTooltip({
-        anchorToPoint: true,
-        appendToBody: true
-      })
-    ],
+    // plugins: [
+    //   ChartistTooltip({
+    //     anchorToPoint: true,
+    //     appendToBody: true
+    //   })
+    // ],
     showPoint: false,
     showArea: true,
 

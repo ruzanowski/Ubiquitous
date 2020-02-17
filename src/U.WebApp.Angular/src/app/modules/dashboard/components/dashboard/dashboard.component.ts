@@ -14,12 +14,12 @@ import {NotificationHttpService} from "../../../notifications/services/notificat
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  private productCardCount: number = 0;
-  private manufacturerCardCount: number = 0;
-  private categoryCardCount: number = 0;
-  private notificationsCardCount: number = 0;
-  private usersOnlineCardCount: number = 0;
-  private usersOverallCardCount: number = 0;
+  public productCardCount: number = 0;
+  public manufacturerCardCount: number = 0;
+  public categoryCardCount: number = 0;
+  public notificationsCardCount: number = 0;
+  public usersOnlineCardCount: number = 0;
+  public usersOverallCardCount: number = 0;
   created = new Date();
 
   errorReceived: boolean;

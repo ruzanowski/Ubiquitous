@@ -15,13 +15,13 @@ export class CategoryService {
   }
 
   getCategories(): Observable<PaginatedItems<Category>> {
-    let url = this.categoryBaseUrl + '/query' + this.pageSizeQuery;
+    let url = this.categoryBaseUrl + "/query" +this.pageSizeQuery;
 
     return this.service.get(url).pipe(map((response: any) => response));
   }
 
   getCategory(id: string): Observable<Category> {
-    let url = this.categoryBaseUrl + '/query/' + id;
+    let url = this.categoryBaseUrl + id;
 
     return this.service.get(url).pipe(map((response: any) => response));
   }

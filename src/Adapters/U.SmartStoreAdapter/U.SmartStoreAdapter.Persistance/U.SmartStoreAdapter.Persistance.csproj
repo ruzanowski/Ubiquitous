@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <RootNamespace>SmartStore.Persistance</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MiniProfiler.AspNetCore" Version="4.*" />
+        <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.*" />
+        <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.*" />
+        <ProjectReference Include="..\U.SmartStoreAdapter.Domain\U.SmartStoreAdapter.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <PackageReference Include="Ubiquitous.IntegrationEventLog" Version="0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Migrations" />
+    </ItemGroup>
+
+</Project>
