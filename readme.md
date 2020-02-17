@@ -198,8 +198,6 @@ Each service is self registering to the Consul registry, containing every active
         
 ## 3. Client Side
 
-
-
 <p align="center">
    <img alt="Dashboard" src="img/ubiquitous-current-state-min.png" />
 </p>

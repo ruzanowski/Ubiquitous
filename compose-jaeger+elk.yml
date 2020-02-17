@@ -1,65 +1,74 @@
-version: "3.5"
+version: '3.5'
 
 services:
   elasticsearch:
     container_name: elasticsearch
     build:
-      context: elk/elasticsearch/
+      context: elasticsearch/
       args:
         ELK_VERSION: $ELK_VERSION
+    volumes:
+      - type: bind
+        source: ./elasticsearch/config/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+      - type: volume
+        source: elasticsearch
+        target: /usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
     environment:
-      - 'discovery.type=single-node'
-      - ES_JAVA_OPTS=-Xms512m -Xmx512m
-      - xpack.security.enabled=false
-    restart: unless-stopped
-    volumes:
-      - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
-      - elasticsearch:/usr/share/elasticsearch/data
-      - elasticsearchlogs:/usr/share/elasticsearch/logs
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ELASTIC_PASSWORD: changeme
+      # Use single node discovery in order to disable production mode and avoid bootstrap checks
+      # see https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+      discovery.type: single-node
     networks:
       - ubiquitous
 
   logstash:
     container_name: logstash
     build:
-      context: elk/logstash/
+      context: logstash/
       args:
         ELK_VERSION: $ELK_VERSION
     volumes:
-      - ./elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
-      - ./elk/logstash/pipeline:/usr/share/logstash/pipeline:ro
+      - type: bind
+        source: ./logstash/config/logstash.yml
+        target: /usr/share/logstash/config/logstash.yml
+        read_only: true
+      - type: bind
+        source: ./logstash/pipeline
+        target: /usr/share/logstash/pipeline
+        read_only: true
     ports:
-      - "9450:9450"
+      - "7000:7000/tcp"
+      - "7000:7000/udp"
       - "9600:9600"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
-    restart: unless-stopped
     networks:
       - ubiquitous
     depends_on:
-      - elasticsearch
-    links:
       - elasticsearch
 
   kibana:
     container_name: kibana
     build:
-      context: elk/kibana/
+      context: kibana/
       args:
         ELK_VERSION: $ELK_VERSION
     volumes:
-      - ./elk/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+      - type: bind
+        source: ./kibana/config/kibana.yml
+        target: /usr/share/kibana/config/kibana.yml
+        read_only: true
     ports:
       - "5601:5601"
     networks:
       - ubiquitous
-    restart: unless-stopped
     depends_on:
-      - elasticsearch
-    links:
       - elasticsearch
 
   jaeger-collector:
@@ -75,7 +84,7 @@ services:
     restart: unless-stopped
     environment:
       - SPAN_STORAGE_TYPE=elasticsearch
-    command: ["--span-storage.type=elasticsearch", "--es.server-urls=http://elasticsearch:9200", "--es.tags-as-fields.all=true", "--es.num-shards=1",  "--log-level=error" ]
+    command: ["--span-storage.type=elasticsearch", "--es.server-urls=http://elasticsearch:9200", "--es.username=elastic", "--es.password=changeme", "--es.tags-as-fields.all=true", "--es.num-shards=1",  "--log-level=error" ]
     depends_on:
       - elasticsearch
     links:
@@ -115,29 +124,22 @@ services:
     networks:
       - ubiquitous
     restart: unless-stopped
-    command: ["--span-storage.type=elasticsearch", "--es.server-urls=http://elasticsearch:9200", "--es.sniffer=false", "--log-level=debug"]
+    command: ["--span-storage.type=elasticsearch", "--es.server-urls=http://elasticsearch:9200", "--es.username=elastic", "--es.password=changeme", "--es.sniffer=false", "--log-level=debug"]
     depends_on:
       - jaeger-agent
+      - elasticsearch
     links:
       - jaeger-agent
-
-volumes:
-  elasticsearch:
-    driver: local
-  elasticsearchlogs:
-    driver: local
-  logstash:
-    driver: local
-  kibana:
-    driver: local
-  jaeger-query:
-    driver: local
-  jaeger-agent:
-    driver: local
-  jaeger-collector:
-    driver: local
+      - elasticsearch
 
 networks:
   ubiquitous:
+    driver: bridge
     name: ubiquitous
     external: true
+
+volumes:
+  elasticsearch:
+  jaeger-query:
+  jaeger-agent:
+  jaeger-collector:
