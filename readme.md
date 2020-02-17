@@ -196,23 +196,16 @@ Each service is self registering to the Consul registry, containing every active
    <img alt="Consul Service Discovery" src="img/Consul-min.png" />
 </p>
         
-## 3. Client Side
+## 3. Client Side 
 
-<p align="center">
-   <img alt="Dashboard" src="img/ubiquitous-current-state-min.png" />
-</p>
+Login Page             |  Dashboard
+:-------------------------:|:-------------------------:
+![](img/login-page.png)  |  ![](img/ubiquitous-current-state-min.png)
 
-<p align="center">
-   <img alt="Subscription first tab" src="img/Subscription-min.png" />
-</p>
 
-<p align="center">
-   <img alt="Subscription Second tab" src="img/Subscription2-min.png" />
-</p>
-
-<p align="center">
-   <img alt="Products tabs" src="img/Products-min.png" />
-</p>
+Subscription             |  Products
+:-------------------------:|:-------------------------:
+![](img/Subscription-min.png)  |  ![](img/Products-min.png)
 
 ### 3.1 Technologies and tools
 
