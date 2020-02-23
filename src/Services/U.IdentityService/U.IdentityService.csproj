@@ -5,6 +5,7 @@
 
   <ItemGroup>
     <ProjectReference Include="U.IdentityService.Application\U.IdentityService.Application.csproj" />
+    <ProjectReference Include="U.IdentityService.DomainTests\U.IdentityService.DomainTests.csproj" />
   </ItemGroup>
   
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
@@ -25,6 +26,7 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Remove="U.IdentityService.DomainTests\**" />
+    <Content Remove="U.IdentityService.ApplicationTests\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,6 +61,14 @@
     <None Remove="U.IdentityService.DomainTests\**" />
     <_ContentIncludedByDefault Remove="U.IdentityService.DomainTests\obj\project.assets.json" />
     <_ContentIncludedByDefault Remove="U.IdentityService.DomainTests\obj\project.packagespec.json" />
+    <Compile Remove="U.IdentityService.ApplicationTests\**" />
+    <EmbeddedResource Remove="U.IdentityService.ApplicationTests\**" />
+    <None Remove="U.IdentityService.ApplicationTests\**" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\bin\Debug\netcoreapp2.2\U.IdentityService.ApplicationTests.deps.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\bin\Debug\netcoreapp2.2\U.IdentityService.ApplicationTests.runtimeconfig.dev.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\bin\Debug\netcoreapp2.2\U.IdentityService.ApplicationTests.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\obj\project.packagespec.json" />
   </ItemGroup>
 
   <ItemGroup>

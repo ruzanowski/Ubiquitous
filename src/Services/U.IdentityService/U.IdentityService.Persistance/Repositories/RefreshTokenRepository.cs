@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using U.Common.Jwt.Models;
-using U.IdentityService.Domain.Domain;
+using U.IdentityService.Domain.Models;
 using U.IdentityService.Persistance.Contexts;
 
 namespace U.IdentityService.Persistance.Repositories

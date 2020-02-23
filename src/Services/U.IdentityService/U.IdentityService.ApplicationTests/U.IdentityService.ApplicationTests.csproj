@@ -5,15 +5,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\U.IdentityService.Domain\U.IdentityService.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <PackageReference Include="Ubiquitous.Common" Version="0.2" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
+      <ProjectReference Include="..\U.IdentityService.Application\U.IdentityService.Application.csproj" />
+      <ProjectReference Include="..\U.IdentityService.DomainTests\U.IdentityService.DomainTests.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
       <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     </ItemGroup>
+    
+
 </Project>

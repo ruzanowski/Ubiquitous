@@ -1,8 +1,8 @@
 using System;
 using AutoFixture;
-using U.IdentityService.Domain.Domain;
+using U.IdentityService.Domain.Models;
 
-namespace U.IdentityService.DomainTests
+namespace U.IdentityService.DomainTests.User
 {
     public class UserCustomization : ICustomization
     {
@@ -15,7 +15,7 @@ namespace U.IdentityService.DomainTests
                 var userEmail = $"{emailPrefix}@ubiquitous.com";
                 var nickname = fixture.Create<string>();
                 var role = Role.User;
-                return new User(id, userEmail, nickname, role);
+                return new Domain.Models.User(id, userEmail, nickname, role);
             });
         }
     }

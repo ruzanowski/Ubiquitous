@@ -1,25 +1,23 @@
 using System;
-using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
-using U.IdentityService.Domain.Domain;
 using Xunit;
 
-namespace U.IdentityService.DomainTests
+namespace U.IdentityService.DomainTests.User
 {
     public class UserTests
     {
         [Fact]
-        public void Should_Test_Pass()
+        public void Should_Create_User()
         {
-            true.Should().BeTrue();
-        }
+            //arrange
+            var fixture = new Fixture().Customize(new UserCustomization());
 
-        [Theory]
-        [UserTestData]
-        public async Task Should_Create_User(User user)
-        {
+            //act
+            var user = fixture.Create<Domain.Models.User>();
+
+            //assert
             user.Id.Should().NotBeEmpty();
             user.Nickname.Should().NotBeEmpty();
             user.Email.Should().NotBeEmpty();
@@ -30,12 +28,14 @@ namespace U.IdentityService.DomainTests
             user.UpdatedAt.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(5));
         }
 
-        [Theory, UserTestData]
-        public void Should_Set_Password(User user)
+        [Fact]
+        public void Should_Set_Password()
         {
             //arrange
+            var fixture = new Fixture().Customize(new UserCustomization());
+            var user = fixture.Create<Domain.Models.User>();
             var password = new Fixture().Create<string>();
-            var passwordHasher = new PasswordHasher<User>();
+            var passwordHasher = new PasswordHasher<Domain.Models.User>();
 
             //act
             user.SetPassword(password, passwordHasher);
@@ -43,6 +43,7 @@ namespace U.IdentityService.DomainTests
 
             //assert
             user.PasswordHash.Should().NotBeNullOrEmpty();
+            user.PasswordHash.Should().NotBe(password);
             validationResult.Should().BeTrue();
         }
 
