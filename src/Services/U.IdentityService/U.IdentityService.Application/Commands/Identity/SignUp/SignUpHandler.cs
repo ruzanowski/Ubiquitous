@@ -4,22 +4,21 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using U.EventBus.Abstractions;
-using U.EventBus.Events;
 using U.EventBus.Events.Identity;
 using U.IdentityService.Domain;
-using U.IdentityService.Domain.Domain;
 using U.IdentityService.Domain.Exceptions;
+using U.IdentityService.Domain.Models;
 using U.IdentityService.Persistance.Repositories;
 
 namespace U.IdentityService.Application.Commands.Identity.SignUp
 {
-    public class SingUpHandler : IRequestHandler<SignUp>
+    public class SignUpHandler : IRequestHandler<SignUp>
     {
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IEventBus _busPublisher;
 
-        public SingUpHandler(IUserRepository userRepository,
+        public SignUpHandler(IUserRepository userRepository,
             IPasswordHasher<User> passwordHasher,
             IEventBus busPublisher)
         {
