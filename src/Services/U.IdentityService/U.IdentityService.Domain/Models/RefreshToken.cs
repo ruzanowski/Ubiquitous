@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Identity;
 using U.IdentityService.Domain.Exceptions;
 
-namespace U.IdentityService.Domain.Domain
+namespace U.IdentityService.Domain.Models
 {
     public class RefreshToken
     {

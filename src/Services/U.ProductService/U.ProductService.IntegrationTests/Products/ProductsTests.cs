@@ -22,7 +22,7 @@ namespace U.ProductService.IntegrationTests.Products
             _client = CreateServer().CreateClient();
         }
 
-        [Theory]
+        [Theory(Skip = "v.0.3")]
         [ProductAutoData]
         public async Task Should_CreateProduct(CreateProductCommand command)
         {
@@ -34,7 +34,7 @@ namespace U.ProductService.IntegrationTests.Products
             response.Should().NotBeEmpty();
         }
 
-        [Theory]
+        [Theory(Skip = "v.0.3")]
         [ProductAutoData]
         public async Task Should_ReturnProductList(CreateProductCommand command)
         {
@@ -53,7 +53,7 @@ namespace U.ProductService.IntegrationTests.Products
             response.Data.Should().NotBeEmpty();
         }
 
-        [Theory]
+        [Theory(Skip = "v.0.3")]
         [ProductAutoData]
         public async Task Should_ReturnProduct(CreateProductCommand command)
         {
@@ -68,7 +68,7 @@ namespace U.ProductService.IntegrationTests.Products
             response.Id.Should().Be(guid);
         }
 
-        [Theory(Skip = "It needs to be resolved in the next api version.")]
+        [Theory(Skip = "v.0.3")]
         [ProductAutoData]
         public async Task Should_UpdateProduct(CreateProductCommand command)
         {

@@ -6,7 +6,7 @@ namespace U.ProductService.IntegrationTests.AutoMapper
 {
     public class MapperProfileTests : TestBase
     {
-        [Fact]
+        [Fact(Skip = "v.0.3")]
         public void AutoMapper_Configuration_IsValid()
         {
             var autoMapper = CreateServer().Host.Services.GetService<IMapper>();

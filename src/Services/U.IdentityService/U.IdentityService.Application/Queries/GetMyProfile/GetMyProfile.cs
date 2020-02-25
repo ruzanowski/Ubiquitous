@@ -6,6 +6,10 @@ namespace U.IdentityService.Application.Queries.GetMyAccount
 {
     public class GetMyProfile : IRequest<UserDto>
     {
-        public Guid UserId { get; set; }
+        public GetMyProfile(Guid userId)
+        {
+            UserId = userId;
+        }
+        public Guid UserId { get; private set; }
     }
 }
