@@ -28,27 +28,10 @@ angular_build:
     - npm install @angular/cli
     - npm run ng -- build --prod
 
-debug:
-  before_script:
-    - 'echo | dotnet --version' # must be v 2.2.300 or later for reporter tool to work
-    - dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
+tests_with_code_coverage:
   stage: tests_with_code_coverage
   script:
-    - dotnet test --logger "junit" --collect:"XPlat Code Coverage"
-    # each reporttype must be a separate line, doesn't work together ; separated
-    - ls -ld ${CI_PROJECT_DIR}/**/TestResults/*
-    - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/**/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:TextSummary;
-    - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/**/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:Html;
-    - ls Reports_Coverage
-    - cat ./Reports_Coverage/Summary.txt
-    - echo 'End Summary'
-  coverage: /Line coverage[\s\S].+%/
-  artifacts:
-    paths:
-      - Reports_Coverage/
-    reports:
-      junit:
-        - '*.Test/TestResults/TestResults.xml'
+    - dotnet test /p:CollectCoverage=true
 
 code_quality:
   stage: test
