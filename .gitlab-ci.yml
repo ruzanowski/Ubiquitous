@@ -2,6 +2,7 @@ image: mcr.microsoft.com/dotnet/core/sdk:2.2.301
 
 stages:
   - build
+  - tests_with_code_coverage
   - test
   - performance
   - myget_common
@@ -17,8 +18,6 @@ dotnet_build:
     - 'dotnet restore'
   script:
     - 'dotnet build'
-#    - 'chmod -R +x ./scripts'
-#    - 'scripts/run-tests.bat' todo
 
 angular_build:
   image: node:latest
@@ -28,6 +27,11 @@ angular_build:
   script:
     - npm install @angular/cli
     - npm run ng -- build --prod
+
+tests_with_code_coverage:
+  stage: tests_with_code_coverage
+  script:
+    - dotnet test /p:CollectCoverage=true
 
 code_quality:
   stage: test
@@ -94,7 +98,6 @@ MyGet_EventBus_RabbitMQ:
   only:
     - master
     - develop
-
 
 MyGet_IntegrationEventLog:
   stage: myget_integrationeventlog
