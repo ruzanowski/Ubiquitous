@@ -18,7 +18,7 @@ namespace U.IdentityService.Application.Queries.GetUsersOnline
         {
             var refreshTokens = await _repository.GetActiveAsync();
 
-            return refreshTokens.Count;
+            return refreshTokens?.Count ?? 0;
         }
     }
 }

@@ -4,15 +4,16 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using NSubstitute;
+using NSubstitute.Core;
 using U.EventBus.Abstractions;
 using U.IdentityService.Application.Commands.Identity.SignUp;
-using U.IdentityService.ApplicationTests.Helpers;
+using U.IdentityService.ApplicationTests.Providers;
 using U.IdentityService.Domain.Exceptions;
 using U.IdentityService.Domain.Models;
 using U.IdentityService.Persistance.Repositories;
 using Xunit;
 
-namespace U.IdentityService.ApplicationTests.Commands.SignUp
+namespace U.IdentityService.ApplicationTests.Commands
 {
     public class SignUpTests
     {
@@ -39,10 +40,10 @@ namespace U.IdentityService.ApplicationTests.Commands.SignUp
             var (fakeUser, sut, _) = Arrange();
 
             //act
-            Func<Task> result = async () => await sut.Handle(new Application.Commands.Identity.SignUp.SignUp
+            Func<Task> result = async () => await sut.Handle(new SignUp
             {
                 Email = fakeUser.Email,
-                Password = FakeCredentialsProvider.UserPassword,
+                Password = FakeCredentialsProvider.CurrentUserPassword,
                 Nickname = fakeUser.Nickname,
                 Role = fakeUser.Role
             }, new CancellationToken());
@@ -50,7 +51,49 @@ namespace U.IdentityService.ApplicationTests.Commands.SignUp
             //assert
             result.Should().NotThrow();
             await Task.CompletedTask;
+        }
 
+        [Fact]
+        public async Task Should_SignUp_Wrong_Email_Changed_To_Default()
+        {
+            //arrange
+            var (fakeUser, sut, _) = Arrange();
+
+            //act
+            Func<Task> result = async () => await sut.Handle(new SignUp
+            {
+                Email = fakeUser.Email,
+                Password = FakeCredentialsProvider.CurrentUserPassword,
+                Nickname = fakeUser.Nickname,
+                Role = default
+            }, new CancellationToken());
+
+            //assert
+            result.Should().NotThrow();
+            await Task.CompletedTask;
+        }
+
+        [Fact]
+        public async Task Should_Throw_ArgumentException_On_Already_Null_Email()
+        {
+            //arrange
+            var (fakeUser, sut, userRepository) = Arrange();
+            userRepository.GetAsync(Arg.Any<string>()).ReturnsForAnyArgs(fakeUser);
+
+            var signUp = new SignUp
+            {
+                Email = default,
+                Password = FakeCredentialsProvider.CurrentUserPassword,
+                Nickname = fakeUser.Nickname,
+                Role = fakeUser.Role
+            };
+
+            //act
+            Func<Task> result = async () => await sut.Handle(signUp, new CancellationToken());
+
+            //assert
+            result.Should().Throw<ArgumentException>();
+            await Task.CompletedTask;
         }
 
         [Fact]
@@ -60,10 +103,10 @@ namespace U.IdentityService.ApplicationTests.Commands.SignUp
             var (fakeUser, sut, userRepository) = Arrange();
             userRepository.GetAsync(Arg.Any<string>()).ReturnsForAnyArgs(fakeUser);
 
-            var signUp = new Application.Commands.Identity.SignUp.SignUp
+            var signUp = new SignUp
             {
                 Email = fakeUser.Email,
-                Password = FakeCredentialsProvider.UserPassword,
+                Password = FakeCredentialsProvider.CurrentUserPassword,
                 Nickname = fakeUser.Nickname,
                 Role = fakeUser.Role
             };

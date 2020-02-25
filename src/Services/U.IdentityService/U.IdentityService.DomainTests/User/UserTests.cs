@@ -2,6 +2,8 @@ using System;
 using AutoFixture;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
+using U.IdentityService.Domain.Exceptions;
+using U.IdentityService.Domain.Models;
 using Xunit;
 
 namespace U.IdentityService.DomainTests.User
@@ -26,6 +28,29 @@ namespace U.IdentityService.DomainTests.User
             user.PasswordHash.Should().BeNullOrEmpty();
             user.CreatedAt.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(5));
             user.UpdatedAt.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(5));
+        }
+
+        [Fact]
+        public void Should_Throw_On_Incorrect_Email_Under_User_Creation()
+        {
+            //arrange
+            //act
+            Action action = () => new Domain.Models.User(Guid.NewGuid(), "WrongEmail", "wrongNickName", Role.User);
+
+            //assert
+            action.Should().Throw<IdentityException>();
+        }
+
+
+        [Fact]
+        public void Should_Throw_On_Incorrect_Role_Under_User_Creation()
+        {
+            //arrange
+            //act
+            Action action = () => new Domain.Models.User(Guid.NewGuid(), "good@email.com", "wrongNickName", "wrongRole");
+
+            //assert
+            action.Should().Throw<IdentityException>();
         }
 
         [Fact]

@@ -9,13 +9,13 @@ using U.Common.Jwt.Models;
 using U.Common.Jwt.Service;
 using U.IdentityService.Application.Commands.Identity.SignIn;
 using U.IdentityService.Application.Services;
-using U.IdentityService.ApplicationTests.Helpers;
+using U.IdentityService.ApplicationTests.Providers;
 using U.IdentityService.Domain.Exceptions;
 using U.IdentityService.Domain.Models;
 using U.IdentityService.Persistance.Repositories;
 using Xunit;
 
-namespace U.IdentityService.ApplicationTests.Commands.SignIn
+namespace U.IdentityService.ApplicationTests.Commands
 {
     public class SignInTests
     {
@@ -66,10 +66,10 @@ namespace U.IdentityService.ApplicationTests.Commands.SignIn
             userRepository.GetAsync(Arg.Any<string>()).ReturnsForAnyArgs(fakeUser);
 
             //act
-            var result = await sut.Handle(new Application.Commands.Identity.SignIn.SignIn
+            var result = await sut.Handle(new SignIn
             {
                 Email = fakeUser.Email,
-                Password = FakeCredentialsProvider.UserPassword
+                Password = FakeCredentialsProvider.CurrentUserPassword
             }, new CancellationToken());
 
             //assert
@@ -81,6 +81,7 @@ namespace U.IdentityService.ApplicationTests.Commands.SignIn
             result.RefreshToken.Should().NotBeNullOrEmpty();
             result.Should().Be(fakeJwt);
         }
+
         [Fact]
         public async Task Should_Throw_On_Incorrect_Credentials()
         {
@@ -88,10 +89,10 @@ namespace U.IdentityService.ApplicationTests.Commands.SignIn
             var (fakeUser, sut, _, _) = Arrange();
 
             //act
-            Func<Task> result = async () => await sut.Handle(new Application.Commands.Identity.SignIn.SignIn
+            Func<Task> result = async () => await sut.Handle(new SignIn
             {
                 Email = fakeUser.Email,
-                Password = FakeCredentialsProvider.UserPassword
+                Password = FakeCredentialsProvider.CurrentUserPassword
             }, new CancellationToken());
 
             //assert
