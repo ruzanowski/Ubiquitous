@@ -5,6 +5,7 @@
 
   <ItemGroup>
     <ProjectReference Include="U.IdentityService.Application\U.IdentityService.Application.csproj" />
+    <ProjectReference Include="U.IdentityService.DomainTests\U.IdentityService.DomainTests.csproj" />
   </ItemGroup>
   
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
@@ -24,6 +25,8 @@
     <Content Update="appsettings.docker.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Remove="U.IdentityService.DomainTests\**" />
+    <Content Remove="U.IdentityService.ApplicationTests\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +56,29 @@
     <_ContentIncludedByDefault Remove="U.IdentityService.Persistance\obj\project.assets.json" />
     <_ContentIncludedByDefault Remove="U.IdentityService.Persistance\obj\project.packagespec.json" />
     <_ContentIncludedByDefault Remove="U.IdentityService.Persistance\obj\U.IdentityService.Persistance.csproj.nuget.dgspec.json" />
+    <Compile Remove="U.IdentityService.DomainTests\**" />
+    <EmbeddedResource Remove="U.IdentityService.DomainTests\**" />
+    <None Remove="U.IdentityService.DomainTests\**" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.DomainTests\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.DomainTests\obj\project.packagespec.json" />
+    <Compile Remove="U.IdentityService.ApplicationTests\**" />
+    <EmbeddedResource Remove="U.IdentityService.ApplicationTests\**" />
+    <None Remove="U.IdentityService.ApplicationTests\**" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\bin\Debug\netcoreapp2.2\U.IdentityService.ApplicationTests.deps.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\bin\Debug\netcoreapp2.2\U.IdentityService.ApplicationTests.runtimeconfig.dev.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\bin\Debug\netcoreapp2.2\U.IdentityService.ApplicationTests.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\obj\project.packagespec.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="xunit.core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c">
+      <HintPath>..\..\..\..\..\.nuget\packages\xunit.extensibility.core\2.4.1\lib\netstandard1.1\xunit.core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoFixture.Xunit2" Version="4.11.0" />
   </ItemGroup>
 
 </Project>

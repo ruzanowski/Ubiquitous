@@ -17,7 +17,7 @@ using U.Common.Swagger;
 using U.EventBus.RabbitMQ;
 using U.IdentityService.Application.Commands.Identity.ChangePassword;
 using U.IdentityService.Application.Services;
-using U.IdentityService.Domain.Domain;
+using U.IdentityService.Domain.Models;
 using U.IdentityService.Infrastracture;
 using U.IdentityService.Persistance.Contexts;
 using U.IdentityService.Persistance.Repositories;
