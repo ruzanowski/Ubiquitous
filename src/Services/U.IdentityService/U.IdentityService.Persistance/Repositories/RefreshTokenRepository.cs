@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using U.Common.Jwt.Models;
-using U.IdentityService.Domain.Models;
+using U.IdentityService.Domain.Domain;
 using U.IdentityService.Persistance.Contexts;
 
 namespace U.IdentityService.Persistance.Repositories
@@ -26,20 +26,21 @@ namespace U.IdentityService.Persistance.Repositories
 
         public async Task<List<RefreshToken>> GetActiveAsync()
         {
-            var activeTokens =  await _identityContext.RefreshTokens
-                .Where(x => !x.Revoked &&
+            var refreshTokens =  await _identityContext.RefreshTokens
+                .Where(x => !x.RevokedAt.HasValue &&
                             DateTime.UtcNow <= x.CreatedAt.AddMinutes(_jwtOptions.ExpiryMinutes))
                 .ToListAsync();
 
             var uniqueUserTokens = new List<Guid>();
             var tokens = new List<RefreshToken>();
 
-            foreach (var refreshToken in activeTokens)
+            foreach (var refreshToken in refreshTokens)
             {
-                if (uniqueUserTokens.Contains(refreshToken.UserId)) continue;
-
-                uniqueUserTokens.Add(refreshToken.UserId);
-                tokens.Add(refreshToken);
+                if (!uniqueUserTokens.Contains(refreshToken.UserId))
+                {
+                    uniqueUserTokens.Add(refreshToken.UserId);
+                    tokens.Add(refreshToken);
+                }
             }
 
             return tokens;

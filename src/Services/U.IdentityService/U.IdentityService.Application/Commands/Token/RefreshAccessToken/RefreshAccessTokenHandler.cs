@@ -17,11 +17,8 @@ namespace U.IdentityService.Application.Commands.Token.RefreshAccessToken
     public class RefreshAccessTokenHandler : TokenBaseHandler,
         IRequestHandler<RefreshAccessToken, JsonWebToken>
     {
-        public RefreshAccessTokenHandler(IRefreshTokenRepository refreshTokenRepository,
-            IJwtService jwtService,
-            IUserRepository userRepository,
-            IClaimsProvider claimsProvider,
-            IEventBus busPublisher) : base(
+        public RefreshAccessTokenHandler(IRefreshTokenRepository refreshTokenRepository, IJwtService jwtService,
+            IUserRepository userRepository, IClaimsProvider claimsProvider, IEventBus busPublisher) : base(
             refreshTokenRepository, jwtService, userRepository, claimsProvider,
             busPublisher)
         {

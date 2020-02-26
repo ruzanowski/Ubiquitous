@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using U.IdentityService.Domain.Models;
+using U.IdentityService.Domain.Domain;
 using U.IdentityService.Persistance.Contexts;
 
 namespace U.IdentityService.Persistance.Repositories

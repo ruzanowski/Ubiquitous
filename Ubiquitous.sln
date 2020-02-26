@@ -146,12 +146,6 @@ ProjectSection(SolutionItems) = preProject
 	img\ubiquitous-current-state-min.png = img\ubiquitous-current-state-min.png
 EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{38CD9E63-2F0A-4C6F-A336-7547965AC776}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.DomainTests", "src\Services\U.IdentityService\U.IdentityService.DomainTests\U.IdentityService.DomainTests.csproj", "{B3189F1B-9B69-482A-B284-3A9C658BB11C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.ApplicationTests", "src\Services\U.IdentityService\U.IdentityService.ApplicationTests\U.IdentityService.ApplicationTests.csproj", "{75A45DC0-7793-4B46-830E-45D8C4579C00}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -274,14 +268,6 @@ Global
 		{CE8191E1-9C55-40C4-9823-D3F385590F27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE8191E1-9C55-40C4-9823-D3F385590F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE8191E1-9C55-40C4-9823-D3F385590F27}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B3189F1B-9B69-482A-B284-3A9C658BB11C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B3189F1B-9B69-482A-B284-3A9C658BB11C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B3189F1B-9B69-482A-B284-3A9C658BB11C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B3189F1B-9B69-482A-B284-3A9C658BB11C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{75A45DC0-7793-4B46-830E-45D8C4579C00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75A45DC0-7793-4B46-830E-45D8C4579C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75A45DC0-7793-4B46-830E-45D8C4579C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75A45DC0-7793-4B46-830E-45D8C4579C00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8} = {2F31A504-325D-475E-9B94-5BA9D525A2AA}
@@ -329,8 +315,5 @@ Global
 		{7112E37D-6184-46D9-898A-3D28207AC8E8} = {8EE0DD79-8255-4E04-84A7-830B8947E7C5}
 		{33842299-9FA9-4243-966B-F0537547CE3B} = {8EE0DD79-8255-4E04-84A7-830B8947E7C5}
 		{75552B0A-F300-4444-ACEB-04CCD8D1556A} = {8EE0DD79-8255-4E04-84A7-830B8947E7C5}
-		{38CD9E63-2F0A-4C6F-A336-7547965AC776} = {31C78702-0DC3-4A05-AB00-B00FE55776F0}
-		{B3189F1B-9B69-482A-B284-3A9C658BB11C} = {38CD9E63-2F0A-4C6F-A336-7547965AC776}
-		{75A45DC0-7793-4B46-830E-45D8C4579C00} = {38CD9E63-2F0A-4C6F-A336-7547965AC776}
 	EndGlobalSection
 EndGlobal
