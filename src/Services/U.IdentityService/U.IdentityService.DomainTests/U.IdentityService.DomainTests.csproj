@@ -8,12 +8,20 @@
         <ProjectReference Include="..\U.IdentityService.Domain\U.IdentityService.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <PackageReference Include="Ubiquitous.Common" Version="0.2" />
-    </ItemGroup>
-
     <ItemGroup>
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
       <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus\U.EventBus.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <PackageReference Include="Ubiquitous.Common" Version="0.2" />
+        <PackageReference Include="Ubiquitous.EventBus" Version="0.2" />
+        <PackageReference Include="Ubiquitous.EventBus.RabbitMQ" Version="0.2" />
     </ItemGroup>
 </Project>

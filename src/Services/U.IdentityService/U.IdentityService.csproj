@@ -7,7 +7,7 @@
     <ProjectReference Include="U.IdentityService.Application\U.IdentityService.Application.csproj" />
     <ProjectReference Include="U.IdentityService.DomainTests\U.IdentityService.DomainTests.csproj" />
   </ItemGroup>
-  
+
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
     <ProjectReference Include="..\..\BuildingBlocks\Common\U.Common.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\U.EventBus\U.EventBus.csproj" />
@@ -69,12 +69,6 @@
     <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\bin\Debug\netcoreapp2.2\U.IdentityService.ApplicationTests.runtimeconfig.json" />
     <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\obj\project.assets.json" />
     <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\obj\project.packagespec.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="xunit.core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c">
-      <HintPath>..\..\..\..\..\.nuget\packages\xunit.extensibility.core\2.4.1\lib\netstandard1.1\xunit.core.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
