@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using U.IdentityService.Domain.Models;
+using U.IdentityService.Domain.Domain;
 
 namespace U.IdentityService.Persistance.Contexts
 {
