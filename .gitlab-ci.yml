@@ -11,47 +11,47 @@ stages:
   - deploy
   - docker_deploy
 
-#dotnet_build:
-#  stage: build
-#  before_script:
-#    - 'dotnet restore'
-#  script:
-#    - 'dotnet build'
-##    - 'chmod -R +x ./scripts'
-##    - 'scripts/run-tests.bat' todo
-#
-#angular_build:
-#  image: node:latest
-#  stage: build
-#  before_script:
-#    - 'cd src/U.WebApp.Angular'
-#  script:
-#    - npm install @angular/cli
-#    - npm run ng -- build --prod
-#
-#code_quality:
-#  stage: test
-#  when: manual
-#  image: docker:latest
-#  variables:
-#    DOCKER_DRIVER: overlay
-#  services:
-#    - docker:dind
-#  script:
-#    - docker pull codeclimate/codeclimate
-#    - docker run
-#      --env CODECLIMATE_DEBUG=1
-#      --env CODECLIMATE_CODE="$PWD"
-#      --volume "$PWD":/code
-#      --volume /var/run/docker.sock:/var/run/docker.sock
-#      --volume /tmp/cc:/tmp/cc
-#      codeclimate/codeclimate analyze -f html > report.html
-#  artifacts:
-#    paths: [report.html]
-#  dependencies: []
-#  except:
-#    variables:
-#      - $CODE_QUALITY_DISABLED
+dotnet_build:
+  stage: build
+  before_script:
+    - 'dotnet restore'
+  script:
+    - 'dotnet build'
+#    - 'chmod -R +x ./scripts'
+#    - 'scripts/run-tests.bat' todo
+
+angular_build:
+  image: node:latest
+  stage: build
+  before_script:
+    - 'cd src/U.WebApp.Angular'
+  script:
+    - npm install @angular/cli
+    - npm run ng -- build --prod
+
+code_quality:
+  stage: test
+  when: manual
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay
+  services:
+    - docker:dind
+  script:
+    - docker pull codeclimate/codeclimate
+    - docker run
+      --env CODECLIMATE_DEBUG=1
+      --env CODECLIMATE_CODE="$PWD"
+      --volume "$PWD":/code
+      --volume /var/run/docker.sock:/var/run/docker.sock
+      --volume /tmp/cc:/tmp/cc
+      codeclimate/codeclimate analyze -f html > report.html
+  artifacts:
+    paths: [report.html]
+  dependencies: []
+  except:
+    variables:
+      - $CODE_QUALITY_DISABLED
 
 MyGet_Common:
   stage: myget_common
@@ -63,9 +63,9 @@ MyGet_Common:
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
-#  only:
-#    - master
-#    - develop
+  only:
+    - master
+    - develop
 
 MyGet_EventBus:
   stage: myget_eventbus
@@ -77,9 +77,9 @@ MyGet_EventBus:
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
-#  only:
-#    - master
-#    - develop
+  only:
+    - master
+    - develop
 
 MyGet_EventBus_RabbitMQ:
   stage: myget_eventbus_rabbitmq
@@ -91,9 +91,9 @@ MyGet_EventBus_RabbitMQ:
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
-#  only:
-#    - master
-#    - develop
+  only:
+    - master
+    - develop
 
 
 MyGet_IntegrationEventLog:
@@ -106,9 +106,9 @@ MyGet_IntegrationEventLog:
     - ./scripts/dotnet-build.sh
     - ./scripts/dotnet-publish.sh
     - ./scripts/dotnet-nuget-push.sh
-#  only:
-#    - master
-#    - develop
+  only:
+    - master
+    - develop
 
 deploy_fetchservice:
   stage: docker_deploy
@@ -120,9 +120,9 @@ deploy_fetchservice:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - master
-#    - develop
+  only:
+    - master
+    - develop
 
 deploy_generatorservice:
   stage: docker_deploy
@@ -134,9 +134,9 @@ deploy_generatorservice:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - master
-#    - develop
+  only:
+    - master
+    - develop
 
 deploy_identityservice:
   stage: docker_deploy
@@ -148,9 +148,9 @@ deploy_identityservice:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - master
-#    - develop
+  only:
+    - master
+    - develop
 
 deploy_notificationservice:
   stage: docker_deploy
@@ -162,9 +162,9 @@ deploy_notificationservice:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - master
-#    - develop
+  only:
+    - master
+    - develop
 
 deploy_productservice:
   stage: docker_deploy
@@ -176,9 +176,9 @@ deploy_productservice:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - master
-#    - develop
+  only:
+    - master
+    - develop
 
 deploy_subscriptionservice:
   stage: docker_deploy
@@ -190,9 +190,9 @@ deploy_subscriptionservice:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - master
-#    - develop
+  only:
+    - master
+    - develop
 
 deploy_smartstoreadapter:
   stage: docker_deploy
@@ -204,9 +204,9 @@ deploy_smartstoreadapter:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - master
-#    - develop
+  only:
+    - master
+    - develop
 
 deploy_apigateway:
   stage: docker_deploy
@@ -218,9 +218,9 @@ deploy_apigateway:
     - chmod -R a+x ./scripts
   script:
     - ./scripts/docker-publish.sh
-#  only:
-#    - master
-#    - develop
+  only:
+    - master
+    - develop
 
 variables:
   DOCKER_DRIVER: overlay2
