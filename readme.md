@@ -28,8 +28,8 @@ Subscribe for **the newest state** of products you like.
 
 | *Master*  | *Develop* |
 | --------- | --------- |
-| [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop) |
-| [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) | [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop)
+| [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop) |
+| [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) | [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop)
 
 ## 1. Introduction
 ## 1.1. Functionalities

@@ -22,11 +22,5 @@ license_management:
       license_management: gl-license-management-report.json
   dependencies: []
   only:
-    refs:
-      - branches
-    variables:
-      - $GITLAB_FEATURES =~ /\blicense_management\b/
-  except:
-    variables:
-      - $LICENSE_MANAGEMENT_DISABLED
+    - master
 
