@@ -51,7 +51,7 @@ export class NotificationsBarChartComponent {
     draw: (data) => {
       data.element.animate({
         y2: <IChartistAnimationOptions>{
-          dur: '1.5s',
+          dur: '2s',
           from: data.y1,
           to: data.y2,
           easing: 'easeOutQuad',

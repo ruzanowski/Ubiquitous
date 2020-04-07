@@ -4,7 +4,6 @@ import {Observable} from "rxjs";
 import {Product, ProductStatistics} from "./models/product.model";
 import {map} from "rxjs/operators";
 import {PaginatedItems} from "../shared/models/paginateditems.model";
-import {NotificationEventTypeStatistics} from "../notifications/models/notification-statistics.model";
 import {ProductStatisticsByCategory, ProductStatisticsByManufacturer} from "./models/product-statistics.model";
 
 @Injectable()
@@ -19,7 +18,7 @@ export class ProductService {
 
   getProducts(categoryId?: string, manufacturerId?: string): Observable<PaginatedItems<Product>> {
 
-    let url = this.productBaseUrl + "/query" + this.pageSizeQuery;
+    let url = this.productBaseUrl + this.pageSizeQuery;
 
     if(categoryId != null)
     {

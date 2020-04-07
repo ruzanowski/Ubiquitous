@@ -29,7 +29,7 @@ export class SignalrService
 
   constructor(private authenticationService: AuthenticationService, private toastr: ReactiveToasterService) {
     this.connection = new signalR.HubConnectionBuilder()
-      .withUrl('http://localhost:4500/signalr',  { accessTokenFactory: () => this.authenticationService.currentUserValue.accessToken })
+      .withUrl('http://35.228.159.23:4500/signalr',  { accessTokenFactory: () => this.authenticationService.currentUserValue.accessToken })
       .configureLogging(LogLevel.Trace)
       .build();
     this.subscribeOnEvents();
