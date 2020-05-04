@@ -133,4 +133,3 @@ services:
 
 networks:
   ubiquitous:
-    name: ubiquitous
