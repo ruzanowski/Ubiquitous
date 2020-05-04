@@ -34,7 +34,9 @@ namespace U.IntegrationEventLog.Services
             string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             List<Assembly> allAssemblies =
-                Directory.GetFiles(path, "U.*.dll").Select(dll => AppDomain.CurrentDomain.Load(Assembly.LoadFrom(dll).GetName())).ToList();
+                Directory.GetFiles(path, "U.*.dll")
+                    .Select(dll => AppDomain.CurrentDomain.Load(Assembly.LoadFrom(dll).GetName()))
+                    .ToList();
 
             _eventTypes = allAssemblies.SelectMany(
                 x => x.GetTypes()
