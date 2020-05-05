@@ -87,7 +87,7 @@ namespace U.ProductService
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
-            SeedAsync(app);
+            Seed(app);
         }
 
         private void RegisterEvents(IApplicationBuilder app)
@@ -108,7 +108,7 @@ namespace U.ProductService
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }
 
-        private void SeedAsync(IApplicationBuilder app)
+        private void Seed(IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
                 .CreateScope())

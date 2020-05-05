@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using U.SmartStoreAdapter.Application.Models.Manufacturers;
+using U.SmartStoreAdapter.Application.Manufacturers;
 
 namespace U.SmartStoreAdapter.Controllers
 {

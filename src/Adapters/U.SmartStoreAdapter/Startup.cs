@@ -1,9 +1,9 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Reflection;
 using AutoMapper;
 using Consul;
 using MediatR;
-using U.SmartStoreAdapter.Application.MappingProfiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +14,9 @@ using U.Common.Consul;
 using U.Common.Database;
 using U.Common.Mvc;
 using U.Common.Swagger;
-using U.SmartStoreAdapter.Application.Operations.Products;
+using U.SmartStoreAdapter.Application.Common.MappingProfiles;
+using U.SmartStoreAdapter.Application.Infrastructure;
+using U.SmartStoreAdapter.Application.Products;
 using U.SmartStoreAdapter.Middleware;
 
 namespace U.SmartStoreAdapter
@@ -86,9 +88,29 @@ namespace U.SmartStoreAdapter
                 .UseForwardedHeaders()
                 .UseMvc();
 
-
+            Seed(app);
             var consulServiceId = app.UseConsulServiceDiscovery();
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
+        }
+
+        private void Seed(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+                .CreateScope())
+            {
+                try
+                {
+                    new SmartStoreContextSeeder()
+                        .Seed(serviceScope.ServiceProvider.GetRequiredService<SmartStoreContext>(),
+                            serviceScope.ServiceProvider.GetRequiredService<DbOptions>(),
+                            serviceScope.ServiceProvider.GetRequiredService<ILogger<SmartStoreContextSeeder>>());
+                }
+                catch (Exception ex)
+                {
+                    var logger = app.ApplicationServices.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred while seeding the database.");
+                }
+            }
         }
     }
 }

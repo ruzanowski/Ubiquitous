@@ -24,6 +24,7 @@ services:
     environment:
       DbOptions__Connection: ${PRODUCT_SERVICE_DB_CONNECTION}
       DbOptions__Type: ${DATABASE_TYPE}
+      DbOptions__AutoMigration: "true"
       ASPNETCORE_URLS: http://+:5000
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
     volumes:
@@ -40,6 +41,7 @@ services:
     environment:
       DbOptions__Connection: ${SMART_STORE_ADAPTER_DB}
       DbOptions__Type: ${DATABASE_TYPE}
+      DbOptions__AutoMigration: "true"
       ASPNETCORE_URLS: http://+:5100
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
     volumes:
@@ -56,6 +58,7 @@ services:
     environment:
       DbOptions__Connection: ${FETCH_SERVICE_DB}
       DbOptions__Type: ${DATABASE_TYPE}
+      DbOptions__AutoMigration: "true"
       ASPNETCORE_URLS: http://+:5200
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
     volumes:
@@ -133,4 +136,5 @@ services:
 
 networks:
   ubiquitous:
-    name: ubiquitous
+    external:
+      name: ubiquitous_default

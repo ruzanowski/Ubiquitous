@@ -58,7 +58,7 @@ export class ProductService {
   }
 
   getProductStatistics(): Observable<Array<ProductStatistics>> {
-    let url = this.productBaseUrl + '/statistics/creation';
+    let url = this.productBaseUrl + '/statistics/creation'  + '?stepFrequency=Daily';
 
     return this.service.get(url).pipe(map((response: any) => response));
   }

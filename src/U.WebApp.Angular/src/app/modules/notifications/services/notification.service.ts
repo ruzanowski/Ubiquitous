@@ -33,8 +33,6 @@ export class NotificationService{
     this.registerSubscriptions();
   }
 
-
-
   set notifications(data: NotificationDto<BaseEvent>) {
     this.numOfItemsToShow = this._notificationsData.push(data);
 

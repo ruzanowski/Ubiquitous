@@ -59,14 +59,7 @@ services:
     container_name: redis
     ports:
       - 6379:6379
-    command:
-    [
-      "redis-server",
-      "--bind",
-      "redis",
-      "--port",
-      "6379"
-    ]
+    command: [ "redis-server", "--bind", "redis", "--port", "6379" ]
     volumes:
       - redis:/data
     restart: unless-stopped
@@ -126,5 +119,5 @@ volumes:
 
 networks:
   ubiquitous:
-    name: ubiquitous
-    external: true
+    external:
+      name: ubiquitous_default
