@@ -134,9 +134,8 @@ services:
 
 networks:
   ubiquitous:
-    driver: bridge
-    name: ubiquitous
-    external: true
+    external:
+      name: ubiquitous_default
 
 volumes:
   elasticsearch:

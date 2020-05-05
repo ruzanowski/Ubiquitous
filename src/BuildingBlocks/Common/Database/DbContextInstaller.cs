@@ -42,11 +42,11 @@ namespace U.Common.Database
                                     .Name);
                                 //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency
                                 postgresOptions.EnableRetryOnFailure(5,
-                                    TimeSpan.FromSeconds(20), new List<string>());
+                                    TimeSpan.FromSeconds(10), new List<string>());
                             });
-                        options.UseInternalServiceProvider(serviceProvider);
+                         options.UseInternalServiceProvider(serviceProvider);
 
-                    }, poolSize: 1200);
+                    });
                     break;
                 case DbType.Mssql:
                     services.AddDbContextPool<TContext>(options => { options.UseSqlServer(dbOptions.Connection); });
