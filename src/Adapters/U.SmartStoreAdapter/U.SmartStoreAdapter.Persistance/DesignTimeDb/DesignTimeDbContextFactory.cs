@@ -9,7 +9,7 @@ namespace SmartStore.Persistance.DesignTimeDb
         public SmartStoreContext CreateDbContext(string[] args)
         {
             return new SmartStoreContext(ContextDesigner
-                .CreateDbContextOptionsBuilder<SmartStoreContext>("../../../U.SmartStoreAdapter").Options);
+                .CreateDbContextOptionsBuilder<SmartStoreContext>("../../../../../U.SmartStoreAdapter").Options);
         }
     }
 }

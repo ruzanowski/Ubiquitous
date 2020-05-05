@@ -21,19 +21,6 @@ namespace U.SmartStoreAdapter.Domain.Entities.Catalog
 		public int ManufacturerId { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the product is featured
-        /// </summary>
-		[DataMember]
-	//	[Index]
-		public bool IsFeaturedProduct { get; set; }
-
-        /// <summary>
-        /// Gets or sets the display order
-        /// </summary>
-		[DataMember]
-		public int DisplayOrder { get; set; }
-
-        /// <summary>
         /// Gets or sets the manufacturer
         /// </summary>
         public virtual Manufacturer Manufacturer { get; set; }

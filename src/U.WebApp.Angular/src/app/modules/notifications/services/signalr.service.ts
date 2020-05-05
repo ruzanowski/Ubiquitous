@@ -13,6 +13,7 @@ import {ProductAddedEvent} from "../models/events/product/product-added-event.mo
 import {ProductPublishedEvent} from "../models/events/product/product-published-event.model";
 import {UserConnectedEvent} from "../models/events/identity/user-connected.model";
 import {UserDisconnectedEvent} from "../models/events/identity/user-disconnected.model";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,9 @@ export class SignalrService
 
   constructor(private authenticationService: AuthenticationService, private toastr: ReactiveToasterService) {
     this.connection = new signalR.HubConnectionBuilder()
-      .withUrl('http://localhost:4500/signalr',  { accessTokenFactory: () => this.authenticationService.currentUserValue.accessToken })
+      .withUrl(
+        'http://' + environment.hostIP +':'+ environment.signalrPort + '/' + environment.signalrEndpoint,
+        { accessTokenFactory: () => this.authenticationService.currentUserValue.accessToken })
       .configureLogging(LogLevel.Trace)
       .build();
     this.subscribeOnEvents();

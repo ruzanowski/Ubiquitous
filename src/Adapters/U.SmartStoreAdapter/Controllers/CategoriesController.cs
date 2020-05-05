@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using U.SmartStoreAdapter.Application.Models.Categories;
+using U.SmartStoreAdapter.Application.Categories;
 
 namespace U.SmartStoreAdapter.Controllers
 {

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using U.SmartStoreAdapter.Application.Exceptions;
+using U.SmartStoreAdapter.Application.Common.Exceptions;
 using U.SmartStoreAdapter.Extensions;
 
 #pragma warning disable 1998
