@@ -15,13 +15,13 @@
             </summary>
             <param name="mediator"></param>
         </member>
-        <member name="M:U.SmartStoreAdapter.Controllers.CategoriesController.StoreCategory(U.SmartStoreAdapter.Application.Models.Categories.StoreCategoryCommand)">
+        <member name="M:U.SmartStoreAdapter.Controllers.CategoriesController.StoreCategory(U.SmartStoreAdapter.Application.Categories.StoreCategoryCommand)">
              <summary>
             
              </summary>
              <returns></returns>
         </member>
-        <member name="M:U.SmartStoreAdapter.Controllers.CategoriesController.GetCategories(U.SmartStoreAdapter.Application.Models.Categories.GetCategoriesQuery)">
+        <member name="M:U.SmartStoreAdapter.Controllers.CategoriesController.GetCategories(U.SmartStoreAdapter.Application.Categories.GetCategoriesQuery)">
             <summary>
             Get Categories
             </summary>
@@ -55,28 +55,11 @@
              </summary>
              <param name="mediator"></param>
         </member>
-        <member name="M:U.SmartStoreAdapter.Controllers.ManufacturersController.Store(U.SmartStoreAdapter.Application.Models.Manufacturers.StoreManufacturerCommand)">
+        <member name="M:U.SmartStoreAdapter.Controllers.ManufacturersController.Store(U.SmartStoreAdapter.Application.Manufacturers.StoreManufacturerCommand)">
              <summary>
             
              </summary>
              <returns></returns>
-        </member>
-        <member name="T:U.SmartStoreAdapter.Controllers.PicturesController">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:U.SmartStoreAdapter.Controllers.PicturesController.#ctor(MediatR.IMediator)">
-            <summary>
-            
-            </summary>
-            <param name="mediator"></param>
-        </member>
-        <member name="M:U.SmartStoreAdapter.Controllers.PicturesController.StorePicture(U.SmartStoreAdapter.Application.Models.Pictures.StorePicturesCommand)">
-            <summary>
-            
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:U.SmartStoreAdapter.Controllers.ProductsController">
              <summary>
@@ -89,21 +72,21 @@
              </summary>
              <param name="mediator"></param>
         </member>
-        <member name="M:U.SmartStoreAdapter.Controllers.ProductsController.GetProductsList(U.SmartStoreAdapter.Application.Models.Products.GetProductsListQuery)">
+        <member name="M:U.SmartStoreAdapter.Controllers.ProductsController.GetProductsList(U.SmartStoreAdapter.Application.Products.GetProductsListQuery)">
             <summary>
             Get list of products
             </summary>
             <param name="productsListQuery"></param>
             <returns></returns>
         </member>
-        <member name="M:U.SmartStoreAdapter.Controllers.ProductsController.GetProduct(U.SmartStoreAdapter.Application.Models.Products.GetProductQuery)">
+        <member name="M:U.SmartStoreAdapter.Controllers.ProductsController.GetProduct(U.SmartStoreAdapter.Application.Products.GetProductQuery)">
             <summary>
             Get product by its id or systemName
             </summary>
             <param name="productQuery"></param>
             <returns></returns>
         </member>
-        <member name="M:U.SmartStoreAdapter.Controllers.ProductsController.StoreProducts(U.SmartStoreAdapter.Application.Models.Products.StoreProductsCommand)">
+        <member name="M:U.SmartStoreAdapter.Controllers.ProductsController.StoreProducts(U.SmartStoreAdapter.Application.Products.StoreProductsCommand)">
             <summary>
             Add or update Product
             </summary>

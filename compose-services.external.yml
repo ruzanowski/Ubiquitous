@@ -10,8 +10,8 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
     volumes:
-      - '${ABSOLUTE_PATH}/apigateway/appsettings.docker.json:/app/appsettings.docker.json:ro'
-      - '${ABSOLUTE_PATH}/apigateway/ocelot.json:/app/ocelot.json:ro'
+      - '${ABSOLUTE_PATH}/ApiGateway/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/ApiGateway/ocelot.json:/app/ocelot.json:ro'
     restart: on-failure
     networks:
       - ubiquitous
@@ -22,12 +22,13 @@ services:
     ports:
       - 5000:5000
     environment:
-      DbOptions__Connection: ${PRODUCT_SERVICE_DB_CONNECTION}
+      DbOptions__Connection: ${PRODUCT_SERVICE_DB}
       DbOptions__Type: ${DATABASE_TYPE}
+      DbOptions__AutoMigration: "true"
       ASPNETCORE_URLS: http://+:5000
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
     volumes:
-      - '${ABSOLUTE_PATH}/productservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/Services/U.ProductService/appsettings.docker.json:/app/appsettings.docker.json:ro'
     restart: on-failure
     networks:
       - ubiquitous
@@ -40,10 +41,11 @@ services:
     environment:
       DbOptions__Connection: ${SMART_STORE_ADAPTER_DB}
       DbOptions__Type: ${DATABASE_TYPE}
+      DbOptions__AutoMigration: "true"
       ASPNETCORE_URLS: http://+:5100
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
     volumes:
-      - '${ABSOLUTE_PATH}/smartstoreadapter/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/Adapters/U.SmartStoreAdapter/appsettings.docker.json:/app/appsettings.docker.json:ro'
     restart: on-failure
     networks:
       - ubiquitous
@@ -56,10 +58,11 @@ services:
     environment:
       DbOptions__Connection: ${FETCH_SERVICE_DB}
       DbOptions__Type: ${DATABASE_TYPE}
+      DbOptions__AutoMigration: "true"
       ASPNETCORE_URLS: http://+:5200
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
     volumes:
-      - '${ABSOLUTE_PATH}/fetchservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/Services/U.FetchService/appsettings.docker.json:/app/appsettings.docker.json:ro'
     depends_on:
       - u.smartstore-adapter
     restart: on-failure
@@ -78,7 +81,7 @@ services:
       DbOptions__Type: ${DATABASE_TYPE}
       DbOptions__AutoMigration: "true"
     volumes:
-      - '${ABSOLUTE_PATH}/subscriptionservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/Services/U.SubscriptionService/appsettings.docker.json:/app/appsettings.docker.json:ro'
     restart: on-failure
     networks:
       - ubiquitous
@@ -95,7 +98,7 @@ services:
       DbOptions__Type: ${DATABASE_TYPE}
       DbOptions__AutoMigration: "true"
     volumes:
-      - '${ABSOLUTE_PATH}/identityservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/Services/U.IdentityService/appsettings.docker.json:/app/appsettings.docker.json:ro'
     restart: on-failure
     networks:
       - ubiquitous
@@ -112,18 +115,18 @@ services:
       DbOptions__Type: ${DATABASE_TYPE}
       DbOptions__AutoMigration: "true"
     volumes:
-      - '${ABSOLUTE_PATH}/notificationservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/Services/U.NotificationService/appsettings.docker.json:/app/appsettings.docker.json:ro'
     restart: on-failure
     networks:
       - ubiquitous
 
   u.generator-service:
-    image: registry.gitlab.com/ruzanowski/ubiquitous/generator-service:${DOCKER_TAG}
+    image: registry.gitlab.com/ruzanowski/ubiquitous/generatorservice:${DOCKER_TAG}
     container_name: u.generator-service
     ports:
       - 5700:5700
     volumes:
-      - '${ABSOLUTE_PATH}/generatorservice/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/Services/U.GeneratorService/appsettings.docker.json:/app/appsettings.docker.json:ro'
     environment:
       ASPNETCORE_URLS: http://+:5700
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
@@ -133,4 +136,5 @@ services:
 
 networks:
   ubiquitous:
-    name: ubiquitous
+    external:
+      name: ubiquitous_default

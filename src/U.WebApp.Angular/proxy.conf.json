@@ -1,26 +1,26 @@
 {
   "/api/identity": {
-    "target": "http://35.228.159.23:4500",
+    "target": "http://77.55.216.216:4500",
     "secure": false,
     "logLevel": "debug"
   },
   "/api/product": {
-    "target": "http://35.228.159.23:4500",
+    "target": "http://77.55.216.216:4500",
     "secure": false,
     "logLevel": "debug"
   },
   "/api/subscription": {
-    "target": "http://35.228.159.23:4500",
+    "target": "http://77.55.216.216:4500",
     "secure": false,
     "logLevel": "debug"
   },
   "/api/notification": {
-    "target": "http://35.228.159.23:4500",
+    "target": "http://77.55.216.216:4500",
     "secure": false,
     "logLevel": "debug"
   },
   "/signalr": {
-    "target": "http://35.228.159.23:4500",
+    "target": "http://77.55.216.216:4500",
     "secure": false,
     "logLevel": "debug"
   }

@@ -4,7 +4,7 @@ namespace U.Common.Database
     {
         public string Connection { get; set; }
         public DbType Type { get; set; }
-        public bool AutoMigration { get; set; } = false;
-        public bool Seed { get; set; } = false;
+        public bool AutoMigration { get; set; } = true;
+        public bool Seed { get; set; } = true;
     }
 }

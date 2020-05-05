@@ -22,7 +22,7 @@ export class NotificationHttpService
   }
 
   getNotificationStatisticsCount(): Observable<Array<NotificationCreationStatistics>> {
-    let url = this.notificationBaseUrl + '/statistics/creation';
+    let url = this.notificationBaseUrl + '/statistics/creation' + '?stepFrequency=Daily';
 
     return this.httpService.get(url).pipe(map((response: any) => response));
   }
