@@ -37,7 +37,8 @@ namespace U.IntegrationEventLog.Services
         public async Task<IEnumerable<IntegrationEventLogEntry>> RetrieveEventLogsPendingToPublishAsync()
         {
             var integrationEventLogs = await _integrationEventLogContext.IntegrationEventLogs
-                .Where(e => e.State == EventStateEnum.NotPublished)
+                .Where(e => e.State != EventStateEnum.NotPublished &&
+                            e.State != EventStateEnum.InProgress)
                 .OrderBy(o => o.CreationTime)
                 .ToListAsync();
 
@@ -47,7 +48,8 @@ namespace U.IntegrationEventLog.Services
             }
 
             return integrationEventLogs.Select(e =>
-                    e.DeserializeJsonContent(_eventTypes.Find(t => t.Name == e.EventTypeShortName)));
+                e.DeserializeJsonContent(_eventTypes.Find(t =>
+                    string.Equals(t.Name, e.EventTypeShortName, StringComparison.CurrentCultureIgnoreCase))));
         }
 
         public Task SaveEventAsync<T>(T @event, IDbContextTransaction transaction) where T : IntegrationEvent
