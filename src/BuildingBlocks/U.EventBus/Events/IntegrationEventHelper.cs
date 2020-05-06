@@ -22,9 +22,7 @@ namespace U.EventBus.Events
                 typeof(SignedUpIntegrationEvent),
 
                 typeof(UserConnectedIntegrationEvent),
-
                 typeof(UserConnectedEmailIntegrationEvent),
-
                 typeof(UserConnectedSignalRIntegrationEvent),
 
                 typeof(UserDisconnectedIntegrationEvent),
@@ -42,6 +40,8 @@ namespace U.EventBus.Events
                 typeof(ProductPublishedIntegrationEvent),
                 typeof(ProductPublishedEmailIntegrationEvent),
                 typeof(ProductPublishedSignalRIntegrationEvent),
+
+                typeof(IntegrationEvent)
             };
         }
     }
