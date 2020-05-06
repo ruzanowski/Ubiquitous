@@ -31,18 +31,7 @@ namespace U.IntegrationEventLog.Services
                     .ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning))
                     .Options);
 
-            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-            List<Assembly> allAssemblies =
-                Directory.GetFiles(path, "U.*.dll")
-                    .Select(dll => AppDomain.CurrentDomain.Load(Assembly.LoadFrom(dll).GetName()))
-                    .ToList();
-
-            _eventTypes = allAssemblies.SelectMany(
-                x => x.GetTypes()
-                    .Where(t => t.Name.EndsWith(nameof(IntegrationEvent)))
-                    .ToList()
-            ).ToList();
+            _eventTypes = IntegrationEventHelper.GetTypes();
         }
 
         public async Task<IEnumerable<IntegrationEventLogEntry>> RetrieveEventLogsPendingToPublishAsync()
