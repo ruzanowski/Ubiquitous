@@ -9,22 +9,25 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Logging;
 using U.EventBus.Events;
 
 namespace U.IntegrationEventLog.Services
 {
     public class IntegrationEventLogService : IIntegrationEventLogService
     {
+        private readonly ILogger<IntegrationEventLogService> _logger;
+
         private IntegrationEventLogService()
         {
-
         }
 
         private readonly IntegrationEventLogContext _integrationEventLogContext;
         private readonly List<Type> _eventTypes;
 
-        public IntegrationEventLogService(DbConnection dbConnection)
+        public IntegrationEventLogService(DbConnection dbConnection, ILogger<IntegrationEventLogService> logger)
         {
+            _logger = logger;
             _integrationEventLogContext = new IntegrationEventLogContext(
                 new DbContextOptionsBuilder<IntegrationEventLogContext>()
                     .UseNpgsql(dbConnection)
@@ -47,9 +50,20 @@ namespace U.IntegrationEventLog.Services
                 return integrationEventLogs;
             }
 
-            return integrationEventLogs.Select(e =>
-                e.DeserializeJsonContent(_eventTypes.Find(t =>
-                    string.Equals(t.Name, e.EventTypeShortName, StringComparison.CurrentCultureIgnoreCase))));
+            foreach (var ieLog in integrationEventLogs)
+            {
+                var eventType = _eventTypes.Find(t =>
+                    string.Equals(t.Name, ieLog.EventTypeShortName, StringComparison.InvariantCultureIgnoreCase));
+
+                ieLog.DeserializeJsonContent(eventType);
+
+                if (ieLog.IntegrationEvent is null)
+                {
+                    _logger.LogWarning($"Integration Event is null,  event type name: {eventType.Name}");
+                }
+            }
+
+            return integrationEventLogs;
         }
 
         public Task SaveEventAsync<T>(T @event, IDbContextTransaction transaction) where T : IntegrationEvent

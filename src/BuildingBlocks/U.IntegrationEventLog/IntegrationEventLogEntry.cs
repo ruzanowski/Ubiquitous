@@ -11,7 +11,7 @@ namespace U.IntegrationEventLog
         private IntegrationEventLogEntry() { }
         public IntegrationEventLogEntry(IntegrationEvent @event, Guid? transactionId)
         {
-            EventId = @event.Id;            
+            EventId = @event.Id;
             CreationTime = @event.CreationDate;
             EventTypeName = @event.GetType().FullName;
             Content = JsonConvert.SerializeObject(@event);
@@ -32,10 +32,11 @@ namespace U.IntegrationEventLog
         public string Content { get; private set; }
         public string TransactionId { get; private set; }
 
-        public IntegrationEventLogEntry DeserializeJsonContent(Type type)
+        public void DeserializeJsonContent(Type type)
         {
-            IntegrationEvent = JsonConvert.DeserializeObject(Content, type) as IntegrationEvent;
-            return this;
+            var deserialized = JsonConvert.DeserializeObject(Content, type);
+
+            IntegrationEvent = deserialized as IntegrationEvent;
         }
     }
 }

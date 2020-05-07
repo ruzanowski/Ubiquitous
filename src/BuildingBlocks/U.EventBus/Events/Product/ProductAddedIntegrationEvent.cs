@@ -6,13 +6,18 @@ namespace U.EventBus.Events.Product
 {
     public class ProductAddedIntegrationEvent : IntegrationEvent
     {
-        public Guid ProductId { get; }
+        public Guid ProductId { get; set;}
 
-        public string Name { get; }
+        public string Name { get; set; }
 
-        public decimal Price { get; }
+        public decimal Price { get; set; }
 
-        public Guid Manufacturer { get; }
+        public Guid Manufacturer { get; set; }
+
+        public ProductAddedIntegrationEvent()
+        {
+
+        }
 
         [JsonConstructor]
         public ProductAddedIntegrationEvent(Guid productId, string name, decimal price, Guid manufacturer)
