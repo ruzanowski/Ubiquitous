@@ -59,7 +59,9 @@ namespace U.IntegrationEventLog.Services
 
                 if (ieLog.IntegrationEvent is null)
                 {
-                    _logger.LogWarning($"Integration Event is null,  event type name: {eventType.Name}");
+                    _logger.LogWarning($"Integration Event is null.\n" +
+                                       $"Integration Event reflection name = {ieLog?.EventTypeName}\n" +
+                                       $"Event Type name found by reflection match: {eventType?.Name}");
                 }
             }
 
