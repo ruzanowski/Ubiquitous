@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using U.IdentityService.Domain.Domain;
+using U.IdentityService.Domain.Models;
 
 namespace U.IdentityService.Persistance.Repositories
 {

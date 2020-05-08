@@ -1,4 +1,4 @@
-namespace U.IdentityService.Domain.Domain
+namespace U.IdentityService.Domain.Models
 {
     public static class Role
     {
