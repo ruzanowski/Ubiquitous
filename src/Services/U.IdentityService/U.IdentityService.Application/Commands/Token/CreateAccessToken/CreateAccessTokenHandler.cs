@@ -6,7 +6,7 @@ using U.Common.Jwt;
 using U.Common.Jwt.Service;
 using U.EventBus.Abstractions;
 using U.IdentityService.Application.Services;
-using U.IdentityService.Domain.Models;
+using U.IdentityService.Domain.Domain;
 using U.IdentityService.Persistance.Repositories;
 
 namespace U.IdentityService.Application.Commands.Token.CreateAccessToken

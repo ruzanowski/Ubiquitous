@@ -26,7 +26,10 @@ namespace U.IdentityService.Controllers
         [JwtAuth]
         public async Task<IActionResult> GetAsync()
         {
-            var query = new GetMyProfile(UserId);
+            var query = new GetMyProfile
+            {
+                UserId = UserId
+            };
 
             var users = await _mediator.Send(query);
 
