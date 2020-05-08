@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Identity;
 using U.IdentityService.Domain.Exceptions;
 
-namespace U.IdentityService.Domain.Domain
+namespace U.IdentityService.Domain.Models
 {
     public class User
 
@@ -33,7 +33,7 @@ namespace U.IdentityService.Domain.Domain
                 $"Invalid email: '{email}'.");
         }
 
-        if (!Domain.Role.IsValid(role))
+        if (!Models.Role.IsValid(role))
         {
             throw new IdentityException(Codes.InvalidRole,
                 $"Invalid role: '{role}'.");
