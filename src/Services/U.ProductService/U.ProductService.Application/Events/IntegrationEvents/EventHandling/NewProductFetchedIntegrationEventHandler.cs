@@ -20,7 +20,8 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
         private readonly IProductRepository _productRepository;
         private readonly IManufacturerRepository _manufacturerRepository;
 
-        public NewProductFetchedIntegrationEventHandler(IMediator mediator, IProductRepository productRepository,
+        public NewProductFetchedIntegrationEventHandler(IMediator mediator,
+            IProductRepository productRepository,
             IManufacturerRepository manufacturerRepository)
         {
             _mediator = mediator;
@@ -30,7 +31,7 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
 
         public async Task Handle(NewProductFetchedIntegrationEvent @event)
         {
-            var product = await _productRepository.GetByAlternativeIdAsync(@event.GetUniqueId);
+            var product = await _productRepository.GetByBarcodeAsync(@event.GetUniqueId);
 
             if (product is null)
             {
@@ -45,14 +46,14 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
 
                 await _mediator.Send(create);
             }
-            else
-            {
-                var dimensions = new DimensionsDto(@event.Length, @event.Width, @event.Height, @event.Weight);
-                var update = new UpdateProductCommand(product.Id, @event.Name, @event.PriceInTax,
-                    @event.Description, dimensions);
-
-                await _mediator.Send(update);
-            }
+//            else
+//            {
+//                var dimensions = new DimensionsDto(@event.Length, @event.Width, @event.Height, @event.Weight);
+//                var update = new UpdateProductCommand(product.Id, @event.Name, @event.PriceInTax,
+//                    @event.Description, dimensions) {Product = product};
+//
+//                await _mediator.Send(update);
+//            }
         }
 
         private async Task<Manufacturer> ShuffleManufacturerAsync()

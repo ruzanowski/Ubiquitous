@@ -28,6 +28,8 @@
         <None Include="appsettings.docker.json">
             <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </None>
+        <None Remove="U.NotificationService.PeriodicSender\**" />
+        <Content Remove="U.NotificationService.PeriodicSender\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -54,10 +56,15 @@
         <_ContentIncludedByDefault Remove="U.NotificationService.Infrastructure\obj\project.assets.json" />
         <_ContentIncludedByDefault Remove="U.NotificationService.Infrastructure\obj\project.packagespec.json" />
         <_ContentIncludedByDefault Remove="U.NotificationService.Infrastructure\obj\U.NotificationService.Infrastructure.csproj.nuget.dgspec.json" />
+        <Compile Remove="U.NotificationService.PeriodicSender\**" />
+        <EmbeddedResource Remove="U.NotificationService.PeriodicSender\**" />
+        <_ContentIncludedByDefault Remove="U.NotificationService.PeriodicSender\obj\project.assets.json" />
+        <_ContentIncludedByDefault Remove="U.NotificationService.PeriodicSender\obj\project.packagespec.json" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="U.NotificationService.Application\U.NotificationService.Application.csproj" />
+      <ProjectReference Include="U.NotificationService.PeriodicSender\U.NotificationService.PeriodicSender.csproj" />
     </ItemGroup>
 
 </Project>

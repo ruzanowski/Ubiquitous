@@ -1,6 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using U.EventBus.Events;
 using U.NotificationService.Application.Models;
 using U.NotificationService.Domain.Entities;
@@ -12,13 +17,48 @@ namespace U.NotificationService.Application.SignalR
 {
     public class PersistentHub
     {
-        private readonly NotificationContext _context;
         private readonly IHubContext<BaseHub> _hubContext;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly ILogger<PersistentHub> _logger;
 
-        public PersistentHub(NotificationContext context, IHubContext<BaseHub> hubContext)
+        private NotificationContext _context;
+        private NotificationContext Context =>
+            _context ?? _serviceProvider.CreateScope().ServiceProvider.GetService<NotificationContext>();
+
+        public PersistentHub(IHubContext<BaseHub> hubContext,
+            ILogger<PersistentHub> logger,
+            IServiceProvider serviceProvider)
         {
-            _context = context;
             _hubContext = hubContext;
+            _logger = logger;
+            _serviceProvider = serviceProvider;
+        }
+
+        public async Task SaveManyAndSendToAllAsync(IList<IntegrationEvent> events)
+        {
+            IList<Notification> notifications = new List<Notification>();
+
+            foreach (var eventWithName in events)
+            {
+                var notification = new Notification(eventWithName);
+                notification.IncrementProcessedTimes();
+                notifications.Add(notification);
+            }
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
+            _context.BulkInsert(notifications);
+
+            foreach (var notification in notifications)
+            {
+                var notificationDto =
+                    NotificationDto.NotifactionFactory.GlobalVolatileNotification(notification);
+
+                await _hubContext.Clients.All.SendAsync(notification.MethodTag, notificationDto);
+            }
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+
+            _logger.LogInformation($"Saved {notifications.Count} notifications in {elapsedMs} ms");
         }
 
         public async Task SaveAndSendToAllAsync<T>(string methodTag, T @event) where T : IntegrationEvent
@@ -26,10 +66,10 @@ namespace U.NotificationService.Application.SignalR
             var notification = new Notification(@event);
             notification.IncrementProcessedTimes();
 
-            await _context.AddAsync(notification);
-            await _context.SaveChangesAsync();
+            await Context.AddAsync(notification);
+            await Context.SaveChangesAsync();
 
-            var notificationDto = NotificationDto.NotifactionFactory.GlobalVolatileNotification(notification, @event);
+            var notificationDto = NotificationDto.NotifactionFactory.GlobalVolatileNotification(notification);
 
             await _hubContext.Clients.All
                 .SendAsync(methodTag, notificationDto);
@@ -41,14 +81,14 @@ namespace U.NotificationService.Application.SignalR
             var notification = new Notification(@event);
             notification.IncrementProcessedTimes();
 
-            await _context.AddAsync(notification);
-            await _context.SaveChangesAsync();
+            await Context.AddAsync(notification);
+            await Context.SaveChangesAsync();
 
-            var notificationDto = NotificationDto.NotifactionFactory.FromNotificationWithPrefferedImportancy(notification, userId);
+            var notificationDto =
+                NotificationDto.NotifactionFactory.FromNotificationWithPrefferedImportancy(notification, userId);
 
             await _hubContext.Clients.Client(connectionId)
                 .SendAsync(methodTag, notificationDto);
         }
-
     }
 }

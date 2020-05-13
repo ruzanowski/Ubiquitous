@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
 using U.EventBus.Events.Product;
 
@@ -8,15 +7,12 @@ namespace U.SubscriptionService.Application.Multiplexers
 {
     public class ProductPublishedMultiplexingIntegrationEventHandler : IIntegrationEventHandler<ProductPublishedIntegrationEvent>
     {
-        private readonly ILogger<ProductPublishedMultiplexingIntegrationEventHandler> _logger;
         private readonly IEventBus _eventBus;
         private readonly IMapper _mapper;
 
-        public ProductPublishedMultiplexingIntegrationEventHandler(ILogger<ProductPublishedMultiplexingIntegrationEventHandler> logger,
-            IEventBus eventBus,
+        public ProductPublishedMultiplexingIntegrationEventHandler(IEventBus eventBus,
              IMapper mapper)
         {
-            _logger = logger;
             _eventBus = eventBus;
             _mapper = mapper;
         }
@@ -25,7 +21,6 @@ namespace U.SubscriptionService.Application.Multiplexers
         {
             var signalRIntegrationEvent = _mapper.Map<ProductPublishedSignalRIntegrationEvent>(@event);
             _eventBus.Publish(signalRIntegrationEvent);
-            _logger.LogInformation($"--- Pushed to SignalR: '{nameof(ProductPublishedSignalRIntegrationEvent)} ---");
             await Task.CompletedTask;
 
 //            var emailRIntegrationEvent = _mapper.Map<ProductPublishedEmailIntegrationEvent>(@event);

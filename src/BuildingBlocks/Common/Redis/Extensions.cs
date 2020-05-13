@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -37,8 +38,7 @@ namespace U.Common.Redis
                 {
                     EndPoints =
                     {
-                        new DnsEndPoint(redisOptions?.Host ?? "redis", redisOptions?.Port ?? 6379),
-                        new DnsEndPoint("localhost", 6379)
+                        new DnsEndPoint(redisOptions?.Host ?? "redis", redisOptions?.Port ?? 6379)
                     },
                     ResolveDns = redisOptions?.ResolveDns ?? true,
                     AbortOnConnectFail = redisOptions?.AbortOnConnectFail ?? false,

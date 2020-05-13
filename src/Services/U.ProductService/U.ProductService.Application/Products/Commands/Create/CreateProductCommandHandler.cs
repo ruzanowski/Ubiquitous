@@ -30,16 +30,16 @@ namespace U.ProductService.Application.Products.Commands.Create
 
         public async Task<Guid> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
-            var duplicate = await _productRepository.AnyAlternateIdAsync(command.BarCode);
+            var duplicate = await _productRepository.GetByBarcodeAsync(command.BarCode);
 
-            if (duplicate)
+            if (duplicate != null)
             {
                 throw new ProductDuplicatedException($"Duplicated product with alternative key: '{command.BarCode}'");
             }
 
             if (command.CategoryId != null)
                 await ValidateCategoryOrThrowAsync(command.CategoryId.Value);
-            
+
             await ValidateManufacturerOrThrowAsync(command.ManufacturerId);
 
             var product = GetProduct(command);

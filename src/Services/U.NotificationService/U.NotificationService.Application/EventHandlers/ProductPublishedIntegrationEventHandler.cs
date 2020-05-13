@@ -1,29 +1,25 @@
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using U.EventBus.Abstractions;
 using U.EventBus.Events;
 using U.EventBus.Events.Product;
+using U.NotificationService.Application.Builders.PendingNotifications;
 using U.NotificationService.Application.SignalR;
 
 namespace U.NotificationService.Application.EventHandlers
 {
     public class ProductPublishedSignalRIntegrationEventHandler : IIntegrationEventHandler<ProductPublishedSignalRIntegrationEvent>
     {
-        private readonly ILogger<ProductPublishedSignalRIntegrationEventHandler> _logger;
-        private readonly PersistentHub _persistentHubContext;
+        private readonly IPendingEventsService _pendingEventsService;
 
-        public ProductPublishedSignalRIntegrationEventHandler(ILogger<ProductPublishedSignalRIntegrationEventHandler> logger,
-            PersistentHub persistentHubContext)
+        public ProductPublishedSignalRIntegrationEventHandler(IPendingEventsService pendingEventsService)
         {
-            _logger = logger;
-            _persistentHubContext = persistentHubContext;
+            _pendingEventsService = pendingEventsService;
         }
 
         public async Task Handle(ProductPublishedSignalRIntegrationEvent @event)
         {
-            await _persistentHubContext.SaveAndSendToAllAsync(nameof(ProductPublishedSignalRIntegrationEvent), @event);
-
-            _logger.LogInformation($"--- Pushed by SignalR: '{nameof(ProductPublishedSignalRIntegrationEvent)} ---");
+            _pendingEventsService.Add(@event);
+            await Task.CompletedTask;
         }
     }
 }

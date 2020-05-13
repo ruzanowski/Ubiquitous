@@ -16,6 +16,7 @@ namespace U.SubscriptionService.Persistance.Contexts
         {
         }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new SignalRConnectionEntityTypeConfiguration());

@@ -48,9 +48,9 @@ namespace U.NotificationService.Application.Models
                     Importancy.Trivial); // many to one conversion
 
             public static NotificationDto
-                GlobalVolatileNotification(Notification notification, IntegrationEvent @event) =>
+                GlobalVolatileNotification(Notification notification) =>
                 new NotificationDto(notification.Id,
-                    @event,
+                    notification.IntegrationEventDeserialized,
                     notification.IntegrationEventType,
                     notification.Confirmations.FirstOrDefault()?.ConfirmationType ?? ConfirmationType.Unread,
                     Importancy.Important);

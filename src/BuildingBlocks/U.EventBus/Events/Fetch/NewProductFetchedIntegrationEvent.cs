@@ -1,3 +1,5 @@
+using U.Common.Subscription;
+
 namespace U.EventBus.Events.Fetch
 {
     public class NewProductFetchedIntegrationEvent : IntegrationEvent
@@ -14,6 +16,8 @@ namespace U.EventBus.Events.Fetch
         public decimal Weight { get; private set; }
         public int? MainPictureId { get; private set; }
         public int CategoryId { get; private set; }
+        public override string MethodTag => nameof(NewProductFetchedIntegrationEvent);
+        public override IntegrationEventType EventType => IntegrationEventType.NewProductFetched;
         public new string Id { get; private set; }
 
         public NewProductFetchedIntegrationEvent(string name, int manufacturerId, string productUniqueCode, int inStock, decimal priceInTax, string description, decimal length, decimal width, decimal height, decimal weight, int? mainPictureId, int categoryId, string id)
@@ -32,6 +36,6 @@ namespace U.EventBus.Events.Fetch
             CategoryId = categoryId;
             Id = id;
         }
-        public string GetUniqueId => $"{Id}.{ProductUniqueCode}";
+        public string GetUniqueId => $"{ManufacturerId}.{Id}";
     }
 }

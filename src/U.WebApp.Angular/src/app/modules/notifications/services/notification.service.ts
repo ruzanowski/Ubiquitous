@@ -7,11 +7,12 @@ import {ProductAddedEvent} from "../models/events/product/product-added-event.mo
 import {ProductPropertiesChangedEvent} from "../models/events/product/product-properties-changed-event.model";
 import {ProductPublishedEvent} from "../models/events/product/product-published-event.model";
 import {BaseEvent} from "../models/events/base-event.model";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
-export class NotificationService{
+export class NotificationService {
 
   @Input()
   numOfItemsToShow = 5;
@@ -28,8 +29,7 @@ export class NotificationService{
 
   @Output() notificationsBadgeEvent = new EventEmitter();
 
-  constructor(private signalr: SignalrService, private toastr: ReactiveToasterService)
-  {
+  constructor(private signalr: SignalrService, private toastr: ReactiveToasterService) {
     this.registerSubscriptions();
   }
 
@@ -42,91 +42,97 @@ export class NotificationService{
     this.emitChangeNumberOfNotifications();
   }
 
-  registerSubscriptions(){
+  registerSubscriptions() {
 
     this.signalr.productAdded$.asObservable().subscribe(
       (productAdded) => {
         this.productsAddedEvents.push(productAdded);
         this.notifications = productAdded;
-        this.toastr.showToast('', 'New product has been added', 'success');
+        if (environment.toastrEnabled) {
+          this.toastr.showToast('', 'New product has been added', 'success');
+        }
       });
 
     this.signalr.productPropertiesChanged$.asObservable().subscribe(
       (productPropertiesChanged) => {
         this.productsPropertiesChangedEvents.push(productPropertiesChanged);
         this.notifications = productPropertiesChanged;
-        this.toastr.showToast('', 'Product has been changed', 'success');
+        if (environment.toastrEnabled) {
+          this.toastr.showToast('', 'Product has been changed', 'success');
+        }
       });
 
     this.signalr.productPublished$.asObservable().subscribe(
       (productPublished) => {
         this.productsPublishedEvents.push(productPublished);
         this.notifications = productPublished;
-        this.toastr.showToast('', 'Product has been published', 'success');
+        if (environment.toastrEnabled) {
+          this.toastr.showToast('', 'Product has been published', 'success');
+        }
 
       });
 
     this.signalr.welcomeMessage$.asObservable().subscribe(
       (welcomeMessage) => {
         this.notifications = welcomeMessage;
-        this.toastr.showToast('', 'Welcome to Ubiquitous!', 'success');
+        if (environment.toastrEnabled) {
+          this.toastr.showToast('', 'Welcome to Ubiquitous!', 'success');
+        }
       });
 
     this.signalr.usersConnected$.asObservable().subscribe(
       (notification) => {
         this.notifications = notification;
-        this.toastr.showToast('', notification.event.nickname + ' has joined!', 'info');
+        if (environment.toastrEnabled) {
+          this.toastr.showToast('', notification.event.nickname + ' has joined!', 'info');
+        }
         this.usersLogged.push(notification.event.nickname);
       });
 
     this.signalr.usersDisconnected$.asObservable().subscribe(
       (notification) => {
         this.notifications = notification;
-        this.toastr.showToast('', notification.event.nickname + ' has left!', 'info');
-        this.usersLogged = this.usersLogged.filter(x=>x != notification.event.nickname);
+        if (environment.toastrEnabled) {
+          this.toastr.showToast('', notification.event.nickname + ' has left!', 'info');
+        }
+        this.usersLogged = this.usersLogged.filter(x => x != notification.event.nickname);
       });
 
   }
 
-  emitChangeNumberOfNotifications()
-  {
+  emitChangeNumberOfNotifications() {
     this.notificationsBadgeEvent.emit(this._notificationsData.filter(value => value.state === ConfirmationType.unread).length);
   }
+
   countNotifications() {
     return this._notificationsData.length;
   }
 
-  read(notification: NotificationDto<any>) : void
-  {
+  read(notification: NotificationDto<any>): void {
     notification.state = ConfirmationType.read;
     this.emitChangeNumberOfNotifications();
     this.signalr.invokeReadNotification(notification.id);
   }
 
-  readAll(notifications: Array<NotificationDto<any>>) : void
-  {
-    notifications.forEach(notification =>
-    {
+  readAll(notifications: Array<NotificationDto<any>>): void {
+    notifications.forEach(notification => {
       notification.state = ConfirmationType.read;
       this.emitChangeNumberOfNotifications();
       this.signalr.invokeReadNotification(notification.id);
     });
   }
 
-  hide(notification: NotificationDto<any>) : void
-  {
+  hide(notification: NotificationDto<any>): void {
     notification.state = ConfirmationType.hidden;
     this.signalr.invokeHideNotification(notification.id);
   }
 
-  delete(notification: NotificationDto<any>) : void
-  {
+  delete(notification: NotificationDto<any>): void {
     notification.state = ConfirmationType.hidden;
     this.signalr.invokeDeleteNotification(notification.id);
   }
 
-  changeImportancy(notification: NotificationDto<any>) : void
-  {
+  changeImportancy(notification: NotificationDto<any>): void {
     notification.state = ConfirmationType.hidden;
     this.signalr.invokeChangeImportancyNotification(notification.id, notification.importancy);
   }

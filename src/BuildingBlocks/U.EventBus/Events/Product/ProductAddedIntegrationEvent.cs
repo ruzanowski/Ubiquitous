@@ -1,5 +1,6 @@
 using System;
 using Newtonsoft.Json;
+using U.Common.Subscription;
 using U.EventBus.Events.Notification;
 
 namespace U.EventBus.Events.Product
@@ -27,6 +28,9 @@ namespace U.EventBus.Events.Product
             Price = price;
             Manufacturer = manufacturer;
         }
+
+        public override string MethodTag => nameof(ProductAddedIntegrationEvent);
+        public override IntegrationEventType EventType => IntegrationEventType.ProductAddedIntegrationEvent;
     }
 
     public sealed class ProductAddedSignalRIntegrationEvent : ProductAddedIntegrationEvent
@@ -37,6 +41,8 @@ namespace U.EventBus.Events.Product
             Guid manufacturer) : base(productId, name, price, manufacturer)
         {
         }
+        public override string MethodTag => nameof(ProductAddedSignalRIntegrationEvent);
+
     }
 
     public sealed class ProductAddedEmailIntegrationEvent : ProductAddedIntegrationEvent
@@ -45,5 +51,7 @@ namespace U.EventBus.Events.Product
             productId, name, price, manufacturer)
         {
         }
+        public override string MethodTag => nameof(ProductAddedEmailIntegrationEvent);
+
     }
 }
