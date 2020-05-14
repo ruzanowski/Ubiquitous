@@ -1,5 +1,6 @@
 using System;
 using Newtonsoft.Json;
+using U.Common.Subscription;
 
 namespace U.EventBus.Events.Identity
 {
@@ -16,5 +17,8 @@ namespace U.EventBus.Events.Identity
             Email = email;
             Role = role;
         }
+
+        public override string MethodTag => nameof(SignedUpIntegrationEvent);
+        public override IntegrationEventType EventType => IntegrationEventType.SignedIn;
     }
 }

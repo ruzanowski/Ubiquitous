@@ -13,12 +13,8 @@ namespace U.ProductService.Domain
 
         void Update(Product product);
 
-        Task<Product> GetAsync(Guid productId);    
-        
-        Task<Product> GetByAlternativeIdAsync(string alternateId);
+        Task<Product> GetAsync(Guid productId);
 
-        Task<bool> AnyAsync(Guid id);
-
-        Task<bool> AnyAlternateIdAsync(string barCode);
+        Task<Product> GetByBarcodeAsync(string barCode);
     }
 }

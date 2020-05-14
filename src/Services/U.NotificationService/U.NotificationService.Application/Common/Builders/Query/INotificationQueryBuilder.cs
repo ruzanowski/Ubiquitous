@@ -4,7 +4,7 @@ using U.Common.Subscription;
 using U.NotificationService.Application.Models;
 using U.NotificationService.Domain.Entities;
 
-namespace U.NotificationService.Application.SignalR.Services.QueryBuilder
+namespace U.NotificationService.Application.Builders.Query
 {
     public interface INotificationQueryBuilder
     {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using U.Common.Subscription;
 
 namespace U.EventBus.Events.Product
 {
@@ -17,6 +18,8 @@ namespace U.EventBus.Events.Product
             Manufacturer = manufacturer;
             Variances = variances;
         }
+        public override string MethodTag => nameof(ProductPropertiesChangedIntegrationEvent);
+        public override IntegrationEventType EventType => IntegrationEventType.ProductPropertiesChangedIntegrationEvent;
     }
 
     public sealed class ProductPropertiesChangedSignalRIntegrationEvent : ProductPropertiesChangedIntegrationEvent
@@ -24,6 +27,8 @@ namespace U.EventBus.Events.Product
         public ProductPropertiesChangedSignalRIntegrationEvent(Guid productId, Guid manufacturer, List<Variance> variances) : base(productId, manufacturer, variances)
         {
         }
+        public override string MethodTag => nameof(ProductPropertiesChangedSignalRIntegrationEvent);
+
     }
 
     public sealed class ProductPropertiesChangedEmailIntegrationEvent : ProductPropertiesChangedIntegrationEvent
@@ -31,5 +36,7 @@ namespace U.EventBus.Events.Product
         public ProductPropertiesChangedEmailIntegrationEvent(Guid productId, Guid manufacturer, List<Variance> variances) : base(productId, manufacturer, variances)
         {
         }
+        public override string MethodTag => nameof(ProductPropertiesChangedEmailIntegrationEvent);
+
     }
 }

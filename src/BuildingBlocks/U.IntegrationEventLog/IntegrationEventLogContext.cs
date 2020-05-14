@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace U.IntegrationEventLog
 {
     public class IntegrationEventLogContext : DbContext
-    {       
+    {
         public IntegrationEventLogContext(DbContextOptions<IntegrationEventLogContext> options) : base(options)
         {
         }
@@ -12,7 +12,7 @@ namespace U.IntegrationEventLog
         public DbSet<IntegrationEventLogEntry> IntegrationEventLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
-        {          
+        {
             builder.Entity<IntegrationEventLogEntry>(ConfigureIntegrationEventLogEntry);
         }
 

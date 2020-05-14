@@ -7,6 +7,7 @@ COPY *.csproj .
 COPY U.NotificationService.Application/*.csproj ./U.NotificationService.Application
 COPY U.NotificationService.Domain/*.csproj ./U.NotificationService.Domain
 COPY U.NotificationService.Infrastructure/*.csproj ./U.NotificationService.Infrastructure
+COPY U.NotificationService.PeriodicSender/*.csproj ./U.NotificationService.PeriodicSender
 COPY . .
 RUN dotnet restore "./U.NotificationService.csproj" /property:Configuration=Release --configfile "${NUGET_CONFIG_FILE}"
 

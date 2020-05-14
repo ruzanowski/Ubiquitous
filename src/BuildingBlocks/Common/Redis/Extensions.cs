@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -17,10 +18,9 @@ namespace U.Common.Redis
         public static IServiceCollection AddRedis(this IServiceCollection services)
         {
             IConfiguration configuration;
-            ILogger<StartupBase> logger;
             using (var serviceProvider = services.BuildServiceProvider())
             {
-                logger = serviceProvider.GetService<ILogger<StartupBase>>();
+                serviceProvider.GetService<ILogger<StartupBase>>();
                 configuration = serviceProvider.GetService<IConfiguration>();
             }
 
@@ -29,16 +29,13 @@ namespace U.Common.Redis
 
             services.TryAddSingleton(redisOptions);
 
-            logger.LogInformation("RedisOptions = " + JsonConvert.SerializeObject(redisOptions, Formatting.Indented));
-
             services.AddStackExchangeRedisCache(options =>
             {
                 options.ConfigurationOptions = new ConfigurationOptions
                 {
                     EndPoints =
                     {
-                        new DnsEndPoint(redisOptions?.Host ?? "redis", redisOptions?.Port ?? 6379),
-                        new DnsEndPoint("localhost", 6379)
+                        new DnsEndPoint(redisOptions?.Host ?? "redis", redisOptions?.Port ?? 6379)
                     },
                     ResolveDns = redisOptions?.ResolveDns ?? true,
                     AbortOnConnectFail = redisOptions?.AbortOnConnectFail ?? false,

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using U.IdentityService.Domain.Models;
+using Z.EntityFramework.Extensions;
 
 namespace U.IdentityService.Persistance.Contexts
 {
@@ -13,6 +14,8 @@ namespace U.IdentityService.Persistance.Contexts
 
         public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
         {
+            EntityFrameworkManager.ContextFactory = context => this;
         }
+
     }
 }

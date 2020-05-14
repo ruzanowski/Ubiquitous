@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 using U.ProductService.Domain;
 using U.ProductService.Domain.SeedWork;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Persistance.Repositories
 {
-    public class ProductRepository: IProductRepository
+    public class ProductRepository: CachingRepository, IProductRepository
     {
         private readonly ProductContext _context;
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public ProductRepository(ProductContext context)
-        {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-        }
 
         public async Task<Product> AddAsync(Product product)
         {
@@ -25,6 +22,13 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<Product> GetAsync(Guid productId)
         {
+            var cached = await GetCachedOrDefaultAsync<Product>(productId.ToString());
+
+            if (cached != null)
+            {
+                return cached;
+            }
+
             var product = await _context.Products
                 .Include(x => x.Dimensions)
                 .Include(x => x.Pictures)
@@ -32,29 +36,46 @@ namespace U.ProductService.Persistance.Repositories
                 .Include(x => x.Category)
                 .FirstOrDefaultAsync(x => x.Id.Equals(productId));
 
+            if (product != null)
+            {
+                await CacheAsync(productId.ToString(), product);
+            }
+
             return product;
         }
-        
-        public async Task<Product> GetByAlternativeIdAsync(string alternateId)
+
+        public async Task<Product> GetByBarcodeAsync(string barCode)
         {
+            var cached = await GetCachedOrDefaultAsync<Product>(barCode);
+
+            if (cached != null)
+            {
+                return cached;
+            }
+
             var product = await _context.Products
                 .Include(x => x.Dimensions)
                 .Include(x => x.Pictures)
                 .Include(x => x.ProductType)
                 .Include(x => x.Category)
-                .FirstOrDefaultAsync(x=>x.BarCode.Equals(alternateId));
+                .FirstOrDefaultAsync(x => x.BarCode.Equals(barCode));
+
+            if (product != null)
+            {
+                await CacheAsync(barCode, product);
+            }
 
             return product;
         }
-        
-        public async Task<bool> AnyAsync(Guid id) => await _context.Products.AnyAsync(x => x.Id.Equals(id));
-
-        public async Task<bool> AnyAlternateIdAsync(string barCode) =>
-            await _context.Products.AnyAsync(x => x.BarCode.Equals(barCode));
 
         public void Update(Product product)
         {
             _context.Entry(product).State = EntityState.Modified;
+        }
+
+        public ProductRepository(IDistributedCache cache, ProductContext context) : base(cache)
+        {
+            _context = context;
         }
     }
 }

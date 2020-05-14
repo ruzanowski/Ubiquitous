@@ -21,7 +21,7 @@ namespace U.ProductService.Application.Products.Queries.GetSingleByAlternativeKe
         
         public async Task<ProductViewModel> Handle(QueryProductByAlternativeKey request, CancellationToken cancellationToken)
         {
-            var products = await _productRepository.GetByAlternativeIdAsync(request.AlternativeKey);
+            var products = await _productRepository.GetByBarcodeAsync(request.AlternativeKey);
 
             if (products is null)
                 throw new ProductNotFoundException($"Product with alternative key: '{request.AlternativeKey}' has not been found.");
