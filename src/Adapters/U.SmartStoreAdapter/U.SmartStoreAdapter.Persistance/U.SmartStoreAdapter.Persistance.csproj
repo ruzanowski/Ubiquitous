@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <PackageReference Include="Ubiquitous.IntegrationEventLog" Version="0.3" />
+        <PackageReference Include="Ubiquitous.IntegrationEventLog" Version="0.3.*" />
     </ItemGroup>
 
     <ItemGroup>
