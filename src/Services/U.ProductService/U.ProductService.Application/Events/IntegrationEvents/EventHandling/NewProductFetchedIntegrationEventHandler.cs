@@ -46,14 +46,14 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
 
                 await _mediator.Send(create);
             }
-//            else
-//            {
-//                var dimensions = new DimensionsDto(@event.Length, @event.Width, @event.Height, @event.Weight);
-//                var update = new UpdateProductCommand(product.Id, @event.Name, @event.PriceInTax,
-//                    @event.Description, dimensions) {Product = product};
-//
-//                await _mediator.Send(update);
-//            }
+            else
+            {
+                var dimensions = new DimensionsDto(@event.Length, @event.Width, @event.Height, @event.Weight);
+                var update = new UpdateProductCommand(product.Id, @event.Name, @event.PriceInTax,
+                    @event.Description, dimensions);
+
+                await _mediator.Send(update);
+            }
         }
 
         private async Task<Manufacturer> ShuffleManufacturerAsync()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
@@ -46,7 +47,24 @@ namespace U.ProductService.Persistance.Repositories
             return manufacturer;
         }
 
-        public async Task<IList<Manufacturer>> GetManyAsync() => await _context.Manufacturers.ToListAsync();
+        public async Task<IList<Manufacturer>> GetManyAsync()
+        {
+            var cached = await GetCachedOrDefaultAsync<IList<Manufacturer>>("allManufacturers");
+
+            if (cached != null)
+            {
+                return cached;
+            }
+
+            var manufacturers = await _context.Manufacturers.ToListAsync();
+
+            if (manufacturers != null && manufacturers.Any())
+            {
+                await CacheAsync("allManufacturers", manufacturers);
+            }
+
+            return manufacturers;
+        }
 
         public async Task<Manufacturer> GetUniqueClientIdAsync(string uniqueClientId)
         {

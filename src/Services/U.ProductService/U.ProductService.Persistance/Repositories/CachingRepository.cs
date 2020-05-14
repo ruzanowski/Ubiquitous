@@ -14,14 +14,14 @@ namespace U.ProductService.Persistance.Repositories
             _cache = cache;
         }
 
-        private string GetCacheKey<T>(string uniqueId)
+        private string GetCacheKey(string uniqueId)
         {
             return uniqueId;
         }
 
         protected async Task<T> GetCachedOrDefaultAsync<T>(string id) where T : class
         {
-            var cacheKey = GetCacheKey<T>(id);
+            var cacheKey = GetCacheKey(id);
             var cached = await _cache.GetStringAsync(cacheKey);
 
             return !(cached is null)
@@ -31,10 +31,11 @@ namespace U.ProductService.Persistance.Repositories
 
         protected async Task CacheAsync<T>(string id, T toCache) where T : class
         {
-            var cacheKey = GetCacheKey<T>(id);
+            var cacheKey = GetCacheKey(id);
             var options = new DistributedCacheEntryOptions()
                 .SetSlidingExpiration(TimeSpan.FromMinutes(30))
                 .SetAbsoluteExpiration(TimeSpan.FromMinutes(30));
+
             await _cache.SetStringAsync(cacheKey, JsonConvert.SerializeObject(toCache), options);
         }
     }

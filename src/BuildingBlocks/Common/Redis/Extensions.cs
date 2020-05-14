@@ -18,10 +18,9 @@ namespace U.Common.Redis
         public static IServiceCollection AddRedis(this IServiceCollection services)
         {
             IConfiguration configuration;
-            ILogger<StartupBase> logger;
             using (var serviceProvider = services.BuildServiceProvider())
             {
-                logger = serviceProvider.GetService<ILogger<StartupBase>>();
+                serviceProvider.GetService<ILogger<StartupBase>>();
                 configuration = serviceProvider.GetService<IConfiguration>();
             }
 
@@ -29,8 +28,6 @@ namespace U.Common.Redis
 
 
             services.TryAddSingleton(redisOptions);
-
-            logger.LogInformation("RedisOptions = " + JsonConvert.SerializeObject(redisOptions, Formatting.Indented));
 
             services.AddStackExchangeRedisCache(options =>
             {

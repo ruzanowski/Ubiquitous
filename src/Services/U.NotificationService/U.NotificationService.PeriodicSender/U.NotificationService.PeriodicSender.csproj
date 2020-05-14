@@ -5,10 +5,16 @@
         <LangVersion>8</LangVersion>
     </PropertyGroup>
 
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <PackageReference Include="Ubiquitous.Common" Version="0.3" />
+    </ItemGroup>
+
     <ItemGroup>
-      <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
       <ProjectReference Include="..\U.NotificationService.Application\U.NotificationService.Application.csproj" />
-<!--      <ProjectReference Include="..\U.NotificationService.Application\U.NotificationService.Application.csproj" />-->
       <ProjectReference Include="..\U.NotificationService.Domain\U.NotificationService.Domain.csproj" />
       <ProjectReference Include="..\U.NotificationService.Infrastructure\U.NotificationService.Infrastructure.csproj" />
     </ItemGroup>
