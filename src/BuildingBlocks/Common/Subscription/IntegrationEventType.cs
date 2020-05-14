@@ -10,6 +10,7 @@ namespace U.Common.Subscription
         UserConnected,
         UserDisconnected,
         AccessTokenRefreshedIntegrationEvent,
-        SignedUp
+        SignedUp,
+        SignedIn
     }
 }

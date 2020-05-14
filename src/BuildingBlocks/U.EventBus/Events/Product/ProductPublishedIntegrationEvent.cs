@@ -1,4 +1,5 @@
 using System;
+using U.Common.Subscription;
 
 namespace U.EventBus.Events.Product
 {
@@ -19,6 +20,8 @@ namespace U.EventBus.Events.Product
             Price = price;
             Manufacturer = manufacturer;
         }
+        public override string MethodTag => nameof(ProductPublishedIntegrationEvent);
+        public override IntegrationEventType EventType => IntegrationEventType.ProductPublishedIntegrationEvent;
     }
 
     public sealed class ProductPublishedSignalRIntegrationEvent : ProductPublishedIntegrationEvent
@@ -30,6 +33,8 @@ namespace U.EventBus.Events.Product
             base(productId, name, price, manufacturer)
         {
         }
+        public override string MethodTag => nameof(ProductPublishedSignalRIntegrationEvent);
+
     }
 
     public sealed class ProductPublishedEmailIntegrationEvent : ProductPublishedIntegrationEvent
@@ -41,5 +46,7 @@ namespace U.EventBus.Events.Product
             base(productId, name, price, manufacturer)
         {
         }
+        public override string MethodTag => nameof(ProductPublishedEmailIntegrationEvent);
+
     }
 }

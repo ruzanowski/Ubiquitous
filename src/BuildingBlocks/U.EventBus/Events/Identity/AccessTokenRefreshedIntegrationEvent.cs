@@ -1,5 +1,7 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
+using U.Common.Subscription;
 
 namespace U.EventBus.Events.Identity
 {
@@ -12,5 +14,9 @@ namespace U.EventBus.Events.Identity
         {
             UserId = userId;
         }
+        [NotMapped]
+        public override string MethodTag => nameof(AccessTokenRefreshedIntegrationEvent);
+
+        public override IntegrationEventType EventType => IntegrationEventType.AccessTokenRefreshedIntegrationEvent;
     }
 }

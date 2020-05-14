@@ -20,7 +20,8 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
         private readonly IProductRepository _productRepository;
         private readonly IManufacturerRepository _manufacturerRepository;
 
-        public NewProductFetchedIntegrationEventHandler(IMediator mediator, IProductRepository productRepository,
+        public NewProductFetchedIntegrationEventHandler(IMediator mediator,
+            IProductRepository productRepository,
             IManufacturerRepository manufacturerRepository)
         {
             _mediator = mediator;
@@ -30,7 +31,7 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
 
         public async Task Handle(NewProductFetchedIntegrationEvent @event)
         {
-            var product = await _productRepository.GetByAlternativeIdAsync(@event.GetUniqueId);
+            var product = await _productRepository.GetByBarcodeAsync(@event.GetUniqueId);
 
             if (product is null)
             {

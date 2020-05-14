@@ -21,7 +21,7 @@ export class ManufacturerService {
   }
 
   getManufacturer(id: string): Observable<Manufacturer> {
-    let url = this.manufacturerBaseUrl + id;
+    let url = this.manufacturerBaseUrl + "/"+ id;
 
     return this.service.get(url).pipe(map((response: any) => response));
   }

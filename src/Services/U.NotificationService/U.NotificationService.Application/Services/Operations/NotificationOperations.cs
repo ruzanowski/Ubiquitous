@@ -4,17 +4,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using U.Common.Jwt.Claims;
 using U.Common.Subscription;
+using U.NotificationService.Application.SignalR.Services.Service;
 using U.NotificationService.Infrastructure.Contexts;
 
-namespace U.NotificationService.Application.SignalR.Services.Service
+namespace U.NotificationService.Application.SignalR.Services.Operations
 {
-    public class NotificationsService : INotificationsService
+    public class NotificationOperations : INotificationsService
     {
         private readonly NotificationContext _context;
-        private readonly ILogger<NotificationsService> _logger;
+        private readonly ILogger<NotificationOperations> _logger;
 
 
-        public NotificationsService(NotificationContext context, ILogger<NotificationsService> logger)
+        public NotificationOperations(NotificationContext context, ILogger<NotificationOperations> logger)
         {
             _context = context;
             _logger = logger;

@@ -20,15 +20,17 @@ using U.Common.Jwt;
 using U.Common.Redis;
 using U.Common.Swagger;
 using U.EventBus.Events.Product;
+using U.NotificationService.Application.Builders.Query;
 using U.NotificationService.Application.EventHandlers;
 using U.NotificationService.Application.Models;
 using U.NotificationService.Application.Queries.GetCount;
 using U.NotificationService.Application.SignalR;
 using U.NotificationService.Application.SignalR.Services.Clients;
-using U.NotificationService.Application.SignalR.Services.QueryBuilder;
+using U.NotificationService.Application.SignalR.Services.Operations;
 using U.NotificationService.Application.SignalR.Services.Service;
 using U.NotificationService.Application.SignalR.Services.WelcomeNotifications;
 using U.NotificationService.Infrastructure.Contexts;
+using U.NotificationService.PeriodicSender;
 
 namespace U.NotificationService
 {
@@ -53,13 +55,14 @@ namespace U.NotificationService
                 .AddMediatR(typeof(GetNotificationCount).GetTypeInfo().Assembly)
                 .AddSwagger()
                 .AddCustomMapper()
-                .AddCustomServices()
                 .AddConsulServiceDiscovery()
                 .AddTypedHttpClient<ISubscriptionService>("u.subscription-service")
                 .AddCustomRedisAndSignalR()
+                .AddCustomServices()
                 .AddJwt()
                 .AddRedis()
-                .AddJaeger();
+                .AddJaeger()
+                .AddBackgroundService(Configuration);
 
 
             RegisterEventsHandlers(services);
@@ -118,10 +121,11 @@ namespace U.NotificationService
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
             services.AddIntegrationEventLog();
+
             services.AddSingleton<PersistentHub>();
             services.AddScoped<IWelcomeNotificationsService, WelcomeNotificationsService>();
             services.AddScoped<INotificationQueryBuilder, NotificationQueryBuilder>();
-            services.AddScoped<INotificationsService, NotificationsService>();
+            services.AddScoped<INotificationsService, NotificationOperations>();
 
             return services;
         }
@@ -133,7 +137,7 @@ namespace U.NotificationService
             return services;
         }
 
-        private static string SignalRSectionName = "signalr";
+        private static readonly string SignalRSectionName = "signalr";
 
         public static IServiceCollection AddCustomRedisAndSignalR(this IServiceCollection services)
         {

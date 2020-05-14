@@ -1,10 +1,15 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
+using U.Common.Subscription;
 
 namespace U.EventBus.Events
 {
-    public class IntegrationEvent
+    public abstract class IntegrationEvent
     {
+        [NotMapped]
+        public abstract string MethodTag { get; }
+        public abstract IntegrationEventType EventType { get; }
         public IntegrationEvent()
         {
             Id = Guid.NewGuid();

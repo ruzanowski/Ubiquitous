@@ -1,12 +1,11 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore.Internal;
 using U.Common.Subscription;
 using U.NotificationService.Application.Models;
 using U.NotificationService.Domain.Entities;
 
-namespace U.NotificationService.Application.SignalR.Services.QueryBuilder
+namespace U.NotificationService.Application.Builders.Query
 {
     public class NotificationQueryBuilder : INotificationQueryBuilder
     {

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using Jaeger.Thrift.Crossdock;
 using Microsoft.EntityFrameworkCore.Internal;
 using Newtonsoft.Json;
 using U.Common.Subscription;
@@ -21,8 +23,10 @@ namespace U.NotificationService.Domain.Entities
             CreationDate = DateTime.UtcNow;
             IntegrationEventId = @event.Id;
             IntegrationEvent = JsonConvert.SerializeObject(@event);
+            IntegrationEventDeserialized = @event;
             Confirmations = new List<Confirmation>();
-            SetEventType(@event);
+            IntegrationEventType = @event.EventType;
+            MethodTag = @event.MethodTag;
         }
 
         public Guid Id { get; private set; }
@@ -34,30 +38,16 @@ namespace U.NotificationService.Domain.Entities
         public Guid IntegrationEventId { get; private set; }
 
         public string IntegrationEvent { get; private set; }
+        [NotMapped]
+        public IntegrationEvent IntegrationEventDeserialized { get; private set; }
+        [NotMapped]
+        public string MethodTag { get; private set; }
+
         public ICollection<Confirmation> Confirmations { get; private set; }
         public ICollection<UserBasedEventImportancy> Importancies { get; private set; }
 
         public IntegrationEventType IntegrationEventType { get; private set; }
         public int TimesSent { get; private set; }
-
-        private void SetEventType(IntegrationEvent @event)
-        {
-            switch (@event)
-            {
-                case ProductAddedIntegrationEvent _:
-                    IntegrationEventType = IntegrationEventType.ProductAddedIntegrationEvent;
-                    break;
-                case ProductPublishedIntegrationEvent _:
-                    IntegrationEventType = IntegrationEventType.ProductPublishedIntegrationEvent;
-                    break;
-                case ProductPropertiesChangedIntegrationEvent _:
-                    IntegrationEventType = IntegrationEventType.ProductPropertiesChangedIntegrationEvent;
-                    break;
-                default:
-                    IntegrationEventType = IntegrationEventType.Unknown;
-                    break;
-            }
-        }
 
         public void ChangeStateToRead(Guid userId)
         {
@@ -119,4 +109,5 @@ namespace U.NotificationService.Domain.Entities
             TimesSent += recipients;
         }
     }
+
 }

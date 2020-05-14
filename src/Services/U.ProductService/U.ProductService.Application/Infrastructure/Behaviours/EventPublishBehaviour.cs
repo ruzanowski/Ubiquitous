@@ -21,7 +21,7 @@ namespace U.ProductService.Application.Infrastructure.Behaviours
         {
             var response = await next();
 
-            await _productIntegrationEventService.PublishEventsThroughEventBusAsync();
+            //await _productIntegrationEventService.PublishEventsThroughEventBusAsync();
 
             return response;
         }
