@@ -6,7 +6,7 @@
         <Authors>SebastianRuzanowski</Authors>
         <Title>Ubiquitous.EventBus</Title>
         <PackageTags>Ubiquitous.EventBus</PackageTags>
-        <PackageVersion>0.3</PackageVersion>
+        <PackageVersion>0.3.0</PackageVersion>
         <AssemblyName>Ubiquitous.EventBus</AssemblyName>
 
     </PropertyGroup>
