@@ -6,7 +6,7 @@
         <Authors>SebastianRuzanowski</Authors>
         <Title>Ubiquitous.IntegrationEventLog</Title>
         <PackageTags>Ubiquitous.IntegrationEventLog</PackageTags>
-        <VersionPrefix>0.3</VersionPrefix>
+        <VersionPrefix>0.3.0</VersionPrefix>
         <Description>Ubiquitous IntegrationEventLog</Description>
         <AssemblyName>Ubiquitous.IntegrationEventLog</AssemblyName>
     </PropertyGroup>
