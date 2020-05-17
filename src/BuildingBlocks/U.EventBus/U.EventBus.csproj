@@ -8,7 +8,12 @@
         <PackageTags>Ubiquitous.EventBus</PackageTags>
         <PackageVersion>0.3.0</PackageVersion>
         <AssemblyName>Ubiquitous.EventBus</AssemblyName>
-
+        <Copyright>Sebastian Rużanowski</Copyright>
+        <PackageProjectUrl>https://gitlab.com/Ruzanowski/ubiquitous</PackageProjectUrl>
+        <PackageLicenseUrl>https://gitlab.com/Ruzanowski/ubiquitous/-/blob/6bd01270ebcde735c7565144469ee364cd3252a7/LICENSE</PackageLicenseUrl>
+        <PackageIconUrl>https://assets.gitlab-static.net/uploads/-/system/project/avatar/13093460/ezgif.com-resize.gif?width=64</PackageIconUrl>
+        <RepositoryUrl>https://gitlab.com/Ruzanowski/ubiquitous</RepositoryUrl>
+        <RepositoryType>open-source</RepositoryType>
     </PropertyGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">

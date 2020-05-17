@@ -16,10 +16,10 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <PackageReference Include="Ubiquitous.Common" Version="0.3.*" />
-        <PackageReference Include="Ubiquitous.EventBus" Version="0.3.*" />
-        <PackageReference Include="Ubiquitous.EventBus.RabbitMQ" Version="0.3.*" />
-        <PackageReference Include="Ubiquitous.IntegrationEventLog" Version="0.3.*" />
+        <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.EventBus" Version="*" />
+        <PackageReference Include="Ubiquitous.EventBus.RabbitMQ" Version="*" />
+        <PackageReference Include="Ubiquitous.IntegrationEventLog" Version="*" />
     </ItemGroup>
 
     <ItemGroup>

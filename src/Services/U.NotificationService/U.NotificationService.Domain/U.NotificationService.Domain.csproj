@@ -9,6 +9,6 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <PackageReference Include="Ubiquitous.EventBus" Version="0.3" />
+        <PackageReference Include="Ubiquitous.EventBus" Version="*" />
     </ItemGroup>
 </Project>
