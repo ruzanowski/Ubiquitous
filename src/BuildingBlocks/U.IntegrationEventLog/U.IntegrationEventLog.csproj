@@ -6,7 +6,6 @@
         <Authors>SebastianRuzanowski</Authors>
         <Title>Ubiquitous.IntegrationEventLog</Title>
         <PackageTags>Ubiquitous.IntegrationEventLog</PackageTags>
-        <VersionPrefix>0.3.0</VersionPrefix>
         <Description>Ubiquitous IntegrationEventLog</Description>
         <AssemblyName>Ubiquitous.IntegrationEventLog</AssemblyName>
     </PropertyGroup>
@@ -17,8 +16,8 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <PackageReference Include="Ubiquitous.Common" Version="0.3" />
-        <PackageReference Include="Ubiquitous.EventBus" Version="0.3" />
+        <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.EventBus" Version="*" />
     </ItemGroup>
 
     <ItemGroup>
