@@ -6,7 +6,6 @@
         <Authors>SebastianRuzanowski</Authors>
         <Title>Ubiquitous.Common</Title>
         <PackageTags>Ubiquitous.Common</PackageTags>
-        <PackageVersion>0.2.0</PackageVersion>
         <AssemblyName>Ubiquitous.Common</AssemblyName>
     </PropertyGroup>
 
