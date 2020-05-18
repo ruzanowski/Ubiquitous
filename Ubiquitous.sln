@@ -121,10 +121,13 @@ EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ELK", "ELK", "{33842299-9FA9-4243-966B-F0537547CE3B}"
 ProjectSection(SolutionItems) = preProject
-	elk\elasticsearch\config\elasticsearch.yml = elk\elasticsearch\config\elasticsearch.yml
-	elk\kibana\config\kibana.yml = elk\kibana\config\kibana.yml
-	elk\logstash\pipeline\logstash.conf = elk\logstash\pipeline\logstash.conf
-	elk\logstash\config\logstash.yml = elk\logstash\config\logstash.yml
+	kibana\config\kibana.yml = kibana\config\kibana.yml
+	kibana\Dockerfile = kibana\Dockerfile
+	logstash\config\logstash.yml = logstash\config\logstash.yml
+	logstash\Dockerfile = logstash\Dockerfile
+	logstash\pipeline\logstash.conf = logstash\pipeline\logstash.conf
+	elasticsearch\config\elasticsearch.yml = elasticsearch\config\elasticsearch.yml
+	elasticsearch\Dockerfile = elasticsearch\Dockerfile
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{75552B0A-F300-4444-ACEB-04CCD8D1556A}"
