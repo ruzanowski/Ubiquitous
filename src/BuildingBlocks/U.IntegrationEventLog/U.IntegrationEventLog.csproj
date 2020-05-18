@@ -16,9 +16,9 @@
         <RepositoryType>open-source</RepositoryType>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Common\U.Common.csproj" />
-      <ProjectReference Include="..\U.EventBus\U.EventBus.csproj" />
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <ProjectReference Include="..\U.EventBus\U.EventBus.csproj" />
+        <ProjectReference Include="..\Common\U.Common.csproj" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
