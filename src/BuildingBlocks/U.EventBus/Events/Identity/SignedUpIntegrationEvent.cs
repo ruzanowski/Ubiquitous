@@ -19,6 +19,6 @@ namespace U.EventBus.Events.Identity
         }
 
         public override string MethodTag => nameof(SignedUpIntegrationEvent);
-        public override IntegrationEventType EventType => IntegrationEventType.SignedIn;
+        public override IntegrationEventType EventType => IntegrationEventType.SignedUp;
     }
 }
