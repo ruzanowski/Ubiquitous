@@ -20,6 +20,7 @@ Subscribe for **the newest state** of products you like.
 - [5. RoadMap](#5-roadmap)
     - [5.1. Release V.0.2](#51-release-v02)
     - [5.2. Release V.0.3](#52-release-v03)
+    - [5.2. Release V.0.4](#53-release-v04)
 - [6. Contributing](#6-contributing)
 - [7. Author](#7-author)
 - [8. Inspirations & Thanks](#8-inspirations--thanks)
@@ -240,38 +241,6 @@ Every command is pushed to the server via web-socket. Any signalr connectivity f
    <img alt="Dashboard composition of synchronous calls" src="img/signalr-min.png" />
 </p>
 
-## 5. RoadMap
-
-| *Task*  | *Priority* |*Status* | *Date* | *Version* |
-| ------- | ---------- | ------  | ------ | ------ |
-|SmartStore Adapter|-----|Completed|07.2019|V.0.1|
-|Fetch Service|-----|Completed|07.2019|V.0.1|
-|ProductsGenerator Service|-----|Completed|07.2019|V.0.1|
-|Report Service(Caracan Liquid Project) -- Deprecated|-----|Completed|08.2019|V.0.1|
-|Dockerization, Gitlab CI building pipeline|-----|Completed|09.2019|V.0.1|
-|Product Service - Major Features|-----|Completed|10.2019|V.0.1|
-|Notifications SignalR & Basic Features|-----|Completed|11.2019|V.0.1|
-|Identity Service|-----|Completed|11.2019|V.0.1|
-|Jwt Authorization|-----|Completed|11.2019|V.0.1|
-|API Gateway|-----|Completed|11.2019|V.0.1|
-|Subscriptions Service|-----|Completed|12.2019|V.0.1|
-|Notifications new channels (push)|-----|Completed|12.2019|V.0.1|
-|Dashboard charts server data sourced|-----|Completed|12.2019|V.0.1|
-|Preferences FE-BE Integration|Medium|In Progress| |V.0.1|
-|Metrics (App.Metrics + Influx)|-----|Completed|01.2020|V.0.2|
-|Tracing (Jaeger)|-----|Completed|01.2020|V.0.2|
-|Logging (Serilog + Elasticsearch)|-----|Completed|01.2020|V.0.2|
-|Extended CI pipelines |-----|Completed|02.2020|v.0.2|
-|ELK stack (Elasticsearch, Logstash, Kibana) integration|Medium|In Progress| |V.0.2|
-|Create Adapters Managmenent Service with Observer pattern|High| | |V.0.3 (March)|
-|Create Adapters with product's change compare functionality on adapters level|High| | |V.0.3 (March)|
-|Integration Tests across every service|<span style="color:red">Critical</span>|||v.0.4 (April)|
-|Migration to .NET Core 3.1 |Medium||||
-|Admin Panel (products)|Medium||||
-|Admin Panel (subscribers)|Medium||||
-|Notifications by email|Low||||
-|Security (HTTPS)|Low||||
-
 ### 5.1 Release V.0.2
 
 Release V0.2 brings
@@ -285,10 +254,14 @@ Release V0.2 brings
 
 ### 5.2 Release V.0.3
 
-Release V0.3 scope shall bring
+Release V.0.3 brings
 
-+ Moved major load of determining product's change from Product Service to Adapter
-+ Adapters Management Service
++ Moved major load of determining product's change from PostgreSQL to Redis
++ Cache added to Notification Service
++ Cache added to Product Service
++ Fixed CI/CD Pipelines extensively
++ Refactored SmartStoreAdapter
++ Identity Service unit tests
 
 <p align="center">
    <img alt="Containers diagram v0.3" src="img/containers-v.0.3-min.png" />
@@ -299,6 +272,15 @@ Below diagram depicts change between upper, current (v.0.1, v.0.2) adapters arch
 <p align="center">
     <img alt="Containers diagram v0.3" src="img/adapters-v.0.3-min.png" />
 </p>
+
+
+### 5.3 Release V.0.4
+
+Release V.0.4 brings
+
++ Generator Service eligible to modify products in SmartStoreAdapter, then it might generate ProductProperitesChanged and many other events generating in Product Service.
++ Nuget versions straightened up, using CI_Pipeline_IID instead of CI_Pipeline_ID. It is an increment value based on project, instead of global number of the pipeline.
++ Changed versioning to MAJOR.MINOR.REVISION.BUILD from MAJOR.MINOR.BUILD
 
 ## 6. Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
