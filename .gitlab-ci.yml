@@ -61,12 +61,15 @@ MyGet_Common:
   stage: myget_common
   before_script:
     - 'cd src/BuildingBlocks/Common'
-    - chmod -R a+x ./scripts
+    - chmod -R a+x ./dotnet-restore.sh
+    - chmod -R a+x ./dotnet-build.sh
+    - chmod -R a+x ./dotnet-publish.sh
+    - chmod -R a+x ./dotnet-nuget-push.sh
   script:
-    - ./scripts/dotnet-restore.sh
-    - ./scripts/dotnet-build.sh
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/dotnet-nuget-push.sh
+    - ./dotnet-restore.sh
+    - ./dotnet-build.sh
+    - ./dotnet-publish.sh
+    - ./dotnet-nuget-push.sh
   only:
     - master
     - develop
@@ -75,12 +78,15 @@ MyGet_EventBus:
   stage: myget_eventbus
   before_script:
     - 'cd src/BuildingBlocks/U.EventBus'
-    - chmod -R a+x ./scripts
+    - chmod -R a+x ./dotnet-restore.sh
+    - chmod -R a+x ./dotnet-build.sh
+    - chmod -R a+x ./dotnet-publish.sh
+    - chmod -R a+x ./dotnet-nuget-push.sh
   script:
-    - ./scripts/dotnet-restore.sh
-    - ./scripts/dotnet-build.sh
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/dotnet-nuget-push.sh
+    - ./dotnet-restore.sh
+    - ./dotnet-build.sh
+    - ./dotnet-publish.sh
+    - ./dotnet-nuget-push.sh
   only:
     - master
     - develop
@@ -89,12 +95,15 @@ MyGet_EventBus_RabbitMQ:
   stage: myget_eventbus_rabbitmq
   before_script:
     - 'cd src/BuildingBlocks/U.EventBus.RabbitMQ'
-    - chmod -R a+x ./scripts
+    - chmod -R a+x ./dotnet-restore.sh
+    - chmod -R a+x ./dotnet-build.sh
+    - chmod -R a+x ./dotnet-publish.sh
+    - chmod -R a+x ./dotnet-nuget-push.sh
   script:
-    - ./scripts/dotnet-restore.sh
-    - ./scripts/dotnet-build.sh
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/dotnet-nuget-push.sh
+    - ./dotnet-restore.sh
+    - ./dotnet-build.sh
+    - ./dotnet-publish.sh
+    - ./dotnet-nuget-push.sh
   only:
     - master
     - develop
@@ -103,12 +112,15 @@ MyGet_IntegrationEventLog:
   stage: myget_integrationeventlog
   before_script:
     - 'cd src/BuildingBlocks/U.IntegrationEventLog'
-    - chmod -R a+x ./scripts
+    - chmod -R a+x ./dotnet-restore.sh
+    - chmod -R a+x ./dotnet-build.sh
+    - chmod -R a+x ./dotnet-publish.sh
+    - chmod -R a+x ./dotnet-nuget-push.sh
   script:
-    - ./scripts/dotnet-restore.sh
-    - ./scripts/dotnet-build.sh
-    - ./scripts/dotnet-publish.sh
-    - ./scripts/dotnet-nuget-push.sh
+    - ./dotnet-restore.sh
+    - ./dotnet-build.sh
+    - ./dotnet-publish.sh
+    - ./dotnet-nuget-push.sh
   only:
     - master
     - develop
@@ -120,9 +132,9 @@ deploy_fetchservice:
     - docker:17.06.0-ce-dind
   before_script:
     - 'cd src/Services/U.FetchService'
-    - chmod -R a+x ./scripts
+    - chmod -R a+x ./docker-publish.sh
   script:
-    - ./scripts/docker-publish.sh
+    - ./docker-publish.sh
   only:
     - master
     - develop
@@ -134,9 +146,9 @@ deploy_generatorservice:
     - docker:17.06.0-ce-dind
   before_script:
     - 'cd src/Services/U.GeneratorService'
-    - chmod -R a+x ./scripts
+    - chmod -R a+x ./docker-publish.sh
   script:
-    - ./scripts/docker-publish.sh
+    - ./docker-publish.sh
   only:
     - master
     - develop
@@ -148,9 +160,9 @@ deploy_identityservice:
     - docker:17.06.0-ce-dind
   before_script:
     - 'cd src/Services/U.IdentityService'
-    - chmod -R a+x ./scripts
+    - chmod -R a+x ./docker-publish.sh
   script:
-    - ./scripts/docker-publish.sh
+    - ./docker-publish.sh
   only:
     - master
     - develop
@@ -162,9 +174,9 @@ deploy_notificationservice:
     - docker:17.06.0-ce-dind
   before_script:
     - 'cd src/Services/U.NotificationService'
-    - chmod -R a+x ./scripts
+    - chmod -R a+x ./docker-publish.sh
   script:
-    - ./scripts/docker-publish.sh
+    - ./docker-publish.sh
   only:
     - master
     - develop
@@ -176,9 +188,9 @@ deploy_productservice:
     - docker:17.06.0-ce-dind
   before_script:
     - 'cd src/Services/U.ProductService'
-    - chmod -R a+x ./scripts
+    - chmod -R a+x ./docker-publish.sh
   script:
-    - ./scripts/docker-publish.sh
+    - ./docker-publish.sh
   only:
     - master
     - develop
@@ -190,9 +202,9 @@ deploy_subscriptionservice:
     - docker:17.06.0-ce-dind
   before_script:
     - 'cd src/Services/U.SubscriptionService'
-    - chmod -R a+x ./scripts
+    - chmod -R a+x ./docker-publish.sh
   script:
-    - ./scripts/docker-publish.sh
+    - ./docker-publish.sh
   only:
     - master
     - develop
@@ -204,9 +216,9 @@ deploy_smartstoreadapter:
     - docker:17.06.0-ce-dind
   before_script:
     - 'cd src/Adapters/U.SmartStoreAdapter'
-    - chmod -R a+x ./scripts
+    - chmod -R a+x ./docker-publish.sh
   script:
-    - ./scripts/docker-publish.sh
+    - ./docker-publish.sh
   only:
     - master
     - develop
@@ -218,9 +230,9 @@ deploy_apigateway:
     - docker:17.06.0-ce-dind
   before_script:
     - 'cd src/ApiGateway'
-    - chmod -R a+x ./scripts
+    - chmod -R a+x ./docker-publish.sh
   script:
-    - ./scripts/docker-publish.sh
+    - ./docker-publish.sh
   only:
     - master
     - develop
