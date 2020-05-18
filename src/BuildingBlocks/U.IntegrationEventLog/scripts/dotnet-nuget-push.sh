@@ -1,5 +1,5 @@
 #!/bin/bash
-dotnet pack -c Release /p:Version=${UBIQUITOUS_VERSION}.${CI_PIPELINE_ID} -o .
+dotnet pack -c Release /p:Version=${UBIQUITOUS_VERSION}.${CI_PIPELINE_IID} -o .
 
 echo Uploading package to MyGet using branch $CI_COMMIT_REF_NAME
 
