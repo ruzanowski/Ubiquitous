@@ -165,17 +165,18 @@ namespace U.ProductService.Persistance.Contexts
     {
         public async Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = new CancellationToken())
         {
-            throw new NotImplementedException();
+            await Task.CompletedTask;
+            return default;
         }
 
         public async Task Publish(object notification, CancellationToken cancellationToken = new CancellationToken())
         {
-            throw new NotImplementedException();
+            await Task.CompletedTask;
         }
 
         public async Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = new CancellationToken()) where TNotification : INotification
         {
-            throw new NotImplementedException();
+            await Task.CompletedTask;
         }
     }
 }
