@@ -19,9 +19,7 @@ namespace U.NotificationService.Application.SignalR
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<PersistentHub> _logger;
 
-        private NotificationContext _context;
-        private NotificationContext Context =>
-            _context ?? _serviceProvider.CreateScope().ServiceProvider.GetService<NotificationContext>();
+        private NotificationContext Context => _serviceProvider.CreateScope().ServiceProvider.GetService<NotificationContext>();
 
         public PersistentHub(IHubContext<BaseHub> hubContext,
             ILogger<PersistentHub> logger,
@@ -44,7 +42,7 @@ namespace U.NotificationService.Application.SignalR
             }
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            _context.BulkInsert(notifications);
+            Context.BulkInsert(notifications);
 
             foreach (var notification in notifications)
             {

@@ -47,7 +47,7 @@ namespace U.NotificationService.PeriodicSender
                 await _hub.SaveManyAndSendToAllAsync(pendingEvents);
                 _pendingEventsService.Flush();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //supress
             }

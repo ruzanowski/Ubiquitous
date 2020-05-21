@@ -38,6 +38,7 @@ namespace U.NotificationService.Application.Queries.GetTypesCount
                 Count = x.Count
             });
 
+            await Task.CompletedTask;
             return eventTypes;
         }
 
