@@ -13,13 +13,14 @@ namespace U.ProductService.Persistance.EntityConfigurations.Product
             builder.HasKey(o => o.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Ignore(b => b.DomainEvents);
-            
+
             builder.OwnsOne(o => o.Dimensions);
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Description).IsRequired();
             builder.Property(x => x.Price).IsRequired();
-            builder.HasIndex(x => x.BarCode).IsUnique();
-            
+            builder.HasIndex(x => new {x.ExternalId, x.ExternalSourceName}).IsUnique();
+
+
             builder.Property(post => post.CreatedAt)
                 .HasField("_createdAt");
 
@@ -31,11 +32,11 @@ namespace U.ProductService.Persistance.EntityConfigurations.Product
 
             builder.Property(post => post.LastUpdatedBy)
                 .HasField("_lastUpdatedBy");
-            
+
             builder.HasMany(x=>x.Pictures)
                 .WithOne()
                 .IsRequired(false);
-            
+
             builder.HasOne(x=>x.Category)
                 .WithMany()
                 .HasForeignKey(x=>x.CategoryId)

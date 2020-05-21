@@ -20,7 +20,7 @@ namespace U.ProductService.Application.Manufacturers.Commands.Create
 
         public async Task<Guid> Handle(CreateManufacturerCommand command, CancellationToken cancellationToken)
         {
-            var product = GetProduct(command);
+            var product = GetManufacturer(command);
 
             await _manufacturerRepository.AddAsync(product);
             await _manufacturerRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
@@ -28,7 +28,7 @@ namespace U.ProductService.Application.Manufacturers.Commands.Create
             return product.Id;
         }
 
-        private Manufacturer GetProduct(CreateManufacturerCommand command)
+        private Manufacturer GetManufacturer(CreateManufacturerCommand command)
         {
             return new Manufacturer(Guid.NewGuid(),
                 "not_qualified",

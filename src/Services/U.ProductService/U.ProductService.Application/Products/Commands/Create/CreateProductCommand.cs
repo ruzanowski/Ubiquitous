@@ -7,21 +7,31 @@ namespace U.ProductService.Application.Products.Commands.Create
 {
     public class CreateProductCommand : IRequest<Guid>
     {
-        public string Name { get;  set; }
-        public string BarCode { get;  set; }
-        public decimal Price { get;  set; }
-        public string Description { get;  set; }
+        public string Name { get; set; }
+        public string BarCode { get; set; }
+        public decimal Price { get; set; }
+        public string Description { get; set; }
         public Guid? CategoryId { get; set; }
         public Guid ManufacturerId { get; set; }
-        public DimensionsDto Dimensions { get;  set; }
+        public DimensionsDto Dimensions { get; set; }
+        public string ExternalSourceName { get; set; }
+        public string ExternalSourceId { get; set; }
+
 
         [JsonConstructor]
         public CreateProductCommand()
         {
-                
         }
 
-        public CreateProductCommand(string name, string barCode, decimal price, string description, DimensionsDto dimensions, Guid manufacturerId, Guid? categoryId = null)
+        public CreateProductCommand(string name,
+            string barCode,
+            decimal price,
+            string description,
+            DimensionsDto dimensions,
+            string externalSourceName,
+            string externalSourceId,
+            Guid manufacturerId,
+            Guid? categoryId = null)
         {
             Name = name;
             BarCode = barCode;
@@ -30,6 +40,8 @@ namespace U.ProductService.Application.Products.Commands.Create
             ManufacturerId = manufacturerId;
             CategoryId = categoryId;
             Dimensions = dimensions;
+            ExternalSourceName = externalSourceName;
+            ExternalSourceId = externalSourceId;
         }
     }
 }

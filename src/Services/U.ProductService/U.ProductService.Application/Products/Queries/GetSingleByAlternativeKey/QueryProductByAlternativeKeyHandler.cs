@@ -18,14 +18,16 @@ namespace U.ProductService.Application.Products.Queries.GetSingleByAlternativeKe
             _mapper = mapper;
             _productRepository = productRepository;
         }
-        
+
         public async Task<ProductViewModel> Handle(QueryProductByAlternativeKey request, CancellationToken cancellationToken)
         {
-            var products = await _productRepository.GetByBarcodeAsync(request.AlternativeKey);
+            var products = await _productRepository.GetByAbsoluteComparerAsync(request.ExternalSourceName, request.ExternalSourceId);
 
             if (products is null)
-                throw new ProductNotFoundException($"Product with alternative key: '{request.AlternativeKey}' has not been found.");
-            
+                throw new ProductNotFoundException(
+                    $"Product with externalSourceName: '{request.ExternalSourceName}' &" +
+                    $" externalSourceId: '{request.ExternalSourceId}' has not been found.");
+
             var productsMapped = _mapper.Map<ProductViewModel>(products);
 
             return productsMapped;

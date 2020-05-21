@@ -15,6 +15,6 @@ namespace U.ProductService.Domain
 
         Task<Product> GetAsync(Guid productId);
 
-        Task<Product> GetByBarcodeAsync(string barCode);
+        Task<Product> GetByAbsoluteComparerAsync(string externalSourceName, string externalSourceId);
     }
 }

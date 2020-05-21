@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using U.ProductService.Domain.Aggregates.Picture;
 using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Exceptions;
@@ -12,14 +13,13 @@ namespace U.ProductService.Domain.Aggregates.Manufacturer
     /// <summary>
     /// Represents a manufacturer
     /// </summary>
-    [DataContract]
     public class Manufacturer : Entity, IAggregateRoot, ITrackable, IPictureManagable
     {
         public Guid AggregateId => Id;
         public string AggregateTypeName => nameof(Manufacturer);
         public string Name { get; private set; }
-        public string Description { get; private set; }
-        public string UniqueClientId { get; private set; }
+        public string Description { get;  set; }
+        public string UniqueClientId { get;  set; }
 
         private DateTime _createdAt;
         private string _createdBy;
@@ -30,7 +30,7 @@ namespace U.ProductService.Domain.Aggregates.Manufacturer
         public DateTime? LastUpdatedAt => _lastUpdatedAt;
         public string LastUpdatedBy => _lastUpdatedBy;
         public ICollection<Domain.Picture> Pictures { get; private set; }
-        
+
         private Manufacturer()
         {
             Name = string.Empty;
@@ -40,7 +40,8 @@ namespace U.ProductService.Domain.Aggregates.Manufacturer
             _lastUpdatedAt = default;
             _lastUpdatedBy = string.Empty;
         }
-        
+
+        [JsonConstructor]
         public Manufacturer(Guid id, string uniqueClientId, string name, string description) : this()
         {
             Id = id;
@@ -74,12 +75,13 @@ namespace U.ProductService.Domain.Aggregates.Manufacturer
 
             Pictures.Remove(picture);
         }
-        
+
         public static Manufacturer GetDraftManufacturer() => new Manufacturer
         {
             Id = Guid.Parse("73d79ef5-3365-4877-b653-135632bb7a71"),
             Name = "DRAFT",
             Description = "Draft category, which purpose is to aggregate newly added products.",
+            UniqueClientId = "DRAFT"
         };
     }
 }

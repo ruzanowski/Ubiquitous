@@ -7,8 +7,8 @@ namespace U.ProductService.Persistance.Contexts.Factories
     {
         public ProductContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = ContextDesigner.CreateDbContextOptionsBuilder<ProductContext>("../../../../U.ProductService");
-            
+            var optionsBuilder = ContextDesigner.CreateDbContextOptionsBuilder<ProductContext>("../../../../");
+
             return new ProductContext(optionsBuilder.Options);
         }
     }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace SmartStore.Persistance.EntityBuilders.Catalog
 {
 
-    public class ManufacturerMap : IEntityTypeConfiguration<Manufacturer>
+    public class ManufacturerEntityBuilder : IEntityTypeConfiguration<Manufacturer>
     {
 	    public void Configure(EntityTypeBuilder<Manufacturer> builder)
 	    {

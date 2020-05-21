@@ -24,7 +24,7 @@ namespace U.EventBus.Events
         }
 
         [JsonProperty]
-        public Guid Id { get; private set; }
+        public Guid Id { get; protected set; }
 
         [JsonProperty]
         public DateTime CreationDate { get; private set; }

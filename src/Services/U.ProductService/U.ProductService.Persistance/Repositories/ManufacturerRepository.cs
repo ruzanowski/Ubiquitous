@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using U.ProductService.Domain;
 using U.ProductService.Domain.Aggregates.Manufacturer;
 using U.ProductService.Domain.SeedWork;
@@ -49,18 +51,21 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<IList<Manufacturer>> GetManyAsync()
         {
-            var cached = await GetCachedOrDefaultAsync<IList<Manufacturer>>("allManufacturers");
+            var slug = "allManufacturers2";
+            var cached = await GetCachedOrDefaultAsync<List<Manufacturer>>(slug);
 
             if (cached != null)
             {
                 return cached;
             }
 
-            var manufacturers = await _context.Manufacturers.ToListAsync();
+            var manufacturers = await _context.Manufacturers
+                .Include(x => x.Pictures)
+                .ToListAsync();
 
             if (manufacturers != null && manufacturers.Any())
             {
-                await CacheAsync("allManufacturers", manufacturers);
+                await CacheAsync(slug, manufacturers);
             }
 
             return manufacturers;

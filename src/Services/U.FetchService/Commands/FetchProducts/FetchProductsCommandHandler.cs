@@ -2,6 +2,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using U.Common;
+using U.Common.Products;
 using U.EventBus.Abstractions;
 using U.EventBus.Events.Fetch;
 using U.FetchService.Exceptions;
@@ -14,7 +16,6 @@ namespace U.FetchService.Commands.FetchProducts
     {
         private readonly ISmartStoreAdapter _adapter;
         private readonly IEventBus _bus;
-
 
         public FetchProductsCommandHandler(ISmartStoreAdapter adapter, IEventBus bus)
         {
@@ -40,17 +41,18 @@ namespace U.FetchService.Commands.FetchProducts
             {
                 var @event = new NewProductFetchedIntegrationEvent(product.Name,
                     product.ManufacturerId,
-                    product.ProductUniqueCode,
-                    product.InStock,
-                    product.PriceInTax,
+                    product.BarCode,
+                    product.StockQuantity,
+                    product.Price,
                     product.Description,
                     product.Length,
                     product.Width,
                     product.Height,
                     product.Weight,
-                    product.MainPictureId,
                     product.CategoryId,
-                    product.Id);
+                    product.Id,
+                    GlobalConstants.SmartStoreExternalSourceName
+                );
 
                 _bus.Publish(@event);
             }

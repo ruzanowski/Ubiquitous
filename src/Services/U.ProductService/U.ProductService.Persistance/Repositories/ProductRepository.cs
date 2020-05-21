@@ -44,9 +44,9 @@ namespace U.ProductService.Persistance.Repositories
             return product;
         }
 
-        public async Task<Product> GetByBarcodeAsync(string barCode)
+        public async Task<Product> GetByAbsoluteComparerAsync(string externalSourceName, string externalSourceId)
         {
-            var cached = await GetCachedOrDefaultAsync<Product>(barCode);
+            var cached = await GetCachedOrDefaultAsync<Product>(externalSourceName + "_" + externalSourceId);
 
             if (cached != null)
             {
@@ -58,11 +58,11 @@ namespace U.ProductService.Persistance.Repositories
                 .Include(x => x.Pictures)
                 .Include(x => x.ProductType)
                 .Include(x => x.Category)
-                .FirstOrDefaultAsync(x => x.BarCode.Equals(barCode));
+                .FirstOrDefaultAsync(x => x.EqualsAbsoluteExternalKey(externalSourceName, externalSourceId));
 
             if (product != null)
             {
-                await CacheAsync(barCode, product);
+                await CacheAsync(externalSourceId, product);
             }
 
             return product;

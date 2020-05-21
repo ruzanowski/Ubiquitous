@@ -92,7 +92,9 @@ namespace U.ProductService.Persistance.Migrations.Product
                     Dimensions_Weight = table.Column<decimal>(nullable: false),
                     ManufacturerId = table.Column<Guid>(nullable: false),
                     CategoryId = table.Column<Guid>(nullable: false),
-                    ProductTypeId = table.Column<int>(nullable: false)
+                    ProductTypeId = table.Column<int>(nullable: false),
+                    ExternalSourceName = table.Column<string>(nullable: true),
+                    ExternalId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -174,13 +176,6 @@ namespace U.ProductService.Persistance.Migrations.Product
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_BarCode",
-                schema: "Products",
-                table: "Products",
-                column: "BarCode",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 schema: "Products",
                 table: "Products",
@@ -191,6 +186,13 @@ namespace U.ProductService.Persistance.Migrations.Product
                 schema: "Products",
                 table: "Products",
                 column: "ProductTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ExternalId_ExternalSourceName",
+                schema: "Products",
+                table: "Products",
+                columns: new[] { "ExternalId", "ExternalSourceName" },
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

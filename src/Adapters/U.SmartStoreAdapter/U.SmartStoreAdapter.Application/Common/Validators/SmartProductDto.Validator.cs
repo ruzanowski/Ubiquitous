@@ -1,7 +1,7 @@
 using System.Linq;
 using FluentValidation;
 using SmartStore.Persistance.Context;
-using U.SmartStoreAdapter.Application.Products;
+using U.Common.Products;
 
 namespace U.SmartStoreAdapter.Application.Common.Validators
 {
@@ -27,7 +27,7 @@ namespace U.SmartStoreAdapter.Application.Common.Validators
                 RuleFor(x => x.Height)
                     .NotNull()
                     .GreaterThanOrEqualTo(0);
-                
+
                 RuleFor(x => x.Length)
                     .NotNull()
                     .GreaterThanOrEqualTo(0);
@@ -36,27 +36,16 @@ namespace U.SmartStoreAdapter.Application.Common.Validators
                     .NotNull()
                     .GreaterThanOrEqualTo(0);
 
-                RuleFor(x => x.InStock)
+                RuleFor(x => x.StockQuantity)
                     .NotNull()
                     .GreaterThanOrEqualTo(0);
 
                 RuleFor(x => x.IsAvailable)
                     .NotNull();
 
-                RuleFor(x => x.PriceInTax)
+                RuleFor(x => x.Price)
                     .NotNull()
                     .GreaterThanOrEqualTo(0);
-
-                RuleFor(x => x.ProductUniqueCode)
-                    .NotNull()
-                    .NotEmpty()
-                    .MinimumLength(1);
-
-                RuleFor(x => x.ManufacturerPartNumber)
-                    .NotNull()
-                    .NotEmpty()
-                    .MinimumLength(1);
-
 
                 RuleFor(x => x.ManufacturerId)
                     .NotEmpty()

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using MediatR;
 #pragma warning disable 649
 
-//Resharper Disable All 
+//Resharper Disable All
 
 namespace U.ProductService.Domain.SeedWork
 {
     public abstract class Entity
     {
         private int? _requestedHashCode;
-        public Guid Id { get; protected set; }
+        public Guid Id { get; set; }
 
         private List<INotification> _domainEvents;
         public IReadOnlyCollection<INotification> DomainEvents => _domainEvents?.AsReadOnly();

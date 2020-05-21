@@ -48,7 +48,7 @@ namespace U.SmartStoreAdapter
         public void ConfigureServices(IServiceCollection services)
         {
             //Mini profiler
-            services.AddMiniProfiler();
+//            services.AddMiniProfiler();
 
             services.AddCustomMvc()
                 .AddSwagger();

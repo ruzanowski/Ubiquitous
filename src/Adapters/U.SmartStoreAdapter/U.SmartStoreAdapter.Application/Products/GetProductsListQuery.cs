@@ -1,5 +1,6 @@
 using MediatR;
 using U.Common.Pagination;
+using U.Common.Products;
 using U.SmartStoreAdapter.Application.Common.QueryModels;
 
 namespace U.SmartStoreAdapter.Application.Products

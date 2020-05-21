@@ -1,16 +1,17 @@
 using System.Threading.Tasks;
 using RestEase;
+using U.Common;
 using U.Common.Pagination;
-using U.FetchService.Models.SmartStore;
+using U.Common.Products;
 
 namespace U.FetchService.Services
 {
     public interface ISmartStoreAdapter
     {
         [AllowAnyStatusCode]
-        [Get("api/smartstore/products")]
+        [Get(GlobalConstants.SmartStoreQueryProductsPath)]
         Task<PaginatedItems<SmartProductViewModel>> GetProductsAsync(
-            [Query("pageSize")] int pageSize = 99999,
+            [Query("pageSize")] int pageSize = int.MaxValue,
             [Query("pageIndex")] int pageIndex = 0);
     }
 }

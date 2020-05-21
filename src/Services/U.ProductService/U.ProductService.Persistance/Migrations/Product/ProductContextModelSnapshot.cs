@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using U.ProductService.Persistance.Contexts;
 
@@ -112,7 +113,7 @@ namespace U.ProductService.Persistance.Migrations.Product
 
                     b.Property<Guid?>("ProductId");
 
-                    b.Property<string>("Uri")
+                    b.Property<string>("Url")
                         .IsRequired();
 
                     b.HasKey("Id");
@@ -142,6 +143,10 @@ namespace U.ProductService.Persistance.Migrations.Product
                     b.Property<string>("Description")
                         .IsRequired();
 
+                    b.Property<string>("ExternalId");
+
+                    b.Property<string>("ExternalSourceName");
+
                     b.Property<bool>("IsPublished");
 
                     b.Property<DateTime?>("LastUpdatedAt");
@@ -159,12 +164,12 @@ namespace U.ProductService.Persistance.Migrations.Product
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BarCode")
-                        .IsUnique();
-
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("ProductTypeId");
+
+                    b.HasIndex("ExternalId", "ExternalSourceName")
+                        .IsUnique();
 
                     b.ToTable("Products","Products");
                 });
