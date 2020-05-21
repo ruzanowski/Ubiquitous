@@ -2,12 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using Jaeger.Thrift.Crossdock;
-using Microsoft.EntityFrameworkCore.Internal;
 using Newtonsoft.Json;
 using U.Common.Subscription;
 using U.EventBus.Events;
-using U.EventBus.Events.Product;
 
 namespace U.NotificationService.Domain.Entities
 {

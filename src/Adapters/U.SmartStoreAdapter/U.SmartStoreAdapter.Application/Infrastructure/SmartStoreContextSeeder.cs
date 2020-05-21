@@ -94,25 +94,12 @@ namespace U.SmartStoreAdapter.Application.Infrastructure
             IList<Category> categories,
             IList<Manufacturer> manufacturers)
         {
+            var random = new Random();
             foreach (var product in products)
             {
-                foreach (var category in categories)
-                {
-                    product.ProductCategories.Add(new ProductCategory
-                    {
-                        CategoryId = category.Id,
-                        ProductId = product.Id
-                    });
-                }
 
-                foreach (var manufacturer in manufacturers)
-                {
-                    product.ProductManufacturers.Add(new ProductManufacturer
-                    {
-                        ManufacturerId = manufacturer.Id,
-                        ProductId = product.Id
-                    });
-                }
+                product.Manufacturer = manufacturers[random.Next() % manufacturers.Count];
+                product.Category = categories[random.Next() % categories.Count];
             }
         }
 

@@ -1,10 +1,10 @@
-using U.SmartStoreAdapter.Domain.Entities.Catalog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using U.SmartStoreAdapter.Domain.Entities.Catalog;
 
-namespace SmartStore.Persistance.EntityBuilders.Catalog
+namespace SmartStore.Persistance.EntityBuilders
 {
-    public class ProductMap : IEntityTypeConfiguration<Product>
+    public class ProductEntityBuilder : IEntityTypeConfiguration<Product>
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
@@ -14,17 +14,24 @@ namespace SmartStore.Persistance.EntityBuilders.Catalog
             builder.ToTable("Product").HasKey(a => a.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Name).HasMaxLength(400);
-            builder.Property(x => x.FullDescription);
+            builder.Property(x => x.Description);
 
-            builder.Property(x => x.Sku).HasMaxLength(400);
-            builder.Property(x => x.ManufacturerPartNumber).HasMaxLength(400);
+            builder.Property(x => x.BarCode).HasMaxLength(400);
             builder.Property(x => x.Price).HasColumnType($"decimal({precision},{scale})");
-            builder.Property(x => x.ProductCost).HasColumnType($"decimal({precision},{scale})");
             builder.Property(x => x.Weight).HasColumnType($"decimal({precision},{scale})");
             builder.Property(x => x.Length).HasColumnType($"decimal({precision},{scale})");
             builder.Property(x => x.Width).HasColumnType($"decimal({precision},{scale})");
             builder.Property(x => x.Height).HasColumnType($"decimal({precision},{scale})");
-            builder.Property(x => x.SystemName).HasMaxLength(400);
+
+            builder.HasOne(p => p.Manufacturer)
+                .WithMany()
+                .HasForeignKey(x => x.ManufacturerId)
+                .IsRequired(false);
+
+            builder.HasOne(p => p.Category)
+                .WithMany()
+                .HasForeignKey(x => x.CategoryId)
+                .IsRequired(false);
         }
     }
 }

@@ -1,11 +1,8 @@
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using MediatR;
-using U.Common.Jwt;
 using U.Common.Jwt.Attributes;
-using U.IdentityService.Application.Commands.Identity.ChangePassword;
-using U.IdentityService.Application.Queries.GetMyAccount;
+using U.IdentityService.Application.Queries.GetMyProfile;
 using U.IdentityService.Application.Queries.GetUsersAccounts;
 using U.IdentityService.Application.Queries.GetUsersOnline;
 

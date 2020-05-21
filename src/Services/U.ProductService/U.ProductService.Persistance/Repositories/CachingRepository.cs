@@ -29,14 +29,16 @@ namespace U.ProductService.Persistance.Repositories
                 : null;
         }
 
-        protected async Task CacheAsync<T>(string id, T toCache) where T : class
+        protected async Task CacheAsync(string id, object toCache)
         {
             var cacheKey = GetCacheKey(id);
             var options = new DistributedCacheEntryOptions()
-                .SetSlidingExpiration(TimeSpan.FromMinutes(30))
-                .SetAbsoluteExpiration(TimeSpan.FromMinutes(30));
+                .SetSlidingExpiration(TimeSpan.FromMinutes(15))
+                .SetAbsoluteExpiration(TimeSpan.FromMinutes(15));
 
-            await _cache.SetStringAsync(cacheKey, JsonConvert.SerializeObject(toCache), options);
+            var serialized = JsonConvert.SerializeObject(toCache);
+
+            await _cache.SetStringAsync(cacheKey, serialized, options);
         }
     }
 }

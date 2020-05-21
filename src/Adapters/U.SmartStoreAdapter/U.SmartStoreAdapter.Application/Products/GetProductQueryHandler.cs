@@ -4,6 +4,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartStore.Persistance.Context;
+using U.Common.Products;
 using U.SmartStoreAdapter.Application.Common.Exceptions;
 using U.SmartStoreAdapter.Domain.Entities.Catalog;
 
@@ -23,8 +24,9 @@ namespace U.SmartStoreAdapter.Application.Products
         public async Task<SmartProductViewModel> Handle(GetProductQuery request, CancellationToken cancellationToken)
         {
             var products = await _context.Set<Product>()
-                .Include(x => x.ProductCategories)
-                .FirstOrDefaultAsync(x => x.Sku == request.Sku || x.Id == request.Id,
+                .Include(x => x.Category)
+                .Include(x=>x.Manufacturer)
+                .FirstOrDefaultAsync(x=> x.Id == request.Id,
                     cancellationToken: cancellationToken);
 
             if (products is null)

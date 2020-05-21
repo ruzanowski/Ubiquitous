@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using RestEase;
 using U.Common.Subscription;
 
-namespace U.NotificationService.Application.SignalR.Services.Clients
+namespace U.NotificationService.Application.Common.Clients
 {
     public interface ISubscriptionService
     {

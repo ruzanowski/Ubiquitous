@@ -49,18 +49,21 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<IList<Manufacturer>> GetManyAsync()
         {
-            var cached = await GetCachedOrDefaultAsync<IList<Manufacturer>>("allManufacturers");
+            var slug = "allManufacturers2";
+            var cached = await GetCachedOrDefaultAsync<List<Manufacturer>>(slug);
 
             if (cached != null)
             {
                 return cached;
             }
 
-            var manufacturers = await _context.Manufacturers.ToListAsync();
+            var manufacturers = await _context.Manufacturers
+                .Include(x => x.Pictures)
+                .ToListAsync();
 
             if (manufacturers != null && manufacturers.Any())
             {
-                await CacheAsync("allManufacturers", manufacturers);
+                await CacheAsync(slug, manufacturers);
             }
 
             return manufacturers;

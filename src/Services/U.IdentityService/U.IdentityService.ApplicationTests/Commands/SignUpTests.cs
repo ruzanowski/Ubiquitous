@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using NSubstitute;
-using NSubstitute.Core;
 using U.EventBus.Abstractions;
 using U.IdentityService.Application.Commands.Identity.SignUp;
 using U.IdentityService.ApplicationTests.Providers;

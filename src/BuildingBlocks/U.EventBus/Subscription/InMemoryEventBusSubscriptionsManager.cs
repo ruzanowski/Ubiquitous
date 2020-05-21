@@ -4,7 +4,7 @@ using System.Linq;
 using U.EventBus.Abstractions;
 using U.EventBus.Events;
 
-namespace U.EventBus
+namespace U.EventBus.Subscription
 {
     public partial class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptionsManager
     {

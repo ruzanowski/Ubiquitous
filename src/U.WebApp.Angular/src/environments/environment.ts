@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  hostIP: 'localhost',
+  hostIP: '77.55.216.216',
   apiGatewayPort: '4500',
   productServicePort: '5000',
   smartStoreAdapterPort: '5100',
@@ -14,7 +14,7 @@ export const environment = {
   notificationServicePort: '5500',
   signalrPort: '5500',
   signalrEndpoint: 'signalr',
-  toastrEnabled: false
+  toastrEnabled: true
 };
 
 /*

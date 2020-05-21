@@ -1,18 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Microsoft.AspNetCore.Identity;
 using NSubstitute;
-using U.Common.Jwt.Models;
-using U.Common.Jwt.Service;
-using U.IdentityService.Application.Queries.GetMyAccount;
-using U.IdentityService.Application.Queries.GetUsersAccounts;
 using U.IdentityService.Application.Queries.GetUsersOnline;
-using U.IdentityService.ApplicationTests.Providers;
-using U.IdentityService.Domain.Models;
 using U.IdentityService.Persistance.Repositories;
 using Xunit;
 

@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using U.Common;
 using U.Common.Consul;
 using U.Common.Fabio;
 using U.Common.Jaeger;
 using U.Common.Mvc;
 using U.GeneratorService.BackgroundServices;
 using U.GeneratorService.Services;
-using U.GeneratorService.Services.Generator;
 
 namespace U.GeneratorService
 {
@@ -31,7 +31,7 @@ namespace U.GeneratorService
             services
                 .AddCustomMvc()
                 .AddConsulServiceDiscovery()
-                .AddTypedHttpClient<ISmartStoreAdapter>("u.smartstore-adapter")
+                .AddTypedHttpClient<ISmartStoreAdapter>(GlobalConstants.SmartStoreConsulRegisteredName)
                 .AddUpdateWorkerHostedService(Configuration)
                 .AddCustomServices()
                 .AddJaeger();

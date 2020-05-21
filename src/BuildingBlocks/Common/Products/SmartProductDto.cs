@@ -1,16 +1,15 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace U.SmartStoreAdapter.Application.Products
+namespace U.Common.Products
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class SmartProductDto
     {
         public string Name { get; set; }
         public int ManufacturerId { get; set; }
-        public string ProductUniqueCode { get; set; }
-        public string ManufacturerPartNumber { get; set; }
-        public int InStock { get; set; }
-        public decimal PriceInTax { get; set; }
+        public string BarCode { get; set; }
+        public int StockQuantity { get; set; }
+        public decimal Price { get; set; }
         public string Description { get; set; }
         public bool IsAvailable { get; set; }
         public decimal Length { get; set; }

@@ -10,7 +10,7 @@ using U.ProductService.Persistance.Contexts;
 namespace U.ProductService.Persistance.Migrations.Product
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20191017191445_InitialCreate")]
+    [Migration("20200521152710_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,7 +115,7 @@ namespace U.ProductService.Persistance.Migrations.Product
 
                     b.Property<Guid?>("ProductId");
 
-                    b.Property<string>("Uri")
+                    b.Property<string>("Url")
                         .IsRequired();
 
                     b.HasKey("Id");
@@ -145,6 +145,10 @@ namespace U.ProductService.Persistance.Migrations.Product
                     b.Property<string>("Description")
                         .IsRequired();
 
+                    b.Property<string>("ExternalId");
+
+                    b.Property<string>("ExternalSourceName");
+
                     b.Property<bool>("IsPublished");
 
                     b.Property<DateTime?>("LastUpdatedAt");
@@ -162,12 +166,12 @@ namespace U.ProductService.Persistance.Migrations.Product
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BarCode")
-                        .IsUnique();
-
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("ProductTypeId");
+
+                    b.HasIndex("ExternalId", "ExternalSourceName")
+                        .IsUnique();
 
                     b.ToTable("Products","Products");
                 });

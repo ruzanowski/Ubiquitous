@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using U.Common.Subscription;
-using U.NotificationService.Application.Builders.Query;
-using U.NotificationService.Application.Models;
-using U.NotificationService.Application.SignalR.Services.Clients;
+using U.NotificationService.Application.Common.Builders.Query;
+using U.NotificationService.Application.Common.Clients;
+using U.NotificationService.Application.Common.Models;
 using U.NotificationService.Domain.Entities;
 using U.NotificationService.Infrastructure.Contexts;
 
-namespace U.NotificationService.Application.SignalR.Services.WelcomeNotifications
+namespace U.NotificationService.Application.SignalR.WelcomeNotifications
 {
     public class WelcomeNotificationsService : IWelcomeNotificationsService
     {

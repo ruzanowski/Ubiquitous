@@ -2,10 +2,10 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using U.Common.Subscription;
-using U.NotificationService.Application.Models;
+using U.NotificationService.Application.Common.Models;
 using U.NotificationService.Domain.Entities;
 
-namespace U.NotificationService.Application.Builders.Query
+namespace U.NotificationService.Application.Common.Builders.Query
 {
     public class NotificationQueryBuilder : INotificationQueryBuilder
     {

@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using U.Common.Consul;
 using U.Common.Database;
-using U.Common.Fabio;
 using U.Common.Jaeger;
 using U.Common.Jwt;
 using U.Common.Mvc;

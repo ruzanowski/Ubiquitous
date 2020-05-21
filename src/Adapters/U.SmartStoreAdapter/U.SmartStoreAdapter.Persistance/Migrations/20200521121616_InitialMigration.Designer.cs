@@ -10,8 +10,8 @@ using SmartStore.Persistance.Context;
 namespace SmartStore.Persistance.Migrations
 {
     [DbContext(typeof(SmartStoreContext))]
-    [Migration("20200505215520_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200521121616_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -71,15 +71,14 @@ namespace SmartStore.Persistance.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AdminComment");
+                    b.Property<string>("BarCode")
+                        .HasMaxLength(400);
 
-                    b.Property<string>("BasePriceMeasureUnit");
+                    b.Property<int?>("CategoryId");
 
                     b.Property<DateTime>("CreatedOnUtc");
 
-                    b.Property<bool>("Deleted");
-
-                    b.Property<string>("FullDescription");
+                    b.Property<string>("Description");
 
                     b.Property<decimal>("Height")
                         .HasColumnType("decimal(18,4)");
@@ -87,8 +86,7 @@ namespace SmartStore.Persistance.Migrations
                     b.Property<decimal>("Length")
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<string>("ManufacturerPartNumber")
-                        .HasMaxLength(400);
+                    b.Property<int?>("ManufacturerId");
 
                     b.Property<string>("Name")
                         .HasMaxLength(400);
@@ -96,18 +94,9 @@ namespace SmartStore.Persistance.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<decimal>("ProductCost")
-                        .HasColumnType("decimal(18,4)");
-
                     b.Property<bool>("Published");
 
-                    b.Property<string>("Sku")
-                        .HasMaxLength(400);
-
                     b.Property<int>("StockQuantity");
-
-                    b.Property<string>("SystemName")
-                        .HasMaxLength(400);
 
                     b.Property<DateTime>("UpdatedOnUtc");
 
@@ -119,71 +108,22 @@ namespace SmartStore.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Product");
-                });
-
-            modelBuilder.Entity("U.SmartStoreAdapter.Domain.Entities.Catalog.ProductCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CategoryId");
-
-                    b.Property<int>("DisplayOrder");
-
-                    b.Property<int>("ProductId");
-
-                    b.HasKey("Id");
-
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Product_Category_Mapping");
-                });
-
-            modelBuilder.Entity("U.SmartStoreAdapter.Domain.Entities.Catalog.ProductManufacturer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ManufacturerId");
-
-                    b.Property<int>("ProductId");
-
-                    b.HasKey("Id");
 
                     b.HasIndex("ManufacturerId");
 
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Product_Manufacturer_Mapping");
+                    b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("U.SmartStoreAdapter.Domain.Entities.Catalog.ProductCategory", b =>
+            modelBuilder.Entity("U.SmartStoreAdapter.Domain.Entities.Catalog.Product", b =>
                 {
                     b.HasOne("U.SmartStoreAdapter.Domain.Entities.Catalog.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CategoryId");
 
-                    b.HasOne("U.SmartStoreAdapter.Domain.Entities.Catalog.Product", "Product")
-                        .WithMany("ProductCategories")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("U.SmartStoreAdapter.Domain.Entities.Catalog.ProductManufacturer", b =>
-                {
                     b.HasOne("U.SmartStoreAdapter.Domain.Entities.Catalog.Manufacturer", "Manufacturer")
                         .WithMany()
-                        .HasForeignKey("ManufacturerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("U.SmartStoreAdapter.Domain.Entities.Catalog.Product", "Product")
-                        .WithMany("ProductManufacturers")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ManufacturerId");
                 });
 #pragma warning restore 612, 618
         }

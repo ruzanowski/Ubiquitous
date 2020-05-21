@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartStore.Persistance.Context;
 using U.Common.Pagination;
+using U.Common.Products;
 using U.SmartStoreAdapter.Domain.Entities.Catalog;
 
 namespace U.SmartStoreAdapter.Application.Products
@@ -26,14 +27,8 @@ namespace U.SmartStoreAdapter.Application.Products
             CancellationToken cancellationToken)
         {
             var products = _context.Set<Product>()
-                .Include(x => x.ProductCategories)
-                    .ThenInclude(x=>x.Category)
-                .Include(x => x.ProductCategories)
-                    .ThenInclude(x=>x.Product)
-                .Include(x => x.ProductManufacturers)
-                  .ThenInclude(x=>x.Manufacturer)
-                .Include(x => x.ProductManufacturers)
-                   .ThenInclude(x=>x.Product)
+                .Include(x => x.Category)
+                .Include(x => x.Manufacturer)
                 .AsQueryable();
 
             products = new ProductsQueryBuilder(products)

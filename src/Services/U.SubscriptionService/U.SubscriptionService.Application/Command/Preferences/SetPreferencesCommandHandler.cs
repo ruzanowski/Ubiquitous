@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using U.SubscriptionService.Application.Exceptions;
-using U.SubscriptionService.Domain;
 using U.SubscriptionService.Persistance.Contexts;
 
 namespace U.SubscriptionService.Application.Command.Preferences

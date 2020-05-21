@@ -30,7 +30,7 @@ namespace U.ProductService.Application.Products.Commands.Create
 
         public async Task<Guid> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
-            var duplicate = await _productRepository.GetByBarcodeAsync(command.BarCode);
+            var duplicate = await _productRepository.GetByAbsoluteComparerAsync(command.ExternalSourceName, command.ExternalSourceId);
 
             if (duplicate != null)
             {
@@ -47,7 +47,7 @@ namespace U.ProductService.Application.Products.Commands.Create
             await _productRepository.AddAsync(product);
 
             await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
-            _logger.LogInformation($"Product with id: '{product.Id}' has been created");
+            _logger.LogDebug($"Product with id: '{product.Id}' has been created");
 
             return product.Id;
         }
@@ -66,7 +66,9 @@ namespace U.ProductService.Application.Products.Commands.Create
                 dimensions,
                 command.ManufacturerId,
                 command.CategoryId ?? Category.GetDraftCategory().Id,
-                ProductType.SimpleProduct.Id);
+                ProductType.SimpleProduct.Id,
+                command.ExternalSourceName,
+                command.ExternalSourceId);
         }
 
         private async Task ValidateCategoryOrThrowAsync(Guid categoryId)

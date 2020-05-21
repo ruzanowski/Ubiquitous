@@ -19,9 +19,9 @@ namespace U.ProductService.Application.Products.Commands.Update
         [JsonConstructor]
         public UpdateProductCommand()
         {
-                
+
         }
-        
+
         public UpdateProductCommand(Guid productId, string name, decimal price, string description, DimensionsDto dimensions)
         {
             ProductId = productId;
@@ -30,15 +30,6 @@ namespace U.ProductService.Application.Products.Commands.Update
             Description = description;
             Dimensions = dimensions;
         }
-        
-        public UpdateProductCommand(Product product, string name, decimal price, string description, DimensionsDto dimensions)
-        {
-            Product = product;
-            Name = name;
-            Price = price;
-            Description = description;
-            Dimensions = dimensions;
-        }
-        
+
     }
 }

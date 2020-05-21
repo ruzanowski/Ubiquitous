@@ -8,7 +8,7 @@ using U.EventBus.Events.Notification;
 using U.EventBus.Events.Product;
 using U.NotificationService.Domain.Entities;
 
-namespace U.NotificationService.Application.Models
+namespace U.NotificationService.Application.Common.Models
 {
     public class NotificationDto
     {
@@ -35,7 +35,7 @@ namespace U.NotificationService.Application.Models
         public ConfirmationType State { get; private set; }
         public Importancy Importancy { get; private set; }
 
-        public static class NotifactionFactory
+        public static class Factory
         {
             public static NotificationDto FromNotificationWithPrefferedImportancy(Notification notification,
                 Guid currentUserId) =>

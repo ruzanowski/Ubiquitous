@@ -17,7 +17,7 @@ using U.ProductService.Domain.SeedWork;
 
 namespace U.ProductService.Domain
 {
-    public class Product : Entity, IAggregateRoot, ITrackable, IPublishable, IPictureManagable
+    public class Product : Entity, IAggregateRoot, ITrackable, IPublishable, IPictureManagable, IEquatable<Product>
     {
         public Guid AggregateId => Id;
         public string AggregateTypeName => nameof(Product);
@@ -43,6 +43,8 @@ namespace U.ProductService.Domain
         public virtual Category Category { get; private set; }
         public int ProductTypeId { get; private set; }
         public ProductType ProductType { get; private set; }
+        public string ExternalSourceName { get; private set; }
+        public string ExternalId { get; private set; }
 
         private Product()
         {
@@ -57,8 +59,16 @@ namespace U.ProductService.Domain
             IsPublished = false;
         }
 
-        public Product(string name, decimal price, string barCode, string description, Dimensions dimensions,
-            Guid manufacturerId, Guid categoryId, int productTypeId) : this()
+        public Product(string name,
+            decimal price,
+            string barCode,
+            string description,
+            Dimensions dimensions,
+            Guid manufacturerId,
+            Guid categoryId,
+            int productTypeId,
+            string externalSourceName,
+            string externalId) : this()
         {
             Name = name;
             Price = price;
@@ -68,8 +78,10 @@ namespace U.ProductService.Domain
             ManufacturerId = manufacturerId;
             CategoryId = categoryId;
             ProductTypeId = productTypeId;
+            ExternalSourceName = externalSourceName;
+            ExternalId = externalId;
 
-            var @event = new ProductAddedDomainEvent(Id, Name, Price, ManufacturerId, categoryId);
+            var @event = new ProductAddedDomainEvent(Id, Name, Price, ManufacturerId, categoryId, externalSourceName);
 
             AddDomainEvent(@event);
         }
@@ -140,7 +152,7 @@ namespace U.ProductService.Domain
             if (price < 0)
                 throw new ProductDomainException("Price cannot be below 0!");
 
-            if(price == Price)
+            if (price == Price)
                 return;
 
             var previousPrice = Price;
@@ -227,6 +239,57 @@ namespace U.ProductService.Domain
             var deepCopyProduct = mapper.Map<Product>(this);
             var variances = this.ExamineProductVariances(deepCopyProduct);
             return variances;
+        }
+
+        public bool EqualsAbsoluteExternalKey(string externalSourceName, string externalId)
+        {
+            return ExternalId.Equals(externalId)
+                   && ExternalSourceName.Equals(externalSourceName);
+        }
+
+        public bool Equals(Product other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return base.Equals(other) && string.Equals(Name, other.Name) && string.Equals(BarCode, other.BarCode) &&
+                   Price == other.Price && string.Equals(Description, other.Description) &&
+                   IsPublished == other.IsPublished && Equals(Dimensions, other.Dimensions) &&
+                   ManufacturerId.Equals(other.ManufacturerId) && Equals(Pictures, other.Pictures) &&
+                   CategoryId.Equals(other.CategoryId) && Equals(Category, other.Category) &&
+                   ProductTypeId == other.ProductTypeId && Equals(ProductType, other.ProductType) &&
+                   string.Equals(ExternalSourceName, other.ExternalSourceName) &&
+                   string.Equals(ExternalId, other.ExternalId);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Product) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = base.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (BarCode != null ? BarCode.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Price.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Description != null ? Description.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ IsPublished.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Dimensions != null ? Dimensions.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ManufacturerId.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Pictures != null ? Pictures.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ CategoryId.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Category != null ? Category.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ProductTypeId;
+                hashCode = (hashCode * 397) ^ (ProductType != null ? ProductType.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ExternalSourceName != null ? ExternalSourceName.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ExternalId != null ? ExternalId.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }

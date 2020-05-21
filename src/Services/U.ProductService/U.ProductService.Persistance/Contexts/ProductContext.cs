@@ -3,7 +3,6 @@ using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -42,7 +41,14 @@ namespace U.ProductService.Persistance.Contexts
 
         public ProductContext(DbContextOptions<ProductContext> options) : base(options)
         {
-            _mediator = this.GetService<IMediator>() ?? throw new ArgumentNullException("Mediator not initialized");
+            try
+            {
+                _mediator = this.GetService<IMediator>();
+            }
+            catch
+            {
+                _mediator = new NoMediator();
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -152,6 +158,24 @@ namespace U.ProductService.Persistance.Contexts
 
             // If you are using ASP.NET Core, you should look at this answer on StackOverflow
             // https://stackoverflow.com/a/48554738/2996339
+        }
+    }
+
+    public class NoMediator : IMediator
+    {
+        public async Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task Publish(object notification, CancellationToken cancellationToken = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = new CancellationToken()) where TNotification : INotification
+        {
+            throw new NotImplementedException();
         }
     }
 }

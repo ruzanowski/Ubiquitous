@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,74 +29,31 @@ namespace U.SmartStoreAdapter.Application.Products
         public async Task<int> Handle(StoreProductsCommand command,
             CancellationToken cancellationToken)
         {
-                var validator = new SmartProductDtoValidator(_context, command);
-                await validator.ValidateAndThrowAsync(command, cancellationToken: cancellationToken);
-                Product productDb = null;
+            var validator = new SmartProductDtoValidator(_context, command);
+            await validator.ValidateAndThrowAsync(command, cancellationToken: cancellationToken);
+            var product = _context.Products
+                .Include(x => x.Manufacturer)
+                .Include(x => x.Category)
+                .FirstOrDefault(x =>
+                    command.ManufacturerId.Equals(x.ManufacturerId)
+                    && x.BarCode == command.BarCode);
 
-                var strategy = _context.Database.CreateExecutionStrategy();
 
-                await strategy.ExecuteAsync(async () =>
-                {
-                    using (var transaction = _context.Database.BeginTransaction())
-                    {
-                        try
-                        {
-                            productDb = await StoreOrUpdateProduct(command, cancellationToken);
-
-                            await AddManufacturerAsync(productDb, command);
-                            await AddCategory(productDb, command);
-
-                            await _context.SaveChangesAsync(cancellationToken);
-                            transaction.Commit();
-                        }
-                        catch (Exception ex)
-                        {
-                            transaction.Rollback();
-                            _logger.LogInformation($"Storing products failed. {ex}");
-                            throw;
-                        }
-                    }
-                });
-
-                return productDb.Id;
-        }
-
-        private async Task<Product> StoreOrUpdateProduct(SmartProductDto product, CancellationToken cancellationToken)
-        {
-            var sku = $"{product.ManufacturerId}.{product.ProductUniqueCode}";
-            var productDb = _context.Products.FirstOrDefault(x => x.Sku == sku);
-
-            var isNull = productDb is null;
-
-            productDb = _mapper.Map(product, isNull ? new Product() : productDb);
-
-            if (!isNull)
+            if (product != null)
             {
-                _context.Update(productDb);
-                return productDb;
+                _mapper.Map(command, product);
+                _context.Update(product);
+                await _context.SaveChangesAsync(cancellationToken);
+                return product.Id;
             }
 
-            await _context.AddAsync(productDb, cancellationToken);
+            product = _mapper.Map<Product>(command);
+
+            await _context.AddAsync(product, cancellationToken);
+
             await _context.SaveChangesAsync(cancellationToken);
-            return productDb;
-        }
 
-        private async Task AddManufacturerAsync(Product productDb, SmartProductDto product)
-        {
-            await _context.AddAsync(new ProductManufacturer
-            {
-                ProductId = productDb.Id,
-                ManufacturerId = product.ManufacturerId
-            });
-        }
-
-        private async Task AddCategory(Product productDb, SmartProductDto product)
-        {
-            await _context.AddAsync(new ProductCategory
-            {
-                CategoryId = product.CategoryId,
-                ProductId = productDb.Id,
-            });
+            return product.Id;
         }
     }
 }

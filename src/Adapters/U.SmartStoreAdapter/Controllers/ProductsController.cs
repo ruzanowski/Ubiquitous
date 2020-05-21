@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using U.Common.Pagination;
+using U.Common.Products;
 using U.SmartStoreAdapter.Application.Products;
 
 namespace U.SmartStoreAdapter.Controllers

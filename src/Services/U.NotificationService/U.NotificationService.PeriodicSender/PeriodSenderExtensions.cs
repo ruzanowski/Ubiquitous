@@ -1,11 +1,10 @@
-﻿using System;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using U.Common.Mvc;
 using U.NotificationService.Application.Builders.PendingNotifications;
+using U.NotificationService.Application.Services.PendingEvents;
 using U.NotificationService.Application.SignalR;
-using U.NotificationService.Domain.Entities;
 
 namespace U.NotificationService.PeriodicSender
 {

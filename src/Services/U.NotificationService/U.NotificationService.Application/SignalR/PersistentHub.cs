@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Serilog;
 using U.EventBus.Events;
-using U.NotificationService.Application.Models;
+using U.NotificationService.Application.Common.Models;
 using U.NotificationService.Domain.Entities;
 using U.NotificationService.Infrastructure.Contexts;
 
@@ -51,7 +49,7 @@ namespace U.NotificationService.Application.SignalR
             foreach (var notification in notifications)
             {
                 var notificationDto =
-                    NotificationDto.NotifactionFactory.GlobalVolatileNotification(notification);
+                    NotificationDto.Factory.GlobalVolatileNotification(notification);
 
                 await _hubContext.Clients.All.SendAsync(notification.MethodTag, notificationDto);
             }
@@ -69,7 +67,7 @@ namespace U.NotificationService.Application.SignalR
             await Context.AddAsync(notification);
             await Context.SaveChangesAsync();
 
-            var notificationDto = NotificationDto.NotifactionFactory.GlobalVolatileNotification(notification);
+            var notificationDto = NotificationDto.Factory.GlobalVolatileNotification(notification);
 
             await _hubContext.Clients.All
                 .SendAsync(methodTag, notificationDto);
@@ -85,7 +83,7 @@ namespace U.NotificationService.Application.SignalR
             await Context.SaveChangesAsync();
 
             var notificationDto =
-                NotificationDto.NotifactionFactory.FromNotificationWithPrefferedImportancy(notification, userId);
+                NotificationDto.Factory.FromNotificationWithPrefferedImportancy(notification, userId);
 
             await _hubContext.Clients.Client(connectionId)
                 .SendAsync(methodTag, notificationDto);

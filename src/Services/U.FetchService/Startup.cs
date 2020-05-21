@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using U.Common;
 using U.Common.Consul;
 using U.Common.Fabio;
 using U.Common.Jaeger;
@@ -36,7 +37,7 @@ namespace U.FetchService
                 .AddCustomMediatR()
                 .AddEventBusRabbitMq(Configuration)
                 .AddConsulServiceDiscovery()
-                .AddTypedHttpClient<ISmartStoreAdapter>("u.smartstore-adapter")
+                .AddTypedHttpClient<ISmartStoreAdapter>(GlobalConstants.SmartStoreConsulRegisteredName)
                 .AddBackgroundService(Configuration)
                 .AddJaeger();
         }

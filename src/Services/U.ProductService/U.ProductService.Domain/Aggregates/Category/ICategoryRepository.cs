@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using U.ProductService.Domain.Aggregates.Category;
 using U.ProductService.Domain.SeedWork;
@@ -17,6 +18,7 @@ namespace U.ProductService.Domain
         Task<Category> GetAsync(Guid categoryId);
 
         Task<bool> AnyAsync(Guid id);
+        Task<IList<Category>> GetManyAsync();
 
     }
 }

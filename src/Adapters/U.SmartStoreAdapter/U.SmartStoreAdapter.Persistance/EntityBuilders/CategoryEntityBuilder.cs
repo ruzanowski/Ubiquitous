@@ -1,10 +1,10 @@
-using U.SmartStoreAdapter.Domain.Entities.Catalog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using U.SmartStoreAdapter.Domain.Entities.Catalog;
 
-namespace SmartStore.Persistance.EntityBuilders.Catalog
+namespace SmartStore.Persistance.EntityBuilders
 {
-	public class CategoryMap : IEntityTypeConfiguration<Category>
+	public class CategoryEntityBuilder : IEntityTypeConfiguration<Category>
     {
 	    public void Configure(EntityTypeBuilder<Category> builder)
 	    {

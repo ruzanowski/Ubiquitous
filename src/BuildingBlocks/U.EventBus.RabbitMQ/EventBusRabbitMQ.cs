@@ -11,6 +11,7 @@ using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
 using U.EventBus.Abstractions;
 using U.EventBus.Events;
+using U.EventBus.Subscription;
 
 namespace U.EventBus.RabbitMQ
 {

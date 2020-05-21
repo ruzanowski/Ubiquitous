@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using U.ProductService.Domain;
 using U.ProductService.Domain.Aggregates.Manufacturer;
 using U.ProductService.Persistance.Contexts;
 

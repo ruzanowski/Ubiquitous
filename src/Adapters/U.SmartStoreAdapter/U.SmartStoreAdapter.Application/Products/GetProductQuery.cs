@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using U.Common.Products;
 
 namespace U.SmartStoreAdapter.Application.Products
 {
@@ -7,6 +8,5 @@ namespace U.SmartStoreAdapter.Application.Products
     {
         [FromRoute]
         public int Id { get; set; }
-        public string Sku { get; set; }
     }
 }

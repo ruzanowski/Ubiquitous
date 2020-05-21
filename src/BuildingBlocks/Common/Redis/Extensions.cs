@@ -1,11 +1,9 @@
-using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using StackExchange.Redis;
 using U.Common.Mvc;
 

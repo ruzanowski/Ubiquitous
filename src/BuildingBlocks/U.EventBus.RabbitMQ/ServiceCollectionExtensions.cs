@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using U.Common.Mvc;
 using U.EventBus.Abstractions;
+using U.EventBus.Subscription;
 
 namespace U.EventBus.RabbitMQ
 {
