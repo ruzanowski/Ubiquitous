@@ -1,8 +1,8 @@
-using U.SmartStoreAdapter.Domain.Entities.Catalog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using U.SmartStoreAdapter.Domain.Entities.Catalog;
 
-namespace SmartStore.Persistance.EntityBuilders.Catalog
+namespace SmartStore.Persistance.EntityBuilders
 {
 
     public class ManufacturerEntityBuilder : IEntityTypeConfiguration<Manufacturer>

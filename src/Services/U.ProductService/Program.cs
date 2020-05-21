@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Hosting;
 using Serilog;
-using Serilog.Core;
 using U.Common.Database;
 using U.Common.Mvc;
 using U.Common.WebHost;

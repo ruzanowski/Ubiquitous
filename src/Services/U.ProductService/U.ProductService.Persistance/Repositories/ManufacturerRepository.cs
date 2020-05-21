@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using U.ProductService.Domain;
 using U.ProductService.Domain.Aggregates.Manufacturer;
 using U.ProductService.Domain.SeedWork;

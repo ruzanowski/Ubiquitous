@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Caching.Distributed;
 using U.ProductService.Domain;
 using U.ProductService.Domain.Aggregates.Category;
-using U.ProductService.Domain.Aggregates.Manufacturer;
 using U.ProductService.Domain.SeedWork;
 using U.ProductService.Persistance.Contexts;
 

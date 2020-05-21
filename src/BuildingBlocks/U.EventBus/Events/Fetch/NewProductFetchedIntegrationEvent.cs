@@ -1,4 +1,3 @@
-using System;
 using U.Common.Subscription;
 
 namespace U.EventBus.Events.Fetch

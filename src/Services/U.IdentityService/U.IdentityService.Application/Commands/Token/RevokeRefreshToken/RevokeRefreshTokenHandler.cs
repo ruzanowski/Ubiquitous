@@ -1,10 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using U.Common.Jwt;
 using U.Common.Jwt.Service;
 using U.EventBus.Abstractions;
-using U.EventBus.Events.Identity;
 using U.IdentityService.Application.Services;
 using U.IdentityService.Domain;
 using U.IdentityService.Domain.Exceptions;

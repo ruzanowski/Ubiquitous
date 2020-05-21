@@ -3,7 +3,6 @@ using System.Net;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using U.Common.Jwt;
 using U.Common.Pagination;
 using U.ProductService.Application.Pictures.Models;
 using U.ProductService.Application.Pictures.Queries.GetList;

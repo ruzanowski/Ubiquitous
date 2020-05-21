@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using U.Common.Jwt;
 using U.Common.Jwt.Service;
 using U.EventBus.Abstractions;
 using U.IdentityService.Application.Services;

@@ -1,16 +1,12 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using U.EventBus.Abstractions;
-using U.EventBus.Events;
 using U.EventBus.Events.Fetch;
-using U.EventBus.Events.Product;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Products.Commands.Update;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain;
-using U.ProductService.Domain.Aggregates.Category;
 using U.ProductService.Domain.Aggregates.Manufacturer;
 
 namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling

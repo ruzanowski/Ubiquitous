@@ -1,6 +1,6 @@
 using U.SmartStoreAdapter.Domain.Entities.Catalog;
 using Microsoft.EntityFrameworkCore;
-using SmartStore.Persistance.EntityBuilders.Catalog;
+using SmartStore.Persistance.EntityBuilders;
 
 namespace SmartStore.Persistance.Context
 {

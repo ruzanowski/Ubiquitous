@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using U.Common.Subscription;
 using U.SubscriptionService.Domain;
 using U.SubscriptionService.Persistance.EntityConfigurations;
 

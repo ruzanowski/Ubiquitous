@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using U.EventBus.Events;
 using U.EventBus.Events.Product;
 using U.ProductService.Application.Events.IntegrationEvents;
 using U.ProductService.Domain.Events;

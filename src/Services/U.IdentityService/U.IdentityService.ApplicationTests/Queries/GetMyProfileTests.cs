@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using NSubstitute;
 using U.Common.Jwt.Models;
 using U.Common.Jwt.Service;
-using U.IdentityService.Application.Queries.GetMyAccount;
+using U.IdentityService.Application.Queries.GetMyProfile;
 using U.IdentityService.ApplicationTests.Providers;
 using U.IdentityService.Domain.Models;
 using U.IdentityService.Persistance.Repositories;

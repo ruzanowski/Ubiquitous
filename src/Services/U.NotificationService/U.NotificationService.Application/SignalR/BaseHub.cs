@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using U.Common.Jwt.Attributes;
 using U.Common.Jwt.Claims;
 using U.Common.Subscription;
-using U.NotificationService.Application.Models;
-using U.NotificationService.Application.SignalR.Services;
-using U.NotificationService.Application.SignalR.Services.Clients;
-using U.NotificationService.Application.SignalR.Services.Service;
-using U.NotificationService.Application.SignalR.Services.WelcomeNotifications;
+using U.NotificationService.Application.Common.Clients;
+using U.NotificationService.Application.Common.Models;
+using U.NotificationService.Application.Services.Operations;
+using U.NotificationService.Application.SignalR.WelcomeNotifications;
 
 // ReSharper disable UnusedMember.Global
 
@@ -57,7 +55,7 @@ namespace U.NotificationService.Application.SignalR
 
             if (preferences.DoNotNotifyAnyoneAboutMyActivity == false)
             {
-                var userConnected = NotificationDto.NotifactionFactory.UserConnected(currentUser);
+                var userConnected = NotificationDto.Factory.UserConnected(currentUser);
                 await Clients.Others.SendAsync("connected", userConnected);
             }
 
@@ -74,7 +72,7 @@ namespace U.NotificationService.Application.SignalR
 
             if (preferences.DoNotNotifyAnyoneAboutMyActivity == false)
             {
-                var userDisonnected = NotificationDto.NotifactionFactory.UserDisconnected(currentUser);
+                var userDisonnected = NotificationDto.Factory.UserDisconnected(currentUser);
                 await Clients.Others.SendAsync("disconnected", userDisonnected);
             }
 
@@ -103,7 +101,7 @@ namespace U.NotificationService.Application.SignalR
 
             return notifications
                 .Select(x =>
-                    NotificationDto.NotifactionFactory.FromNotificationWithPrefferedImportancy(x, GetCurrentUser().Id))
+                    NotificationDto.Factory.FromNotificationWithPrefferedImportancy(x, GetCurrentUser().Id))
                 .ToList();
         }
 

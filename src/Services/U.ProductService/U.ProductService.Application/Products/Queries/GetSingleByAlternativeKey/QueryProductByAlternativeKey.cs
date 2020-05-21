@@ -1,4 +1,3 @@
-using System;
 using MediatR;
 using U.ProductService.Application.Products.Models;
 

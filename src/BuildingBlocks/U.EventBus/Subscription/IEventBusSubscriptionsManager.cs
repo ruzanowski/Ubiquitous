@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using U.EventBus.Abstractions;
 using U.EventBus.Events;
 
-namespace U.EventBus
+namespace U.EventBus.Subscription
 {
     public interface IEventBusSubscriptionsManager
     {

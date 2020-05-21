@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using U.EventBus.Abstractions;
-using U.EventBus.Events;
 using U.EventBus.Events.Product;
 using U.NotificationService.Application.Builders.PendingNotifications;
 

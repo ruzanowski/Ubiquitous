@@ -4,7 +4,7 @@ using MediatR;
 using U.IdentityService.Application.Models;
 using U.IdentityService.Persistance.Repositories;
 
-namespace U.IdentityService.Application.Queries.GetMyAccount
+namespace U.IdentityService.Application.Queries.GetMyProfile
 {
     public class GetMyProfileHandler : IRequestHandler<GetMyProfile, UserDto>
     {

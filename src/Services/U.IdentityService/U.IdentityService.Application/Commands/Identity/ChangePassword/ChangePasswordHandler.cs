@@ -2,7 +2,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using U.EventBus.Events.Identity;
 using U.IdentityService.Domain;
 using U.IdentityService.Domain.Exceptions;
 using U.IdentityService.Domain.Models;
