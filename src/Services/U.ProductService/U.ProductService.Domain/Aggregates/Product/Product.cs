@@ -241,12 +241,6 @@ namespace U.ProductService.Domain
             return variances;
         }
 
-        public bool EqualsAbsoluteExternalKey(string externalSourceName, string externalId)
-        {
-            return ExternalId.Equals(externalId)
-                   && ExternalSourceName.Equals(externalSourceName);
-        }
-
         public bool Equals(Product other)
         {
             if (ReferenceEquals(null, other)) return false;

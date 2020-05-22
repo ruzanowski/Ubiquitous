@@ -31,6 +31,7 @@ namespace U.SmartStoreAdapter.Application.Products
         {
             var validator = new SmartProductDtoValidator(_context, command);
             await validator.ValidateAndThrowAsync(command, cancellationToken: cancellationToken);
+
             var product = _context.Products
                 .Include(x => x.Manufacturer)
                 .Include(x => x.Category)

@@ -58,7 +58,8 @@ namespace U.ProductService.Persistance.Repositories
                 .Include(x => x.Pictures)
                 .Include(x => x.ProductType)
                 .Include(x => x.Category)
-                .FirstOrDefaultAsync(x => x.EqualsAbsoluteExternalKey(externalSourceName, externalSourceId));
+                .FirstOrDefaultAsync(x => x.ExternalId.Equals(externalSourceId)
+                                          && x.ExternalSourceName.Equals(externalSourceName));
 
             if (product != null)
             {
