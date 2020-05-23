@@ -67,7 +67,7 @@ namespace U.EventBus.RabbitMQ
             }
         }
 
-        public void Publish<T>(T carrier) where T: IntegrationEvent
+        public void Publish<T>(T @event) where T: IntegrationEvent
         {
             if (!_persistentConnection.IsConnected)
             {
@@ -81,22 +81,22 @@ namespace U.EventBus.RabbitMQ
                     {
                         _logger.LogWarning(ex,
                             "Could not publish event: {EventId} after {Timeout}s ({ExceptionMessage})",
-                            carrier.Id,
+                            @event.Id,
                             $"{time.TotalSeconds:n1}", ex.Message);
                     });
 
-            var eventName = carrier.GetType().Name;
+            var eventName = @event.GetType().Name;
             using (var channel = _persistentConnection.CreateModel())
             {
                 channel.ExchangeDeclare(exchange: BROKER_NAME, type: "direct");
 
-                var message = JsonConvert.SerializeObject(carrier);
+                var message = JsonConvert.SerializeObject(@event);
                 var body = Encoding.UTF8.GetBytes(message);
 
                 policy.Execute(() =>
                 {
                     var properties = channel.CreateBasicProperties();
-                    properties.DeliveryMode = 2; // persistent
+                    properties.DeliveryMode = 1; // non-persistent
 
                     channel.BasicPublish(
                         exchange: BROKER_NAME,
@@ -115,7 +115,7 @@ namespace U.EventBus.RabbitMQ
             var eventName = _subsManager.GetEventKey<T>();
             DoInternalSubscription(eventName);
 
-            _logger.LogInformation("Subscribing to carrier with {EventName} with {EventHandler}", eventName,
+            _logger.LogInformation("Subscribing to event with {EventName} with {EventHandler}", eventName,
                 typeof(TH).GetGenericTypeName());
 
             _subsManager.AddSubscription<T, TH>();
@@ -147,7 +147,7 @@ namespace U.EventBus.RabbitMQ
         {
             var eventName = _subsManager.GetEventKey<T>();
 
-            _logger.LogInformation("Unsubscribing from carrier {EventName}", eventName);
+            _logger.LogInformation("Unsubscribing from event {EventName}", eventName);
 
             _subsManager.RemoveSubscription<T, TH>();
         }
@@ -171,7 +171,7 @@ namespace U.EventBus.RabbitMQ
 
                 _consumerChannel.BasicConsume(
                     queue: _queueName,
-                    autoAck: false,
+                    autoAck: true,
                     consumer: consumer);
             }
             else
@@ -239,7 +239,7 @@ namespace U.EventBus.RabbitMQ
 
         private async Task ProcessEvent(string eventName, string message)
         {
-            _logger.LogTrace("Processing RabbitMQ carrier: {EventName}", eventName);
+            _logger.LogTrace("Processing RabbitMQ event: {EventName}", eventName);
 
             if (_subsManager.HasSubscriptionsForEvent(eventName))
             {
@@ -261,7 +261,7 @@ namespace U.EventBus.RabbitMQ
             }
             else
             {
-                _logger.LogWarning("No subscription for RabbitMQ carrier: {EventName}", eventName);
+                _logger.LogWarning("No subscription for RabbitMQ event: {EventName}", eventName);
             }
         }
     }
