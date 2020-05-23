@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-    <ProjectReference Include="..\..\BuildingBlocks\Common\U.Common.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\U.Common\U.Common.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\U.EventBus\U.EventBus.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
   </ItemGroup>
@@ -42,17 +42,17 @@
     <EmbeddedResource Remove="U.IdentityService.Application\**" />
     <EmbeddedResource Remove="U.IdentityService.Domain\**" />
     <EmbeddedResource Remove="U.IdentityService.Persistance\**" />
-    <_ContentIncludedByDefault Remove="U.IdentityService.Application\bin\Debug\netcoreapp2.2\U.IdentityService.Application.deps.json" />
-    <_ContentIncludedByDefault Remove="U.IdentityService.Application\bin\Release\netcoreapp2.2\U.IdentityService.Application.deps.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.Application\bin\Debug\netcoreapp3.1\U.IdentityService.Application.deps.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.Application\bin\Release\netcoreapp3.1\U.IdentityService.Application.deps.json" />
     <_ContentIncludedByDefault Remove="U.IdentityService.Application\obj\project.assets.json" />
     <_ContentIncludedByDefault Remove="U.IdentityService.Application\obj\project.packagespec.json" />
-    <_ContentIncludedByDefault Remove="U.IdentityService.Domain\bin\Debug\netcoreapp2.2\U.IdentityService.Domain.deps.json" />
-    <_ContentIncludedByDefault Remove="U.IdentityService.Domain\bin\Release\netcoreapp2.2\U.IdentityService.Domain.deps.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.Domain\bin\Debug\netcoreapp3.1\U.IdentityService.Domain.deps.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.Domain\bin\Release\netcoreapp3.1\U.IdentityService.Domain.deps.json" />
     <_ContentIncludedByDefault Remove="U.IdentityService.Domain\obj\project.assets.json" />
     <_ContentIncludedByDefault Remove="U.IdentityService.Domain\obj\project.packagespec.json" />
     <_ContentIncludedByDefault Remove="U.IdentityService.Domain\obj\U.IdentityService.Domain.csproj.nuget.dgspec.json" />
-    <_ContentIncludedByDefault Remove="U.IdentityService.Persistance\bin\Debug\netcoreapp2.2\U.IdentityService.Persistance.deps.json" />
-    <_ContentIncludedByDefault Remove="U.IdentityService.Persistance\bin\Release\netcoreapp2.2\U.IdentityService.Persistance.deps.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.Persistance\bin\Debug\netcoreapp3.1\U.IdentityService.Persistance.deps.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.Persistance\bin\Release\netcoreapp3.1\U.IdentityService.Persistance.deps.json" />
     <_ContentIncludedByDefault Remove="U.IdentityService.Persistance\obj\project.assets.json" />
     <_ContentIncludedByDefault Remove="U.IdentityService.Persistance\obj\project.packagespec.json" />
     <_ContentIncludedByDefault Remove="U.IdentityService.Persistance\obj\U.IdentityService.Persistance.csproj.nuget.dgspec.json" />
@@ -64,9 +64,9 @@
     <Compile Remove="U.IdentityService.ApplicationTests\**" />
     <EmbeddedResource Remove="U.IdentityService.ApplicationTests\**" />
     <None Remove="U.IdentityService.ApplicationTests\**" />
-    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\bin\Debug\netcoreapp2.2\U.IdentityService.ApplicationTests.deps.json" />
-    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\bin\Debug\netcoreapp2.2\U.IdentityService.ApplicationTests.runtimeconfig.dev.json" />
-    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\bin\Debug\netcoreapp2.2\U.IdentityService.ApplicationTests.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\bin\Debug\netcoreapp3.1\U.IdentityService.ApplicationTests.deps.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\bin\Debug\netcoreapp3.1\U.IdentityService.ApplicationTests.runtimeconfig.dev.json" />
+    <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\bin\Debug\netcoreapp3.1\U.IdentityService.ApplicationTests.runtimeconfig.json" />
     <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\obj\project.assets.json" />
     <_ContentIncludedByDefault Remove="U.IdentityService.ApplicationTests\obj\project.packagespec.json" />
   </ItemGroup>

@@ -5,10 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using U.Common;
-using U.Common.Consul;
-using U.Common.Fabio;
-using U.Common.Jaeger;
-using U.Common.Mvc;
+using U.Common.NetCore.Consul;
+using U.Common.NetCore.Fabio;
+using U.Common.NetCore.Jaeger;
+using U.Common.NetCore.Mvc;
 using U.GeneratorService.BackgroundServices;
 using U.GeneratorService.Services;
 

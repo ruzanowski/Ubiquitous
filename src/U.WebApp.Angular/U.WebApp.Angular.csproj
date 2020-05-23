@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
         <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
         <IsPackable>false</IsPackable>
@@ -158,53 +158,53 @@
     </ItemGroup>
 
     <ItemGroup>
-      <_ResolveComReferenceCache Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.csproj.ResolveComReference.cache" />
-      <_ResolveComReferenceCache Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.csproj.ResolveComReference.cache" />
+      <_ResolveComReferenceCache Remove="obj\Debug\netcoreapp3.1\U.WebApp.Angular.csproj.ResolveComReference.cache" />
+      <_ResolveComReferenceCache Remove="obj\Release\netcoreapp3.1\U.WebApp.Angular.csproj.ResolveComReference.cache" />
     </ItemGroup>
 
     <ItemGroup>
-      <IntermediateAssembly Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.dll" />
-      <IntermediateAssembly Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.dll" />
+      <IntermediateAssembly Remove="obj\Debug\netcoreapp3.1\U.WebApp.Angular.dll" />
+      <IntermediateAssembly Remove="obj\Release\netcoreapp3.1\U.WebApp.Angular.dll" />
     </ItemGroup>
 
     <ItemGroup>
-      <_DebugSymbolsIntermediatePath Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.pdb" />
-      <_DebugSymbolsIntermediatePath Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.pdb" />
+      <_DebugSymbolsIntermediatePath Remove="obj\Debug\netcoreapp3.1\U.WebApp.Angular.pdb" />
+      <_DebugSymbolsIntermediatePath Remove="obj\Release\netcoreapp3.1\U.WebApp.Angular.pdb" />
     </ItemGroup>
 
     <ItemGroup>
-      <_DeploymentManifestEntryPoint Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.dll" />
-      <_DeploymentManifestEntryPoint Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.dll" />
+      <_DeploymentManifestEntryPoint Remove="obj\Debug\netcoreapp3.1\U.WebApp.Angular.dll" />
+      <_DeploymentManifestEntryPoint Remove="obj\Release\netcoreapp3.1\U.WebApp.Angular.dll" />
     </ItemGroup>
 
     <ItemGroup>
-      <ApplicationManifest Remove="obj\Debug\netcoreapp2.2\Native.U.WebApp.Angular.manifest" />
-      <ApplicationManifest Remove="obj\Release\netcoreapp2.2\Native.U.WebApp.Angular.manifest" />
+      <ApplicationManifest Remove="obj\Debug\netcoreapp3.1\Native.U.WebApp.Angular.manifest" />
+      <ApplicationManifest Remove="obj\Release\netcoreapp3.1\Native.U.WebApp.Angular.manifest" />
     </ItemGroup>
 
     <ItemGroup>
-      <DeployManifest Remove="obj\Debug\netcoreapp2.2\U.WebApp.Angular.application" />
-      <DeployManifest Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.application" />
+      <DeployManifest Remove="obj\Debug\netcoreapp3.1\U.WebApp.Angular.application" />
+      <DeployManifest Remove="obj\Release\netcoreapp3.1\U.WebApp.Angular.application" />
     </ItemGroup>
 
     <ItemGroup>
-      <_OutputPathItem Remove="bin\Debug\netcoreapp2.2\" />
-      <_OutputPathItem Remove="bin\Release\netcoreapp2.2\" />
+      <_OutputPathItem Remove="bin\Debug\netcoreapp3.1\" />
+      <_OutputPathItem Remove="bin\Release\netcoreapp3.1\" />
     </ItemGroup>
 
     <ItemGroup>
-      <AppConfigFileDestination Remove="bin\Debug\netcoreapp2.2\U.WebApp.Angular.dll.config" />
-      <AppConfigFileDestination Remove="bin\Release\netcoreapp2.2\U.WebApp.Angular.dll.config" />
+      <AppConfigFileDestination Remove="bin\Debug\netcoreapp3.1\U.WebApp.Angular.dll.config" />
+      <AppConfigFileDestination Remove="bin\Release\netcoreapp3.1\U.WebApp.Angular.dll.config" />
     </ItemGroup>
 
     <ItemGroup>
-      <_DebugSymbolsOutputPath Remove="bin\Debug\netcoreapp2.2\U.WebApp.Angular.pdb" />
-      <_DebugSymbolsOutputPath Remove="bin\Release\netcoreapp2.2\U.WebApp.Angular.pdb" />
+      <_DebugSymbolsOutputPath Remove="bin\Debug\netcoreapp3.1\U.WebApp.Angular.pdb" />
+      <_DebugSymbolsOutputPath Remove="bin\Release\netcoreapp3.1\U.WebApp.Angular.pdb" />
     </ItemGroup>
 
     <ItemGroup>
-      <_ApplicationManifestFinal Remove="bin\Debug\netcoreapp2.2\Native.U.WebApp.Angular.manifest" />
-      <_ApplicationManifestFinal Remove="bin\Release\netcoreapp2.2\Native.U.WebApp.Angular.manifest" />
+      <_ApplicationManifestFinal Remove="bin\Debug\netcoreapp3.1\Native.U.WebApp.Angular.manifest" />
+      <_ApplicationManifestFinal Remove="bin\Release\netcoreapp3.1\Native.U.WebApp.Angular.manifest" />
     </ItemGroup>
 
     <ItemGroup>
@@ -285,11 +285,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <RazorIntermediateAssembly Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.Views.dll" />
+      <RazorIntermediateAssembly Remove="obj\Release\netcoreapp3.1\U.WebApp.Angular.Views.dll" />
     </ItemGroup>
 
     <ItemGroup>
-      <_RazorDebugSymbolsIntermediatePath Remove="obj\Release\netcoreapp2.2\U.WebApp.Angular.Views.pdb" />
+      <_RazorDebugSymbolsIntermediatePath Remove="obj\Release\netcoreapp3.1\U.WebApp.Angular.Views.pdb" />
     </ItemGroup>
 
     <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">

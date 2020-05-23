@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using U.Common.Consul;
+using U.Common.NetCore.Consul;
 
 namespace U.IdentityService.Controllers
 {

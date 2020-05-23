@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using U.Common.Jwt.Claims;
+using U.Common.NetCore.Auth.Claims;
 using U.IdentityService.Persistance.Repositories;
 
 namespace U.IdentityService.Application.Services

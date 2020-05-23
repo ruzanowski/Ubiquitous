@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore.Design;
-using U.Common.Database;
+using U.Common.NetCore.Database;
 
 namespace U.NotificationService.Infrastructure.Contexts.Factories
 {
@@ -8,7 +8,7 @@ namespace U.NotificationService.Infrastructure.Contexts.Factories
         public NotificationContext CreateDbContext(string[] args)
         {
             var optionsBuilder = ContextDesigner.CreateDbContextOptionsBuilder<NotificationContext>("../../../../U.NotificationService");
-            
+
             return new NotificationContext(optionsBuilder.Options);
         }
     }

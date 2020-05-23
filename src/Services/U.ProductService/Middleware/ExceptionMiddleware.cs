@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using U.Common.Mvc;
+using U.Common.NetCore.Mvc;
 using U.ProductService.Application.Common.Exceptions;
 
 #pragma warning disable 1998

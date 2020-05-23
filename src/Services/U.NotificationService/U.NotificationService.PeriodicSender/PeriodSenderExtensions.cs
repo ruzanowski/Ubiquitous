@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using U.Common.Mvc;
+using U.Common.NetCore.Mvc;
 using U.NotificationService.Application.Builders.PendingNotifications;
 using U.NotificationService.Application.Services.PendingEvents;
 using U.NotificationService.Application.SignalR;

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore.Design;
 using SmartStore.Persistance.Context;
-using U.Common.Database;
+using U.Common.NetCore.Database;
 
 namespace SmartStore.Persistance.DesignTimeDb
 {

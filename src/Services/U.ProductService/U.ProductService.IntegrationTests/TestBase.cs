@@ -4,7 +4,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
-using U.Common.WebHost;
+using U.Common.NetCore.WebHost;
 using U.IntegrationEventLog;
 using U.ProductService.Persistance.Contexts;
 

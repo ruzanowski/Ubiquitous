@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using U.Common.NetCore.NetCoreExtensions;
 using U.Common.Pagination;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain;
@@ -40,7 +41,7 @@ namespace U.ProductService.Application.Products.Queries.GetList
             var productsMapped = _mapper.ProjectTo<ProductViewModel>(products);
 
             var paginatedProducts =
-                await PaginatedItems<ProductViewModel>.CreateAsync(request.PageIndex, request.PageSize, productsMapped);
+                await PaginatedItemsExtended<ProductViewModel>.CreateAsync(request.PageIndex, request.PageSize, productsMapped);
 
             return paginatedProducts;
         }

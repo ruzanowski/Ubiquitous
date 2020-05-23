@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using U.Common.Jwt.Service;
+using U.Common.NetCore.Auth.Service;
 using U.EventBus.Abstractions;
 using U.IdentityService.Application.Services;
 using U.IdentityService.Domain;

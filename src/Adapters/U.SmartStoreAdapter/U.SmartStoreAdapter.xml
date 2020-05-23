@@ -32,7 +32,7 @@
             
              </summary>
         </member>
-        <member name="M:U.SmartStoreAdapter.Controllers.HealthController.#ctor(U.Common.Consul.IConsulServiceDifferentator)">
+        <member name="M:U.SmartStoreAdapter.Controllers.HealthController.#ctor(U.Common.NetCore.Consul.IConsulServiceDifferentator)">
              <summary>
             
              </summary>

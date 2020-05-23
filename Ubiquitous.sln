@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Persist
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Domain", "src\Adapters\U.SmartStoreAdapter\U.SmartStoreAdapter.Domain\U.SmartStoreAdapter.Domain.csproj", "{B43A5FA0-F92F-41B7-B602-F033C3E442FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.Common", "src\BuildingBlocks\Common\U.Common.csproj", "{0631559D-B348-47A5-9CB5-AB7E805A4A7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.Common", "src\BuildingBlocks\U.Common\U.Common.csproj", "{0631559D-B348-47A5-9CB5-AB7E805A4A7D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "src\BuildingBlocks", "{AD753C1A-0D4C-4BC5-8793-FF2795F0F49E}"
 EndProject
@@ -50,8 +50,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService", "src\Services\U.NotificationService\U.NotificationService.csproj", "{50F973C1-F7D9-438F-BA45-9C1BB84B8346}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.IntegrationTests", "src\Services\U.ProductService\U.ProductService.IntegrationTests\U.ProductService.IntegrationTests.csproj", "{4A1E232F-0F95-476E-A8C9-8587E307A5FD}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{DB82EEF6-6647-4B76-A433-DFE91990734F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.WebApp.Angular", "src\U.WebApp.Angular\U.WebApp.Angular.csproj", "{16CE2424-2614-482C-89D3-F4212DD59A97}"
 EndProject
@@ -131,9 +129,23 @@ ProjectSection(SolutionItems) = preProject
 	elasticsearch\Dockerfile = elasticsearch\Dockerfile
 EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{75552B0A-F300-4444-ACEB-04CCD8D1556A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{75552B0A-F300-4444-ACEB-04CCD8D1556A}"
 ProjectSection(SolutionItems) = preProject
 	readme.md = readme.md
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{38CD9E63-2F0A-4C6F-A336-7547965AC776}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.DomainTests", "src\Services\U.IdentityService\U.IdentityService.DomainTests\U.IdentityService.DomainTests.csproj", "{B3189F1B-9B69-482A-B284-3A9C658BB11C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.ApplicationTests", "src\Services\U.IdentityService\U.IdentityService.ApplicationTests\U.IdentityService.ApplicationTests.csproj", "{75A45DC0-7793-4B46-830E-45D8C4579C00}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{590E87D6-515B-4E5E-8141-ABC3967C52D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.PeriodicSender", "src\Services\U.NotificationService\U.NotificationService.PeriodicSender\U.NotificationService.PeriodicSender.csproj", "{A51A003F-BAAF-402E-B4A7-2573AEAF12B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{995C1EDB-FAF8-46A1-95BB-D65E93F02268}"
+ProjectSection(SolutionItems) = preProject
 	img\adapters-v.0.3-min.png = img\adapters-v.0.3-min.png
 	img\bell.gif = img\bell.gif
 	img\Consul-min.png = img\Consul-min.png
@@ -150,15 +162,7 @@ ProjectSection(SolutionItems) = preProject
 	img\ubiquitous-current-state-min.png = img\ubiquitous-current-state-min.png
 EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{38CD9E63-2F0A-4C6F-A336-7547965AC776}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.DomainTests", "src\Services\U.IdentityService\U.IdentityService.DomainTests\U.IdentityService.DomainTests.csproj", "{B3189F1B-9B69-482A-B284-3A9C658BB11C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.IdentityService.ApplicationTests", "src\Services\U.IdentityService\U.IdentityService.ApplicationTests\U.IdentityService.ApplicationTests.csproj", "{75A45DC0-7793-4B46-830E-45D8C4579C00}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{590E87D6-515B-4E5E-8141-ABC3967C52D5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.PeriodicSender", "src\Services\U.NotificationService\U.NotificationService.PeriodicSender\U.NotificationService.PeriodicSender.csproj", "{A51A003F-BAAF-402E-B4A7-2573AEAF12B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.Common.NetCore", "src\BuildingBlocks\U.Common.NetCore\U.Common.NetCore.csproj", "{4F812F86-754D-4C12-AC92-9955D37969F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -294,6 +298,10 @@ Global
 		{A51A003F-BAAF-402E-B4A7-2573AEAF12B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A51A003F-BAAF-402E-B4A7-2573AEAF12B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A51A003F-BAAF-402E-B4A7-2573AEAF12B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F812F86-754D-4C12-AC92-9955D37969F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F812F86-754D-4C12-AC92-9955D37969F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F812F86-754D-4C12-AC92-9955D37969F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F812F86-754D-4C12-AC92-9955D37969F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8} = {2F31A504-325D-475E-9B94-5BA9D525A2AA}
@@ -310,7 +318,6 @@ Global
 		{610959EC-7BCC-4726-8B72-A677929DA09B} = {AD753C1A-0D4C-4BC5-8793-FF2795F0F49E}
 		{5034E5F2-6AD5-4D39-895D-CF62FBB97C8A} = {AD753C1A-0D4C-4BC5-8793-FF2795F0F49E}
 		{50F973C1-F7D9-438F-BA45-9C1BB84B8346} = {20AE96FC-F1A7-4CA8-90F8-FEB6EBB6D11A}
-		{16CE2424-2614-482C-89D3-F4212DD59A97} = {DB82EEF6-6647-4B76-A433-DFE91990734F}
 		{15D78CF9-F6DB-465C-AEFE-D94E056ADE4A} = {AB4BB1BC-D658-42D0-8B65-74FCBA24EC09}
 		{974BAABC-4287-4774-A16C-4BC2D416FC89} = {31C78702-0DC3-4A05-AB00-B00FE55776F0}
 		{5FFE5D8A-F3C4-4A8C-953B-334205210102} = {31C78702-0DC3-4A05-AB00-B00FE55776F0}
@@ -335,7 +342,6 @@ Global
 		{82713F4A-A573-4003-BD20-53C974839094} = {37E79B3B-FDE5-446E-9B91-D42B174A97C9}
 		{6CA40410-5753-4010-AAD8-1E06D76C4601} = {37E79B3B-FDE5-446E-9B91-D42B174A97C9}
 		{E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC} = {37E79B3B-FDE5-446E-9B91-D42B174A97C9}
-		{DB82EEF6-6647-4B76-A433-DFE91990734F} = {156CA4CF-7690-4597-91B9-1BFDBEE196F0}
 		{EAD0C789-AB13-4AE9-AA60-6A7E2CF4DA01} = {8EE0DD79-8255-4E04-84A7-830B8947E7C5}
 		{7112E37D-6184-46D9-898A-3D28207AC8E8} = {8EE0DD79-8255-4E04-84A7-830B8947E7C5}
 		{33842299-9FA9-4243-966B-F0537547CE3B} = {8EE0DD79-8255-4E04-84A7-830B8947E7C5}
@@ -346,5 +352,8 @@ Global
 		{590E87D6-515B-4E5E-8141-ABC3967C52D5} = {51D661E6-65C4-4D1F-977B-1B9281DEAE87}
 		{4A1E232F-0F95-476E-A8C9-8587E307A5FD} = {590E87D6-515B-4E5E-8141-ABC3967C52D5}
 		{A51A003F-BAAF-402E-B4A7-2573AEAF12B0} = {20AE96FC-F1A7-4CA8-90F8-FEB6EBB6D11A}
+		{16CE2424-2614-482C-89D3-F4212DD59A97} = {156CA4CF-7690-4597-91B9-1BFDBEE196F0}
+		{995C1EDB-FAF8-46A1-95BB-D65E93F02268} = {75552B0A-F300-4444-ACEB-04CCD8D1556A}
+		{4F812F86-754D-4C12-AC92-9955D37969F0} = {AD753C1A-0D4C-4BC5-8793-FF2795F0F49E}
 	EndGlobalSection
 EndGlobal

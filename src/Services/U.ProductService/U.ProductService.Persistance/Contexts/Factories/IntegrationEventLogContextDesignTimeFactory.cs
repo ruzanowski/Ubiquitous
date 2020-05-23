@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Design;
-using U.Common.Database;
+using U.Common.NetCore.Database;
 using U.IntegrationEventLog;
 
 namespace U.ProductService.Persistance.Contexts.Factories

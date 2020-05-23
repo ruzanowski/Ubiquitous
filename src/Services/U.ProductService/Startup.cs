@@ -8,13 +8,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using U.Common.Consul;
-using U.Common.Database;
-using U.Common.Jaeger;
-using U.Common.Jwt;
-using U.Common.Mvc;
-using U.Common.Redis;
-using U.Common.Swagger;
+using U.Common.NetCore.Auth;
+using U.Common.NetCore.Cache;
+using U.Common.NetCore.Consul;
+using U.Common.NetCore.Database;
+using U.Common.NetCore.Jaeger;
+using U.Common.NetCore.Mvc;
+using U.Common.NetCore.Swagger;
 using U.EventBus.Abstractions;
 using U.EventBus.Events.Fetch;
 using U.EventBus.RabbitMQ;
@@ -23,7 +23,6 @@ using U.ProductService.Application.Common.Mapping;
 using U.ProductService.Application.Events.IntegrationEvents;
 using U.ProductService.Application.Events.IntegrationEvents.EventHandling;
 using U.ProductService.Application.Infrastructure;
-using U.ProductService.Application.Infrastructure.Behaviours;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Domain;
 using U.ProductService.Middleware;
@@ -132,7 +131,7 @@ namespace U.ProductService
                 .AddTransient<ICategoryRepository, CategoryRepository>()
                 .AddTransient<IManufacturerRepository, ManufacturerRepository>()
                 .AddIntegrationEventLog()
-                .AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>();
+                .AddSingleton<IProductIntegrationEventService, ProductIntegrationEventService>();
 
             return services;
         }
@@ -151,7 +150,7 @@ namespace U.ProductService
 
         public static IServiceCollection AddCustomPipelineBehaviours(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(EventPublishBehaviour<,>));
+//            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(EventPublishBehaviour<,>));
 
             return services;
         }

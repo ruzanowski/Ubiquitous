@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Common.Exceptions;
 using U.ProductService.Domain;
 using U.ProductService.Domain.Aggregates.Category;
+using U.ProductService.Domain.Aggregates.Manufacturer;
 using U.ProductService.Domain.Aggregates.Product;
 
 namespace U.ProductService.Application.Products.Commands.Create
@@ -30,17 +31,23 @@ namespace U.ProductService.Application.Products.Commands.Create
 
         public async Task<Guid> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
-            var duplicate = await _productRepository.GetByAbsoluteComparerAsync(command.ExternalSourceName, command.ExternalSourceId);
-
-            if (duplicate != null)
+            if (!command.ExternalProperties?.DuplicationValidated ?? false)
             {
-                throw new ProductDuplicatedException($"Duplicated product with alternative key: '{command.BarCode}'");
+                var duplicate =
+                    await _productRepository.GetByAbsoluteComparerAsync(
+                        command.ExternalProperties.SourceName,
+                        command.ExternalProperties.SourceId);
+
+                if (duplicate != null)
+                    throw new ProductDuplicatedException(
+                        $"Duplicated product with alternative key: '{command.BarCode}'");
             }
 
             if (command.CategoryId != null)
                 await ValidateCategoryOrThrowAsync(command.CategoryId.Value);
 
-            await ValidateManufacturerOrThrowAsync(command.ManufacturerId);
+            if (command.ManufacturerId != null)
+                await ValidateManufacturerOrThrowAsync(command.ManufacturerId.Value);
 
             var product = GetProduct(command);
 
@@ -54,21 +61,19 @@ namespace U.ProductService.Application.Products.Commands.Create
 
         private Product GetProduct(CreateProductCommand command)
         {
-            var dimensions = new Dimensions(command.Dimensions.Length,
-                command.Dimensions.Width,
-                command.Dimensions.Height,
-                command.Dimensions.Weight);
-
             return new Product(command.Name,
                 command.Price,
                 command.BarCode,
                 command.Description,
-                dimensions,
-                command.ManufacturerId,
+                new Dimensions(command.Dimensions.Length,
+                    command.Dimensions.Width,
+                    command.Dimensions.Height,
+                    command.Dimensions.Weight),
+                command.ManufacturerId ?? Manufacturer.GetDraftManufacturer().Id,
                 command.CategoryId ?? Category.GetDraftCategory().Id,
                 ProductType.SimpleProduct.Id,
-                command.ExternalSourceName,
-                command.ExternalSourceId);
+                command.ExternalProperties?.SourceName,
+                command.ExternalProperties?.SourceId);
         }
 
         private async Task ValidateCategoryOrThrowAsync(Guid categoryId)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -37,8 +36,6 @@ namespace U.ProductService.Persistance.Contexts
 
         public IDbContextTransaction GetCurrentTransaction() => _currentTransaction;
 
-        public bool HasActiveTransaction => _currentTransaction != null;
-
         public ProductContext(DbContextOptions<ProductContext> options) : base(options)
         {
             try
@@ -73,56 +70,6 @@ namespace U.ProductService.Persistance.Contexts
             await base.SaveChangesAsync(cancellationToken);
 
             return true;
-        }
-
-        public async Task<IDbContextTransaction> BeginTransactionAsync()
-        {
-            if (_currentTransaction != null) return _currentTransaction;
-
-            _currentTransaction = await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
-
-            return _currentTransaction;
-        }
-
-        public async Task CommitTransactionAsync(IDbContextTransaction transaction)
-        {
-            if (transaction == null) throw new ArgumentNullException(nameof(transaction));
-            if (transaction != _currentTransaction) throw new InvalidOperationException($"Transaction {transaction.TransactionId} is not current");
-
-            try
-            {
-                await SaveChangesAsync();
-                transaction.Commit();
-            }
-            catch
-            {
-                RollbackTransaction();
-                throw;
-            }
-            finally
-            {
-                if (_currentTransaction != null)
-                {
-                    _currentTransaction.Dispose();
-                    _currentTransaction = null;
-                }
-            }
-        }
-
-        public void RollbackTransaction()
-        {
-            try
-            {
-                _currentTransaction?.Rollback();
-            }
-            finally
-            {
-                if (_currentTransaction != null)
-                {
-                    _currentTransaction.Dispose();
-                    _currentTransaction = null;
-                }
-            }
         }
 
         private void OnBeforeSaving()

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using MediatR;
-using U.Common.Jwt.Models;
+using U.Common.NetCore.Auth.Models;
 
 namespace U.IdentityService.Application.Commands.Identity.SignIn
 {

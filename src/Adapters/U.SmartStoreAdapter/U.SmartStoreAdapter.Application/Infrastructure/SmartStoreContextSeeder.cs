@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
 using SmartStore.Persistance.Context;
-using U.Common.Database;
+using U.Common.NetCore.Database;
 using U.SmartStoreAdapter.Domain.Entities.Catalog;
 
 namespace U.SmartStoreAdapter.Application.Infrastructure

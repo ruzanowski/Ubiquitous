@@ -1,7 +1,8 @@
 using System;
 using System.Linq;
 using Newtonsoft.Json;
-using U.Common.Jwt.Claims;
+using U.Common.Auth;
+using U.Common.NetCore.Auth.Claims;
 using U.Common.Subscription;
 using U.EventBus.Events;
 using U.EventBus.Events.Notification;

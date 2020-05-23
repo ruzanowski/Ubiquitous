@@ -34,7 +34,13 @@ namespace U.ProductService.IntegrationTests.Products.Conventions
 
                 var manufacturer = fixture.Create<Guid>();
 
-                var dimensions = new DimensionsDto(length, width, height, weight);
+                var dimensions = new DimensionsDto
+                {
+                    Length = length,
+                    Width = width,
+                    Height = height,
+                    Weight = weight
+                };
 
                 //todo: assure that manufacturerId really exists,because now it's wrong guid.
                 var command = new CreateProductCommand(name,
@@ -42,10 +48,14 @@ namespace U.ProductService.IntegrationTests.Products.Conventions
                     price,
                     description,
                     dimensions,
-                    externalSourceName,
-                    externalSourceId,
+                    new ExternalCreation
+                    {
+                        DuplicationValidated = true,
+                        SourceId = externalSourceName,
+                        SourceName = externalSourceId
+                    },
                     manufacturer);
-                
+
                 return command;
             });
         }

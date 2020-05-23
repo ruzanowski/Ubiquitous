@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Hosting;
 using Serilog;
-using U.Common.WebHost;
+using U.Common.NetCore.WebHost;
 
 namespace U.FetchService
 {

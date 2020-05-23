@@ -2,18 +2,18 @@
 using Consul;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using U.Common.Consul;
-using U.Common.Database;
-using U.Common.Jaeger;
-using U.Common.Jwt;
-using U.Common.Mvc;
-using U.Common.Redis;
-using U.Common.Swagger;
+using U.Common.NetCore.Auth;
+using U.Common.NetCore.Cache;
+using U.Common.NetCore.Consul;
+using U.Common.NetCore.Database;
+using U.Common.NetCore.Jaeger;
+using U.Common.NetCore.Mvc;
+using U.Common.NetCore.Swagger;
 using U.EventBus.RabbitMQ;
 using U.IdentityService.Application.Commands.Identity.ChangePassword;
 using U.IdentityService.Application.Services;
@@ -51,9 +51,10 @@ namespace U.IdentityService
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
-            IApplicationLifetime applicationLifetime, IConsulClient client)
+            IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
+
             app.UseCors("CorsPolicy")
                 .AddIdentityErrorsHandler()
                 .UseSwagger(pathBase)
@@ -61,12 +62,15 @@ namespace U.IdentityService
                 .UseForwardedHeaders()
                 .UseAuthentication()
                 .UseJwtTokenValidator()
-                .UseMvc();
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
 
             RegisterConsul(app, applicationLifetime, client);
         }
 
-        private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime,
+        private void RegisterConsul(IApplicationBuilder app, IHostApplicationLifetime applicationLifetime,
             IConsulClient client)
         {
             var consulServiceId = app.UseConsulServiceDiscovery();
