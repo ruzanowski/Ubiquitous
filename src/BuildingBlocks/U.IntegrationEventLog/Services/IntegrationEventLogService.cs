@@ -28,7 +28,6 @@ namespace U.IntegrationEventLog.Services
             _integrationEventLogContext = new IntegrationEventLogContext(
                 new DbContextOptionsBuilder<IntegrationEventLogContext>()
                     .UseNpgsql(dbConnection)
-                    .ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning))
                     .Options);
 
             _eventTypes = IntegrationEventHelper.GetTypes();
@@ -65,11 +64,10 @@ namespace U.IntegrationEventLog.Services
             return integrationEventLogs;
         }
 
-        public Task SaveEventAsync<T>(T @event, IDbContextTransaction transaction) where T : IntegrationEvent
+        public Task SaveEventAsync<T>(T @event) where T : IntegrationEvent
         {
-            var eventLogEntry = new IntegrationEventLogEntry(@event, transaction?.TransactionId);
+            var eventLogEntry = new IntegrationEventLogEntry(@event);
 
-            _integrationEventLogContext.Database.UseTransaction(transaction?.GetDbTransaction());
             _integrationEventLogContext.IntegrationEventLogs.Add(eventLogEntry);
 
             return _integrationEventLogContext.SaveChangesAsync();

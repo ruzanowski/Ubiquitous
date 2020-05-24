@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,40 +19,38 @@ namespace U.Common.NetCore.WebHost
         public static IWebHost MigrateDbContext<TContext>(this IWebHost webHost,
             Action<TContext, IServiceProvider> seeder) where TContext : DbContext
         {
-            using (var scope = webHost.Services.CreateScope())
+            using var scope = webHost.Services.CreateScope();
+            var services = scope.ServiceProvider;
+
+            var logger = services.GetRequiredService<ILogger<TContext>>();
+
+            var context = services.GetService<TContext>();
+
+            try
             {
-                var services = scope.ServiceProvider;
+                logger.LogInformation("Migrating database associated with context {DbContextName}",
+                    typeof(TContext).Name);
 
-                var logger = services.GetRequiredService<ILogger<TContext>>();
+                var retry = Policy
+                    .Handle<SqlException>()
+                    .Or<NpgsqlException>()
+                    .WaitAndRetry(new[]
+                    {
+                        TimeSpan.FromSeconds(3),
+                        TimeSpan.FromSeconds(5),
+                        TimeSpan.FromSeconds(8)
+                    });
 
-                var context = services.GetService<TContext>();
+                retry.Execute(() => InvokeSeeder(seeder, context, services));
 
-                try
-                {
-                    logger.LogInformation("Migrating database associated with context {DbContextName}",
-                        typeof(TContext).Name);
-
-                    var retry = Policy
-                        .Handle<SqlException>()
-                        .Or<NpgsqlException>()
-                        .WaitAndRetry(new[]
-                        {
-                            TimeSpan.FromSeconds(3),
-                            TimeSpan.FromSeconds(5),
-                            TimeSpan.FromSeconds(8)
-                        });
-
-                    retry.Execute(() => InvokeSeeder(seeder, context, services));
-
-                    logger.LogInformation("Migrated database associated with context {DbContextName}",
-                        typeof(TContext).Name);
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(ex,
-                        "An error occurred while migrating the database used on context {DbContextName}",
-                        typeof(TContext).Name);
-                }
+                logger.LogInformation("Migrated database associated with context {DbContextName}",
+                    typeof(TContext).Name);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex,
+                    "An error occurred while migrating the database used on context {DbContextName}",
+                    typeof(TContext).Name);
             }
 
             return webHost;

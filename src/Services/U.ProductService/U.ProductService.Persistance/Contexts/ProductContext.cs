@@ -32,9 +32,6 @@ namespace U.ProductService.Persistance.Contexts
 
         //fields
         private readonly IMediator _mediator;
-        private IDbContextTransaction _currentTransaction;
-
-        public IDbContextTransaction GetCurrentTransaction() => _currentTransaction;
 
         public ProductContext(DbContextOptions<ProductContext> options) : base(options)
         {
@@ -111,6 +108,12 @@ namespace U.ProductService.Persistance.Contexts
     public class NoMediator : IMediator
     {
         public async Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = new CancellationToken())
+        {
+            await Task.CompletedTask;
+            return default;
+        }
+
+        public async Task<object> Send(object request, CancellationToken cancellationToken = new CancellationToken())
         {
             await Task.CompletedTask;
             return default;

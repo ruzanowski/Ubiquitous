@@ -27,14 +27,14 @@ namespace U.SmartStoreAdapter.Application.Infrastructure
 
             policy.ExecuteAsync(async () =>
             {
-                using (context)
+                await using (context)
                 {
-                    context.Database.Migrate();
+                    await context.Database.MigrateAsync();
 
                     var manufacturers = GetPredefinedManufacturers();
                     if (!context.Manufacturers.Any())
                     {
-                        context.Manufacturers.AddRange(manufacturers);
+                        await context.Manufacturers.AddRangeAsync(manufacturers);
                     }
 
                     await context.SaveChangesAsync();
@@ -42,7 +42,7 @@ namespace U.SmartStoreAdapter.Application.Infrastructure
                     var categories = GetPredefinedCategories();
                     if (!context.Categories.Any())
                     {
-                        context.Categories.AddRange(categories);
+                        await context.Categories.AddRangeAsync(categories);
                     }
 
                     await context.SaveChangesAsync();
@@ -50,7 +50,7 @@ namespace U.SmartStoreAdapter.Application.Infrastructure
                     var products = GetPredefinedProduct();
                     if (!context.Products.Any())
                     {
-                        context.Products.AddRange(products);
+                        await context.Products.AddRangeAsync(products);
                         await context.SaveChangesAsync();
 
                         LinkProductsWithManufacturersAndCategories(ref products, categories, manufacturers);

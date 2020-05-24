@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SmartStore.Persistance.Context;
 using U.Common.NetCore.Consul;
@@ -71,7 +72,7 @@ namespace U.SmartStoreAdapter
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP transaction pipeline.
-        public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
+        public void Configure(IApplicationBuilder app, IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
             app.UsePathBase(Configuration, _logger).Item1
                 .UseSwagger()
@@ -82,7 +83,10 @@ namespace U.SmartStoreAdapter
                 }).AddExceptionMiddleWare()
                 .UseServiceId()
                 .UseForwardedHeaders()
-                .UseMvc();
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
 
             Seed(app);
             var consulServiceId = app.UseConsulServiceDiscovery();

@@ -16,9 +16,9 @@ namespace U.Common.NetCore.Swagger
             const BindingFlags bindingFlags = BindingFlags.Public |
                                               BindingFlags.NonPublic |
                                               BindingFlags.Instance;
-            var memberList = schemaFilterContext.SystemType
+            var memberList = schemaFilterContext.Type
                 .GetFields(bindingFlags).Cast<MemberInfo>()
-                .Concat(schemaFilterContext.SystemType
+                .Concat(schemaFilterContext.Type
                     .GetProperties(bindingFlags));
 
             var excludedList = memberList.Where(m =>

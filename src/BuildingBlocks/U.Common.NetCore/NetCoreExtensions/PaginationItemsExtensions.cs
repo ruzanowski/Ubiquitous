@@ -8,7 +8,7 @@ namespace U.Common.NetCore.NetCoreExtensions
 {
     public class PaginatedItemsExtended<T> : PaginatedItems<T>
     {
-        public static async Task<PaginatedItems<T>> CreateAsync<T>(int pageIndex, int pageSize, IQueryable<T> data)
+        public static async Task<PaginatedItems<T>> CreateAsync(int pageIndex, int pageSize, IQueryable<T> data)
         {
             return new PaginatedItems<T>(pageIndex,
                 pageSize,

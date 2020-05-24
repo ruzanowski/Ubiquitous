@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFramework>netstandard2.1</TargetFramework>
         <PackageId>Ubiquitous.Common</PackageId>
         <Authors>SebastianRuzanowski</Authors>
         <Title>Ubiquitous.Common</Title>
@@ -17,6 +17,10 @@
 
     <ItemGroup>
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
+      <PackageReference Include="System.Security.Claims" Version="4.3.0" />
+      <PackageReference Include="System.Security.Cryptography.Cng" Version="4.7.0" />
+      <PackageReference Include="System.Security.Cryptography.Xml" Version="4.7.0" />
     </ItemGroup>
 
 </Project>

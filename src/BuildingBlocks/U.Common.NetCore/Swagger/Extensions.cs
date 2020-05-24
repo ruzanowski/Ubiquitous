@@ -24,7 +24,6 @@ namespace U.Common.NetCore.Swagger
 
             services.AddSwaggerGen(options =>
             {
-                options.DescribeAllEnumsAsStrings();
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = swaggerOptions.Title,

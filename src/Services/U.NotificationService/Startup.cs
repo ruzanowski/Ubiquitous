@@ -3,10 +3,10 @@ using AutoMapper;
 using Consul;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using U.Common.NetCore.Auth;
 using U.Common.NetCore.Cache;
@@ -30,6 +30,7 @@ using U.NotificationService.Application.SignalR;
 using U.NotificationService.Application.SignalR.WelcomeNotifications;
 using U.NotificationService.Infrastructure.Contexts;
 using U.NotificationService.PeriodicSender;
+using IApplicationLifetime = Microsoft.AspNetCore.Hosting.IApplicationLifetime;
 
 namespace U.NotificationService
 {
@@ -68,7 +69,7 @@ namespace U.NotificationService
         }
 
         public void Configure(IApplicationBuilder app,
-            IApplicationLifetime applicationLifetime, IConsulClient client)
+            IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
             app.UseCors("CorsPolicy");
 
@@ -81,9 +82,11 @@ namespace U.NotificationService
 
             app.UseJwtTokenValidator();
 
-            app.UseSignalR(routes => routes.MapHub<BaseHub>("/signalr"));
-
-            app.UseMvcWithDefaultRoute();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHub<BaseHub>("/signalr");
+            });
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
@@ -107,7 +110,8 @@ namespace U.NotificationService
             services.AddTransient<ProductPropertiesChangedSignalRIntegrationEventHandler>();
         }
 
-        private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime,
+        private void RegisterConsul(IApplicationBuilder app,
+            IHostApplicationLifetime applicationLifetime,
             IConsulClient client)
         {
             var consulServiceId = app.UseConsulServiceDiscovery();

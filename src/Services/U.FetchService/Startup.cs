@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using U.Common;
 using U.Common.NetCore.Consul;
@@ -42,10 +43,12 @@ namespace U.FetchService
                 .AddJaeger();
         }
 
-        public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
+        public void Configure(IApplicationBuilder app, IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
             app.UsePathBase(Configuration, _logger).Item1
-                .UseMvcWithDefaultRoute()
+                .UseEndpoints(endpoints => {
+                    endpoints.MapControllers();
+                })
                 .UseServiceId()
                 .UseForwardedHeaders();
 

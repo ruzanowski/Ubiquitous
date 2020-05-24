@@ -53,7 +53,7 @@ namespace U.ProductService.Application.Events.IntegrationEvents
 
         public async Task AddAndSaveEventAsync<T>(T evt) where T : IntegrationEvent
         {
-            await _eventLogService.SaveEventAsync(evt, _productContext.GetCurrentTransaction());
+            await _eventLogService.SaveEventAsync(evt);
         }
     }
 }

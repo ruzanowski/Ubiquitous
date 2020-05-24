@@ -9,7 +9,7 @@ namespace U.IntegrationEventLog
     public class IntegrationEventLogEntry
     {
         private IntegrationEventLogEntry() { }
-        public IntegrationEventLogEntry(IntegrationEvent @event, Guid? transactionId)
+        public IntegrationEventLogEntry(IntegrationEvent @event)
         {
             EventId = @event.Id;
             CreationTime = @event.CreationDate;
@@ -17,7 +17,6 @@ namespace U.IntegrationEventLog
             Content = JsonConvert.SerializeObject(@event);
             State = EventStateEnum.NotPublished;
             TimesSent = 0;
-            TransactionId = transactionId?.ToString();
         }
 
         public Guid EventId { get; private set; }

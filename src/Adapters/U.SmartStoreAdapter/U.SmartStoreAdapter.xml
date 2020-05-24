@@ -150,7 +150,7 @@
         <member name="M:U.SmartStoreAdapter.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             This method gets called by the runtime. Use this method to add services to the container.
         </member>
-        <member name="M:U.SmartStoreAdapter.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IApplicationLifetime,Consul.IConsulClient)">
+        <member name="M:U.SmartStoreAdapter.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Hosting.IHostApplicationLifetime,Consul.IConsulClient)">
             This method gets called by the runtime. Use this method to configure the HTTP transaction pipeline.
         </member>
     </members>

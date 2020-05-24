@@ -4,9 +4,9 @@ using AutoMapper;
 using Consul;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using U.Common.NetCore.Auth;
 using U.Common.NetCore.Cache;
@@ -28,6 +28,7 @@ using U.ProductService.Domain;
 using U.ProductService.Middleware;
 using U.ProductService.Persistance.Contexts;
 using U.ProductService.Persistance.Repositories;
+using IApplicationLifetime = Microsoft.AspNetCore.Hosting.IApplicationLifetime;
 
 namespace U.ProductService
 {
@@ -66,7 +67,7 @@ namespace U.ProductService
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
-            IApplicationLifetime applicationLifetime,
+            IHostApplicationLifetime applicationLifetime,
             IConsulClient client)
         {
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
@@ -77,7 +78,11 @@ namespace U.ProductService
                 .UseForwardedHeaders()
                 .UseAuthentication()
                 .UseJwtTokenValidator()
-                .UseMvc();
+                .UseRouting()
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
@@ -95,7 +100,7 @@ namespace U.ProductService
             services.AddTransient<NewProductFetchedIntegrationEventHandler>();
         }
 
-        private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime,
+        private void RegisterConsul(IApplicationBuilder app, IHostApplicationLifetime applicationLifetime,
             IConsulClient client)
         {
             var consulServiceId = app.UseConsulServiceDiscovery();
