@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using U.Common.Subscription;
 
 namespace U.EventBus.Events
@@ -16,17 +16,15 @@ namespace U.EventBus.Events
             CreationDate = DateTime.UtcNow;
         }
 
-        [JsonConstructor]
         public IntegrationEvent(Guid id, DateTime createDate)
         {
             Id = id;
             CreationDate = createDate;
         }
 
-        [JsonProperty]
+        [JsonIgnore]
         public Guid Id { get; protected set; }
 
-        [JsonProperty]
         public DateTime CreationDate { get; private set; }
     }
 }

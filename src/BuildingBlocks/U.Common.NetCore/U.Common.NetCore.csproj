@@ -51,7 +51,9 @@
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="3.1.4" />
+        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.4" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
         <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="3.1.4" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.4" />

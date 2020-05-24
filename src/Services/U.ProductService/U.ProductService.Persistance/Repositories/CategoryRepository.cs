@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using U.Common.NetCore.Cache;
 using U.ProductService.Domain;
 using U.ProductService.Domain.Aggregates.Category;
@@ -34,7 +33,7 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<bool> AnyAsync(Guid id)
         {
-            var cached = await _cachingRepository.GetCachedOrDefaultAsync<Category>($"CategoryAsNoTracking_{id}");
+            var cached = _cachingRepository.GetCachedOrDefault<Category>($"CategoryAsNoTracking_{id}");
 
             if (cached != null)
             {
@@ -47,7 +46,7 @@ namespace U.ProductService.Persistance.Repositories
 
             if (category)
             {
-                await _cachingRepository.CacheAsync(id.ToString(), true);
+                _cachingRepository.Cache(id.ToString(), true);
             }
 
             return category;
@@ -56,7 +55,7 @@ namespace U.ProductService.Persistance.Repositories
         public async Task<IList<Category>> GetManyAsync()
         {
             var slug = "allCategories";
-            var cached = await _cachingRepository.GetCachedOrDefaultAsync<IList<Category>>(slug);
+            var cached = _cachingRepository.GetCachedOrDefault<IList<Category>>(slug);
 
             if (cached != null)
             {
@@ -68,7 +67,7 @@ namespace U.ProductService.Persistance.Repositories
 
             if (categories != null && categories.Any())
             {
-                await _cachingRepository.CacheAsync(slug, categories);
+                _cachingRepository.Cache(slug, categories);
             }
 
             return categories;

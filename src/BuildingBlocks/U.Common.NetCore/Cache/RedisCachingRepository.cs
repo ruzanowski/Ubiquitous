@@ -1,7 +1,6 @@
 using System;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Distributed;
-using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace U.Common.NetCore.Cache
 {
@@ -19,26 +18,26 @@ namespace U.Common.NetCore.Cache
             return uniqueId;
         }
 
-        public async Task<T> GetCachedOrDefaultAsync<T>(string id) where T : class
+        public T GetCachedOrDefault<T>(string id) where T : class
         {
             var cacheKey = GetCacheKey(id);
-            var cached = await _redisCache.GetStringAsync(cacheKey);
+            var cached = _redisCache.GetString(cacheKey);
 
             return !(cached is null)
-                ? JsonConvert.DeserializeObject<T>(cached)
+                ? JsonSerializer.Deserialize<T>(cached)
                 : null;
         }
 
-        public async Task CacheAsync(string id, object toCache)
+        public void Cache(string id, object toCache)
         {
             var cacheKey = GetCacheKey(id);
             var options = new DistributedCacheEntryOptions()
                 .SetSlidingExpiration(TimeSpan.FromMinutes(15))
                 .SetAbsoluteExpiration(TimeSpan.FromMinutes(15));
 
-            var serialized = JsonConvert.SerializeObject(toCache);
+            var serialized = JsonSerializer.Serialize(toCache);
 
-            await _redisCache.SetStringAsync(cacheKey, serialized, options);
+            _redisCache.SetString(cacheKey, serialized, options);
         }
     }
 }

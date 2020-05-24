@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
 using U.ProductService.Domain;
 using U.ProductService.Domain.Aggregates.Category;
 using U.ProductService.Domain.Aggregates.Manufacturer;
@@ -63,8 +62,20 @@ namespace U.ProductService.Persistance.Contexts
         {
             await _mediator.DispatchDomainEventsAsync(this);
 
+            ChangeTracker.DetectChanges();
             OnBeforeSaving();
             await base.SaveChangesAsync(cancellationToken);
+
+            return true;
+        }
+
+        public async Task<bool> SaveBatchEntitiesAsync(CancellationToken cancellationToken = default)
+        {
+            await _mediator.DispatchDomainEventsAsync(this);
+
+            ChangeTracker.DetectChanges();
+            OnBeforeSaving();
+            await SaveChangesAsync(cancellationToken);
 
             return true;
         }

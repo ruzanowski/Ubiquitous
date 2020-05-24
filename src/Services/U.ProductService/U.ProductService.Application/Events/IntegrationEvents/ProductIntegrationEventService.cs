@@ -7,25 +7,22 @@ using U.EventBus.Abstractions;
 using U.EventBus.Events;
 using U.IntegrationEventLog;
 using U.IntegrationEventLog.Services;
-using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Events.IntegrationEvents
 {
     public class ProductIntegrationEventService : IProductIntegrationEventService
     {
         private readonly IEventBus _eventBus;
-        private readonly ProductContext _productContext;
         private readonly IIntegrationEventLogService _eventLogService;
         private readonly ILogger<IntegrationEventLogService> _logger;
 
         public ProductIntegrationEventService(IEventBus eventBus,
-            ProductContext productContext,
-            ILogger<IntegrationEventLogService> logger)
+            ILogger<IntegrationEventLogService> logger,
+            IIntegrationEventLogService integrationEventLogService)
         {
-            _productContext = productContext ?? throw new ArgumentNullException(nameof(productContext));
-            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _eventLogService = new IntegrationEventLogService(productContext.Database.GetDbConnection(), logger);
+            _eventBus = eventBus;
+            _logger = logger;
+            _eventLogService = integrationEventLogService;
         }
 
         public async Task PublishEventsThroughEventBusAsync()
@@ -34,8 +31,6 @@ namespace U.ProductService.Application.Events.IntegrationEvents
 
             foreach (var logEvt in pendingLogEvents)
             {
-                _logger.LogDebug("----- Publishing integration event: {IntegrationEventId}", logEvt.EventId);
-
                 try
                 {
                     await _eventLogService.MarkEventAsInProgressAsync(logEvt.EventId);

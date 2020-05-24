@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Reflection;
+using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace U.Common.NetCore.Swagger
@@ -25,8 +25,8 @@ namespace U.Common.NetCore.Swagger
                     m.GetCustomAttribute<SwaggerExcludeAttribute>()
                     != null)
                 .Select(m =>
-                    (m.GetCustomAttribute<JsonPropertyAttribute>()
-                         ?.PropertyName
+                    (m.GetCustomAttribute<JsonPropertyNameAttribute>()
+                         ?.Name
                      ?? m.Name.ToCamelCase()));
 
             foreach (var excludedName in excludedList)

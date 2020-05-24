@@ -1,6 +1,5 @@
 ﻿using System;
 using MediatR;
-using Newtonsoft.Json;
 using U.ProductService.Application.Products.Models;
 
 namespace U.ProductService.Application.Products.Commands.Create
@@ -16,7 +15,6 @@ namespace U.ProductService.Application.Products.Commands.Create
         public DimensionsDto Dimensions { get; set; }
         public ExternalCreation ExternalProperties { get; set; }
 
-        [JsonConstructor]
         public CreateProductCommand()
         {
         }

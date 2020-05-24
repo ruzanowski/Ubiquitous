@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
+        <DisableImplicitAspNetCoreAnalyzers>true</DisableImplicitAspNetCoreAnalyzers>
     </PropertyGroup>
 
     <ItemGroup>

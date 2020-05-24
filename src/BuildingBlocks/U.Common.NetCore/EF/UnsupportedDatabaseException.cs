@@ -8,5 +8,13 @@ namespace U.Common.NetCore.EF
             : base(message)
         {
         }
+
+        public UnsupportedDatabaseException()
+        {
+        }
+
+        public UnsupportedDatabaseException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
     }
 }

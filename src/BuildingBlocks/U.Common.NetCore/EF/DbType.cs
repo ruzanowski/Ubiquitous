@@ -4,6 +4,7 @@ namespace U.Common.NetCore.Database
     {
         Unknown,
         Npgsql,
-        Mssql
+        Mssql,
+        InMemory
     }
 }

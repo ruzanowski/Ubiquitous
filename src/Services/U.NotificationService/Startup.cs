@@ -30,7 +30,6 @@ using U.NotificationService.Application.SignalR;
 using U.NotificationService.Application.SignalR.WelcomeNotifications;
 using U.NotificationService.Infrastructure.Contexts;
 using U.NotificationService.PeriodicSender;
-using IApplicationLifetime = Microsoft.AspNetCore.Hosting.IApplicationLifetime;
 
 namespace U.NotificationService
 {

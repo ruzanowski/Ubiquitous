@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+// ReSharper disable All
 
 namespace U.Common.NetCore.Auth.Models
 {

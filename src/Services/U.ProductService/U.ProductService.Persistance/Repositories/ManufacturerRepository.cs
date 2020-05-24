@@ -30,7 +30,7 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<Manufacturer> GetAsync(Guid manufacturerId)
         {
-            var cached = await _cachingRepository.GetCachedOrDefaultAsync<Manufacturer>(manufacturerId.ToString());
+            var cached = _cachingRepository.GetCachedOrDefault<Manufacturer>(manufacturerId.ToString());
 
             if (cached != null)
             {
@@ -43,7 +43,7 @@ namespace U.ProductService.Persistance.Repositories
 
             if (manufacturer != null)
             {
-                await _cachingRepository.CacheAsync(manufacturerId.ToString(), manufacturer);
+                _cachingRepository.Cache(manufacturerId.ToString(), manufacturer);
             }
 
             return manufacturer;
@@ -52,7 +52,7 @@ namespace U.ProductService.Persistance.Repositories
         public async Task<IList<Manufacturer>> GetManyAsync()
         {
             var slug = "allManufacturers";
-            var cached = await _cachingRepository.GetCachedOrDefaultAsync<List<Manufacturer>>(slug);
+            var cached = _cachingRepository.GetCachedOrDefault<List<Manufacturer>>(slug);
 
             if (cached != null)
             {
@@ -65,7 +65,7 @@ namespace U.ProductService.Persistance.Repositories
 
             if (manufacturers != null && manufacturers.Any())
             {
-                await _cachingRepository.CacheAsync(slug, manufacturers);
+                _cachingRepository.Cache(slug, manufacturers);
             }
 
             return manufacturers;
@@ -73,7 +73,7 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<Manufacturer> GetUniqueClientIdAsync(string uniqueClientId)
         {
-            var cached = await _cachingRepository.GetCachedOrDefaultAsync<Manufacturer>(uniqueClientId);
+            var cached = _cachingRepository.GetCachedOrDefault<Manufacturer>(uniqueClientId);
 
             if (cached != null)
             {
@@ -85,7 +85,7 @@ namespace U.ProductService.Persistance.Repositories
 
             if (manufacturer != null)
             {
-                await _cachingRepository.CacheAsync(uniqueClientId, manufacturer);
+                _cachingRepository.Cache(uniqueClientId, manufacturer);
             }
 
             return manufacturer;
@@ -93,7 +93,7 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<bool> AnyAsync(Guid id)
         {
-            var cached = await _cachingRepository.GetCachedOrDefaultAsync<Manufacturer>($"ManufacturerAsNoTracking_{id}");
+            var cached = _cachingRepository.GetCachedOrDefault<Manufacturer>($"ManufacturerAsNoTracking_{id}");
 
             if (cached != null)
             {
@@ -106,7 +106,7 @@ namespace U.ProductService.Persistance.Repositories
 
            if (manufacturer != null)
            {
-               await _cachingRepository.CacheAsync(id.ToString(), manufacturer);
+               _cachingRepository.Cache(id.ToString(), manufacturer);
            }
 
             return manufacturer != null;

@@ -2,6 +2,7 @@ namespace U.Common.NetCore.Consul
 {
     public class ConsulOptions
     {
+        // ReSharper disable once CA1056
         public string Url { get; set; }
         public string Service { get; set; }
         public string Address { get; set; }

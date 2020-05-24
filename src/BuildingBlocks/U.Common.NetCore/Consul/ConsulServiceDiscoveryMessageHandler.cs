@@ -54,7 +54,7 @@ namespace U.Common.NetCore.Consul
                     request.RequestUri = await GetRequestUriAsync(request, serviceName, uri);
 
                     return await base.SendAsync(request, cancellationToken);
-                });
+                }).ConfigureAwait(true);
 
         private async Task<Uri> GetRequestUriAsync(HttpRequestMessage request,
             string serviceName, Uri uri)

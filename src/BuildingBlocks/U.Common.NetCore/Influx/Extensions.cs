@@ -1,10 +1,5 @@
-using System;
 using App.Metrics;
-using App.Metrics.AspNetCore.Health;
-using App.Metrics.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using U.Common.NetCore.Mvc;
 
 namespace U.Common.NetCore.Influx
 {

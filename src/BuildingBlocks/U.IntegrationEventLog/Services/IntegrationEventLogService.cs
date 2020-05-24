@@ -4,8 +4,6 @@ using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Events;
 
@@ -22,14 +20,10 @@ namespace U.IntegrationEventLog.Services
         private readonly IntegrationEventLogContext _integrationEventLogContext;
         private readonly List<Type> _eventTypes;
 
-        public IntegrationEventLogService(DbConnection dbConnection, ILogger<IntegrationEventLogService> logger)
+        public IntegrationEventLogService(IntegrationEventLogContext integrationEventLogContext, ILogger<IntegrationEventLogService> logger)
         {
             _logger = logger;
-            _integrationEventLogContext = new IntegrationEventLogContext(
-                new DbContextOptionsBuilder<IntegrationEventLogContext>()
-                    .UseNpgsql(dbConnection)
-                    .Options);
-
+            _integrationEventLogContext = integrationEventLogContext;
             _eventTypes = IntegrationEventHelper.GetTypes();
         }
 
@@ -38,7 +32,6 @@ namespace U.IntegrationEventLog.Services
             var integrationEventLogs = await _integrationEventLogContext.IntegrationEventLogs
                 .Where(e => e.State != EventStateEnum.NotPublished &&
                             e.State != EventStateEnum.InProgress)
-                .OrderBy(o => o.CreationTime)
                 .ToListAsync();
 
             if (!integrationEventLogs.Any())

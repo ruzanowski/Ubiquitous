@@ -1,6 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace U.Common.NetCore.Http
 {
@@ -9,7 +9,7 @@ namespace U.Common.NetCore.Http
         public static async Task<T> ReadAsJsonAsync<T>(this HttpContent content)
         {
             var dataAsString = await content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(dataAsString);
+            return JsonSerializer.Deserialize<T>(dataAsString);
         }
     }
 }

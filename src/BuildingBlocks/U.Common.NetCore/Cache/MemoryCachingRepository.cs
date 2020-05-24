@@ -1,16 +1,15 @@
 using System;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace U.Common.NetCore.Cache
 {
     public class MemoryCachingRepository : ICachingRepository
     {
-        private readonly IMemoryCache _redisCache;
+        private readonly IMemoryCache _memoryCache;
 
-        public MemoryCachingRepository(IMemoryCache redisCache)
+        public MemoryCachingRepository(IMemoryCache memoryCache)
         {
-            _redisCache = redisCache;
+            _memoryCache = memoryCache;
         }
 
         private string GetCacheKey(string uniqueId)
@@ -18,26 +17,23 @@ namespace U.Common.NetCore.Cache
             return uniqueId;
         }
 
-        public async Task<T> GetCachedOrDefaultAsync<T>(string id) where T : class
+        public T GetCachedOrDefault<T>(string id) where T : class
         {
-            var cacheKey = GetCacheKey(id);
-            var cached = _redisCache.Get(cacheKey) as T;
+            var cachedKey = GetCacheKey(id);
+            _memoryCache.TryGetValue(cachedKey, out T cachedValue);
 
-            await Task.CompletedTask;
-
-            return cached;
+            return cachedValue;
         }
 
-        public async Task CacheAsync(string id, object toCache)
+        public void Cache(string id, object toCache)
         {
             var cacheKey = GetCacheKey(id);
 
             var cacheEntryOptions = new MemoryCacheEntryOptions()
-                .SetSlidingExpiration(TimeSpan.FromSeconds(60));
+                .SetSlidingExpiration(TimeSpan.FromMinutes(1))
+                .SetAbsoluteExpiration(TimeSpan.FromMinutes(30));
 
-            _redisCache.Set(cacheKey, toCache, cacheEntryOptions);
-            await Task.CompletedTask;
-
+            _memoryCache.Set(cacheKey, toCache, cacheEntryOptions);
         }
     }
 }

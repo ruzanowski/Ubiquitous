@@ -4,7 +4,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Polly;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -12,6 +11,7 @@ using RabbitMQ.Client.Exceptions;
 using U.EventBus.Abstractions;
 using U.EventBus.Events;
 using U.EventBus.Subscription;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace U.EventBus.RabbitMQ
 {
@@ -90,13 +90,13 @@ namespace U.EventBus.RabbitMQ
             {
                 channel.ExchangeDeclare(exchange: BROKER_NAME, type: "direct");
 
-                var message = JsonConvert.SerializeObject(@event);
+                var message = JsonSerializer.Serialize(@event);
                 var body = Encoding.UTF8.GetBytes(message);
 
                 policy.Execute(() =>
                 {
                     var properties = channel.CreateBasicProperties();
-                    properties.DeliveryMode = 1; // non-persistent
+                    properties.DeliveryMode = 2; // non-persistent
 
                     channel.BasicPublish(
                         exchange: BROKER_NAME,
@@ -241,20 +241,18 @@ namespace U.EventBus.RabbitMQ
         {
             if (_subsManager.HasSubscriptionsForEvent(eventName))
             {
-                using (var scope = ServiceProvider.CreateScope())
+                using var scope = ServiceProvider.CreateScope();
+                var subscriptions = _subsManager.GetHandlersForEvent(eventName);
+                foreach (var subscription in subscriptions)
                 {
-                    var subscriptions = _subsManager.GetHandlersForEvent(eventName);
-                    foreach (var subscription in subscriptions)
-                    {
-                        var handler = scope.ServiceProvider.GetService(subscription.HandlerType);
-                        if (handler is null) continue;
-                        var eventType = _subsManager.GetEventTypeByName(eventName);
-                        var integrationEvent = JsonConvert.DeserializeObject(message, eventType);
-                        var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
+                    var handler = scope.ServiceProvider.GetService(subscription.HandlerType);
+                    if (handler is null) continue;
+                    var eventType = _subsManager.GetEventTypeByName(eventName);
+                    var integrationEvent = JsonSerializer.Deserialize(message, eventType);
+                    var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
 
-                        await Task.Yield();
-                        await (Task) concreteType.GetMethod("Handle").Invoke(handler, new object[] {integrationEvent});
-                    }
+                    await Task.Yield();
+                    await (Task) concreteType.GetMethod("Handle").Invoke(handler, new object[] {integrationEvent});
                 }
             }
             else

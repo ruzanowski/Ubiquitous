@@ -33,7 +33,6 @@ namespace U.Common.NetCore.Database
             switch (dbOptions.Type)
             {
                 case DbType.Npgsql:
-                    services.AddEntityFrameworkNpgsql();
                     services.AddDbContextPool<TContext>((serviceProvider, options) =>
                     {
                         options.UseNpgsql(dbOptions.Connection,
@@ -42,17 +41,18 @@ namespace U.Common.NetCore.Database
                                 postgresOptions.MigrationsAssembly(typeof(TContext).GetTypeInfo().Assembly.GetName()
                                     .Name);
                                 //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency
-                                postgresOptions.EnableRetryOnFailure(5,
-                                    TimeSpan.FromSeconds(10), new List<string>());
+                                postgresOptions.EnableRetryOnFailure(3,
+                                    TimeSpan.FromSeconds(5), new List<string>());
                             });
-                         options.UseInternalServiceProvider(serviceProvider);
-
-                    }, 300);
+                    });
                     break;
                 case DbType.Mssql:
                     services.AddDbContextPool<TContext>(options => { options.UseSqlServer(dbOptions.Connection); });
                     break;
                 case DbType.Unknown:
+                case DbType.InMemory:
+                    services.AddDbContextPool<TContext>(options => { options.UseInMemoryDatabase("inMemory"); });
+                    break;
                 default:
                     throw new UnsupportedDatabaseException("Unsupported database type selected.");
             }

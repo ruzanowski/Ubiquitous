@@ -6,7 +6,7 @@ using OpenTracing;
 
 namespace U.Common.NetCore.Jaeger
 {
-    public class DefaultTracer
+    public static class DefaultTracer
     {
         public static ITracer Create()
             => new Tracer.Builder(Assembly.GetEntryAssembly()?.FullName)

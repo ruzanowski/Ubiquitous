@@ -5,7 +5,7 @@ using U.Common.NetCore.WebHost;
 
 namespace U.GeneratorService
 {
-    public class Program
+    public static class Program
     {
         private static readonly string Namespace = typeof(Program).Namespace;
 

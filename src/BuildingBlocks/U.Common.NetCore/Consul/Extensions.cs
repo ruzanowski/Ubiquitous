@@ -11,8 +11,8 @@ namespace U.Common.NetCore.Consul
 {
     public static class Extensions
     {
-        private static readonly string ConsulSectionName = "consul";
-        private static readonly string FabioSectionName = "fabio";
+        private const string ConsulSectionName = "consul";
+        private const string FabioSectionName = "fabio";
 
         public static IServiceCollection AddConsulServiceDiscovery(this IServiceCollection services)
         {

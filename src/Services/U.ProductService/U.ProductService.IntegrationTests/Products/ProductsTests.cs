@@ -1,15 +1,4 @@
-using System;
-using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
-using FluentAssertions;
-using U.Common.NetCore.Http;
-using U.Common.Pagination;
-using U.ProductService.Application.Products.Commands.Create;
-using U.ProductService.Application.Products.Commands.Update;
-using U.ProductService.Application.Products.Models;
-using U.ProductService.IntegrationTests.Products.Conventions;
-using Xunit;
 
 namespace U.ProductService.IntegrationTests.Products
 {

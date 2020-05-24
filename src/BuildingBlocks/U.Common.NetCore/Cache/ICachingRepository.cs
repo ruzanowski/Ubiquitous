@@ -1,10 +1,8 @@
-using System.Threading.Tasks;
-
 namespace U.Common.NetCore.Cache
 {
     public interface ICachingRepository
     {
-        Task<T> GetCachedOrDefaultAsync<T>(string id) where T : class;
-        Task CacheAsync(string id, object toCache);
+        T GetCachedOrDefault<T>(string id) where T : class;
+        void Cache(string id, object toCache);
     }
 }

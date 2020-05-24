@@ -1,5 +1,4 @@
 using System;
-using Newtonsoft.Json;
 using U.Common.Subscription;
 
 namespace U.EventBus.Events.Product
@@ -19,7 +18,6 @@ namespace U.EventBus.Events.Product
 
         }
 
-        [JsonConstructor]
         public ProductAddedIntegrationEvent(Guid productId, string name, decimal price, Guid manufacturer)
         {
             ProductId = productId;

@@ -28,7 +28,6 @@ using U.ProductService.Domain;
 using U.ProductService.Middleware;
 using U.ProductService.Persistance.Contexts;
 using U.ProductService.Persistance.Repositories;
-using IApplicationLifetime = Microsoft.AspNetCore.Hosting.IApplicationLifetime;
 
 namespace U.ProductService
 {
@@ -60,7 +59,6 @@ namespace U.ProductService
                 .AddRedis()
                 .AddJwt()
                 .AddJaeger();
-
 
             RegisterEventsHandlers(services);
         }
@@ -136,7 +134,7 @@ namespace U.ProductService
                 .AddTransient<ICategoryRepository, CategoryRepository>()
                 .AddTransient<IManufacturerRepository, ManufacturerRepository>()
                 .AddIntegrationEventLog()
-                .AddSingleton<IProductIntegrationEventService, ProductIntegrationEventService>();
+                .AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>();
 
             return services;
         }

@@ -2,7 +2,6 @@
 using Consul;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -46,6 +45,7 @@ namespace U.FetchService
         public void Configure(IApplicationBuilder app, IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
             app.UsePathBase(Configuration, _logger).Item1
+                .UseRouting()
                 .UseEndpoints(endpoints => {
                     endpoints.MapControllers();
                 })

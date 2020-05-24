@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using Newtonsoft.Json;
 using U.EventBus.Events;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace U.IntegrationEventLog
 {
@@ -14,7 +14,7 @@ namespace U.IntegrationEventLog
             EventId = @event.Id;
             CreationTime = @event.CreationDate;
             EventTypeName = @event.GetType().FullName;
-            Content = JsonConvert.SerializeObject(@event);
+            Content = JsonSerializer.Serialize(@event);
             State = EventStateEnum.NotPublished;
             TimesSent = 0;
         }
@@ -33,7 +33,7 @@ namespace U.IntegrationEventLog
 
         public void DeserializeJsonContent(Type type)
         {
-            var deserialized = JsonConvert.DeserializeObject(Content, type);
+            var deserialized = JsonSerializer.Deserialize(Content, type);
 
             IntegrationEvent = deserialized as IntegrationEvent;
         }

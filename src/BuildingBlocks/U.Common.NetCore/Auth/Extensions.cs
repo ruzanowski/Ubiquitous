@@ -14,7 +14,7 @@ namespace U.Common.NetCore.Auth
 {
     public static class Extensions
     {
-        private static readonly string SectionName = "jwt";
+        private const string SectionName = "jwt";
 
         public static IServiceCollection AddJwt(this IServiceCollection services)
         {

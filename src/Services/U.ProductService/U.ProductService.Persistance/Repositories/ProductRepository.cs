@@ -12,18 +12,19 @@ namespace U.ProductService.Persistance.Repositories
     {
         private readonly ProductContext _context;
         private readonly ICachingRepository _cachingRepository;
-
         public IUnitOfWork UnitOfWork => _context;
-
 
         public async Task<Product> AddAsync(Product product)
         {
-            return (await _context.Products.AddAsync(product)).Entity;
+            var entity = (await _context.Products.AddAsync(product)).Entity;
+            _context.ChangeTracker.AutoDetectChangesEnabled = false;
+
+            return entity;
         }
 
         public async Task<Product> GetAsync(Guid productId)
         {
-            var cached = await _cachingRepository.GetCachedOrDefaultAsync<Product>(productId.ToString());
+            var cached = _cachingRepository.GetCachedOrDefault<Product>(productId.ToString());
 
             if (cached != null)
             {
@@ -38,7 +39,7 @@ namespace U.ProductService.Persistance.Repositories
 
             if (product != null)
             {
-                await _cachingRepository.CacheAsync(productId.ToString(), product);
+                _cachingRepository.Cache(productId.ToString(), product);
             }
 
             return product;
@@ -47,7 +48,7 @@ namespace U.ProductService.Persistance.Repositories
         public async Task<Product> GetByAbsoluteComparerAsync(string externalSourceName, string externalSourceId)
         {
             var cached =
-                await _cachingRepository.GetCachedOrDefaultAsync<Product>(
+                _cachingRepository.GetCachedOrDefault<Product>(
                     $"ProductsAsNoTracking_{externalSourceName}_{externalSourceId}");
 
             if (cached != null)
@@ -62,7 +63,7 @@ namespace U.ProductService.Persistance.Repositories
 
             if (product != null)
             {
-                await _cachingRepository.CacheAsync(externalSourceId, product);
+                _cachingRepository.Cache(externalSourceId, product);
             }
 
             return product;
