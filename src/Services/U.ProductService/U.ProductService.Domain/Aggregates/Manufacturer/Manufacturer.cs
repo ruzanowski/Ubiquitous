@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 using U.ProductService.Domain.Aggregates.Picture;
 using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Exceptions;
@@ -40,7 +39,6 @@ namespace U.ProductService.Domain.Aggregates.Manufacturer
             _lastUpdatedBy = string.Empty;
         }
 
-        [JsonConstructor]
         public Manufacturer(Guid id, string uniqueClientId, string name, string description) : this()
         {
             Id = id;

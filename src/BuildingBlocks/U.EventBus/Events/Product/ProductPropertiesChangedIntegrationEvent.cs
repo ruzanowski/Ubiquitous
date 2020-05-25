@@ -10,33 +10,51 @@ namespace U.EventBus.Events.Product
 
         public Guid Manufacturer { get; }
 
-        public IList<Variance> Variances { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public string Description { get; set; }
+        public decimal Height { get; set; }
+        public decimal Width { get; set; }
+        public decimal Length { get; set; }
+        public decimal Weigth { get; set; }
 
-        public ProductPropertiesChangedIntegrationEvent(Guid productId, Guid manufacturer, IList<Variance> variances)
+        public ProductPropertiesChangedIntegrationEvent(Guid productId, Guid manufacturer, string name, decimal price,
+            string description, decimal height, decimal width, decimal length, decimal weigth)
         {
             ProductId = productId;
             Manufacturer = manufacturer;
-            Variances = variances;
+            Name = name;
+            Price = price;
+            Description = description;
+            Height = height;
+            Width = width;
+            Length = length;
+            Weigth = weigth;
         }
+
         public override string MethodTag => nameof(ProductPropertiesChangedIntegrationEvent);
         public override IntegrationEventType EventType => IntegrationEventType.ProductPropertiesChangedIntegrationEvent;
     }
 
     public sealed class ProductPropertiesChangedSignalRIntegrationEvent : ProductPropertiesChangedIntegrationEvent
     {
-        public ProductPropertiesChangedSignalRIntegrationEvent(Guid productId, Guid manufacturer, List<Variance> variances) : base(productId, manufacturer, variances)
-        {
-        }
         public override string MethodTag => nameof(ProductPropertiesChangedSignalRIntegrationEvent);
 
+        public ProductPropertiesChangedSignalRIntegrationEvent(Guid productId, Guid manufacturer, string name,
+            decimal price, string description, decimal height, decimal width, decimal length, decimal weigth) : base(
+            productId, manufacturer, name, price, description, height, width, length, weigth)
+        {
+        }
     }
 
     public sealed class ProductPropertiesChangedEmailIntegrationEvent : ProductPropertiesChangedIntegrationEvent
     {
-        public ProductPropertiesChangedEmailIntegrationEvent(Guid productId, Guid manufacturer, List<Variance> variances) : base(productId, manufacturer, variances)
-        {
-        }
         public override string MethodTag => nameof(ProductPropertiesChangedEmailIntegrationEvent);
 
+        public ProductPropertiesChangedEmailIntegrationEvent(Guid productId, Guid manufacturer, string name,
+            decimal price, string description, decimal height, decimal width, decimal length, decimal weigth) : base(
+            productId, manufacturer, name, price, description, height, width, length, weigth)
+        {
+        }
     }
 }

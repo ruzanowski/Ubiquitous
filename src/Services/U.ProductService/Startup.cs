@@ -4,17 +4,17 @@ using AutoMapper;
 using Consul;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using U.Common.Consul;
-using U.Common.Database;
-using U.Common.Jaeger;
-using U.Common.Jwt;
-using U.Common.Mvc;
-using U.Common.Redis;
-using U.Common.Swagger;
+using U.Common.NetCore.Auth;
+using U.Common.NetCore.Cache;
+using U.Common.NetCore.Consul;
+using U.Common.NetCore.Database;
+using U.Common.NetCore.Jaeger;
+using U.Common.NetCore.Mvc;
+using U.Common.NetCore.Swagger;
 using U.EventBus.Abstractions;
 using U.EventBus.Events.Fetch;
 using U.EventBus.RabbitMQ;
@@ -23,7 +23,6 @@ using U.ProductService.Application.Common.Mapping;
 using U.ProductService.Application.Events.IntegrationEvents;
 using U.ProductService.Application.Events.IntegrationEvents.EventHandling;
 using U.ProductService.Application.Infrastructure;
-using U.ProductService.Application.Infrastructure.Behaviours;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Domain;
 using U.ProductService.Middleware;
@@ -61,13 +60,12 @@ namespace U.ProductService
                 .AddJwt()
                 .AddJaeger();
 
-
             RegisterEventsHandlers(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
-            IApplicationLifetime applicationLifetime,
+            IHostApplicationLifetime applicationLifetime,
             IConsulClient client)
         {
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
@@ -78,7 +76,11 @@ namespace U.ProductService
                 .UseForwardedHeaders()
                 .UseAuthentication()
                 .UseJwtTokenValidator()
-                .UseMvc();
+                .UseRouting()
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
@@ -96,7 +98,7 @@ namespace U.ProductService
             services.AddTransient<NewProductFetchedIntegrationEventHandler>();
         }
 
-        private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime,
+        private void RegisterConsul(IApplicationBuilder app, IHostApplicationLifetime applicationLifetime,
             IConsulClient client)
         {
             var consulServiceId = app.UseConsulServiceDiscovery();
@@ -151,7 +153,7 @@ namespace U.ProductService
 
         public static IServiceCollection AddCustomPipelineBehaviours(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(EventPublishBehaviour<,>));
+//            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(EventPublishBehaviour<,>));
 
             return services;
         }

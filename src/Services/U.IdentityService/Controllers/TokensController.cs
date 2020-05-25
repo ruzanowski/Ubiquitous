@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using U.Common.Jwt.Attributes;
+using U.Common.NetCore.Auth.Attributes;
 using U.IdentityService.Application.Commands.Token.RefreshAccessToken;
 using U.IdentityService.Application.Commands.Token.RevokeAccessToken;
 using U.IdentityService.Application.Commands.Token.RevokeRefreshToken;

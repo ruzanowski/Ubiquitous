@@ -22,8 +22,8 @@ namespace U.ProductService.Application.Products.Commands.Update
             IProductRepository productRepository,
             IMapper mapper)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+            _logger = logger;
+            _productRepository = productRepository;
             _mapper = mapper;
         }
 
@@ -37,28 +37,19 @@ namespace U.ProductService.Application.Products.Commands.Update
                 throw new ProductNotFoundException($"Product with id: '{command.ProductId}' has not been found");
             }
 
-            var dimensions = GetDimensions(command);
-
             product.UpdateProduct(_mapper,
                 command.Name,
                 command.Description,
                 command.Price,
-                dimensions,
+                new Dimensions(command.Dimensions.Length,
+                    command.Dimensions.Width,
+                    command.Dimensions.Height,
+                    command.Dimensions.Weight),
                 DateTime.UtcNow);
-
-            _logger.LogDebug($"Product with id: '{product.Id}' has been updated");
 
             await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
             return Unit.Value;
-        }
-
-        private Dimensions GetDimensions(UpdateProductCommand command)
-        {
-            return new Dimensions(command.Dimensions.Length,
-                command.Dimensions.Width,
-                command.Dimensions.Height,
-                command.Dimensions.Weight);
         }
     }
 }

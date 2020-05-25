@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using Newtonsoft.Json;
 using U.Common.Subscription;
 
 namespace U.EventBus.Events.Identity
@@ -9,7 +8,6 @@ namespace U.EventBus.Events.Identity
     {
         public Guid UserId { get; }
 
-        [JsonConstructor]
         public AccessTokenRefreshedIntegrationEvent(Guid userId)
         {
             UserId = userId;

@@ -29,7 +29,15 @@ namespace U.ProductService.Application.Events.DomainEventHandlers
 
             //Additional logic for product domain event handler e.g. validation, publish restriction.
             //event for e.g. SignalR
-            var iEvent = new ProductPropertiesChangedIntegrationEvent(@event.ProductId, @event.Manufacturer, @event.Variances);
+            var iEvent = new ProductPropertiesChangedIntegrationEvent(@event.ProductId,
+                @event.Manufacturer,
+                @event.Name,
+                @event.Price,
+                @event.Description,
+                @event.Dimensions.Height,
+                @event.Dimensions.Width,
+                @event.Dimensions.Length,
+                @event.Dimensions.Weight);
 
             await _productIntegrationEventService.AddAndSaveEventAsync(iEvent);
 

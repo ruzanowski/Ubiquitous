@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <PackageId>Ubiquitous.EventBus</PackageId>
         <Authors>SebastianRuzanowski</Authors>
         <Title>Ubiquitous.EventBus</Title>
@@ -16,11 +16,12 @@
     </PropertyGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-        <ProjectReference Include="..\Common\U.Common.csproj" />
+        <ProjectReference Include="..\U.Common\U.Common.csproj" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.Common.NetCore" Version="*" />
     </ItemGroup>
 
     <ItemGroup>

@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using U.Common.Jwt.Claims;
+using U.Common.Auth;
 using U.Common.Subscription;
 using U.NotificationService.Infrastructure.Contexts;
 
@@ -12,7 +12,6 @@ namespace U.NotificationService.Application.Services.Operations
     {
         private readonly NotificationContext _context;
         private readonly ILogger<NotificationOperations> _logger;
-
 
         public NotificationOperations(NotificationContext context, ILogger<NotificationOperations> logger)
         {

@@ -5,21 +5,25 @@ namespace U.EventBus.Events.Fetch
     public class NewProductFetchedIntegrationEvent : IntegrationEvent
     {
         public new string Id { get; set; }
-        public string Name { get; private set; }
-        public int ManufacturerId { get; private set; }
-        public string BarCode { get; private set; }
-        public int StockQuantity { get; private set; }
-        public decimal Price { get; private set; }
-        public string Description { get; private set; }
-        public bool IsAvailable { get; private set; }
-        public decimal Length { get; private set; }
-        public decimal Width { get; private set; }
-        public decimal Height { get; private set; }
-        public decimal Weight { get; private set; }
-        public int CategoryId { get; private set; }
+        public string Name { get; set; }
+        public int ManufacturerId { get; set; }
+        public string BarCode { get; set; }
+        public int StockQuantity { get; set; }
+        public decimal Price { get; set; }
+        public string Description { get; set; }
+        public bool IsAvailable { get; set; }
+        public decimal Length { get; set; }
+        public decimal Width { get; set; }
+        public decimal Height { get; set; }
+        public decimal Weight { get; set; }
+        public int CategoryId { get; set; }
         public override string MethodTag => nameof(NewProductFetchedIntegrationEvent);
         public override IntegrationEventType EventType => IntegrationEventType.NewProductFetched;
-        public string ExternalSourceName { get; private set; }
+        public string ExternalSourceName { get; set; }
+
+        public NewProductFetchedIntegrationEvent()
+        {
+        }
 
         public NewProductFetchedIntegrationEvent(string name,
             int manufacturerId,

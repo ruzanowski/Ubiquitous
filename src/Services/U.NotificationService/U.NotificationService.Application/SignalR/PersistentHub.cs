@@ -42,7 +42,7 @@ namespace U.NotificationService.Application.SignalR
             }
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            Context.BulkInsert(notifications);
+            await Context.BulkInsertAsync(notifications);
 
             foreach (var notification in notifications)
             {
@@ -54,7 +54,7 @@ namespace U.NotificationService.Application.SignalR
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
 
-            _logger.LogInformation($"Saved {notifications.Count} notifications in {elapsedMs} ms");
+            _logger.LogInformation($"PeriodSender saved {notifications.Count} notifications in {elapsedMs} ms");
         }
 
         public async Task SaveAndSendToAllAsync<T>(string methodTag, T @event) where T : IntegrationEvent

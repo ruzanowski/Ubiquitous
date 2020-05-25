@@ -1,5 +1,5 @@
 # UBIQUITOUS. Real-Time State & Notification Platform.
-.NET Core with Angular on microservices. <br> 
+.NET Core with Angular on microservices. <br>
 Subscribe for **the newest state** of products you like.
 
 - [1. Introduction](#1-introduction)
@@ -10,17 +10,20 @@ Subscribe for **the newest state** of products you like.
 - [2. Server Side](#2-server-side)
     - [2.1 Technologies](#21-technologies)
     - [2.2 Services](#22-services)
-    - [2.3 Cross-Cutting Concerns](#23-cross-cutting-concerns)
-    - [2.4 Server-Side Service Discovery](#24-server-side-service-discovery)
+    - [2.3 Jobs](#23-jobs)
+    - [2.4 Adapters](#24-adapters)
+    - [2.5 Cross-Cutting Concerns](#25-cross-cutting-concerns)
+    - [2.6 Server-Side Service Discovery](#26-server-side-service-discovery)
 - [3. Client Side](#3-client-side)
     - [3.1 Technologies and tools](#31-technologies-and-tools)
 - [4. Communication](#4-communication)
     - [4.1 HTTP Protocol](#41-http-protocol)
     - [4.2 WebSocket (SignalR)](#42-websocket-signalr)
+    - [4.3 RabbitMQ](#43-rabbitmq)
 - [5. RoadMap](#5-roadmap)
     - [5.1. Release V.0.2](#51-release-v02)
     - [5.2. Release V.0.3](#52-release-v03)
-    - [5.2. Release V.0.4](#53-release-v04)
+    - [5.3. Release V.0.4](#53-release-v04)
 - [6. Contributing](#6-contributing)
 - [7. Author](#7-author)
 - [8. Inspirations & Thanks](#8-inspirations--thanks)
@@ -52,14 +55,14 @@ Subscribe for **the newest state** of products you like.
         * [x] Welcome notifications specified timespan by user preferences
 - ***Processing & Capabilities***
     - Distributed processing number of products paralelly among different adapters
-- ***Identity & Authorization*** 
+- ***Identity & Authorization***
     - Ability to _signup, log in, log out, change password_
     - Identification & auth thanks to jwt token across entire system
-- ***Admin Management (next versions)*** 
+- ***Admin Management (next versions)***
     * [ ] manage products, users, subscriptions
 ## 1.2 Purpose
 
-- primarily, **self-education** has been my motivation, as well as giving my best around topics like 
+- primarily, **self-education** has been my motivation, as well as giving my best around topics like
      - .NET Core
      - DDD
      - Microservices
@@ -68,19 +71,19 @@ Subscribe for **the newest state** of products you like.
      - ...
      - and so much more
 - Secondly, **most of repositories** I have visited were
-    - Relatively small, no possibility to run into performance, integration, authorization issues et cetera 
+    - Relatively small, no possibility to run into performance, integration, authorization issues et cetera
     - Easy concerns or unfinished
-    
+
 ## 1.3 Installation On-Premises
 
 <details>
-<summary>Click to expand!</summary>
+<summary>Click here to expand!</summary>
 
 1.3.0. Prerequisites
     - Docker
     - Docker composer
-    
-1.3.1. Run 
+
+1.3.1. Run
 
 > build-infra.bat
 
@@ -97,14 +100,14 @@ CREATE DATABASE "identity-service";
 ```
 
 1.3.3 Install services
-1.3.3a External run e.g. portainer stack 
+1.3.3a External run e.g. portainer stack
     - Replace environment 'ABSOLUTE_PATH' in '.env' file and indicate folder containing configuration
     - Run >
-    > build-services.external.bat 
+    > build-services.external.bat
 1.3.3b Local run
     - Run
-    > build-services.loca.bat
-1.3.4. Run 
+    > build-services.local.bat
+1.3.4. Run
 ```cmd
 docker-compose -f docker-compose-services.yml up
 ```
@@ -116,7 +119,7 @@ docker-compose -f docker-compose-services.yml up
 </p>
 
 </details>
-    
+
 ### 1.4 API Usage
 
 _To be determined_
@@ -124,16 +127,16 @@ _To be determined_
 ## 2. Server Side
 Whole solution is broken down to
    - **Frontend** developed with [Angular 7](https://angular.io/)
-   - **Backend** developed with  [.NET Core 2.2](https://docs.microsoft.com/en-us/dotnet/core/). 
-        - **Services** Functionality-oriented e.g.: products, notifications 
+   - **Backend** developed with  [.NET Core 3.1](https://docs.microsoft.com/en-us/dotnet/core/).
+        - **Services** Functionality-oriented e.g.: products, notifications
         - **Adapters** Encapsulates shops, wholesales logic and enables communication
         - **Infrastructure**, external libraries listed in []
    - **Solution Files**, there can be found anything like [GitLab CI]() manifesto, [Docker Compose]() yml, starting batch files and other solution configurations.
 
 Down below, a services dependency diagram. See to #3.1 for listed used technologies, tools and their use.
-    
+
 <p align="center">
-   <img alt="Containers diagram v0.2" src="img/containers-v.0.2-min.png" />
+   <img alt="Containers diagram v0.4" src="img/containers-v.0.4-min.png" />
 </p>
 
 ### 2.1 Technologies
@@ -141,9 +144,9 @@ Down below, a services dependency diagram. See to #3.1 for listed used technolog
 What you might see in the scope of my project. Things mentioned below are implemented or used from legal external sources, feel free to use and to contribute.
 
 #### ***Release V0.1***
-- RESTful API implemented in [***ASP.NET Core***](https://docs.microsoft.com/en-us/aspnet/core) 
-- [CQRS](https://martinfowler.com/bliki/CQRS.html), [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design), [EDA](https://en.wikipedia.org/wiki/Event-driven_architecture) might be found extensively
-- Object-Relational Mapping serving easier database connectivity with [***Entity Framework Core***](https://docs.microsoft.com/en-US/ef/core/) 
+- RESTful API implemented in [***ASP.NET Core***](https://docs.microsoft.com/en-us/aspnet/core)
+- [***CQRS***](https://martinfowler.com/bliki/CQRS.html), [***Domain-Driven Design***](https://en.wikipedia.org/wiki/Domain-driven_design), [***EDA***](https://en.wikipedia.org/wiki/Event-driven_architecture) might be found extensively
+- Object-Relational Mapping serving easier database connectivity with [***Entity Framework Core***](https://docs.microsoft.com/en-US/ef/core/)
 - [***AutoMapper***](https://github.com/AutoMapper/AutoMapper) & [***MediatR***](https://github.com/jbogard/MediatR), thanks to [Jimmy Bogard](https://github.com/jbogard))
 - [***Docker compose***]() (Containers environment)
 - Used relational database [***PostgreSql***] & Cache [***Redis***](https://redis.io/)
@@ -153,51 +156,63 @@ What you might see in the scope of my project. Things mentioned below are implem
 - Websocket push communication (server to client) with [***SignalR***]() with [***Redis***](https://redis.io/) backplane
 - [***Polly***](https://github.com/App-vNext/Polly) Resiliency policies
 - Message queue [***RabbitMQ***](https://www.rabbitmq.com/) with [***RawRabbit***](https://github.com/pardahlman/RawRabbit) implementation
-- HTTP Call [Load Balancing](https://www.citrix.com/glossary/load-balancing.html) between services with [***Fabio***](https://github.com/fabiolb/fabio)
+- HTTP Calls [***Load Balancing***](https://www.citrix.com/glossary/load-balancing.html) between services with [***Fabio***](https://github.com/fabiolb/fabio)
 
 #### ***Release V0.2***
-- Monitoring stack thanks by ELK stack ([***Elasticsearch***](https://www.elastic.co/) [***Logstash***](https://www.elastic.co/) [***Kibana***](https://www.elastic.co/))
 - Logging with [***Serilog***](https://serilog.net/), [***Elasticsearch***](https://www.elastic.co/)
-- Tracing with [OpenTracing](https://opentracing.io/), [***Jaeger***](https://github.com/jaegertracing/jaeger)
-- Metrics with [AppMetrics](https://www.app-metrics.io/), [***Influx***](https://www.influxdata.com/)
+- Tracing with [***OpenTracing***](https://opentracing.io/), [***Jaeger***](https://github.com/jaegertracing/jaeger)
+- Metrics with [***AppMetrics***](https://www.app-metrics.io/), [***Influx***](https://www.influxdata.com/)
 
 ### 2.2 Services
 
 **Services**
-- ***SmartStore Adapter*** Mock Adapter, source of products ((v.0.3) is going to deprecate this definition, see 5.2) 
-- ***Fetch Service*** Fetches data from wholesales(many) and pushes newest items on the bus ((v.0.3) is going to deprecate this definition see 5.2) 
-- ***Product Service*** Main domain aggregate service, handles products and its business logic
-- ***Notification Service*** Handles notifications and channels it by WebSocket
+- ***Product Service*** Handles products and its business logic
+- ***Notification Service*** Handles notifications and channels
 - ***Identity Service*** Handles identity of user and managed Jwt tokens
-- ***Subscription Service*** Handles subscriptions of users & preferences for notifications types, channels
+- ***Subscription Service*** Handles subscriptions of users & preferences, bounces integration events
 
-### 2.3 Cross-Cutting Concerns
+### 2.3 Jobs
+- ***Generator Service*** Sources SmartStoreAdapter with fake products
+- ***Fetch Service*** Sources subscribed ProductService with products related events via RabbitMQ
+- ***Notification Periodic Sender*** Sends periodically notifications, to improve performance
 
-**Modules**
-- ***Event Logs*** 
+### 2.4 Adapters
+- ***SmartStore Adapter*** Mock Adapter, source of products
+
+### 2.5 Cross-Cutting Concerns
+
+**Building Blocks** Available on Myget
+- ***U.IntegartionEventLog***
+    - targets .NET Core 3.1
     - Module with connectivity to database, storing event for any integration event dispatched
-- ***Event Bus*** 
-    - Asynchronous queue shared logic of subscription and publishing typically for RabbitMQ
-- ***Common*** 
+- ***U.EventBus***
+    - Abstraction of events
+- ***U.EventBus.RabbitMQ***
+    - Implementation of EventBus with RabbitMQ
+- ***Common***
+    - ***targets NETSTANDARD 2.0***
+    - includes pagination, models shared across projects
+- ***Common NetCore***
+    - targets .NET Core 3.1
     - Metrics - [AppMetrics](https://www.app-metrics.io/), [***Influx***](https://www.influxdata.com/)
     - Tracing - [OpenTracing](https://opentracing.io/), [***Jaeger***](https://github.com/jaegertracing/jaeger)
     - Logging - [***Serilog***](https://serilog.net/), [***Elasticsearch***](https://www.elastic.co/)
     - Service Discovery - [***Consul***](https://www.consul.io/)
-    - Load Balancing - [***Ocelot***](https://ocelot.readthedocs.io/), [***Fabio***](https://github.com/fabiolb/fabio)
-    - Resiliency [***Polly***]()
+    - API Load Balancing - [***Ocelot***](https://ocelot.readthedocs.io/)
+    - Service Mesh Load Balancing [***Fabio***](https://github.com/fabiolb/fabio)
+    - Retry Policies [***Polly***]()
     - Authentication [***JWT***]()
-    - Cache [***Redis***]()
-    - Pagination
+    - Cache [***Redis***]() & [***MemoryCache***]()
 
-### 2.4 Server-Side Service Discovery
+### 2.6 Server-Side Service Discovery
 
 Each service is self registering to the Consul registry, containing every active service. This registry as well checks healthness of service with optional keep-alive with specified per-service interval.
 
 <p align="center">
    <img alt="Consul Service Discovery" src="img/Consul-min.png" />
 </p>
-        
-## 3. Client Side 
+
+## 3. Client Side
 
 Login Page             |  Dashboard
 :-------------------------:|:-------------------------:
@@ -212,20 +227,20 @@ Subscription             |  Products
 
 - Entire web app is written in [***Angular 7***](https://angular.io/) with [***Angular Material***](https://material.angular.io/), [***Bootstrap*** ](https://getbootstrap.com/)
 - Communication is done with  [***Rx.JS***](https://rxjs-dev.firebaseapp.com/) and [***SignalR***]()
-- Charts rendered with [***ChartistJS***](https://gionkunz.github.io/chartist-js/) 
+- Charts rendered with [***ChartistJS***](https://gionkunz.github.io/chartist-js/)
 
 ### 4 Communication
 
 Ubiquitous communicates in two ways, synchronous (HTTP) and asynchronous (WebSocket). These two protocols are used for communication between frontend and backend. Check out the table below explaining differences between them.
 
-| *Protocol* | *Communication* | *Architecture* |  *Server Side Transit*  | *Traffic* | *Difficulty* |   
+| *Protocol* | *Communication* | *Architecture* |  *Server Side Transit*  | *Traffic* | *Difficulty* |
 | --------- | --------- | --------- | --------- | --------- | --------- |
 |WebSocket | asynchronous| Push | indirect, through EventBus | Low | High |
 |HTTP | synchronous| Pull | direct | High | Low |
 
 
 ### 4.1 HTTP Protocol
-UI Dashboard statistics are pull-based calls. Each call returns definite data, sourcing charts, either dashboard cards.  
+UI Dashboard statistics are pull-based calls. Each call returns definite data, sourcing charts, either dashboard cards.
 
 <p align="center">
    <img alt="Dashboard composition of synchronous calls" src="img/dashboard-calls-min.png" />
@@ -235,11 +250,15 @@ UI Dashboard statistics are pull-based calls. Each call returns definite data, s
 
 On the right, notification bar is websocket-based. Each notification that falls in the bar, is being managed by signalR. You can operate on notifications. Hide, delete or prioritze.
 
-Every command is pushed to the server via web-socket. Any signalr connectivity failure or 401 http call **results with loggout** and SignalR connection abort.   
+Every command is pushed to the server via web-socket. Any signalr connectivity failure or 401 http call **results with loggout** and SignalR connection abort.
 
 <p align="center">
    <img alt="Dashboard composition of synchronous calls" src="img/signalr-min.png" />
 </p>
+
+### 4.3 RabbitMQ
+
+***To be described***
 
 ### 5.1 Release V.0.2
 
@@ -263,17 +282,6 @@ Release V.0.3 brings
 + Refactored SmartStoreAdapter
 + Identity Service unit tests
 
-<p align="center">
-   <img alt="Containers diagram v0.3" src="img/containers-v.0.3-min.png" />
-</p>
-
-Below diagram depicts change between upper, current (v.0.1, v.0.2) adapters architecture and below (v.0.3) with newest structure and data flow.
-
-<p align="center">
-    <img alt="Containers diagram v0.3" src="img/adapters-v.0.3-min.png" />
-</p>
-
-
 ### 5.3 Release V.0.4
 
 Release V.0.4 brings
@@ -281,6 +289,11 @@ Release V.0.4 brings
 + Generator Service eligible to modify products in SmartStoreAdapter, then it might generate ProductProperitesChanged and many other events generating in Product Service.
 + Nuget versions straightened up, using CI_Pipeline_IID instead of CI_Pipeline_ID. It is an increment value based on project, instead of global number of the pipeline.
 + Changed versioning to MAJOR.MINOR.REVISION.BUILD from MAJOR.MINOR.BUILD
++ .NET Core 3.1 upgrade
++ Performance boost
++ UTF8 over Newtonsoft JSON serializers
++ Amended Fetch & Generator Services as "Jobs"
++ Get rid of Kibana, Logstash
 
 ## 6. Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
@@ -288,10 +301,10 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ## 7. Author
 
 Sebastian Rużanowski
-
+You can find me at:
 LinkedIn [https://www.linkedin.com/in/sebastian-ruzanowski](https://www.linkedin.com/in/sebastian-ruzanowski)
-
-GitLab: [https://gitlab.com/ruzanowski](https://gitlab.com/ruzanowski)
+***GitLab****: [https://gitlab.com/ruzanowski](https://gitlab.com/ruzanowski)
+GitHub: [https://github.com/sebastianruzanowski](https://github.com/sebastianruzanowski)
 
 ## 8. Inspirations & Thanks
 
@@ -299,10 +312,10 @@ GitLab: [https://gitlab.com/ruzanowski](https://gitlab.com/ruzanowski)
     - [DevMentors](https://github.com/devmentors)
     - [Dotnet](https://github.com/dotnet-architecture/eShopOnContainers)
     - [Modular Monolith with DDD](https://github.com/kgrzybek/modular-monolith-with-ddd)
-    - [ASC Lab](https://github.com/asc-lab/dotnetcore-microservices-poc) 
+    - [ASC Lab](https://github.com/asc-lab/dotnetcore-microservices-poc)
 - Sites & Blogs
     - [Microservices.io](https://microservices.io/)
     - [Creative Tim](https://www.creative-tim.com/)
-    
+
 ## 9. License
 [MIT](https://choosealicense.com/licenses/mit/)

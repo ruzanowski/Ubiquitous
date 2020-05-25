@@ -1,44 +1,46 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Distributed;
+using U.Common.NetCore.Cache;
 using U.ProductService.Domain;
 using U.ProductService.Domain.SeedWork;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Persistance.Repositories
 {
-    public class ProductRepository: CachingRepository, IProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly ProductContext _context;
-
+        private readonly ICachingRepository _cachingRepository;
         public IUnitOfWork UnitOfWork => _context;
-
 
         public async Task<Product> AddAsync(Product product)
         {
-            return (await _context.Products.AddAsync(product)).Entity;
+            await _context.Products.SingleInsertAsync(product);
+            _context.ChangeTracker.AutoDetectChangesEnabled = false;
+
+            return product;
         }
 
         public async Task<Product> GetAsync(Guid productId)
         {
-            var cached = await GetCachedOrDefaultAsync<Product>(productId.ToString());
+            var cached = _cachingRepository.Get<Product>(productId.ToString());
 
             if (cached != null)
             {
                 return cached;
             }
 
-            var product = await _context.Products
-                .Include(x => x.Dimensions)
-                .Include(x => x.Pictures)
-                .Include(x => x.ProductType)
-                .Include(x => x.Category)
+            var product = await _context
+                .Products
+                // .Include(x => x.Category)
+                // .Include(x => x.Pictures)
+                // .Include(x => x.ProductType)
                 .FirstOrDefaultAsync(x => x.Id.Equals(productId));
 
             if (product != null)
             {
-                await CacheAsync(productId.ToString(), product);
+                _cachingRepository.Cache(productId.ToString(), product);
             }
 
             return product;
@@ -46,7 +48,9 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<Product> GetByAbsoluteComparerAsync(string externalSourceName, string externalSourceId)
         {
-            var cached = await GetCachedOrDefaultAsync<Product>(externalSourceName + "_" + externalSourceId);
+            var cached =
+                _cachingRepository.Get<Product>(
+                    $"Product_AsNoTracking_{externalSourceName}_{externalSourceId}");
 
             if (cached != null)
             {
@@ -54,16 +58,13 @@ namespace U.ProductService.Persistance.Repositories
             }
 
             var product = await _context.Products
-                .Include(x => x.Dimensions)
-                .Include(x => x.Pictures)
-                .Include(x => x.ProductType)
-                .Include(x => x.Category)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.ExternalId.Equals(externalSourceId)
                                           && x.ExternalSourceName.Equals(externalSourceName));
 
             if (product != null)
             {
-                await CacheAsync(externalSourceId, product);
+                _cachingRepository.Cache(externalSourceId, product);
             }
 
             return product;
@@ -74,9 +75,10 @@ namespace U.ProductService.Persistance.Repositories
             _context.Entry(product).State = EntityState.Modified;
         }
 
-        public ProductRepository(IDistributedCache cache, ProductContext context) : base(cache)
+        public ProductRepository(ProductContext context, ICachingRepository cachingRepository)
         {
             _context = context;
+            _cachingRepository = cachingRepository;
         }
     }
 }

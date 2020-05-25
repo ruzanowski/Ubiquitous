@@ -1,41 +1,43 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\U.IdentityService.Application\U.IdentityService.Application.csproj"/>
-        <ProjectReference Include="..\U.IdentityService.DomainTests\U.IdentityService.DomainTests.csproj"/>
+        <ProjectReference Include="..\U.IdentityService.Application\U.IdentityService.Application.csproj" />
+        <ProjectReference Include="..\U.IdentityService.DomainTests\U.IdentityService.DomainTests.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0"/>
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1"/>
-        <PackageReference Include="AutoFixture" Version="4.11.0"/>
-        <PackageReference Include="AutoFixture.Xunit2" Version="4.11.0"/>
-        <PackageReference Include="xunit" Version="2.4.1"/>
-        <PackageReference Include="xunit.assert" Version="2.4.1"/>
-        <PackageReference Include="xunit.console" Version="2.4.1"/>
-        <PackageReference Include="xunit.core" Version="2.4.1"/>
-        <PackageReference Include="xunit.runner.reporters" Version="2.4.1"/>
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1"/>
-        <PackageReference Include="xunit.runners" Version="2.0.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+        <PackageReference Include="AutoFixture" Version="4.11.0" />
+        <PackageReference Include="AutoFixture.Xunit2" Version="4.11.0" />
+        <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="xunit.assert" Version="2.4.1" />
+        <PackageReference Include="xunit.console" Version="2.4.1" />
+        <PackageReference Include="xunit.core" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.reporters" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+        <PackageReference Include="xunit.runners" Version="2.0.0" />
         <PackageReference Include="NSubstitute" Version="4.2.1" />
-        <PackageReference Include="coverlet.msbuild" Version="2.8.0" />
-        <PackageReference Include="FluentAssertions" Version="5.6.0" />
+        <PackageReference Include="coverlet.msbuild" Version="2.8.1" />
+        <PackageReference Include="FluentAssertions" Version="5.10.3" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-        <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj"/>
-        <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus\U.EventBus.csproj"/>
-        <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj"/>
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.Common\U.Common.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.Common.NetCore\U.Common.NetCore.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus\U.EventBus.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <PackageReference Include="Ubiquitous.Common" Version="*"/>
-        <PackageReference Include="Ubiquitous.EventBus" Version="*"/>
-        <PackageReference Include="Ubiquitous.EventBus.RabbitMQ" Version="*"/>
+        <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.Common.NetCore" Version="*" />
+        <PackageReference Include="Ubiquitous.EventBus" Version="*" />
+        <PackageReference Include="Ubiquitous.EventBus.RabbitMQ" Version="*" />
     </ItemGroup>
 
 

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using Newtonsoft.Json;
+using System.Text.Json;
 using U.Common.Subscription;
 using U.EventBus.Events;
 
@@ -19,7 +19,7 @@ namespace U.NotificationService.Domain.Entities
         {
             CreationDate = DateTime.UtcNow;
             IntegrationEventId = @event.Id;
-            IntegrationEvent = JsonConvert.SerializeObject(@event);
+            IntegrationEvent = JsonSerializer.Serialize(@event);
             IntegrationEventDeserialized = @event;
             Confirmations = new List<Confirmation>();
             IntegrationEventType = @event.EventType;

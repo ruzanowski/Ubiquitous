@@ -1,5 +1,4 @@
 using System;
-using Newtonsoft.Json;
 using U.Common.Subscription;
 
 namespace U.EventBus.Events.Identity
@@ -10,7 +9,6 @@ namespace U.EventBus.Events.Identity
         public string Email { get; }
         public string Role { get; }
 
-        [JsonConstructor]
         public SignedUpIntegrationEvent(Guid userId, string email, string role)
         {
             UserId = userId;

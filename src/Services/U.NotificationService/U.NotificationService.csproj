@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <DisableImplicitAspNetCoreAnalyzers>true</DisableImplicitAspNetCoreAnalyzers>
     </PropertyGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-        <ProjectReference Include="..\..\BuildingBlocks\Common\U.Common.csproj" />
+        <ProjectReference Include="..\..\BuildingBlocks\U.Common\U.Common.csproj" />
         <ProjectReference Include="..\..\BuildingBlocks\U.EventBus\U.EventBus.csproj" />
         <ProjectReference Include="..\..\BuildingBlocks\U.EventBus.RabbitMQ\U.EventBus.RabbitMQ.csproj" />
         <ProjectReference Include="..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
@@ -13,6 +14,7 @@
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.Common.NetCore" Version="*" />
         <PackageReference Include="Ubiquitous.EventBus" Version="*" />
         <PackageReference Include="Ubiquitous.EventBus.RabbitMQ" Version="*" />
         <PackageReference Include="Ubiquitous.IntegrationEventLog" Version="*" />
@@ -45,14 +47,14 @@
         <EmbeddedResource Remove="U.NotificationService.Application\**" />
         <EmbeddedResource Remove="U.NotificationService.Domain\**" />
         <EmbeddedResource Remove="U.NotificationService.Infrastructure\**" />
-        <_ContentIncludedByDefault Remove="U.NotificationService.Application\bin\Debug\netcoreapp2.2\U.NotificationService.Application.deps.json" />
+        <_ContentIncludedByDefault Remove="U.NotificationService.Application\bin\Debug\netcoreapp3.1\U.NotificationService.Application.deps.json" />
         <_ContentIncludedByDefault Remove="U.NotificationService.Application\obj\project.assets.json" />
         <_ContentIncludedByDefault Remove="U.NotificationService.Application\obj\project.packagespec.json" />
-        <_ContentIncludedByDefault Remove="U.NotificationService.Domain\bin\Debug\netcoreapp2.2\U.NotificationService.Domain.deps.json" />
+        <_ContentIncludedByDefault Remove="U.NotificationService.Domain\bin\Debug\netcoreapp3.1\U.NotificationService.Domain.deps.json" />
         <_ContentIncludedByDefault Remove="U.NotificationService.Domain\obj\project.assets.json" />
         <_ContentIncludedByDefault Remove="U.NotificationService.Domain\obj\project.packagespec.json" />
         <_ContentIncludedByDefault Remove="U.NotificationService.Domain\obj\U.NotificationService.Domain.csproj.nuget.dgspec.json" />
-        <_ContentIncludedByDefault Remove="U.NotificationService.Infrastructure\bin\Debug\netcoreapp2.2\U.NotificationService.Infrastructure.deps.json" />
+        <_ContentIncludedByDefault Remove="U.NotificationService.Infrastructure\bin\Debug\netcoreapp3.1\U.NotificationService.Infrastructure.deps.json" />
         <_ContentIncludedByDefault Remove="U.NotificationService.Infrastructure\obj\project.assets.json" />
         <_ContentIncludedByDefault Remove="U.NotificationService.Infrastructure\obj\project.packagespec.json" />
         <_ContentIncludedByDefault Remove="U.NotificationService.Infrastructure\obj\U.NotificationService.Infrastructure.csproj.nuget.dgspec.json" />

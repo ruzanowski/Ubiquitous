@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.AspNetCore.Hosting;
 using Serilog;
-using U.Common.Database;
-using U.Common.Mvc;
-using U.Common.WebHost;
+using U.Common.NetCore.Database;
+using U.Common.NetCore.Mvc;
+using U.Common.NetCore.WebHost;
 using U.SubscriptionService.Persistance.Contexts;
 
 namespace U.SubscriptionService

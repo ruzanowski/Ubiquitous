@@ -1,12 +1,12 @@
 using System;
 using System.Linq;
-using Newtonsoft.Json;
-using U.Common.Jwt.Claims;
+using U.Common.Auth;
 using U.Common.Subscription;
 using U.EventBus.Events;
 using U.EventBus.Events.Notification;
 using U.EventBus.Events.Product;
 using U.NotificationService.Domain.Entities;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace U.NotificationService.Application.Common.Models
 {
@@ -84,15 +84,15 @@ namespace U.NotificationService.Application.Common.Models
                 switch (eventType)
                 {
                     case IntegrationEventType.ProductPublishedIntegrationEvent:
-                        return JsonConvert.DeserializeObject<ProductPublishedIntegrationEvent>(@event);
+                        return JsonSerializer.Deserialize<ProductPublishedIntegrationEvent>(@event);
                     case IntegrationEventType.ProductPropertiesChangedIntegrationEvent:
-                        return JsonConvert.DeserializeObject<ProductPropertiesChangedIntegrationEvent>(@event);
+                        return JsonSerializer.Deserialize<ProductPropertiesChangedIntegrationEvent>(@event);
                     case IntegrationEventType.ProductAddedIntegrationEvent:
-                        return JsonConvert.DeserializeObject<ProductAddedIntegrationEvent>(@event);
+                        return JsonSerializer.Deserialize<ProductAddedIntegrationEvent>(@event);
                     // ReSharper disable once RedundantCaseLabel
                     default:
                     case IntegrationEventType.Unknown:
-                        return JsonConvert.DeserializeObject<IntegrationEvent>(@event);
+                        return JsonSerializer.Deserialize<IntegrationEvent>(@event);
                 }
             }
         }

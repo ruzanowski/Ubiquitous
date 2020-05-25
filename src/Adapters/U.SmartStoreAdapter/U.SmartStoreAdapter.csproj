@@ -1,12 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
-        <IsPackable>true</IsPackable>
-        <PackageId>ubiquitous.smartstoreadapter</PackageId>
-        <Authors>sebastianruzanowski</Authors>
+        <DisableImplicitAspNetCoreAnalyzers>true</DisableImplicitAspNetCoreAnalyzers>
     </PropertyGroup>
 
     <ItemGroup>
@@ -18,11 +16,15 @@
     </PropertyGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <ProjectReference Include="..\..\BuildingBlocks\U.Common\U.Common.csproj" />
+        <ProjectReference Include="..\..\BuildingBlocks\U.Common.NetCore\U.Common.NetCore.csproj" />
         <ProjectReference Include="..\..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
+
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.Common.NetCore" Version="*" />
         <PackageReference Include="Ubiquitous.IntegrationEventLog" Version="*" />
         <PackageReference Include="Ubiquitous.EventBus" Version="*" />
         <PackageReference Include="Ubiquitous.EventBus.RabbitMQ" Version="*" />
@@ -60,56 +62,6 @@
         <EmbeddedResource Remove="U.SmartStoreAdapter.Domain\**" />
         <EmbeddedResource Remove="U.SmartStoreAdapter.IntegrationTests\**" />
         <EmbeddedResource Remove="U.SmartStoreAdapter.Persistance\**" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\obj\project.assets.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\obj\project.packagespec.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Api\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.Api.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Api\obj\project.assets.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Api\obj\project.packagespec.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Api\obj\U.SmartStoreAdapter.Api.csproj.nuget.dgspec.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Application\bin\Debug\netcoreapp2.2\DbIntegration.Application.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Application\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.Application.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Application\bin\Release\netcoreapp2.2\U.SmartStoreAdapter.Application.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Application\obj\project.assets.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Application\obj\project.packagespec.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Application\obj\U.SmartStoreAdapter.Application.csproj.nuget.dgspec.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Domain\bin\Debug\netcoreapp2.2\DbIntegration.Domain.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Domain\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.Domain.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Domain\bin\Release\netcoreapp2.2\U.SmartStoreAdapter.Domain.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Domain\obj\DbIntegration.Domain.csproj.nuget.dgspec.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Domain\obj\project.assets.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Domain\obj\project.packagespec.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Domain\obj\U.SmartStoreAdapter.Domain.csproj.nuget.dgspec.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.dll.config" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\appsettings.docker.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\appsettings.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\DbIntegration.Application.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\DbIntegration.Domain.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\DbIntegration.Test.Integration.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\DbIntegration.Test.Integration.runtimeconfig.dev.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\DbIntegration.Test.Integration.runtimeconfig.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\DbIntegrationWebApi.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\SmartStore.Persistance.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\U.Common.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\U.EventBus.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\U.FetchService.Api.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\U.IntegrationEventLog.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.Api.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.Application.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.Domain.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.IntegrationTests.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.IntegrationTests.runtimeconfig.dev.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.IntegrationTests.runtimeconfig.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.IntegrationTests\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.Persistance.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Persistance\bin\Debug\netcoreapp2.2\SmartStore.Persistance.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Persistance\bin\Debug\netcoreapp2.2\SmartStore.Persistance.runtimeconfig.dev.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Persistance\bin\Debug\netcoreapp2.2\SmartStore.Persistance.runtimeconfig.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Persistance\bin\Debug\netcoreapp2.2\U.SmartStoreAdapter.Persistance.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Persistance\bin\Release\netcoreapp2.2\U.SmartStoreAdapter.Persistance.deps.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Persistance\obj\project.assets.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Persistance\obj\project.packagespec.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Persistance\obj\SmartStore.Persistance.csproj.nuget.dgspec.json" />
-        <_ContentIncludedByDefault Remove="U.SmartStoreAdapter.Persistance\obj\U.SmartStoreAdapter.Persistance.csproj.nuget.dgspec.json" />
         <Content Update="nuget.develop.config">
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>

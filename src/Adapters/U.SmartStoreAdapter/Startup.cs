@@ -5,15 +5,15 @@ using AutoMapper;
 using Consul;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SmartStore.Persistance.Context;
-using U.Common.Consul;
-using U.Common.Database;
-using U.Common.Mvc;
-using U.Common.Swagger;
+using U.Common.NetCore.Consul;
+using U.Common.NetCore.Database;
+using U.Common.NetCore.Mvc;
+using U.Common.NetCore.Swagger;
 using U.SmartStoreAdapter.Application.Common.MappingProfiles;
 using U.SmartStoreAdapter.Application.Infrastructure;
 using U.SmartStoreAdapter.Application.Products;
@@ -71,7 +71,7 @@ namespace U.SmartStoreAdapter
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP transaction pipeline.
-        public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IConsulClient client)
+        public void Configure(IApplicationBuilder app, IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
             app.UsePathBase(Configuration, _logger).Item1
                 .UseSwagger()
@@ -82,7 +82,11 @@ namespace U.SmartStoreAdapter
                 }).AddExceptionMiddleWare()
                 .UseServiceId()
                 .UseForwardedHeaders()
-                .UseMvc();
+                .UseRouting()
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
 
             Seed(app);
             var consulServiceId = app.UseConsulServiceDiscovery();
