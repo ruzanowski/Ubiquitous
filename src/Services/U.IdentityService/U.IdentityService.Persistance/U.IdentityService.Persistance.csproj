@@ -11,10 +11,19 @@
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.Common.NetCore" Version="*" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\U.IdentityService.Domain\U.IdentityService.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations\Identity" />
     </ItemGroup>
 
 </Project>

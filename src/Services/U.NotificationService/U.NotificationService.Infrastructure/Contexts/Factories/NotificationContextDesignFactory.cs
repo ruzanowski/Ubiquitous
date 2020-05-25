@@ -7,7 +7,7 @@ namespace U.NotificationService.Infrastructure.Contexts.Factories
     {
         public NotificationContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = ContextDesigner.CreateDbContextOptionsBuilder<NotificationContext>("../../../../U.NotificationService");
+            var optionsBuilder = ContextDesigner.CreateDbContextOptionsBuilder<NotificationContext>("../../../../");
 
             return new NotificationContext(optionsBuilder.Options);
         }

@@ -62,7 +62,7 @@ services:
       ASPNETCORE_URLS: http://+:5200
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
     volumes:
-      - '${ABSOLUTE_PATH}/Services/U.FetchService/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/Jobs/U.FetchService/appsettings.docker.json:/app/appsettings.docker.json:ro'
     depends_on:
       - u.smartstore-adapter
     restart: on-failure
@@ -126,7 +126,7 @@ services:
     ports:
       - 5700:5700
     volumes:
-      - '${ABSOLUTE_PATH}/Services/U.GeneratorService/appsettings.docker.json:/app/appsettings.docker.json:ro'
+      - '${ABSOLUTE_PATH}/Jobs/U.GeneratorService/appsettings.docker.json:/app/appsettings.docker.json:ro'
     environment:
       ASPNETCORE_URLS: http://+:5700
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}

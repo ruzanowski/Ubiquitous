@@ -1,4 +1,4 @@
-image: mcr.microsoft.com/dotnet/core/sdk:2.2.301
+image: mcr.microsoft.com/dotnet/core/sdk:3.1.300
 
 stages:
   - build
@@ -6,6 +6,7 @@ stages:
   - test
   - performance
   - myget_common
+  - myget_common_netcore
   - myget_eventbus
   - myget_eventbus_rabbitmq
   - myget_integrationeventlog
@@ -23,7 +24,7 @@ angular_build:
   image: node:latest
   stage: build
   before_script:
-    - 'cd src/U.WebApp.Angular'
+    - 'cd src/Web/U.WebApp.Angular'
   script:
     - npm install @angular/cli
     - npm run ng -- build --prod
@@ -60,7 +61,24 @@ code_quality:
 MyGet_Common:
   stage: myget_common
   before_script:
-    - 'cd src/BuildingBlocks/Common'
+    - 'cd src/BuildingBlocks/U.Common'
+    - chmod -R a+x ./dotnet-restore.sh
+    - chmod -R a+x ./dotnet-build.sh
+    - chmod -R a+x ./dotnet-publish.sh
+    - chmod -R a+x ./dotnet-nuget-push.sh
+  script:
+    - ./dotnet-restore.sh
+    - ./dotnet-build.sh
+    - ./dotnet-publish.sh
+    - ./dotnet-nuget-push.sh
+  only:
+    - master
+    - develop
+
+MyGet_Common_NetCore:
+  stage: myget_common_netcore
+  before_script:
+    - 'cd src/BuildingBlocks/U.Common.NetCore'
     - chmod -R a+x ./dotnet-restore.sh
     - chmod -R a+x ./dotnet-build.sh
     - chmod -R a+x ./dotnet-publish.sh
@@ -131,7 +149,7 @@ deploy_fetchservice:
   services:
     - docker:17.06.0-ce-dind
   before_script:
-    - 'cd src/Services/U.FetchService'
+    - 'cd src/Jobs/U.FetchService'
     - chmod -R a+x ./docker-publish.sh
   script:
     - ./docker-publish.sh
@@ -145,7 +163,7 @@ deploy_generatorservice:
   services:
     - docker:17.06.0-ce-dind
   before_script:
-    - 'cd src/Services/U.GeneratorService'
+    - 'cd src/Jobs/U.GeneratorService'
     - chmod -R a+x ./docker-publish.sh
   script:
     - ./docker-publish.sh

@@ -18,13 +18,13 @@ namespace U.SubscriptionService.Persistance.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
-                    Preferences_NumberOfWelcomeMessages = table.Column<int>(nullable: false),
-                    Preferences_DoNotNotifyAnyoneAboutMyActivity = table.Column<bool>(nullable: false),
-                    Preferences_OrderByCreationTimeDescending = table.Column<bool>(nullable: false),
-                    Preferences_OrderByImportancyDescending = table.Column<bool>(nullable: false),
-                    Preferences_SeeReadNotifications = table.Column<bool>(nullable: false),
-                    Preferences_SeeUnreadNotifications = table.Column<bool>(nullable: false),
-                    Preferences_MinimalImportancyLevel = table.Column<int>(nullable: false)
+                    Preferences_NumberOfWelcomeMessages = table.Column<int>(nullable: true),
+                    Preferences_DoNotNotifyAnyoneAboutMyActivity = table.Column<bool>(nullable: true),
+                    Preferences_OrderByCreationTimeDescending = table.Column<bool>(nullable: true),
+                    Preferences_OrderByImportancyDescending = table.Column<bool>(nullable: true),
+                    Preferences_SeeReadNotifications = table.Column<bool>(nullable: true),
+                    Preferences_SeeUnreadNotifications = table.Column<bool>(nullable: true),
+                    Preferences_MinimalImportancyLevel = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -36,7 +36,7 @@ namespace U.SubscriptionService.Persistance.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Allowed = table.Column<int>(nullable: false),
                     UserSubscriptionId = table.Column<Guid>(nullable: true)
                 },

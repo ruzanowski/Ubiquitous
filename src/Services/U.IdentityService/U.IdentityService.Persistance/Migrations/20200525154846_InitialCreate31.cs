@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace U.IdentityService.Persistance.Migrations.Identity
+namespace U.IdentityService.Persistance.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialCreate31 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,6 +28,7 @@ namespace U.IdentityService.Persistance.Migrations.Identity
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Email = table.Column<string>(nullable: true),
+                    Nickname = table.Column<string>(nullable: true),
                     Role = table.Column<string>(nullable: true),
                     PasswordHash = table.Column<string>(nullable: true),
                     CreatedAt = table.Column<DateTime>(nullable: false),

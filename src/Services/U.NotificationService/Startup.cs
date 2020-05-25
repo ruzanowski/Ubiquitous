@@ -81,7 +81,9 @@ namespace U.NotificationService
 
             app.UseJwtTokenValidator();
 
-            app.UseEndpoints(endpoints =>
+            app
+                .UseRouting()
+                .UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<BaseHub>("/signalr");

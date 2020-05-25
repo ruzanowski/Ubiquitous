@@ -10,31 +10,37 @@ using U.NotificationService.Infrastructure.Contexts;
 namespace U.NotificationService.Infrastructure.Migrations
 {
     [DbContext(typeof(NotificationContext))]
-    [Migration("20191209000337_InitialCreate2")]
+    [Migration("20200525163909_InitialCreate2")]
     partial class InitialCreate2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
+                .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("U.NotificationService.Domain.Entities.Confirmation", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
-                    b.Property<DateTime>("ConfirmationDate");
+                    b.Property<DateTime>("ConfirmationDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("ConfirmationType");
+                    b.Property<int>("ConfirmationType")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("DeviceReceivedId");
+                    b.Property<Guid>("DeviceReceivedId")
+                        .HasColumnType("uuid");
 
-                    b.Property<Guid>("NotificationId");
+                    b.Property<Guid>("NotificationId")
+                        .HasColumnType("uuid");
 
-                    b.Property<Guid>("User");
+                    b.Property<Guid>("User")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -48,18 +54,24 @@ namespace U.NotificationService.Infrastructure.Migrations
             modelBuilder.Entity("U.NotificationService.Domain.Entities.Notification", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CreationDate");
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("IntegrationEvent")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<Guid>("IntegrationEventId");
+                    b.Property<Guid>("IntegrationEventId")
+                        .HasColumnType("uuid");
 
-                    b.Property<int>("IntegrationEventType");
+                    b.Property<int>("IntegrationEventType")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("TimesSent");
+                    b.Property<int>("TimesSent")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -69,13 +81,18 @@ namespace U.NotificationService.Infrastructure.Migrations
             modelBuilder.Entity("U.NotificationService.Domain.Entities.UserBasedEventImportancy", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("Importancy");
+                    b.Property<int>("Importancy")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid?>("NotificationId");
+                    b.Property<Guid?>("NotificationId")
+                        .HasColumnType("uuid");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -86,15 +103,16 @@ namespace U.NotificationService.Infrastructure.Migrations
 
             modelBuilder.Entity("U.NotificationService.Domain.Entities.Confirmation", b =>
                 {
-                    b.HasOne("U.NotificationService.Domain.Entities.Notification")
+                    b.HasOne("U.NotificationService.Domain.Entities.Notification", null)
                         .WithMany("Confirmations")
                         .HasForeignKey("NotificationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("U.NotificationService.Domain.Entities.UserBasedEventImportancy", b =>
                 {
-                    b.HasOne("U.NotificationService.Domain.Entities.Notification")
+                    b.HasOne("U.NotificationService.Domain.Entities.Notification", null)
                         .WithMany("Importancies")
                         .HasForeignKey("NotificationId");
                 });

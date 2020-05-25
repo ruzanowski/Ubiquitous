@@ -17,6 +17,7 @@
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.Common.NetCore" Version="*" />
         <PackageReference Include="Ubiquitous.EventBus" Version="*" />
         <PackageReference Include="Ubiquitous.EventBus.RabbitMQ" Version="*" />
     </ItemGroup>

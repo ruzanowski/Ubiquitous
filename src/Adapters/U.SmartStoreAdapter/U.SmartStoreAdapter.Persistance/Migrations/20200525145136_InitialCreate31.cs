@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace SmartStore.Persistance.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate31 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace SmartStore.Persistance.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(maxLength: 400, nullable: true),
                     Description = table.Column<string>(nullable: true),
                     ParentCategoryId = table.Column<int>(nullable: false),
@@ -31,7 +31,7 @@ namespace SmartStore.Persistance.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(maxLength: 400, nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Published = table.Column<bool>(nullable: false),
@@ -48,7 +48,7 @@ namespace SmartStore.Persistance.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(maxLength: 400, nullable: true),
                     Description = table.Column<string>(nullable: true),
                     BarCode = table.Column<string>(maxLength: 400, nullable: true),

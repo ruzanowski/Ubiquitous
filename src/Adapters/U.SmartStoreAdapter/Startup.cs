@@ -82,6 +82,7 @@ namespace U.SmartStoreAdapter
                 }).AddExceptionMiddleWare()
                 .UseServiceId()
                 .UseForwardedHeaders()
+                .UseRouting()
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();

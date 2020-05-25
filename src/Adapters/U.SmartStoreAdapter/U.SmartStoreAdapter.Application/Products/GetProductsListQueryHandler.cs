@@ -30,6 +30,7 @@ namespace U.SmartStoreAdapter.Application.Products
             var products = _context.Set<Product>()
                 .Include(x => x.Category)
                 .Include(x => x.Manufacturer)
+                .AsNoTracking()
                 .AsQueryable();
 
             products = new ProductsQueryBuilder(products)

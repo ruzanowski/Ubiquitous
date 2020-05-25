@@ -60,7 +60,6 @@ namespace U.ProductService.Persistance.Repositories
             }
 
             var manufacturers = await _context.Manufacturers
-                .Include(x => x.Pictures)
                 .ToListAsync();
 
             if (manufacturers != null && manufacturers.Any())
@@ -81,7 +80,10 @@ namespace U.ProductService.Persistance.Repositories
             }
 
             var manufacturer =
-                await _context.Manufacturers.FirstOrDefaultAsync(x => x.UniqueClientId.Equals(uniqueClientId));
+                await _context
+                    .Manufacturers
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.UniqueClientId.Equals(uniqueClientId));
 
             if (manufacturer != null)
             {

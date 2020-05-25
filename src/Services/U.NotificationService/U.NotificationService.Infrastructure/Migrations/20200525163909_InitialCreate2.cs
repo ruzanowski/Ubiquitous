@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace U.NotificationService.Infrastructure.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialCreate2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,7 +20,8 @@ namespace U.NotificationService.Infrastructure.Migrations
                     CreationDate = table.Column<DateTime>(nullable: false),
                     IntegrationEventId = table.Column<Guid>(nullable: false),
                     IntegrationEvent = table.Column<string>(nullable: false),
-                    IntegrationEventType = table.Column<int>(nullable: false)
+                    IntegrationEventType = table.Column<int>(nullable: false),
+                    TimesSent = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,7 +33,7 @@ namespace U.NotificationService.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Importancy = table.Column<int>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
                     NotificationId = table.Column<Guid>(nullable: true)

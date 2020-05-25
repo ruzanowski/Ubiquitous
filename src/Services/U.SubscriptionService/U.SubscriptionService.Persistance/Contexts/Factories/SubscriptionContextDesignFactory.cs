@@ -7,7 +7,7 @@ namespace U.SubscriptionService.Persistance.Contexts.Factories
     {
         public SubscriptionContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = ContextDesigner.CreateDbContextOptionsBuilder<SubscriptionContext>("../../../U.SubscriptionService");
+            var optionsBuilder = ContextDesigner.CreateDbContextOptionsBuilder<SubscriptionContext>("../../../../");
 
             return new SubscriptionContext(optionsBuilder.Options);
         }

@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductFetchService", "src\Services\U.FetchService\U.FetchService.csproj", "{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductFetchService", "src\Jobs\U.FetchService\U.FetchService.csproj", "{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmartStore", "src\Adapter.SmartStore", "{F6FEBE1F-9974-4282-8497-97CB808E65CB}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fetch", "src\Services\U.FetchService", "{2F31A504-325D-475E-9B94-5BA9D525A2AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.SmartStoreAdapter.Application", "src\Adapters\U.SmartStoreAdapter\U.SmartStoreAdapter.Application\U.SmartStoreAdapter.Application.csproj", "{F14867ED-37E5-4F19-924A-42766C65D87C}"
 EndProject
@@ -51,11 +49,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.IntegrationTests", "src\Services\U.ProductService\U.ProductService.IntegrationTests\U.ProductService.IntegrationTests.csproj", "{4A1E232F-0F95-476E-A8C9-8587E307A5FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.WebApp.Angular", "src\U.WebApp.Angular\U.WebApp.Angular.csproj", "{16CE2424-2614-482C-89D3-F4212DD59A97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.WebApp.Angular", "src\Web\U.WebApp.Angular\U.WebApp.Angular.csproj", "{16CE2424-2614-482C-89D3-F4212DD59A97}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generator", "Generator", "{AB4BB1BC-D658-42D0-8B65-74FCBA24EC09}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.GeneratorService", "src\Services\U.GeneratorService\U.GeneratorService.csproj", "{15D78CF9-F6DB-465C-AEFE-D94E056ADE4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.GeneratorService", "src\Jobs\U.GeneratorService\U.GeneratorService.csproj", "{15D78CF9-F6DB-465C-AEFE-D94E056ADE4A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{31C78702-0DC3-4A05-AB00-B00FE55776F0}"
 EndProject
@@ -120,13 +116,13 @@ EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ELK", "ELK", "{33842299-9FA9-4243-966B-F0537547CE3B}"
 ProjectSection(SolutionItems) = preProject
-	kibana\config\kibana.yml = kibana\config\kibana.yml
-	kibana\Dockerfile = kibana\Dockerfile
-	logstash\config\logstash.yml = logstash\config\logstash.yml
-	logstash\Dockerfile = logstash\Dockerfile
-	logstash\pipeline\logstash.conf = logstash\pipeline\logstash.conf
-	elasticsearch\config\elasticsearch.yml = elasticsearch\config\elasticsearch.yml
-	elasticsearch\Dockerfile = elasticsearch\Dockerfile
+	elk\elasticsearch\config\elasticsearch.yml = elk\elasticsearch\config\elasticsearch.yml
+	elk\elasticsearch\Dockerfile = elk\elasticsearch\Dockerfile
+	elk\kibana\config\kibana.yml = elk\kibana\config\kibana.yml
+	elk\kibana\Dockerfile = elk\kibana\Dockerfile
+	elk\logstash\config\logstash.yml = elk\logstash\config\logstash.yml
+	elk\logstash\Dockerfile = elk\logstash\Dockerfile
+	elk\logstash\pipeline\logstash.conf = elk\logstash\pipeline\logstash.conf
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{75552B0A-F300-4444-ACEB-04CCD8D1556A}"
@@ -146,23 +142,25 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.NotificationService.Perio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{995C1EDB-FAF8-46A1-95BB-D65E93F02268}"
 ProjectSection(SolutionItems) = preProject
-	img\adapters-v.0.3-min.png = img\adapters-v.0.3-min.png
-	img\bell.gif = img\bell.gif
-	img\Consul-min.png = img\Consul-min.png
-	img\containers-v.0.2-min.png = img\containers-v.0.2-min.png
-	img\containers-v.0.3-min.png = img\containers-v.0.3-min.png
-	img\dashboard-calls-min.png = img\dashboard-calls-min.png
-	img\Fabio-LB-min.png = img\Fabio-LB-min.png
-	img\Portainer-min.png = img\Portainer-min.png
-	img\Products-min.png = img\Products-min.png
-	img\RabbitMQ-min.PNG = img\RabbitMQ-min.PNG
-	img\signalr-min.png = img\signalr-min.png
-	img\Subscription-min.png = img\Subscription-min.png
-	img\Subscription2-min.png = img\Subscription2-min.png
-	img\ubiquitous-current-state-min.png = img\ubiquitous-current-state-min.png
+	docs\img\adapters-v.0.3-min.png = docs\img\adapters-v.0.3-min.png
+	docs\img\bell.gif = docs\img\bell.gif
+	docs\img\Consul-min.png = docs\img\Consul-min.png
+	docs\img\containers-v.0.2-min.png = docs\img\containers-v.0.2-min.png
+	docs\img\containers-v.0.3-min.png = docs\img\containers-v.0.3-min.png
+	docs\img\dashboard-calls-min.png = docs\img\dashboard-calls-min.png
+	docs\img\Fabio-LB-min.png = docs\img\Fabio-LB-min.png
+	docs\img\Portainer-min.png = docs\img\Portainer-min.png
+	docs\img\Products-min.png = docs\img\Products-min.png
+	docs\img\RabbitMQ-min.PNG = docs\img\RabbitMQ-min.PNG
+	docs\img\signalr-min.png = docs\img\signalr-min.png
+	docs\img\Subscription-min.png = docs\img\Subscription-min.png
+	docs\img\Subscription2-min.png = docs\img\Subscription2-min.png
+	docs\img\ubiquitous-current-state-min.png = docs\img\ubiquitous-current-state-min.png
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.Common.NetCore", "src\BuildingBlocks\U.Common.NetCore\U.Common.NetCore.csproj", "{4F812F86-754D-4C12-AC92-9955D37969F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jobs", "Jobs", "{F6684E37-9D8D-4703-AB43-8C2F2BEC4A01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -304,7 +302,6 @@ Global
 		{4F812F86-754D-4C12-AC92-9955D37969F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8} = {2F31A504-325D-475E-9B94-5BA9D525A2AA}
 		{F14867ED-37E5-4F19-924A-42766C65D87C} = {F6FEBE1F-9974-4282-8497-97CB808E65CB}
 		{C69F02D4-2798-4039-86B8-D4A28488546E} = {F6FEBE1F-9974-4282-8497-97CB808E65CB}
 		{13B6AD0E-533B-4C72-99B7-4107F3B0DC97} = {F6FEBE1F-9974-4282-8497-97CB808E65CB}
@@ -318,7 +315,6 @@ Global
 		{610959EC-7BCC-4726-8B72-A677929DA09B} = {AD753C1A-0D4C-4BC5-8793-FF2795F0F49E}
 		{5034E5F2-6AD5-4D39-895D-CF62FBB97C8A} = {AD753C1A-0D4C-4BC5-8793-FF2795F0F49E}
 		{50F973C1-F7D9-438F-BA45-9C1BB84B8346} = {20AE96FC-F1A7-4CA8-90F8-FEB6EBB6D11A}
-		{15D78CF9-F6DB-465C-AEFE-D94E056ADE4A} = {AB4BB1BC-D658-42D0-8B65-74FCBA24EC09}
 		{974BAABC-4287-4774-A16C-4BC2D416FC89} = {31C78702-0DC3-4A05-AB00-B00FE55776F0}
 		{5FFE5D8A-F3C4-4A8C-953B-334205210102} = {31C78702-0DC3-4A05-AB00-B00FE55776F0}
 		{D32B4294-FEB4-4352-BCF9-57859F15BE0E} = {31C78702-0DC3-4A05-AB00-B00FE55776F0}
@@ -332,8 +328,6 @@ Global
 		{8C530FB6-D2E7-470A-98EF-CAF3BE962AE5} = {D240C299-E049-47BF-8BAC-20E1DB6295B6}
 		{CE8191E1-9C55-40C4-9823-D3F385590F27} = {D240C299-E049-47BF-8BAC-20E1DB6295B6}
 		{D240C299-E049-47BF-8BAC-20E1DB6295B6} = {E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC}
-		{AB4BB1BC-D658-42D0-8B65-74FCBA24EC09} = {E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC}
-		{2F31A504-325D-475E-9B94-5BA9D525A2AA} = {E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC}
 		{51D661E6-65C4-4D1F-977B-1B9281DEAE87} = {E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC}
 		{20AE96FC-F1A7-4CA8-90F8-FEB6EBB6D11A} = {E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC}
 		{31C78702-0DC3-4A05-AB00-B00FE55776F0} = {E8B7F3DE-8A42-4AA2-8F05-0EE4FF2C26FC}
@@ -355,5 +349,8 @@ Global
 		{16CE2424-2614-482C-89D3-F4212DD59A97} = {156CA4CF-7690-4597-91B9-1BFDBEE196F0}
 		{995C1EDB-FAF8-46A1-95BB-D65E93F02268} = {75552B0A-F300-4444-ACEB-04CCD8D1556A}
 		{4F812F86-754D-4C12-AC92-9955D37969F0} = {AD753C1A-0D4C-4BC5-8793-FF2795F0F49E}
+		{F6684E37-9D8D-4703-AB43-8C2F2BEC4A01} = {37E79B3B-FDE5-446E-9B91-D42B174A97C9}
+		{15D78CF9-F6DB-465C-AEFE-D94E056ADE4A} = {F6684E37-9D8D-4703-AB43-8C2F2BEC4A01}
+		{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8} = {F6684E37-9D8D-4703-AB43-8C2F2BEC4A01}
 	EndGlobalSection
 EndGlobal

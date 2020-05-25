@@ -62,6 +62,7 @@ namespace U.IdentityService
                 .UseForwardedHeaders()
                 .UseAuthentication()
                 .UseJwtTokenValidator()
+                .UseRouting()
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();

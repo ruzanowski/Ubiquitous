@@ -7,7 +7,7 @@ namespace U.IdentityService.Persistance.Contexts.Factories
     {
         public IdentityContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = ContextDesigner.CreateDbContextOptionsBuilder<IdentityContext>("../../../U.IdentityService");
+            var optionsBuilder = ContextDesigner.CreateDbContextOptionsBuilder<IdentityContext>("../../../..");
 
             return new IdentityContext(optionsBuilder.Options);
         }

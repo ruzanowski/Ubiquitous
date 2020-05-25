@@ -21,6 +21,7 @@
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.Common.NetCore" Version="*" />
     </ItemGroup>
 
     <ItemGroup>

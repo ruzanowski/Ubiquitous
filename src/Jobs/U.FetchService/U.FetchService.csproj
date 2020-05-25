@@ -5,6 +5,7 @@
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
         <DisableImplicitAspNetCoreAnalyzers>true</DisableImplicitAspNetCoreAnalyzers>
+        <IsPackable>false</IsPackable>
     </PropertyGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">
@@ -16,6 +17,7 @@
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.Common.NetCore" Version="*" />
         <PackageReference Include="Ubiquitous.EventBus" Version="*" />
         <PackageReference Include="Ubiquitous.EventBus.RabbitMQ" Version="*" />
     </ItemGroup>

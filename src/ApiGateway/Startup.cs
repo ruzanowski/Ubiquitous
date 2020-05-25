@@ -40,18 +40,18 @@ namespace U.ApiGateway
         public void Configure(IApplicationBuilder app,
             IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            app.UseCors("CorsPolicy");
-            app.UseServiceId();
-            app.UseAuthentication();
-            app.UseJwtTokenValidator();
-            app.UseForwardedHeaders();
-            app.UseWebSockets();
-
-            app.UseOcelot().Wait();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseCors("CorsPolicy")
+                .UseServiceId()
+                .UseAuthentication()
+                .UseJwtTokenValidator()
+                .UseForwardedHeaders()
+                .UseWebSockets()
+                .UseRouting().UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                })
+                .UseOcelot()
+                .Wait();
 
             var consulServiceId = app.UseConsulServiceDiscovery();
 
