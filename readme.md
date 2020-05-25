@@ -115,7 +115,7 @@ docker-compose -f docker-compose-services.yml up
 1.3.5. You can manage all containers from portainer dashboard or through Docker CLI.
 
 <p align="center">
-   <img alt="Portainer dashboard" src="img/Portainer-min.png" />
+   <img alt="Portainer dashboard" src="docs/img/Portainer-min.png" />
 </p>
 
 </details>
@@ -245,7 +245,7 @@ Ubiquitous communicates in two ways, synchronous (HTTP) and asynchronous (WebSoc
 UI Dashboard statistics are pull-based calls. Each call returns definite data, sourcing charts, either dashboard cards.
 
 <p align="center">
-   <img alt="Dashboard composition of synchronous calls" src="img/dashboard-calls-min.png" />
+   <img alt="Dashboard composition of synchronous calls" src="docs/img/dashboard-calls-min.png" />
 </p>
 
 ### 4.2 WebSocket (SignalR)
@@ -255,7 +255,7 @@ On the right, notification bar is websocket-based. Each notification that falls 
 Every command is pushed to the server via web-socket. Any signalr connectivity failure or 401 http call **results with loggout** and SignalR connection abort.
 
 <p align="center">
-   <img alt="Dashboard composition of synchronous calls" src="img/signalr-min.png" />
+   <img alt="Dashboard composition of synchronous calls" src="docs/img/signalr-min.png" />
 </p>
 
 ### 4.3 RabbitMQ
