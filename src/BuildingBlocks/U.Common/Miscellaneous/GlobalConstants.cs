@@ -1,4 +1,4 @@
-namespace U.Common
+namespace U.Common.Miscellaneous
 {
     public static class GlobalConstants
     {

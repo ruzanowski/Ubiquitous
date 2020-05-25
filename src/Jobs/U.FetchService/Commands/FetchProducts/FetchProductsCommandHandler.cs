@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using U.Common;
+using U.Common.Miscellaneous;
 using U.EventBus.Abstractions;
 using U.EventBus.Events.Fetch;
 using U.FetchService.Exceptions;
