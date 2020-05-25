@@ -30,7 +30,7 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<Manufacturer> GetAsync(Guid manufacturerId)
         {
-            var cached = _cachingRepository.GetCachedOrDefault<Manufacturer>(manufacturerId.ToString());
+            var cached = _cachingRepository.Get<Manufacturer>(manufacturerId.ToString());
 
             if (cached != null)
             {
@@ -52,7 +52,7 @@ namespace U.ProductService.Persistance.Repositories
         public async Task<IList<Manufacturer>> GetManyAsync()
         {
             var slug = "allManufacturers";
-            var cached = _cachingRepository.GetCachedOrDefault<List<Manufacturer>>(slug);
+            var cached = _cachingRepository.Get<List<Manufacturer>>(slug);
 
             if (cached != null)
             {
@@ -73,7 +73,7 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<Manufacturer> GetUniqueClientIdAsync(string uniqueClientId)
         {
-            var cached = _cachingRepository.GetCachedOrDefault<Manufacturer>(uniqueClientId);
+            var cached = _cachingRepository.Get<Manufacturer>(uniqueClientId);
 
             if (cached != null)
             {
@@ -93,7 +93,7 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<bool> AnyAsync(Guid id)
         {
-            var cached = _cachingRepository.GetCachedOrDefault<Manufacturer>($"ManufacturerAsNoTracking_{id}");
+            var cached = _cachingRepository.Get<Manufacturer>($"Manufacturer_AsNoTracking_{id}");
 
             if (cached != null)
             {
@@ -114,7 +114,7 @@ namespace U.ProductService.Persistance.Repositories
 
         public void Update(Product product)
         {
-            _context.Entry(product).State = EntityState.Modified;
+            _context.SingleUpdateAsync(product);
         }
     }
 }

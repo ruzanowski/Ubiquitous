@@ -33,7 +33,7 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<bool> AnyAsync(Guid id)
         {
-            var cached = _cachingRepository.GetCachedOrDefault<Category>($"CategoryAsNoTracking_{id}");
+            var cached = _cachingRepository.Get<Category>($"CategoryAsNoTracking_{id}");
 
             if (cached != null)
             {
@@ -55,7 +55,7 @@ namespace U.ProductService.Persistance.Repositories
         public async Task<IList<Category>> GetManyAsync()
         {
             var slug = "allCategories";
-            var cached = _cachingRepository.GetCachedOrDefault<IList<Category>>(slug);
+            var cached = _cachingRepository.Get<IList<Category>>(slug);
 
             if (cached != null)
             {

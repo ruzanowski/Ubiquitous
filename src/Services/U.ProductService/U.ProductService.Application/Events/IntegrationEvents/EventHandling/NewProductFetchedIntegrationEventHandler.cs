@@ -29,7 +29,7 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
 
             if (product is null)
             {
-                var create = new CreateProductCommand(@event.Name,
+                await _mediator.Send(new CreateProductCommand(@event.Name,
                     @event.BarCode,
                     @event.Price,
                     @event.Description,
@@ -45,13 +45,11 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
                         DuplicationValidated = true,
                         SourceName = @event.ExternalSourceName,
                         SourceId = @event.Id
-                    });
-
-                await _mediator.Send(create);
+                    }));
             }
             else
             {
-                var update = new UpdateProductCommand(
+                await _mediator.Send(new UpdateProductCommand(
                     product.Id,
                     @event.Name,
                     @event.Price,
@@ -63,9 +61,7 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
                         Height = @event.Height,
                         Weight = @event.Weight
                     }
-                );
-
-                await _mediator.Send(update);
+                ));
             }
         }
     }

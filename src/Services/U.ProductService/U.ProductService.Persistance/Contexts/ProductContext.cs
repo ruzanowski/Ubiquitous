@@ -69,17 +69,6 @@ namespace U.ProductService.Persistance.Contexts
             return true;
         }
 
-        public async Task<bool> SaveBatchEntitiesAsync(CancellationToken cancellationToken = default)
-        {
-            await _mediator.DispatchDomainEventsAsync(this);
-
-            ChangeTracker.DetectChanges();
-            OnBeforeSaving();
-            await SaveChangesAsync(cancellationToken);
-
-            return true;
-        }
-
         private void OnBeforeSaving()
         {
             var entries = ChangeTracker.Entries();

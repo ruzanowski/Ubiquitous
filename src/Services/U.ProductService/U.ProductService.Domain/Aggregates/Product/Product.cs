@@ -107,18 +107,6 @@ namespace U.ProductService.Domain
             var @event = new ProductPictureAddedDomainEvent(Id, picture.Id, seoFilename);
 
             AddDomainEvent(@event);
-
-            var propertiesChangedDomainEvent = new ProductPropertiesChangedDomainEvent(Id, ManufacturerId,
-                new List<Variance>
-                {
-                    new Variance
-                    {
-                        Prop = "Picture",
-                        ValueA = null,
-                        ValueB = picture
-                    }
-                });
-            AddDomainEvent(propertiesChangedDomainEvent);
         }
 
         public void DeletePicture(Guid pictureId)
@@ -133,18 +121,6 @@ namespace U.ProductService.Domain
             var @event = new ProductPictureRemovedDomainEvent(Id, picture.Id);
 
             AddDomainEvent(@event);
-
-            var propertiesChangedDomainEvent = new ProductPropertiesChangedDomainEvent(Id, ManufacturerId,
-                new List<Variance>
-                {
-                    new Variance
-                    {
-                        Prop = "Picture",
-                        ValueA = picture,
-                        ValueB = null
-                    }
-                });
-            AddDomainEvent(propertiesChangedDomainEvent);
         }
 
         public void ChangePrice(decimal price)
@@ -162,20 +138,6 @@ namespace U.ProductService.Domain
             var @event = new ProductPriceChangedDomainEvent(Id, previousPrice, Price);
 
             AddDomainEvent(@event);
-
-            var propertiesChangedDomainEvent = new ProductPropertiesChangedDomainEvent(Id, ManufacturerId,
-                new List<Variance>
-                {
-                    new Variance()
-                    {
-                        Prop = "Price",
-                        ValueA = previousPrice,
-                        ValueB = price
-                    }
-                });
-            AddDomainEvent(propertiesChangedDomainEvent);
-
-            // add new update saying event has been raised after last up-to-date update
         }
 
         public void Publish()
@@ -199,46 +161,53 @@ namespace U.ProductService.Domain
             AddDomainEvent(@event);
         }
 
-        public void UpdateProduct(IMapper mapper, string name, string description, decimal price, Dimensions dimensions,
+        public void UpdateProduct(IMapper mapper,
+            string name,
+            string description,
+            decimal price,
+            Dimensions dimensions,
             DateTime updateDispatchedFromOrigin)
         {
-            if (!LastUpdatedAt.HasValue || LastUpdatedAt.Value >= updateDispatchedFromOrigin) return;
+            if (!LastUpdatedAt.HasValue || LastUpdatedAt.Value >= updateDispatchedFromOrigin)
+                return;
 
-            var variances = GetVariances(mapper);
-            if (variances.Any())
-            {
-                UpdateProperties(this, name, description, price, dimensions);
+            var isAllEqual = AllEqual(name, description, price, dimensions);
 
-                var @event = new ProductPropertiesChangedDomainEvent(Id, ManufacturerId, variances);
-                AddDomainEvent(@event);
+            if (isAllEqual)
+                return;
 
-                // add new update saying event has been raised after last up-to-date update
-            }
+            UpdateProperties(name, description, price, dimensions);
+
+            var @event = new ProductPropertiesChangedDomainEvent(Id, ManufacturerId, name, price, description, dimensions);
+            AddDomainEvent(@event);
         }
 
+        private bool AllEqual(string name,
+            string description,
+            decimal price,
+            Dimensions dimensions) =>
+            Name.Equals(name) &&
+            Description.Equals(description) &&
+            Price.Equals(price) &&
+            Dimensions.Height.Equals(dimensions.Height) &&
+            Dimensions.Weight.Equals(dimensions.Weight) &&
+            Dimensions.Width.Equals(dimensions.Width) &&
+            Dimensions.Length.Equals(dimensions.Length);
 
-        private void UpdateProperties(Product product, string name, string description, decimal price,
+        private void UpdateProperties(string name,
+            string description,
+            decimal price,
             Dimensions dimensions)
         {
-            product.Name = name;
-            product.Description = description;
-            product.Price = price;
-            product.Dimensions.Height = dimensions.Height;
-            product.Dimensions.Length = dimensions.Length;
-            product.Dimensions.Weight = dimensions.Weight;
-            product.Dimensions.Width = dimensions.Width;
+            Name = name;
+            Description = description;
+            Price = price;
+            Dimensions = dimensions;
         }
 
         public void ChangeCategory(Guid newCategoryId)
         {
             CategoryId = newCategoryId;
-        }
-
-        private IList<Variance> GetVariances(IMapper mapper)
-        {
-            var deepCopyProduct = mapper.Map<Product>(this);
-            var variances = this.ExamineProductVariances(deepCopyProduct);
-            return variances;
         }
 
         public bool Equals(Product other)

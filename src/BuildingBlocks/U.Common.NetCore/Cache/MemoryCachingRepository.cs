@@ -17,7 +17,7 @@ namespace U.Common.NetCore.Cache
             return uniqueId;
         }
 
-        public T GetCachedOrDefault<T>(string id) where T : class
+        public T Get<T>(string id) where T : class
         {
             var cachedKey = GetCacheKey(id);
             _memoryCache.TryGetValue(cachedKey, out T cachedValue);

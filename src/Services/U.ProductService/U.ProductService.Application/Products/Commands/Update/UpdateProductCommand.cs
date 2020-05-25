@@ -13,7 +13,6 @@ namespace U.ProductService.Application.Products.Commands.Update
         public decimal Price { get; set; }
         public string Description { get; set; }
         public DimensionsDto Dimensions { get; set; }
-        public Product Product { get; set; }
 
         public UpdateProductCommand()
         {

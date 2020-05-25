@@ -16,25 +16,26 @@ namespace U.ProductService.Persistance.Repositories
 
         public async Task<Product> AddAsync(Product product)
         {
-            var entity = (await _context.Products.AddAsync(product)).Entity;
+            await _context.Products.SingleInsertAsync(product);
             _context.ChangeTracker.AutoDetectChangesEnabled = false;
 
-            return entity;
+            return product;
         }
 
         public async Task<Product> GetAsync(Guid productId)
         {
-            var cached = _cachingRepository.GetCachedOrDefault<Product>(productId.ToString());
+            var cached = _cachingRepository.Get<Product>(productId.ToString());
 
             if (cached != null)
             {
                 return cached;
             }
 
-            var product = await _context.Products
-                .Include(x => x.Category)
-                .Include(x => x.Pictures)
-                .Include(x => x.ProductType)
+            var product = await _context
+                .Products
+                // .Include(x => x.Category)
+                // .Include(x => x.Pictures)
+                // .Include(x => x.ProductType)
                 .FirstOrDefaultAsync(x => x.Id.Equals(productId));
 
             if (product != null)
@@ -48,8 +49,8 @@ namespace U.ProductService.Persistance.Repositories
         public async Task<Product> GetByAbsoluteComparerAsync(string externalSourceName, string externalSourceId)
         {
             var cached =
-                _cachingRepository.GetCachedOrDefault<Product>(
-                    $"ProductsAsNoTracking_{externalSourceName}_{externalSourceId}");
+                _cachingRepository.Get<Product>(
+                    $"Product_AsNoTracking_{externalSourceName}_{externalSourceId}");
 
             if (cached != null)
             {
