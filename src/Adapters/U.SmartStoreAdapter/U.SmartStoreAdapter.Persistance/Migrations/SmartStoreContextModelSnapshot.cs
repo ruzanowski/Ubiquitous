@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartStore.Persistance.Context;
 
@@ -14,27 +15,35 @@ namespace SmartStore.Persistance.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
+                .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("U.SmartStoreAdapter.Domain.Entities.Catalog.Category", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("CreatedOnUtc");
+                    b.Property<DateTime>("CreatedOnUtc")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .HasColumnType("character varying(400)")
                         .HasMaxLength(400);
 
-                    b.Property<int>("ParentCategoryId");
+                    b.Property<int>("ParentCategoryId")
+                        .HasColumnType("integer");
 
-                    b.Property<bool>("Published");
+                    b.Property<bool>("Published")
+                        .HasColumnType("boolean");
 
-                    b.Property<DateTime>("UpdatedOnUtc");
+                    b.Property<DateTime>("UpdatedOnUtc")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
@@ -44,19 +53,26 @@ namespace SmartStore.Persistance.Migrations
             modelBuilder.Entity("U.SmartStoreAdapter.Domain.Entities.Catalog.Manufacturer", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("CreatedOnUtc");
+                    b.Property<DateTime>("CreatedOnUtc")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("character varying(400)")
                         .HasMaxLength(400);
 
-                    b.Property<bool>("Published");
+                    b.Property<bool>("Published")
+                        .HasColumnType("boolean");
 
-                    b.Property<DateTime>("UpdatedOnUtc");
+                    b.Property<DateTime>("UpdatedOnUtc")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
@@ -66,16 +82,22 @@ namespace SmartStore.Persistance.Migrations
             modelBuilder.Entity("U.SmartStoreAdapter.Domain.Entities.Catalog.Product", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("BarCode")
+                        .HasColumnType("character varying(400)")
                         .HasMaxLength(400);
 
-                    b.Property<int?>("CategoryId");
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("integer");
 
-                    b.Property<DateTime>("CreatedOnUtc");
+                    b.Property<DateTime>("CreatedOnUtc")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
 
                     b.Property<decimal>("Height")
                         .HasColumnType("decimal(18,4)");
@@ -83,19 +105,24 @@ namespace SmartStore.Persistance.Migrations
                     b.Property<decimal>("Length")
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<int?>("ManufacturerId");
+                    b.Property<int?>("ManufacturerId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
+                        .HasColumnType("character varying(400)")
                         .HasMaxLength(400);
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<bool>("Published");
+                    b.Property<bool>("Published")
+                        .HasColumnType("boolean");
 
-                    b.Property<int>("StockQuantity");
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("integer");
 
-                    b.Property<DateTime>("UpdatedOnUtc");
+                    b.Property<DateTime>("UpdatedOnUtc")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<decimal>("Weight")
                         .HasColumnType("decimal(18,4)");

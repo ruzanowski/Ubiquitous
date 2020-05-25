@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using U.SubscriptionService.Persistance.Contexts;
 
@@ -14,18 +15,22 @@ namespace U.SubscriptionService.Persistance.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
+                .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("U.SubscriptionService.Domain.AllowedEvents", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("Allowed");
+                    b.Property<int>("Allowed")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid?>("UserSubscriptionId");
+                    b.Property<Guid?>("UserSubscriptionId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -36,11 +41,14 @@ namespace U.SubscriptionService.Persistance.Migrations
 
             modelBuilder.Entity("U.SubscriptionService.Domain.SignalRConnection", b =>
                 {
-                    b.Property<Guid>("UserId");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("ConnectionId");
+                    b.Property<string>("ConnectionId")
+                        .HasColumnType("text");
 
-                    b.Property<Guid?>("UserSubscriptionId");
+                    b.Property<Guid?>("UserSubscriptionId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("UserId", "ConnectionId");
 
@@ -52,9 +60,11 @@ namespace U.SubscriptionService.Persistance.Migrations
             modelBuilder.Entity("U.SubscriptionService.Domain.UserSubscription", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -63,46 +73,52 @@ namespace U.SubscriptionService.Persistance.Migrations
 
             modelBuilder.Entity("U.SubscriptionService.Domain.AllowedEvents", b =>
                 {
-                    b.HasOne("U.SubscriptionService.Domain.UserSubscription")
+                    b.HasOne("U.SubscriptionService.Domain.UserSubscription", null)
                         .WithMany("AllowedEvents")
                         .HasForeignKey("UserSubscriptionId");
                 });
 
             modelBuilder.Entity("U.SubscriptionService.Domain.SignalRConnection", b =>
                 {
-                    b.HasOne("U.SubscriptionService.Domain.UserSubscription")
+                    b.HasOne("U.SubscriptionService.Domain.UserSubscription", null)
                         .WithMany("Connections")
                         .HasForeignKey("UserSubscriptionId");
                 });
 
             modelBuilder.Entity("U.SubscriptionService.Domain.UserSubscription", b =>
                 {
-                    b.OwnsOne("U.SubscriptionService.Domain.Preferences", "Preferences", b1 =>
+                    b.OwnsOne("U.Common.Subscription.Preferences", "Preferences", b1 =>
                         {
-                            b1.Property<Guid>("UserSubscriptionId");
+                            b1.Property<Guid>("UserSubscriptionId")
+                                .HasColumnType("uuid");
 
-                            b1.Property<bool>("DoNotNotifyAnyoneAboutMyActivity");
+                            b1.Property<bool>("DoNotNotifyAnyoneAboutMyActivity")
+                                .HasColumnType("boolean");
 
-                            b1.Property<int>("MinimalImportancyLevel");
+                            b1.Property<int>("MinimalImportancyLevel")
+                                .HasColumnType("integer");
 
-                            b1.Property<int>("NumberOfWelcomeMessages");
+                            b1.Property<int>("NumberOfWelcomeMessages")
+                                .HasColumnType("integer");
 
-                            b1.Property<bool>("OrderByCreationTimeDescending");
+                            b1.Property<bool>("OrderByCreationTimeDescending")
+                                .HasColumnType("boolean");
 
-                            b1.Property<bool>("OrderByImportancyDescending");
+                            b1.Property<bool>("OrderByImportancyDescending")
+                                .HasColumnType("boolean");
 
-                            b1.Property<bool>("SeeReadNotifications");
+                            b1.Property<bool>("SeeReadNotifications")
+                                .HasColumnType("boolean");
 
-                            b1.Property<bool>("SeeUnreadNotifications");
+                            b1.Property<bool>("SeeUnreadNotifications")
+                                .HasColumnType("boolean");
 
                             b1.HasKey("UserSubscriptionId");
 
-                            b1.ToTable("UserSubscription","Subscriptions");
+                            b1.ToTable("UserSubscription");
 
-                            b1.HasOne("U.SubscriptionService.Domain.UserSubscription")
-                                .WithOne("Preferences")
-                                .HasForeignKey("U.SubscriptionService.Domain.Preferences", "UserSubscriptionId")
-                                .OnDelete(DeleteBehavior.Cascade);
+                            b1.WithOwner()
+                                .HasForeignKey("UserSubscriptionId");
                         });
                 });
 #pragma warning restore 612, 618

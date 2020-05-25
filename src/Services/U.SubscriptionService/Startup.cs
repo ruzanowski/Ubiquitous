@@ -3,17 +3,17 @@ using AutoMapper;
 using Consul;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using U.Common.Consul;
-using U.Common.Database;
-using U.Common.Jaeger;
-using U.Common.Jwt;
-using U.Common.Mvc;
-using U.Common.Redis;
-using U.Common.Swagger;
+using U.Common.NetCore.Auth;
+using U.Common.NetCore.Cache;
+using U.Common.NetCore.Consul;
+using U.Common.NetCore.Database;
+using U.Common.NetCore.Jaeger;
+using U.Common.NetCore.Mvc;
+using U.Common.NetCore.Swagger;
 using U.EventBus.Abstractions;
 using U.EventBus.Events.Product;
 using U.EventBus.RabbitMQ;
@@ -40,7 +40,8 @@ namespace U.SubscriptionService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCustomMvc()
+            services
+                .AddCustomMvc()
                 .AddDatabaseContext<SubscriptionContext>(Configuration)
                 .AddEventBusRabbitMq(Configuration)
                 .AddMediatR(typeof(MyPreferencesQuery).GetTypeInfo().Assembly)
@@ -56,7 +57,7 @@ namespace U.SubscriptionService
         }
 
         public void Configure(IApplicationBuilder app,
-            IApplicationLifetime applicationLifetime, IConsulClient client)
+            IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
             app.UseCors("CorsPolicy");
 
@@ -70,7 +71,11 @@ namespace U.SubscriptionService
 
             app.UseJwtTokenValidator();
 
-            app.UseMvcWithDefaultRoute();
+            app.UseRouting()
+                .UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
@@ -91,7 +96,7 @@ namespace U.SubscriptionService
             services.AddTransient<ProductPropertiesChangedMultiplexingIntegrationEventHandler>();
         }
 
-        private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime,
+        private void RegisterConsul(IApplicationBuilder app, IHostApplicationLifetime applicationLifetime,
             IConsulClient client)
         {
             var consulServiceId = app.UseConsulServiceDiscovery();

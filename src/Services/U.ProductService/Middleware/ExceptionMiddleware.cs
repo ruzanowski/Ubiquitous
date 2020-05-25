@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using U.Common.Mvc;
+using U.Common.NetCore.Mvc;
 using U.ProductService.Application.Common.Exceptions;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 #pragma warning disable 1998
 
@@ -24,7 +24,6 @@ namespace U.ProductService.Middleware
     /// </summary>
     public class ExceptionMiddleware
     {
-
         private readonly RequestDelegate _next;
         private readonly ILogger<ExceptionMiddleware> _logger;
         private readonly ISelfInfoService _selfInfoServiceId;
@@ -123,7 +122,7 @@ namespace U.ProductService.Middleware
                 _logger.LogDebug(exception, exception.Message);
 
             context.Response.StatusCode = problemDetails.Status.Value;
-            return context.Response.WriteAsync(JsonConvert.SerializeObject(problemDetails));
+            return context.Response.WriteAsync(JsonSerializer.Serialize(problemDetails));
         }
     }
 

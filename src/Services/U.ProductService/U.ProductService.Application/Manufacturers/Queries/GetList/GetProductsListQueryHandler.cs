@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using U.Common.NetCore.NetCoreExtensions;
 using U.Common.Pagination;
 using U.ProductService.Application.Manufacturers.Models;
 using U.ProductService.Domain.Aggregates.Manufacturer;
@@ -25,13 +26,13 @@ namespace U.ProductService.Application.Manufacturers.Queries.GetList
         public async Task<PaginatedItems<ManufacturerViewModel>> Handle(GetManufacturersListQuery request, CancellationToken cancellationToken)
         {
             var products = GetProductQueryable();
-            
+
             var manufacturersMapped = _mapper.ProjectTo<ManufacturerViewModel>(products);
 
             var paginatedProducts =
-                await PaginatedItems<ManufacturerViewModel>.CreateAsync(request.PageIndex,
+                await PaginatedItemsExtended<ManufacturerViewModel>.CreateAsync(request.PageIndex,
                     request.PageSize, manufacturersMapped);
-            
+
             return paginatedProducts;
         }
 

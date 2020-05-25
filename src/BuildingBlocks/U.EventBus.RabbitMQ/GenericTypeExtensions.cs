@@ -21,10 +21,5 @@ namespace U.EventBus.RabbitMQ
 
             return typeName;
         }
-
-        public static string GetGenericTypeName(this object @object)
-        {
-            return @object.GetType().GetGenericTypeName();
-        }
     }
 }

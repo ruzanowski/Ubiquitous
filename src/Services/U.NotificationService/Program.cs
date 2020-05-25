@@ -1,9 +1,9 @@
 ﻿using System;
 using Serilog;
-using U.Common.WebHost;
 using Microsoft.AspNetCore.Hosting;
-using U.Common.Database;
-using U.Common.Mvc;
+using U.Common.NetCore.Database;
+using U.Common.NetCore.Mvc;
+using U.Common.NetCore.WebHost;
 using U.NotificationService.Infrastructure.Contexts;
 
 namespace U.NotificationService

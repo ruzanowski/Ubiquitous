@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.Extensions.Caching.Distributed;
+using U.Common.NetCore.Cache;
 using U.ProductService.Domain;
 using U.ProductService.Domain.Aggregates.Category;
 using U.ProductService.Domain.SeedWork;
@@ -11,9 +11,10 @@ using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Persistance.Repositories
 {
-    public class CategoryRepository : CachingRepository, ICategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly ProductContext _context;
+        private readonly ICachingRepository _cachingRepository;
 
         public IUnitOfWork UnitOfWork => _context;
 
@@ -30,12 +31,31 @@ namespace U.ProductService.Persistance.Repositories
             return category;
         }
 
-        public async Task<bool> AnyAsync(Guid id) => await _context.Categories.AnyAsync(x => x.Id.Equals(id));
+        public async Task<bool> AnyAsync(Guid id)
+        {
+            var cached = _cachingRepository.Get<Category>($"CategoryAsNoTracking_{id}");
+
+            if (cached != null)
+            {
+                return true;
+            }
+
+            var category =  await _context.Categories
+                .AsNoTracking()
+                .AnyAsync(x => x.Id.Equals(id));
+
+            if (category)
+            {
+                _cachingRepository.Cache(id.ToString(), true);
+            }
+
+            return category;
+        }
 
         public async Task<IList<Category>> GetManyAsync()
         {
             var slug = "allCategories";
-            var cached = await GetCachedOrDefaultAsync<IList<Category>>(slug);
+            var cached = _cachingRepository.Get<IList<Category>>(slug);
 
             if (cached != null)
             {
@@ -47,7 +67,7 @@ namespace U.ProductService.Persistance.Repositories
 
             if (categories != null && categories.Any())
             {
-                await CacheAsync(slug, categories);
+                _cachingRepository.Cache(slug, categories);
             }
 
             return categories;
@@ -58,9 +78,10 @@ namespace U.ProductService.Persistance.Repositories
             _context.Entry(category).State = EntityState.Modified;
         }
 
-        public CategoryRepository(IDistributedCache cache, ProductContext context) : base(cache)
+        public CategoryRepository(ProductContext context, ICachingRepository cachingRepository)
         {
             _context = context;
+            _cachingRepository = cachingRepository;
         }
     }
 }

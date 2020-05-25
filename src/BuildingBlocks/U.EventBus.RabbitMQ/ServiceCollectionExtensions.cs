@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
-using U.Common.Mvc;
+using U.Common.NetCore.Mvc;
 using U.EventBus.Abstractions;
 using U.EventBus.Subscription;
 

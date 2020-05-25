@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <PackageId>Ubiquitous.IntegrationEventLog</PackageId>
         <Authors>SebastianRuzanowski</Authors>
         <Title>Ubiquitous.IntegrationEventLog</Title>
@@ -18,16 +18,33 @@
 
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">
         <ProjectReference Include="..\U.EventBus\U.EventBus.csproj" />
-        <ProjectReference Include="..\Common\U.Common.csproj" />
+        <ProjectReference Include="..\U.Common\U.Common.csproj" />
+        <ProjectReference Include="..\U.Common.NetCore\U.Common.NetCore.csproj" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.Common.NetCore" Version="*" />
         <PackageReference Include="Ubiquitous.EventBus" Version="*" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Include="Dockerfile" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

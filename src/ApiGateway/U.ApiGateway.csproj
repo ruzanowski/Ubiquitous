@@ -1,17 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <DisableImplicitAspNetCoreAnalyzers>true</DisableImplicitAspNetCoreAnalyzers>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ocelot" Version="13.5.2" />
-    <PackageReference Include="Ocelot.Cache.CacheManager" Version="13.5.2" />
-    <PackageReference Include="Ocelot.Provider.Consul" Version="13.5.2" />
+    <PackageReference Include="Ocelot" Version="16.0.0" />
+    <PackageReference Include="Ocelot.Cache.CacheManager" Version="16.0.0" />
+    <PackageReference Include="Ocelot.Provider.Consul" Version="16.0.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-    <ProjectReference Include="..\BuildingBlocks\Common\U.Common.csproj" />
+    <ProjectReference Include="..\BuildingBlocks\U.Common\U.Common.csproj" />
+    <ProjectReference Include="..\BuildingBlocks\U.Common.NetCore\U.Common.NetCore.csproj" />
     <ProjectReference Include="..\BuildingBlocks\U.IntegrationEventLog\U.IntegrationEventLog.csproj" />
   </ItemGroup>
 

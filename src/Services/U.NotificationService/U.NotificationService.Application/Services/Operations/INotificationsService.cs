@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using U.Common.Jwt.Claims;
+using U.Common.Auth;
 using U.Common.Subscription;
 
 namespace U.NotificationService.Application.Services.Operations

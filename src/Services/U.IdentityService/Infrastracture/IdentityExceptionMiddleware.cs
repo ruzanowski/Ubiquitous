@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 using U.IdentityService.Domain.Exceptions;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace U.IdentityService.Infrastracture
 {
@@ -34,7 +34,7 @@ namespace U.IdentityService.Infrastracture
             }
 
             var response = new {code = errorCode, message = exception.Message};
-            var payload = JsonConvert.SerializeObject(response);
+            var payload = JsonSerializer.Serialize(response);
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int) statusCode;
 

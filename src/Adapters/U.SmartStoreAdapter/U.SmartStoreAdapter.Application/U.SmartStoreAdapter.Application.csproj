@@ -1,19 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-        <ProjectReference Include="..\..\..\BuildingBlocks\Common\U.Common.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.Common\U.Common.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\U.Common.NetCore\U.Common.NetCore.csproj" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <PackageReference Include="Ubiquitous.Common" Version="*" />
+        <PackageReference Include="Ubiquitous.Common.NetCore" Version="*" />
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="AutoFixture" Version="4.11.0" />
+    <ItemGroup>      <PackageReference Include="AutoFixture" Version="4.11.0" />
       <ProjectReference Include="..\U.SmartStoreAdapter.Domain\U.SmartStoreAdapter.Domain.csproj" />
       <ProjectReference Include="..\U.SmartStoreAdapter.Persistance\U.SmartStoreAdapter.Persistance.csproj" />
     </ItemGroup>

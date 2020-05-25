@@ -1,6 +1,5 @@
 ﻿using System;
 using MediatR;
-using Newtonsoft.Json;
 using U.ProductService.Application.Products.Models;
 
 namespace U.ProductService.Application.Products.Commands.Create
@@ -12,13 +11,10 @@ namespace U.ProductService.Application.Products.Commands.Create
         public decimal Price { get; set; }
         public string Description { get; set; }
         public Guid? CategoryId { get; set; }
-        public Guid ManufacturerId { get; set; }
+        public Guid? ManufacturerId { get; set; }
         public DimensionsDto Dimensions { get; set; }
-        public string ExternalSourceName { get; set; }
-        public string ExternalSourceId { get; set; }
+        public ExternalCreation ExternalProperties { get; set; }
 
-
-        [JsonConstructor]
         public CreateProductCommand()
         {
         }
@@ -28,9 +24,8 @@ namespace U.ProductService.Application.Products.Commands.Create
             decimal price,
             string description,
             DimensionsDto dimensions,
-            string externalSourceName,
-            string externalSourceId,
-            Guid manufacturerId,
+            ExternalCreation externalProperties = null,
+            Guid? manufacturerId = null,
             Guid? categoryId = null)
         {
             Name = name;
@@ -40,8 +35,7 @@ namespace U.ProductService.Application.Products.Commands.Create
             ManufacturerId = manufacturerId;
             CategoryId = categoryId;
             Dimensions = dimensions;
-            ExternalSourceName = externalSourceName;
-            ExternalSourceId = externalSourceId;
+            ExternalProperties = externalProperties;
         }
     }
 }

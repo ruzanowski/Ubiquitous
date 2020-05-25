@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
 using SmartStore.Persistance.Context;
-using U.Common.Database;
+using U.Common.NetCore.Database;
 using U.SmartStoreAdapter.Domain.Entities.Catalog;
 
 namespace U.SmartStoreAdapter.Application.Infrastructure
@@ -27,14 +27,14 @@ namespace U.SmartStoreAdapter.Application.Infrastructure
 
             policy.ExecuteAsync(async () =>
             {
-                using (context)
+                await using (context)
                 {
-                    context.Database.Migrate();
+                    await context.Database.MigrateAsync();
 
                     var manufacturers = GetPredefinedManufacturers();
                     if (!context.Manufacturers.Any())
                     {
-                        context.Manufacturers.AddRange(manufacturers);
+                        await context.AddRangeAsync(manufacturers);
                     }
 
                     await context.SaveChangesAsync();
@@ -42,7 +42,7 @@ namespace U.SmartStoreAdapter.Application.Infrastructure
                     var categories = GetPredefinedCategories();
                     if (!context.Categories.Any())
                     {
-                        context.Categories.AddRange(categories);
+                        await context.AddRangeAsync(categories);
                     }
 
                     await context.SaveChangesAsync();
@@ -50,7 +50,7 @@ namespace U.SmartStoreAdapter.Application.Infrastructure
                     var products = GetPredefinedProduct();
                     if (!context.Products.Any())
                     {
-                        context.Products.AddRange(products);
+                        await context.AddRangeAsync(products);
                         await context.SaveChangesAsync();
 
                         LinkProductsWithManufacturersAndCategories(ref products, categories, manufacturers);

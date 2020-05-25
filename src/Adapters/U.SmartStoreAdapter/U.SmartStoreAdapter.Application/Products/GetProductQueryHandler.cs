@@ -26,6 +26,7 @@ namespace U.SmartStoreAdapter.Application.Products
             var products = await _context.Set<Product>()
                 .Include(x => x.Category)
                 .Include(x=>x.Manufacturer)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(x=> x.Id == request.Id,
                     cancellationToken: cancellationToken);
 

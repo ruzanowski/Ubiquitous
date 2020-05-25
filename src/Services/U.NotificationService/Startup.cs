@@ -3,23 +3,23 @@ using AutoMapper;
 using Consul;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using U.Common.Consul;
-using U.Common.Mvc;
+using U.Common.NetCore.Auth;
+using U.Common.NetCore.Cache;
 using U.EventBus.Abstractions;
-using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
-using U.Common.Database;
-using U.Common.Fabio;
-using U.Common.Jaeger;
-using U.Common.Jwt;
-using U.Common.Redis;
-using U.Common.Swagger;
+using U.Common.NetCore.Consul;
+using U.Common.NetCore.Database;
+using U.Common.NetCore.Fabio;
+using U.Common.NetCore.Jaeger;
+using U.Common.NetCore.Mvc;
+using U.Common.NetCore.Swagger;
 using U.EventBus.Events.Product;
+using U.EventBus.RabbitMQ;
 using U.NotificationService.Application.Common.Builders.Query;
 using U.NotificationService.Application.Common.Clients;
 using U.NotificationService.Application.Common.Models;
@@ -68,7 +68,7 @@ namespace U.NotificationService
         }
 
         public void Configure(IApplicationBuilder app,
-            IApplicationLifetime applicationLifetime, IConsulClient client)
+            IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
             app.UseCors("CorsPolicy");
 
@@ -81,9 +81,13 @@ namespace U.NotificationService
 
             app.UseJwtTokenValidator();
 
-            app.UseSignalR(routes => routes.MapHub<BaseHub>("/signalr"));
-
-            app.UseMvcWithDefaultRoute();
+            app
+                .UseRouting()
+                .UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHub<BaseHub>("/signalr");
+            });
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
@@ -107,7 +111,8 @@ namespace U.NotificationService
             services.AddTransient<ProductPropertiesChangedSignalRIntegrationEventHandler>();
         }
 
-        private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime applicationLifetime,
+        private void RegisterConsul(IApplicationBuilder app,
+            IHostApplicationLifetime applicationLifetime,
             IConsulClient client)
         {
             var consulServiceId = app.UseConsulServiceDiscovery();

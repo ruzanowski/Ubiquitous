@@ -1,16 +1,16 @@
 ﻿using Consul;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
-using U.Common.Consul;
-using U.Common.Jaeger;
-using U.Common.Jwt;
-using U.Common.Mvc;
-using U.Common.Redis;
+using U.Common.NetCore.Auth;
+using U.Common.NetCore.Cache;
+using U.Common.NetCore.Consul;
+using U.Common.NetCore.Jaeger;
+using U.Common.NetCore.Mvc;
 
 namespace U.ApiGateway
 {
@@ -38,17 +38,20 @@ namespace U.ApiGateway
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
-            IApplicationLifetime applicationLifetime, IConsulClient client)
+            IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            app.UseCors("CorsPolicy");
-            app.UseServiceId();
-            app.UseAuthentication();
-            app.UseJwtTokenValidator();
-            app.UseForwardedHeaders();
-            app.UseWebSockets();
-
-            app.UseOcelot().Wait();
-            app.UseMvc();
+            app.UseCors("CorsPolicy")
+                .UseServiceId()
+                .UseAuthentication()
+                .UseJwtTokenValidator()
+                .UseForwardedHeaders()
+                .UseWebSockets()
+                .UseRouting().UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                })
+                .UseOcelot()
+                .Wait();
 
             var consulServiceId = app.UseConsulServiceDiscovery();
 

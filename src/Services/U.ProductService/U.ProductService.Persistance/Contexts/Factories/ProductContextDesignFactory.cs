@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore.Design;
-using U.Common.Database;
+using U.Common.NetCore.Database;
 
 namespace U.ProductService.Persistance.Contexts.Factories
 {
