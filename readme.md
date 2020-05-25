@@ -181,7 +181,10 @@ What you might see in the scope of my project. Things mentioned below are implem
 
 ### 2.5 Cross-Cutting Concerns
 
-**Building Blocks** Available on Myget
+**Building Blocks**
+  Available on Myget
+  - [version :develop](https://www.myget.org/feed/Packages/ubiquitous-develop)
+  - [version :latest](https://www.myget.org/feed/Packages/ubiquitous)
 - ***U.IntegartionEventLog***
     - targets .NET Core 3.1
     - Module with connectivity to database, storing event for any integration event dispatched
@@ -190,7 +193,7 @@ What you might see in the scope of my project. Things mentioned below are implem
 - ***U.EventBus.RabbitMQ***
     - Implementation of EventBus with RabbitMQ
 - ***Common***
-    - ***targets NETSTANDARD 2.0***
+    - targets NETSTANDARD 2.0
     - includes pagination, models shared across projects
 - ***Common NetCore***
     - targets .NET Core 3.1
@@ -209,19 +212,19 @@ What you might see in the scope of my project. Things mentioned below are implem
 Each service is self registering to the Consul registry, containing every active service. This registry as well checks healthness of service with optional keep-alive with specified per-service interval.
 
 <p align="center">
-   <img alt="Consul Service Discovery" src="img/Consul-min.png" />
+   <img alt="Consul Service Discovery" src="docs/img/Consul-min.png" />
 </p>
 
 ## 3. Client Side
 
 Login Page             |  Dashboard
 :-------------------------:|:-------------------------:
-![](img/login-page.png)  |  ![](img/ubiquitous-current-state-min.png)
+![](docs/img/login-page.png)  |  ![](docs/img/ubiquitous-current-state-min.png)
 
 
 Subscription             |  Products
 :-------------------------:|:-------------------------:
-![](img/Subscription-min.png)  |  ![](img/Products-min.png)
+![](docs/img/Subscription-min.png)  |  ![](docs/img/Products-min.png)
 
 ### 3.1 Technologies and tools
 
