@@ -136,7 +136,7 @@ Whole solution is broken down to
 Down below, a services dependency diagram. See to #3.1 for listed used technologies, tools and their use.
 
 <p align="center">
-   <img alt="Containers diagram v0.4" src="img/containers-v.0.4-min.png" />
+   <img alt="Containers diagram v0.4" src="docs/img/containers-v.0.4-min.png" />
 </p>
 
 ### 2.1 Technologies
@@ -182,9 +182,8 @@ What you might see in the scope of my project. Things mentioned below are implem
 ### 2.5 Cross-Cutting Concerns
 
 **Building Blocks**
-  Available on Myget
-  - [version :develop](https://www.myget.org/feed/Packages/ubiquitous-develop)
-  - [version :latest](https://www.myget.org/feed/Packages/ubiquitous)
+- ***Available on Myget*** [version :develop](https://www.myget.org/feed/Packages/ubiquitous-develop), [version :latest](https://www.myget.org/feed/Packages/ubiquitous)
+
 - ***U.IntegartionEventLog***
     - targets .NET Core 3.1
     - Module with connectivity to database, storing event for any integration event dispatched
