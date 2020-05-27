@@ -1,4 +1,4 @@
-namespace U.Common.NetCore.Database
+namespace U.Common.NetCore.EF
 {
     public enum DbType
     {

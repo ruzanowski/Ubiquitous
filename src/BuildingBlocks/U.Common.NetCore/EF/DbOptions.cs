@@ -1,4 +1,4 @@
-namespace U.Common.NetCore.Database
+namespace U.Common.NetCore.EF
 {
     public class DbOptions
     {
@@ -6,5 +6,6 @@ namespace U.Common.NetCore.Database
         public DbType Type { get; set; }
         public bool AutoMigration { get; set; } = true;
         public bool Seed { get; set; } = true;
+        public bool InTests { get; set; } = false;
     }
 }

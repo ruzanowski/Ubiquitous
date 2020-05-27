@@ -23,13 +23,13 @@ namespace U.ProductService.Application.Products.Commands.UnPublish
 
         public async Task<Unit> Handle(UnPublishProductCommand command, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetAsync(command.Id);
+            var product = await _productRepository.GetAsync(command.Id, false, cancellationToken);
 
             if (product is null)
                 throw new ProductNotFoundException($"Product with id: '{command.Id}' has not been found.");
 
-            product.UnPublish();
-            
+            product.Unpublish();
+            _productRepository.Update(product);
             await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
             return Unit.Value;

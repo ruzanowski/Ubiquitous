@@ -12,6 +12,15 @@ namespace U.ProductService.Application.Common.Exceptions
 
         public ProductNotFoundException(string message, Exception inner): base(message, inner)
         {
-        }   
+        }
+
+        protected ProductNotFoundException(System.Runtime.Serialization.SerializationInfo serializationInfo, System.Runtime.Serialization.StreamingContext streamingContext)
+        {
+
+        }
+
+        public ProductNotFoundException()
+        {
+        }
     }
 }

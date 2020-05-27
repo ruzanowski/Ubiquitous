@@ -21,7 +21,6 @@
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <PackageReference Include="Ubiquitous.Common" Version="*" />
-        <PackageReference Include="Ubiquitous.Common.NetCore" Version="*" />
 
     </ItemGroup>
 
@@ -48,6 +47,7 @@
         <PackageReference Include="App.Metrics.Reporting.InfluxDB" Version="4.0.0" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
         <PackageReference Include="FluentValidation" Version="8.6.2" />
+        <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
         <PackageReference Include="MediatR" Version="8.0.1" />
         <PackageReference Include="MediatR.Extensions.Microsoft.AspNetCore.Mvc" Version="2.0.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
@@ -100,6 +100,8 @@
         <PackageReference Include="RestEase" Version="1.4.12" />
         <PackageReference Include="StackExchange.Redis" Version="2.1.30" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4" />
+        <PackageReference Include="System.Runtime.Serialization.Json" Version="4.3.0" />
+        <PackageReference Include="System.Text.Json" Version="4.7.2" />
         <PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="3.0.75" />
         <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="3.0.50" />
     </ItemGroup>

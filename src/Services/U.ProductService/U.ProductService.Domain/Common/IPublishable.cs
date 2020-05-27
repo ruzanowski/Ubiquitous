@@ -4,7 +4,7 @@ namespace U.ProductService.Domain.Common
     {
         bool IsPublished { get; }
         void Publish();
-        void UnPublish();
-        
+        void Unpublish();
+
     }
 }

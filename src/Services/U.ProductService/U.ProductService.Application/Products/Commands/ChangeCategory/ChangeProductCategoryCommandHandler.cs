@@ -22,7 +22,7 @@ namespace U.ProductService.Application.Products.Commands.ChangeCategory
 
         public async Task<Unit> Handle(ChangeProductCategoryCommand message, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetAsync(message.ProductId);
+            var product = await _productRepository.GetAsync(message.ProductId, false, cancellationToken);
 
             if (product is null)
             {
@@ -33,10 +33,11 @@ namespace U.ProductService.Application.Products.Commands.ChangeCategory
 
             if (!categoryExists)
             {
-                throw new CategoryNotFoundException($"Category with id: '{message.CategoryId}' has not been found");
+                throw new ProductCategoryNotFoundException($"ProductCategory with id: '{message.CategoryId}' has not been found");
             }
-            
+
             product.ChangeCategory(message.CategoryId);
+            _productRepository.Update(product);
 
             await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             return Unit.Value;

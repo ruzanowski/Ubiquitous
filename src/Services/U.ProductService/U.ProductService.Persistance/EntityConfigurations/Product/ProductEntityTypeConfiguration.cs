@@ -4,9 +4,9 @@ using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Persistance.EntityConfigurations.Product
 {
-    class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Product>
+    class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Entities.Product.Product>
     {
-        public void Configure(EntityTypeBuilder<Domain.Product> builder)
+        public void Configure(EntityTypeBuilder<Domain.Entities.Product.Product> builder)
         {
             builder.ToTable("Products", ProductContext.DEFAULT_SCHEMA);
 
@@ -14,7 +14,12 @@ namespace U.ProductService.Persistance.EntityConfigurations.Product
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Ignore(b => b.DomainEvents);
 
-            builder.OwnsOne(o => o.Dimensions);
+            builder.OwnsOne(o => o.Dimensions,
+                d =>
+                {
+                    d.WithOwner();
+                });
+
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Description).IsRequired();
             builder.Property(x => x.Price).IsRequired();
@@ -33,11 +38,7 @@ namespace U.ProductService.Persistance.EntityConfigurations.Product
             builder.Property(post => post.LastUpdatedBy)
                 .HasField("_lastUpdatedBy");
 
-            builder.HasMany(x=>x.Pictures)
-                .WithOne()
-                .IsRequired(false);
-
-            builder.HasOne(x=>x.Category)
+            builder.HasOne(x=>x.ProductCategory)
                 .WithMany()
                 .HasForeignKey(x=>x.CategoryId)
                 .IsRequired();

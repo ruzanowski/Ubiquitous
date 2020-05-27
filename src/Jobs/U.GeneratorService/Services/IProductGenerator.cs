@@ -294,7 +294,7 @@ namespace U.GeneratorService.Services
                 Length = random.Next(350),
                 Weight = random.Next(1300),
                 CategoryId = random.Next(1, GlobalConstants.SmartStoreSeededCategories + 1),
-                Name = GetNames[random.Next(GetNames.Count)],
+                Name = GetNames[random.Next(GetNames.Count)] + random.Next(int.MaxValue) + random.Next(int.MaxValue),
                 ManufacturerId = random.Next(1, GlobalConstants.SmartStoreSeededManufacturers + 1),
                 BarCode = _fixture.Create<string>(),
                 IsAvailable = true,

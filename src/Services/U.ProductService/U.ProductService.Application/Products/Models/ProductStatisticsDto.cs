@@ -6,8 +6,6 @@ namespace U.ProductService.Application.Products.Models
     {
         public DateTime DateTime { get; set; }
         public int Count { get; set; }
-        public Guid? CategoryId { get; set; }
-        public string Description { get; set; }
 
     }
 

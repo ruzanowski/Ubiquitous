@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using U.ProductService.Domain;
-using U.ProductService.Domain.Aggregates.Manufacturer;
+using U.ProductService.Domain.Entities.Manufacturer;
 
 namespace U.ProductService.Application.Manufacturers.Commands.Create
 {

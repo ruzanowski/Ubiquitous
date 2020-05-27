@@ -10,5 +10,6 @@ namespace U.Common.NetCore.Cache
         public bool ResolveDns { get; set; }
         public bool AbortOnConnectFail { get; set; }
         public bool UseInMemoryAsPrimaryCache { get; set; } = true;
+        public bool Enabled { get; set; } = true;
     }
 }

@@ -18,7 +18,8 @@ namespace U.GeneratorService.BackgroundServices
         private readonly ISmartStoreAdapter _smartStoreAdapter;
 
         public FakeProductsGeneratorWorkerHostedService(ILogger<FakeProductsGeneratorWorkerHostedService> logger,
-            BackgroundServiceOptions bgServiceOptions, IProductGenerator generator, ISmartStoreAdapter smartStoreAdapter)
+            BackgroundServiceOptions bgServiceOptions, IProductGenerator generator,
+            ISmartStoreAdapter smartStoreAdapter)
         {
             _logger = logger;
             _bgServiceOptions = bgServiceOptions;
@@ -31,14 +32,16 @@ namespace U.GeneratorService.BackgroundServices
         {
             if (_bgServiceOptions.Enabled)
             {
-                _logger.LogInformation($"--- Starting gracefully {nameof(FakeProductsGeneratorWorkerHostedService)} ---");
+                _logger.LogInformation(
+                    $"--- Starting gracefully {nameof(FakeProductsGeneratorWorkerHostedService)} ---");
                 while (!stopToken.IsCancellationRequested)
                 {
                     await SafeExecution();
                     await Task.Delay(TimeSpan.FromSeconds(_refreshInterval), stopToken);
                 }
 
-                _logger.LogInformation($"--- Stopping gracefully {nameof(FakeProductsGeneratorWorkerHostedService)} ---");
+                _logger.LogInformation(
+                    $"--- Stopping gracefully {nameof(FakeProductsGeneratorWorkerHostedService)} ---");
             }
         }
 
@@ -49,10 +52,13 @@ namespace U.GeneratorService.BackgroundServices
         {
             try
             {
-                _logger.LogInformation($"--- Executing {nameof(SafeExecution)} ---");
-                var fakeProduct = _generator.GenerateFakeProduct();
-                await _smartStoreAdapter.StoreProduct(fakeProduct);
-                _logger.LogInformation($"--- Executing {nameof(SafeExecution)} ---");
+                for (int i = 0; i < _bgServiceOptions.Iterations; i++)
+                {
+                    var fakeProduct = _generator.GenerateFakeProduct();
+                    await _smartStoreAdapter.StoreProduct(fakeProduct);
+                }
+                _logger.LogInformation($"--- Executed {nameof(SafeExecution)}, Stored {_bgServiceOptions.Iterations} products ---");
+
             }
             catch (Exception ex)
             {

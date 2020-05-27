@@ -4,13 +4,10 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using U.ProductService.Domain;
-using U.ProductService.Domain.Aggregates.Category;
-using U.ProductService.Domain.Aggregates.Manufacturer;
-using U.ProductService.Domain.Aggregates.Product;
 using U.ProductService.Domain.Common;
-using U.ProductService.Domain.SeedWork;
-using U.ProductService.Persistance.EntityConfigurations.Category;
+using U.ProductService.Domain.Entities.Manufacturer;
+using U.ProductService.Domain.Entities.Picture;
+using U.ProductService.Domain.Entities.Product;
 using U.ProductService.Persistance.EntityConfigurations.Manufacturer;
 using U.ProductService.Persistance.EntityConfigurations.Picture;
 using U.ProductService.Persistance.EntityConfigurations.Product;
@@ -24,11 +21,14 @@ namespace U.ProductService.Persistance.Contexts
 
         //db sets
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductPicture> ProductPictures { get; set; }
+        public DbSet<ManufacturerPicture> ManufacturerPictures { get; set; }
+
         public DbSet<Manufacturer> Manufacturers { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
-
+        public DbSet<MimeType> MimeTypes { get; set; }
         //fields
         private readonly IMediator _mediator;
 
@@ -50,12 +50,13 @@ namespace U.ProductService.Persistance.Contexts
             modelBuilder.ApplyConfiguration(new ProductTypeEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductCategoryEntityTypeConfiguration());
 
-            modelBuilder.ApplyConfiguration(new PictureEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new MimeTypeEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PictureEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductPictureEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ManufacturerPictureEntityTypeConfiguration());
 
             modelBuilder.ApplyConfiguration(new ManufacturerEntityTypeConfiguration());
 
-            modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
@@ -64,7 +65,7 @@ namespace U.ProductService.Persistance.Contexts
 
             ChangeTracker.DetectChanges();
             OnBeforeSaving();
-            await base.SaveChangesAsync(cancellationToken);
+            await SaveChangesAsync(cancellationToken);
 
             return true;
         }
@@ -102,31 +103,6 @@ namespace U.ProductService.Persistance.Contexts
 
             // If you are using ASP.NET Core, you should look at this answer on StackOverflow
             // https://stackoverflow.com/a/48554738/2996339
-        }
-    }
-
-    public class NoMediator : IMediator
-    {
-        public async Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = new CancellationToken())
-        {
-            await Task.CompletedTask;
-            return default;
-        }
-
-        public async Task<object> Send(object request, CancellationToken cancellationToken = new CancellationToken())
-        {
-            await Task.CompletedTask;
-            return default;
-        }
-
-        public async Task Publish(object notification, CancellationToken cancellationToken = new CancellationToken())
-        {
-            await Task.CompletedTask;
-        }
-
-        public async Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = new CancellationToken()) where TNotification : INotification
-        {
-            await Task.CompletedTask;
         }
     }
 }

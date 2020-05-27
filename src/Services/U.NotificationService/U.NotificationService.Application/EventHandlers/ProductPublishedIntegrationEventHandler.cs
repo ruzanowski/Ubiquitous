@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using U.EventBus.Abstractions;
 using U.EventBus.Events.Product;
-using U.NotificationService.Application.Builders.PendingNotifications;
+using U.NotificationService.Application.Services.PendingEvents;
 
 namespace U.NotificationService.Application.EventHandlers
 {

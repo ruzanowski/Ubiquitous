@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using U.ProductService.Domain.Aggregates.Manufacturer;
+using U.ProductService.Domain.Entities.Manufacturer;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Manufacturers.Queries.GetCount
