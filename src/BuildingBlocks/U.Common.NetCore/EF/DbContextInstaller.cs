@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using U.Common.NetCore.EF;
 using U.Common.NetCore.Mvc;
 
 // ReSharper disable RedundantCaseLabel
 
-namespace U.Common.NetCore.Database
+namespace U.Common.NetCore.EF
 {
     public static class DbContextInstaller
     {
@@ -38,11 +35,9 @@ namespace U.Common.NetCore.Database
                         options.UseNpgsql(dbOptions.Connection,
                             postgresOptions =>
                             {
-                                postgresOptions.MigrationsAssembly(typeof(TContext).GetTypeInfo().Assembly.GetName()
-                                    .Name);
-                                //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency
-                                postgresOptions.EnableRetryOnFailure(3,
-                                    TimeSpan.FromSeconds(5), new List<string>());
+                                postgresOptions.MigrationsAssembly(
+                                    typeof(TContext).GetTypeInfo().Assembly.GetName()
+                                        .Name);
                             });
                     });
                     break;

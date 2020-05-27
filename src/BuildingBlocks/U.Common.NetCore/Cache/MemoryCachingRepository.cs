@@ -17,7 +17,7 @@ namespace U.Common.NetCore.Cache
             return uniqueId;
         }
 
-        public T Get<T>(string id) where T : class
+        public T Get<T>(string id)
         {
             var cachedKey = GetCacheKey(id);
             _memoryCache.TryGetValue(cachedKey, out T cachedValue);
@@ -34,6 +34,11 @@ namespace U.Common.NetCore.Cache
                 .SetAbsoluteExpiration(TimeSpan.FromMinutes(30));
 
             _memoryCache.Set(cacheKey, toCache, cacheEntryOptions);
+        }
+
+        public void Delete(string id)
+        {
+           _memoryCache.Remove(id);
         }
     }
 }

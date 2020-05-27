@@ -3,6 +3,7 @@ using U.ProductService.Application.Pictures.Models;
 using U.ProductService.Application.Products.Commands.Update;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Aggregates.Product;
 
 namespace U.ProductService.Application.Common.Mapping
 {

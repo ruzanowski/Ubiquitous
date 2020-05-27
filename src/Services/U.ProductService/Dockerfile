@@ -7,6 +7,8 @@ COPY *.csproj .
 COPY U.ProductService.Application/*.csproj ./U.ProductService.Application
 COPY U.ProductService.Domain/*.csproj ./U.ProductService.Domain
 COPY U.ProductService.Persistance/*.csproj ./U.ProductService.Persistance
+COPY U.ProductService.BackgroundService/*.csproj ./U.ProductService.BackgroundService
+COPY U.ProductService.DomainTests/*.csproj ./U.ProductService.DomainTests
 COPY U.ProductService.IntegrationTests/*.csproj ./U.ProductService.IntegrationTests
 COPY . .
 RUN dotnet restore "./U.ProductService.csproj" /property:Configuration=Release --configfile "${NUGET_CONFIG_FILE}"

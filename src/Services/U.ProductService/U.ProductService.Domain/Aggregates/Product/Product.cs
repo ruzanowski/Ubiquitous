@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
-using U.EventBus.Events.Product;
-using U.ProductService.Domain.Aggregates.Category;
+using Newtonsoft.Json;
 using U.ProductService.Domain.Aggregates.Picture;
-using U.ProductService.Domain.Aggregates.Product;
-using U.ProductService.Domain.Common;
-using U.ProductService.Domain.Events;
+using U.ProductService.Domain.Aggregates.Product.Events;
 using U.ProductService.Domain.Exceptions;
 using U.ProductService.Domain.SeedWork;
 
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
-// ReSharper disable CheckNamespace
 
-
-namespace U.ProductService.Domain
+namespace U.ProductService.Domain.Aggregates.Product
 {
     public class Product : Entity, IAggregateRoot, ITrackable, IPublishable, IPictureManagable, IEquatable<Product>
     {
@@ -38,14 +32,15 @@ namespace U.ProductService.Domain
 
         public Dimensions Dimensions { get; private set; }
         public Guid ManufacturerId { get; private set; }
-        public ICollection<Picture> Pictures { get; private set; }
+        public ICollection<Domain.Picture> Pictures { get; private set; }
         public Guid CategoryId { get; private set; }
-        public virtual Category Category { get; private set; }
+        public virtual Category.Category Category { get; private set; }
         public int ProductTypeId { get; private set; }
         public ProductType ProductType { get; private set; }
         public string ExternalSourceName { get; private set; }
         public string ExternalId { get; private set; }
 
+        [JsonConstructor]
         private Product()
         {
             Id = Guid.NewGuid();
@@ -57,6 +52,9 @@ namespace U.ProductService.Domain
             _lastUpdatedAt = default;
             _lastUpdatedBy = string.Empty;
             IsPublished = false;
+            Pictures = new List<Domain.Picture>();
+            ProductType = ProductType.SimpleProduct;
+            ProductTypeId = ProductType.SimpleProduct.Id;
         }
 
         public Product(string name,
@@ -81,44 +79,46 @@ namespace U.ProductService.Domain
             ExternalSourceName = externalSourceName;
             ExternalId = externalId;
 
-            var @event = new ProductAddedDomainEvent(Id, Name, Price, ManufacturerId, categoryId, externalSourceName);
+            var @event = new ProductAddedDomainEvent(
+                Id,
+                Name,
+                Price,
+                ManufacturerId,
+                categoryId,
+                externalSourceName,
+                externalId);
 
             AddDomainEvent(@event);
         }
 
 
-        public void AddPicture(Guid id, Guid fileStorageUploadId, string seoFilename, string description, string url,
+        public void AddPicture(Guid id,
+            Guid fileStorageUploadId,
+            string filename,
+            string description,
+            string url,
             MimeType mimeType)
         {
-            if (string.IsNullOrEmpty(seoFilename))
-                throw new ProductDomainException($"{nameof(seoFilename)} cannot be null or empty!");
+            if (string.IsNullOrEmpty(filename))
+                throw new DomainException($"{nameof(filename)} cannot be null or empty!");
 
             if (string.IsNullOrEmpty(description))
-                throw new ProductDomainException($"{nameof(description)} cannot be null or empty!");
+                throw new DomainException($"{nameof(description)} cannot be null or empty!");
 
             if (string.IsNullOrEmpty(url))
-                throw new ProductDomainException($"{nameof(url)} cannot be null or empty!");
+                throw new DomainException($"{nameof(url)} cannot be null or empty!");
 
-            var picture = new Picture(id, Id, nameof(Product), fileStorageUploadId, seoFilename, description, url,
+            var picture = new Domain.Picture(id,
+                Id,
+                nameof(Product),
+                fileStorageUploadId,
+                filename,
+                description, url,
                 mimeType);
 
             Pictures.Add(picture);
 
-            var @event = new ProductPictureAddedDomainEvent(Id, picture.Id, seoFilename);
-
-            AddDomainEvent(@event);
-        }
-
-        public void DeletePicture(Guid pictureId)
-        {
-            var picture = Pictures.FirstOrDefault(x => x.Id.Equals(pictureId));
-
-            if (picture is null)
-                throw new ProductDomainException("Picture does not exist!");
-
-            Pictures.Remove(picture);
-
-            var @event = new ProductPictureRemovedDomainEvent(Id, picture.Id);
+            var @event = new ProductPictureAddedDomainEvent(Id, picture.Id);
 
             AddDomainEvent(@event);
         }
@@ -126,7 +126,7 @@ namespace U.ProductService.Domain
         public void ChangePrice(decimal price)
         {
             if (price < 0)
-                throw new ProductDomainException("Price cannot be below 0!");
+                throw new DomainException("Price cannot be below 0!");
 
             if (price == Price)
                 return;
@@ -140,12 +140,21 @@ namespace U.ProductService.Domain
             AddDomainEvent(@event);
         }
 
-        public void Publish()
+        public void ChangeCategory(Guid newCategoryId)
         {
-            if (IsPublished) return;
-            IsPublished = true;
+            CategoryId = newCategoryId;
+        }
 
-            var @event = new ProductPublishedDomainEvent(Id, Name, Price, ManufacturerId);
+        public void DeletePicture(Guid pictureId)
+        {
+            var picture = Pictures.FirstOrDefault(x => x.Id.Equals(pictureId));
+
+            if (picture is null)
+                throw new DomainException("Picture does not exist!");
+
+            Pictures.Remove(picture);
+
+            var @event = new ProductPictureRemovedDomainEvent(Id, picture.Id);
 
             AddDomainEvent(@event);
         }
@@ -161,24 +170,36 @@ namespace U.ProductService.Domain
             AddDomainEvent(@event);
         }
 
-        public void UpdateProduct(IMapper mapper,
-            string name,
+        public bool UpdateProperties(string name,
             string description,
             decimal price,
             Dimensions dimensions,
             DateTime updateDispatchedFromOrigin)
         {
-            if (!LastUpdatedAt.HasValue || LastUpdatedAt.Value >= updateDispatchedFromOrigin)
-                return;
+            //if last update is fresher than intended change queued,
+            //then such action may invalid newest state
+            if ((LastUpdatedAt ?? DateTime.MinValue) >= updateDispatchedFromOrigin)
+                return false;
 
             var isAllEqual = AllEqual(name, description, price, dimensions);
 
             if (isAllEqual)
-                return;
+                return false;
 
-            UpdateProperties(name, description, price, dimensions);
+            UpdateBasicProperties(name, description, price, dimensions);
 
             var @event = new ProductPropertiesChangedDomainEvent(Id, ManufacturerId, name, price, description, dimensions);
+            AddDomainEvent(@event);
+            return true;
+        }
+
+        public void Publish()
+        {
+            if (IsPublished) return;
+            IsPublished = true;
+
+            var @event = new ProductPublishedDomainEvent(Id, Name, Price, ManufacturerId);
+
             AddDomainEvent(@event);
         }
 
@@ -194,34 +215,25 @@ namespace U.ProductService.Domain
             Dimensions.Width.Equals(dimensions.Width) &&
             Dimensions.Length.Equals(dimensions.Length);
 
-        private void UpdateProperties(string name,
-            string description,
-            decimal price,
-            Dimensions dimensions)
-        {
-            Name = name;
-            Description = description;
-            Price = price;
-            Dimensions = dimensions;
-        }
-
-        public void ChangeCategory(Guid newCategoryId)
-        {
-            CategoryId = newCategoryId;
-        }
-
         public bool Equals(Product other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return base.Equals(other) && string.Equals(Name, other.Name) && string.Equals(BarCode, other.BarCode) &&
-                   Price == other.Price && string.Equals(Description, other.Description) &&
-                   IsPublished == other.IsPublished && Equals(Dimensions, other.Dimensions) &&
-                   ManufacturerId.Equals(other.ManufacturerId) && Equals(Pictures, other.Pictures) &&
-                   CategoryId.Equals(other.CategoryId) && Equals(Category, other.Category) &&
-                   ProductTypeId == other.ProductTypeId && Equals(ProductType, other.ProductType) &&
-                   string.Equals(ExternalSourceName, other.ExternalSourceName) &&
-                   string.Equals(ExternalId, other.ExternalId);
+            return base.Equals(other)
+                   && string.Equals(Name, other.Name)
+                   && string.Equals(BarCode, other.BarCode)
+                   && Price == other.Price
+                   && string.Equals(Description, other.Description)
+                   && IsPublished == other.IsPublished
+                   && Equals(Dimensions, other.Dimensions)
+                   && ManufacturerId.Equals(other.ManufacturerId)
+                   && Equals(Pictures, other.Pictures)
+                   && CategoryId.Equals(other.CategoryId)
+                   && Equals(Category, other.Category)
+                   && ProductTypeId == other.ProductTypeId
+                   && Equals(ProductType, other.ProductType)
+                   && string.Equals(ExternalSourceName, other.ExternalSourceName)
+                   && string.Equals(ExternalId, other.ExternalId);
         }
 
         public override bool Equals(object obj)
@@ -253,6 +265,17 @@ namespace U.ProductService.Domain
                 hashCode = (hashCode * 397) ^ (ExternalId != null ? ExternalId.GetHashCode() : 0);
                 return hashCode;
             }
+        }
+
+        private void UpdateBasicProperties(string name,
+            string description,
+            decimal price,
+            Dimensions dimensions)
+        {
+            Name = name;
+            Description = description;
+            Price = price;
+            Dimensions = dimensions;
         }
     }
 }

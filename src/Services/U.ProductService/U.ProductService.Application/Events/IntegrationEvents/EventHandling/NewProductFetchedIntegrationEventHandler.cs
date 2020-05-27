@@ -5,6 +5,7 @@ using U.EventBus.Events.Fetch;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Products.Commands.Update;
 using U.ProductService.Application.Products.Models;
+using U.ProductService.Application.Services;
 using U.ProductService.Domain;
 
 namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
@@ -13,23 +14,25 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
     {
         private readonly IMediator _mediator;
         private readonly IProductRepository _productRepository;
+        private readonly IPendingCommands _commands;
 
         public NewProductFetchedIntegrationEventHandler(IMediator mediator,
-            IProductRepository productRepository)
+            IProductRepository productRepository, IPendingCommands commands)
         {
             _mediator = mediator;
             _productRepository = productRepository;
+            _commands = commands;
         }
 
         public async Task Handle(NewProductFetchedIntegrationEvent @event)
         {
-            var product = await _productRepository.GetByAbsoluteComparerAsync(
+            var productId = await _productRepository.GetAggregateIdByAbsoluteComparerAsync(
                 @event.ExternalSourceName,
                 @event.Id);
 
-            if (product is null)
+            if (productId is null)
             {
-                await _mediator.Send(new CreateProductCommand(@event.Name,
+                var command = new CreateProductCommand(@event.Name,
                     @event.BarCode,
                     @event.Price,
                     @event.Description,
@@ -45,12 +48,14 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
                         DuplicationValidated = true,
                         SourceName = @event.ExternalSourceName,
                         SourceId = @event.Id
-                    }));
+                    });
+                command.SetAsQueueable();
+                _commands.Add(command);
             }
             else
             {
-                await _mediator.Send(new UpdateProductCommand(
-                    product.Id,
+                var command = new UpdateProductCommand(
+                    productId.Value,
                     @event.Name,
                     @event.Price,
                     @event.Description,
@@ -61,7 +66,9 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
                         Height = @event.Height,
                         Weight = @event.Weight
                     }
-                ));
+                );
+                command.SetAsQueueable();
+                _commands.Add(command);
             }
         }
     }

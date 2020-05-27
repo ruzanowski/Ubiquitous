@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 using U.Common.NetCore.Auth;
 using U.Common.NetCore.Cache;
 using U.Common.NetCore.Consul;
-using U.Common.NetCore.Database;
+using U.Common.NetCore.EF;
 using U.Common.NetCore.Jaeger;
 using U.Common.NetCore.Mvc;
 using U.Common.NetCore.Swagger;
@@ -24,10 +24,14 @@ using U.ProductService.Application.Events.IntegrationEvents;
 using U.ProductService.Application.Events.IntegrationEvents.EventHandling;
 using U.ProductService.Application.Infrastructure;
 using U.ProductService.Application.Products.Commands.Create;
+using U.ProductService.BackgroundService;
 using U.ProductService.Domain;
 using U.ProductService.Middleware;
 using U.ProductService.Persistance.Contexts;
 using U.ProductService.Persistance.Repositories;
+using U.ProductService.Persistance.Repositories.Category;
+using U.ProductService.Persistance.Repositories.Manufacturer;
+using U.ProductService.Persistance.Repositories.Product;
 
 namespace U.ProductService
 {
@@ -50,7 +54,6 @@ namespace U.ProductService
                 .AddDatabaseContext<ProductContext>(Configuration)
                 .AddDatabaseContext<IntegrationEventLogContext>(Configuration)
                 .AddEventBusRabbitMq(Configuration)
-                .AddMediatR(typeof(CreateProductCommand).GetTypeInfo().Assembly)
                 .AddCustomPipelineBehaviours()
                 .AddCustomMapper()
                 .AddCustomServices()
@@ -58,7 +61,8 @@ namespace U.ProductService
                 .AddConsulServiceDiscovery()
                 .AddRedis()
                 .AddJwt()
-                .AddJaeger();
+                .AddJaeger()
+                .AddProductBackgroundService(Configuration);
 
             RegisterEventsHandlers(services);
         }
@@ -130,7 +134,8 @@ namespace U.ProductService
     {
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
-            services = services.AddTransient<IProductRepository, ProductRepository>()
+            services = services
+                .AddTransient<IProductRepository, ProductRepository>()
                 .AddTransient<ICategoryRepository, CategoryRepository>()
                 .AddTransient<IManufacturerRepository, ManufacturerRepository>()
                 .AddIntegrationEventLog()
@@ -141,12 +146,13 @@ namespace U.ProductService
 
         public static IServiceCollection AddCustomMapper(this IServiceCollection services)
         {
-            services.AddSingleton(new MapperConfiguration(mc =>
+            var mapper = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new ProductMappingProfile());
                 mc.AddProfile(new CategoryMappingProfile());
                 mc.AddProfile(new ManufacturerMappingProfile());
-            }).CreateMapper());
+            }).CreateMapper();
+            services.AddSingleton(x => mapper);
 
             return services;
         }

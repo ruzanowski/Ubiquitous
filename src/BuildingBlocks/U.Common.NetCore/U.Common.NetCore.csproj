@@ -21,7 +21,6 @@
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <PackageReference Include="Ubiquitous.Common" Version="*" />
-        <PackageReference Include="Ubiquitous.Common.NetCore" Version="*" />
 
     </ItemGroup>
 
@@ -100,6 +99,8 @@
         <PackageReference Include="RestEase" Version="1.4.12" />
         <PackageReference Include="StackExchange.Redis" Version="2.1.30" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4" />
+        <PackageReference Include="System.Runtime.Serialization.Json" Version="4.3.0" />
+        <PackageReference Include="System.Text.Json" Version="4.7.2" />
         <PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="3.0.75" />
         <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="3.0.50" />
     </ItemGroup>

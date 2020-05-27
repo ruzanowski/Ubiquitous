@@ -8,7 +8,6 @@ using U.ProductService.Domain;
 using U.ProductService.Domain.Aggregates.Category;
 using U.ProductService.Domain.Aggregates.Manufacturer;
 using U.ProductService.Domain.Aggregates.Product;
-using U.ProductService.Domain.Common;
 using U.ProductService.Domain.SeedWork;
 using U.ProductService.Persistance.EntityConfigurations.Category;
 using U.ProductService.Persistance.EntityConfigurations.Manufacturer;
@@ -64,7 +63,7 @@ namespace U.ProductService.Persistance.Contexts
 
             ChangeTracker.DetectChanges();
             OnBeforeSaving();
-            await base.SaveChangesAsync(cancellationToken);
+            await this.BulkSaveChangesAsync(cancellationToken);
 
             return true;
         }

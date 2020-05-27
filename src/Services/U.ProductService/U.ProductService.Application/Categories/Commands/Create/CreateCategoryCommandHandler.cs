@@ -11,19 +11,19 @@ namespace U.ProductService.Application.Categories.Commands.Create
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Guid>
     {
-        private readonly ICategoryRepository _manufacturerRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
         public CreateCategoryCommandHandler(ICategoryRepository categoryRepository)
         {
-            _manufacturerRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
+            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
 
         public async Task<Guid> Handle(CreateCategoryCommand command, CancellationToken cancellationToken)
         {
             var category = GetCategory(command);
 
-            await _manufacturerRepository.AddAsync(category);
-            await _manufacturerRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await _categoryRepository.AddAsync(category);
+            await _categoryRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
             return category.Id;
         }

@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Common.Exceptions;
 using U.ProductService.Domain;
 using U.ProductService.Domain.Aggregates.Category;
@@ -18,14 +17,13 @@ namespace U.ProductService.Application.Products.Commands.Create
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IManufacturerRepository _manufacturerRepository;
-        private readonly ILogger<CreateProductCommandHandler> _logger;
 
-        public CreateProductCommandHandler(IProductRepository productRepository, ICategoryRepository categoryRepository,
-            ILogger<CreateProductCommandHandler> logger, IManufacturerRepository manufacturerRepository)
+        public CreateProductCommandHandler(IProductRepository productRepository,
+            ICategoryRepository categoryRepository,
+            IManufacturerRepository manufacturerRepository)
         {
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
             _categoryRepository = categoryRepository;
-            _logger = logger;
             _manufacturerRepository = manufacturerRepository;
         }
 
@@ -34,7 +32,7 @@ namespace U.ProductService.Application.Products.Commands.Create
             if (!command.ExternalProperties?.DuplicationValidated ?? false)
             {
                 var duplicate =
-                    await _productRepository.GetByAbsoluteComparerAsync(
+                    await _productRepository.GetAggregateIdByAbsoluteComparerAsync(
                         command.ExternalProperties.SourceName,
                         command.ExternalProperties.SourceId);
 
@@ -53,8 +51,8 @@ namespace U.ProductService.Application.Products.Commands.Create
 
             await _productRepository.AddAsync(product);
 
-            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
-            _logger.LogDebug($"Product with id: '{product.Id}' has been created");
+            if (!command.QueuedJob?.AutoSave ?? false)
+                await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
             return product.Id;
         }

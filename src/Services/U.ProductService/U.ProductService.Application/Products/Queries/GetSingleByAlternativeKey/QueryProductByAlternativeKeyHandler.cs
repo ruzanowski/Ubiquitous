@@ -21,14 +21,16 @@ namespace U.ProductService.Application.Products.Queries.GetSingleByAlternativeKe
 
         public async Task<ProductViewModel> Handle(QueryProductByAlternativeKey request, CancellationToken cancellationToken)
         {
-            var products = await _productRepository.GetByAbsoluteComparerAsync(request.ExternalSourceName, request.ExternalSourceId);
+            var productId = await _productRepository.GetAggregateIdByAbsoluteComparerAsync(request.ExternalSourceName, request.ExternalSourceId);
 
-            if (products is null)
+            if (productId is null)
                 throw new ProductNotFoundException(
                     $"Product with externalSourceName: '{request.ExternalSourceName}' &" +
                     $" externalSourceId: '{request.ExternalSourceId}' has not been found.");
 
-            var productsMapped = _mapper.Map<ProductViewModel>(products);
+            var product = await _productRepository.GetAsync(productId.Value);
+
+            var productsMapped = _mapper.Map<ProductViewModel>(product);
 
             return productsMapped;
         }

@@ -14,7 +14,7 @@ namespace U.ProductService.Domain.SeedWork
         public Guid Id { get; set; }
 
         private List<INotification> _domainEvents;
-        public IReadOnlyCollection<INotification> DomainEvents => _domainEvents?.AsReadOnly();
+        public IReadOnlyCollection<INotification> DomainEvents => _domainEvents.AsReadOnly();
 
         public void AddDomainEvent(INotification eventItem)
         {

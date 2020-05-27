@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Events.Product;
 using U.ProductService.Application.Events.IntegrationEvents;
-using U.ProductService.Domain.Events;
+using U.ProductService.Domain.Aggregates.Product.Events;
 
 namespace U.ProductService.Application.Events.DomainEventHandlers
 {
@@ -17,9 +17,8 @@ namespace U.ProductService.Application.Events.DomainEventHandlers
         public ProductAddedDomainEventHandler(ILogger<ProductAddedDomainEventHandler> logger,
             IProductIntegrationEventService productIntegrationEventService)
         {
-            _productIntegrationEventService = productIntegrationEventService ??
-                                              throw new ArgumentNullException(nameof(productIntegrationEventService));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _productIntegrationEventService = productIntegrationEventService;
+            _logger = logger;
         }
 
         public async Task Handle(ProductAddedDomainEvent @event, CancellationToken cancellationToken)

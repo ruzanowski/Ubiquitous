@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Events.Product;
 using U.ProductService.Application.Events.IntegrationEvents;
-using U.ProductService.Domain.Events;
+using U.ProductService.Domain.Aggregates.Product.Events;
 
 namespace U.ProductService.Application.Events.DomainEventHandlers
 {

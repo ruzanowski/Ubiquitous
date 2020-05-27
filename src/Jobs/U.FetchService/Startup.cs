@@ -14,7 +14,6 @@ using U.Common.NetCore.Jaeger;
 using U.Common.NetCore.Mvc;
 using U.EventBus.RabbitMQ;
 using U.FetchService.BackgroundServices;
-using U.FetchService.Commands.FetchProducts;
 using U.FetchService.Services;
 
 namespace U.FetchService
@@ -35,7 +34,7 @@ namespace U.FetchService
         {
             services
                 .AddCustomMvc()
-                .AddCustomMediatR()
+                .AddCustomServices()
                 .AddEventBusRabbitMq(Configuration)
                 .AddConsulServiceDiscovery()
                 .AddTypedHttpClient<ISmartStoreAdapter>(GlobalConstants.SmartStoreConsulRegisteredName)
@@ -46,7 +45,7 @@ namespace U.FetchService
         public void Configure(IApplicationBuilder app, IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
             app
-                // .UsePathBase(Configuration, _logger).Item1
+                 .UsePathBase(Configuration, _logger).Item1
                 .UseRouting()
                 .UseEndpoints(endpoints => {
                     endpoints.MapControllers();
@@ -61,10 +60,9 @@ namespace U.FetchService
 
     public static class CustomExtensions
     {
-        public static IServiceCollection AddCustomMediatR(this IServiceCollection services)
+        public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
-            services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
-                typeof(FetchProductsCommand).GetTypeInfo().Assembly);
+            services.AddTransient<IProductsDispatcher, ProductsDispatcher>();
             return services;
         }
 

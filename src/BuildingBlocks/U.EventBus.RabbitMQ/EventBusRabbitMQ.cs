@@ -86,26 +86,24 @@ namespace U.EventBus.RabbitMQ
                     });
 
             var eventName = @event.GetType().Name;
-            using (var channel = _persistentConnection.CreateModel())
+            using var channel = _persistentConnection.CreateModel();
+            channel.ExchangeDeclare(exchange: BROKER_NAME, type: "direct");
+
+            var body = JsonSerializer.SerializeToUtf8Bytes(@event);
+
+            policy.Execute(() =>
             {
-                channel.ExchangeDeclare(exchange: BROKER_NAME, type: "direct");
+                var properties = channel.CreateBasicProperties();
+                properties.DeliveryMode = 1; // non-persistent
 
-                var message = JsonSerializer.Serialize(@event);
-                var body = Encoding.UTF8.GetBytes(message);
+                channel.BasicPublish(
 
-                policy.Execute(() =>
-                {
-                    var properties = channel.CreateBasicProperties();
-                    properties.DeliveryMode = 2; // non-persistent
-
-                    channel.BasicPublish(
-                        exchange: BROKER_NAME,
-                        routingKey: eventName,
-                        mandatory: true,
-                        basicProperties: properties,
-                        body: body);
-                });
-            }
+                    exchange: BROKER_NAME,
+                    routingKey: eventName,
+                    mandatory: true,
+                    basicProperties: properties,
+                    body: body);
+            });
         }
 
         public void Subscribe<T, TH>()
@@ -132,12 +130,10 @@ namespace U.EventBus.RabbitMQ
                     _persistentConnection.TryConnect();
                 }
 
-                using (var channel = _persistentConnection.CreateModel())
-                {
-                    channel.QueueBind(queue: _queueName,
-                        exchange: BROKER_NAME,
-                        routingKey: eventName);
-                }
+                using var channel = _persistentConnection.CreateModel();
+                channel.QueueBind(queue: _queueName,
+                    exchange: BROKER_NAME,
+                    routingKey: eventName);
             }
         }
 
@@ -168,7 +164,7 @@ namespace U.EventBus.RabbitMQ
                 var consumer = new AsyncEventingBasicConsumer(_consumerChannel);
 
                 consumer.Received += Consumer_Received;
-
+                _consumerChannel.BasicQos(0, 300, true);
                 _consumerChannel.BasicConsume(
                     queue: _queueName,
                     autoAck: false,

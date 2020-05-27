@@ -18,14 +18,14 @@ namespace U.Common.NetCore.Cache
             return uniqueId;
         }
 
-        public T Get<T>(string id) where T : class
+        public T Get<T>(string id)
         {
             var cacheKey = GetCacheKey(id);
             var cached = _redisCache.GetString(cacheKey);
 
             return !(cached is null)
                 ? JsonSerializer.Deserialize<T>(cached)
-                : null;
+                : default;
         }
 
         public void Cache(string id, object toCache)
@@ -38,6 +38,11 @@ namespace U.Common.NetCore.Cache
             var serialized = JsonSerializer.Serialize(toCache);
 
             _redisCache.SetString(cacheKey, serialized, options);
+        }
+
+        public void Delete(string id)
+        {
+            _redisCache.Remove(id);
         }
     }
 }

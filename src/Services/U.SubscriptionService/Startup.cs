@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using U.Common.NetCore.Auth;
 using U.Common.NetCore.Cache;
 using U.Common.NetCore.Consul;
-using U.Common.NetCore.Database;
+using U.Common.NetCore.EF;
 using U.Common.NetCore.Jaeger;
 using U.Common.NetCore.Mvc;
 using U.Common.NetCore.Swagger;

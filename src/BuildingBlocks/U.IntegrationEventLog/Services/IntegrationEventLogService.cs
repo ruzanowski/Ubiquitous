@@ -4,6 +4,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using U.EventBus.Events;
 
@@ -11,19 +12,22 @@ namespace U.IntegrationEventLog.Services
 {
     public class IntegrationEventLogService : IIntegrationEventLogService
     {
+        private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<IntegrationEventLogService> _logger;
 
         private IntegrationEventLogService()
         {
         }
 
-        private readonly IntegrationEventLogContext _integrationEventLogContext;
+        private  IntegrationEventLogContext _integrationEventLogContext => _serviceProvider.CreateScope()
+            .ServiceProvider.GetRequiredService<IntegrationEventLogContext>();
         private readonly List<Type> _eventTypes;
 
-        public IntegrationEventLogService(IntegrationEventLogContext integrationEventLogContext, ILogger<IntegrationEventLogService> logger)
+        public IntegrationEventLogService(IServiceProvider serviceProvider,
+            ILogger<IntegrationEventLogService> logger)
         {
+            _serviceProvider = serviceProvider;
             _logger = logger;
-            _integrationEventLogContext = integrationEventLogContext;
             _eventTypes = IntegrationEventHelper.GetTypes();
         }
 

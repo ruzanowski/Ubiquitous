@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using U.ProductService.Domain.Aggregates.Picture;
-using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Exceptions;
 using U.ProductService.Domain.SeedWork;
 
@@ -37,6 +36,7 @@ namespace U.ProductService.Domain.Aggregates.Manufacturer
             _createdBy = string.Empty;
             _lastUpdatedAt = default;
             _lastUpdatedBy = string.Empty;
+            Pictures = new List<Domain.Picture>();
         }
 
         public Manufacturer(Guid id, string uniqueClientId, string name, string description) : this()
@@ -47,18 +47,25 @@ namespace U.ProductService.Domain.Aggregates.Manufacturer
             Description = description;
         }
 
-        public void AddPicture(Guid id, Guid fileStorageUploadId, string seoFilename, string description, string url, MimeType mimeType)
+        public void AddPicture(Guid id, Guid fileStorageUploadId, string filename, string description, string url, MimeType mimeType)
         {
-            if (string.IsNullOrEmpty(seoFilename))
-                throw new ProductDomainException($"{nameof(seoFilename)} cannot be null or empty!");
+            if (string.IsNullOrEmpty(filename))
+                throw new DomainException($"{nameof(filename)} cannot be null or empty!");
 
             if (string.IsNullOrEmpty(description))
-                throw new ProductDomainException($"{nameof(description)} cannot be null or empty!");
+                throw new DomainException($"{nameof(description)} cannot be null or empty!");
 
             if (string.IsNullOrEmpty(url))
-                throw new ProductDomainException($"{nameof(url)} cannot be null or empty!");
+                throw new DomainException($"{nameof(url)} cannot be null or empty!");
 
-            var picture = new Domain.Picture(id, AggregateId, AggregateTypeName, fileStorageUploadId, seoFilename, description, url, mimeType);
+            var picture = new Domain.Picture(id,
+                AggregateId,
+                AggregateTypeName,
+                fileStorageUploadId,
+                filename,
+                description,
+                url,
+                mimeType);
 
             Pictures.Add(picture);
         }
@@ -68,7 +75,7 @@ namespace U.ProductService.Domain.Aggregates.Manufacturer
             var picture = Pictures.FirstOrDefault(x => x.Id.Equals(pictureId));
 
             if (picture is null)
-                throw new ProductDomainException("Picture does not exist!");
+                throw new DomainException("Picture does not exist!");
 
             Pictures.Remove(picture);
         }

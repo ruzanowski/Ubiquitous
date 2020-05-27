@@ -13,7 +13,7 @@ using U.Common.NetCore.Cache;
 using U.EventBus.Abstractions;
 using U.IntegrationEventLog;
 using U.Common.NetCore.Consul;
-using U.Common.NetCore.Database;
+using U.Common.NetCore.EF;
 using U.Common.NetCore.Fabio;
 using U.Common.NetCore.Jaeger;
 using U.Common.NetCore.Mvc;

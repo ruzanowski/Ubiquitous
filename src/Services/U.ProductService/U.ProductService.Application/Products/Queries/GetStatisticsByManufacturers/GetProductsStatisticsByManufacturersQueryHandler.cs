@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Aggregates.Product;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Products.Queries.GetStatisticsByManufacturers

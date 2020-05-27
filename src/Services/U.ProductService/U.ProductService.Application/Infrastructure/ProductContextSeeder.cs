@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
-using U.Common.NetCore.Database;
+using U.Common.NetCore.EF;
 using U.ProductService.Domain.Aggregates.Category;
 using U.ProductService.Domain.Aggregates.Manufacturer;
 using U.ProductService.Domain.Aggregates.Product;

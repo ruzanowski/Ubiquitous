@@ -11,7 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SmartStore.Persistance.Context;
 using U.Common.NetCore.Consul;
-using U.Common.NetCore.Database;
+using U.Common.NetCore.EF;
 using U.Common.NetCore.Mvc;
 using U.Common.NetCore.Swagger;
 using U.SmartStoreAdapter.Application.Common.MappingProfiles;

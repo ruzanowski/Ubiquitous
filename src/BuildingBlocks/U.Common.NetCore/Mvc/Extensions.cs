@@ -41,7 +41,7 @@ namespace U.Common.NetCore.Mvc
             services.AddMvc();
 
             services.AddSingleton<ISelfInfoService, SelfInfoService>();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
             return services;
         }

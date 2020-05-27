@@ -7,12 +7,17 @@ namespace U.ProductService.Domain
 {
     public class Dimensions : ValueObject
     {
-        public decimal Length { get; protected internal set; }
-        public decimal Width { get; protected internal set; }
-        public decimal Height { get; protected internal set; }
-        public decimal Weight { get; protected internal set; }
-        
-        public Dimensions(decimal length, decimal width, decimal height, decimal weight)
+        public decimal Length { get; set; }
+        public decimal Width { get; set; }
+        public decimal Height { get; set; }
+        public decimal Weight { get; set; }
+
+        private Dimensions()
+        {
+
+        }
+
+        public Dimensions(decimal length, decimal width, decimal height, decimal weight) : this()
         {
             Length = length;
             Width = width;

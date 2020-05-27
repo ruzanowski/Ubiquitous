@@ -4,7 +4,7 @@ using U.ProductService.Application.Products.Models;
 
 namespace U.ProductService.Application.Products.Commands.Create
 {
-    public class CreateProductCommand : IRequest<Guid>
+    public class CreateProductCommand : IRequest<Guid>, IQueueable
     {
         public string Name { get; set; }
         public string BarCode { get; set; }
@@ -14,6 +14,7 @@ namespace U.ProductService.Application.Products.Commands.Create
         public Guid? ManufacturerId { get; set; }
         public DimensionsDto Dimensions { get; set; }
         public ExternalCreation ExternalProperties { get; set; }
+        public QueuedJob QueuedJob { get; private set; }
 
         public CreateProductCommand()
         {
@@ -36,6 +37,15 @@ namespace U.ProductService.Application.Products.Commands.Create
             CategoryId = categoryId;
             Dimensions = dimensions;
             ExternalProperties = externalProperties;
+        }
+
+        public void SetAsQueueable()
+        {
+            QueuedJob = new QueuedJob
+            {
+                AutoSave = true,
+                DateTimeQueued = DateTime.UtcNow
+            };
         }
     }
 }
