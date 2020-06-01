@@ -25,7 +25,7 @@ namespace U.Common.NetCore.EF
 
             if (dbOptions.InTests)
             {
-                dbOptions.Connection = Environment.GetEnvironmentVariable($"{serviceIdentity.Name}.test.connection");
+                dbOptions.Connection = Environment.GetEnvironmentVariable($"{serviceIdentity.Name}_test_connection");
             }
 
             if (dbOptions is null)
