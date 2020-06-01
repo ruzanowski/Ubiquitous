@@ -42,14 +42,6 @@ namespace U.Common.NetCore.Mvc
             services.AddSingleton<ISelfInfoService, SelfInfoService>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
-            IConfiguration configuration;
-            using (var serviceProvider = services.BuildServiceProvider())
-            {
-                configuration = serviceProvider.GetService<IConfiguration>();
-            }
-
-            services.AddSingleton(configuration.GetOptions<ServiceIdentity>("serviceIdentity") ?? new ServiceIdentity());
-
             return services;
         }
 

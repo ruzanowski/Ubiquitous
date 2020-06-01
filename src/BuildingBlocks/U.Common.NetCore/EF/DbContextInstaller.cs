@@ -15,11 +15,9 @@ namespace U.Common.NetCore.EF
         public static IServiceCollection AddDatabaseContext<TContext>(this IServiceCollection services, IConfiguration configuration)
             where TContext : DbContext
         {
-            ServiceIdentity serviceIdentity;
-            using (var serviceProvider = services.BuildServiceProvider())
-            {
-                serviceIdentity = serviceProvider.GetService<ServiceIdentity>();
-            }
+            var serviceIdentity = configuration.GetOptions<ServiceIdentity>("serviceIdentity") ?? new ServiceIdentity();
+
+            services.AddSingleton(serviceIdentity);
 
             var dbOptions = configuration.GetOptions<DbOptions>("dbOptions");
 
