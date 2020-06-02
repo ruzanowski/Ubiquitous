@@ -66,6 +66,8 @@ dependency_scanning:
       dependency_scanning: gl-dependency-scanning-report.json
   dependencies: []
   only:
+      - master
+      - develop
     refs:
       - branches
     variables:
