@@ -6,10 +6,11 @@ namespace U.ProductService.IntegrationTests.AutoMapper
 {
     public class MapperProfileTests : TestBase
     {
-        [Fact(Skip = "v.0.3")]
+        [Fact]
         public void AutoMapper_Configuration_IsValid()
         {
-            var autoMapper = CreateServer().Host.Services.GetService<IMapper>();
+            using var server = CreateServer();
+            var autoMapper = server.Host.Services.GetService<IMapper>();
             autoMapper.ConfigurationProvider.AssertConfigurationIsValid();
         }
     }

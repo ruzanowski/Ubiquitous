@@ -22,4 +22,9 @@
         <PackageReference Include="Ubiquitous.EventBus.RabbitMQ" Version="*" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Pictures\Commands" />
+      <Folder Include="Pictures\Queries" />
+    </ItemGroup>
+
 </Project>

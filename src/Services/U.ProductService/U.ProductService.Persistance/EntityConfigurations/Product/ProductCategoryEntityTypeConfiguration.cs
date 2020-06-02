@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using U.ProductService.Domain.Entities.Product;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Persistance.EntityConfigurations.Product
 {
-    class ProductCategoryEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Aggregates.Category.Category>
+    class ProductCategoryEntityTypeConfiguration : IEntityTypeConfiguration<ProductCategory>
     {
-        public void Configure(EntityTypeBuilder<Domain.Aggregates.Category.Category> builder)
+        public void Configure(EntityTypeBuilder<ProductCategory> builder)
         {
             builder.ToTable("Products_Categories", ProductContext.DEFAULT_SCHEMA);
 
@@ -16,8 +17,6 @@ namespace U.ProductService.Persistance.EntityConfigurations.Product
 
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Description).IsRequired();
-
-
         }
     }
 }

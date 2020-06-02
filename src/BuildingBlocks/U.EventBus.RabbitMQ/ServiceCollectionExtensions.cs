@@ -16,8 +16,11 @@ namespace U.EventBus.RabbitMQ
         {
             var rabbit = configuration.GetOptions<RabbitOptions>(RabbitSectionName);
 
-            if(!rabbit.Enabled)
+            if (!rabbit.Enabled)
+            {
+                services.AddSingleton<IEventBus, NoEventBus>();
                 return services;
+            }
 
             services.AddSingleton(rabbit);
 

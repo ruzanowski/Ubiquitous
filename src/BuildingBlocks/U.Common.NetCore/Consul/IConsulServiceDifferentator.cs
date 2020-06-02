@@ -7,12 +7,12 @@ namespace U.Common.NetCore.Consul
         bool IsTheSame(string consulRegisteredName);
     }
 
-    public class ConsulServiceDiffentator : IConsulServiceDifferentator
+    public class ConsulServiceDifferentator : IConsulServiceDifferentator
     {
         private readonly ISelfInfoService _idService;
         private readonly ConsulOptions _consulOptions;
 
-        public ConsulServiceDiffentator(ISelfInfoService idService, ConsulOptions consulOptions)
+        public ConsulServiceDifferentator(ISelfInfoService idService, ConsulOptions consulOptions)
         {
             _idService = idService;
             _consulOptions = consulOptions;

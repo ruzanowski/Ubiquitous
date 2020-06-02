@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Serilog;
 using SmartStore.Persistance.Context;
-using U.Common.NetCore.Database;
+using U.Common.NetCore.EF;
 using U.Common.NetCore.Mvc;
 using U.Common.NetCore.WebHost;
 

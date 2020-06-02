@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using SmartStore.Persistance.Context;
-using U.Common.NetCore.NetCoreExtensions;
 using U.Common.Pagination;
 using U.SmartStoreAdapter.Domain.Entities.Catalog;
 
@@ -28,8 +27,10 @@ namespace U.SmartStoreAdapter.Application.Categories
             var productsMapped = _mapper.ProjectTo<CategoryViewModel>(products);
 
             var paginatedProducts =
-                await PaginatedItemsExtended<CategoryViewModel>.CreateAsync(request.PageIndex,
+                PaginatedItems<CategoryViewModel>.Create(request.PageIndex,
                     request.PageSize, productsMapped);
+
+            await Task.CompletedTask;
 
             return paginatedProducts;
         }

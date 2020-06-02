@@ -2,39 +2,41 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Common.Exceptions;
+using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain;
-using U.ProductService.Domain.Aggregates.Category;
-using U.ProductService.Domain.Aggregates.Manufacturer;
-using U.ProductService.Domain.Aggregates.Product;
+using U.ProductService.Domain.Entities.Manufacturer;
+using U.ProductService.Domain.Entities.Product;
 
 namespace U.ProductService.Application.Products.Commands.Create
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Guid>
+    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ProductViewModel>
     {
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IManufacturerRepository _manufacturerRepository;
-        private readonly ILogger<CreateProductCommandHandler> _logger;
+        private readonly IMapper _mapper;
 
-        public CreateProductCommandHandler(IProductRepository productRepository, ICategoryRepository categoryRepository,
-            ILogger<CreateProductCommandHandler> logger, IManufacturerRepository manufacturerRepository)
+        public CreateProductCommandHandler(IProductRepository productRepository,
+            ICategoryRepository categoryRepository,
+            IManufacturerRepository manufacturerRepository,
+            IMapper mapper)
         {
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
             _categoryRepository = categoryRepository;
-            _logger = logger;
             _manufacturerRepository = manufacturerRepository;
+            _mapper = mapper;
         }
 
-        public async Task<Guid> Handle(CreateProductCommand command, CancellationToken cancellationToken)
+        public async Task<ProductViewModel> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
             if (!command.ExternalProperties?.DuplicationValidated ?? false)
             {
                 var duplicate =
-                    await _productRepository.GetByAbsoluteComparerAsync(
+                    await _productRepository.GetIdByExternalTupleAsync(
                         command.ExternalProperties.SourceName,
                         command.ExternalProperties.SourceId);
 
@@ -53,10 +55,10 @@ namespace U.ProductService.Application.Products.Commands.Create
 
             await _productRepository.AddAsync(product);
 
-            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
-            _logger.LogDebug($"Product with id: '{product.Id}' has been created");
+            if (!command.QueuedJob?.AutoSave ?? true)
+                await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-            return product.Id;
+            return _mapper.Map<ProductViewModel>(product);
         }
 
         private Product GetProduct(CreateProductCommand command)
@@ -70,7 +72,7 @@ namespace U.ProductService.Application.Products.Commands.Create
                     command.Dimensions.Height,
                     command.Dimensions.Weight),
                 command.ManufacturerId ?? Manufacturer.GetDraftManufacturer().Id,
-                command.CategoryId ?? Category.GetDraftCategory().Id,
+                command.CategoryId ?? ProductCategory.GetDraftCategory().Id,
                 ProductType.SimpleProduct.Id,
                 command.ExternalProperties?.SourceName,
                 command.ExternalProperties?.SourceId);
@@ -80,8 +82,8 @@ namespace U.ProductService.Application.Products.Commands.Create
         {
             if (!await _categoryRepository.AnyAsync(categoryId))
             {
-                throw new CategoryNotFoundException(
-                    $"Category with given primary key: '{categoryId}' has not been found.");
+                throw new ProductCategoryNotFoundException(
+                    $"ProductCategory with given primary key: '{categoryId}' has not been found.");
             }
         }
 

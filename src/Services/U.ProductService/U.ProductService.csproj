@@ -26,6 +26,8 @@
         <Content Remove="U.ProductService.Domain\**" />
         <Content Remove="U.ProductService.IntegrationTests\**" />
         <Content Remove="U.ProductService.Persistance\**" />
+        <Content Remove="U.ProductService.BackgroundService\**" />
+        <Content Remove="U.ProductService.DomainTests\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -39,28 +41,128 @@
             <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-    </ItemGroup>
-
-    <ItemGroup>
+        <None Remove="U.ProductService.BackgroundService\**" />
         <None Remove="U.ProductService.Api\**" />
         <None Remove="U.ProductService.Application\**" />
         <None Remove="U.ProductService.Domain\**" />
         <None Remove="U.ProductService.IntegrationTests\**" />
         <None Remove="U.ProductService.Persistance\**" />
-        <Compile Remove="U.ProductService.Api\**" />
-        <Compile Remove="U.ProductService.Application\**" />
-        <Compile Remove="U.ProductService.Domain\**" />
-        <Compile Remove="U.ProductService.IntegrationTests\**" />
-        <Compile Remove="U.ProductService.Persistance\**" />
-        <EmbeddedResource Remove="U.ProductService.Api\**" />
-        <EmbeddedResource Remove="U.ProductService.Application\**" />
-        <EmbeddedResource Remove="U.ProductService.Domain\**" />
-        <EmbeddedResource Remove="U.ProductService.IntegrationTests\**" />
-        <EmbeddedResource Remove="U.ProductService.Persistance\**" />
+        <None Remove="U.ProductService.DomainTests\**" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="U.ProductService.Application\U.ProductService.Application.csproj" />
+      <Compile Remove="U.ProductService.Api\**" />
+      <Compile Remove="U.ProductService.Application\**" />
+      <Compile Remove="U.ProductService.BackgroundService\**" />
+      <Compile Remove="U.ProductService.Domain\**" />
+      <Compile Remove="U.ProductService.IntegrationTests\**" />
+      <Compile Remove="U.ProductService.Persistance\**" />
+      <Compile Remove="U.ProductService.DomainTests\**" />
     </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="U.ProductService.Api\**" />
+      <EmbeddedResource Remove="U.ProductService.Application\**" />
+      <EmbeddedResource Remove="U.ProductService.BackgroundService\**" />
+      <EmbeddedResource Remove="U.ProductService.Domain\**" />
+      <EmbeddedResource Remove="U.ProductService.IntegrationTests\**" />
+      <EmbeddedResource Remove="U.ProductService.Persistance\**" />
+      <EmbeddedResource Remove="U.ProductService.DomainTests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="U.ProductService.Api\bin\Debug\netcoreapp2.2\U.ProductService.Api.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Api\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Api\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Application\bin\Debug\netcoreapp2.2\U.ProductService.Application.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Application\bin\Debug\netcoreapp3.1\appsettings.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Application\bin\Debug\netcoreapp3.1\U.ProductService.Application.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Application\bin\Release\netcoreapp2.2\U.ProductService.Application.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Application\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Application\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Application\obj\publish\osx-x64\project.assets.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Application\obj\publish\osx-x64\U.ProductService.Application.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Application\obj\U.ProductService.Application.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.BackgroundService\bin\Debug\netcoreapp3.1\appsettings.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.BackgroundService\bin\Debug\netcoreapp3.1\U.ProductService.BackgroundService.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.BackgroundService\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.BackgroundService\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.BackgroundService\obj\U.ProductService.BackgroundService.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.BackgroundService\obj\U.ProductService.PeriodicBatchCreate.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Domain\bin\Debug\netcoreapp2.2\U.ProductService.Domain.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Domain\bin\Debug\netcoreapp3.1\U.ProductService.Domain.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Domain\bin\Release\netcoreapp2.2\U.ProductService.Domain.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Domain\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Domain\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Domain\obj\publish\osx-x64\project.assets.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Domain\obj\publish\osx-x64\U.ProductService.Domain.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Domain\obj\U.ProductService.Domain.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\appsettings.IT.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\appsettings.docker.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\appsettings.IT.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\appsettings.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\U.Common.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\U.EventBus.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\U.EventBus.RabbitMQ.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\U.IntegrationEventLog.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\U.ProductService.Application.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\U.ProductService.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\U.ProductService.Domain.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\U.ProductService.IntegrationTests.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\U.ProductService.IntegrationTests.runtimeconfig.dev.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\U.ProductService.IntegrationTests.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\U.ProductService.Persistance.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\Ubiquitous.Common.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\Ubiquitous.EventBus.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\Ubiquitous.EventBus.RabbitMQ.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp2.2\Ubiquitous.IntegrationEventLog.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp3.1\U.ProductService.Application.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp3.1\U.ProductService.BackgroundService.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp3.1\U.ProductService.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp3.1\U.ProductService.Domain.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp3.1\U.ProductService.Persistance.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp3.1\Ubiquitous.Common.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp3.1\Ubiquitous.Common.NetCore.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp3.1\Ubiquitous.EventBus.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp3.1\Ubiquitous.EventBus.RabbitMQ.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Debug\netcoreapp3.1\Ubiquitous.IntegrationEventLog.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Release\netcoreapp2.2\appsettings.docker.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Release\netcoreapp2.2\appsettings.IT.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Release\netcoreapp2.2\appsettings.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Release\netcoreapp2.2\U.Common.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Release\netcoreapp2.2\U.EventBus.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Release\netcoreapp2.2\U.EventBus.RabbitMQ.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Release\netcoreapp2.2\U.IntegrationEventLog.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Release\netcoreapp2.2\U.ProductService.Application.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Release\netcoreapp2.2\U.ProductService.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Release\netcoreapp2.2\U.ProductService.Domain.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Release\netcoreapp2.2\U.ProductService.IntegrationTests.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Release\netcoreapp2.2\U.ProductService.IntegrationTests.runtimeconfig.dev.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Release\netcoreapp2.2\U.ProductService.IntegrationTests.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\bin\Release\netcoreapp2.2\U.ProductService.Persistance.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\obj\publish\osx-x64\project.assets.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\obj\publish\osx-x64\U.ProductService.IntegrationTests.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.IntegrationTests\obj\U.ProductService.IntegrationTests.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Persistance\bin\Debug\netcoreapp3.1\appsettings.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Persistance\bin\Debug\netcoreapp3.1\U.ProductService.Persistance.deps.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Persistance\bin\Debug\netcoreapp3.1\U.ProductService.Persistance.runtimeconfig.dev.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Persistance\bin\Debug\netcoreapp3.1\U.ProductService.Persistance.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Persistance\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Persistance\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.Persistance\obj\U.ProductService.Persistance.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.DomainTests\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.DomainTests\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="U.ProductService.DomainTests\obj\U.ProductService.DomainTests.csproj.nuget.dgspec.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="U.ProductService.Application\U.ProductService.Application.csproj" />
+      <ProjectReference Include="U.ProductService.BackgroundService\U.ProductService.BackgroundService.csproj" />
+      <ProjectReference Include="U.ProductService.Domain\U.ProductService.Domain.csproj" />
+      <ProjectReference Include="U.ProductService.Persistance\U.ProductService.Persistance.csproj" />
+    </ItemGroup>
+    
 
 </Project>

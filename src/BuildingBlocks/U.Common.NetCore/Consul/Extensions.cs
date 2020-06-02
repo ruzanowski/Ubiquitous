@@ -31,7 +31,7 @@ namespace U.Common.NetCore.Consul
             services.AddTransient<ConsulServiceDiscoveryMessageHandler>();
 
             services.AddTransient<IConsulServiceDifferentator>(
-                c => new ConsulServiceDiffentator(
+                c => new ConsulServiceDifferentator(
                     c.GetService<ISelfInfoService>(),
                     options));
 

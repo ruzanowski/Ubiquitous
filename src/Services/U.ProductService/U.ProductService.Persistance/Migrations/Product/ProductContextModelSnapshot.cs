@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using U.ProductService.Persistance.Contexts;
 
@@ -18,32 +19,22 @@ namespace U.ProductService.Persistance.Migrations.Product
                 .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("U.ProductService.Domain.Aggregates.Category.Category", b =>
+            modelBuilder.Entity("U.ProductService.Domain.Common.MimeType", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsDraft")
-                        .HasColumnType("boolean");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("ParentCategoryId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("character varying(200)")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories","Products");
+                    b.ToTable("Pictures_MimeTypes","Products");
                 });
 
-            modelBuilder.Entity("U.ProductService.Domain.Aggregates.Manufacturer.Manufacturer", b =>
+            modelBuilder.Entity("U.ProductService.Domain.Entities.Manufacturer.Manufacturer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -77,46 +68,32 @@ namespace U.ProductService.Persistance.Migrations.Product
                     b.ToTable("Manufacturers","Products");
                 });
 
-            modelBuilder.Entity("U.ProductService.Domain.Aggregates.Picture.MimeType", b =>
+            modelBuilder.Entity("U.ProductService.Domain.Entities.Picture.ManufacturerPicture", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("ManufacturerPictureId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("character varying(200)")
-                        .HasMaxLength(200);
+                    b.Property<Guid>("ManufacturerId")
+                        .HasColumnType("uuid");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("PictureId")
+                        .HasColumnType("uuid");
 
-                    b.ToTable("Pictures_MimeTypes","Products");
+                    b.HasKey("ManufacturerPictureId");
+
+                    b.HasIndex("ManufacturerId");
+
+                    b.HasIndex("PictureId");
+
+                    b.ToTable("Manufacturer_Pictures","Products");
                 });
 
-            modelBuilder.Entity("U.ProductService.Domain.Aggregates.Product.ProductType", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("character varying(200)")
-                        .HasMaxLength(200);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Products_Types","Products");
-                });
-
-            modelBuilder.Entity("U.ProductService.Domain.Picture", b =>
+            modelBuilder.Entity("U.ProductService.Domain.Entities.Picture.Picture", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<Guid>("AggregateRootId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("AggregateRootName")
-                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -129,14 +106,11 @@ namespace U.ProductService.Persistance.Migrations.Product
                     b.Property<Guid>("FileStorageUploadId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("ManufacturerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int?>("MimeTypeId")
+                    b.Property<int>("MimeTypeId")
                         .HasColumnType("integer");
 
-                    b.Property<Guid?>("ProductId")
-                        .HasColumnType("uuid");
+                    b.Property<DateTime>("PictureAddedAt")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -144,16 +118,33 @@ namespace U.ProductService.Persistance.Migrations.Product
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ManufacturerId");
-
                     b.HasIndex("MimeTypeId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Pictures","Products");
                 });
 
-            modelBuilder.Entity("U.ProductService.Domain.Product", b =>
+            modelBuilder.Entity("U.ProductService.Domain.Entities.Picture.ProductPicture", b =>
+                {
+                    b.Property<Guid>("ProductPictureId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PictureId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("ProductPictureId");
+
+                    b.HasIndex("PictureId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Product_Pictures","Products");
+                });
+
+            modelBuilder.Entity("U.ProductService.Domain.Entities.Product.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -215,30 +206,91 @@ namespace U.ProductService.Persistance.Migrations.Product
                     b.ToTable("Products","Products");
                 });
 
-            modelBuilder.Entity("U.ProductService.Domain.Picture", b =>
+            modelBuilder.Entity("U.ProductService.Domain.Entities.Product.ProductCategory", b =>
                 {
-                    b.HasOne("U.ProductService.Domain.Aggregates.Manufacturer.Manufacturer", null)
-                        .WithMany("Pictures")
-                        .HasForeignKey("ManufacturerId");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
-                    b.HasOne("U.ProductService.Domain.Aggregates.Picture.MimeType", "MimeType")
-                        .WithMany()
-                        .HasForeignKey("MimeTypeId");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.HasOne("U.ProductService.Domain.Product", null)
-                        .WithMany("Pictures")
-                        .HasForeignKey("ProductId");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("ParentCategoryId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products_Categories","Products");
                 });
 
-            modelBuilder.Entity("U.ProductService.Domain.Product", b =>
+            modelBuilder.Entity("U.ProductService.Domain.Entities.Product.ProductType", b =>
                 {
-                    b.HasOne("U.ProductService.Domain.Aggregates.Category.Category", "Category")
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("character varying(200)")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products_Types","Products");
+                });
+
+            modelBuilder.Entity("U.ProductService.Domain.Entities.Picture.ManufacturerPicture", b =>
+                {
+                    b.HasOne("U.ProductService.Domain.Entities.Manufacturer.Manufacturer", "Manufacturer")
+                        .WithMany("Pictures")
+                        .HasForeignKey("ManufacturerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("U.ProductService.Domain.Entities.Picture.Picture", "Picture")
+                        .WithMany()
+                        .HasForeignKey("PictureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("U.ProductService.Domain.Entities.Picture.Picture", b =>
+                {
+                    b.HasOne("U.ProductService.Domain.Common.MimeType", "MimeType")
+                        .WithMany()
+                        .HasForeignKey("MimeTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("U.ProductService.Domain.Entities.Picture.ProductPicture", b =>
+                {
+                    b.HasOne("U.ProductService.Domain.Entities.Picture.Picture", "Picture")
+                        .WithMany()
+                        .HasForeignKey("PictureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("U.ProductService.Domain.Entities.Product.Product", "Product")
+                        .WithMany("Pictures")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("U.ProductService.Domain.Entities.Product.Product", b =>
+                {
+                    b.HasOne("U.ProductService.Domain.Entities.Product.ProductCategory", "ProductCategory")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("U.ProductService.Domain.Aggregates.Product.ProductType", "ProductType")
+                    b.HasOne("U.ProductService.Domain.Entities.Product.ProductType", "ProductType")
                         .WithMany()
                         .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Cascade)

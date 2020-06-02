@@ -4,19 +4,19 @@ using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Persistance.EntityConfigurations.Manufacturer
 {
-    class ManufacturerEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Aggregates.Manufacturer.Manufacturer>
+    class ManufacturerEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Entities.Manufacturer.Manufacturer>
     {
-        public void Configure(EntityTypeBuilder<Domain.Aggregates.Manufacturer.Manufacturer> builder)
+        public void Configure(EntityTypeBuilder<Domain.Entities.Manufacturer.Manufacturer> builder)
         {
             builder.ToTable("Manufacturers", ProductContext.DEFAULT_SCHEMA);
 
             builder.HasKey(o => o.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Ignore(b => b.DomainEvents);
-            
+
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Description).IsRequired();
-            
+
             builder.Property(post => post.CreatedAt)
                 .HasField("_createdAt");
 
@@ -28,10 +28,6 @@ namespace U.ProductService.Persistance.EntityConfigurations.Manufacturer
 
             builder.Property(post => post.LastUpdatedBy)
                 .HasField("_lastUpdatedBy");
-            
-            builder.HasMany(x=>x.Pictures)
-                .WithOne()
-                .IsRequired(false);
         }
     }
 }

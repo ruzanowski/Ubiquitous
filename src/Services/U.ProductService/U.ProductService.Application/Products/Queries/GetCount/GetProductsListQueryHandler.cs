@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Entities.Product;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Products.Queries.GetCount
@@ -32,7 +33,7 @@ namespace U.ProductService.Application.Products.Queries.GetCount
 
         private IQueryable<Product> GetProductQueryable() => _context.Products
             .Include(x => x.Pictures)
-            .Include(x => x.Category)
+            .Include(x => x.ProductCategory)
             .AsQueryable();
 
     }

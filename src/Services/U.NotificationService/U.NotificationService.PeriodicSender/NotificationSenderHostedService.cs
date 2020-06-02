@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
-using U.NotificationService.Application.Builders.PendingNotifications;
+using U.NotificationService.Application.Services.PendingEvents;
 using U.NotificationService.Application.SignalR;
 
 // ReSharper disable ClassNeverInstantiated.Global

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  hostIP: '77.55.216.216',
+  hostIP: 'localhost',
   apiGatewayPort: '4500',
   productServicePort: '5000',
   smartStoreAdapterPort: '5100',

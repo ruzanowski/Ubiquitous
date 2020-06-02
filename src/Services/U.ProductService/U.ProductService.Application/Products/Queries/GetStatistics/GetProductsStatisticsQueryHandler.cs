@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using U.ProductService.Application.Common.Extensions;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Entities.Product;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Products.Queries.GetStatistics
@@ -29,7 +30,7 @@ namespace U.ProductService.Application.Products.Queries.GetStatistics
             var query = GetQuery();
 
             var results = await query
-                .Where(x => x.CreatedAt.Date.AddDays(Days) >= DateTime.UtcNow.Date)
+                .Where(x => x.CreatedAt.Date.AddDays(Days) > DateTime.UtcNow.Date)
                 .GroupBy(g =>
                     new
                     {
@@ -67,7 +68,6 @@ namespace U.ProductService.Application.Products.Queries.GetStatistics
 
             var statisticsWithGaps = results.Select(i => new ProductStatisticsDto
             {
-                Description = i.Description,
                 DateTime = DateTimeBuilder(i.Year, i.Month, i.Day, i.Hour, i.Minute, i.Second),
                 Count = i.Count
             }).ToList();

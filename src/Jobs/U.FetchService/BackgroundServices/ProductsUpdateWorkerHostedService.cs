@@ -1,10 +1,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using U.FetchService.Commands.FetchProducts;
+using U.FetchService.Services;
 
 // ReSharper disable ClassNeverInstantiated.Global
 
@@ -12,17 +11,17 @@ namespace U.FetchService.BackgroundServices
 {
     public class ProductsUpdateWorkerHostedService : BackgroundService
     {
-        private readonly IMediator _mediator;
+        private readonly IProductsDispatcher _dispatcher;
         private readonly ILogger<ProductsUpdateWorkerHostedService> _logger;
         private readonly BackgroundServiceOptions _bgServiceOptions;
         private readonly int _refreshInterval;
 
-        public ProductsUpdateWorkerHostedService(IMediator mediator, ILogger<ProductsUpdateWorkerHostedService> logger,
-            BackgroundServiceOptions bgServiceOptions)
+        public ProductsUpdateWorkerHostedService(ILogger<ProductsUpdateWorkerHostedService> logger,
+            BackgroundServiceOptions bgServiceOptions, IProductsDispatcher dispatcher)
         {
-            _mediator = mediator;
             _logger = logger;
             _bgServiceOptions = bgServiceOptions;
+            _dispatcher = dispatcher;
             _refreshInterval = bgServiceOptions.RefreshSeconds;
         }
 
@@ -42,7 +41,7 @@ namespace U.FetchService.BackgroundServices
         }
 
         private async Task SafeUpdate(CancellationToken stopToken) =>
-            await SafeExecution(async () => await _mediator.Send(new FetchProductsCommand(), stopToken));
+            await SafeExecution(async () => await _dispatcher.FetchAndPublishAsync(stopToken));
 
         /// <summary>
         /// Caution!

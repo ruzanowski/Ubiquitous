@@ -4,10 +4,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using U.Common.NetCore.NetCoreExtensions;
 using U.Common.Pagination;
 using U.ProductService.Application.Products.Models;
-using U.ProductService.Domain;
+using U.ProductService.Domain.Entities.Product;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Products.Queries.GetList
@@ -41,14 +40,16 @@ namespace U.ProductService.Application.Products.Queries.GetList
             var productsMapped = _mapper.ProjectTo<ProductViewModel>(products);
 
             var paginatedProducts =
-                await PaginatedItemsExtended<ProductViewModel>.CreateAsync(request.PageIndex, request.PageSize, productsMapped);
+                PaginatedItems<ProductViewModel>.Create(request.PageIndex, request.PageSize, productsMapped);
+
+            await Task.CompletedTask;
 
             return paginatedProducts;
         }
 
         private IQueryable<Product> GetProductQueryable() => _context.Products
             .Include(x => x.Pictures)
-            .Include(x=>x.Category)
+            .Include(x=>x.ProductCategory)
             .AsQueryable();
 
     }

@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
-using U.Common.NetCore.Database;
-using U.ProductService.Domain.Aggregates.Category;
-using U.ProductService.Domain.Aggregates.Manufacturer;
-using U.ProductService.Domain.Aggregates.Product;
+using U.Common.NetCore.EF;
+using U.ProductService.Domain.Common;
+using U.ProductService.Domain.Entities.Manufacturer;
+using U.ProductService.Domain.Entities.Product;
 using U.ProductService.Domain.SeedWork;
 using U.ProductService.Persistance.Contexts;
 
@@ -17,7 +18,7 @@ namespace U.ProductService.Application.Infrastructure
 {
     public class ProductContextSeeder
     {
-        public void SeedAsync(ProductContext context, DbOptions dbOptions, ILogger<ProductContextSeeder> logger)
+        public async Task SeedAsync(ProductContext context, DbOptions dbOptions, ILogger<ProductContextSeeder> logger)
         {
             if (!dbOptions.Seed)
             {
@@ -27,30 +28,35 @@ namespace U.ProductService.Application.Infrastructure
 
             var policy = CreatePolicy(logger, nameof(ProductContextSeeder));
 
-            policy.ExecuteAsync(async () =>
+            await policy.ExecuteAsync(async () =>
             {
-                using (context)
+                await using (context)
                 {
-                    context.Database.Migrate();
+                    await context.Database.MigrateAsync();
 
                     if (!context.ProductTypes.Any())
                     {
-                        context.ProductTypes.AddRange(GetPredefinedProductTypes());
+                        await context.ProductTypes.AddRangeAsync(GetPredefinedProductTypes());
+                    }
+
+                    if (!context.MimeTypes.Any())
+                    {
+                        await context.MimeTypes.AddRangeAsync(GetPredefinedMimeTypes());
                     }
 
                     if (!context.Manufacturers.Any())
                     {
-                        context.Manufacturers.AddRange(GetPredefinedManufacturer());
+                        await context.Manufacturers.AddRangeAsync(GetPredefinedManufacturer());
                     }
 
-                    if (!context.Categories.Any())
+                    if (!context.ProductCategories.Any())
                     {
-                        context.Categories.AddRange(GetPredefinedCategory());
+                        await context.ProductCategories.AddRangeAsync(GetPredefinedCategory());
                     }
 
                     await context.SaveEntitiesAsync();
                 }
-            }).Wait();
+            });
         }
 
         private IEnumerable<ProductType> GetPredefinedProductTypes()
@@ -58,9 +64,14 @@ namespace U.ProductService.Application.Infrastructure
             return Enumeration.GetAll<ProductType>();
         }
 
-        private Category GetPredefinedCategory()
+        private IEnumerable<MimeType> GetPredefinedMimeTypes()
         {
-            return Category.GetDraftCategory();
+            return Enumeration.GetAll<MimeType>();
+        }
+
+        private ProductCategory GetPredefinedCategory()
+        {
+            return ProductCategory.GetDraftCategory();
         }
 
         private IEnumerable<Manufacturer> GetPredefinedManufacturer()
