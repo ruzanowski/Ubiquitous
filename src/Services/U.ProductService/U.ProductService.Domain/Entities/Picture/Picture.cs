@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using U.ProductService.Domain.Common;
 using U.ProductService.Domain.SeedWork;
 

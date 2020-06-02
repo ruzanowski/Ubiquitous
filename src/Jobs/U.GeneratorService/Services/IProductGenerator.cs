@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using AutoFixture;
-using U.Common;
 using U.Common.Miscellaneous;
 using U.Common.Products;
 

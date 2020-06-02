@@ -1,9 +1,5 @@
 using System;
-using System.Linq;
 using FluentAssertions;
-using Newtonsoft.Json;
-using U.ProductService.Domain.Common;
-using U.ProductService.Domain.Exceptions;
 using Xunit;
 
 namespace U.ProductService.DomainTests.Manufacturer

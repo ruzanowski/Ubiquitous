@@ -1,42 +1,55 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Newtonsoft.Json;
-using U.Common.NetCore.Http;
 using U.Common.Pagination;
+using U.ProductService.Application.Common.Exceptions;
 using U.ProductService.Application.Pictures.Commands.AddPicture;
-using U.ProductService.Application.Pictures.Models;
+using U.ProductService.Application.Pictures.Commands.DeletePicture;
+using U.ProductService.Application.Products.Commands.AttachPicture;
+using U.ProductService.Application.Products.Commands.ChangePrice;
+using U.ProductService.Application.Products.Commands.DetachPicture;
+using U.ProductService.Application.Products.Commands.Publish;
+using U.ProductService.Application.Products.Commands.UnPublish;
 using U.ProductService.Application.Products.Commands.Update;
 using U.ProductService.Application.Products.Models;
+using U.ProductService.Application.Products.Queries.GetCount;
+using U.ProductService.Application.Products.Queries.GetSingle;
+using U.ProductService.Application.Products.Queries.GetStatistics;
+using U.ProductService.Application.Products.Queries.GetStatisticsByCategory;
+using U.ProductService.Application.Products.Queries.GetStatisticsByManufacturers;
 using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Entities.Manufacturer;
 using U.ProductService.Domain.Entities.Product;
+using U.ProductService.Domain.Exceptions;
 using Xunit;
 
-namespace U.ProductService.IntegrationTests.Product
+namespace U.ProductService.ApplicationTests.Product
 {
     [CollectionDefinition("Sequential", DisableParallelization = true)]
     [Collection("Sequential")]
     public class ProductTests : UtilitiesBase
     {
-
         [Fact]
         public async Task Should_CreateProduct_Returns201()
         {
             //arrange
             var command = GetCreateProductCommand();
+
             //act
             var response = await CreateProductAsync(command);
 
             //assert
             response.Id.Should().NotBeEmpty();
+            response.Name.Should().Be(command.Name);
+            response.Description.Should().Be(command.Description);
+            response.BarCode.Should().Be(command.BarCode);
+            response.Price.Should().Be(command.Price);
+            response.Dimensions.Should().Be(command.Dimensions);
+            response.ManufacturerId.Should().Be(command.ManufacturerId!.Value);
         }
 
-        [Fact]
+                [Fact]
         public async Task Should_GetProductList_Returns200()
         {
             //arrange
@@ -83,12 +96,9 @@ namespace U.ProductService.IntegrationTests.Product
             var createdProduct = await CreateProductAsync(command);
 
             //act
-            var httpResponse = await GetProductAsync(createdProduct.Id);
-            var stringResult = await httpResponse.Content.ReadAsStringAsync();
-            var receivedProduct = JsonConvert.DeserializeObject<ProductViewModel>(stringResult);
+            var getProduct = await GetProductAsync(createdProduct.Id);
 
             //assert
-            httpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             command.Should().NotBeNull();
             command.Name.Should().Be(createdProduct.Name);
@@ -98,17 +108,17 @@ namespace U.ProductService.IntegrationTests.Product
             command.Dimensions.Should().Be(createdProduct.Dimensions);
             command.ManufacturerId.Should().Be(createdProduct.ManufacturerId);
 
-            receivedProduct.Should().NotBeNull();
-            receivedProduct.Id.Should().Be(createdProduct.Id);
-            receivedProduct.Name.Should().Be(createdProduct.Name);
-            receivedProduct.Description.Should().Be(createdProduct.Description);
-            receivedProduct.BarCode.Should().Be(createdProduct.BarCode);
-            receivedProduct.Price.Should().Be(createdProduct.Price);
-            receivedProduct.Dimensions.Should().Be(createdProduct.Dimensions);
-            receivedProduct.ManufacturerId.Should().Be(createdProduct.ManufacturerId);
-            receivedProduct.IsPublished.Should().BeFalse();
-            receivedProduct.LastUpdatedAt.Should().BeCloseTo(createdProduct.LastUpdatedAt ?? DateTime.UtcNow, TimeSpan.FromSeconds(1));
-            receivedProduct.CreatedAt.Should().BeCloseTo(createdProduct.CreatedAt, TimeSpan.FromSeconds(1));
+            getProduct.Should().NotBeNull();
+            getProduct.Id.Should().Be(createdProduct.Id);
+            getProduct.Name.Should().Be(createdProduct.Name);
+            getProduct.Description.Should().Be(createdProduct.Description);
+            getProduct.BarCode.Should().Be(createdProduct.BarCode);
+            getProduct.Price.Should().Be(createdProduct.Price);
+            getProduct.Dimensions.Should().Be(createdProduct.Dimensions);
+            getProduct.ManufacturerId.Should().Be(createdProduct.ManufacturerId);
+            getProduct.IsPublished.Should().BeFalse();
+            getProduct.LastUpdatedAt.Should().BeCloseTo(createdProduct.LastUpdatedAt ?? DateTime.UtcNow, TimeSpan.FromSeconds(1));
+            getProduct.CreatedAt.Should().BeCloseTo(createdProduct.CreatedAt, TimeSpan.FromSeconds(1));
         }
 
         [Fact]
@@ -119,10 +129,10 @@ namespace U.ProductService.IntegrationTests.Product
             await CreateProductAsync(command);
 
             //act
-            var response =  await GetProductAsync(Guid.NewGuid());
+            Func<Task> response = async () =>  await GetProductAsync(Guid.NewGuid());
 
             //assert
-            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+            response.Should().Throw<ProductNotFoundException>();
         }
 
         [Fact]
@@ -145,16 +155,11 @@ namespace U.ProductService.IntegrationTests.Product
                 });
 
             //act
-            var path = $"{ProductController.UpdateProduct()}/{createdProduct.Id}";
-            var putResponse = await Client.PutAsJsonAsync(path, updateCommand);
+            var putResponse = await _mediator.Send(updateCommand);
 
-            var getResponse = await GetProductAsync(createdProduct.Id);
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var responseProduct = JsonConvert.DeserializeObject<ProductViewModel>(stringResult);
+            var responseProduct = await GetProductAsync(createdProduct.Id);
 
             //assert
-            putResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-            getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             command.Should().NotBeNull();
             command.Name.Should().Be(createdProduct.Name);
@@ -171,7 +176,6 @@ namespace U.ProductService.IntegrationTests.Product
             responseProduct.Dimensions.Should().Be(updateCommand.Dimensions);
         }
 
-
         [Fact]
         public async Task Should_PublishProduct_Returns200()
         {
@@ -180,16 +184,10 @@ namespace U.ProductService.IntegrationTests.Product
             var createdProduct = await CreateProductAsync(command);
 
             //act
-            var path = ProductController.PublishProduct(createdProduct.Id);
-            var putResponse = await Client.PutAsJsonAsync(path, new {});
-
-            var getResponse = await GetProductAsync(createdProduct.Id);
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var responseProduct = JsonConvert.DeserializeObject<ProductViewModel>(stringResult);
+            await _mediator.Send(new PublishProductCommand(createdProduct.Id));
+            var responseProduct = await GetProductAsync(createdProduct.Id);
 
             //assert
-            putResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-            getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             command.Should().NotBeNull();
             command.Name.Should().Be(createdProduct.Name);
@@ -213,15 +211,13 @@ namespace U.ProductService.IntegrationTests.Product
         public async Task Should_PublishProduct_ForNonExistingProduct_Returns404()
         {
             //arrange
-            var command = GetCreateProductCommand();
-            await CreateProductAsync(command);
+            await CreateProductAsync(GetCreateProductCommand());
 
             //act
-            var path = ProductController.PublishProduct(Guid.NewGuid());
-            var putResponse = await Client.PutAsJsonAsync(path, new {});
+            Func<Task> task = async () => await _mediator.Send(new PublishProductCommand(Guid.NewGuid()));
 
             //assert
-            putResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
+            task.Should().Throw<ProductNotFoundException>();
         }
 
         [Fact]
@@ -232,16 +228,11 @@ namespace U.ProductService.IntegrationTests.Product
             var createdProduct = await CreateProductAsync(command);
 
             //act
-            var path = ProductController.UnpublishProduct(createdProduct.Id);
-            var putResponse = await Client.PutAsJsonAsync(path, new {});
 
-            var getResponse = await GetProductAsync(createdProduct.Id);
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var responseProduct = JsonConvert.DeserializeObject<ProductViewModel>(stringResult);
+            await _mediator.Send(new UnPublishProductCommand(createdProduct.Id));
+            var responseProduct = await GetProductAsync(createdProduct.Id);
 
             //assert
-            putResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-            getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             command.Should().NotBeNull();
             command.Name.Should().Be(createdProduct.Name);
@@ -269,11 +260,10 @@ namespace U.ProductService.IntegrationTests.Product
             await CreateProductAsync(command);
 
             //act
-            var path = ProductController.UnpublishProduct(Guid.NewGuid());
-            var putResponse = await Client.PutAsJsonAsync(path, new {});
+            Func<Task> task = async () => await _mediator.Send(new PublishProductCommand(Guid.NewGuid()));
 
             //assert
-            putResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
+            task.Should().Throw<ProductNotFoundException>();
         }
 
         [Fact]
@@ -282,20 +272,13 @@ namespace U.ProductService.IntegrationTests.Product
             //arrange
             var command = GetCreateProductCommand();
             var createdProduct = await CreateProductAsync(command);
+            var priceArgument = createdProduct.Price + 50;
 
             //act
-            var priceArgument = createdProduct.Price + 50;
-            var path = ProductController.ChangePriceProduct(createdProduct.Id, (int)priceArgument);
-            var putResponse = await Client.PutAsJsonAsync(path, new{});
-
-            var getResponse = await GetProductAsync(createdProduct.Id);
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var responseProduct = JsonConvert.DeserializeObject<ProductViewModel>(stringResult);
+            await _mediator.Send(new ChangeProductPriceCommand(createdProduct.Id, priceArgument));
+            var responseProduct = await GetProductAsync(createdProduct.Id);
 
             //assert
-            putResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-            getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
             command.Should().NotBeNull();
             command.Name.Should().Be(createdProduct.Name);
             command.Description.Should().Be(createdProduct.Description);
@@ -329,23 +312,11 @@ namespace U.ProductService.IntegrationTests.Product
             };
 
             //act
-            var addPicturePath = PicturesController.AddPicture();
-            var addResponse = await Client.PostAsJsonAsync(addPicturePath, addPictureCommand);
-            var addStringResult = await addResponse.Content.ReadAsStringAsync();
-            var pictureResult = JsonConvert.DeserializeObject<PictureViewModel>(addStringResult);
-
-            var attachPictureToProduct = ProductController.AttachPictureToProduct(createdProduct.Id, pictureResult.Id);
-            var attachResponse = await Client.PostAsJsonAsync(attachPictureToProduct, new {});
-
-            var getResponse = await GetProductAsync(createdProduct.Id);
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var responseProduct = JsonConvert.DeserializeObject<ProductViewModel>(stringResult);
+            var addPictureResult = await _mediator.Send(addPictureCommand);
+            await _mediator.Send(new AttachPictureToProductCommand(createdProduct.Id, addPictureResult.Id));
+            var responseProduct = await GetProductAsync(createdProduct.Id);
 
             //assert
-            addResponse.StatusCode.Should().Be(HttpStatusCode.Created);
-            attachResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-            getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
             command.Should().NotBeNull();
             command.Name.Should().Be(createdProduct.Name);
             command.Description.Should().Be(createdProduct.Description);
@@ -389,16 +360,12 @@ namespace U.ProductService.IntegrationTests.Product
             };
 
             //act
-            var addPicturePath = PicturesController.AddPicture();
-            var addResponse = await Client.PostAsJsonAsync(addPicturePath, addPictureCommand);
-            var postStringResult = await addResponse.Content.ReadAsStringAsync();
-            var pictureResult = JsonConvert.DeserializeObject<PictureViewModel>(postStringResult);
+            var addPictureResult = await _mediator.Send(addPictureCommand);
 
-            var attachPictureToProduct = ProductController.AttachPictureToProduct(Guid.NewGuid(), pictureResult.Id);
-            var attachResponse = await Client.PostAsJsonAsync(attachPictureToProduct, new {});
+            Func<Task> task = async () => await _mediator.Send(new AttachPictureToProductCommand(Guid.NewGuid(), addPictureResult.Id));
 
             //assert
-            attachResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
+            task.Should().Throw<ProductNotFoundException>();
         }
 
         [Fact]
@@ -408,21 +375,13 @@ namespace U.ProductService.IntegrationTests.Product
             var tuple = await Should_AddPictureProduct_Returns200();
 
             //act
-            var path = PicturesController.DeletePicture(tuple.Item2);
-            var deleteResponse = await Client.DeleteAsync(path);
-
+            await _mediator.Send(new DeletePictureCommand(tuple.Item2));
             await ProductRepository.InvalidateCache(tuple.Item1);
-
             var getResponse = await GetProductAsync(tuple.Item1);
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var responseProduct = JsonConvert.DeserializeObject<ProductViewModel>(stringResult);
 
             //assert
-            deleteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-            getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            responseProduct.Id.Should().Be(tuple.Item1);
-            responseProduct.Pictures.Count.Should().Be(0);
+            getResponse.Id.Should().Be(tuple.Item1);
+            getResponse.Pictures.Count.Should().Be(0);
         }
 
 
@@ -433,19 +392,12 @@ namespace U.ProductService.IntegrationTests.Product
             var tuple = await Should_AddPictureProduct_Returns200();
 
             //act
-            var detachPath = ProductController.DetachPictureFromProduct(tuple.Item1, tuple.Item2);
-            var deleteResponse = await Client.DeleteAsync(detachPath);
-
+            await _mediator.Send(new DetachPictureToProductCommand(tuple.Item1, tuple.Item2));
             var getResponse = await GetProductAsync(tuple.Item1);
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var responseProduct = JsonConvert.DeserializeObject<ProductViewModel>(stringResult);
 
             //assert
-            deleteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-            getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            responseProduct.Id.Should().Be(tuple.Item1);
-            responseProduct.Pictures.Count.Should().Be(0);
+            getResponse.Id.Should().Be(tuple.Item1);
+            getResponse.Pictures.Count.Should().Be(0);
         }
 
 
@@ -456,17 +408,12 @@ namespace U.ProductService.IntegrationTests.Product
             var tuple = await Should_AddPictureProduct_Returns200();
 
             //act
-
-            var detachPath = ProductController.DetachPictureFromProduct(Guid.NewGuid(), tuple.Item2);
-            var deleteResponse = await Client.DeleteAsync(detachPath);
-
+            Func<Task> task = async () => await _mediator.Send(new DetachPictureToProductCommand(Guid.NewGuid(), tuple.Item2));
             var getResponse = await GetProductAsync(tuple.Item1);
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var responseProduct = JsonConvert.DeserializeObject<ProductViewModel>(stringResult);
 
             //assert
-            deleteResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
-            responseProduct.Pictures.Should().HaveCount(1);
+            task.Should().Throw<ProductNotFoundException>();
+            getResponse.Pictures.Should().HaveCount(1);
         }
 
         [Fact]
@@ -476,16 +423,12 @@ namespace U.ProductService.IntegrationTests.Product
             var tuple = await Should_AddPictureProduct_Returns200();
 
             //act
-            var detachPath = ProductController.DetachPictureFromProduct(tuple.Item1, Guid.NewGuid());
-            var deleteResponse = await Client.DeleteAsync(detachPath);
-
+            Func<Task> task = async () => await _mediator.Send(new DetachPictureToProductCommand(tuple.Item1, Guid.NewGuid()));
             var getResponse = await GetProductAsync(tuple.Item1);
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var responseProduct = JsonConvert.DeserializeObject<ProductViewModel>(stringResult);
 
             //assert
-            deleteResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
-            responseProduct.Pictures.Should().HaveCount(1);
+            task.Should().Throw<NotFoundDomainException>();
+            getResponse.Pictures.Should().HaveCount(1);
         }
 
         [Fact]
@@ -495,16 +438,12 @@ namespace U.ProductService.IntegrationTests.Product
             var tuple = await Should_AddPictureProduct_Returns200();
 
             //act
-            var detachPath = ProductController.DetachPictureFromProduct(Guid.NewGuid(), Guid.NewGuid());
-            var deleteResponse = await Client.DeleteAsync(detachPath);
-
+            Func<Task> task = async () => await _mediator.Send(new DetachPictureToProductCommand(Guid.NewGuid(), Guid.NewGuid()));
             var getResponse = await GetProductAsync(tuple.Item1);
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var responseProduct = JsonConvert.DeserializeObject<ProductViewModel>(stringResult);
 
             //assert
-            deleteResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
-            responseProduct.Pictures.Should().HaveCount(1);
+            task.Should().Throw<ProductNotFoundException>();
+            getResponse.Pictures.Should().HaveCount(1);
         }
 
         [Fact]
@@ -515,12 +454,9 @@ namespace U.ProductService.IntegrationTests.Product
             await CreateProductAsync(command);
 
             //act
-            var getResponse = await Client.GetAsync(ProductController.ProductStatisticsByManufacturer());
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var statistics = JsonConvert.DeserializeObject<IList<ProductByManufacturersStatisticsDto>>(stringResult);
+            var statistics = await _mediator.Send(new GetProductsStatisticsByManufacturers());
 
             //assert
-            getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             statistics.Count.Should().Be(1);
             statistics.First().Count.Should().Be(1);
             statistics.First().ManufacturerName.Should().Be(Manufacturer.GetDraftManufacturer().Name);
@@ -532,12 +468,10 @@ namespace U.ProductService.IntegrationTests.Product
             //arrange
 
             //act
-            var getResponse = await Client.GetAsync(ProductController.ProductStatisticsByManufacturer());
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var statistics = JsonConvert.DeserializeObject<IList<ProductByManufacturersStatisticsDto>>(stringResult);
+            var statistics = await _mediator.Send(new GetProductsStatisticsByManufacturers());
+
 
             //assert
-            getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             statistics.Should().BeEmpty();
         }
 
@@ -549,12 +483,9 @@ namespace U.ProductService.IntegrationTests.Product
             await CreateProductAsync(command);
 
             //act
-            var getResponse = await Client.GetAsync(ProductController.ProductStatisticsByCategory());
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var statistics = JsonConvert.DeserializeObject<IList<ProductByCategoryStatisticsDto>>(stringResult);
+            var statistics = await _mediator.Send(new GetProductsStatisticsByCategory());
 
             //assert
-            getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             statistics.Count.Should().Be(1);
             statistics.First().Count.Should().Be(1);
             statistics.First().CategoryName.Should().Be(ProductCategory.GetDraftCategory().Name);
@@ -566,12 +497,10 @@ namespace U.ProductService.IntegrationTests.Product
             //arrange
 
             //act
-            var getResponse = await Client.GetAsync(ProductController.ProductStatisticsByCategory());
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var statistics = JsonConvert.DeserializeObject<IList<ProductByCategoryStatisticsDto>>(stringResult);
+            var statistics = await _mediator.Send(new GetProductsStatisticsByCategory());
+
 
             //assert
-            getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             statistics.Should().BeEmpty();
         }
 
@@ -584,12 +513,9 @@ namespace U.ProductService.IntegrationTests.Product
             await CreateProductAsync(command);
 
             //act
-            var getResponse = await Client.GetAsync(ProductController.ProductStatisticsByCreation());
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var statistics = JsonConvert.DeserializeObject<IList<ProductStatisticsDto>>(stringResult);
+            var statistics = await _mediator.Send(new GetProductsStatisticsQuery());
 
             //assert
-            getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             statistics.Count.Should().Be(14);
             statistics.Last().Count.Should().Be(1);
             statistics.Last().DateTime.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromHours(1));
@@ -601,12 +527,9 @@ namespace U.ProductService.IntegrationTests.Product
             //arrange
 
             //act
-            var getResponse = await Client.GetAsync(ProductController.ProductStatisticsByCreation());
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var statistics = JsonConvert.DeserializeObject<IList<ProductStatisticsDto>>(stringResult);
+            var statistics = await _mediator.Send(new GetProductsStatisticsQuery());
 
             //assert
-            getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             statistics.Should().HaveCount(14);
         }
 
@@ -618,16 +541,13 @@ namespace U.ProductService.IntegrationTests.Product
             await CreateProductAsync(command);
 
             //act
-            var getResponse = await Client.GetAsync(ProductController.ProductCount());
-            var stringResult = await getResponse.Content.ReadAsStringAsync();
-            var count = JsonConvert.DeserializeObject<int>(stringResult);
+            var count = await _mediator.Send(new GetProductsCount());
 
             //assert
-            getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             count.Should().Be(1);
         }
 
-        private async Task<HttpResponseMessage> GetProductAsync(Guid id) =>
-            await Client.GetAsync(ProductController.GetProduct(id));
+        private async Task<ProductViewModel> GetProductAsync(Guid id) =>
+            await _mediator.Send(new QueryProduct(id));
     }
 }

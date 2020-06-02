@@ -2,9 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using U.ProductService.Application.Common.Exceptions;
-using U.ProductService.Application.Products.Commands.AttachPicture;
 using U.ProductService.Domain;
 using U.ProductService.Persistance.Contexts;
 
