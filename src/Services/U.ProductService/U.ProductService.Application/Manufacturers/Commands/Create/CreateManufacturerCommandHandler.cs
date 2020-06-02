@@ -15,7 +15,7 @@ namespace U.ProductService.Application.Manufacturers.Commands.Create
 
         public CreateManufacturerCommandHandler(IManufacturerRepository manufacturerRepository)
         {
-            _manufacturerRepository = manufacturerRepository ?? throw new ArgumentNullException(nameof(manufacturerRepository));
+            _manufacturerRepository = manufacturerRepository;
         }
 
         public async Task<Guid> Handle(CreateManufacturerCommand command, CancellationToken cancellationToken)

@@ -61,11 +61,6 @@ namespace U.ProductService.Middleware
 
             switch (exception)
             {
-                case ArgumentNullException argumentNullException:
-                    problemDetails.Title = nameof(argumentNullException);
-                    problemDetails.Status = 400;
-                    problemDetails.Detail = argumentNullException.Message;
-                    break;
                 case ArgumentException argumentException:
                     problemDetails.Title = nameof(argumentException);
                     problemDetails.Status = 400;
@@ -101,7 +96,6 @@ namespace U.ProductService.Middleware
                     problemDetails.Status = 404;
                     problemDetails.Detail = manufacturerNotFoundException.Message;
                     break;
-
                 case PictureNotFoundException pictureNotFoundException:
                     problemDetails.Title = nameof(pictureNotFoundException);
                     problemDetails.Status = 404;

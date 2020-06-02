@@ -36,9 +36,8 @@ namespace U.EventBus.RabbitMQ
              int retryCount = 5)
         {
             ServiceProvider = serviceProvider;
-            _persistentConnection =
-                persistentConnection ?? throw new ArgumentNullException(nameof(persistentConnection));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _persistentConnection = persistentConnection;
+            _logger = logger;
             _subsManager = subsManager ?? new InMemoryEventBusSubscriptionsManager();
             _queueName = queueName;
             _consumerChannel = CreateConsumerChannel();

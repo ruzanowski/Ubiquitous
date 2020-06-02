@@ -17,8 +17,8 @@ namespace U.ProductService.Application.Products.Commands.UnPublish
 
         public UnPublishProductCommandHandler(ILogger<UnPublishProductCommandHandler> logger, IProductRepository productRepository)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+            _logger = logger;
+            _productRepository = productRepository;
         }
 
         public async Task<Unit> Handle(UnPublishProductCommand command, CancellationToken cancellationToken)

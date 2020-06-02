@@ -31,7 +31,7 @@ namespace U.ProductService.ApplicationTests.Product
     public class ProductTests : UtilitiesBase
     {
         [Fact]
-        public async Task Should_CreateProduct_Returns201()
+        public async Task Should_CreateProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -50,7 +50,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
                 [Fact]
-        public async Task Should_GetProductList_Returns200()
+        public async Task Should_GetProductList()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -89,7 +89,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_GetProduct_Returns200()
+        public async Task Should_GetProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -122,7 +122,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_GetProduct_ForNonExistingProduct_Returns404()
+        public async Task Should_GetProduct_ForNonExistingProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -136,7 +136,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_UpdateProduct_Returns200()
+        public async Task Should_UpdateProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -177,7 +177,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_PublishProduct_Returns200()
+        public async Task Should_PublishProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -208,7 +208,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_PublishProduct_ForNonExistingProduct_Returns404()
+        public async Task Should_PublishProduct_ForNonExistingProduct_ThrowsProductNotFoundException()
         {
             //arrange
             await CreateProductAsync(GetCreateProductCommand());
@@ -221,7 +221,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_UnpublishProduct_Returns200()
+        public async Task Should_UnpublishProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -253,7 +253,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_UnpublishProduct_ForNonExistingProduct_Returns404()
+        public async Task Should_UnpublishProduct_ForNonExistingProduct_ThrowsProductNotFoundException()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -267,7 +267,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_ChangePriceProduct_Returns200()
+        public async Task Should_ChangePriceProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -298,7 +298,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task<(Guid, Guid)> Should_AddPictureProduct_Returns200()
+        public async Task<(Guid, Guid)> Should_AddPictureProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -369,10 +369,10 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_DeletePicture_Returns200()
+        public async Task Should_DeletePicture()
         {
             //arrange
-            var tuple = await Should_AddPictureProduct_Returns200();
+            var tuple = await Should_AddPictureProduct();
 
             //act
             await _mediator.Send(new DeletePictureCommand(tuple.Item2));
@@ -386,10 +386,10 @@ namespace U.ProductService.ApplicationTests.Product
 
 
         [Fact]
-        public async Task Should_DetachPicture_Returns200()
+        public async Task Should_DetachPicture()
         {
             //arrange
-            var tuple = await Should_AddPictureProduct_Returns200();
+            var tuple = await Should_AddPictureProduct();
 
             //act
             await _mediator.Send(new DetachPictureToProductCommand(tuple.Item1, tuple.Item2));
@@ -402,10 +402,10 @@ namespace U.ProductService.ApplicationTests.Product
 
 
         [Fact]
-        public async Task Should_DetachPicture_ForNonExistingProduct_Returns404()
+        public async Task Should_DetachPicture_ForNonExistingProduct_ThrowsProductNotFoundException()
         {
             //arrange
-            var tuple = await Should_AddPictureProduct_Returns200();
+            var tuple = await Should_AddPictureProduct();
 
             //act
             Func<Task> task = async () => await _mediator.Send(new DetachPictureToProductCommand(Guid.NewGuid(), tuple.Item2));
@@ -417,10 +417,10 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_DetachPicture_ForNonExistingPicture_Returns404()
+        public async Task Should_DetachPicture_ForNonExistingPicture_ThrowsNotFoundDomainException()
         {
             //arrange
-            var tuple = await Should_AddPictureProduct_Returns200();
+            var tuple = await Should_AddPictureProduct();
 
             //act
             Func<Task> task = async () => await _mediator.Send(new DetachPictureToProductCommand(tuple.Item1, Guid.NewGuid()));
@@ -432,10 +432,10 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_DeletePictureProduct_ForNonExistingTuple_Returns404()
+        public async Task Should_DeletePictureProduct_ForNonExistingTuple_ThrowsProductNotFoundException()
         {
             //arrange
-            var tuple = await Should_AddPictureProduct_Returns200();
+            var tuple = await Should_AddPictureProduct();
 
             //act
             Func<Task> task = async () => await _mediator.Send(new DetachPictureToProductCommand(Guid.NewGuid(), Guid.NewGuid()));
@@ -447,7 +447,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_GetProductStatisticsByManufacturer_Returns200()
+        public async Task Should_GetProductStatisticsByManufacturer()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -463,7 +463,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_GetProductStatisticsByManufacturer_NoProducts_Returns200()
+        public async Task Should_GetProductStatisticsByManufacturer_NoProducts()
         {
             //arrange
 
@@ -476,7 +476,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_GetProductStatisticsByCategory_Returns200()
+        public async Task Should_GetProductStatisticsByCategory()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -492,7 +492,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_GetProductStatisticsByCategory_NoProducts_Returns200()
+        public async Task Should_GetProductStatisticsByCategory_NoProducts()
         {
             //arrange
 
@@ -506,7 +506,7 @@ namespace U.ProductService.ApplicationTests.Product
 
 
         [Fact]
-        public async Task Should_GetProductStatisticsByCreation_Returns200()
+        public async Task Should_GetProductStatisticsByCreation()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -522,7 +522,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_GetProductStatisticsByCreation_NoProducts_Returns200()
+        public async Task Should_GetProductStatisticsByCreation_NoProducts()
         {
             //arrange
 
@@ -534,7 +534,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_GetProductCount_Returns200()
+        public async Task Should_GetProductCount()
         {
             //arrange
             var command = GetCreateProductCommand();
