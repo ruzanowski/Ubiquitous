@@ -600,7 +600,7 @@ namespace U.ProductService.IntegrationTests.Product
         }
 
         [Fact]
-        public async Task Should_GetProductStatisticsByCreation_NoProducts_ReturnsEmptyList()
+        public async Task Should_GetProductStatisticsByCreation_NoProducts_Returns200()
         {
             //arrange
 

@@ -36,7 +36,6 @@ namespace U.NotificationService
                     host.MigrateDbContext<NotificationContext>((_, __) => { });
                 }
 
-
                 Log.Information($"Starting web host ({AppName})...");
                 host.Run();
 
