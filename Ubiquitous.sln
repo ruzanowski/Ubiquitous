@@ -91,7 +91,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{37E7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{156CA4CF-7690-4597-91B9-1BFDBEE196F0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gitlab", "Gitlab", "{EAD0C789-AB13-4AE9-AA60-6A7E2CF4DA01}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitLab", "GitLab", "{EAD0C789-AB13-4AE9-AA60-6A7E2CF4DA01}"
 ProjectSection(SolutionItems) = preProject
 	gitlab-ci\Container-Scanning.gitlab-ci.yml = gitlab-ci\Container-Scanning.gitlab-ci.yml
 	gitlab-ci\DAST.gitlab-ci.yml = gitlab-ci\DAST.gitlab-ci.yml

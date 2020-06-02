@@ -26,6 +26,7 @@ namespace U.ProductService.IntegrationTests
                     {
                         cb.AddJsonFile("appsettings.IT.json", optional: false)
                             .AddEnvironmentVariables();
+
                     })
                     .UseStartup<Startup>();
 

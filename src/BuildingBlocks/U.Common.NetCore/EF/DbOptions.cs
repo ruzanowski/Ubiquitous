@@ -7,5 +7,6 @@ namespace U.Common.NetCore.EF
         public bool AutoMigration { get; set; } = true;
         public bool Seed { get; set; } = true;
         public bool InTests { get; set; } = false;
+        public string TestConnection { get; set; }
     }
 }
