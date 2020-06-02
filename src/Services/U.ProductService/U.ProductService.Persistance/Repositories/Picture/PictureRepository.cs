@@ -2,10 +2,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using U.Common.NetCore.Cache;
 using U.ProductService.Domain.Common;
 using U.ProductService.Persistance.Contexts;
-using Z.EntityFramework.Plus;
 
 namespace U.ProductService.Persistance.Repositories.Picture
 {

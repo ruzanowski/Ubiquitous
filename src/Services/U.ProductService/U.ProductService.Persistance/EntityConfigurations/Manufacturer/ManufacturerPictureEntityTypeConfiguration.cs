@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using U.ProductService.Domain.Entities.Picture;
 using U.ProductService.Persistance.Contexts;
 
-namespace U.ProductService.Persistance.EntityConfigurations.Picture
+namespace U.ProductService.Persistance.EntityConfigurations.Manufacturer
 {
     public class ManufacturerPictureEntityTypeConfiguration : IEntityTypeConfiguration<ManufacturerPicture>
     {

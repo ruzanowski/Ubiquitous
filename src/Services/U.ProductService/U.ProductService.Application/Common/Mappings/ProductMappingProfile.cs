@@ -1,5 +1,4 @@
 using AutoMapper;
-using U.ProductService.Application.Pictures;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain;
 using U.ProductService.Domain.Entities.Product;

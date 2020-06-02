@@ -2,7 +2,6 @@ using System.Linq;
 using FluentAssertions;
 using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Entities.Product;
-using U.ProductService.Domain.SeedWork;
 using Xunit;
 
 namespace U.ProductService.DomainTests.Product

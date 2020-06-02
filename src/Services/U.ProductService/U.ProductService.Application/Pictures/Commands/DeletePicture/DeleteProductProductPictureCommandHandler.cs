@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using U.ProductService.Application.Common.Exceptions;
-using U.ProductService.Domain;
 using U.ProductService.Persistance.Repositories.Picture;
 
 namespace U.ProductService.Application.Pictures.Commands.DeletePicture

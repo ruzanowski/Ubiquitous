@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using U.Common.NetCore.Mvc;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Services;
-using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.BackgroundService
 {

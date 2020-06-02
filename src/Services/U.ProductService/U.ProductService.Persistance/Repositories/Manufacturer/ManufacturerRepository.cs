@@ -6,8 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using U.Common.NetCore.Cache;
 using U.ProductService.Domain;
 using U.ProductService.Domain.Common;
-using U.ProductService.Domain.Entities.Product;
-using U.ProductService.Domain.SeedWork;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Persistance.Repositories.Manufacturer

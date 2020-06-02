@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using U.EventBus.Events;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Products.Commands.Update;
 

@@ -1,12 +1,9 @@
-﻿using System.Reflection;
-using Consul;
-using MediatR;
+﻿using Consul;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using U.Common;
 using U.Common.Miscellaneous;
 using U.Common.NetCore.Consul;
 using U.Common.NetCore.Fabio;

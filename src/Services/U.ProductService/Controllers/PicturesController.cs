@@ -1,10 +1,10 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using U.Common.Pagination;
-using U.ProductService.Application.Pictures;
 using U.ProductService.Application.Pictures.Commands.AddPicture;
 using U.ProductService.Application.Pictures.Commands.DeletePicture;
 using U.ProductService.Application.Pictures.Models;
@@ -18,6 +18,7 @@ namespace U.ProductService.Controllers
     /// </summary>
     [Route("api/product/pictures")]
     [ApiController]
+    [ExcludeFromCodeCoverage]
     public class PicturesController : ControllerBase
     {
         private readonly IMediator _mediator;

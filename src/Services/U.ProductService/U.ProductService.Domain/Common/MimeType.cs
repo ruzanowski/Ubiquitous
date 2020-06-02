@@ -1,6 +1,4 @@
 ﻿
-using U.ProductService.Domain.SeedWork;
-
 namespace U.ProductService.Domain.Common
 {
 	public class MimeType : Enumeration

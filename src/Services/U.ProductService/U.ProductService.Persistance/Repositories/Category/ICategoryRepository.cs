@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Entities.Product;
-using U.ProductService.Domain.SeedWork;
 
 // ReSharper disable CheckNamespace
 

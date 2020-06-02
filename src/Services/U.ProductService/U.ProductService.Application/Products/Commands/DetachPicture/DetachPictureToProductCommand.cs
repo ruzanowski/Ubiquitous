@@ -1,7 +1,7 @@
 using System;
 using MediatR;
 
-namespace U.ProductService.Application.Products.Commands.AttachPicture
+namespace U.ProductService.Application.Products.Commands.DetachPicture
 {
     //marker
     public class DetachPictureToProductCommand : IRequest

@@ -1,9 +1,7 @@
 using System.Linq;
 using FluentAssertions;
 using U.ProductService.Domain.Common;
-using U.ProductService.Domain.SeedWork;
 using Xunit;
-using Xunit.Sdk;
 
 namespace U.ProductService.DomainTests.Pictures
 {

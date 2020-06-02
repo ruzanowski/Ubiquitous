@@ -1,16 +1,14 @@
-using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using U.Common.NetCore.Http;
 using U.ProductService.Application.Pictures.Commands.AddPicture;
 using U.ProductService.Domain.Common;
 using Xunit;
 
-namespace U.ProductService.IntegrationTests.Picture
+namespace U.ProductService.ApplicationTests.Picture
 {
     [CollectionDefinition("Sequential", DisableParallelization = true)]
     [Collection("Sequential")]
-    public class PictureTests : UtilitiesBase
+    public class PicturesTests : UtilitiesBase
     {
         [Fact]
         public async Task Should_AddPicture()
@@ -25,11 +23,14 @@ namespace U.ProductService.IntegrationTests.Picture
             };
 
             //act
-            var path = PicturesController.AddPicture();
-            var putResponse = await Client.PostAsJsonAsync(path, addPictureCommand);
+            var picture = await _mediator.Send(addPictureCommand);
 
             //assert
-            putResponse.StatusCode.Should().Be(HttpStatusCode.Created);
+            picture.Id.Should().NotBeEmpty();
+            picture.Description.Should().Be(addPictureCommand.Description);
+            picture.Url.Should().Be(addPictureCommand.Url);
+            picture.FileName.Should().Be(addPictureCommand.Filename);
+            picture.MimeTypeId.Should().Be(addPictureCommand.MimeTypeId);
         }
     }
 }

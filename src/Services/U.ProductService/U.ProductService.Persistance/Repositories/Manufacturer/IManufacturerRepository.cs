@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Entities.Manufacturer;
 using U.ProductService.Domain.Entities.Product;
-using U.ProductService.Domain.SeedWork;
 
 // ReSharper disable CheckNamespace
 

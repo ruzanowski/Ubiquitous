@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using U.Common.Subscription;
 
 namespace U.EventBus.Events.Product
