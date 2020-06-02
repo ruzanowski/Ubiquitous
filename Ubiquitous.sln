@@ -161,9 +161,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.Background
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.DomainTests", "src\Services\U.ProductService\U.ProductService.DomainTests\U.ProductService.DomainTests.csproj", "{14DA04A1-5E15-48DA-82A7-149B2A57AF71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.PersistanceTests", "U.ProductService.PersistanceTests\U.ProductService.PersistanceTests.csproj", "{BFB593D0-DC72-4FC5-93F1-B1589098F25D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.PersistanceTests", "src\Services\U.ProductService\U.ProductService.PersistanceTests\U.ProductService.PersistanceTests.csproj", "{BFB593D0-DC72-4FC5-93F1-B1589098F25D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.ApplicationTests", "U.ProductService.ApplicationTests\U.ProductService.ApplicationTests.csproj", "{859FC99F-72A5-4E7D-B2AE-28C0A009E2DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.ApplicationTests", "src\Services\U.ProductService\U.ProductService.ApplicationTests\U.ProductService.ApplicationTests.csproj", "{859FC99F-72A5-4E7D-B2AE-28C0A009E2DF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{0D7EC67A-3512-4A0B-8329-0E96E0D0A86E}"
 EndProject
