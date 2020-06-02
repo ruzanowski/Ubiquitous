@@ -66,12 +66,8 @@ dependency_scanning:
       dependency_scanning: gl-dependency-scanning-report.json
   dependencies: []
   only:
-      - master
-      - develop
-    refs:
-      - branches
-    variables:
-      - $GITLAB_FEATURES =~ /\bdependency_scanning\b/
+    - master
+    - develop
   except:
     variables:
       - $DEPENDENCY_SCANNING_DISABLED
