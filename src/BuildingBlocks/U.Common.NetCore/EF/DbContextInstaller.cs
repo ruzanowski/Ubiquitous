@@ -23,7 +23,7 @@ namespace U.Common.NetCore.EF
 
             if (dbOptions.InTests)
             {
-                dbOptions.Connection = Environment.GetEnvironmentVariable($"K8S_SECRET_{serviceIdentity.Name}_TEST_CONNECTION");
+                dbOptions.Connection = configuration.GetSection($"K8S_SECRET_{serviceIdentity.Name}_TEST_CONNECTION").Value;
             }
 
             if (dbOptions is null)
