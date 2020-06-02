@@ -1,10 +1,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using U.Common.NetCore.EF;
 using U.Common.NetCore.Mvc;
 
-namespace U.Common.NetCore.Database
+namespace U.Common.NetCore.EF
 {
     public static class ContextDesigner
     {

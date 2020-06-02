@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Reflection;
+using System.Threading.Tasks;
 using AutoMapper;
 using Consul;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using U.Common.NetCore.Auth;
 using U.Common.NetCore.Cache;
 using U.Common.NetCore.Consul;
-using U.Common.NetCore.Database;
+using U.Common.NetCore.EF;
 using U.Common.NetCore.Jaeger;
 using U.Common.NetCore.Mvc;
 using U.Common.NetCore.Swagger;
@@ -19,15 +18,18 @@ using U.EventBus.Abstractions;
 using U.EventBus.Events.Fetch;
 using U.EventBus.RabbitMQ;
 using U.IntegrationEventLog;
-using U.ProductService.Application.Common.Mapping;
+using U.ProductService.Application.Common.Mappings;
 using U.ProductService.Application.Events.IntegrationEvents;
 using U.ProductService.Application.Events.IntegrationEvents.EventHandling;
 using U.ProductService.Application.Infrastructure;
-using U.ProductService.Application.Products.Commands.Create;
+using U.ProductService.BackgroundService;
 using U.ProductService.Domain;
 using U.ProductService.Middleware;
 using U.ProductService.Persistance.Contexts;
-using U.ProductService.Persistance.Repositories;
+using U.ProductService.Persistance.Repositories.Category;
+using U.ProductService.Persistance.Repositories.Manufacturer;
+using U.ProductService.Persistance.Repositories.Picture;
+using U.ProductService.Persistance.Repositories.Product;
 
 namespace U.ProductService
 {
@@ -50,7 +52,6 @@ namespace U.ProductService
                 .AddDatabaseContext<ProductContext>(Configuration)
                 .AddDatabaseContext<IntegrationEventLogContext>(Configuration)
                 .AddEventBusRabbitMq(Configuration)
-                .AddMediatR(typeof(CreateProductCommand).GetTypeInfo().Assembly)
                 .AddCustomPipelineBehaviours()
                 .AddCustomMapper()
                 .AddCustomServices()
@@ -58,7 +59,8 @@ namespace U.ProductService
                 .AddConsulServiceDiscovery()
                 .AddRedis()
                 .AddJwt()
-                .AddJaeger();
+                .AddJaeger()
+                .AddProductBackgroundService(Configuration);
 
             RegisterEventsHandlers(services);
         }
@@ -70,21 +72,21 @@ namespace U.ProductService
         {
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
             app.UseCors("CorsPolicy")
-                .UseExceptionMiddleware()
                 .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseAuthentication()
                 .UseJwtTokenValidator()
                 .UseRouting()
+                .UseExceptionMiddleware()
                 .UseEndpoints(endpoints =>
                 {
-                    endpoints.MapControllers();
+                    endpoints.MapDefaultControllerRoute();
                 });
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
-            Seed(app);
+            SeedAsync(app);
         }
 
         private void RegisterEvents(IApplicationBuilder app)
@@ -105,23 +107,21 @@ namespace U.ProductService
             applicationLifetime.ApplicationStopped.Register(() => { client.Agent.ServiceDeregister(consulServiceId); });
         }
 
-        private void Seed(IApplicationBuilder app)
+        private async Task SeedAsync(IApplicationBuilder app)
         {
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
-                .CreateScope())
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+                .CreateScope();
+            try
             {
-                try
-                {
-                    new ProductContextSeeder()
-                        .SeedAsync(serviceScope.ServiceProvider.GetRequiredService<ProductContext>(),
-                            serviceScope.ServiceProvider.GetRequiredService<DbOptions>(),
-                            serviceScope.ServiceProvider.GetRequiredService<ILogger<ProductContextSeeder>>());
-                }
-                catch (Exception ex)
-                {
-                    var logger = app.ApplicationServices.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred while seeding the database.");
-                }
+                await new ProductContextSeeder()
+                    .SeedAsync(serviceScope.ServiceProvider.GetRequiredService<ProductContext>(),
+                        serviceScope.ServiceProvider.GetRequiredService<DbOptions>(),
+                        serviceScope.ServiceProvider.GetRequiredService<ILogger<ProductContextSeeder>>());
+            }
+            catch (Exception ex)
+            {
+                var logger = app.ApplicationServices.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred while seeding the database.");
             }
         }
     }
@@ -130,9 +130,11 @@ namespace U.ProductService
     {
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
-            services = services.AddTransient<IProductRepository, ProductRepository>()
+            services = services
+                .AddScoped<IProductRepository, ProductRepository>()
                 .AddTransient<ICategoryRepository, CategoryRepository>()
                 .AddTransient<IManufacturerRepository, ManufacturerRepository>()
+                .AddTransient<IPictureRepository, PictureRepository>()
                 .AddIntegrationEventLog()
                 .AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>();
 
@@ -141,12 +143,14 @@ namespace U.ProductService
 
         public static IServiceCollection AddCustomMapper(this IServiceCollection services)
         {
-            services.AddSingleton(new MapperConfiguration(mc =>
+            var mapper = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new ProductMappingProfile());
                 mc.AddProfile(new CategoryMappingProfile());
                 mc.AddProfile(new ManufacturerMappingProfile());
-            }).CreateMapper());
+                mc.AddProfile(new PictureMappingProfile());
+            }).CreateMapper();
+            services.AddSingleton(x => mapper);
 
             return services;
         }

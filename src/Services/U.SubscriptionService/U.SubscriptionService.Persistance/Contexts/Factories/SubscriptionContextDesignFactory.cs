@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore.Design;
-using U.Common.NetCore.Database;
+using U.Common.NetCore.EF;
 
 namespace U.SubscriptionService.Persistance.Contexts.Factories
 {

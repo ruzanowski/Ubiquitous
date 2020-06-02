@@ -38,25 +38,26 @@ namespace U.Common.NetCore.Cache
 
                 services.TryAddSingleton(redisOptions);
 
-                services.AddStackExchangeRedisCache(options =>
+                if (redisOptions.Enabled)
                 {
-                    options.ConfigurationOptions = new ConfigurationOptions
+                    services.AddStackExchangeRedisCache(options =>
                     {
-                        EndPoints =
+                        options.ConfigurationOptions = new ConfigurationOptions
                         {
-                            new DnsEndPoint(redisOptions?.Host ?? "redis", redisOptions?.Port ?? 6379)
-                        },
-                        ResolveDns = redisOptions?.ResolveDns ?? true,
-                        AbortOnConnectFail = redisOptions?.AbortOnConnectFail ?? false,
-                        ServiceName = redisOptions?.ServiceName,
-                        ConnectRetry = redisOptions?.ConnectRetry ?? 10,
-                        AllowAdmin = redisOptions?.AllowAdmin ?? true
-                    };
-                });
+                            EndPoints =
+                            {
+                                new DnsEndPoint(redisOptions?.Host ?? "redis", redisOptions?.Port ?? 6379)
+                            },
+                            ResolveDns = redisOptions?.ResolveDns ?? true,
+                            AbortOnConnectFail = redisOptions?.AbortOnConnectFail ?? false,
+                            ServiceName = redisOptions?.ServiceName,
+                            ConnectRetry = redisOptions?.ConnectRetry ?? 10,
+                            AllowAdmin = redisOptions?.AllowAdmin ?? true
+                        };
+                    });
+                }
 
-
-
-            return services;
+                return services;
         }
     }
 

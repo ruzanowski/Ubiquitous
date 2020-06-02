@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using U.EventBus.Events;
-using U.NotificationService.Application.Builders.PendingNotifications;
 
 namespace U.NotificationService.Application.Services.PendingEvents
 {

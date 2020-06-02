@@ -24,14 +24,15 @@ namespace U.ProductService.Application.Products.Commands.ChangePrice
 
         public async Task<Unit> Handle(ChangeProductPriceCommand message, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetAsync(message.ProductId);
+            var product = await _productRepository.GetAsync(message.Id, false, cancellationToken);
 
             if (product is null)
             {
-                throw new ProductNotFoundException($"Product with id: '{message.ProductId}' has not been found");
+                throw new ProductNotFoundException($"Product with id: '{message.Id}' has not been found");
             }
 
             product.ChangePrice(message.Price);
+            _productRepository.Update(product);
 
             await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             return Unit.Value;

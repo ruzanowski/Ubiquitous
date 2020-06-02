@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using U.EventBus.Events;
 
-namespace U.NotificationService.Application.Builders.PendingNotifications
+namespace U.NotificationService.Application.Services.PendingEvents
 {
     public interface IPendingEventsService
     {

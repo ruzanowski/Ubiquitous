@@ -31,6 +31,8 @@ angular_build:
 
 tests_with_code_coverage:
   stage: tests_with_code_coverage
+  variables:
+    U_PRODUCT_SERVICE_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_TEST_CONNECTION
   script:
     - dotnet test /p:CollectCoverage=true
 

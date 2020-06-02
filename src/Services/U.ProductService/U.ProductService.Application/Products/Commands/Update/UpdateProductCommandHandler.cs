@@ -2,7 +2,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Common.Exceptions;
@@ -15,29 +14,25 @@ namespace U.ProductService.Application.Products.Commands.Update
     {
         private readonly IProductRepository _productRepository;
         private readonly ILogger<UpdateProductCommandHandler> _logger;
-        private readonly IMapper _mapper;
 
         public UpdateProductCommandHandler(
             ILogger<UpdateProductCommandHandler> logger,
-            IProductRepository productRepository,
-            IMapper mapper)
+            IProductRepository productRepository)
         {
             _logger = logger;
             _productRepository = productRepository;
-            _mapper = mapper;
         }
 
         public async Task<Unit> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetAsync(command.ProductId);
+            var product = await _productRepository.GetAsync(command.Id, false, cancellationToken);
 
             if (product is null)
             {
-                _logger.LogInformation($"Product with id: '{command.ProductId}' has been not found");
-                throw new ProductNotFoundException($"Product with id: '{command.ProductId}' has not been found");
+                throw new ProductNotFoundException($"Product with id: '{command.Id}' has not been found");
             }
 
-            product.UpdateProduct(_mapper,
+            var isUpdated = product.UpdateProperties(
                 command.Name,
                 command.Description,
                 command.Price,
@@ -47,7 +42,16 @@ namespace U.ProductService.Application.Products.Commands.Update
                     command.Dimensions.Weight),
                 DateTime.UtcNow);
 
-            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            if (!isUpdated)
+            {
+                return Unit.Value;
+            }
+
+            if (!command.QueuedJob?.AutoSave ?? true)
+            {
+                _productRepository.Update(product);
+                await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            }
 
             return Unit.Value;
         }

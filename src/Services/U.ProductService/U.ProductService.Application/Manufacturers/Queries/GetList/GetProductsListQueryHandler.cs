@@ -4,10 +4,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using U.Common.NetCore.NetCoreExtensions;
 using U.Common.Pagination;
 using U.ProductService.Application.Manufacturers.Models;
-using U.ProductService.Domain.Aggregates.Manufacturer;
+using U.ProductService.Domain.Entities.Manufacturer;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Manufacturers.Queries.GetList
@@ -29,9 +28,10 @@ namespace U.ProductService.Application.Manufacturers.Queries.GetList
 
             var manufacturersMapped = _mapper.ProjectTo<ManufacturerViewModel>(products);
 
-            var paginatedProducts =
-                await PaginatedItemsExtended<ManufacturerViewModel>.CreateAsync(request.PageIndex,
+            var paginatedProducts = PaginatedItems<ManufacturerViewModel>.Create(request.PageIndex,
                     request.PageSize, manufacturersMapped);
+
+            await Task.CompletedTask;
 
             return paginatedProducts;
         }

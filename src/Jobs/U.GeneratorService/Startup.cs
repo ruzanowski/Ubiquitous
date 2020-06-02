@@ -48,7 +48,7 @@ namespace U.GeneratorService
                 .UseRouting()
                 .UseEndpoints(endpoints =>
                 {
-                    endpoints.MapControllers();
+                    endpoints.MapDefaultControllerRoute();
                 });
 
             var consulServiceId = app.UseConsulServiceDiscovery();

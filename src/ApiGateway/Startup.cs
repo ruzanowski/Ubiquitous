@@ -48,7 +48,7 @@ namespace U.ApiGateway
                 .UseWebSockets()
                 .UseRouting().UseEndpoints(endpoints =>
                 {
-                    endpoints.MapControllers();
+                    endpoints.MapDefaultControllerRoute();
                 })
                 .UseOcelot()
                 .Wait();

@@ -1,7 +1,7 @@
 ﻿using System;
 using Serilog;
 using Microsoft.AspNetCore.Hosting;
-using U.Common.NetCore.Database;
+using U.Common.NetCore.EF;
 using U.Common.NetCore.Mvc;
 using U.Common.NetCore.WebHost;
 using U.NotificationService.Infrastructure.Contexts;
@@ -35,7 +35,6 @@ namespace U.NotificationService
 
                     host.MigrateDbContext<NotificationContext>((_, __) => { });
                 }
-
 
                 Log.Information($"Starting web host ({AppName})...");
                 host.Run();

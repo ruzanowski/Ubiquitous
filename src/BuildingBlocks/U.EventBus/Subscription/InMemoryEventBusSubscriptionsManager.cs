@@ -6,9 +6,8 @@ using U.EventBus.Events;
 
 namespace U.EventBus.Subscription
 {
-    public partial class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptionsManager
+    public class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptionsManager
     {
-
 
         private readonly Dictionary<string, List<SubscriptionInfo>> _handlers;
         private readonly List<Type> _eventTypes;
@@ -129,6 +128,21 @@ namespace U.EventBus.Subscription
         public string GetEventKey<T>()
         {
             return typeof(T).Name;
+        }
+
+        public class SubscriptionInfo
+        {
+            public Type HandlerType{ get; }
+
+            private SubscriptionInfo(Type handlerType)
+            {
+                HandlerType = handlerType;
+            }
+
+            public static SubscriptionInfo Typed(Type handlerType)
+            {
+                return new SubscriptionInfo(handlerType);
+            }
         }
     }
 }

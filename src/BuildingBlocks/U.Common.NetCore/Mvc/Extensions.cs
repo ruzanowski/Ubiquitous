@@ -6,16 +6,14 @@ using Microsoft.Extensions.Logging;
 
 namespace U.Common.NetCore.Mvc
 {
-    public static class Extensions
+    public static partial class Extensions
     {
         public static IApplicationBuilder UseServiceId(this IApplicationBuilder builder)
             => builder.Map("/id", c => c.Run(async ctx =>
             {
-                using (var scope = c.ApplicationServices.CreateScope())
-                {
-                    var id = scope.ServiceProvider.GetService<ISelfInfoService>().Id;
-                    await ctx.Response.WriteAsync(id);
-                }
+                using var scope = c.ApplicationServices.CreateScope();
+                var id = scope.ServiceProvider.GetService<ISelfInfoService>().Id;
+                await ctx.Response.WriteAsync(id);
             }));
 
         public static TModel GetOptions<TModel>(this IConfiguration configuration, string section) where TModel : new()
@@ -38,10 +36,11 @@ namespace U.Common.NetCore.Mvc
                     .WithOrigins("http://localhost:4200");
             }));
 
-            services.AddMvc();
-
+            services.AddMvc()
+                .AddNewtonsoftJson();
+            services.AddControllers(options => options.EnableEndpointRouting = false);
             services.AddSingleton<ISelfInfoService, SelfInfoService>();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
             return services;
         }

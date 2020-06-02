@@ -6,7 +6,13 @@ namespace U.ProductService.Application.Products.Commands.ChangePrice
 {
     public class ChangeProductPriceCommand : IRequest
     {
-        [FromRoute] public Guid ProductId { get; set; }
+        public Guid Id { get; set; }
         public decimal Price { get; set; }
+
+        public ChangeProductPriceCommand(Guid id, decimal price)
+        {
+            Id = id;
+            Price = price;
+        }
     }
 }
