@@ -8,9 +8,9 @@ using U.Common.NetCore.WebHost;
 using U.IntegrationEventLog;
 using U.ProductService.Persistance.Contexts;
 
-namespace U.ProductService.IntegrationTests
+namespace U.ProductService.ApplicationTests
 {
-    public partial class TestBase
+    public class TestBase
     {
         protected static TestServer CreateServer()
         {
@@ -22,9 +22,8 @@ namespace U.ProductService.IntegrationTests
                     .UseContentRoot(Path.GetDirectoryName(path))
                     .ConfigureAppConfiguration(cb =>
                     {
-                        cb.AddJsonFile("appsettings.IT.json", optional: false)
+                        cb.AddJsonFile("appsettings.AT.json", optional: false)
                             .AddEnvironmentVariables();
-
                     })
                     .UseStartup<Startup>();
 

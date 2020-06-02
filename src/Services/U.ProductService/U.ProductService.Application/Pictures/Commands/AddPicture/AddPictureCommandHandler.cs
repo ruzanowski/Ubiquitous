@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Pictures.Models;
 using U.ProductService.Domain.Entities.Picture;
 using U.ProductService.Persistance.Repositories.Picture;

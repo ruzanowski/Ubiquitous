@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,9 +20,15 @@ namespace U.Common.NetCore.EF
 
             var dbOptions = configuration.GetOptions<DbOptions>("dbOptions");
 
+
             if (dbOptions.InTests)
             {
-                dbOptions.Connection = Environment.GetEnvironmentVariable($"{serviceIdentity.Name}_TEST_CONNECTION");
+                // GitLab runners are testing integrated tests or application tests in separate DBs
+                var testsIndicator = dbOptions.IntegrationTests ? "IT" : "AT";
+
+                dbOptions.Connection = !string.IsNullOrEmpty(dbOptions.TestConnection)
+                    ? dbOptions.TestConnection
+                    : Environment.GetEnvironmentVariable($"{serviceIdentity.Name}_{testsIndicator}_TEST_CONNECTION");
             }
 
             if (dbOptions is null)

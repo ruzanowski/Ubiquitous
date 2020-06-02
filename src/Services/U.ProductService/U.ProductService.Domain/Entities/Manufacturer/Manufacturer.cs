@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Entities.Picture;
-using U.ProductService.Domain.Entities.Product;
 using U.ProductService.Domain.Exceptions;
 using U.ProductService.Domain.SeedWork;
 

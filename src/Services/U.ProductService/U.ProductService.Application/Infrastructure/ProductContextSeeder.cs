@@ -11,7 +11,6 @@ using U.Common.NetCore.EF;
 using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Entities.Manufacturer;
 using U.ProductService.Domain.Entities.Product;
-using U.ProductService.Domain.SeedWork;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Infrastructure
