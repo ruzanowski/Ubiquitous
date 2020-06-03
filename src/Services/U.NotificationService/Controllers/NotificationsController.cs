@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Threading.Tasks;
 using MediatR;
@@ -13,6 +14,7 @@ namespace U.NotificationService.Controllers
     /// </summary>
     [Route("api/notification/notifications")]
     [ApiController]
+    [ExcludeFromCodeCoverage]
     public class NotificationsController : ControllerBase
     {
         private readonly IMediator _mediator;

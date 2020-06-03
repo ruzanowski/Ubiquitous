@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Hosting;
 using Serilog;
 using SmartStore.Persistance.Context;
@@ -11,6 +12,7 @@ namespace U.SmartStoreAdapter
     /// <summary>
     ///
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class Program
     {
         private static readonly string Namespace = typeof(Program).Namespace;
