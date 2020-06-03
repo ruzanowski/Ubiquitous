@@ -12,8 +12,7 @@ namespace U.ProductService.Application.Infrastructure.Behaviours
 
         public EventPublishBehaviour(IProductIntegrationEventService productIntegrationEventService)
         {
-            _productIntegrationEventService = productIntegrationEventService ??
-                                              throw new ArgumentException(nameof(productIntegrationEventService));
+            _productIntegrationEventService = productIntegrationEventService;
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken,
@@ -21,7 +20,7 @@ namespace U.ProductService.Application.Infrastructure.Behaviours
         {
             var response = await next();
 
-            // await _productIntegrationEventService.PublishEventsThroughEventBusAsync();
+            await _productIntegrationEventService.PublishEventsThroughEventBusAsync();
 
             return response;
         }

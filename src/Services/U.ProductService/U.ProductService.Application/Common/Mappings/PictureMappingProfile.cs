@@ -21,7 +21,9 @@ namespace U.ProductService.Application.Common.Mappings
                 .ForMember(dest => dest.MimeTypeId,
                     opt => opt.MapFrom(src => src.Picture.MimeTypeId))
                 .ForMember(dest => dest.PictureAddedAt,
-                    opt => opt.MapFrom(src => src.Picture.PictureAddedAt));
+                    opt => opt.MapFrom(src => src.Picture.PictureAddedAt))
+                .ForMember(dest => dest.FileStorageUploadId,
+                opt => opt.MapFrom(src => src.Picture.FileStorageUploadId));
 
             CreateMap<ManufacturerPicture, PictureViewModel>()
                 .ForMember(dest => dest.Id,
@@ -35,7 +37,9 @@ namespace U.ProductService.Application.Common.Mappings
                 .ForMember(dest => dest.MimeTypeId,
                     opt => opt.MapFrom(src => src.Picture.MimeTypeId))
                 .ForMember(dest => dest.PictureAddedAt,
-                    opt => opt.MapFrom(src => src.Picture.PictureAddedAt));
+                    opt => opt.MapFrom(src => src.Picture.PictureAddedAt))
+                .ForMember(dest => dest.FileStorageUploadId,
+                    opt => opt.MapFrom(src => src.Picture.FileStorageUploadId));
         }
     }
 }

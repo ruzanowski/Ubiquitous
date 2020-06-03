@@ -3,6 +3,7 @@ using System.Linq;
 using FluentAssertions;
 using Newtonsoft.Json;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Entities.Product;
 using U.ProductService.Domain.Entities.Product.Events;
 using U.ProductService.Domain.Exceptions;
@@ -69,150 +70,88 @@ namespace U.ProductService.DomainTests.Product
             expectedDomainEvent.Should().Be(domainEvent);
         }
 
-        // [Fact]
-        // public void Should_AddPicture_AddedPictureAndRaisedPictureAddedDomainEvent()
-        // {
-        //     //arrange
-        //     Guid pictureId = Guid.NewGuid();
-        //     Guid fileStorageId = Guid.NewGuid();
-        //     string filename = "seoFilename";
-        //     string description = "pictureDescription";
-        //     string url = "https://ubiquitous.com/product/picture/123923";
-        //     MimeType mimeType = MimeType.Jpg;
-        //
-        //     var product = GetProduct();
-        //     var lastUpdatedAt = product.LastUpdatedAt;
-        //     var lastUpdatedBy = product.LastUpdatedBy;
-        //     var createdAt = product.CreatedAt;
-        //     var createdBy = product.CreatedBy;
-        //
-        //     //act
-        //     product.AddPicture(pictureId,
-        //         fileStorageId,
-        //         filename,
-        //         description,
-        //         url,
-        //         mimeType.Id);
-        //
-        //     var pictureEvent = product.DomainEvents.ElementAt(1) as ProductPictureAddedDomainEvent;
-        //     var domainEvent = JsonConvert.SerializeObject(pictureEvent);
-        //     var expectedDomainEvent =
-        //         JsonConvert.SerializeObject(new ProductPictureAddedDomainEvent(product.Id, pictureId));
-        //
-        //     //arrange
-        //
-        //     product.AggregateId.Should().Be(pictureEvent!.ProductId);
-        //     product.Id.Should().Be(pictureEvent!.ProductId);
-        //     product.Name.Should().Be(_name);
-        //     product.Description.Should().Be(_description);
-        //     product.BarCode.Should().Be(_barCode);
-        //     product.Price.Should().Be(_price);
-        //     product.Dimensions.Should().Be(_dimensions);
-        //     product.ManufacturerId.Should().Be(_manufacturerId);
-        //     product.CategoryId.Should().Be(_categoryId);
-        //     product.ExternalSourceName.Should().Be(_externalSourceName);
-        //     product.ExternalId.Should().Be(_externalId);
-        //     product.IsPublished.Should().BeFalse();
-        //     product.ProductType.Should().BeNull();
-        //     product.ProductTypeId.Should().Be(ProductType.SimpleProduct.Id);
-        //     product.LastUpdatedAt.Should().NotBe(lastUpdatedAt ?? DateTime.UtcNow);
-        //     var picture = product.Pictures.First();
-        //     picture.Id.Should().Be(pictureId);
-        //     picture.Url.Should().Be(url);
-        //     picture.Description.Should().Be(description);
-        //     picture.FileName.Should().Be(filename);
-        //     picture.MimeType.Should().BeNull();
-        //     picture.FileStorageUploadId.Should().Be(fileStorageId);
-        //     product.LastUpdatedBy.Should().Be(lastUpdatedBy);
-        //     product.CreatedAt.Should().Be(createdAt);
-        //     product.CreatedBy.Should().Be(createdBy);
-        //     product.AggregateTypeName.Should().Be(nameof(Domain.Entities.Product.Product));
-        //     expectedDomainEvent.Should().Be(domainEvent);
-        // }
-        //
-        // [Theory]
-        // [InlineData("", "pictureDescription", "https://ubiquitous.com/product/picture/123923")]
-        // [InlineData(null, "pictureDescription", "https://ubiquitous.com/product/picture/123923")]
-        // [InlineData("fileName", "", "https://ubiquitous.com/product/picture/123923")]
-        // [InlineData("fileName", null, "https://ubiquitous.com/product/picture/123923")]
-        // [InlineData("fileName", "pictureDescription", "")]
-        // [InlineData("fileName", "pictureDescription", null)]
-        // public void Should_AddPictureWithNullArguments_ThrownDomainException(string filename, string description, string url)
-        // {
-        //     //arrange
-        //     Guid pictureId = Guid.NewGuid();
-        //     Guid fileStorageId = Guid.NewGuid();
-        //     MimeType mimeType = MimeType.Jpg;
-        //     var product = GetProduct();
-        //
-        //     //act
-        //     Action action = () => product.AddPicture(pictureId,
-        //         fileStorageId,
-        //         filename,
-        //         description,
-        //         url,
-        //         mimeType.Id);
-        //
-        //     //arrange
-        //     action.Should().Throw<DomainException>();
-        // }
-        //
-        // [Fact]
-        // public void Should_DeletePicture_DeletedFromPicturesAndRaisedRemovedDomainEvent()
-        // {
-        //     //arrange
-        //     Guid pictureId = Guid.NewGuid();
-        //     Guid fileStorageId = Guid.NewGuid();
-        //     string filename = "seoFilename";
-        //     string description = "pictureDescription";
-        //     string url = "https://ubiquitous.com/product/picture/123923";
-        //     MimeType mimeType = MimeType.Jpg;
-        //     var product = GetProduct();
-        //
-        //     //act
-        //     product.AddPicture(pictureId,
-        //         fileStorageId,
-        //         filename,
-        //         description,
-        //         url,
-        //         mimeType.Id);
-        //
-        //     product.DeletePicture(pictureId);
-        //
-        //     var domainEvent = JsonConvert.SerializeObject(product.DomainEvents.ElementAt(2));
-        //     var expectedDomainEvent =
-        //         JsonConvert.SerializeObject(new ProductPictureRemovedDomainEvent(product.Id, pictureId));
-        //
-        //     //arrange
-        //     var picture = product.Pictures.FirstOrDefault();
-        //     picture.Should().BeNull();
-        //     expectedDomainEvent.Should().Be(domainEvent);
-        // }
-        //
-        // [Fact]
-        // public void Should_TryDeletePictureNotExistingPicture_ThrownDomainException()
-        // {
-        //     //arrange
-        //     Guid pictureId = Guid.NewGuid();
-        //     Guid fileStorageId = Guid.NewGuid();
-        //     string filename = "seoFilename";
-        //     string description = "pictureDescription";
-        //     string url = "https://ubiquitous.com/product/picture/123923";
-        //     MimeType mimeType = MimeType.Jpg;
-        //     var product = GetProduct();
-        //
-        //     //act
-        //     product.AddPicture(pictureId,
-        //         fileStorageId,
-        //         filename,
-        //         description,
-        //         url,
-        //         mimeType.Id);
-        //
-        //     Action action = () => product.DeletePicture(Guid.Empty);
-        //
-        //     action.Should().Throw<NotFoundDomainException>();
-        // }
+        [Fact]
+        public void Should_AddPicture_AddedPictureAndRaisedPictureAddedDomainEvent()
+        {
+            //arrange
+            Guid pictureId = Guid.NewGuid();
+
+            var product = GetProduct();
+            var lastUpdatedAt = product.LastUpdatedAt;
+            var lastUpdatedBy = product.LastUpdatedBy;
+            var createdAt = product.CreatedAt;
+            var createdBy = product.CreatedBy;
+
+            //act
+            product.AttachPicture(pictureId);
+
+            var pictureEvent = product.DomainEvents.ElementAt(1) as ProductPictureAddedDomainEvent;
+            var domainEvent = JsonConvert.SerializeObject(pictureEvent);
+            var expectedDomainEvent =
+                JsonConvert.SerializeObject(new ProductPictureAddedDomainEvent(product.Id, pictureId));
+
+            //arrange
+            product.AggregateId.Should().Be(pictureEvent!.ProductId);
+            product.Id.Should().Be(pictureEvent!.ProductId);
+            product.Name.Should().Be(_name);
+            product.Description.Should().Be(_description);
+            product.BarCode.Should().Be(_barCode);
+            product.Price.Should().Be(_price);
+            product.Dimensions.Should().Be(_dimensions);
+            product.ManufacturerId.Should().Be(_manufacturerId);
+            product.CategoryId.Should().Be(_categoryId);
+            product.ExternalSourceName.Should().Be(_externalSourceName);
+            product.ExternalId.Should().Be(_externalId);
+            product.IsPublished.Should().BeFalse();
+            product.ProductType.Should().BeNull();
+            product.ProductTypeId.Should().Be(ProductType.SimpleProduct.Id);
+            product.LastUpdatedAt.Should().NotBe(lastUpdatedAt ?? DateTime.UtcNow);
+            product.LastUpdatedBy.Should().Be(lastUpdatedBy);
+            product.CreatedAt.Should().Be(createdAt);
+            product.CreatedBy.Should().Be(createdBy);
+            product.AggregateTypeName.Should().Be(nameof(Domain.Entities.Product.Product));
+            expectedDomainEvent.Should().Be(domainEvent);
+            var picture = product.Pictures.First();
+            picture.ProductId.Should().Be(product.Id);
+            picture.PictureId.Should().Be(pictureId);
+
+        }
+
+        [Fact]
+        public void Should_DeletePicture_DeletedFromPicturesAndRaisedRemovedDomainEvent()
+        {
+            //arrange
+            Guid pictureId = Guid.NewGuid();
+            var product = GetProduct();
+
+            //act
+            product.AttachPicture(pictureId);
+
+            product.DetachPicture(pictureId);
+
+            var domainEvent = JsonConvert.SerializeObject(product.DomainEvents.ElementAt(2));
+            var expectedDomainEvent =
+                JsonConvert.SerializeObject(new ProductPictureRemovedDomainEvent(product.Id, pictureId));
+
+            //arrange
+            var picture = product.Pictures.FirstOrDefault();
+            picture.Should().BeNull();
+            expectedDomainEvent.Should().Be(domainEvent);
+        }
+
+        [Fact]
+        public void Should_TryDeletePictureNotExistingPicture_ThrownDomainException()
+        {
+            //arrange
+            Guid pictureId = Guid.NewGuid();
+            var product = GetProduct();
+
+            //act
+            product.AttachPicture(pictureId);
+            Action action = () => product.DetachPicture(Guid.Empty);
+
+            action.Should().Throw<NotFoundDomainException>();
+        }
 
         [Fact]
         public void Should_ChangePrice_PriceChangedAndRaisedProductPriceChanged()

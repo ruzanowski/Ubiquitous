@@ -23,7 +23,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Pictures\Commands" />
       <Folder Include="Pictures\Queries" />
     </ItemGroup>
 

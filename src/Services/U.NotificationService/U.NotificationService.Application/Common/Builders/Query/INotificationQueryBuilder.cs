@@ -16,7 +16,6 @@ namespace U.NotificationService.Application.Common.Builders.Query
         INotificationQueryBuilder FilterByMinimalImportancy(Importancy minimumLevel);
         INotificationQueryBuilder OrderByCreationDate(bool @descending);
         INotificationQueryBuilder ThenOrderByState();
-
         INotificationQueryBuilder ThenOrderByImportancy(bool @descending);
         INotificationQueryBuilder Take(int numberOfWelcomeMessages);
         IQueryable<Notification> Build();
