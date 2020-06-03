@@ -25,7 +25,7 @@ namespace U.ProductService.Application.Products.Commands.Create
             IManufacturerRepository manufacturerRepository,
             IMapper mapper)
         {
-            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+            _productRepository = productRepository;
             _categoryRepository = categoryRepository;
             _manufacturerRepository = manufacturerRepository;
             _mapper = mapper;

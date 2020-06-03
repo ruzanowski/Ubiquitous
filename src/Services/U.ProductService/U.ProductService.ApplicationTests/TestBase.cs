@@ -23,6 +23,7 @@ namespace U.ProductService.ApplicationTests
                     .ConfigureAppConfiguration(cb =>
                     {
                         cb.AddJsonFile("appsettings.AT.json", optional: false)
+                            .AddJsonFile("appsettings.AT.local.json", optional: true)
                             .AddEnvironmentVariables();
                     })
                     .UseStartup<Startup>();

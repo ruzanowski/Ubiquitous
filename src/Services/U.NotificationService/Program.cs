@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Serilog;
 using Microsoft.AspNetCore.Hosting;
 using U.Common.NetCore.EF;
@@ -8,6 +9,7 @@ using U.NotificationService.Infrastructure.Contexts;
 
 namespace U.NotificationService
 {
+    [ExcludeFromCodeCoverage]
     public class Program
     {
         private static readonly string Namespace = typeof(Program).Namespace;

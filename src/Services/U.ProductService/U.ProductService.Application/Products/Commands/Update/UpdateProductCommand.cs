@@ -17,11 +17,6 @@ namespace U.ProductService.Application.Products.Commands.Update
         public DimensionsDto Dimensions { get; set; }
         public QueuedJob QueuedJob { get; private set; }
 
-        public UpdateProductCommand()
-        {
-
-        }
-
         public UpdateProductCommand(Guid id, string name, decimal price, string description, DimensionsDto dimensions)
         {
             Id = id;

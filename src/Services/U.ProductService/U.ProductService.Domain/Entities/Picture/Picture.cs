@@ -31,23 +31,18 @@ namespace U.ProductService.Domain.Entities.Picture
             Url = url;
             MimeTypeId = mimeTypeId;
         }
-    }
 
-    public class ProductPicture
-    {
-        public Guid ProductPictureId { get; set; }
-        public Picture Picture { get; set; }
-        public Guid PictureId { get; set; }
-        public Product.Product Product { get; set; }
-        public Guid ProductId { get; set; }
-    }
-
-    public class ManufacturerPicture
-    {
-        public Guid ManufacturerPictureId { get; set; }
-        public Picture Picture { get; set; }
-        public Guid PictureId { get; set; }
-        public Manufacturer.Manufacturer Manufacturer { get; set; }
-        public Guid ManufacturerId { get; set; }
+        public void Update(Guid fileStorageUploadId,
+            string fileName,
+            string description,
+            string url,
+            int mimeTypeId)
+        {
+            FileStorageUploadId = fileStorageUploadId;
+            FileName = fileName;
+            Description = description;
+            Url = url;
+            MimeTypeId = mimeTypeId;
+        }
     }
 }

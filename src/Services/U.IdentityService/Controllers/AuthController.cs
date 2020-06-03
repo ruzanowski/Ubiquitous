@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using MediatR;
@@ -13,6 +14,7 @@ namespace U.IdentityService.Controllers
 {
     [Route("api/identity/auth")]
     [ApiController]
+    [ExcludeFromCodeCoverage]
     public class AuthController : IdentifiedBaseController
     {
         private readonly IMediator _mediator;

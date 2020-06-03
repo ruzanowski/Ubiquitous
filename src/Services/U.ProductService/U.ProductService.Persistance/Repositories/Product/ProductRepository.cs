@@ -31,17 +31,6 @@ namespace U.ProductService.Persistance.Repositories.Product
             CacheUnderTwoIdentifiers(product);
         }
 
-        public void DeleteProductPictureLink(Domain.Entities.Product.Product product, Guid pictureId)
-        {
-            var picture = _context.ProductPictures.FirstOrDefault(x => x.PictureId.Equals(pictureId));
-
-            if (picture is null)
-                return;
-
-            _context.ProductPictures.Remove(picture);
-            CacheUnderTwoIdentifiers(product);
-        }
-
         public async Task<Domain.Entities.Product.Product> GetAsync(Guid productId, bool asNoTracking,
             CancellationToken cancellationToken)
         {

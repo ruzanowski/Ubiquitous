@@ -14,7 +14,7 @@ using U.ProductService.Application.Pictures.Queries.GetPictures;
 namespace U.ProductService.Controllers
 {
     /// <summary>
-    /// Picture controller of Product service
+    ///
     /// </summary>
     [Route("api/product/pictures")]
     [ApiController]
@@ -24,7 +24,7 @@ namespace U.ProductService.Controllers
         private readonly IMediator _mediator;
 
         /// <summary>
-        /// Picture controller of product service
+        ///
         /// </summary>
         /// <param name="mediator"></param>
         public PicturesController(IMediator mediator)
@@ -65,7 +65,7 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Add Product Picture
+        /// Add Picture
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
@@ -81,7 +81,7 @@ namespace U.ProductService.Controllers
         }
 
         /// <summary>
-        /// Delete Product Picture
+        /// Delete Picture
         /// </summary>
         /// <param name="pictureId"></param>
         /// <returns></returns>
@@ -92,6 +92,23 @@ namespace U.ProductService.Controllers
         public async Task<IActionResult> DeletePicture([FromRoute] Guid pictureId)
         {
             var command = new DeletePictureCommand(pictureId);
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Update picture's properties
+        /// </summary>
+        /// <param name="pictureId"></param>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{pictureId}")]
+        [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
+        [ProducesResponseType((int) HttpStatusCode.NotFound)]
+        public async Task<IActionResult> UpdatePicture([FromRoute] Guid pictureId, [FromBody] UpdatePictureCommand command)
+        {
+            command.PictureId = pictureId;
             await _mediator.Send(command);
             return Ok();
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using AutoFixture;
 using MediatR;
@@ -10,6 +11,7 @@ using U.ProductService.Application.Infrastructure;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Application.Products.Queries.GetList;
+using U.ProductService.Application.Products.Queries.GetSingle;
 using U.ProductService.ApplicationTests.Product;
 using U.ProductService.Domain;
 using U.ProductService.Persistance.Contexts;
@@ -20,14 +22,14 @@ namespace U.ProductService.ApplicationTests
     public class UtilitiesBase : TestBase, IAsyncLifetime
     {
         protected readonly TestServer Server;
-        protected readonly IMediator _mediator;
-        protected readonly ProductContextSeeder Seeder;
+        protected readonly IMediator Mediator;
+        private readonly ProductContextSeeder Seeder;
         protected readonly IProductRepository ProductRepository;
 
         protected UtilitiesBase()
         {
             Server = CreateServer();
-            _mediator = Server.Host.Services.CreateScope().ServiceProvider.GetService<IMediator>();
+            Mediator = Server.Host.Services.CreateScope().ServiceProvider.GetService<IMediator>();
             Seeder = new ProductContextSeeder();
             ProductRepository = Server.Host.Services.CreateScope().ServiceProvider.GetService<IProductRepository>();
         }
@@ -36,7 +38,7 @@ namespace U.ProductService.ApplicationTests
         {
             var getProducts = new GetProductsListQuery();
 
-            return await _mediator.Send(getProducts);
+            return await Mediator.Send(getProducts);
         }
 
         private async Task TruncateAndSeedDatabase()
@@ -76,7 +78,10 @@ namespace U.ProductService.ApplicationTests
 
         protected async Task<ProductViewModel> CreateProductAsync(CreateProductCommand command)
         {
-            return await _mediator.Send(command);
+            return await Mediator.Send(command);
         }
+
+        protected async Task<ProductViewModel> GetProductAsync(Guid id) =>
+            await Mediator.Send(new QueryProduct(id));
     }
 }

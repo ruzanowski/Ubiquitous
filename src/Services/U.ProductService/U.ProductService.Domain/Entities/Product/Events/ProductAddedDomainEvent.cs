@@ -26,7 +26,7 @@ namespace U.ProductService.Domain.Entities.Product.Events
             decimal price,
             Guid manufacturer,
             Guid categoryId,
-            string externalSourceName, string externalId)
+            string externalSourceName, string externalId) : this()
         {
             ProductId = productId;
             Name = name;

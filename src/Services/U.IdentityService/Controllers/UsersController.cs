@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using MediatR;
@@ -10,6 +11,7 @@ namespace U.IdentityService.Controllers
 {
     [Route("api/identity/users")]
     [ApiController]
+    [ExcludeFromCodeCoverage]
     public class UsersController : IdentifiedBaseController
     {
         private readonly IMediator _mediator;

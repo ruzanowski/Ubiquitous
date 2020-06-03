@@ -21,8 +21,8 @@ namespace U.ProductService.Application.Manufacturers.Commands.AddPicture
             IManufacturerRepository manufacturerRepository,
             IPictureRepository pictureRepository)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _manufacturerRepository = manufacturerRepository ?? throw new ArgumentNullException(nameof(manufacturerRepository));
+            _logger = logger;
+            _manufacturerRepository = manufacturerRepository;
             _pictureRepository = pictureRepository;
         }
 

@@ -18,8 +18,8 @@ namespace U.ProductService.Application.Products.Commands.ChangePrice
         public ChangeProductPriceCommandHandler(ILogger<ChangeProductPriceCommandHandler> logger,
             IProductRepository productRepository)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+            _logger = logger;
+            _productRepository = productRepository;
         }
 
         public async Task<Unit> Handle(ChangeProductPriceCommand message, CancellationToken cancellationToken)

@@ -20,7 +20,6 @@ namespace U.SubscriptionService.Application.Command.Preferences
 
         public async Task<Unit> Handle(SetPreferencesCommand request, CancellationToken cancellationToken)
         {
-
             if (request.Preferences is null)
             {
                 throw new ArgumentException("Preferences must not be null");

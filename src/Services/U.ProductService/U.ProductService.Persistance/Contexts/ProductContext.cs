@@ -21,9 +21,6 @@ namespace U.ProductService.Persistance.Contexts
 
         //db sets
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductPicture> ProductPictures { get; set; }
-        public DbSet<ManufacturerPicture> ManufacturerPictures { get; set; }
-
         public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Picture> Pictures { get; set; }
