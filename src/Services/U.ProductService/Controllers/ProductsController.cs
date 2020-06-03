@@ -9,6 +9,7 @@ using U.ProductService.Application.Products.Commands.AttachPicture;
 using U.ProductService.Application.Products.Commands.ChangeCategory;
 using U.ProductService.Application.Products.Commands.ChangePrice;
 using U.ProductService.Application.Products.Commands.Create;
+using U.ProductService.Application.Products.Commands.DetachPicture;
 using U.ProductService.Application.Products.Commands.Publish;
 using U.ProductService.Application.Products.Commands.UnPublish;
 using U.ProductService.Application.Products.Commands.Update;

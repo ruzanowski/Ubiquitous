@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using U.ProductService.Application.Pictures.Models;
 

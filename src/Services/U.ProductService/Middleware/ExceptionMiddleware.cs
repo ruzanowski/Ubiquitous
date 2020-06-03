@@ -10,7 +10,6 @@ using Newtonsoft.Json;
 using U.Common.NetCore.Mvc;
 using U.ProductService.Application.Common.Exceptions;
 using U.ProductService.Domain.Exceptions;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 #pragma warning disable 1998
 

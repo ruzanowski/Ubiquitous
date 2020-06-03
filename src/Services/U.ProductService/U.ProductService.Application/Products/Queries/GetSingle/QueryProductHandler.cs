@@ -2,7 +2,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using U.ProductService.Application.Common.Exceptions;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain;

@@ -3,7 +3,6 @@ using System.Linq;
 using FluentAssertions;
 using Newtonsoft.Json;
 using U.ProductService.Domain;
-using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Entities.Product;
 using U.ProductService.Domain.Entities.Product.Events;
 using U.ProductService.Domain.Exceptions;

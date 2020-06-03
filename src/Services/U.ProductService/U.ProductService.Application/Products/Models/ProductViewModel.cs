@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using U.ProductService.Application.Pictures;
 using U.ProductService.Application.Pictures.Models;
 using U.ProductService.Application.ProductCategories.Models;
 

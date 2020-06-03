@@ -1,7 +1,6 @@
 ﻿using System;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using U.ProductService.Domain.Common;
 
 namespace U.ProductService.Application.Manufacturers.Commands.AddPicture
 {

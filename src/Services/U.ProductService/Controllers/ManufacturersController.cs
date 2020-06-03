@@ -12,7 +12,6 @@ using U.ProductService.Application.Manufacturers.Models;
 using U.ProductService.Application.Manufacturers.Queries.GetCount;
 using U.ProductService.Application.Manufacturers.Queries.GetList;
 using U.ProductService.Application.Manufacturers.Queries.GetSingle;
-using U.ProductService.Application.Pictures;
 
 namespace U.ProductService.Controllers
 {

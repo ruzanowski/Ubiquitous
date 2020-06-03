@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using U.EventBus.Events;
 using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Products.Commands.Update;
 

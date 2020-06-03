@@ -7,7 +7,6 @@ using U.Common.NetCore.Cache;
 using U.ProductService.Domain;
 using U.ProductService.Domain.Common;
 using U.ProductService.Persistance.Contexts;
-using Z.EntityFramework.Plus;
 
 namespace U.ProductService.Persistance.Repositories.Product
 {
