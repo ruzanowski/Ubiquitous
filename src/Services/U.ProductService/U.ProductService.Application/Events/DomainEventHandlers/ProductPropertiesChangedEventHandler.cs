@@ -17,9 +17,8 @@ namespace U.ProductService.Application.Events.DomainEventHandlers
         public ProductPropertiesChangedEventHandler(ILogger<ProductPropertiesChangedEventHandler> logger,
             IProductIntegrationEventService productIntegrationEventService)
         {
-            _productIntegrationEventService = productIntegrationEventService ??
-                                              throw new ArgumentNullException(nameof(productIntegrationEventService));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _productIntegrationEventService = productIntegrationEventService;
+            _logger = logger;
         }
 
         public async Task Handle(ProductPropertiesChangedDomainEvent @event, CancellationToken cancellationToken)

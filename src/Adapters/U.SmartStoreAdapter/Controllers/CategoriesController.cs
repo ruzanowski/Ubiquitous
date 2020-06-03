@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ namespace U.SmartStoreAdapter.Controllers
     /// </summary>
     [ApiController]
     [Route("api/smartstore/categories")]
+    [ExcludeFromCodeCoverage]
     public class CategoriesController : ControllerBase
     {
         private readonly IMediator _mediator;

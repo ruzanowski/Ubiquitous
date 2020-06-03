@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -12,6 +13,7 @@ namespace U.IdentityService.Controllers
 
     [Route("api/identity/token")]
     [ApiController]
+    [ExcludeFromCodeCoverage]
     public class TokensController : IdentifiedBaseController
     {
         private readonly IMediator _mediator;

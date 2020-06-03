@@ -1,9 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 
 namespace U.ProductService.Persistance.Contexts
 {
+    [ExcludeFromCodeCoverage]
     public class NoMediator : IMediator
     {
         public async Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = new CancellationToken())

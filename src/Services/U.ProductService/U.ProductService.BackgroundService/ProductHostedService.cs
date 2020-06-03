@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -11,6 +12,7 @@ using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.BackgroundService
 {
+    [ExcludeFromCodeCoverage]
     public class ProductHostedService : Microsoft.Extensions.Hosting.BackgroundService
     {
         private readonly IPendingCommands _pendingCommands;

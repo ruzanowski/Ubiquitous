@@ -14,7 +14,7 @@ namespace U.ProductService.Persistance.Repositories.Picture
 
         public PictureRepository(ProductContext context)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _context = context;
         }
 
         public async Task<Domain.Entities.Picture.Picture> AddAsync(Domain.Entities.Picture.Picture picture)

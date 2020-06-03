@@ -10,5 +10,6 @@ namespace U.ProductService.Application.Pictures.Models
         public string Url { get; set; }
         public int MimeTypeId { get; set; }
         public DateTime PictureAddedAt { get; set; }
+        public Guid FileStorageUploadId { get; set; }
     }
 }

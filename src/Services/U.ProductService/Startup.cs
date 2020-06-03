@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Consul;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,7 @@ using U.ProductService.Application.Common.Mappings;
 using U.ProductService.Application.Events.IntegrationEvents;
 using U.ProductService.Application.Events.IntegrationEvents.EventHandling;
 using U.ProductService.Application.Infrastructure;
+using U.ProductService.Application.Infrastructure.Behaviours;
 using U.ProductService.BackgroundService;
 using U.ProductService.Domain;
 using U.ProductService.Middleware;
@@ -157,7 +159,7 @@ namespace U.ProductService
 
         public static IServiceCollection AddCustomPipelineBehaviours(this IServiceCollection services)
         {
-//            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(EventPublishBehaviour<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(EventPublishBehaviour<,>));
 
             return services;
         }

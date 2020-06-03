@@ -15,7 +15,7 @@ namespace U.NotificationService.Domain.Entities
         {
         }
 
-        public Notification(IntegrationEvent @event)
+        public Notification(IntegrationEvent @event) : this()
         {
             CreationDate = DateTime.UtcNow;
             IntegrationEventId = @event.Id;

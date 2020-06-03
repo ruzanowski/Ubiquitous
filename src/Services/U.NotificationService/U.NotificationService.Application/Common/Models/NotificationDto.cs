@@ -18,7 +18,7 @@ namespace U.NotificationService.Application.Common.Models
         }
 
         protected NotificationDto(Guid id, IntegrationEvent @event, IntegrationEventType eventType,
-            ConfirmationType state, Importancy importancy)
+            ConfirmationType state, Importancy importancy) : this()
         {
             Id = id;
             Event = @event;

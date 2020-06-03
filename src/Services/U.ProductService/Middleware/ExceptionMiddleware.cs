@@ -56,36 +56,11 @@ namespace U.ProductService.Middleware
         {
             var problemDetails = new ProblemDetails
             {
-                Instance = $"{_selfInfoServiceId.Name}:{_selfInfoServiceId.Id}"
+                Instance = $"{_selfInfoServiceId.Name}:{_selfInfoServiceId.Id}",
             };
 
             switch (exception)
             {
-                case ArgumentNullException argumentNullException:
-                    problemDetails.Title = nameof(argumentNullException);
-                    problemDetails.Status = 400;
-                    problemDetails.Detail = argumentNullException.Message;
-                    break;
-                case ArgumentException argumentException:
-                    problemDetails.Title = nameof(argumentException);
-                    problemDetails.Status = 400;
-                    problemDetails.Detail = argumentException.Message;
-                    break;
-                case DuplicateNameException duplicateNameException:
-                    problemDetails.Title = nameof(duplicateNameException);
-                    problemDetails.Status = 400;
-                    problemDetails.Detail = duplicateNameException.Message;
-                    break;
-                case FormatException formatException:
-                    problemDetails.Title = nameof(formatException);
-                    problemDetails.Status = 400;
-                    problemDetails.Detail = formatException.Message;
-                    break;
-                case InvalidOperationException invalidOperationException:
-                    problemDetails.Title = nameof(invalidOperationException);
-                    problemDetails.Status = 400;
-                    problemDetails.Detail = invalidOperationException.Message;
-                    break;
                 case ProductNotFoundException productNotFoundException:
                     problemDetails.Title = nameof(productNotFoundException);
                     problemDetails.Status = 404;
@@ -101,7 +76,6 @@ namespace U.ProductService.Middleware
                     problemDetails.Status = 404;
                     problemDetails.Detail = manufacturerNotFoundException.Message;
                     break;
-
                 case PictureNotFoundException pictureNotFoundException:
                     problemDetails.Title = nameof(pictureNotFoundException);
                     problemDetails.Status = 404;

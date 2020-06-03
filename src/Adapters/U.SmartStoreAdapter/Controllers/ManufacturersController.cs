@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ namespace U.SmartStoreAdapter.Controllers
     /// </summary>
     [ApiController]
     [Route("api/smartstore/manufacturers")]
+    [ExcludeFromCodeCoverage]
     public class ManufacturersController : ControllerBase
     {
         private readonly IMediator _mediator;

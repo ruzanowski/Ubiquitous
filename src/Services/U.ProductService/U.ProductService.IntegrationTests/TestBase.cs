@@ -22,7 +22,8 @@ namespace U.ProductService.IntegrationTests
                     .UseContentRoot(Path.GetDirectoryName(path))
                     .ConfigureAppConfiguration(cb =>
                     {
-                        cb.AddJsonFile("appsettings.IT.json", optional: false)
+                        cb.AddJsonFile("appsettings.IT.json", optional: false, true)
+                            .AddJsonFile("appsettings.IT.local.json", optional: true, true)
                             .AddEnvironmentVariables();
 
                     })

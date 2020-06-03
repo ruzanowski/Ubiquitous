@@ -16,7 +16,7 @@ namespace U.ProductService.Application.Products.Commands.ChangeCategory
 
         public ChangeProductCategoryCommandHandler(IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
-            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+            _productRepository = productRepository;
             _categoryRepository = categoryRepository;
         }
 

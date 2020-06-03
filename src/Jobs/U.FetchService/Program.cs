@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Hosting;
 using Serilog;
 using U.Common.NetCore.WebHost;
 
 namespace U.FetchService
 {
+    [ExcludeFromCodeCoverage]
     public class Program
     {
         private static readonly string Namespace = typeof(Program).Namespace;

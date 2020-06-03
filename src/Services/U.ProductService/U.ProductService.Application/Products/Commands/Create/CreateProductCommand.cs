@@ -16,10 +16,6 @@ namespace U.ProductService.Application.Products.Commands.Create
         public ExternalCreation ExternalProperties { get; set; }
         public QueuedJob QueuedJob { get; private set; }
 
-        public CreateProductCommand()
-        {
-        }
-
         public CreateProductCommand(string name,
             string barCode,
             decimal price,

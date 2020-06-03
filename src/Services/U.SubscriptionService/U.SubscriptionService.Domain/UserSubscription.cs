@@ -12,7 +12,7 @@ namespace U.SubscriptionService.Domain
 
         }
 
-        private UserSubscription(Guid userId)
+        private UserSubscription(Guid userId) : this()
         {
             UserId = userId;
             Preferences = new Preferences();

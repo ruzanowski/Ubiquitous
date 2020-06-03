@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 using U.Common.NetCore.Consul;
 
@@ -8,6 +9,7 @@ namespace U.ApiGateway.Controllers
     /// </summary>
     [ApiController]
     [Route("api/apigateway")]
+    [ExcludeFromCodeCoverage]
     public class HealthController : ControllerBase
     {
         private readonly IConsulServiceDifferentator _service;

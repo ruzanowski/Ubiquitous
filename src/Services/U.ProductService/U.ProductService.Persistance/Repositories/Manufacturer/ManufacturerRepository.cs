@@ -18,7 +18,7 @@ namespace U.ProductService.Persistance.Repositories.Manufacturer
 
         public ManufacturerRepository(ProductContext context, ICachingRepository cachingRepository)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _context = context;
             _cachingRepository = cachingRepository;
         }
 

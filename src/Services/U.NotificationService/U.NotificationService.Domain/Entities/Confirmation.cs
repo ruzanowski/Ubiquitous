@@ -10,7 +10,7 @@ namespace U.NotificationService.Domain.Entities
 
         }
 
-        public Confirmation(Guid user, Guid notificationId, ConfirmationType confirmationType, Guid deviceReceivedId)
+        public Confirmation(Guid user, Guid notificationId, ConfirmationType confirmationType, Guid deviceReceivedId) : this()
         {
             User = user;
             NotificationId = notificationId;
