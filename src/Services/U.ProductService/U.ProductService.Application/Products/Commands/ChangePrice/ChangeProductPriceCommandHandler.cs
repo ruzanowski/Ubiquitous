@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Common.Exceptions;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Common;
 
 namespace U.ProductService.Application.Products.Commands.ChangePrice
 {
@@ -14,12 +15,18 @@ namespace U.ProductService.Application.Products.Commands.ChangePrice
     {
         private readonly IProductRepository _productRepository;
         private readonly ILogger<ChangeProductPriceCommandHandler> _logger;
+        private readonly IMediator _mediator;
+        private readonly IDomainEventsService _domainEventsService;
 
         public ChangeProductPriceCommandHandler(ILogger<ChangeProductPriceCommandHandler> logger,
-            IProductRepository productRepository)
+            IProductRepository productRepository,
+            IDomainEventsService domainEventsService,
+            IMediator mediator)
         {
             _logger = logger;
             _productRepository = productRepository;
+            _domainEventsService = domainEventsService;
+            _mediator = mediator;
         }
 
         public async Task<Unit> Handle(ChangeProductPriceCommand message, CancellationToken cancellationToken)
@@ -34,7 +41,7 @@ namespace U.ProductService.Application.Products.Commands.ChangePrice
             product.ChangePrice(message.Price);
             _productRepository.Update(product);
 
-            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await _productRepository.UnitOfWork.SaveEntitiesAsync(_domainEventsService, _mediator, cancellationToken);
             return Unit.Value;
         }
     }

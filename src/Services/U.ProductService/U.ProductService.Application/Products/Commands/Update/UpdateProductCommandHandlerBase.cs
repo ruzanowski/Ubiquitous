@@ -1,31 +1,33 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Common.Exceptions;
+using U.ProductService.Application.Products.Commands.Update.Single;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Common;
 
 namespace U.ProductService.Application.Products.Commands.Update
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
+    public class UpdateProductCommandHandlerBase
     {
-        private readonly IProductRepository _productRepository;
-        private readonly ILogger<UpdateProductCommandHandler> _logger;
+        protected readonly IProductRepository ProductRepository;
+        protected readonly IMediator Mediator;
+        protected readonly IDomainEventsService DomainEventsService;
 
-        public UpdateProductCommandHandler(
-            ILogger<UpdateProductCommandHandler> logger,
-            IProductRepository productRepository)
+        public UpdateProductCommandHandlerBase(
+            IProductRepository productRepository, IMediator mediator, IDomainEventsService domainEventsService)
         {
-            _logger = logger;
-            _productRepository = productRepository;
+            ProductRepository = productRepository;
+            Mediator = mediator;
+            DomainEventsService = domainEventsService;
         }
 
         public async Task<Unit> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetAsync(command.Id, false, cancellationToken);
+            var product = await ProductRepository.GetAsync(command.Id, false, cancellationToken);
 
             if (product is null)
             {
@@ -47,11 +49,11 @@ namespace U.ProductService.Application.Products.Commands.Update
                 return Unit.Value;
             }
 
+            ProductRepository.Update(product);
+
             if (!command.QueuedJob?.AutoSave ?? true)
-            {
-                _productRepository.Update(product);
-                await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
-            }
+                await ProductRepository.UnitOfWork.SaveEntitiesAsync(DomainEventsService, Mediator,
+                    cancellationToken);
 
             return Unit.Value;
         }

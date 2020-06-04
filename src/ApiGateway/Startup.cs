@@ -46,7 +46,9 @@ namespace U.ApiGateway
                 .UseJwtTokenValidator()
                 .UseForwardedHeaders()
                 .UseWebSockets()
-                .UseRouting().UseEndpoints(endpoints =>
+                .UseRouting()
+                .UseAuthorization()
+                .UseEndpoints(endpoints =>
                 {
                     endpoints.MapDefaultControllerRoute();
                 })

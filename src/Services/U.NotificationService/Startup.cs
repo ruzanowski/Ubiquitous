@@ -81,13 +81,13 @@ namespace U.NotificationService
 
             app.UseJwtTokenValidator();
 
-            app
-                .UseRouting()
+            app.UseRouting()
+                .UseAuthorization()
                 .UseEndpoints(endpoints =>
-            {
-                endpoints.MapDefaultControllerRoute();
-                endpoints.MapHub<BaseHub>("/signalr");
-            });
+                {
+                    endpoints.MapDefaultControllerRoute();
+                    endpoints.MapHub<BaseHub>("/signalr");
+                });
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);

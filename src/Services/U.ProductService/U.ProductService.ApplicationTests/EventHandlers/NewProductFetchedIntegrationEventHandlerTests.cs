@@ -52,8 +52,8 @@ namespace U.ProductService.ApplicationTests.EventHandlers
             var createCommands = _pendingCommands.GetCreateCommands();
             var updateCommands = _pendingCommands.GetUpdateCommands();
 
-            createCommands.Should().HaveCount(1);
-            updateCommands.Should().HaveCount(0);
+            createCommands.CreateProductCommands.Should().HaveCount(1);
+            updateCommands.UpdateProductCommands.Should().HaveCount(0);
         }
 
         [Fact]
@@ -96,8 +96,8 @@ namespace U.ProductService.ApplicationTests.EventHandlers
             var createCommands = _pendingCommands.GetCreateCommands();
             var updateCommands = _pendingCommands.GetUpdateCommands();
 
-            createCommands.Should().HaveCount(1);
-            updateCommands.Should().HaveCount(1);
+            createCommands.CreateProductCommands.Should().HaveCount(1);
+            updateCommands.UpdateProductCommands.Should().HaveCount(1);
         }
 
         [Fact]
@@ -138,8 +138,8 @@ namespace U.ProductService.ApplicationTests.EventHandlers
             var createCommands = _pendingCommands.GetCreateCommands();
             var updateCommands = _pendingCommands.GetUpdateCommands();
 
-            createCommands.Should().HaveCount(0);
-            updateCommands.Should().HaveCount(1);
+            createCommands.CreateProductCommands.Should().HaveCount(0);
+            updateCommands.UpdateProductCommands.Should().HaveCount(1);
         }
 
 

@@ -2,7 +2,7 @@
 using MediatR;
 using U.ProductService.Application.Pictures.Models;
 
-namespace U.ProductService.Application.Pictures.Commands.AddPicture
+namespace U.ProductService.Application.Pictures.Commands.Add
 {
     public class AddPictureCommand : IRequest<PictureViewModel>
     {

@@ -1,6 +1,8 @@
 using AutoMapper;
 using U.ProductService.Application.Pictures.Models;
+using U.ProductService.Domain.Entities.Manufacturer;
 using U.ProductService.Domain.Entities.Picture;
+using U.ProductService.Domain.Entities.Product;
 
 namespace U.ProductService.Application.Common.Mappings
 {

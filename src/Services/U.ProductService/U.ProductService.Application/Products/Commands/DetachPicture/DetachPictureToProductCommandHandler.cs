@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using U.ProductService.Application.Common.Exceptions;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Common;
 using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService.Application.Products.Commands.DetachPicture
@@ -12,12 +13,16 @@ namespace U.ProductService.Application.Products.Commands.DetachPicture
     public class DetachPictureToProductCommandHandler : IRequestHandler<DetachPictureToProductCommand>
     {
         private readonly IProductRepository _productRepository;
-        private readonly ProductContext _context;
+        private readonly IMediator _mediator;
+        private readonly IDomainEventsService _domainEventsService;
 
-        public DetachPictureToProductCommandHandler(IProductRepository productRepository, ProductContext context)
+        public DetachPictureToProductCommandHandler(IProductRepository productRepository,
+            IDomainEventsService domainEventsService,
+            IMediator mediator)
         {
             _productRepository = productRepository;
-            _context = context;
+            _domainEventsService = domainEventsService;
+            _mediator = mediator;
         }
 
         public async Task<Unit> Handle(DetachPictureToProductCommand command, CancellationToken cancellationToken)
@@ -32,7 +37,7 @@ namespace U.ProductService.Application.Products.Commands.DetachPicture
             product.DetachPicture(command.PictureId);
 
             _productRepository.Update(product);
-            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await _productRepository.UnitOfWork.SaveEntitiesAsync(_domainEventsService, _mediator, cancellationToken);
 
             await _productRepository.InvalidateCache(command.Id);
             return Unit.Value;

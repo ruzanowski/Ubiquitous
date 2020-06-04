@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using U.ProductService.Application.Common.Exceptions;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Common;
 
 namespace U.ProductService.Application.Products.Commands.ChangeCategory
 {
@@ -13,6 +14,8 @@ namespace U.ProductService.Application.Products.Commands.ChangeCategory
     {
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IMediator _mediator;
+        private readonly IDomainEventsService _domainEventsService;
 
         public ChangeProductCategoryCommandHandler(IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
@@ -39,7 +42,7 @@ namespace U.ProductService.Application.Products.Commands.ChangeCategory
             product.ChangeCategory(message.CategoryId);
             _productRepository.Update(product);
 
-            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await _productRepository.UnitOfWork.SaveEntitiesAsync(_domainEventsService, _mediator, cancellationToken);
             return Unit.Value;
         }
     }

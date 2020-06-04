@@ -45,6 +45,7 @@ namespace U.GeneratorService
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseRouting()
+                .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapDefaultControllerRoute();

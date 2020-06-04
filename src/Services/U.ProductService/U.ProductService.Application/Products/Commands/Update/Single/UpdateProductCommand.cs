@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using U.Common.NetCore.Swagger;
 using U.ProductService.Application.Products.Models;
 
-namespace U.ProductService.Application.Products.Commands.Update
+namespace U.ProductService.Application.Products.Commands.Update.Single
 {
     public class UpdateProductCommand : IRequest, IQueueable
     {

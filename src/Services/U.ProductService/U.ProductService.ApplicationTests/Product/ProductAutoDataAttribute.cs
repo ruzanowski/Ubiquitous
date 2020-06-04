@@ -1,5 +1,6 @@
 using AutoFixture;
 using U.ProductService.Application.Products.Commands.Create;
+using U.ProductService.Application.Products.Commands.Create.Single;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain.Entities.Manufacturer;
 

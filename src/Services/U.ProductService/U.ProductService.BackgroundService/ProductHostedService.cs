@@ -1,11 +1,15 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Services;
+using U.ProductService.Domain;
+using U.ProductService.Domain.Common;
 using U.ProductService.Persistance.Contexts;
 
 // ReSharper disable ClassNeverInstantiated.Global
@@ -40,43 +44,41 @@ namespace U.ProductService.BackgroundService
             {
                 while (!stopToken.IsCancellationRequested)
                 {
-                    await using var context =
-                        _provider?.CreateScope().ServiceProvider.GetRequiredService<ProductContext>();
-                    await SafeExecution(context);
+                    var serviceProvider = _provider?.CreateScope().ServiceProvider;
+                    var mediator = serviceProvider.GetRequiredService<IMediator>();
+
+                    await SafeExecution(mediator);
+
                     await Task.Delay(TimeSpan.FromSeconds(_refreshInterval), stopToken);
                 }
             }
         }
 
-        private async Task SafeExecution(ProductContext context)
+        private async Task SafeExecution(IMediator mediator)
         {
             try
             {
                 var watch = System.Diagnostics.Stopwatch.StartNew();
 
-                var pendingCreateCommands = _pendingCommands.GetCreateCommands();
-                var pendingUpdateCommands = _pendingCommands.GetUpdateCommands();
+                var createManyCommand = _pendingCommands.GetCreateCommands();
+                var updateManyCommand = _pendingCommands.GetUpdateCommands();
+
                 _pendingCommands.Flush();
 
-                var mediator = _provider.CreateScope().ServiceProvider
-                    .GetRequiredService<IMediator>();
+                await mediator.Send(createManyCommand);
+                await mediator.Send(updateManyCommand);
 
-                foreach (var orderedTask in pendingCreateCommands)
-                {
-                    await mediator.Send(orderedTask);
-                }
-
-                foreach (var orderedTask in pendingUpdateCommands)
-                {
-                    await mediator.Send(orderedTask);
-                }
-
-                await context.SaveEntitiesAsync();
                 watch.Stop();
                 var elapsedMs = watch.ElapsedMilliseconds;
-                _logger.LogInformation(
-                    $"Product Background Service has executed {pendingCreateCommands.Count} creation and {pendingUpdateCommands.Count} update jobs({pendingCreateCommands.Count + pendingUpdateCommands.Count}) in {elapsedMs} ms");
 
+                var createdCount = createManyCommand.CreateProductCommands.Count;
+                var updatedCount = updateManyCommand.UpdateProductCommands.Count;
+                var total = updatedCount + createdCount;
+
+                _logger.LogInformation(
+                    $"Product Background Service has executed {createdCount} creation" +
+                    $" and {updatedCount} update jobs (in total {total})" +
+                    $" generated in {elapsedMs} ms, {total/(elapsedMs/1000.0):0}/s");
             }
             catch (Exception ex)
             {

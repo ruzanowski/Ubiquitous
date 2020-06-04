@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using U.ProductService.Application.Common.Exceptions;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Common;
 using U.ProductService.Persistance.Repositories.Picture;
 
 namespace U.ProductService.Application.Products.Commands.AttachPicture
@@ -13,11 +14,18 @@ namespace U.ProductService.Application.Products.Commands.AttachPicture
     {
         private readonly IProductRepository _productRepository;
         private readonly IPictureRepository _pictureRepository;
+        private readonly IMediator _mediator;
+        private readonly IDomainEventsService _domainEventsService;
 
-        public AttachPictureToProductCommandHandler(IProductRepository productRepository, IPictureRepository pictureRepository)
+        public AttachPictureToProductCommandHandler(IProductRepository productRepository,
+            IPictureRepository pictureRepository,
+            IMediator mediator,
+            IDomainEventsService domainEventsService)
         {
             _productRepository = productRepository;
             _pictureRepository = pictureRepository;
+            _mediator = mediator;
+            _domainEventsService = domainEventsService;
         }
 
         public async Task<Unit> Handle(AttachPictureToProductCommand command, CancellationToken cancellationToken)
@@ -38,7 +46,7 @@ namespace U.ProductService.Application.Products.Commands.AttachPicture
 
             product.AttachPicture(command.PictureId);
             _productRepository.Update(product);
-            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await _productRepository.UnitOfWork.SaveEntitiesAsync(_domainEventsService, _mediator, cancellationToken);
             await _productRepository.InvalidateCache(command.Id);
             return Unit.Value;
         }
