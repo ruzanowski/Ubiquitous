@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 using U.Common.NetCore.Consul;
 
@@ -8,6 +9,7 @@ namespace U.GeneratorService.Controllers
     /// </summary>
     [ApiController]
     [Route("api/generator")]
+    [ExcludeFromCodeCoverage]
     public class HealthController : ControllerBase
     {
         private readonly IConsulServiceDifferentator _service;

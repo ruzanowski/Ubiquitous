@@ -26,8 +26,10 @@ namespace U.ProductService.IntegrationTests
         protected static class PicturesController
         {
             private const string BaseUrl = "/api/product/pictures";
+            public static string GetPicture(Guid id) => $"{BaseUrl}/{id}";
             public static string AddPicture() => $"{BaseUrl}";
             public static string DeletePicture(Guid id) => $"{BaseUrl}/{id}";
+            public static string UpdatePicture(Guid id) => $"{BaseUrl}/{id}";
         }
     }
 }

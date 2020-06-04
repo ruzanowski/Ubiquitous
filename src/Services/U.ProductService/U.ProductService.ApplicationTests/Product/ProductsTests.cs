@@ -30,8 +30,9 @@ namespace U.ProductService.ApplicationTests.Product
     [Collection("Sequential")]
     public class ProductTests : UtilitiesBase
     {
+
         [Fact]
-        public async Task Should_CreateProduct_Returns201()
+        public async Task Should_CreateProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -49,8 +50,8 @@ namespace U.ProductService.ApplicationTests.Product
             response.ManufacturerId.Should().Be(command.ManufacturerId!.Value);
         }
 
-                [Fact]
-        public async Task Should_GetProductList_Returns200()
+        [Fact]
+        public async Task Should_GetProductList()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -89,7 +90,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_GetProduct_Returns200()
+        public async Task Should_GetProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -121,8 +122,29 @@ namespace U.ProductService.ApplicationTests.Product
             getProduct.CreatedAt.Should().BeCloseTo(createdProduct.CreatedAt, TimeSpan.FromSeconds(1));
         }
 
+
         [Fact]
-        public async Task Should_GetProduct_ForNonExistingProduct_Returns404()
+        public async Task Should_CreateProduct_OnDuplicated_ThrownProductDuplicatedException()
+        {
+            //arrange
+            var command = GetCreateProductCommand();
+            command.ExternalProperties = new ExternalCreation
+            {
+                DuplicationValidated = false,
+                SourceId = Guid.NewGuid().ToString(),
+                SourceName = "Fake"
+            };
+            await CreateProductAsync(command);
+
+            //act
+            Func<Task> task = async () => await CreateProductAsync(command);
+
+            //assert
+            task.Should().Throw<ProductDuplicatedException>();
+        }
+
+        [Fact]
+        public async Task Should_GetProduct_ForNonExistingProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -136,7 +158,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_UpdateProduct_Returns200()
+        public async Task Should_UpdateProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -155,7 +177,7 @@ namespace U.ProductService.ApplicationTests.Product
                 });
 
             //act
-            var putResponse = await _mediator.Send(updateCommand);
+            var putResponse = await Mediator.Send(updateCommand);
 
             var responseProduct = await GetProductAsync(createdProduct.Id);
 
@@ -177,14 +199,14 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_PublishProduct_Returns200()
+        public async Task Should_PublishProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
             var createdProduct = await CreateProductAsync(command);
 
             //act
-            await _mediator.Send(new PublishProductCommand(createdProduct.Id));
+            await Mediator.Send(new PublishProductCommand(createdProduct.Id));
             var responseProduct = await GetProductAsync(createdProduct.Id);
 
             //assert
@@ -208,20 +230,20 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_PublishProduct_ForNonExistingProduct_Returns404()
+        public async Task Should_PublishProduct_ForNonExistingProduct_ThrowsProductNotFoundException()
         {
             //arrange
             await CreateProductAsync(GetCreateProductCommand());
 
             //act
-            Func<Task> task = async () => await _mediator.Send(new PublishProductCommand(Guid.NewGuid()));
+            Func<Task> task = async () => await Mediator.Send(new PublishProductCommand(Guid.NewGuid()));
 
             //assert
             task.Should().Throw<ProductNotFoundException>();
         }
 
         [Fact]
-        public async Task Should_UnpublishProduct_Returns200()
+        public async Task Should_UnpublishProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -229,7 +251,7 @@ namespace U.ProductService.ApplicationTests.Product
 
             //act
 
-            await _mediator.Send(new UnPublishProductCommand(createdProduct.Id));
+            await Mediator.Send(new UnPublishProductCommand(createdProduct.Id));
             var responseProduct = await GetProductAsync(createdProduct.Id);
 
             //assert
@@ -253,21 +275,21 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_UnpublishProduct_ForNonExistingProduct_Returns404()
+        public async Task Should_UnpublishProduct_ForNonExistingProduct_ThrowsProductNotFoundException()
         {
             //arrange
             var command = GetCreateProductCommand();
             await CreateProductAsync(command);
 
             //act
-            Func<Task> task = async () => await _mediator.Send(new PublishProductCommand(Guid.NewGuid()));
+            Func<Task> task = async () => await Mediator.Send(new PublishProductCommand(Guid.NewGuid()));
 
             //assert
             task.Should().Throw<ProductNotFoundException>();
         }
 
         [Fact]
-        public async Task Should_ChangePriceProduct_Returns200()
+        public async Task Should_ChangePriceProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -275,7 +297,7 @@ namespace U.ProductService.ApplicationTests.Product
             var priceArgument = createdProduct.Price + 50;
 
             //act
-            await _mediator.Send(new ChangeProductPriceCommand(createdProduct.Id, priceArgument));
+            await Mediator.Send(new ChangeProductPriceCommand(createdProduct.Id, priceArgument));
             var responseProduct = await GetProductAsync(createdProduct.Id);
 
             //assert
@@ -298,7 +320,7 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task<(Guid, Guid)> Should_AddPictureProduct_Returns200()
+        public async Task<(Guid, Guid)> Should_AddPictureProduct()
         {
             //arrange
             var command = GetCreateProductCommand();
@@ -312,8 +334,8 @@ namespace U.ProductService.ApplicationTests.Product
             };
 
             //act
-            var addPictureResult = await _mediator.Send(addPictureCommand);
-            await _mediator.Send(new AttachPictureToProductCommand(createdProduct.Id, addPictureResult.Id));
+            var addPictureResult = await Mediator.Send(addPictureCommand);
+            await Mediator.Send(new AttachPictureToProductCommand(createdProduct.Id, addPictureResult.Id));
             var responseProduct = await GetProductAsync(createdProduct.Id);
 
             //assert
@@ -360,22 +382,22 @@ namespace U.ProductService.ApplicationTests.Product
             };
 
             //act
-            var addPictureResult = await _mediator.Send(addPictureCommand);
+            var addPictureResult = await Mediator.Send(addPictureCommand);
 
-            Func<Task> task = async () => await _mediator.Send(new AttachPictureToProductCommand(Guid.NewGuid(), addPictureResult.Id));
+            Func<Task> task = async () => await Mediator.Send(new AttachPictureToProductCommand(Guid.NewGuid(), addPictureResult.Id));
 
             //assert
             task.Should().Throw<ProductNotFoundException>();
         }
 
         [Fact]
-        public async Task Should_DeletePicture_Returns200()
+        public async Task Should_DeletePicture()
         {
             //arrange
-            var tuple = await Should_AddPictureProduct_Returns200();
+            var tuple = await Should_AddPictureProduct();
 
             //act
-            await _mediator.Send(new DeletePictureCommand(tuple.Item2));
+            await Mediator.Send(new DeletePictureCommand(tuple.Item2));
             await ProductRepository.InvalidateCache(tuple.Item1);
             var getResponse = await GetProductAsync(tuple.Item1);
 
@@ -386,13 +408,13 @@ namespace U.ProductService.ApplicationTests.Product
 
 
         [Fact]
-        public async Task Should_DetachPicture_Returns200()
+        public async Task Should_DetachPicture()
         {
             //arrange
-            var tuple = await Should_AddPictureProduct_Returns200();
+            var tuple = await Should_AddPictureProduct();
 
             //act
-            await _mediator.Send(new DetachPictureToProductCommand(tuple.Item1, tuple.Item2));
+            await Mediator.Send(new DetachPictureToProductCommand(tuple.Item1, tuple.Item2));
             var getResponse = await GetProductAsync(tuple.Item1);
 
             //assert
@@ -402,13 +424,13 @@ namespace U.ProductService.ApplicationTests.Product
 
 
         [Fact]
-        public async Task Should_DetachPicture_ForNonExistingProduct_Returns404()
+        public async Task Should_DetachPicture_ForNonExistingProduct_ThrowsProductNotFoundException()
         {
             //arrange
-            var tuple = await Should_AddPictureProduct_Returns200();
+            var tuple = await Should_AddPictureProduct();
 
             //act
-            Func<Task> task = async () => await _mediator.Send(new DetachPictureToProductCommand(Guid.NewGuid(), tuple.Item2));
+            Func<Task> task = async () => await Mediator.Send(new DetachPictureToProductCommand(Guid.NewGuid(), tuple.Item2));
             var getResponse = await GetProductAsync(tuple.Item1);
 
             //assert
@@ -417,13 +439,13 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_DetachPicture_ForNonExistingPicture_Returns404()
+        public async Task Should_DetachPicture_ForNonExistingPicture_ThrowsNotFoundDomainException()
         {
             //arrange
-            var tuple = await Should_AddPictureProduct_Returns200();
+            var tuple = await Should_AddPictureProduct();
 
             //act
-            Func<Task> task = async () => await _mediator.Send(new DetachPictureToProductCommand(tuple.Item1, Guid.NewGuid()));
+            Func<Task> task = async () => await Mediator.Send(new DetachPictureToProductCommand(tuple.Item1, Guid.NewGuid()));
             var getResponse = await GetProductAsync(tuple.Item1);
 
             //assert
@@ -432,13 +454,13 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_DeletePictureProduct_ForNonExistingTuple_Returns404()
+        public async Task Should_DeletePictureProduct_ForNonExistingTuple_ThrowsProductNotFoundException()
         {
             //arrange
-            var tuple = await Should_AddPictureProduct_Returns200();
+            var tuple = await Should_AddPictureProduct();
 
             //act
-            Func<Task> task = async () => await _mediator.Send(new DetachPictureToProductCommand(Guid.NewGuid(), Guid.NewGuid()));
+            Func<Task> task = async () => await Mediator.Send(new DetachPictureToProductCommand(Guid.NewGuid(), Guid.NewGuid()));
             var getResponse = await GetProductAsync(tuple.Item1);
 
             //assert
@@ -447,14 +469,14 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_GetProductStatisticsByManufacturer_Returns200()
+        public async Task Should_GetProductStatisticsByManufacturer()
         {
             //arrange
             var command = GetCreateProductCommand();
             await CreateProductAsync(command);
 
             //act
-            var statistics = await _mediator.Send(new GetProductsStatisticsByManufacturers());
+            var statistics = await Mediator.Send(new GetProductsStatisticsByManufacturers());
 
             //assert
             statistics.Count.Should().Be(1);
@@ -463,12 +485,12 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_GetProductStatisticsByManufacturer_NoProducts_Returns200()
+        public async Task Should_GetProductStatisticsByManufacturer_NoProducts()
         {
             //arrange
 
             //act
-            var statistics = await _mediator.Send(new GetProductsStatisticsByManufacturers());
+            var statistics = await Mediator.Send(new GetProductsStatisticsByManufacturers());
 
 
             //assert
@@ -476,14 +498,14 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_GetProductStatisticsByCategory_Returns200()
+        public async Task Should_GetProductStatisticsByCategory()
         {
             //arrange
             var command = GetCreateProductCommand();
             await CreateProductAsync(command);
 
             //act
-            var statistics = await _mediator.Send(new GetProductsStatisticsByCategory());
+            var statistics = await Mediator.Send(new GetProductsStatisticsByCategory());
 
             //assert
             statistics.Count.Should().Be(1);
@@ -492,12 +514,12 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_GetProductStatisticsByCategory_NoProducts_Returns200()
+        public async Task Should_GetProductStatisticsByCategory_NoProducts()
         {
             //arrange
 
             //act
-            var statistics = await _mediator.Send(new GetProductsStatisticsByCategory());
+            var statistics = await Mediator.Send(new GetProductsStatisticsByCategory());
 
 
             //assert
@@ -506,14 +528,14 @@ namespace U.ProductService.ApplicationTests.Product
 
 
         [Fact]
-        public async Task Should_GetProductStatisticsByCreation_Returns200()
+        public async Task Should_GetProductStatisticsByCreation()
         {
             //arrange
             var command = GetCreateProductCommand();
             await CreateProductAsync(command);
 
             //act
-            var statistics = await _mediator.Send(new GetProductsStatisticsQuery());
+            var statistics = await Mediator.Send(new GetProductsStatisticsQuery());
 
             //assert
             statistics.Count.Should().Be(14);
@@ -522,32 +544,29 @@ namespace U.ProductService.ApplicationTests.Product
         }
 
         [Fact]
-        public async Task Should_GetProductStatisticsByCreation_NoProducts_Returns200()
+        public async Task Should_GetProductStatisticsByCreation_NoProducts()
         {
             //arrange
 
             //act
-            var statistics = await _mediator.Send(new GetProductsStatisticsQuery());
+            var statistics = await Mediator.Send(new GetProductsStatisticsQuery());
 
             //assert
             statistics.Should().HaveCount(14);
         }
 
         [Fact]
-        public async Task Should_GetProductCount_Returns200()
+        public async Task Should_GetProductCount()
         {
             //arrange
             var command = GetCreateProductCommand();
             await CreateProductAsync(command);
 
             //act
-            var count = await _mediator.Send(new GetProductsCount());
+            var count = await Mediator.Send(new GetProductsCount());
 
             //assert
             count.Should().Be(1);
         }
-
-        private async Task<ProductViewModel> GetProductAsync(Guid id) =>
-            await _mediator.Send(new QueryProduct(id));
     }
 }

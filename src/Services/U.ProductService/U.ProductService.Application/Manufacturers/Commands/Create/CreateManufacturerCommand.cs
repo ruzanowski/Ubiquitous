@@ -8,11 +8,6 @@ namespace U.ProductService.Application.Manufacturers.Commands.Create
         public string Name { get;  set; }
         public string Description { get;  set; }
 
-        public CreateManufacturerCommand()
-        {
-
-        }
-
         public CreateManufacturerCommand(string name, string description)
         {
             Name = name;

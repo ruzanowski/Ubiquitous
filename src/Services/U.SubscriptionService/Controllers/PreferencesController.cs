@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Threading.Tasks;
 using MediatR;
@@ -16,6 +17,7 @@ namespace U.SubscriptionService.Controllers
 {
     [Route("api/subscription/preferences")]
     [ApiController]
+    [ExcludeFromCodeCoverage]
     public class PreferencesController : ControllerBase
     {
         private readonly IMediator _mediator;

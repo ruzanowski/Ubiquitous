@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Hosting;
 using Serilog;
 using U.Common.NetCore.EF;
@@ -9,6 +10,7 @@ using U.ProductService.Persistance.Contexts;
 
 namespace U.ProductService
 {
+    [ExcludeFromCodeCoverage]
     public class Program
     {
         private static readonly string Namespace = typeof(Program).Namespace;

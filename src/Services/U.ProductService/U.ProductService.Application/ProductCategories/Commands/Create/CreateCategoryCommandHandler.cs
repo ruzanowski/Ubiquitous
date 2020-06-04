@@ -15,7 +15,7 @@ namespace U.ProductService.Application.ProductCategories.Commands.Create
 
         public CreateCategoryCommandHandler(ICategoryRepository categoryRepository)
         {
-            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
+            _categoryRepository = categoryRepository;
         }
 
         public async Task<Guid> Handle(CreateCategoryCommand command, CancellationToken cancellationToken)

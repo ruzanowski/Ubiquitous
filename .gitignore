@@ -37,7 +37,8 @@ obj
 packages
 Tasks.txt
 .env
-
+*/appsettings.local.IT.json
+*/appsettings.local.AT.json
 
 # Visual Studio 2015 cache/options directory
 .vs/

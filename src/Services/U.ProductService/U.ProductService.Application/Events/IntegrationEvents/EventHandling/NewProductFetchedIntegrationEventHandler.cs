@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using MediatR;
 using U.EventBus.Abstractions;
 using U.EventBus.Events.Fetch;
 using U.ProductService.Application.Products.Commands.Create;
@@ -12,14 +11,11 @@ namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling
 {
     public class NewProductFetchedIntegrationEventHandler : IIntegrationEventHandler<NewProductFetchedIntegrationEvent>
     {
-        private readonly IMediator _mediator;
         private readonly IProductRepository _productRepository;
         private readonly IPendingCommands _commands;
 
-        public NewProductFetchedIntegrationEventHandler(IMediator mediator,
-            IProductRepository productRepository, IPendingCommands commands)
+        public NewProductFetchedIntegrationEventHandler(IProductRepository productRepository, IPendingCommands commands)
         {
-            _mediator = mediator;
             _productRepository = productRepository;
             _commands = commands;
         }
