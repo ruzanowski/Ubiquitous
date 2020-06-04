@@ -1,14 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using U.ProductService.Application.Products.Commands.Create;
+using U.ProductService.Application.Products.Commands.Create.Many;
+using U.ProductService.Application.Products.Commands.Create.Single;
 using U.ProductService.Application.Products.Commands.Update;
+using U.ProductService.Application.Products.Commands.Update.Many;
+using U.ProductService.Application.Products.Commands.Update.Single;
 
 namespace U.ProductService.Application.Services
 {
     public class PendingCommands : IPendingCommands
     {
-        private readonly IList<CreateProductCommand> _pendingCreateCommands = new List<CreateProductCommand>();
-        private readonly IList<UpdateProductCommand> _pendingUpdateCommands = new List<UpdateProductCommand>();
+        private readonly ICollection<CreateProductCommand> _pendingCreateCommands = new HashSet<CreateProductCommand>();
+        private readonly ICollection<UpdateProductCommand> _pendingUpdateCommands = new HashSet<UpdateProductCommand>();
 
 
         public IPendingCommands Add(CreateProductCommand createProductCommand)
@@ -22,13 +26,19 @@ namespace U.ProductService.Application.Services
             return this;
         }
 
-        public IList<CreateProductCommand> GetCreateCommands()
+        public CreateManyProductsCommand GetCreateCommands()
         {
-            return _pendingCreateCommands.ToList();
+            return new CreateManyProductsCommand
+            {
+                CreateProductCommands = _pendingCreateCommands.ToList()
+            };
         }
-        public IList<UpdateProductCommand> GetUpdateCommands()
+        public UpdateManyProductsCommand GetUpdateCommands()
         {
-            return _pendingUpdateCommands.ToList();
+            return new UpdateManyProductsCommand
+            {
+                UpdateProductCommands = _pendingUpdateCommands.ToList()
+            };
         }
 
         public void Flush()

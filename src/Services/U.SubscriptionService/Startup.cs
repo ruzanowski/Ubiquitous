@@ -72,6 +72,7 @@ namespace U.SubscriptionService
             app.UseJwtTokenValidator();
 
             app.UseRouting()
+                .UseAuthorization()
                 .UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();

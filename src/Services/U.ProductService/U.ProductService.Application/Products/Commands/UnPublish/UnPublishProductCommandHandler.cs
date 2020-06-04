@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Common.Exceptions;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Common;
 
 namespace U.ProductService.Application.Products.Commands.UnPublish
 {
@@ -13,12 +14,17 @@ namespace U.ProductService.Application.Products.Commands.UnPublish
     public class UnPublishProductCommandHandler : IRequestHandler<UnPublishProductCommand>
     {
         private readonly IProductRepository _productRepository;
-        private readonly ILogger<UnPublishProductCommandHandler> _logger;
+        private readonly IMediator _mediator;
+        private readonly IDomainEventsService _domainEventsService;
 
-        public UnPublishProductCommandHandler(ILogger<UnPublishProductCommandHandler> logger, IProductRepository productRepository)
+        public UnPublishProductCommandHandler(
+            IProductRepository productRepository,
+            IMediator mediator,
+            IDomainEventsService domainEventsService)
         {
-            _logger = logger;
             _productRepository = productRepository;
+            _mediator = mediator;
+            _domainEventsService = domainEventsService;
         }
 
         public async Task<Unit> Handle(UnPublishProductCommand command, CancellationToken cancellationToken)
@@ -30,7 +36,7 @@ namespace U.ProductService.Application.Products.Commands.UnPublish
 
             product.Unpublish();
             _productRepository.Update(product);
-            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await _productRepository.UnitOfWork.SaveEntitiesAsync(_domainEventsService, _mediator, cancellationToken);
 
             return Unit.Value;
         }

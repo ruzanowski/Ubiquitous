@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using U.Common.NetCore.Swagger;
 using U.ProductService.Application.Pictures.Models;
 
-namespace U.ProductService.Application.Pictures.Commands.AddPicture
+namespace U.ProductService.Application.Pictures.Commands.Update
 {
     public class UpdatePictureCommand : IRequest<PictureViewModel>
     {

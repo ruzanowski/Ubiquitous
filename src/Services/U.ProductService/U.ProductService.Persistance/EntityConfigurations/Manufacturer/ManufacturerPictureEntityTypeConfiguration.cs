@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using U.ProductService.Domain.Entities.Manufacturer;
 using U.ProductService.Domain.Entities.Picture;
 using U.ProductService.Persistance.Contexts;
 

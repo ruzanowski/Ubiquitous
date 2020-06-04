@@ -44,7 +44,8 @@ namespace U.FetchService
             app
                  .UsePathBase(Configuration, _logger).Item1
                 .UseRouting()
-                .UseEndpoints(endpoints => {
+                 .UseAuthorization()
+                 .UseEndpoints(endpoints => {
                      endpoints.MapDefaultControllerRoute();
                 })
                 .UseServiceId()

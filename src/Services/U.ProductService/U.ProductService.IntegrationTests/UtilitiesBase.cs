@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
+using MediatR;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -11,8 +12,10 @@ using U.Common.NetCore.Http;
 using U.Common.Pagination;
 using U.ProductService.Application.Infrastructure;
 using U.ProductService.Application.Products.Commands.Create;
+using U.ProductService.Application.Products.Commands.Create.Single;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Common;
 using U.ProductService.IntegrationTests.Product.Conventions;
 using U.ProductService.Persistance.Contexts;
 using Xunit;
@@ -56,9 +59,13 @@ namespace U.ProductService.IntegrationTests
 
             var dbOptions = Server.Host.Services.CreateScope().ServiceProvider.GetService<DbOptions>();
             var logger = Server.Host.Services.CreateScope().ServiceProvider.GetService<ILogger<ProductContextSeeder>>();
+            var mediator = Server.Host.Services.CreateScope().ServiceProvider.GetService<IMediator>();
+            var domainEventsService = Server.Host.Services.CreateScope().ServiceProvider.GetService<IDomainEventsService>();
             await Seeder.SeedAsync(context,
                 dbOptions,
-                logger);
+                logger,
+                mediator,
+                domainEventsService);
         }
 
         protected CreateProductCommand GetCreateProductCommand()

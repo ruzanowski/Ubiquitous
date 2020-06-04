@@ -2,7 +2,7 @@
 using MediatR;
 using U.ProductService.Application.Products.Models;
 
-namespace U.ProductService.Application.Products.Commands.Create
+namespace U.ProductService.Application.Products.Commands.Create.Single
 {
     public class CreateProductCommand : IRequest<ProductViewModel>, IQueueable
     {

@@ -83,6 +83,7 @@ namespace U.SmartStoreAdapter
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseRouting()
+                .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapDefaultControllerRoute();
