@@ -27,18 +27,9 @@ namespace U.ProductService.Persistance.Contexts
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<MimeType> MimeTypes { get; set; }
         //fields
-        private readonly IMediator _mediator;
 
         public ProductContext(DbContextOptions<ProductContext> options) : base(options)
         {
-            try
-            {
-                _mediator = this.GetService<IMediator>();
-            }
-            catch
-            {
-                _mediator = new NoMediator();
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -56,19 +47,27 @@ namespace U.ProductService.Persistance.Contexts
 
         }
 
-        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
+        public void StoreDomainEvents(IDomainEventsService domainEventsService, IMediator mediator, CancellationToken cancellationToken = default)
         {
-            await _mediator.DispatchDomainEventsAsync(this);
+            var domainEvents = this.GetDomainEvents();
 
-            ChangeTracker.DetectChanges();
+            domainEventsService.AddDomainEvents(domainEvents);
+        }
+
+        public async Task<bool> SaveEntitiesAsync(IDomainEventsService domainEventsService, IMediator mediator, CancellationToken cancellationToken = default)
+        {
+            StoreDomainEvents(domainEventsService, mediator, cancellationToken);
+
             OnBeforeSaving();
-            await SaveChangesAsync(cancellationToken);
-
+            await this.BulkSaveChangesAsync(cancellationToken);
+            await mediator.DispatchDomainEventsAsync(domainEventsService);
             return true;
         }
 
         private void OnBeforeSaving()
         {
+            ChangeTracker.DetectChanges();
+
             var entries = ChangeTracker.Entries();
             foreach (var entry in entries)
             {

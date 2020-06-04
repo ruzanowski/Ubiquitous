@@ -1,7 +1,7 @@
 ﻿using System;
 using MediatR;
 
-namespace U.ProductService.Application.Pictures.Commands.DeletePicture
+namespace U.ProductService.Application.Pictures.Commands.Delete
 {
     public class DeletePictureCommand : IRequest
     {

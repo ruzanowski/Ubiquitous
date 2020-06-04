@@ -18,17 +18,19 @@ namespace U.ProductService.Persistance.Repositories.Product
 
         public async Task<Domain.Entities.Product.Product> AddAsync(Domain.Entities.Product.Product product)
         {
+            _context.ChangeTracker.AutoDetectChangesEnabled = false;
             await _context.AddAsync(product);
 
-            CacheUnderTwoIdentifiers(product);
+            _cachingRepository.Cache(product.Id.ToString(), product);
 
+            _context.ChangeTracker.AutoDetectChangesEnabled = true;
             return product;
         }
 
         public void Update(Domain.Entities.Product.Product product)
         {
             _context.Products.Update(product);
-            CacheUnderTwoIdentifiers(product);
+            _cachingRepository.Cache(product.Id.ToString(), product);
         }
 
         public async Task<Domain.Entities.Product.Product> GetAsync(Guid productId, bool asNoTracking,
@@ -71,42 +73,36 @@ namespace U.ProductService.Persistance.Repositories.Product
         public async Task<Guid?> GetIdByExternalTupleAsync(string externalSourceName, string externalSourceId)
         {
             var cacheKey = $"Product_{externalSourceName}_{externalSourceId}";
-            var cached =
-                _cachingRepository.Get<Guid?>(cacheKey);
+            var cached = _cachingRepository.Get<Guid?>(cacheKey);
 
             if (cached != null)
             {
                 return cached;
             }
 
-            var product = await _context.Products
-                .Include(x => x.ProductCategory)
-                .Include(x => x.Pictures)
-                .Include(x => x.ProductType)
-                .Include(x => x.Dimensions)
+            var productGuid = _context.Products
                 .AsNoTracking()
-                .SingleOrDefaultAsync(x => x.ExternalId.Equals(externalSourceId)
-                                           && x.ExternalSourceName.Equals(externalSourceName));
+                .Select(x=> new
+                {
+                    x.ExternalId,
+                    x.ExternalSourceName,
+                    x.Id
+                })
+                .SingleOrDefault(x => x.ExternalId.Equals(externalSourceId)
+                                           && x.ExternalSourceName.Equals(externalSourceName))
+                ?.Id;
 
-            if (product != null)
+            if (productGuid != null)
             {
-                CacheUnderTwoIdentifiers(product);
+                _cachingRepository.Cache(cacheKey, productGuid);
             }
 
-            return product?.Id;
+            return productGuid;
         }
 
         public async Task InvalidateCache(Guid productId)
         {
             _cachingRepository.Delete(productId.ToString());
-        }
-
-        private void CacheUnderTwoIdentifiers(Domain.Entities.Product.Product product)
-        {
-            _cachingRepository.Cache(product.Id.ToString(), product);
-
-            var cacheKey = $"Product_{product.ExternalSourceName}_{product.ExternalId}";
-            _cachingRepository.Cache(cacheKey, product.Id);
         }
 
         public ProductRepository(ProductContext context, ICachingRepository cachingRepository)

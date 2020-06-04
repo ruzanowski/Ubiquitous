@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using U.ProductService.Application.Common.Exceptions;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Common;
 
 namespace U.ProductService.Application.Products.Commands.Publish
 {
@@ -11,10 +12,16 @@ namespace U.ProductService.Application.Products.Commands.Publish
     public class PublishProductCommandHandler : IRequestHandler<PublishProductCommand>
     {
         private readonly IProductRepository _productRepository;
+        private readonly IMediator _mediator;
+        private readonly IDomainEventsService _domainEventsService;
 
-        public PublishProductCommandHandler(IProductRepository productRepository)
+        public PublishProductCommandHandler(IProductRepository productRepository,
+            IMediator mediator,
+            IDomainEventsService domainEventsService)
         {
             _productRepository = productRepository;
+            _mediator = mediator;
+            _domainEventsService = domainEventsService;
         }
 
         public async Task<Unit> Handle(PublishProductCommand command, CancellationToken cancellationToken)
@@ -28,7 +35,7 @@ namespace U.ProductService.Application.Products.Commands.Publish
 
             product.Publish();
             _productRepository.Update(product);
-            await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await _productRepository.UnitOfWork.SaveEntitiesAsync(_domainEventsService, _mediator, cancellationToken);
 
             return Unit.Value;
         }

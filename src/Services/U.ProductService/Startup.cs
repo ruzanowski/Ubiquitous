@@ -26,6 +26,7 @@ using U.ProductService.Application.Infrastructure;
 using U.ProductService.Application.Infrastructure.Behaviours;
 using U.ProductService.BackgroundService;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Common;
 using U.ProductService.Middleware;
 using U.ProductService.Persistance.Contexts;
 using U.ProductService.Persistance.Repositories.Category;
@@ -80,6 +81,7 @@ namespace U.ProductService
                 .UseAuthentication()
                 .UseJwtTokenValidator()
                 .UseRouting()
+                .UseAuthorization()
                 .UseExceptionMiddleware()
                 .UseEndpoints(endpoints =>
                 {
@@ -118,7 +120,9 @@ namespace U.ProductService
                 await new ProductContextSeeder()
                     .SeedAsync(serviceScope.ServiceProvider.GetRequiredService<ProductContext>(),
                         serviceScope.ServiceProvider.GetRequiredService<DbOptions>(),
-                        serviceScope.ServiceProvider.GetRequiredService<ILogger<ProductContextSeeder>>());
+                        serviceScope.ServiceProvider.GetRequiredService<ILogger<ProductContextSeeder>>(),
+                        serviceScope.ServiceProvider.GetRequiredService<IMediator>(),
+                                serviceScope.ServiceProvider.GetRequiredService<IDomainEventsService>());
             }
             catch (Exception ex)
             {
@@ -133,12 +137,13 @@ namespace U.ProductService
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
             services = services
-                .AddScoped<IProductRepository, ProductRepository>()
+                .AddTransient<IProductRepository, ProductRepository>()
                 .AddTransient<ICategoryRepository, CategoryRepository>()
                 .AddTransient<IManufacturerRepository, ManufacturerRepository>()
                 .AddTransient<IPictureRepository, PictureRepository>()
                 .AddIntegrationEventLog()
-                .AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>();
+                .AddTransient<IProductIntegrationEventService, ProductIntegrationEventService>()
+                .AddSingleton<IDomainEventsService, DomainEventsService>();
 
             return services;
         }
@@ -152,14 +157,14 @@ namespace U.ProductService
                 mc.AddProfile(new ManufacturerMappingProfile());
                 mc.AddProfile(new PictureMappingProfile());
             }).CreateMapper();
-            services.AddSingleton(x => mapper);
+            services.AddTransient(x => mapper);
 
             return services;
         }
 
         public static IServiceCollection AddCustomPipelineBehaviours(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(EventPublishBehaviour<,>));
+            // services.AddScoped(typeof(IPipelineBehavior<,>), typeof(EventPublishBehaviour<,>));
 
             return services;
         }

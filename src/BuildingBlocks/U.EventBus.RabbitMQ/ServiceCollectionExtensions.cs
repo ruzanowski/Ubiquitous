@@ -40,7 +40,7 @@ namespace U.EventBus.RabbitMQ
                     eventBusSubcriptionsManager, rabbit.SubscriptionClientName, retryCount);
             });
 
-            services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
+            services.AddTransient<IRabbitMQPersistentConnection>(sp =>
             {
                 var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
 
