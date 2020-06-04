@@ -52,6 +52,8 @@ namespace U.ProductService.ApplicationTests
             context.ProductCategories.Clear();
             context.Manufacturers.Clear();
             context.Pictures.Clear();
+            context.ManufacturerPictures.Clear();
+            context.ProductPictures.Clear();
 
             await context.SaveChangesAsync();
 
