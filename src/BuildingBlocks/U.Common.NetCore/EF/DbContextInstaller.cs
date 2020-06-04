@@ -56,7 +56,7 @@ namespace U.Common.NetCore.EF
                                     typeof(TContext).GetTypeInfo().Assembly.GetName()
                                         .Name);
                             });
-                    });
+                    }, 50);
                     break;
                 case DbType.Mssql:
                     services.AddDbContextPool<TContext>(options => { options.UseSqlServer(dbOptions.Connection); });

@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using U.ProductService.Application.Common.Exceptions;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Common;
 using U.ProductService.Persistance.Repositories.Picture;
 
 namespace U.ProductService.Application.Manufacturers.Commands.AddPicture
@@ -16,14 +17,19 @@ namespace U.ProductService.Application.Manufacturers.Commands.AddPicture
         private readonly IManufacturerRepository _manufacturerRepository;
         private readonly IPictureRepository _pictureRepository;
         private readonly ILogger<AttachManufacturerPictureCommandHandler> _logger;
+        private readonly IMediator _mediator;
+        private readonly IDomainEventsService _domainEventsService;
 
         public AttachManufacturerPictureCommandHandler(ILogger<AttachManufacturerPictureCommandHandler> logger,
             IManufacturerRepository manufacturerRepository,
-            IPictureRepository pictureRepository)
+            IPictureRepository pictureRepository,
+            IMediator mediator, IDomainEventsService domainEventsService)
         {
             _logger = logger;
             _manufacturerRepository = manufacturerRepository;
             _pictureRepository = pictureRepository;
+            _mediator = mediator;
+            _domainEventsService = domainEventsService;
         }
 
         public async Task<Unit> Handle(AttachManufacturerPictureCommand command, CancellationToken cancellationToken)
@@ -40,7 +46,7 @@ namespace U.ProductService.Application.Manufacturers.Commands.AddPicture
 
             manufacturer.AttachPicture(picture.Id);
 
-            await _manufacturerRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await _manufacturerRepository.UnitOfWork.SaveEntitiesAsync(_domainEventsService, _mediator, cancellationToken: cancellationToken);
             return Unit.Value;
         }
     }

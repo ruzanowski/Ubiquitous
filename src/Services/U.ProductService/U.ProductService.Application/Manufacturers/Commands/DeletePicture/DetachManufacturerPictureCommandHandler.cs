@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using U.ProductService.Application.Common.Exceptions;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Common;
 
 namespace U.ProductService.Application.Manufacturers.Commands.DeletePicture
 {
@@ -11,10 +12,16 @@ namespace U.ProductService.Application.Manufacturers.Commands.DeletePicture
     public class DetachManufacturerPictureCommandHandler : IRequestHandler<DetachManufacturerPictureCommand>
     {
         private readonly IManufacturerRepository _manufacturerRepository;
+        private readonly IMediator _mediator;
+        private readonly IDomainEventsService _domainEventsService;
 
-        public DetachManufacturerPictureCommandHandler(IManufacturerRepository manufacturerRepository)
+        public DetachManufacturerPictureCommandHandler(IManufacturerRepository manufacturerRepository,
+            IMediator mediator,
+            IDomainEventsService domainEventsService)
         {
             _manufacturerRepository = manufacturerRepository;
+            _mediator = mediator;
+            _domainEventsService = domainEventsService;
         }
 
         public async Task<Unit> Handle(DetachManufacturerPictureCommand command, CancellationToken cancellationToken)
@@ -29,7 +36,7 @@ namespace U.ProductService.Application.Manufacturers.Commands.DeletePicture
             //todo: FILE STORAGE
 
             product.DetachPicture(command.PictureId);
-            await _manufacturerRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await _manufacturerRepository.UnitOfWork.SaveEntitiesAsync(_domainEventsService, _mediator, cancellationToken);
 
             return Unit.Value;
         }

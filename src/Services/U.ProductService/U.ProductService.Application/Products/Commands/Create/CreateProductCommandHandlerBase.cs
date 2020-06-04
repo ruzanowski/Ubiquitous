@@ -1,34 +1,42 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using U.ProductService.Application.Common.Exceptions;
+using U.ProductService.Application.Products.Commands.Create.Single;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Domain;
+using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Entities.Manufacturer;
 using U.ProductService.Domain.Entities.Product;
 
 namespace U.ProductService.Application.Products.Commands.Create
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ProductViewModel>
+    public class CreateProductCommandHandlerBase
     {
-        private readonly IProductRepository _productRepository;
+        protected readonly IProductRepository ProductRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IManufacturerRepository _manufacturerRepository;
         private readonly IMapper _mapper;
+        protected readonly IMediator Mediator;
+        protected readonly IDomainEventsService DomainEventsService;
 
-        public CreateProductCommandHandler(IProductRepository productRepository,
+        public CreateProductCommandHandlerBase(IProductRepository productRepository,
             ICategoryRepository categoryRepository,
             IManufacturerRepository manufacturerRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IMediator mediator,
+            IDomainEventsService domainEventsService)
         {
-            _productRepository = productRepository;
+            ProductRepository = productRepository;
             _categoryRepository = categoryRepository;
             _manufacturerRepository = manufacturerRepository;
             _mapper = mapper;
+            Mediator = mediator;
+            DomainEventsService = domainEventsService;
         }
 
         public async Task<ProductViewModel> Handle(CreateProductCommand command, CancellationToken cancellationToken)
@@ -36,7 +44,7 @@ namespace U.ProductService.Application.Products.Commands.Create
             if (!command.ExternalProperties?.DuplicationValidated ?? false)
             {
                 var duplicate =
-                    await _productRepository.GetIdByExternalTupleAsync(
+                    await ProductRepository.GetIdByExternalTupleAsync(
                         command.ExternalProperties.SourceName,
                         command.ExternalProperties.SourceId);
 
@@ -53,10 +61,11 @@ namespace U.ProductService.Application.Products.Commands.Create
 
             var product = GetProduct(command);
 
-            await _productRepository.AddAsync(product);
+            await ProductRepository.AddAsync(product);
 
             if (!command.QueuedJob?.AutoSave ?? true)
-                await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+                await ProductRepository.UnitOfWork.SaveEntitiesAsync(DomainEventsService, Mediator,
+                    cancellationToken);
 
             return _mapper.Map<ProductViewModel>(product);
         }

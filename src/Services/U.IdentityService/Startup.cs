@@ -63,6 +63,7 @@ namespace U.IdentityService
                 .UseAuthentication()
                 .UseJwtTokenValidator()
                 .UseRouting()
+                .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapDefaultControllerRoute();

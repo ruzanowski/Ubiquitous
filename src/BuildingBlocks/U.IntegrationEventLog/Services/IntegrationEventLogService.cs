@@ -18,12 +18,12 @@ namespace U.IntegrationEventLog.Services
         {
         }
 
-        private  IntegrationEventLogContext _integrationEventLogContext => _serviceProvider.CreateScope()
+        private IntegrationEventLogContext IntegrationEventLogContext => _serviceProvider.CreateScope()
             .ServiceProvider.GetRequiredService<IntegrationEventLogContext>();
         private readonly List<Type> _eventTypes;
 
         public IntegrationEventLogService(IServiceProvider serviceProvider,
-            ILogger<IntegrationEventLogService> logger)
+            ILogger<IntegrationEventLogService> logger) : this()
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
@@ -32,7 +32,7 @@ namespace U.IntegrationEventLog.Services
 
         public async Task<IEnumerable<IntegrationEventLogEntry>> RetrieveEventLogsPendingToPublishAsync()
         {
-            var integrationEventLogs = await _integrationEventLogContext.IntegrationEventLogs
+            var integrationEventLogs = await IntegrationEventLogContext.IntegrationEventLogs
                 .Where(e => e.State != EventStateEnum.NotPublished &&
                             e.State != EventStateEnum.InProgress)
                 .ToListAsync();
@@ -64,9 +64,9 @@ namespace U.IntegrationEventLog.Services
         {
             var eventLogEntry = new IntegrationEventLogEntry(@event);
 
-            _integrationEventLogContext.IntegrationEventLogs.Add(eventLogEntry);
+            IntegrationEventLogContext.IntegrationEventLogs.Add(eventLogEntry);
 
-            return _integrationEventLogContext.SaveChangesAsync();
+            return IntegrationEventLogContext.SaveChangesAsync();
         }
 
         public Task MarkEventAsPublishedAsync(Guid eventId)
@@ -86,15 +86,15 @@ namespace U.IntegrationEventLog.Services
 
         private Task UpdateEventStatus(Guid eventId, EventStateEnum status)
         {
-            var eventLogEntry = _integrationEventLogContext.IntegrationEventLogs.Single(ie => ie.EventId == eventId);
+            var eventLogEntry = IntegrationEventLogContext.IntegrationEventLogs.Single(ie => ie.EventId == eventId);
             eventLogEntry.State = status;
 
             if (status == EventStateEnum.InProgress)
                 eventLogEntry.TimesSent++;
 
-            _integrationEventLogContext.IntegrationEventLogs.Update(eventLogEntry);
+            IntegrationEventLogContext.IntegrationEventLogs.Update(eventLogEntry);
 
-            return _integrationEventLogContext.SaveChangesAsync();
+            return IntegrationEventLogContext.SaveChangesAsync();
         }
     }
 }

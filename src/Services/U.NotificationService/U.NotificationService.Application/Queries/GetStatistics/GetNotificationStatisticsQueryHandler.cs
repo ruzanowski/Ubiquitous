@@ -26,7 +26,7 @@ namespace U.NotificationService.Application.Queries.GetStatistics
         {
             var notifications = GetQuery();
 
-            var groupedStatistics = await notifications
+            var groupedStatistics = notifications
                 .Where(x => x.CreationDate.Date.AddDays(Days) >= DateTime.UtcNow.Date)
                 .GroupBy(g =>
                     new
@@ -40,8 +40,8 @@ namespace U.NotificationService.Application.Queries.GetStatistics
                     i.Key.Year,
                     i.Key.Month,
                     i.Key.Day,
-                    Count = i.Select(x => x.TimesSent).Sum()
-                }).ToListAsync(cancellationToken);
+                    Count = i.Sum(x => x.TimesSent)
+                }).ToList();
 
             var statisticsWithGaps = groupedStatistics
                 .Select(x => new NotificationStatistics
