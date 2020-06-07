@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using U.Common.NetCore.Mvc;
-using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Products.Commands.Create.Single;
 using U.ProductService.Application.Services;
 

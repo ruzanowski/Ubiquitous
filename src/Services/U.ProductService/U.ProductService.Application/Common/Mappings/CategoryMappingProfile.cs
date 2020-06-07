@@ -1,5 +1,5 @@
 using AutoMapper;
-using U.ProductService.Application.ProductCategories.Models;
+using U.ProductService.Application.Categories.Models;
 using U.ProductService.Domain.Entities.Product;
 
 namespace U.ProductService.Application.Common.Mappings
@@ -8,7 +8,7 @@ namespace U.ProductService.Application.Common.Mappings
     {
         public CategoryMappingProfile()
         {
-            CreateMap<ProductCategory, ProductCategoryViewModel>();
+            CreateMap<Category, CategoryViewModel>();
         }
     }
 }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using U.ProductService.Domain.Common;
-using U.ProductService.Domain.Entities.Picture;
 using U.ProductService.Domain.Exceptions;
 using U.ProductService.Domain.SeedWork;
 
@@ -71,7 +70,7 @@ namespace U.ProductService.Domain.Entities.Manufacturer
         {
             Id = Guid.Parse("73d79ef5-3365-4877-b653-135632bb7a71"),
             Name = "DRAFT",
-            Description = "Draft productCategory, which purpose is to aggregate newly added products.",
+            Description = "Draft category, which purpose is to aggregate newly added products.",
             UniqueClientId = "DRAFT"
         };
     }

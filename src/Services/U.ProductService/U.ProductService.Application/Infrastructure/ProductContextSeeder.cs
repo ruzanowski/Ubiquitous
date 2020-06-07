@@ -49,9 +49,9 @@ namespace U.ProductService.Application.Infrastructure
                         await context.Manufacturers.AddRangeAsync(GetPredefinedManufacturer());
                     }
 
-                    if (!context.ProductCategories.Any())
+                    if (!context.Categories.Any())
                     {
-                        await context.ProductCategories.AddRangeAsync(GetPredefinedCategory());
+                        await context.Categories.AddRangeAsync(GetPredefinedCategory());
                     }
 
                     await context.SaveChangesAsync();
@@ -69,9 +69,9 @@ namespace U.ProductService.Application.Infrastructure
             return Enumeration.GetAll<MimeType>();
         }
 
-        private ProductCategory GetPredefinedCategory()
+        private Category GetPredefinedCategory()
         {
-            return ProductCategory.GetDraftCategory();
+            return Category.GetDraftCategory();
         }
 
         private IEnumerable<Manufacturer> GetPredefinedManufacturer()

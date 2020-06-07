@@ -47,7 +47,7 @@ namespace U.ProductService.Application.Products.Commands.AttachPicture
             product.AttachPicture(command.PictureId);
             _productRepository.Update(product);
             await _productRepository.UnitOfWork.SaveEntitiesAsync(_domainEventsService, _mediator, cancellationToken);
-            await _productRepository.InvalidateCache(command.Id);
+            await _productRepository.InvalidateCacheAsync(command.Id);
             return Unit.Value;
         }
     }

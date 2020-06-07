@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using FluentAssertions;
-using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Exceptions;
 using Xunit;
 

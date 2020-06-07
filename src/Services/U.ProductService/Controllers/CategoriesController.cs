@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using U.Common.Pagination;
-using U.ProductService.Application.ProductCategories.Commands.Create;
-using U.ProductService.Application.ProductCategories.Models;
-using U.ProductService.Application.ProductCategories.Queries.GetProductCategories;
-using U.ProductService.Application.ProductCategories.Queries.GetProductCategoriesCount;
-using U.ProductService.Application.ProductCategories.Queries.GetProductCategory;
+using U.ProductService.Application.Categories.Commands.Create;
+using U.ProductService.Application.Categories.Models;
+using U.ProductService.Application.Categories.Queries.GetCategories;
+using U.ProductService.Application.Categories.Queries.GetCategoriesCount;
+using U.ProductService.Application.Categories.Queries.GetCategory;
 
 namespace U.ProductService.Controllers
 {
@@ -39,8 +39,8 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("")]
-        [ProducesResponseType(typeof(PaginatedItems<ProductCategoryViewModel>), (int) HttpStatusCode.OK)]
-        public async Task<IActionResult> GetCategoriesList([FromQuery] GetCategoriesListQuery query)
+        [ProducesResponseType(typeof(PaginatedItems<CategoryViewModel>), (int) HttpStatusCode.OK)]
+        public async Task<IActionResult> GetList([FromQuery] GetCategoriesListQuery query)
         {
             var queryResult = await _mediator.Send(query);
             return Ok(queryResult);
@@ -53,11 +53,11 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{categoryId}")]
-        [ProducesResponseType(typeof(PaginatedItems<ProductCategoryViewModel>), (int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(PaginatedItems<CategoryViewModel>), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetCategory([FromRoute] Guid categoryId)
+        public async Task<IActionResult> Get([FromRoute] Guid categoryId)
         {
-            var queryResult = await _mediator.Send(new GetProductCategoryQuery(categoryId));
+            var queryResult = await _mediator.Send(new GetCategoryQuery(categoryId));
             return Ok(queryResult);
         }
 
@@ -71,10 +71,10 @@ namespace U.ProductService.Controllers
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.Created)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
         [Consumes("application/json")]
-        public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateCategoryCommand command)
         {
-            var categoryId = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetCategory), new {categoryId = categoryId}, categoryId);
+            var category = await _mediator.Send(command);
+            return CreatedAtAction(nameof(Get), new {categoryId = category.Id}, category);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace U.ProductService.Controllers
         [Route("count")]
         [ProducesResponseType(typeof(int), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetCount([FromQuery] GetProductCategoriesCount query)
+        public async Task<IActionResult> GetCount([FromQuery] GetCategoriesCount query)
         {
             var statistics = await _mediator.Send(query);
             return Ok(statistics);

@@ -18,14 +18,14 @@ namespace U.ProductService.Application.Manufacturers.Queries.GetSingle
             _mapper = mapper;
             _manufacturerRepository = manufacturerRepository;
         }
-        
+
         public async Task<ManufacturerViewModel> Handle(QueryManufacturer request, CancellationToken cancellationToken)
         {
-            var manufacturer = await _manufacturerRepository.GetAsync(request.Id);
+            var manufacturer = await _manufacturerRepository.GetAsync(request.Id, true);
 
             if (manufacturer is null)
-                throw new ProductNotFoundException($"Manufacturer with primary key: '{request.Id}' has not been found.");
-            
+                throw new ManufacturerNotFoundException($"Manufacturer with primary key: '{request.Id}' has not been found.");
+
             var productsMapped = _mapper.Map<ManufacturerViewModel>(manufacturer);
 
             return productsMapped;

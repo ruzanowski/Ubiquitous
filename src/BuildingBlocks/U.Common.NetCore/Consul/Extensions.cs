@@ -85,7 +85,7 @@ namespace U.Common.NetCore.Consul
                     {
                         Interval = TimeSpan.FromSeconds(pingInterval),
                         DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(removeAfterInterval),
-                        HTTP = $"{scheme}{address}{(port > 0 ? $":{port}" : string.Empty)}/{pingEndpoint}/{serviceId}"
+                        HTTP = $"{scheme}{address}{(port > 0 ? $":{port}" : string.Empty)}/{pingEndpoint}/{uniqueId}"
                     };
                     registration.Checks = new[] {check};
                 }

@@ -38,7 +38,7 @@ namespace U.ProductService.Persistance.EntityConfigurations.Product
             builder.Property(post => post.LastUpdatedBy)
                 .HasField("_lastUpdatedBy");
 
-            builder.HasOne(x=>x.ProductCategory)
+            builder.HasOne(x=>x.Category)
                 .WithMany()
                 .HasForeignKey(x=>x.CategoryId)
                 .IsRequired();
