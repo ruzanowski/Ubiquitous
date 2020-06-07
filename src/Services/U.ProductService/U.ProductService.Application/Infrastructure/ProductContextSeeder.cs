@@ -54,7 +54,7 @@ namespace U.ProductService.Application.Infrastructure
                         await context.ProductCategories.AddRangeAsync(GetPredefinedCategory());
                     }
 
-                    await context.SaveEntitiesAsync(domainEventsService, mediator);
+                    await context.SaveChangesAsync();
                 }
             });
         }

@@ -54,6 +54,8 @@ namespace U.ProductService.IntegrationTests
             context.ProductCategories.Clear();
             context.Manufacturers.Clear();
             context.Pictures.Clear();
+            context.ManufacturerPictures.Clear();
+            context.ProductPictures.Clear();
 
             await context.SaveChangesAsync();
 
@@ -81,7 +83,7 @@ namespace U.ProductService.IntegrationTests
 
         public async Task DisposeAsync()
         {
-            await Task.CompletedTask;
+            await TruncateAndSeedDatabase();
         }
 
         protected async Task<ProductViewModel> CreateProductAsync(CreateProductCommand command)
