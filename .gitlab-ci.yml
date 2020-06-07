@@ -42,9 +42,9 @@ debug:
   script:
     - dotnet test --logger "junit" --collect:"XPlat Code Coverage"
     # each reporttype must be a separate line, doesn't work together ; separated
-    - ls -ld ${CI_PROJECT_DIR}/**/TestResults/*
-    - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/**/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:TextSummary;
-    - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/**/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:Html;
+    - ls -ld ${CI_PROJECT_DIR}/*/*/*/*/TestResults/*
+    - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/*/*/*/*/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:TextSummary;
+    - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/*/*/*/*/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:Html;
     - ls Reports_Coverage
     - cat ./Reports_Coverage/Summary.txt
     - echo 'End Summary'
