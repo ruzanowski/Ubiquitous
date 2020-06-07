@@ -36,6 +36,9 @@ debug:
     - 'echo | dotnet --version' # must be v 2.2.300 or later for reporter tool to work
     - dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
   stage: test
+  variables:
+    U_PRODUCT_SERVICE_IT_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_IT_TEST_CONNECTION
+    U_PRODUCT_SERVICE_AT_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_AT_TEST_CONNECTION
   script:
     - dotnet test --logger "junit" --collect:"XPlat Code Coverage"
     # each reporttype must be a separate line, doesn't work together ; separated
