@@ -43,9 +43,9 @@ tests_with_code_coverage:
     IDENTITYSERVICE_AT_PATH: src/Services/U.IdentityService/U.IdentityService.ApplicationTests/bin/Debug/netcoreapp3.1/U.IdentityService.ApplicationTests.dll
   before_script:
 #    - dotnet restore
-    - dotnet build
+    - 'dotnet build'
   script:
-    - dotnet vstest $PRODUCTSERVICE_AT_PATH $PRODUCTSERVICE_IT_PATH $PRODUCTSERVICE_DT_PATH $IDENTITYSERVICE_DT_PATH $IDENTITYSERVICE_AT_PATH /p:CollectCoverage=true
+    - 'dotnet vstest $PRODUCTSERVICE_AT_PATH $PRODUCTSERVICE_IT_PATH $PRODUCTSERVICE_DT_PATH $IDENTITYSERVICE_DT_PATH $IDENTITYSERVICE_AT_PATH /p:CollectCoverage=true'
 
 code_quality:
   stage: test
