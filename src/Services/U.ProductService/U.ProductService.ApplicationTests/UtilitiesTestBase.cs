@@ -61,6 +61,7 @@ namespace U.ProductService.ApplicationTests
             var logger = Server.Host.Services.CreateScope().ServiceProvider.GetService<ILogger<ProductContextSeeder>>();
             var mediator = Server.Host.Services.CreateScope().ServiceProvider.GetService<IMediator>();
             var domainEventsService = Server.Host.Services.CreateScope().ServiceProvider.GetService<IDomainEventsService>();
+
             await Seeder.SeedAsync(context,
                 dbOptions,
                 logger,
@@ -81,7 +82,7 @@ namespace U.ProductService.ApplicationTests
 
         public async Task DisposeAsync()
         {
-            await Task.CompletedTask;
+            await TruncateAndSeedDatabase();
         }
 
         protected async Task<ProductViewModel> CreateProductAsync(CreateProductCommand command)
