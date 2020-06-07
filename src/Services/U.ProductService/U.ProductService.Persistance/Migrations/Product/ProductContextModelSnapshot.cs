@@ -9,7 +9,6 @@ using U.ProductService.Persistance.Contexts;
 namespace U.ProductService.Persistance.Migrations.Product
 {
     [DbContext(typeof(ProductContext))]
-    [ExcludeFromCodeCoverage]
     partial class ProductContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
