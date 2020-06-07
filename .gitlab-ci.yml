@@ -13,21 +13,21 @@ stages:
   - deploy
   - docker_deploy
 
-dotnet_build:
-  stage: build
-  before_script:
-    - 'dotnet restore'
-  script:
-    - 'dotnet build'
-
-angular_build:
-  image: node:latest
-  stage: build
-  before_script:
-    - 'cd src/Web/U.WebApp.Angular'
-  script:
-    - npm install @angular/cli
-    - npm run ng -- build --prod
+#dotnet_build:
+#  stage: build
+#  before_script:
+#    - 'dotnet restore'
+#  script:
+#    - 'dotnet build'
+#
+#angular_build:
+#  image: node:latest
+#  stage: build
+#  before_script:
+#    - 'cd src/Web/U.WebApp.Angular'
+#  script:
+#    - npm install @angular/cli
+#    - npm run ng -- build --prod
 
 tests_with_code_coverage:
   stage: tests_with_code_coverage
@@ -35,7 +35,7 @@ tests_with_code_coverage:
     U_PRODUCT_SERVICE_IT_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_IT_TEST_CONNECTION
     U_PRODUCT_SERVICE_AT_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_AT_TEST_CONNECTION
   script:
-    - dotnet test **Tests /p:CollectCoverage=true
+    - find . -type f -name '*Tests.csproj' -exec dotnet test "{}" \;
 
 code_quality:
   stage: test
