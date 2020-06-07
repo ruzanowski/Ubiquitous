@@ -1,6 +1,6 @@
 # UBIQUITOUS. Real-Time State & Notification Platform.
 .NET Core with Angular on microservices. <br>
-Subscribe for **the newest state** of products you like.
+Subscribe for **the newest state** of products you follow.
 
 - [1. Introduction](#1-introduction)
     - [1.1 Functionalities](#11-functionalities)
@@ -49,7 +49,6 @@ Subscribe for **the newest state** of products you like.
         * [x] Trivial, normal, important
     - Persistency
         * [x] PostgreSQL
-        * [ ] Elasticsearch _(in tests)_
     - Operations
         * [x] Confirmation, hide, remove
         * [x] Welcome notifications specified timespan by user preferences
@@ -68,9 +67,8 @@ Subscribe for **the newest state** of products you like.
      - Microservices
      - Docker
      - Angular
-     - ...
      - and so much more
-- Secondly, **most of repositories** I have visited were
+- Secondly, I wanted to create something solid, from the beginning to the end and that follows newest patterns and good case practices. On the [GitHub](https://github.com) **most of repositories** I have ever seen were 
     - Relatively small, no possibility to run into performance, integration, authorization issues et cetera
     - Easy concerns or unfinished
 
@@ -167,14 +165,26 @@ What you might see in the scope of my project. Things mentioned below are implem
 
 **Services**
 - ***Product Service*** Handles products and its business logic
+    - ***Background Service*** Sends periodically queued commands as batch to improve performance 
 - ***Notification Service*** Handles notifications and channels
+    - ***Notification Periodic Sender*** Sends periodically notifications, to improve performance
 - ***Identity Service*** Handles identity of user and managed Jwt tokens
 - ***Subscription Service*** Handles subscriptions of users & preferences, bounces integration events
+
+Product Service            |  Identity Service       |
+:-------------------------:|:-------------------------:
+![](docs/img/productservice-min.PNG) ![](docs/img/productservice2-min.PNG) ![](docs/img/productservice3-min.PNG)  |  ![](docs/img/identityservice-min.PNG) ![](docs/img/identityservice2-min.PNG)
+
+
+Notification Service             |  Subscription Service
+:-------------------------:|:-------------------------:
+![](docs/img/notificationservice-min.PNG) |  ![](docs/img/subscriptionservice-min.PNG) ![](docs/img/subscriptionservice2-min.PNG)
+
+
 
 ### 2.3 Jobs
 - ***Generator Service*** Sources SmartStoreAdapter with fake products
 - ***Fetch Service*** Sources subscribed ProductService with products related events via RabbitMQ
-- ***Notification Periodic Sender*** Sends periodically notifications, to improve performance
 
 ### 2.4 Adapters
 - ***SmartStore Adapter*** Mock Adapter, source of products

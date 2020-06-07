@@ -536,7 +536,7 @@ namespace U.ProductService.ApplicationTests.Product
             //assert
             statistics.Count.Should().Be(14);
             statistics.Last().Count.Should().Be(1);
-            statistics.Last().DateTime.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromHours(1));
+            statistics.Last().DateTime.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromHours(2));
         }
 
         [Fact]
