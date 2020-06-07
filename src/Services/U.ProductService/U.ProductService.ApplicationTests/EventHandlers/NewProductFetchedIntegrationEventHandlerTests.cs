@@ -10,9 +10,8 @@ using Xunit;
 
 namespace U.ProductService.ApplicationTests.EventHandlers
 {
-    [CollectionDefinition("Sequential", DisableParallelization = true)]
-    [Collection("Sequential")]
-    public class NewProductFetchedIntegrationEventHandlerTests : UtilitiesBase
+    [Collection("Application_Sequential")]
+    public class NewProductFetchedIntegrationEventHandlerTests : UtilitiesTestBase
     {
         private readonly NewProductFetchedIntegrationEventHandler _handler;
         private readonly IPendingCommands _pendingCommands;

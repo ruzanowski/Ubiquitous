@@ -11,9 +11,8 @@ using Xunit;
 
 namespace U.ProductService.ApplicationTests.Picture
 {
-    [CollectionDefinition("Sequential", DisableParallelization = true)]
-    [Collection("Sequential")]
-    public class PicturesTests : UtilitiesBase
+    [Collection("Application_Sequential")]
+    public class PicturesTests : UtilitiesTestBase
     {
         [Fact]
         public async Task Should_AddPicture()
