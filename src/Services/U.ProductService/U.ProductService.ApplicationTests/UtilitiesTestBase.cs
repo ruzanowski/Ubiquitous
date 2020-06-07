@@ -47,6 +47,7 @@ namespace U.ProductService.ApplicationTests
         {
             var context = Server.Host.Services.CreateScope().ServiceProvider.GetService<ProductContext>();
 
+            await context.Database.EnsureCreatedAsync();
             context.Products.Clear();
             context.ProductTypes.Clear();
             context.Categories.Clear();
