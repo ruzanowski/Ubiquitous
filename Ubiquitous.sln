@@ -41,6 +41,8 @@ ProjectSection(SolutionItems) = preProject
 	Nuget.Config = Nuget.Config
 	.env = .env
 	databases.sql = databases.sql
+	Directory.Build.targets = Directory.Build.targets
+	after.Ubiquitous.sln.targets = after.Ubiquitous.sln.targets
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notification", "Notification", "{20AE96FC-F1A7-4CA8-90F8-FEB6EBB6D11A}"
@@ -160,8 +162,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.BackgroundService", "src\Services\U.ProductService\U.ProductService.BackgroundService\U.ProductService.BackgroundService.csproj", "{D424A645-A2D3-406E-B963-94C5F7087C7A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.DomainTests", "src\Services\U.ProductService\U.ProductService.DomainTests\U.ProductService.DomainTests.csproj", "{14DA04A1-5E15-48DA-82A7-149B2A57AF71}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.PersistanceTests", "src\Services\U.ProductService\U.ProductService.PersistanceTests\U.ProductService.PersistanceTests.csproj", "{BFB593D0-DC72-4FC5-93F1-B1589098F25D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.ProductService.ApplicationTests", "src\Services\U.ProductService\U.ProductService.ApplicationTests\U.ProductService.ApplicationTests.csproj", "{859FC99F-72A5-4E7D-B2AE-28C0A009E2DF}"
 EndProject
@@ -343,10 +343,6 @@ Global
 		{14DA04A1-5E15-48DA-82A7-149B2A57AF71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14DA04A1-5E15-48DA-82A7-149B2A57AF71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14DA04A1-5E15-48DA-82A7-149B2A57AF71}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BFB593D0-DC72-4FC5-93F1-B1589098F25D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BFB593D0-DC72-4FC5-93F1-B1589098F25D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BFB593D0-DC72-4FC5-93F1-B1589098F25D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BFB593D0-DC72-4FC5-93F1-B1589098F25D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{859FC99F-72A5-4E7D-B2AE-28C0A009E2DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{859FC99F-72A5-4E7D-B2AE-28C0A009E2DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{859FC99F-72A5-4E7D-B2AE-28C0A009E2DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -387,7 +383,6 @@ Global
 		{8A7421B8-5294-4830-9C4B-FDB8C8C49DD8} = {F6684E37-9D8D-4703-AB43-8C2F2BEC4A01}
 		{0D7EC67A-3512-4A0B-8329-0E96E0D0A86E} = {590E87D6-515B-4E5E-8141-ABC3967C52D5}
 		{14DA04A1-5E15-48DA-82A7-149B2A57AF71} = {0D7EC67A-3512-4A0B-8329-0E96E0D0A86E}
-		{BFB593D0-DC72-4FC5-93F1-B1589098F25D} = {0D7EC67A-3512-4A0B-8329-0E96E0D0A86E}
 		{47FA64C4-DA00-4C6E-AD5E-CD93F864AA7B} = {590E87D6-515B-4E5E-8141-ABC3967C52D5}
 		{4A1E232F-0F95-476E-A8C9-8587E307A5FD} = {47FA64C4-DA00-4C6E-AD5E-CD93F864AA7B}
 		{859FC99F-72A5-4E7D-B2AE-28C0A009E2DF} = {47FA64C4-DA00-4C6E-AD5E-CD93F864AA7B}
