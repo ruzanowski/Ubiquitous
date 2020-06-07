@@ -1,6 +1,8 @@
 image: mcr.microsoft.com/dotnet/core/sdk:3.1.300
 
 stages:
+  - build
+  - tests_with_code_coverage
   - test
   - performance
   - myget_common
@@ -11,30 +13,29 @@ stages:
   - deploy
   - docker_deploy
 
-test:
+dotnet_build:
+  stage: build
   before_script:
-    - 'echo | dotnet --version'
-    - dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
-  stage: test
+    - 'dotnet restore'
+  script:
+    - 'dotnet build'
+
+angular_build:
+  image: node:latest
+  stage: build
+  before_script:
+    - 'cd src/Web/U.WebApp.Angular'
+  script:
+    - npm install @angular/cli
+    - npm run ng -- build --prod
+
+tests_with_code_coverage:
+  stage: tests_with_code_coverage
   variables:
     U_PRODUCT_SERVICE_IT_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_IT_TEST_CONNECTION
     U_PRODUCT_SERVICE_AT_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_AT_TEST_CONNECTION
   script:
-    - dotnet test --logger "junit" --collect:"XPlat Code Coverage"
-    # each reporttype must be a separate line, doesn't work together ; separated
-    - ls -ld ${CI_PROJECT_DIR}/*/*/*/*/TestResults/*
-    - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/*/*/*/*/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:TextSummary;
-    - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/*/*/*/*/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:Html;
-    - ls Reports_Coverage
-    - cat ./Reports_Coverage/Summary.txt
-    - echo 'End Summary'
-  coverage: /Line coverage[\s\S].+%/
-  artifacts:
-    paths:
-      - Reports_Coverage/
-    reports:
-      junit:
-        - '*/*/*/*/TestResults/TestResults.xml'
+    - dotnet test **Tests /p:CollectCoverage=true
 
 code_quality:
   stage: test
@@ -42,7 +43,6 @@ code_quality:
   image: docker:latest
   variables:
     DOCKER_DRIVER: overlay
-
   services:
     - docker:dind
   script:
