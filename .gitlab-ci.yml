@@ -54,7 +54,7 @@ debug:
       - Reports_Coverage/
     reports:
       junit:
-        - '*Test/TestResults/TestResults.xml'
+        - '*Tests/TestResults/TestResults.xml'
 
 #tests_with_code_coverage:
 #  stage: tests_with_code_coverage
