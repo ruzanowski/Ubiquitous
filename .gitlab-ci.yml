@@ -35,7 +35,7 @@ tests_with_code_coverage:
     U_PRODUCT_SERVICE_IT_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_IT_TEST_CONNECTION
     U_PRODUCT_SERVICE_AT_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_AT_TEST_CONNECTION
   script:
-    - dotnet test /p:CollectCoverage=true
+    - dotnet test **Tests /p:CollectCoverage=true
 
 code_quality:
   stage: test
