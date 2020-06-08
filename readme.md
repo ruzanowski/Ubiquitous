@@ -32,7 +32,7 @@ Subscribe for **the newest state** of products you follow.
 | *Repository*  | *Master*  | *Develop* |
 | --------- | --------- | --------- |
 | Ubiquitous | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop) [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop) |
-| Ubiquitous.Web | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous.web/badges/master/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous.web/commits/master) [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous.web/badges/master/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous.web/commits/master) | [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous.web/badges/develop/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop) [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous.web/badges/develop/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous.web/commits/develop)
+| Ubiquitous.Web | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous.web/badges/master/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous.web/commits/master) | [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous.web/badges/develop/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop)
 
 Repositories:
 - [Ubiquitous](https://gitlab.com/Ruzanowski/ubiquitous)
@@ -317,9 +317,9 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Sebastian Rużanowski
 You can find me at:
-- LinkedIn [https://www.linkedin.com/in/sebastian-ruzanowski](https://www.linkedin.com/in/sebastian-ruzanowski)
-- GitLab: [https://gitlab.com/ruzanowski](https://gitlab.com/ruzanowski)
-- GitHub: [https://github.com/sebastianruzanowski](https://github.com/sebastianruzanowski)
+LinkedIn [https://www.linkedin.com/in/sebastian-ruzanowski](https://www.linkedin.com/in/sebastian-ruzanowski)
+***GitLab****: [https://gitlab.com/ruzanowski](https://gitlab.com/ruzanowski)
+GitHub: [https://github.com/sebastianruzanowski](https://github.com/sebastianruzanowski)
 
 ## 8. Inspirations & Thanks
 

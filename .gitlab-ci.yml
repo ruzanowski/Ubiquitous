@@ -1,8 +1,6 @@
 image: mcr.microsoft.com/dotnet/core/sdk:3.1.300
 
 stages:
-  - build
-  - tests_with_code_coverage
   - test
   - performance
   - myget_common
@@ -13,25 +11,7 @@ stages:
   - deploy
   - docker_deploy
 
-
-
-#dotnet_build:
-#  stage: build
-#  before_script:
-#    - 'dotnet restore'
-#  script:
-#    - 'dotnet build'
-#
-#angular_build:
-#  image: node:latest
-#  stage: build
-#  before_script:
-#    - 'cd src/Web/U.WebApp.Angular'
-#  script:
-#    - npm install @angular/cli
-#    - npm run ng -- build --prod
-
-debug:
+test:
   before_script:
     - 'echo | dotnet --version' # must be v 2.2.300 or later for reporter tool to work
     - dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
@@ -54,23 +34,7 @@ debug:
       - Reports_Coverage/
     reports:
       junit:
-        - '*Tests/TestResults/TestResults.xml'
-
-#tests_with_code_coverage:
-#  stage: tests_with_code_coverage
-#  variables:
-#    U_PRODUCT_SERVICE_IT_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_IT_TEST_CONNECTION
-#    U_PRODUCT_SERVICE_AT_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_AT_TEST_CONNECTION
-#    PRODUCTSERVICE_AT_PATH: src/Services/U.ProductService/U.ProductService.ApplicationTests/bin/Debug/netcoreapp3.1/U.ProductService.ApplicationTests.dll
-#    PRODUCTSERVICE_IT_PATH: src/Services/U.ProductService/U.ProductService.IntegrationTests/bin/Debug/netcoreapp3.1/U.ProductService.IntegrationTests.dll
-#    PRODUCTSERVICE_DT_PATH: src/Services/U.ProductService/U.ProductService.DomainTests/bin/Debug/netcoreapp3.1/U.ProductService.DomainTests.dll
-#    IDENTITYSERVICE_DT_PATH: src/Services/U.IdentityService/U.IdentityService.DomainTests/bin/Debug/netcoreapp3.1/U.IdentityService.DomainTests.dll
-#    IDENTITYSERVICE_AT_PATH: src/Services/U.IdentityService/U.IdentityService.ApplicationTests/bin/Debug/netcoreapp3.1/U.IdentityService.ApplicationTests.dll
-#  before_script:
-##    - dotnet restore
-#    - 'dotnet build'
-#  script:
-#    - 'dotnet vstest $PRODUCTSERVICE_AT_PATH $PRODUCTSERVICE_IT_PATH $PRODUCTSERVICE_DT_PATH $IDENTITYSERVICE_DT_PATH $IDENTITYSERVICE_AT_PATH /p:CollectCoverage=true'
+        - '*/TestResults/TestResults.xml'
 
 code_quality:
   stage: test
