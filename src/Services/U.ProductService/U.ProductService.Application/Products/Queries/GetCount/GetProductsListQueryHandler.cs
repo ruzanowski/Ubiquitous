@@ -32,7 +32,7 @@ namespace U.ProductService.Application.Products.Queries.GetCount
 
         private IQueryable<Product> GetProductQueryable() => _context.Products
             .Include(x => x.Pictures)
-            .Include(x => x.ProductCategory)
+            .Include(x => x.Category)
             .AsQueryable();
 
     }

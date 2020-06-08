@@ -1,5 +1,4 @@
 using System;
-using System.Data;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -66,7 +65,7 @@ namespace U.ProductService.Middleware
                     problemDetails.Status = 404;
                     problemDetails.Detail = productNotFoundException.Message;
                     break;
-                case ProductCategoryNotFoundException categoryNotFoundException:
+                case CategoryNotFoundException categoryNotFoundException:
                     problemDetails.Title = nameof(categoryNotFoundException);
                     problemDetails.Status = 404;
                     problemDetails.Detail = categoryNotFoundException.Message;

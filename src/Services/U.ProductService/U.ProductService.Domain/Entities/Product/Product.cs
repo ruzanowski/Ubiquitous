@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using U.ProductService.Domain.Common;
-using U.ProductService.Domain.Entities.Picture;
 using U.ProductService.Domain.Entities.Product.Events;
 using U.ProductService.Domain.Exceptions;
 using U.ProductService.Domain.SeedWork;
@@ -33,7 +32,7 @@ namespace U.ProductService.Domain.Entities.Product
         public Guid ManufacturerId { get; private set; }
         public ICollection<ProductPicture> Pictures { get; private set; }
         public Guid CategoryId { get; private set; }
-        public ProductCategory ProductCategory { get; private set; }
+        public Category Category { get; private set; }
         public int ProductTypeId { get; private set; }
         public ProductType ProductType { get; private set; }
         public string ExternalSourceName { get; private set; }
@@ -210,7 +209,7 @@ namespace U.ProductService.Domain.Entities.Product
                    && ManufacturerId.Equals(other.ManufacturerId)
                    && Equals(Pictures, other.Pictures)
                    && CategoryId.Equals(other.CategoryId)
-                   && Equals(ProductCategory, other.ProductCategory)
+                   && Equals(Category, other.Category)
                    && ProductTypeId == other.ProductTypeId
                    && Equals(ProductType, other.ProductType)
                    && string.Equals(ExternalSourceName, other.ExternalSourceName)
@@ -239,7 +238,7 @@ namespace U.ProductService.Domain.Entities.Product
                 hashCode = (hashCode * 397) ^ ManufacturerId.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Pictures != null ? Pictures.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ CategoryId.GetHashCode();
-                hashCode = (hashCode * 397) ^ (ProductCategory != null ? ProductCategory.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Category != null ? Category.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ ProductTypeId;
                 hashCode = (hashCode * 397) ^ (ProductType != null ? ProductType.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (ExternalSourceName != null ? ExternalSourceName.GetHashCode() : 0);

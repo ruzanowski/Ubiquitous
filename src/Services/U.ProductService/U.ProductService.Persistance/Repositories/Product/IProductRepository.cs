@@ -12,8 +12,8 @@ namespace U.ProductService.Domain
     {
         Task<Product> AddAsync(Product product);
         void Update(Product product);
-        Task<Product> GetAsync(Guid productId, bool asNoTracking, CancellationToken cancellationToken);
+        Task<Product> GetAsync(Guid productId, bool @readonly, CancellationToken cancellationToken);
         Task<Guid?> GetIdByExternalTupleAsync(string externalSourceName, string externalSourceId);
-        Task InvalidateCache(Guid productId);
+        Task InvalidateCacheAsync(Guid productId);
     }
 }

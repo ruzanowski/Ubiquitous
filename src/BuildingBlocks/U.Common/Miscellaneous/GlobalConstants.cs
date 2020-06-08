@@ -8,5 +8,8 @@ namespace U.Common.Miscellaneous
         public const string SmartStoreStoreProductPath = "api/smartstore/products/store";
         public const string SmartStoreQueryProductsPath = "api/smartstore/products";
         public const string SmartStoreConsulRegisteredName = "u.smartstore-adapter";
+        public const int ProductServiceManufacturersSeeded = 5;
+        public const int ProductServiceCategoriesSeeded = 1;
+
     }
 }

@@ -349,7 +349,7 @@ namespace U.ProductService.DomainTests.Product
             product.Dimensions.Should().Be(newDimensions);
             product.ManufacturerId.Should().Be(_manufacturerId);
             product.CategoryId.Should().Be(_categoryId);
-            product.ProductCategory.Should().BeNull();
+            product.Category.Should().BeNull();
             product.ExternalSourceName.Should().Be(_externalSourceName);
             product.ExternalId.Should().Be(_externalId);
             product.IsPublished.Should().BeFalse();

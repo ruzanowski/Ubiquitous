@@ -29,15 +29,12 @@ namespace U.Common.NetCore.Mvc
         {
             services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
             {
-                builder
+                builder.AllowAnyOrigin()
                     .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials()
-                    .WithOrigins("http://localhost:4200");
+                    .AllowAnyHeader();
             }));
 
-            services.AddMvc()
-                .AddNewtonsoftJson();
+            services.AddMvc().AddNewtonsoftJson();
             services.AddControllers(options => options.EnableEndpointRouting = false);
             services.AddSingleton<ISelfInfoService, SelfInfoService>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();

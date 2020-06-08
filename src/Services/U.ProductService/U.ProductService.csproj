@@ -29,7 +29,6 @@
         <Content Remove="U.ProductService.BackgroundService\**" />
         <Content Remove="U.ProductService.DomainTests\**" />
         <Content Remove="U.ProductService.ApplicationTests\**" />
-        <Content Remove="U.ProductService.PersistanceTests\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -51,7 +50,6 @@
         <None Remove="U.ProductService.Persistance\**" />
         <None Remove="U.ProductService.DomainTests\**" />
         <None Remove="U.ProductService.ApplicationTests\**" />
-        <None Remove="U.ProductService.PersistanceTests\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -63,7 +61,6 @@
       <Compile Remove="U.ProductService.Persistance\**" />
       <Compile Remove="U.ProductService.DomainTests\**" />
       <Compile Remove="U.ProductService.ApplicationTests\**" />
-      <Compile Remove="U.ProductService.PersistanceTests\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -190,6 +187,6 @@
       <ProjectReference Include="U.ProductService.Domain\U.ProductService.Domain.csproj" />
       <ProjectReference Include="U.ProductService.Persistance\U.ProductService.Persistance.csproj" />
     </ItemGroup>
-    
+
 
 </Project>

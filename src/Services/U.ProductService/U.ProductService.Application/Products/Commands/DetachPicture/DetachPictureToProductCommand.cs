@@ -3,7 +3,6 @@ using MediatR;
 
 namespace U.ProductService.Application.Products.Commands.DetachPicture
 {
-    //marker
     public class DetachPictureToProductCommand : IRequest
     {
         public DetachPictureToProductCommand(Guid id, Guid pictureId)

@@ -9,16 +9,16 @@ using U.ProductService.Domain.Entities.Product;
 
 namespace U.ProductService.Domain
 {
-    public interface ICategoryRepository : IRepository<ProductCategory>
+    public interface ICategoryRepository : IRepository<Category>
     {
-        Task<ProductCategory> AddAsync(ProductCategory category);
+        Task<Category> AddAsync(Category category);
 
-        void Update(ProductCategory category);
+        void Update(Category category);
 
-        Task<ProductCategory> GetAsync(Guid categoryId);
+        Task<Category> GetAsync(Guid categoryId);
 
         Task<bool> AnyAsync(Guid id);
-        Task<IList<ProductCategory>> GetManyAsync();
+        Task<IList<Category>> GetManyAsync();
 
     }
 }

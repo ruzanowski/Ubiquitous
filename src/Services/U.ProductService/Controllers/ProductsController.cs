@@ -8,12 +8,10 @@ using U.Common.Pagination;
 using U.ProductService.Application.Products.Commands.AttachPicture;
 using U.ProductService.Application.Products.Commands.ChangeCategory;
 using U.ProductService.Application.Products.Commands.ChangePrice;
-using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Products.Commands.Create.Single;
 using U.ProductService.Application.Products.Commands.DetachPicture;
 using U.ProductService.Application.Products.Commands.Publish;
 using U.ProductService.Application.Products.Commands.UnPublish;
-using U.ProductService.Application.Products.Commands.Update;
 using U.ProductService.Application.Products.Commands.Update.Single;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Application.Products.Queries.GetCount;
@@ -102,7 +100,7 @@ namespace U.ProductService.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        [Route("create")]
+        [Route("")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.Created)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
         [Consumes("application/json")]
@@ -242,7 +240,7 @@ namespace U.ProductService.Controllers
             return Ok(statistics);
         }
         /// <summary>
-        /// Get Product statistics by productCategory
+        /// Get Product statistics by category
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
@@ -265,7 +263,7 @@ namespace U.ProductService.Controllers
         [Route("{productId}/category")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        public async Task<IActionResult> ChangeProductCategory([FromQuery] ChangeProductCategoryCommand command)
+        public async Task<IActionResult> ChangeCategory([FromQuery] ChangeCategoryCommand command)
         {
             await _mediator.Send(command);
             return Ok();
