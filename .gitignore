@@ -48,6 +48,7 @@ Tasks.txt
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
+coverage.json
 
 # NUNIT
 *.VisualState.xml
