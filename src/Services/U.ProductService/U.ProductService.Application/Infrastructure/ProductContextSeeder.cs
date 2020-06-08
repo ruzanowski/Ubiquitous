@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Polly;
@@ -18,7 +17,7 @@ namespace U.ProductService.Application.Infrastructure
 {
     public class ProductContextSeeder
     {
-        public async Task SeedAsync(ProductContext context, DbOptions dbOptions, ILogger<ProductContextSeeder> logger, IMediator mediator, IDomainEventsService domainEventsService)
+        public async Task SeedAsync(ProductContext context, DbOptions dbOptions, ILogger<ProductContextSeeder> logger)
         {
             if (!dbOptions.Seed)
             {
@@ -57,6 +56,8 @@ namespace U.ProductService.Application.Infrastructure
                     await context.SaveChangesAsync();
                 }
             });
+
+
         }
 
         private IEnumerable<ProductType> GetPredefinedProductTypes()

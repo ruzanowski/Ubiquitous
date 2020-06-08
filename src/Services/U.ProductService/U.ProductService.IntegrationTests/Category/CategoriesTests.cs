@@ -12,7 +12,7 @@ using Xunit;
 
 namespace U.ProductService.IntegrationTests.Category
 {
-    [Collection("Integration_Sequential")]
+    [Collection("Sequential")]
     public class CategoriesTests : UtilitiesTestBase
     {
 

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Consul;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -120,9 +119,7 @@ namespace U.ProductService
                 await new ProductContextSeeder()
                     .SeedAsync(serviceScope.ServiceProvider.GetRequiredService<ProductContext>(),
                         serviceScope.ServiceProvider.GetRequiredService<DbOptions>(),
-                        serviceScope.ServiceProvider.GetRequiredService<ILogger<ProductContextSeeder>>(),
-                        serviceScope.ServiceProvider.GetRequiredService<IMediator>(),
-                                serviceScope.ServiceProvider.GetRequiredService<IDomainEventsService>());
+                        serviceScope.ServiceProvider.GetRequiredService<ILogger<ProductContextSeeder>>());
             }
             catch (Exception ex)
             {
