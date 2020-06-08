@@ -1,8 +1,6 @@
 using AutoFixture;
-using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Products.Commands.Create.Single;
 using U.ProductService.Application.Products.Models;
-using U.ProductService.Domain.Entities.Manufacturer;
 
 namespace U.ProductService.ApplicationTests.Product
 {
@@ -24,7 +22,7 @@ namespace U.ProductService.ApplicationTests.Product
                 var width = fixture.Create<decimal>();
 
 
-                var manufacturer = Manufacturer.GetDraftManufacturer();
+                var manufacturer = Domain.Entities.Manufacturer.Manufacturer.GetDraftManufacturer();
 
                 var dimensions = new DimensionsDto
                 {

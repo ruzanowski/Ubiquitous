@@ -11,7 +11,6 @@ using U.ProductService.Application.Products.Commands.ChangePrice;
 using U.ProductService.Application.Products.Commands.DetachPicture;
 using U.ProductService.Application.Products.Commands.Publish;
 using U.ProductService.Application.Products.Commands.UnPublish;
-using U.ProductService.Application.Products.Commands.Update;
 using U.ProductService.Application.Products.Commands.Update.Single;
 using U.ProductService.Application.Products.Models;
 using U.ProductService.Application.Products.Queries.GetCount;
@@ -20,16 +19,12 @@ using U.ProductService.Application.Products.Queries.GetStatistics;
 using U.ProductService.Application.Products.Queries.GetStatisticsByCategory;
 using U.ProductService.Application.Products.Queries.GetStatisticsByManufacturers;
 using U.ProductService.Domain.Common;
-using U.ProductService.Domain.Entities.Manufacturer;
-using U.ProductService.Domain.Entities.Product;
-using U.ProductService.Domain.Exceptions;
 using Xunit;
 
 namespace U.ProductService.ApplicationTests.Product
 {
-    [CollectionDefinition("Sequential", DisableParallelization = true)]
     [Collection("Sequential")]
-    public class ProductTests : UtilitiesBase
+    public class ProductTests : UtilitiesTestBase
     {
 
         [Fact]
@@ -399,7 +394,7 @@ namespace U.ProductService.ApplicationTests.Product
 
             //act
             await Mediator.Send(new DeletePictureCommand(tuple.Item2));
-            await ProductRepository.InvalidateCache(tuple.Item1);
+            await ProductRepository.InvalidateCacheAsync(tuple.Item1);
             var getResponse = await GetProductAsync(tuple.Item1);
 
             //assert
@@ -450,7 +445,7 @@ namespace U.ProductService.ApplicationTests.Product
             var getResponse = await GetProductAsync(tuple.Item1);
 
             //assert
-            task.Should().Throw<NotFoundDomainException>();
+            task.Should().Throw<PictureNotFoundException>();
             getResponse.Pictures.Should().HaveCount(1);
         }
 
@@ -482,7 +477,7 @@ namespace U.ProductService.ApplicationTests.Product
             //assert
             statistics.Count.Should().Be(1);
             statistics.First().Count.Should().Be(1);
-            statistics.First().ManufacturerName.Should().Be(Manufacturer.GetDraftManufacturer().Name);
+            statistics.First().ManufacturerName.Should().Be(Domain.Entities.Manufacturer.Manufacturer.GetDraftManufacturer().Name);
         }
 
         [Fact]
@@ -511,7 +506,7 @@ namespace U.ProductService.ApplicationTests.Product
             //assert
             statistics.Count.Should().Be(1);
             statistics.First().Count.Should().Be(1);
-            statistics.First().CategoryName.Should().Be(ProductCategory.GetDraftCategory().Name);
+            statistics.First().CategoryName.Should().Be(Domain.Entities.Product.Category.GetDraftCategory().Name);
         }
 
         [Fact]
@@ -541,7 +536,7 @@ namespace U.ProductService.ApplicationTests.Product
             //assert
             statistics.Count.Should().Be(14);
             statistics.Last().Count.Should().Be(1);
-            statistics.Last().DateTime.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromHours(1));
+            statistics.Last().DateTime.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromHours(2));
         }
 
         [Fact]
@@ -569,5 +564,8 @@ namespace U.ProductService.ApplicationTests.Product
             //assert
             count.Should().Be(1);
         }
+
+        private async Task<ProductViewModel> GetProductAsync(Guid id) =>
+            await Mediator.Send(new QueryProduct(id));
     }
 }

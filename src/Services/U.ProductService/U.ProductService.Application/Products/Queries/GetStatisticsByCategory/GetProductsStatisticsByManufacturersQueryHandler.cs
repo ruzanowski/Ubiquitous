@@ -36,7 +36,7 @@ namespace U.ProductService.Application.Products.Queries.GetStatisticsByCategory
 
             var products = groupedTypes.Select(x => new ProductByCategoryStatisticsDto
             {
-                CategoryName = _context.ProductCategories.FirstOrDefault(y => y.Id.Equals(x.CategoryId))?.Name ??
+                CategoryName = _context.Categories.FirstOrDefault(y => y.Id.Equals(x.CategoryId))?.Name ??
                                "deleted",
                 Count = x.Count
             }).ToList();

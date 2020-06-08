@@ -33,10 +33,10 @@ namespace U.ProductService.Persistance.Repositories.Product
             _cachingRepository.Cache(product.Id.ToString(), product);
         }
 
-        public async Task<Domain.Entities.Product.Product> GetAsync(Guid productId, bool asNoTracking,
+        public async Task<Domain.Entities.Product.Product> GetAsync(Guid productId, bool @readonly,
             CancellationToken cancellationToken)
         {
-            if (asNoTracking)
+            if (@readonly)
             {
                 var cached = _cachingRepository.Get<Domain.Entities.Product.Product>(productId.ToString());
 
@@ -48,7 +48,7 @@ namespace U.ProductService.Persistance.Repositories.Product
 
             var query = _context
                 .Products
-                .Include(x => x.ProductCategory)
+                .Include(x => x.Category)
                 .Include(x => x.Pictures)
                 .ThenInclude(x => x.Picture)
                 .ThenInclude(x => x.MimeType)
@@ -56,13 +56,13 @@ namespace U.ProductService.Persistance.Repositories.Product
                 .Include(x => x.Dimensions)
                 .AsQueryable();
 
-            if (asNoTracking)
+            if (@readonly)
                 query = query.AsNoTracking();
 
             var product =
                 await query.FirstOrDefaultAsync(x => x.Id.Equals(productId), cancellationToken: cancellationToken);
 
-            if (product != null && asNoTracking)
+            if (product != null && @readonly)
             {
                 _cachingRepository.Cache(productId.ToString(), query);
             }
@@ -100,7 +100,7 @@ namespace U.ProductService.Persistance.Repositories.Product
             return productGuid;
         }
 
-        public async Task InvalidateCache(Guid productId)
+        public async Task InvalidateCacheAsync(Guid productId)
         {
             _cachingRepository.Delete(productId.ToString());
         }

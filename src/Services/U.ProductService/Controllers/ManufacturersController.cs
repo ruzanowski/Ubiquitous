@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using U.Common.Pagination;
-using U.ProductService.Application.Manufacturers.Commands.AddPicture;
+using U.ProductService.Application.Manufacturers.Commands.AttachPicture;
 using U.ProductService.Application.Manufacturers.Commands.Create;
-using U.ProductService.Application.Manufacturers.Commands.DeletePicture;
+using U.ProductService.Application.Manufacturers.Commands.DetachPicture;
 using U.ProductService.Application.Manufacturers.Models;
 using U.ProductService.Application.Manufacturers.Queries.GetCount;
 using U.ProductService.Application.Manufacturers.Queries.GetList;
@@ -43,8 +43,7 @@ namespace U.ProductService.Controllers
         [HttpGet]
         [Route("")]
         [ProducesResponseType(typeof(PaginatedItems<ManufacturerViewModel>), (int) HttpStatusCode.OK)]
-        public async Task<IActionResult> GetList(
-            [FromQuery] GetManufacturersListQuery manufacturersListQuery)
+        public async Task<IActionResult> GetList([FromQuery] GetManufacturersListQuery manufacturersListQuery)
         {
             var queryResult = await _mediator.Send(manufacturersListQuery);
             return Ok(queryResult);
@@ -79,38 +78,41 @@ namespace U.ProductService.Controllers
         [Consumes("application/json")]
         public async Task<IActionResult> Create([FromBody] CreateManufacturerCommand manufacturers)
         {
-            var manufacturerId = await _mediator.Send(manufacturers);
-            return CreatedAtAction(nameof(Create), manufacturerId);
+            var manufacturer = await _mediator.Send(manufacturers);
+            return CreatedAtAction(nameof(Get), new {manufacturerId = manufacturer.Id}, manufacturer);
         }
 
         /// <summary>
         /// Add manufacturer picture
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="manufacturerId"></param>
+        /// <param name="pictureId"></param>
         /// <returns></returns>
-
         [HttpPost]
-        [Route("{manufacturerId}/picture")]
+        [Route("{manufacturerId}/picture/{pictureId}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        public async Task<IActionResult> AttachPicture([FromQuery] AttachManufacturerPictureCommand command)
+        public async Task<IActionResult> AttachPicture(Guid manufacturerId, Guid pictureId)
         {
-            var pictureId = await _mediator.Send(command);
-            return Ok(pictureId);
+            var command = new AttachPictureToManufacturerCommand(manufacturerId, pictureId);
+
+            await _mediator.Send(command);
+            return Ok();
         }
 
         /// <summary>
         /// Add manufacturer picture
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="manufacturerId"></param>
+        /// <param name="pictureId"></param>
         /// <returns></returns>
-
         [HttpDelete]
         [Route("{manufacturerId}/picture/{pictureId}")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        public async Task<IActionResult> DetachPicture([FromRoute] DetachManufacturerPictureCommand command)
+        public async Task<IActionResult> DetachPicture(Guid manufacturerId, Guid pictureId)
         {
+            var command = new DetachPictureFromManufacturerCommand(manufacturerId, pictureId);
             await _mediator.Send(command);
             return Ok();
         }

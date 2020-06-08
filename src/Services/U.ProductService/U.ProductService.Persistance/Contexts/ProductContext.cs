@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using U.ProductService.Domain.Common;
 using U.ProductService.Domain.Entities.Manufacturer;
 using U.ProductService.Domain.Entities.Picture;
@@ -22,7 +21,7 @@ namespace U.ProductService.Persistance.Contexts
         //db sets
         public DbSet<Product> Products { get; set; }
         public DbSet<Manufacturer> Manufacturers { get; set; }
-        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<ProductPicture> ProductPictures { get; set; }
         public DbSet<ManufacturerPicture> ManufacturerPictures { get; set; }
@@ -38,15 +37,15 @@ namespace U.ProductService.Persistance.Contexts
         {
             modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductTypeEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductCategoryEntityTypeConfiguration());
+
+            modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PictureEntityTypeConfiguration());
 
             modelBuilder.ApplyConfiguration(new MimeTypeEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new PictureEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductPictureEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ManufacturerPictureEntityTypeConfiguration());
 
             modelBuilder.ApplyConfiguration(new ManufacturerEntityTypeConfiguration());
-
         }
 
         public void StoreDomainEvents(IDomainEventsService domainEventsService, IMediator mediator, CancellationToken cancellationToken = default)

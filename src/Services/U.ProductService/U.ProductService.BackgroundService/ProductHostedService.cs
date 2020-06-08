@@ -1,16 +1,11 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using U.ProductService.Application.Products.Commands.Create;
 using U.ProductService.Application.Services;
-using U.ProductService.Domain;
-using U.ProductService.Domain.Common;
-using U.ProductService.Persistance.Contexts;
 
 // ReSharper disable ClassNeverInstantiated.Global
 

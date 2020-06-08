@@ -1,6 +1,5 @@
 using System;
 using FluentAssertions;
-using U.ProductService.Domain.Entities.Product;
 using Xunit;
 
 namespace U.ProductService.DomainTests.Category
@@ -31,14 +30,14 @@ namespace U.ProductService.DomainTests.Category
         {
             //arrange
             //act
-            var product = ProductCategory.GetDraftCategory();
+            var product = Domain.Entities.Product.Category.GetDraftCategory();
 
             //assert
             product.Should().NotBeNull();
         }
 
-        private ProductCategory GetCategory() =>
-            new ProductCategory(
+        private Domain.Entities.Product.Category GetCategory() =>
+            new Domain.Entities.Product.Category(
                 _categoryId,
                 _name,
                 _description,

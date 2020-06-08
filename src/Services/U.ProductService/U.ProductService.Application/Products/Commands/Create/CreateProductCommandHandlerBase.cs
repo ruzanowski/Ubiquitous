@@ -15,7 +15,7 @@ using U.ProductService.Domain.Entities.Product;
 namespace U.ProductService.Application.Products.Commands.Create
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public class CreateProductCommandHandlerBase
+    public abstract class CreateProductCommandHandlerBase
     {
         protected readonly IProductRepository ProductRepository;
         private readonly ICategoryRepository _categoryRepository;
@@ -24,7 +24,7 @@ namespace U.ProductService.Application.Products.Commands.Create
         protected readonly IMediator Mediator;
         protected readonly IDomainEventsService DomainEventsService;
 
-        public CreateProductCommandHandlerBase(IProductRepository productRepository,
+        protected CreateProductCommandHandlerBase(IProductRepository productRepository,
             ICategoryRepository categoryRepository,
             IManufacturerRepository manufacturerRepository,
             IMapper mapper,
@@ -50,7 +50,9 @@ namespace U.ProductService.Application.Products.Commands.Create
 
                 if (duplicate != null)
                     throw new ProductDuplicatedException(
-                        $"Duplicated product with alternative key: '{command.BarCode}'");
+                        $"Duplicated product with external source name" +
+                        $" '{command.ExternalProperties.SourceName}'" +
+                        $" and id '{command.ExternalProperties.SourceId}'");
             }
 
             if (command.CategoryId != null)
@@ -81,7 +83,7 @@ namespace U.ProductService.Application.Products.Commands.Create
                     command.Dimensions.Height,
                     command.Dimensions.Weight),
                 command.ManufacturerId ?? Manufacturer.GetDraftManufacturer().Id,
-                command.CategoryId ?? ProductCategory.GetDraftCategory().Id,
+                command.CategoryId ?? Category.GetDraftCategory().Id,
                 ProductType.SimpleProduct.Id,
                 command.ExternalProperties?.SourceName,
                 command.ExternalProperties?.SourceId);
@@ -91,8 +93,8 @@ namespace U.ProductService.Application.Products.Commands.Create
         {
             if (!await _categoryRepository.AnyAsync(categoryId))
             {
-                throw new ProductCategoryNotFoundException(
-                    $"ProductCategory with given primary key: '{categoryId}' has not been found.");
+                throw new CategoryNotFoundException(
+                    $"Category with given primary key: '{categoryId}' has not been found.");
             }
         }
 

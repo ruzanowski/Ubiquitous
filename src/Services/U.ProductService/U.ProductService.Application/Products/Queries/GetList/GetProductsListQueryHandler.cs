@@ -49,7 +49,7 @@ namespace U.ProductService.Application.Products.Queries.GetList
 
         private IQueryable<Product> GetProductQueryable() => _context.Products
             .Include(x => x.Pictures)
-            .Include(x=>x.ProductCategory)
+            .Include(x=>x.Category)
             .AsQueryable();
 
     }
