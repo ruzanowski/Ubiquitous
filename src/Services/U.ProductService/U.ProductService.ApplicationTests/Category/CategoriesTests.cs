@@ -13,7 +13,7 @@ using Xunit;
 
 namespace U.ProductService.ApplicationTests.Category
 {
-    [Collection("Application_Sequential")]
+    [Collection("Sequential")]
     public class CategoriesTests : UtilitiesTestBase
     {
 

@@ -11,7 +11,7 @@ using Xunit;
 
 namespace U.ProductService.IntegrationTests.Picture
 {
-    [Collection("Integration_Sequential")]
+    [Collection("Sequential")]
     public class PictureTests : UtilitiesTestBase
     {
         [Fact]

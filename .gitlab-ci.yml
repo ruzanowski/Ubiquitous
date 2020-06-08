@@ -13,7 +13,7 @@ stages:
 
 test:
   before_script:
-    - 'echo | dotnet --version' # must be v 2.2.300 or later for reporter tool to work
+    - 'echo | dotnet --version'
     - dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
   stage: test
   variables:
@@ -34,7 +34,7 @@ test:
       - Reports_Coverage/
     reports:
       junit:
-        - '*/TestResults/TestResults.xml'
+        - '*/*/*/*/TestResults/TestResults.xml'
 
 code_quality:
   stage: test

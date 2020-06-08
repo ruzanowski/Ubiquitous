@@ -22,6 +22,10 @@ using Xunit;
 
 namespace U.ProductService.IntegrationTests
 {
+    [CollectionDefinition("Sequential")]
+    public class DatabaseCollection : ICollectionFixture<UtilitiesTestBase>
+    {}
+
     public class UtilitiesTestBase : TestBase, IAsyncLifetime
     {
         protected readonly TestServer Server;
@@ -29,7 +33,7 @@ namespace U.ProductService.IntegrationTests
         protected readonly ProductContextSeeder Seeder;
         protected readonly IProductRepository ProductRepository;
 
-        protected UtilitiesTestBase()
+        public UtilitiesTestBase()
         {
             Server = CreateServer();
             Client = Server.CreateClient();
@@ -40,6 +44,8 @@ namespace U.ProductService.IntegrationTests
         private async Task TruncateAndSeedDatabase()
         {
             var context = Server.Host.Services.CreateScope().ServiceProvider.GetService<ProductContext>();
+
+            await context.Database.EnsureCreatedAsync();
 
             context.Products.Clear();
             context.ProductTypes.Clear();
@@ -57,9 +63,7 @@ namespace U.ProductService.IntegrationTests
             var domainEventsService = Server.Host.Services.CreateScope().ServiceProvider.GetService<IDomainEventsService>();
             await Seeder.SeedAsync(context,
                 dbOptions,
-                logger,
-                mediator,
-                domainEventsService);
+                logger);
         }
 
         protected CreateProductCommand GetCreateProductCommand()
@@ -92,7 +96,7 @@ namespace U.ProductService.IntegrationTests
 
         public async Task DisposeAsync()
         {
-            await TruncateAndSeedDatabase();
+            await Task.CompletedTask;
         }
     }
 }

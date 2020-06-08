@@ -10,7 +10,7 @@ using Xunit;
 
 namespace U.ProductService.ApplicationTests.EventHandlers
 {
-    [Collection("Application_Sequential")]
+    [Collection("Sequential")]
     public class NewProductFetchedIntegrationEventHandlerTests : UtilitiesTestBase
     {
         private readonly NewProductFetchedIntegrationEventHandler _handler;

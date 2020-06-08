@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
@@ -21,6 +22,10 @@ using Xunit;
 
 namespace U.ProductService.ApplicationTests
 {
+    [CollectionDefinition("Sequential")]
+    public class DatabaseCollection : ICollectionFixture<UtilitiesTestBase>
+    {}
+
     public class UtilitiesTestBase : TestBase, IAsyncLifetime
     {
         protected readonly TestServer Server;
@@ -28,7 +33,7 @@ namespace U.ProductService.ApplicationTests
         private readonly ProductContextSeeder Seeder;
         protected readonly IProductRepository ProductRepository;
 
-        protected UtilitiesTestBase()
+        public UtilitiesTestBase()
         {
             Server = CreateServer();
             Mediator = Server.Host.Services.CreateScope().ServiceProvider.GetService<IMediator>();
@@ -65,9 +70,7 @@ namespace U.ProductService.ApplicationTests
 
             await Seeder.SeedAsync(context,
                 dbOptions,
-                logger,
-                mediator,
-                domainEventsService);
+                logger);
         }
 
         protected CreateProductCommand GetCreateProductCommand()
@@ -83,7 +86,7 @@ namespace U.ProductService.ApplicationTests
 
         public async Task DisposeAsync()
         {
-            await TruncateAndSeedDatabase();
+            await Task.CompletedTask;
         }
 
         protected async Task<ProductViewModel> CreateProductAsync(CreateProductCommand command)
@@ -104,5 +107,6 @@ namespace U.ProductService.ApplicationTests
             addedPicture.Id.Should().NotBeEmpty();
             return addedPicture;
         }
+
     }
 }

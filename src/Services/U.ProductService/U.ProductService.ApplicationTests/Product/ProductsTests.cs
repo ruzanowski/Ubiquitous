@@ -23,7 +23,7 @@ using Xunit;
 
 namespace U.ProductService.ApplicationTests.Product
 {
-    [Collection("Application_Sequential")]
+    [Collection("Sequential")]
     public class ProductTests : UtilitiesTestBase
     {
 

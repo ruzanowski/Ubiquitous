@@ -18,7 +18,7 @@ using Xunit;
 
 namespace U.ProductService.IntegrationTests.Product
 {
-    [Collection("Integration_Sequential")]
+    [Collection("Sequential")]
     public class ProductTests : UtilitiesTestBase
     {
         [Fact]

@@ -13,7 +13,7 @@ using Xunit;
 
 namespace U.ProductService.IntegrationTests.Manufacturer
 {
-    [Collection("Integration_Sequential")]
+    [Collection("Sequential")]
     public class ManufacturerTests : UtilitiesTestBase
     {
 

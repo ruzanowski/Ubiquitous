@@ -15,7 +15,7 @@ using Xunit;
 
 namespace U.ProductService.ApplicationTests.Manufacturer
 {
-    [Collection("Application_Sequential")]
+    [Collection("Sequential")]
     public class ManufacturerTests : UtilitiesTestBase
     {
 
