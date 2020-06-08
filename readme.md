@@ -29,11 +29,14 @@ Subscribe for **the newest state** of products you follow.
 - [8. Inspirations & Thanks](#8-inspirations--thanks)
 - [9. License](#9-license)
 
+| *Repository*  | *Master*  | *Develop* |
+| --------- | --------- | --------- |
+| Ubiquitous | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop) [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop) |
+| Ubiquitous.Web | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous.web/badges/master/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous.web/commits/master) | [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous.web/badges/develop/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop)
 
-| *Master*  | *Develop* |
-| --------- | --------- |
-| [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop) |
-| [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) | [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop)
+Repositories:
+- [Ubiquitous](https://gitlab.com/Ruzanowski/ubiquitous)
+- [Ubiquitous.Web](https://gitlab.com/Ruzanowski/ubiquitous.web)
 
 ## 1. Introduction
 ## 1.1. Functionalities
