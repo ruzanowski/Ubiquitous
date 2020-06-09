@@ -10,7 +10,6 @@ using Npgsql;
 using Polly;
 using Serilog;
 using U.Common.NetCore.Elasticsearch;
-using U.Common.NetCore.Influx;
 
 namespace U.Common.NetCore.WebHost
 {
@@ -72,7 +71,6 @@ namespace U.Common.NetCore.WebHost
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseConfiguration(configuration)
                 .UseSerilog()
-                .UseInflux()
                 .Build();
 
         public static IConfiguration GetConfiguration() =>

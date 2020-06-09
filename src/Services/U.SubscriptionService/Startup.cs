@@ -59,24 +59,20 @@ namespace U.SubscriptionService
         public void Configure(IApplicationBuilder app,
             IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            app.UseCors("CorsPolicy");
-
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
             app
+                .UseCors("CorsPolicy")
                 .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()
-                .UseCookiePolicy();
-
-
-            app.UseJwtTokenValidator();
-
-            app.UseRouting()
+                .UseCookiePolicy()
+                .UseJwtTokenValidator()
+                .UseRouting()
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
-            {
-                endpoints.MapDefaultControllerRoute();
-            });
+                {
+                    endpoints.MapDefaultControllerRoute();
+                });
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);

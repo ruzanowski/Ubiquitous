@@ -40,7 +40,9 @@ namespace U.GeneratorService
 
         public void Configure(IApplicationBuilder app, IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            app.UsePathBase(Configuration, _logger).Item1
+
+            app
+                .UsePathBase(Configuration, _logger).Item1
                 .UseCors("CorsPolicy")
                 .UseServiceId()
                 .UseForwardedHeaders()

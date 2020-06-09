@@ -21,7 +21,8 @@ namespace U.Common.NetCore.Fabio
             string serviceName)
         {
             services.AddHttpClient(clientName)
-                .AddHttpMessageHandler(c => new FabioMessageHandler(c.GetService<IOptions<FabioOptions>>(),
+                .AddHttpMessageHandler(c =>
+                    new FabioMessageHandler(c.GetService<IOptions<FabioOptions>>(),
                     services.BuildServiceProvider(),
                     serviceName));
         }
