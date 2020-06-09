@@ -4,6 +4,7 @@ using Xunit;
 
 namespace U.ProductService.IntegrationTests.AutoMapper
 {
+    [Collection("Sequential")]
     public class MapperProfileTests : TestBase
     {
         [Fact]

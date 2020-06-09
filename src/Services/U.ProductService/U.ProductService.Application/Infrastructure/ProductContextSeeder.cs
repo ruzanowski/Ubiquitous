@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Polly;
@@ -18,7 +17,7 @@ namespace U.ProductService.Application.Infrastructure
 {
     public class ProductContextSeeder
     {
-        public async Task SeedAsync(ProductContext context, DbOptions dbOptions, ILogger<ProductContextSeeder> logger, IMediator mediator, IDomainEventsService domainEventsService)
+        public async Task SeedAsync(ProductContext context, DbOptions dbOptions, ILogger<ProductContextSeeder> logger)
         {
             if (!dbOptions.Seed)
             {
@@ -36,17 +35,17 @@ namespace U.ProductService.Application.Infrastructure
 
                     if (!context.ProductTypes.Any())
                     {
-                        await context.ProductTypes.AddRangeAsync(GetPredefinedProductTypes());
+                        await context.ProductTypes.AddRangeAsync(GetPredefinedProductTypes().ToList());
                     }
 
                     if (!context.MimeTypes.Any())
                     {
-                        await context.MimeTypes.AddRangeAsync(GetPredefinedMimeTypes());
+                        await context.MimeTypes.AddRangeAsync(GetPredefinedMimeTypes().ToList());
                     }
 
                     if (!context.Manufacturers.Any())
                     {
-                        await context.Manufacturers.AddRangeAsync(GetPredefinedManufacturer());
+                        await context.Manufacturers.AddRangeAsync(GetPredefinedManufacturer().ToList());
                     }
 
                     if (!context.Categories.Any())
@@ -57,6 +56,8 @@ namespace U.ProductService.Application.Infrastructure
                     await context.SaveChangesAsync();
                 }
             });
+
+
         }
 
         private IEnumerable<ProductType> GetPredefinedProductTypes()

@@ -1,6 +1,6 @@
 # UBIQUITOUS. Real-Time State & Notification Platform.
 .NET Core with Angular on microservices. <br>
-Subscribe for **the newest state** of products you like.
+Subscribe for **the newest state** of products you follow.
 
 - [1. Introduction](#1-introduction)
     - [1.1 Functionalities](#11-functionalities)
@@ -29,11 +29,14 @@ Subscribe for **the newest state** of products you like.
 - [8. Inspirations & Thanks](#8-inspirations--thanks)
 - [9. License](#9-license)
 
+| *Repository*  | *Master*  | *Develop* |
+| --------- | --------- | --------- |
+| Ubiquitous | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop) [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop) |
+| Ubiquitous.Web | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous.web/badges/master/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous.web/commits/master) [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous.web/badges/master/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous.web/commits/master) | [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous.web/badges/develop/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop) [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous.web/badges/develop/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous.web/commits/develop)
 
-| *Master*  | *Develop* |
-| --------- | --------- |
-| [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) | [![pipeline status](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/pipeline.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop) |
-| [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/master/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/master) | [![coverage report](https://gitlab.com/Ruzanowski/ubiquitous/badges/develop/coverage.svg)](https://gitlab.com/Ruzanowski/ubiquitous/commits/develop)
+Repositories:
+- [Ubiquitous](https://gitlab.com/Ruzanowski/ubiquitous)
+- [Ubiquitous.Web](https://gitlab.com/Ruzanowski/ubiquitous.web)
 
 ## 1. Introduction
 ## 1.1. Functionalities
@@ -49,7 +52,6 @@ Subscribe for **the newest state** of products you like.
         * [x] Trivial, normal, important
     - Persistency
         * [x] PostgreSQL
-        * [ ] Elasticsearch _(in tests)_
     - Operations
         * [x] Confirmation, hide, remove
         * [x] Welcome notifications specified timespan by user preferences
@@ -68,9 +70,8 @@ Subscribe for **the newest state** of products you like.
      - Microservices
      - Docker
      - Angular
-     - ...
      - and so much more
-- Secondly, **most of repositories** I have visited were
+- Secondly, I wanted to create something solid, from the beginning to the end and that follows newest patterns and good case practices. On the [GitHub](https://github.com) **most of repositories** I have ever seen were 
     - Relatively small, no possibility to run into performance, integration, authorization issues et cetera
     - Easy concerns or unfinished
 
@@ -167,14 +168,26 @@ What you might see in the scope of my project. Things mentioned below are implem
 
 **Services**
 - ***Product Service*** Handles products and its business logic
+    - ***Background Service*** Sends periodically queued commands as batch to improve performance 
 - ***Notification Service*** Handles notifications and channels
+    - ***Notification Periodic Sender*** Sends periodically notifications, to improve performance
 - ***Identity Service*** Handles identity of user and managed Jwt tokens
 - ***Subscription Service*** Handles subscriptions of users & preferences, bounces integration events
+
+Product Service            |  Identity Service       |
+:-------------------------:|:-------------------------:
+![](docs/img/productservice-min.PNG) ![](docs/img/productservice2-min.PNG) ![](docs/img/productservice3-min.PNG)  |  ![](docs/img/identityservice-min.PNG) ![](docs/img/identityservice2-min.PNG)
+
+
+Notification Service             |  Subscription Service
+:-------------------------:|:-------------------------:
+![](docs/img/notificationservice-min.PNG) |  ![](docs/img/subscriptionservice-min.PNG) ![](docs/img/subscriptionservice2-min.PNG)
+
+
 
 ### 2.3 Jobs
 - ***Generator Service*** Sources SmartStoreAdapter with fake products
 - ***Fetch Service*** Sources subscribed ProductService with products related events via RabbitMQ
-- ***Notification Periodic Sender*** Sends periodically notifications, to improve performance
 
 ### 2.4 Adapters
 - ***SmartStore Adapter*** Mock Adapter, source of products
@@ -304,9 +317,9 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Sebastian Rużanowski
 You can find me at:
-LinkedIn [https://www.linkedin.com/in/sebastian-ruzanowski](https://www.linkedin.com/in/sebastian-ruzanowski)
-***GitLab****: [https://gitlab.com/ruzanowski](https://gitlab.com/ruzanowski)
-GitHub: [https://github.com/sebastianruzanowski](https://github.com/sebastianruzanowski)
+- LinkedIn [https://www.linkedin.com/in/sebastian-ruzanowski](https://www.linkedin.com/in/sebastian-ruzanowski)
+- GitLab: [https://gitlab.com/ruzanowski](https://gitlab.com/ruzanowski)
+- GitHub: [https://github.com/sebastianruzanowski](https://github.com/sebastianruzanowski)
 
 ## 8. Inspirations & Thanks
 
