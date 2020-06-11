@@ -89,16 +89,6 @@ services:
     networks:
       - ubiquitous
 
-  influxdb:
-    image: influxdb
-    container_name: influxdb
-    ports:
-      - '8086:8086'
-    volumes:
-      - influxdb:/var/lib/influxdb
-    networks:
-      - ubiquitous
-
 volumes:
   portainer:
     driver: local
@@ -113,8 +103,6 @@ volumes:
   consul:
     driver: local
   fabio:
-    driver: local
-  influxdb:
     driver: local
 
 networks:

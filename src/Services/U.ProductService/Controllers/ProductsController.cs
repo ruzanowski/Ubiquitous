@@ -25,7 +25,7 @@ using U.ProductService.Application.Products.Queries.GetStatisticsByManufacturers
 namespace U.ProductService.Controllers
 {
     /// <summary>
-    /// Product controller of product service
+    /// Product controller
     /// </summary>
     [Route("api/product/products")]
     [ApiController]
@@ -35,7 +35,7 @@ namespace U.ProductService.Controllers
         private readonly IMediator _mediator;
 
         /// <summary>
-        /// Product controller of product service
+        /// Product controller of product identifierService
         /// </summary>
         /// <param name="mediator"></param>
         public ProductsController(IMediator mediator)

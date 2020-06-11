@@ -16,7 +16,7 @@ using U.ProductService.Application.Manufacturers.Queries.GetSingle;
 namespace U.ProductService.Controllers
 {
     /// <summary>
-    /// Manufacturer controller of Product service
+    /// Manufacturer controller
     /// </summary>
     [Route("api/product/manufacturers")]
     [ApiController]
@@ -26,7 +26,7 @@ namespace U.ProductService.Controllers
         private readonly IMediator _mediator;
 
         /// <summary>
-        /// Manufacturer controller of Product service
+        /// Manufacturer controller of Product identifierService
         /// </summary>
         /// <param name="mediator"></param>
         public ManufacturersController(IMediator mediator)

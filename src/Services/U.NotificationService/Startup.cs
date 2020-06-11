@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using U.Common.Miscellaneous;
 using U.Common.NetCore.Auth;
 using U.Common.NetCore.Cache;
 using U.EventBus.Abstractions;
@@ -55,7 +56,7 @@ namespace U.NotificationService
                 .AddSwagger()
                 .AddCustomMapper()
                 .AddConsulServiceDiscovery()
-                .AddTypedHttpClient<ISubscriptionService>("u.subscription-service")
+                .AddTypedHttpClient<ISubscriptionService>(GlobalConstants.SubscriptionServiceConsulRegisteredName)
                 .AddCustomRedisAndSignalR()
                 .AddCustomServices()
                 .AddJwt()
@@ -73,7 +74,8 @@ namespace U.NotificationService
             app.UseCors("CorsPolicy");
 
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
-            app.UseSwagger(pathBase)
+            app.UseHttpsRedirection()
+                .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseCookiePolicy();

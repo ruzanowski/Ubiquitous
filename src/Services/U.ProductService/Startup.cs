@@ -73,7 +73,10 @@ namespace U.ProductService
             IConsulClient client)
         {
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
-            app.UseCors("CorsPolicy")
+            app
+                .UseExceptionMiddleware()
+                .UseHttpsRedirection()
+                .UseCors("CorsPolicy")
                 .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()
@@ -81,7 +84,6 @@ namespace U.ProductService
                 .UseJwtTokenValidator()
                 .UseRouting()
                 .UseAuthorization()
-                .UseExceptionMiddleware()
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapDefaultControllerRoute();
@@ -89,7 +91,7 @@ namespace U.ProductService
 
             RegisterConsul(app, applicationLifetime, client);
             RegisterEvents(app);
-            SeedAsync(app);
+            SeedAsync(app).Wait();
         }
 
         private void RegisterEvents(IApplicationBuilder app)
