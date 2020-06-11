@@ -73,7 +73,8 @@ namespace U.SmartStoreAdapter
         /// This method gets called by the runtime. Use this method to configure the HTTP transaction pipeline.
         public void Configure(IApplicationBuilder app, IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            app.UsePathBase(Configuration, _logger).Item1
+            app
+                .UsePathBase(Configuration, _logger).Item1
                 .UseSwagger()
                 .UseSwaggerUI(c =>
                 {
@@ -96,21 +97,19 @@ namespace U.SmartStoreAdapter
 
         private void Seed(IApplicationBuilder app)
         {
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
-                .CreateScope())
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+                .CreateScope();
+            try
             {
-                try
-                {
-                    new SmartStoreContextSeeder()
-                        .Seed(serviceScope.ServiceProvider.GetRequiredService<SmartStoreContext>(),
-                            serviceScope.ServiceProvider.GetRequiredService<DbOptions>(),
-                            serviceScope.ServiceProvider.GetRequiredService<ILogger<SmartStoreContextSeeder>>());
-                }
-                catch (Exception ex)
-                {
-                    var logger = app.ApplicationServices.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred while seeding the database.");
-                }
+                new SmartStoreContextSeeder()
+                    .Seed(serviceScope.ServiceProvider.GetRequiredService<SmartStoreContext>(),
+                        serviceScope.ServiceProvider.GetRequiredService<DbOptions>(),
+                        serviceScope.ServiceProvider.GetRequiredService<ILogger<SmartStoreContextSeeder>>());
+            }
+            catch (Exception ex)
+            {
+                var logger = app.ApplicationServices.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred while seeding the database.");
             }
         }
     }

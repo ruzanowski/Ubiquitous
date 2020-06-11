@@ -34,6 +34,7 @@ namespace U.Common.NetCore.Fabio
         {
             request.RequestUri = GetRequestUri(request);
 
+
             var httpContext = _provider.CreateScope().ServiceProvider.GetService<HttpContext>();
 
             var token = httpContext.GetAccessToken();

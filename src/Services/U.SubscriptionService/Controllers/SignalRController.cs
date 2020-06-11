@@ -23,7 +23,7 @@ namespace U.SubscriptionService.Controllers
         private readonly IHttpContextAccessor _contextAccessor;
 
         /// <summary>
-        /// Product controller of product service
+        /// Product controller
         /// </summary>
         /// <param name="mediator"></param>
         /// <param name="contextAccessor"></param>

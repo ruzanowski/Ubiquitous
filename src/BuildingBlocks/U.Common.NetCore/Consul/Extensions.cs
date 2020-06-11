@@ -30,10 +30,9 @@ namespace U.Common.NetCore.Consul
             services.AddTransient<IConsulServicesRegistry, ConsulServicesRegistry>();
             services.AddTransient<ConsulServiceDiscoveryMessageHandler>();
 
-            services.AddTransient<IConsulServiceDifferentator>(
-                c => new ConsulServiceDifferentator(
-                    c.GetService<ISelfInfoService>(),
-                    options));
+            services.AddTransient<IConsulIdentifierService>(
+                c => new ConsulIdentifierIdentifierService(
+                    c.GetService<ISelfInfoService>()));
 
             return services.AddSingleton<IConsulClient>(c => new ConsulClient(cfg =>
             {
@@ -44,7 +43,7 @@ namespace U.Common.NetCore.Consul
             }));
         }
 
-        //Returns unique service ID used for removing the service from registry.
+        //Returns unique identifierService ID used for removing the identifierService from registry.
         public static string UseConsulServiceDiscovery(this IApplicationBuilder app)
         {
             using (var scope = app.ApplicationServices.CreateScope())
@@ -98,8 +97,7 @@ namespace U.Common.NetCore.Consul
 
         private static string[] GetFabioTags(string consulService, string fabioService)
         {
-            var service = (string.IsNullOrWhiteSpace(fabioService) ? consulService : fabioService)
-                .ToLowerInvariant();
+            var service = (string.IsNullOrWhiteSpace(fabioService) ? consulService : fabioService).ToLowerInvariant();
 
             return new[] {$"urlprefix-/{service} strip=/{service}"};
         }

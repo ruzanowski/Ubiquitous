@@ -24,6 +24,7 @@ Subscribe for **the newest state** of products you follow.
     - [5.1. Release V.0.2](#51-release-v02)
     - [5.2. Release V.0.3](#52-release-v03)
     - [5.3. Release V.0.4](#53-release-v04)
+    - [5.4. Release V.0.5](#54-release-v05)
 - [6. Contributing](#6-contributing)
 - [7. Author](#7-author)
 - [8. Inspirations & Thanks](#8-inspirations--thanks)
@@ -77,10 +78,8 @@ Repositories:
 
 ## 1.3 Installation On-Premises
 
-<details>
-<summary>Click here to expand!</summary>
-
 1.3.0. Prerequisites
+
     - Docker
     - Docker composer
 
@@ -93,7 +92,6 @@ Repositories:
 
 CREATE DATABASE "product-service";
 CREATE DATABASE "smartstore-adapter";
-CREATE DATABASE "fetch-service";
 CREATE DATABASE "notification-service";
 CREATE DATABASE "subscription-service";
 CREATE DATABASE "identity-service";
@@ -119,7 +117,6 @@ docker-compose -f docker-compose-services.yml up
    <img alt="Portainer dashboard" src="docs/img/Portainer-min.png" />
 </p>
 
-</details>
 
 ### 1.4 API Usage
 
@@ -158,11 +155,6 @@ What you might see in the scope of my project. Things mentioned below are implem
 - [***Polly***](https://github.com/App-vNext/Polly) Resiliency policies
 - Message queue [***RabbitMQ***](https://www.rabbitmq.com/) with [***RawRabbit***](https://github.com/pardahlman/RawRabbit) implementation
 - HTTP Calls [***Load Balancing***](https://www.citrix.com/glossary/load-balancing.html) between services with [***Fabio***](https://github.com/fabiolb/fabio)
-
-#### ***Release V0.2***
-- Logging with [***Serilog***](https://serilog.net/), [***Elasticsearch***](https://www.elastic.co/)
-- Tracing with [***OpenTracing***](https://opentracing.io/), [***Jaeger***](https://github.com/jaegertracing/jaeger)
-- Metrics with [***AppMetrics***](https://www.app-metrics.io/), [***Influx***](https://www.influxdata.com/)
 
 ### 2.2 Services
 
@@ -309,6 +301,12 @@ Release V.0.4 brings
 + UTF8 over Newtonsoft JSON serializers
 + Amended Fetch & Generator Services as "Jobs"
 + Get rid of Kibana, Logstash
++ Get rid of InfluxDB
+
+### 5.4 Release V.0.5
++ Nginx
++ Grafana
++ Flutter
 
 ## 6. Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
