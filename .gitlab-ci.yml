@@ -259,6 +259,7 @@ deploy_apigateway:
 
 variables:
   DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://localhost:2375
 services:
   - docker:stable-dind
 
