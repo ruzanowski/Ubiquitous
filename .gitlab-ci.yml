@@ -39,11 +39,11 @@ test:
 code_quality:
   stage: test
   when: manual
-  image: docker:18.09:latest
+  image: docker:latest:latest
   variables:
     DOCKER_DRIVER: overlay
   services:
-    - docker:18.09-dind
+    - docker:dind
   script:
     - docker pull codeclimate/codeclimate
     - docker run
@@ -147,9 +147,9 @@ MyGet_IntegrationEventLog:
 
 deploy_fetchservice:
   stage: docker_deploy
-  image: docker:18.09
+  image: docker:latest
   services:
-    - docker:18.09-dind
+    - docker:dind
   before_script:
     - 'cd src/Jobs/U.FetchService'
     - chmod -R a+x ./docker-publish.sh
@@ -161,9 +161,9 @@ deploy_fetchservice:
 
 deploy_generatorservice:
   stage: docker_deploy
-  image: docker:18.09
+  image: docker:latest
   services:
-    - docker:18.09-dind
+    - docker:dind
   before_script:
     - 'cd src/Jobs/U.GeneratorService'
     - chmod -R a+x ./docker-publish.sh
@@ -175,9 +175,9 @@ deploy_generatorservice:
 
 deploy_identityservice:
   stage: docker_deploy
-  image: docker:18.09
+  image: docker:latest
   services:
-    - docker:18.09-dind
+    - docker:dind
   before_script:
     - 'cd src/Services/U.IdentityService'
     - chmod -R a+x ./docker-publish.sh
@@ -189,9 +189,9 @@ deploy_identityservice:
 
 deploy_notificationservice:
   stage: docker_deploy
-  image: docker:18.09
+  image: docker:latest
   services:
-    - docker:18.09-dind
+    - docker:dind
   before_script:
     - 'cd src/Services/U.NotificationService'
     - chmod -R a+x ./docker-publish.sh
@@ -203,9 +203,9 @@ deploy_notificationservice:
 
 deploy_productservice:
   stage: docker_deploy
-  image: docker:18.09
+  image: docker:latest
   services:
-    - docker:18.09-dind
+    - docker:dind
   before_script:
     - 'cd src/Services/U.ProductService'
     - chmod -R a+x ./docker-publish.sh
@@ -217,9 +217,9 @@ deploy_productservice:
 
 deploy_subscriptionservice:
   stage: docker_deploy
-  image: docker:18.09
+  image: docker:latest
   services:
-    - docker:18.09-dind
+    - docker:dind
   before_script:
     - 'cd src/Services/U.SubscriptionService'
     - chmod -R a+x ./docker-publish.sh
@@ -231,9 +231,9 @@ deploy_subscriptionservice:
 
 deploy_smartstoreadapter:
   stage: docker_deploy
-  image: docker:18.09
+  image: docker:latest
   services:
-    - docker:18.09-dind
+    - docker:dind
   before_script:
     - 'cd src/Adapters/U.SmartStoreAdapter'
     - chmod -R a+x ./docker-publish.sh
@@ -245,9 +245,9 @@ deploy_smartstoreadapter:
 
 deploy_apigateway:
   stage: docker_deploy
-  image: docker:18.09
+  image: docker:latest
   services:
-    - docker:18.09-dind
+    - docker:dind
   before_script:
     - 'cd src/ApiGateway'
     - chmod -R a+x ./docker-publish.sh
@@ -259,10 +259,10 @@ deploy_apigateway:
 
 variables:
   DOCKER_DRIVER: overlay2
-  DOCKER_HOST: tcp://localhost:2375
+#  DOCKER_HOST: tcp://localhost:2375
   DOCKER_TLS_CERTDIR: ""
 services:
-  - docker:18.09-dind
+  - docker:dind
 
 include:
     - local: gitlab-ci/Dependency-Scanning.gitlab-ci.yml
