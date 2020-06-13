@@ -11,258 +11,257 @@ stages:
   - deploy
   - docker_deploy
 
-test:
-  before_script:
-    - 'echo | dotnet --version'
-    - dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
-  stage: test
-  variables:
-    U_PRODUCT_SERVICE_IT_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_IT_TEST_CONNECTION
-    U_PRODUCT_SERVICE_AT_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_AT_TEST_CONNECTION
-  script:
-    - dotnet test --logger "junit" --collect:"XPlat Code Coverage"
-    # each reporttype must be a separate line, doesn't work together ; separated
-    - ls -ld ${CI_PROJECT_DIR}/*/*/*/*/TestResults/*
-    - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/*/*/*/*/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:TextSummary;
-    - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/*/*/*/*/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:Html;
-    - ls Reports_Coverage
-    - cat ./Reports_Coverage/Summary.txt
-    - echo 'End Summary'
-  coverage: /Line coverage[\s\S].+%/
-  artifacts:
-    paths:
-      - Reports_Coverage/
-    reports:
-      junit:
-        - '*/*/*/*/TestResults/TestResults.xml'
-
-code_quality:
-  stage: test
-  when: manual
-  image: docker:latest:latest
-  variables:
-    DOCKER_DRIVER: overlay
-  services:
-    - docker:dind
-  script:
-    - docker pull codeclimate/codeclimate
-    - docker run
-      --env CODECLIMATE_DEBUG=1
-      --env CODECLIMATE_CODE="$PWD"
-      --volume "$PWD":/code
-      --volume /var/run/docker.sock:/var/run/docker.sock
-      --volume /tmp/cc:/tmp/cc
-      codeclimate/codeclimate analyze -f html > report.html
-  artifacts:
-    paths: [report.html]
-  dependencies: []
-  except:
-    variables:
-      - $CODE_QUALITY_DISABLED
-
-MyGet_Common:
-  stage: myget_common
-  before_script:
-    - 'cd src/BuildingBlocks/U.Common'
-    - chmod -R a+x ./dotnet-restore.sh
-    - chmod -R a+x ./dotnet-build.sh
-    - chmod -R a+x ./dotnet-publish.sh
-    - chmod -R a+x ./dotnet-nuget-push.sh
-  script:
-    - ./dotnet-restore.sh
-    - ./dotnet-build.sh
-    - ./dotnet-publish.sh
-    - ./dotnet-nuget-push.sh
-  only:
-    - master
-    - develop
-
-MyGet_Common_NetCore:
-  stage: myget_common_netcore
-  before_script:
-    - 'cd src/BuildingBlocks/U.Common.NetCore'
-    - chmod -R a+x ./dotnet-restore.sh
-    - chmod -R a+x ./dotnet-build.sh
-    - chmod -R a+x ./dotnet-publish.sh
-    - chmod -R a+x ./dotnet-nuget-push.sh
-  script:
-    - ./dotnet-restore.sh
-    - ./dotnet-build.sh
-    - ./dotnet-publish.sh
-    - ./dotnet-nuget-push.sh
-  only:
-    - master
-    - develop
-
-MyGet_EventBus:
-  stage: myget_eventbus
-  before_script:
-    - 'cd src/BuildingBlocks/U.EventBus'
-    - chmod -R a+x ./dotnet-restore.sh
-    - chmod -R a+x ./dotnet-build.sh
-    - chmod -R a+x ./dotnet-publish.sh
-    - chmod -R a+x ./dotnet-nuget-push.sh
-  script:
-    - ./dotnet-restore.sh
-    - ./dotnet-build.sh
-    - ./dotnet-publish.sh
-    - ./dotnet-nuget-push.sh
-  only:
-    - master
-    - develop
-
-MyGet_EventBus_RabbitMQ:
-  stage: myget_eventbus_rabbitmq
-  before_script:
-    - 'cd src/BuildingBlocks/U.EventBus.RabbitMQ'
-    - chmod -R a+x ./dotnet-restore.sh
-    - chmod -R a+x ./dotnet-build.sh
-    - chmod -R a+x ./dotnet-publish.sh
-    - chmod -R a+x ./dotnet-nuget-push.sh
-  script:
-    - ./dotnet-restore.sh
-    - ./dotnet-build.sh
-    - ./dotnet-publish.sh
-    - ./dotnet-nuget-push.sh
-  only:
-    - master
-    - develop
-
-MyGet_IntegrationEventLog:
-  stage: myget_integrationeventlog
-  before_script:
-    - 'cd src/BuildingBlocks/U.IntegrationEventLog'
-    - chmod -R a+x ./dotnet-restore.sh
-    - chmod -R a+x ./dotnet-build.sh
-    - chmod -R a+x ./dotnet-publish.sh
-    - chmod -R a+x ./dotnet-nuget-push.sh
-  script:
-    - ./dotnet-restore.sh
-    - ./dotnet-build.sh
-    - ./dotnet-publish.sh
-    - ./dotnet-nuget-push.sh
-  only:
-    - master
-    - develop
-
-deploy_fetchservice:
-  stage: docker_deploy
-  image: docker:latest
-  services:
-    - docker:dind
-  before_script:
-    - 'cd src/Jobs/U.FetchService'
-    - chmod -R a+x ./docker-publish.sh
-  script:
-    - ./docker-publish.sh
-  only:
-    - master
-    - develop
-
-deploy_generatorservice:
-  stage: docker_deploy
-  image: docker:latest
-  services:
-    - docker:dind
-  before_script:
-    - 'cd src/Jobs/U.GeneratorService'
-    - chmod -R a+x ./docker-publish.sh
-  script:
-    - ./docker-publish.sh
-  only:
-    - master
-    - develop
-
-deploy_identityservice:
-  stage: docker_deploy
-  image: docker:latest
-  services:
-    - docker:dind
-  before_script:
-    - 'cd src/Services/U.IdentityService'
-    - chmod -R a+x ./docker-publish.sh
-  script:
-    - ./docker-publish.sh
-  only:
-    - master
-    - develop
-
-deploy_notificationservice:
-  stage: docker_deploy
-  image: docker:latest
-  services:
-    - docker:dind
-  before_script:
-    - 'cd src/Services/U.NotificationService'
-    - chmod -R a+x ./docker-publish.sh
-  script:
-    - ./docker-publish.sh
-  only:
-    - master
-    - develop
-
-deploy_productservice:
-  stage: docker_deploy
-  image: docker:latest
-  services:
-    - docker:dind
-  before_script:
-    - 'cd src/Services/U.ProductService'
-    - chmod -R a+x ./docker-publish.sh
-  script:
-    - ./docker-publish.sh
-  only:
-    - master
-    - develop
-
-deploy_subscriptionservice:
-  stage: docker_deploy
-  image: docker:latest
-  services:
-    - docker:dind
-  before_script:
-    - 'cd src/Services/U.SubscriptionService'
-    - chmod -R a+x ./docker-publish.sh
-  script:
-    - ./docker-publish.sh
-  only:
-    - master
-    - develop
-
-deploy_smartstoreadapter:
-  stage: docker_deploy
-  image: docker:latest
-  services:
-    - docker:dind
-  before_script:
-    - 'cd src/Adapters/U.SmartStoreAdapter'
-    - chmod -R a+x ./docker-publish.sh
-  script:
-    - ./docker-publish.sh
-  only:
-    - master
-    - develop
+#test:
+#  before_script:
+#    - 'echo | dotnet --version'
+#    - dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
+#  stage: test
+#  variables:
+#    U_PRODUCT_SERVICE_IT_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_IT_TEST_CONNECTION
+#    U_PRODUCT_SERVICE_AT_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_AT_TEST_CONNECTION
+#  script:
+#    - dotnet test --logger "junit" --collect:"XPlat Code Coverage"
+#    # each reporttype must be a separate line, doesn't work together ; separated
+#    - ls -ld ${CI_PROJECT_DIR}/*/*/*/*/TestResults/*
+#    - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/*/*/*/*/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:TextSummary;
+#    - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/*/*/*/*/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:Html;
+#    - ls Reports_Coverage
+#    - cat ./Reports_Coverage/Summary.txt
+#    - echo 'End Summary'
+#  coverage: /Line coverage[\s\S].+%/
+#  artifacts:
+#    paths:
+#      - Reports_Coverage/
+#    reports:
+#      junit:
+#        - '*/*/*/*/TestResults/TestResults.xml'
+#
+#code_quality:
+#  stage: test
+#  when: manual
+#  image: docker:18.09.7:latest
+#  variables:
+#    DOCKER_DRIVER: overlay
+#  services:
+#    - docker:18.09.7-dind
+#  script:
+#    - docker pull codeclimate/codeclimate
+#    - docker run
+#      --env CODECLIMATE_DEBUG=1
+#      --env CODECLIMATE_CODE="$PWD"
+#      --volume "$PWD":/code
+#      --volume /var/run/docker.sock:/var/run/docker.sock
+#      --volume /tmp/cc:/tmp/cc
+#      codeclimate/codeclimate analyze -f html > report.html
+#  artifacts:
+#    paths: [report.html]
+#  dependencies: []
+#  except:
+#    variables:
+#      - $CODE_QUALITY_DISABLED
+#
+#MyGet_Common:
+#  stage: myget_common
+#  before_script:
+#    - 'cd src/BuildingBlocks/U.Common'
+#    - chmod -R a+x ./dotnet-restore.sh
+#    - chmod -R a+x ./dotnet-build.sh
+#    - chmod -R a+x ./dotnet-publish.sh
+#    - chmod -R a+x ./dotnet-nuget-push.sh
+#  script:
+#    - ./dotnet-restore.sh
+#    - ./dotnet-build.sh
+#    - ./dotnet-publish.sh
+#    - ./dotnet-nuget-push.sh
+#  only:
+#    - master
+#    - develop
+#
+#MyGet_Common_NetCore:
+#  stage: myget_common_netcore
+#  before_script:
+#    - 'cd src/BuildingBlocks/U.Common.NetCore'
+#    - chmod -R a+x ./dotnet-restore.sh
+#    - chmod -R a+x ./dotnet-build.sh
+#    - chmod -R a+x ./dotnet-publish.sh
+#    - chmod -R a+x ./dotnet-nuget-push.sh
+#  script:
+#    - ./dotnet-restore.sh
+#    - ./dotnet-build.sh
+#    - ./dotnet-publish.sh
+#    - ./dotnet-nuget-push.sh
+#  only:
+#    - master
+#    - develop
+#
+#MyGet_EventBus:
+#  stage: myget_eventbus
+#  before_script:
+#    - 'cd src/BuildingBlocks/U.EventBus'
+#    - chmod -R a+x ./dotnet-restore.sh
+#    - chmod -R a+x ./dotnet-build.sh
+#    - chmod -R a+x ./dotnet-publish.sh
+#    - chmod -R a+x ./dotnet-nuget-push.sh
+#  script:
+#    - ./dotnet-restore.sh
+#    - ./dotnet-build.sh
+#    - ./dotnet-publish.sh
+#    - ./dotnet-nuget-push.sh
+#  only:
+#    - master
+#    - develop
+#
+#MyGet_EventBus_RabbitMQ:
+#  stage: myget_eventbus_rabbitmq
+#  before_script:
+#    - 'cd src/BuildingBlocks/U.EventBus.RabbitMQ'
+#    - chmod -R a+x ./dotnet-restore.sh
+#    - chmod -R a+x ./dotnet-build.sh
+#    - chmod -R a+x ./dotnet-publish.sh
+#    - chmod -R a+x ./dotnet-nuget-push.sh
+#  script:
+#    - ./dotnet-restore.sh
+#    - ./dotnet-build.sh
+#    - ./dotnet-publish.sh
+#    - ./dotnet-nuget-push.sh
+#  only:
+#    - master
+#    - develop
+#
+#MyGet_IntegrationEventLog:
+#  stage: myget_integrationeventlog
+#  before_script:
+#    - 'cd src/BuildingBlocks/U.IntegrationEventLog'
+#    - chmod -R a+x ./dotnet-restore.sh
+#    - chmod -R a+x ./dotnet-build.sh
+#    - chmod -R a+x ./dotnet-publish.sh
+#    - chmod -R a+x ./dotnet-nuget-push.sh
+#  script:
+#    - ./dotnet-restore.sh
+#    - ./dotnet-build.sh
+#    - ./dotnet-publish.sh
+#    - ./dotnet-nuget-push.sh
+#  only:
+#    - master
+#    - develop
+#
+#deploy_fetchservice:
+#  stage: docker_deploy
+#  image: docker:18.09.7
+#  services:
+#    - docker:18.09.7-dind
+#  before_script:
+#    - 'cd src/Jobs/U.FetchService'
+#    - chmod -R a+x ./docker-publish.sh
+#  script:
+#    - ./docker-publish.sh
+#  only:
+#    - master
+#    - develop
+#
+#deploy_generatorservice:
+#  stage: docker_deploy
+#  image: docker:18.09.7
+#  services:
+#    - docker:18.09.7-dind
+#  before_script:
+#    - 'cd src/Jobs/U.GeneratorService'
+#    - chmod -R a+x ./docker-publish.sh
+#  script:
+#    - ./docker-publish.sh
+#  only:
+#    - master
+#    - develop
+#
+#deploy_identityservice:
+#  stage: docker_deploy
+#  image: docker:18.09.7
+#  services:
+#    - docker:18.09.7-dind
+#  before_script:
+#    - 'cd src/Services/U.IdentityService'
+#    - chmod -R a+x ./docker-publish.sh
+#  script:
+#    - ./docker-publish.sh
+#  only:
+#    - master
+#    - develop
+#
+#deploy_notificationservice:
+#  stage: docker_deploy
+#  image: docker:18.09.7
+#  services:
+#    - docker:18.09.7-dind
+#  before_script:
+#    - 'cd src/Services/U.NotificationService'
+#    - chmod -R a+x ./docker-publish.sh
+#  script:
+#    - ./docker-publish.sh
+#  only:
+#    - master
+#    - develop
+#
+#deploy_productservice:
+#  stage: docker_deploy
+#  image: docker:18.09.7
+#  services:
+#    - docker:18.09.7-dind
+#  before_script:
+#    - 'cd src/Services/U.ProductService'
+#    - chmod -R a+x ./docker-publish.sh
+#  script:
+#    - ./docker-publish.sh
+#  only:
+#    - master
+#    - develop
+#
+#deploy_subscriptionservice:
+#  stage: docker_deploy
+#  image: docker:18.09.7
+#  services:
+#    - docker:18.09.7-dind
+#  before_script:
+#    - 'cd src/Services/U.SubscriptionService'
+#    - chmod -R a+x ./docker-publish.sh
+#  script:
+#    - ./docker-publish.sh
+#  only:
+#    - master
+#    - develop
+#
+#deploy_smartstoreadapter:
+#  stage: docker_deploy
+#  image: docker:18.09.7
+#  services:
+#    - docker:18.09.7-dind
+#  before_script:
+#    - 'cd src/Adapters/U.SmartStoreAdapter'
+#    - chmod -R a+x ./docker-publish.sh
+#  script:
+#    - ./docker-publish.sh
+#  only:
+#    - master
+#    - develop
 
 deploy_apigateway:
   stage: docker_deploy
-  image: docker:latest
+  image: docker:18.09.7
   services:
-    - docker:dind
+    - docker:18.09.7-dind
   before_script:
     - 'cd src/ApiGateway'
     - chmod -R a+x ./docker-publish.sh
   script:
     - ./docker-publish.sh
-  only:
-    - master
-    - develop
+#  only:
+#    - master
+#    - develop
 
 variables:
   DOCKER_DRIVER: overlay2
-#  DOCKER_HOST: tcp://localhost:2375
   DOCKER_TLS_CERTDIR: ""
 services:
-  - docker:dind
+  - docker:18.09.7-dind
 
 include:
     - local: gitlab-ci/Dependency-Scanning.gitlab-ci.yml
