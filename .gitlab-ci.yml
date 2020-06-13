@@ -39,12 +39,11 @@ test:
 code_quality:
   stage: test
   when: manual
-  image: docker:latest
+  image: docker:stable:latest
   variables:
     DOCKER_DRIVER: overlay
-
   services:
-    - docker:dind
+    - docker:stable-dind
   script:
     - docker pull codeclimate/codeclimate
     - docker run
@@ -148,9 +147,9 @@ MyGet_IntegrationEventLog:
 
 deploy_fetchservice:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:stable
   services:
-    - docker:17.06.0-ce-dind
+    - docker:stable-dind
   before_script:
     - 'cd src/Jobs/U.FetchService'
     - chmod -R a+x ./docker-publish.sh
@@ -162,9 +161,9 @@ deploy_fetchservice:
 
 deploy_generatorservice:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:stable
   services:
-    - docker:17.06.0-ce-dind
+    - docker:stable-dind
   before_script:
     - 'cd src/Jobs/U.GeneratorService'
     - chmod -R a+x ./docker-publish.sh
@@ -176,9 +175,9 @@ deploy_generatorservice:
 
 deploy_identityservice:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:stable
   services:
-    - docker:17.06.0-ce-dind
+    - docker:stable-dind
   before_script:
     - 'cd src/Services/U.IdentityService'
     - chmod -R a+x ./docker-publish.sh
@@ -190,9 +189,9 @@ deploy_identityservice:
 
 deploy_notificationservice:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:stable
   services:
-    - docker:17.06.0-ce-dind
+    - docker:stable-dind
   before_script:
     - 'cd src/Services/U.NotificationService'
     - chmod -R a+x ./docker-publish.sh
@@ -204,9 +203,9 @@ deploy_notificationservice:
 
 deploy_productservice:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:stable
   services:
-    - docker:17.06.0-ce-dind
+    - docker:stable-dind
   before_script:
     - 'cd src/Services/U.ProductService'
     - chmod -R a+x ./docker-publish.sh
@@ -218,9 +217,9 @@ deploy_productservice:
 
 deploy_subscriptionservice:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:stable
   services:
-    - docker:17.06.0-ce-dind
+    - docker:stable-dind
   before_script:
     - 'cd src/Services/U.SubscriptionService'
     - chmod -R a+x ./docker-publish.sh
@@ -232,9 +231,9 @@ deploy_subscriptionservice:
 
 deploy_smartstoreadapter:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:stable
   services:
-    - docker:17.06.0-ce-dind
+    - docker:stable-dind
   before_script:
     - 'cd src/Adapters/U.SmartStoreAdapter'
     - chmod -R a+x ./docker-publish.sh
@@ -246,9 +245,9 @@ deploy_smartstoreadapter:
 
 deploy_apigateway:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:stable
   services:
-    - docker:17.06.0-ce-dind
+    - docker:stable-dind
   before_script:
     - 'cd src/ApiGateway'
     - chmod -R a+x ./docker-publish.sh
@@ -260,7 +259,6 @@ deploy_apigateway:
 
 variables:
   DOCKER_DRIVER: overlay2
-
 services:
   - docker:stable-dind
 
