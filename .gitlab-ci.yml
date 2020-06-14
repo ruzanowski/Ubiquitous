@@ -246,13 +246,12 @@ stages:
 
 deploy_apigateway:
   stage: docker_deploy
-  image: docker:18.09
+  image: docker:17.06.0-ce
   variables:
-    DOCKER_HOST: tcp://localhost:2375/
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
   services:
-    - docker:18.09-dind
+    - docker:17.06.0-ce-dind
   before_script:
     - 'cd src/ApiGateway'
     - chmod -R a+x ./docker-publish.sh
