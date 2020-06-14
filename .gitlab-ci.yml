@@ -244,14 +244,14 @@ stages:
 #    - master
 #    - develop
 
-image: docker:19.03.0
+image: docker:18.09
 
 variables:
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
 
 services:
-  - docker:19.03.0-dind
+  - docker:18.09-dind
 
 before_script:
   - docker info
