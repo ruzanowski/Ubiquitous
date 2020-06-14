@@ -249,6 +249,7 @@ image: docker:17.08
 variables:
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
+  MOUNT_POINT: /builds/$CI_PROJECT_PATH/mnt
 
 services:
   - docker:17.08-dind
