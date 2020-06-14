@@ -247,7 +247,14 @@ deploy_apigateway:
   stage: docker_deploy
   image: docker:18.09.7
   services:
-    - docker:18.09.7-dind
+    - name: docker:dind
+      entrypoint: ["env", "-u", "DOCKER_HOST"]
+      command: ["dockerd-entrypoint.sh"]
+    variables:
+      DOCKER_HOST: tcp://docker:2375/
+      DOCKER_DRIVER: overlay2
+      # See https://github.com/docker-library/docker/pull/166
+      DOCKER_TLS_CERTDIR: ""
   before_script:
     - 'cd src/ApiGateway'
     - chmod -R a+x ./docker-publish.sh
@@ -257,12 +264,15 @@ deploy_apigateway:
 #    - master
 #    - develop
 
-variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_HOST: tcp://docker:2375
-  DOCKER_TLS_CERTDIR: ""
-services:
-  - docker:18.09.7-dind
+#services:
+#  - name: docker:dind
+#    entrypoint: ["env", "-u", "DOCKER_HOST"]
+#    command: ["dockerd-entrypoint.sh"]
+#  variables:
+#    DOCKER_HOST: tcp://docker:2375/
+#    DOCKER_DRIVER: overlay2
+#    # See https://github.com/docker-library/docker/pull/166
+#    DOCKER_TLS_CERTDIR: ""
 
 include:
     - local: gitlab-ci/Dependency-Scanning.gitlab-ci.yml
