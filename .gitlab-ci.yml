@@ -146,100 +146,122 @@ stages:
 #    - master
 #    - develop
 #
-#deploy_fetchservice:
-#  stage: docker_deploy
-#  image: docker:18.09.7
-#  services:
-#    - docker:18.09.7-dind
-#  before_script:
-#    - 'cd src/Jobs/U.FetchService'
-#    - chmod -R a+x ./docker-publish.sh
-#  script:
-#    - ./docker-publish.sh
+deploy_fetchservice:
+  stage: docker_deploy
+  image: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - docker:dind
+  before_script:
+    - 'cd src/Jobs/U.FetchService'
+    - chmod -R a+x ./docker-publish.sh
+  script:
+    - ./docker-publish.sh
 #  only:
 #    - master
 #    - develop
 #
-#deploy_generatorservice:
-#  stage: docker_deploy
-#  image: docker:18.09.7
-#  services:
-#    - docker:18.09.7-dind
-#  before_script:
-#    - 'cd src/Jobs/U.GeneratorService'
-#    - chmod -R a+x ./docker-publish.sh
-#  script:
-#    - ./docker-publish.sh
+deploy_generatorservice:
+  stage: docker_deploy
+  image: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - docker:dind
+  before_script:
+    - 'cd src/Jobs/U.GeneratorService'
+    - chmod -R a+x ./docker-publish.sh
+  script:
+    - ./docker-publish.sh
 #  only:
 #    - master
 #    - develop
 #
-#deploy_identityservice:
-#  stage: docker_deploy
-#  image: docker:18.09.7
-#  services:
-#    - docker:18.09.7-dind
-#  before_script:
-#    - 'cd src/Services/U.IdentityService'
-#    - chmod -R a+x ./docker-publish.sh
-#  script:
-#    - ./docker-publish.sh
+deploy_identityservice:
+  stage: docker_deploy
+  image: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - docker:dind
+  before_script:
+    - 'cd src/Services/U.IdentityService'
+    - chmod -R a+x ./docker-publish.sh
+  script:
+    - ./docker-publish.sh
 #  only:
 #    - master
 #    - develop
 #
-#deploy_notificationservice:
-#  stage: docker_deploy
-#  image: docker:18.09.7
-#  services:
-#    - docker:18.09.7-dind
-#  before_script:
-#    - 'cd src/Services/U.NotificationService'
-#    - chmod -R a+x ./docker-publish.sh
-#  script:
-#    - ./docker-publish.sh
+deploy_notificationservice:
+  stage: docker_deploy
+  image: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - docker:dind
+  before_script:
+    - 'cd src/Services/U.NotificationService'
+    - chmod -R a+x ./docker-publish.sh
+  script:
+    - ./docker-publish.sh
 #  only:
 #    - master
 #    - develop
 #
-#deploy_productservice:
-#  stage: docker_deploy
-#  image: docker:18.09.7
-#  services:
-#    - docker:18.09.7-dind
-#  before_script:
-#    - 'cd src/Services/U.ProductService'
-#    - chmod -R a+x ./docker-publish.sh
-#  script:
-#    - ./docker-publish.sh
+deploy_productservice:
+  stage: docker_deploy
+  image: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - docker:dind
+  before_script:
+    - 'cd src/Services/U.ProductService'
+    - chmod -R a+x ./docker-publish.sh
+  script:
+    - ./docker-publish.sh
 #  only:
 #    - master
 #    - develop
 #
-#deploy_subscriptionservice:
-#  stage: docker_deploy
-#  image: docker:18.09.7
-#  services:
-#    - docker:18.09.7-dind
-#  before_script:
-#    - 'cd src/Services/U.SubscriptionService'
-#    - chmod -R a+x ./docker-publish.sh
-#  script:
-#    - ./docker-publish.sh
+deploy_subscriptionservice:
+  stage: docker_deploy
+  image: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - docker:dind
+  before_script:
+    - 'cd src/Services/U.SubscriptionService'
+    - chmod -R a+x ./docker-publish.sh
+  script:
+    - ./docker-publish.sh
 #  only:
 #    - master
 #    - develop
 #
-#deploy_smartstoreadapter:
-#  stage: docker_deploy
-#  image: docker:18.09.7
-#  services:
-#    - docker:18.09.7-dind
-#  before_script:
-#    - 'cd src/Adapters/U.SmartStoreAdapter'
-#    - chmod -R a+x ./docker-publish.sh
-#  script:
-#    - ./docker-publish.sh
+
+deploy_smartstoreadapter:
+  stage: docker_deploy
+  image: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - docker:dind
+  before_script:
+    - 'cd src/Adapters/U.SmartStoreAdapter'
+    - chmod -R a+x ./docker-publish.sh
+  script:
+    - ./docker-publish.sh
 #  only:
 #    - master
 #    - develop
