@@ -1,4 +1,5 @@
-image: mcr.microsoft.com/dotnet/core/sdk:3.1.300
+#image: mcr.microsoft.com/dotnet/core/sdk:3.1.300
+image: docker:19.03.0
 
 stages:
   - test
@@ -243,11 +244,14 @@ stages:
 #    - master
 #    - develop
 
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+
 deploy_apigateway:
   stage: docker_deploy
-  image: docker:stable
   services:
-    - docker:dind
+    - docker:19.03.11-dind
   before_script:
     - docker info
     - 'cd src/ApiGateway'
