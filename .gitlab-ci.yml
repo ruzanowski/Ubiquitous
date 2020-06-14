@@ -1,4 +1,4 @@
-image: mcr.microsoft.com/dotnet/core/sdk:3.1.300
+#image: mcr.microsoft.com/dotnet/core/sdk:3.1.300
 #image: docker:19.03.0
 
 stages:
@@ -244,16 +244,21 @@ stages:
 #    - master
 #    - develop
 
+image: docker:19.03.0
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+
+services:
+  - docker:19.03.0-dind
+
+before_script:
+  - docker info
+
 deploy_apigateway:
   stage: docker_deploy
-  image: docker:19.03.0
-  variables:
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ""
-  services:
-    - docker:19.03.0-dind
   before_script:
-    - docker info
     - 'cd src/ApiGateway'
     - chmod -R a+x ./docker-publish.sh
   script:
