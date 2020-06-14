@@ -52,7 +52,7 @@ code_quality:
       "registry.gitlab.com/gitlab-org/ci-cd/codequality:$SP_VERSION" /code
   artifacts:
     reports:
-      codequality: gl-code-quality-report.json
+      codequality: [gl-code-quality-report.json]
 
 MyGet_Common:
   stage: myget_common
