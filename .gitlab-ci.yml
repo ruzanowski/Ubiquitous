@@ -35,7 +35,7 @@ test:
         - '*/*/*/*/TestResults/TestResults.xml'
 
 code_quality:
-  stage: test
+  stage: quality
   image: docker:stable
   variables:
     DOCKER_DRIVER: overlay2
