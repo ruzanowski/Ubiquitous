@@ -244,21 +244,15 @@ stages:
 #    - master
 #    - develop
 
-image: docker:17.08
-
-variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: ""
-  MOUNT_POINT: /builds/$CI_PROJECT_PATH/mnt
-
-services:
-  - docker:17.08-dind
-
-before_script:
-  - docker info
-
 deploy_apigateway:
   stage: docker_deploy
+  image: docker:18.09
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - docker:18.09-dind
   before_script:
     - 'cd src/ApiGateway'
     - chmod -R a+x ./docker-publish.sh
