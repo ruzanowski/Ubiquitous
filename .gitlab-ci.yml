@@ -247,14 +247,7 @@ deploy_apigateway:
   stage: docker_deploy
   image: docker:18.09.7
   services:
-    - name: docker:dind
-      entrypoint: ["env", "-u", "DOCKER_HOST"]
-      command: ["dockerd-entrypoint.sh"]
-    variables:
-      DOCKER_HOST: tcp://docker:2375/
-      DOCKER_DRIVER: overlay2
-      # See https://github.com/docker-library/docker/pull/166
-      DOCKER_TLS_CERTDIR: ""
+    - docker:18.09.7-dind
   before_script:
     - 'cd src/ApiGateway'
     - chmod -R a+x ./docker-publish.sh
