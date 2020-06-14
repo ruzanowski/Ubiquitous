@@ -245,9 +245,9 @@ stages:
 
 deploy_apigateway:
   stage: docker_deploy
-  image: docker:latest
+  image: docker:19.03.0
   services:
-    - docker:dind
+    - docker:19.03.0-dind
   before_script:
     - 'cd src/ApiGateway'
     - chmod -R a+x ./docker-publish.sh
@@ -260,6 +260,8 @@ deploy_apigateway:
 variables:
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
+services:
+  - docker:19.03.0-dind
 
 #services:
 #  - name: docker:dind
