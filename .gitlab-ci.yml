@@ -2,13 +2,12 @@ image: mcr.microsoft.com/dotnet/core/sdk:3.1.300
 
 stages:
   - test
-  - performance
+  - quality
   - myget_common
   - myget_common_netcore
   - myget_eventbus
   - myget_eventbus_rabbitmq
   - myget_integrationeventlog
-  - deploy
   - docker_deploy
 
 test:
@@ -21,7 +20,6 @@ test:
     U_PRODUCT_SERVICE_AT_TEST_CONNECTION: $K8S_SECRET_U_PRODUCT_SERVICE_AT_TEST_CONNECTION
   script:
     - dotnet test --logger "junit" --collect:"XPlat Code Coverage"
-    # each reporttype must be a separate line, doesn't work together ; separated
     - ls -ld ${CI_PROJECT_DIR}/*/*/*/*/TestResults/*
     - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/*/*/*/*/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:TextSummary;
     - ./tools/reportgenerator "-reports:${CI_PROJECT_DIR}/*/*/*/*/TestResults/*/coverage.cobertura.xml" "-targetdir:Reports_Coverage" -reportTypes:Html;
@@ -37,29 +35,24 @@ test:
         - '*/*/*/*/TestResults/TestResults.xml'
 
 code_quality:
-  stage: test
-  when: manual
-  image: docker:latest
+  stage: quality
+  image: docker:stable
   variables:
-    DOCKER_DRIVER: overlay
-
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+    SP_VERSION: 0.85.6
+  allow_failure: true
   services:
-    - docker:dind
+    - docker:stable-dind
   script:
-    - docker pull codeclimate/codeclimate
     - docker run
-      --env CODECLIMATE_DEBUG=1
-      --env CODECLIMATE_CODE="$PWD"
+      --env SOURCE_CODE="$PWD"
       --volume "$PWD":/code
       --volume /var/run/docker.sock:/var/run/docker.sock
-      --volume /tmp/cc:/tmp/cc
-      codeclimate/codeclimate analyze -f html > report.html
+      "registry.gitlab.com/gitlab-org/ci-cd/codequality:$SP_VERSION" /code
   artifacts:
-    paths: [report.html]
-  dependencies: []
-  except:
-    variables:
-      - $CODE_QUALITY_DISABLED
+    reports:
+      codequality: [gl-code-quality-report.json]
 
 MyGet_Common:
   stage: myget_common
@@ -148,9 +141,12 @@ MyGet_IntegrationEventLog:
 
 deploy_fetchservice:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
   services:
-    - docker:17.06.0-ce-dind
+    - docker:dind
   before_script:
     - 'cd src/Jobs/U.FetchService'
     - chmod -R a+x ./docker-publish.sh
@@ -162,9 +158,12 @@ deploy_fetchservice:
 
 deploy_generatorservice:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
   services:
-    - docker:17.06.0-ce-dind
+    - docker:dind
   before_script:
     - 'cd src/Jobs/U.GeneratorService'
     - chmod -R a+x ./docker-publish.sh
@@ -176,9 +175,12 @@ deploy_generatorservice:
 
 deploy_identityservice:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
   services:
-    - docker:17.06.0-ce-dind
+    - docker:dind
   before_script:
     - 'cd src/Services/U.IdentityService'
     - chmod -R a+x ./docker-publish.sh
@@ -190,9 +192,12 @@ deploy_identityservice:
 
 deploy_notificationservice:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
   services:
-    - docker:17.06.0-ce-dind
+    - docker:dind
   before_script:
     - 'cd src/Services/U.NotificationService'
     - chmod -R a+x ./docker-publish.sh
@@ -204,9 +209,12 @@ deploy_notificationservice:
 
 deploy_productservice:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
   services:
-    - docker:17.06.0-ce-dind
+    - docker:dind
   before_script:
     - 'cd src/Services/U.ProductService'
     - chmod -R a+x ./docker-publish.sh
@@ -218,9 +226,12 @@ deploy_productservice:
 
 deploy_subscriptionservice:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
   services:
-    - docker:17.06.0-ce-dind
+    - docker:dind
   before_script:
     - 'cd src/Services/U.SubscriptionService'
     - chmod -R a+x ./docker-publish.sh
@@ -232,9 +243,12 @@ deploy_subscriptionservice:
 
 deploy_smartstoreadapter:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
   services:
-    - docker:17.06.0-ce-dind
+    - docker:dind
   before_script:
     - 'cd src/Adapters/U.SmartStoreAdapter'
     - chmod -R a+x ./docker-publish.sh
@@ -246,9 +260,12 @@ deploy_smartstoreadapter:
 
 deploy_apigateway:
   stage: docker_deploy
-  image: docker:17.06.0-ce
+  image: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
   services:
-    - docker:17.06.0-ce-dind
+    - docker:dind
   before_script:
     - 'cd src/ApiGateway'
     - chmod -R a+x ./docker-publish.sh
@@ -258,15 +275,6 @@ deploy_apigateway:
     - master
     - develop
 
-variables:
-  DOCKER_DRIVER: overlay2
-
-services:
-  - docker:stable-dind
-
 include:
     - local: gitlab-ci/Dependency-Scanning.gitlab-ci.yml
     - local: gitlab-ci/License-Management.gitlab-ci.yml
-#    - local: gitlab-ci/Browser-Performance.gitlab-ci.yml //todo
-#    - local: gitlab-ci/Container-Scanning.gitlab-ci.yml //todo
-#    - local: gitlab-ci/SAST.gitlab-ci.yml //todo

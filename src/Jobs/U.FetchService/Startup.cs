@@ -42,10 +42,11 @@ namespace U.FetchService
         public void Configure(IApplicationBuilder app, IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
             app
-                 .UsePathBase(Configuration, _logger).Item1
+                .UsePathBase(Configuration, _logger).Item1
                 .UseRouting()
-                 .UseAuthorization()
-                 .UseEndpoints(endpoints => {
+                .UseAuthorization()
+                .UseEndpoints(endpoints =>
+                {
                      endpoints.MapDefaultControllerRoute();
                 })
                 .UseServiceId()

@@ -10,7 +10,7 @@ using U.NotificationService.Application.Queries.GetTypesCount;
 namespace U.NotificationService.Controllers
 {
     /// <summary>
-    /// notification controller of notification service
+    /// notification controller
     /// </summary>
     [Route("api/notification/notifications")]
     [ApiController]
@@ -20,7 +20,7 @@ namespace U.NotificationService.Controllers
         private readonly IMediator _mediator;
 
         /// <summary>
-        /// notification controller of notification service
+        /// notification controller of notification identifierService
         /// </summary>
         /// <param name="mediator"></param>
         public NotificationsController(IMediator mediator)

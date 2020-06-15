@@ -55,7 +55,8 @@ namespace U.IdentityService
         {
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
 
-            app.UseCors("CorsPolicy")
+            app
+                .UseCors("CorsPolicy")
                 .AddIdentityErrorsHandler()
                 .UseSwagger(pathBase)
                 .UseServiceId()

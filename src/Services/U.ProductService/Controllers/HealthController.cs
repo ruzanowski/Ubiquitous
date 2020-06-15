@@ -13,11 +13,11 @@ namespace U.ProductService.Controllers
     [ExcludeFromCodeCoverage]
     public class HealthController : ControllerBase
     {
-        private readonly IConsulServiceDifferentator _service;
+        private readonly IConsulIdentifierService _identifierService;
 
-        public HealthController(IConsulServiceDifferentator service)
+        public HealthController(IConsulIdentifierService identifierService)
         {
-            _service = service;
+            _identifierService = identifierService;
         }
 
         /// <summary>
@@ -28,9 +28,11 @@ namespace U.ProductService.Controllers
         [HttpGet("health/{serviceId}")]
         public IActionResult HealthCheck(string serviceId)
         {
-            return IsCorrectServiceId(serviceId) ? (IActionResult) NoContent() : BadRequest();
+            return IsCorrectServiceId(serviceId)
+                ? (IActionResult) NoContent()
+                : BadRequest();
         }
 
-        private bool IsCorrectServiceId(string guid) => _service.IsTheSame(guid);
+        private bool IsCorrectServiceId(string guid) => _identifierService.IsTheSame(guid);
     }
 }

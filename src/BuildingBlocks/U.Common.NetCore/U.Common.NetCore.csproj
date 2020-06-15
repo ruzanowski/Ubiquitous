@@ -38,13 +38,11 @@
         <PackageReference Include="App.Metrics.AspNetCore.Tracking" Version="4.0.0" />
         <PackageReference Include="App.Metrics.Extensions.Configuration" Version="4.0.0" />
         <PackageReference Include="App.Metrics.Extensions.DependencyInjection" Version="4.0.0" />
-        <PackageReference Include="App.Metrics.Formatters.InfluxDB" Version="4.0.0" />
         <PackageReference Include="App.Metrics.Formatters.Json" Version="4.0.0" />
         <PackageReference Include="App.Metrics.Health.Checks.Http" Version="3.2.0" />
         <PackageReference Include="App.Metrics.Health.Reporting.Metrics" Version="3.2.0" />
         <PackageReference Include="App.Metrics.Reporting.Console" Version="4.0.0" />
         <PackageReference Include="App.Metrics.Reporting.Http" Version="4.0.0" />
-        <PackageReference Include="App.Metrics.Reporting.InfluxDB" Version="4.0.0" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
         <PackageReference Include="FluentValidation" Version="8.6.2" />
         <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />

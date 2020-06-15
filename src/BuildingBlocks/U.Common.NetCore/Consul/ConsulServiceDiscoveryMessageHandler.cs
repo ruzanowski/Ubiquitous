@@ -62,7 +62,7 @@ namespace U.Common.NetCore.Consul
             var service = await _servicesRegistry.GetAsync(serviceName);
             if (service == null)
             {
-                throw new ConsulServiceNotFoundException($"Consul service: '{serviceName}' was not found.",
+                throw new ConsulServiceNotFoundException($"Consul Service: '{serviceName}' was not found.",
                     serviceName);
             }
 
