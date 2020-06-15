@@ -24,7 +24,6 @@
 
     <ItemGroup>
       <Folder Include="Pictures\Queries" />
-      <Folder Include="Products\Commands\CreateMany" />
     </ItemGroup>
 
 </Project>

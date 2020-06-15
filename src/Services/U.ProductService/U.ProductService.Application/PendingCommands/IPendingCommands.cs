@@ -3,7 +3,7 @@ using U.ProductService.Application.Products.Commands.Create.Single;
 using U.ProductService.Application.Products.Commands.Update.Many;
 using U.ProductService.Application.Products.Commands.Update.Single;
 
-namespace U.ProductService.Application.Services
+namespace U.ProductService.Application.PendingCommands
 {
     public interface IPendingCommands
     {

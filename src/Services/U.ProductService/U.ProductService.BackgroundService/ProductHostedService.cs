@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using U.ProductService.Application.Services;
+using U.ProductService.Application.PendingCommands;
 
 // ReSharper disable ClassNeverInstantiated.Global
 

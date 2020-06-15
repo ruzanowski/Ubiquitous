@@ -24,4 +24,11 @@ namespace U.NotificationService.Infrastructure.Contexts
         }
 
     }
+
+    public class Translation
+    {
+        public string CompositeKey { get; set; }
+        public string Language { get; set; }
+        public string Content { get; set; }
+    }
 }

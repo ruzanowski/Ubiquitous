@@ -74,7 +74,7 @@ namespace U.NotificationService
             app.UseCors("CorsPolicy");
 
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
-            app.UseHttpsRedirection()
+            app
                 .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()

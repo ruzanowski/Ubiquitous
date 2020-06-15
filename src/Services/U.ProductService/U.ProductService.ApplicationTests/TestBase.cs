@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using U.Common.NetCore.WebHost;
 using U.IntegrationEventLog;
 using U.ProductService.Persistance.Contexts;
-using Xunit;
 
 namespace U.ProductService.ApplicationTests
 {
