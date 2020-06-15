@@ -53,13 +53,9 @@ namespace U.ProductService.IntegrationTests
 
             var dbOptions = Server.Host.Services.CreateScope().ServiceProvider.GetService<DbOptions>();
             var logger = Server.Host.Services.CreateScope().ServiceProvider.GetService<ILogger<ProductContextSeeder>>();
-            var mediator = Server.Host.Services.CreateScope().ServiceProvider.GetService<IMediator>();
-            var domainEventsService = Server.Host.Services.CreateScope().ServiceProvider.GetService<IDomainEventsService>();
             await Seeder.SeedAsync(context,
                 dbOptions,
-                logger,
-                mediator,
-                domainEventsService);
+                logger);
         }
 
         protected CreateProductCommand GetCreateProductCommand()
