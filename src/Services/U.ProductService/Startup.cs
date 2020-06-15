@@ -75,7 +75,6 @@ namespace U.ProductService
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
             app
                 .UseExceptionMiddleware()
-                .UseHttpsRedirection()
                 .UseCors("CorsPolicy")
                 .UseSwagger(pathBase)
                 .UseServiceId()
