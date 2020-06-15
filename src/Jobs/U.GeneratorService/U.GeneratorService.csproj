@@ -32,7 +32,7 @@
 
     <ItemGroup>
       <PackageReference Include="AutoFixture" Version="4.11.0" />
-      <PackageReference Include="Microsoft.NETCore.DotNetHostPolicy" Version="3.1.4" />
+      <PackageReference Include="Microsoft.NETCore.DotNetHostPolicy" Version="3.1.5" />
     </ItemGroup>
 
 </Project>
