@@ -14,7 +14,6 @@ namespace U.IdentityService.Persistance.Contexts
 
         public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
         {
-            EntityFrameworkManager.ContextFactory = context => this;
         }
 
     }

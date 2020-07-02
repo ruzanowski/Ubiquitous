@@ -1,5 +1,4 @@
 using System;
-using Xunit;
 
 namespace U.ProductService.IntegrationTests
 {

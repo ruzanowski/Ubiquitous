@@ -1,4 +1,3 @@
-using System;
 using U.Common.NetCore.Mvc;
 
 namespace U.Common.NetCore.Consul

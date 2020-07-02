@@ -84,6 +84,7 @@ namespace U.SmartStoreAdapter
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseRouting()
+                .UseCors("CorsPolicy")
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {

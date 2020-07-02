@@ -4,8 +4,8 @@ using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using U.EventBus.Events.Fetch;
 using U.ProductService.Application.Events.IntegrationEvents.EventHandling;
+using U.ProductService.Application.PendingCommands;
 using U.ProductService.Application.Products.Models;
-using U.ProductService.Application.Services;
 using Xunit;
 
 namespace U.ProductService.ApplicationTests.EventHandlers

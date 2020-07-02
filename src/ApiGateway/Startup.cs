@@ -40,14 +40,13 @@ namespace U.ApiGateway
         public void Configure(IApplicationBuilder app,
             IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            app
-                .UseCors("CorsPolicy")
-                .UseServiceId()
+            app.UseServiceId()
                 .UseAuthentication()
                 .UseJwtTokenValidator()
                 .UseForwardedHeaders()
                 .UseWebSockets()
                 .UseRouting()
+                .UseCors("CorsPolicy")
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {

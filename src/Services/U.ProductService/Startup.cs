@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Consul;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -75,14 +76,13 @@ namespace U.ProductService
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
             app
                 .UseExceptionMiddleware()
-                .UseHttpsRedirection()
-                .UseCors("CorsPolicy")
                 .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseAuthentication()
                 .UseJwtTokenValidator()
                 .UseRouting()
+                .UseCors("CorsPolicy")
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {
@@ -163,7 +163,7 @@ namespace U.ProductService
 
         public static IServiceCollection AddCustomPipelineBehaviours(this IServiceCollection services)
         {
-            // services.AddScoped(typeof(IPipelineBehavior<,>), typeof(EventPublishBehaviour<,>));
+             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(EventPublishBehaviour<,>));
 
             return services;
         }

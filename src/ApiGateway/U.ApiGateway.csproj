@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ocelot" Version="16.0.0" />
-    <PackageReference Include="Ocelot.Cache.CacheManager" Version="16.0.0" />
-    <PackageReference Include="Ocelot.Provider.Consul" Version="16.0.0" />
+    <PackageReference Include="Ocelot" Version="16.0.1" />
+    <PackageReference Include="Ocelot.Cache.CacheManager" Version="16.0.1" />
+    <PackageReference Include="Ocelot.Provider.Consul" Version="16.0.1" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">

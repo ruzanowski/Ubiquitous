@@ -55,15 +55,14 @@ namespace U.IdentityService
         {
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
 
-            app
-                .UseCors("CorsPolicy")
-                .AddIdentityErrorsHandler()
+            app.AddIdentityErrorsHandler()
                 .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseAuthentication()
                 .UseJwtTokenValidator()
                 .UseRouting()
+                .UseCors("CorsPolicy")
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {

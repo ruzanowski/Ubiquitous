@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using U.EventBus.Abstractions;
 using U.EventBus.Events.Fetch;
+using U.ProductService.Application.PendingCommands;
 using U.ProductService.Application.Products.Commands.Create.Single;
 using U.ProductService.Application.Products.Commands.Update.Single;
 using U.ProductService.Application.Products.Models;
-using U.ProductService.Application.Services;
 using U.ProductService.Domain;
 
 namespace U.ProductService.Application.Events.IntegrationEvents.EventHandling

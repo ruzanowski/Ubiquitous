@@ -71,10 +71,8 @@ namespace U.NotificationService
         public void Configure(IApplicationBuilder app,
             IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
-            app.UseCors("CorsPolicy");
-
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
-            app.UseHttpsRedirection()
+            app
                 .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()
@@ -84,6 +82,7 @@ namespace U.NotificationService
             app.UseJwtTokenValidator();
 
             app.UseRouting()
+                .UseCors("CorsPolicy")
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {

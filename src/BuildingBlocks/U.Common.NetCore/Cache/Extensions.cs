@@ -26,38 +26,38 @@ namespace U.Common.NetCore.Cache
             var redisOptions = configuration.GetOptions<RedisOptions>(RedisSectionName);
 
 
-                if (redisOptions.UseInMemoryAsPrimaryCache)
-                {
-                    services.AddMemoryCache();
-                    services.AddSingleton<ICachingRepository, MemoryCachingRepository>();
-                }
-                else
-                {
-                    services.AddSingleton<ICachingRepository, RedisCachingRepository>();
-                }
+            if (redisOptions.UseInMemoryAsPrimaryCache)
+            {
+                services.AddMemoryCache();
+                services.AddSingleton<ICachingRepository, MemoryCachingRepository>();
+            }
+            else
+            {
+                services.AddSingleton<ICachingRepository, RedisCachingRepository>();
+            }
 
-                services.TryAddSingleton(redisOptions);
+            services.TryAddSingleton(redisOptions);
 
-                if (redisOptions.Enabled)
+            if (redisOptions.Enabled)
+            {
+                services.AddStackExchangeRedisCache(options =>
                 {
-                    services.AddStackExchangeRedisCache(options =>
+                    options.ConfigurationOptions = new ConfigurationOptions
                     {
-                        options.ConfigurationOptions = new ConfigurationOptions
+                        EndPoints =
                         {
-                            EndPoints =
-                            {
-                                new DnsEndPoint(redisOptions?.Host ?? "redis", redisOptions?.Port ?? 6379)
-                            },
-                            ResolveDns = redisOptions?.ResolveDns ?? true,
-                            AbortOnConnectFail = redisOptions?.AbortOnConnectFail ?? false,
-                            ServiceName = redisOptions?.ServiceName,
-                            ConnectRetry = redisOptions?.ConnectRetry ?? 10,
-                            AllowAdmin = redisOptions?.AllowAdmin ?? true
-                        };
-                    });
-                }
+                            new DnsEndPoint(redisOptions?.Host ?? "redis", redisOptions?.Port ?? 6379)
+                        },
+                        ResolveDns = redisOptions?.ResolveDns ?? true,
+                        AbortOnConnectFail = redisOptions?.AbortOnConnectFail ?? false,
+                        ServiceName = redisOptions?.ServiceName,
+                        ConnectRetry = redisOptions?.ConnectRetry ?? 10,
+                        AllowAdmin = redisOptions?.AllowAdmin ?? true
+                    };
+                });
+            }
 
-                return services;
+            return services;
         }
     }
 
