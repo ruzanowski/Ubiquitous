@@ -44,7 +44,6 @@ namespace U.IdentityService.ApplicationTests.Commands
                 Email = fakeUser.Email,
                 Password = FakeCredentialsProvider.CurrentUserPassword,
                 Nickname = fakeUser.Nickname,
-                Role = fakeUser.Role
             }, new CancellationToken());
 
             //assert
@@ -64,7 +63,6 @@ namespace U.IdentityService.ApplicationTests.Commands
                 Email = fakeUser.Email,
                 Password = FakeCredentialsProvider.CurrentUserPassword,
                 Nickname = fakeUser.Nickname,
-                Role = default
             }, new CancellationToken());
 
             //assert
@@ -84,7 +82,6 @@ namespace U.IdentityService.ApplicationTests.Commands
                 Email = default,
                 Password = FakeCredentialsProvider.CurrentUserPassword,
                 Nickname = fakeUser.Nickname,
-                Role = fakeUser.Role
             };
 
             //act
@@ -106,8 +103,7 @@ namespace U.IdentityService.ApplicationTests.Commands
             {
                 Email = fakeUser.Email,
                 Password = FakeCredentialsProvider.CurrentUserPassword,
-                Nickname = fakeUser.Nickname,
-                Role = fakeUser.Role
+                Nickname = fakeUser.Nickname
             };
 
             //act
