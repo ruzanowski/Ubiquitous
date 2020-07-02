@@ -25,10 +25,10 @@ namespace U.IdentityService.Persistance.Repositories
 
         public async Task<List<RefreshToken>> GetActiveAsync()
         {
-            var activeTokens =  await _identityContext.RefreshTokens
-                .Where(x => !x.Revoked &&
-                            DateTime.UtcNow <= x.CreatedAt.AddMinutes(_jwtOptions.ExpiryMinutes))
-                .ToListAsync();
+            var activeTokens =  _identityContext.RefreshTokens
+                .AsEnumerable()
+                .Where(x => x.Revoked == false && DateTime.UtcNow <= x.CreatedAt.AddMinutes(_jwtOptions.ExpiryMinutes))
+                .ToList();
 
             var uniqueUserTokens = new List<Guid>();
             var tokens = new List<RefreshToken>();

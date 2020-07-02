@@ -29,7 +29,8 @@ namespace U.Common.NetCore.Mvc
         {
             services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
             {
-                builder.AllowAnyOrigin()
+                builder
+                    .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader();
             }));

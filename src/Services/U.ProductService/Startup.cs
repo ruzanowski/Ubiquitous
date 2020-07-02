@@ -76,13 +76,13 @@ namespace U.ProductService
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
             app
                 .UseExceptionMiddleware()
-                .UseCors("CorsPolicy")
                 .UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseAuthentication()
                 .UseJwtTokenValidator()
                 .UseRouting()
+                .UseCors("CorsPolicy")
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {

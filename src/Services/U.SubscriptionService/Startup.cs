@@ -60,14 +60,13 @@ namespace U.SubscriptionService
             IHostApplicationLifetime applicationLifetime, IConsulClient client)
         {
             var pathBase = app.UsePathBase(Configuration, _logger).Item2;
-            app
-                .UseCors("CorsPolicy")
-                .UseSwagger(pathBase)
+            app.UseSwagger(pathBase)
                 .UseServiceId()
                 .UseForwardedHeaders()
                 .UseCookiePolicy()
                 .UseJwtTokenValidator()
                 .UseRouting()
+                .UseCors("CorsPolicy")
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {
