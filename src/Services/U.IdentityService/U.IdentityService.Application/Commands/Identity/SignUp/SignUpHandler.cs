@@ -29,7 +29,7 @@ namespace U.IdentityService.Application.Commands.Identity.SignUp
 
         public async Task<Unit> Handle(SignUp request, CancellationToken cancellationToken)
         {
-            var role = request.Role;
+            var role = "user";
             var id = request.Id;
             var email = request.Email;
             var nickname = request.Nickname;
