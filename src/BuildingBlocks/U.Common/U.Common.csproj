@@ -20,7 +20,7 @@
       <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
       <PackageReference Include="System.Security.Claims" Version="4.3.0" />
       <PackageReference Include="System.Security.Cryptography.Cng" Version="4.7.0" />
-      <PackageReference Include="System.Security.Cryptography.Xml" Version="4.7.0" />
+      <PackageReference Include="System.Security.Cryptography.Xml" Version="4.7.1" />
     </ItemGroup>
 
 </Project>
